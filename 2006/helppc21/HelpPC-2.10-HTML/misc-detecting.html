@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - detecting</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Detecting ANSI.SYS</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Compare segment address of a DOS interrupt with the segment of the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;standard CON device. &nbsp;If equal, then ANSI is not loaded. &nbsp;If the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;segment address of CON is greater than the DOS interrupt, then ANSI<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;is loaded or a TSR is handling the interrupt.<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see <a href="int-int_21_52.html">INT 21,52</a>&nbsp;for info on CON device address<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Detecting DESQView</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1. &nbsp;call INT 2F with AX = DE00h<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;2. &nbsp;if AL = FF on return DESQView is installed<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Detecting Disk Ready</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1. &nbsp;use <a href="int-int_13_4.html">INT 13,4</a>&nbsp;(Verify Sector) to check ready for read<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;2. &nbsp;check for error in AH of:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;80h &nbsp;Time out, or Not Ready<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;AAh &nbsp;Drive not ready<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;00h &nbsp;drive is ready for reading<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;other value indicates drive is ready, but an error occurred<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;3. &nbsp;use <a href="int-int_13_2.html">INT 13,2</a>&nbsp;(Read Sector) followed by <a href="int-int_13_3.html">INT 13,3</a>&nbsp;(Write Sector)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;to check ready for read/write. &nbsp;First read sector, test for<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ready; &nbsp;write sector back, check for 03h (write protect) or<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;any of the other BIOS disk errors<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- multiple attempts should be made to allow for diskette motor startup<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- allows testing of drive ready by bypassing DOS and critical errors<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see &nbsp;<a href="int-int_13_1.html">INT 13,STATUS</a><br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Detecting Drive Existence</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1. &nbsp;save current drive &nbsp;(<a href="int-int_21_19.html">INT 21,19</a>)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;2. &nbsp;set current drive &nbsp;(<a href="int-int_21_e.html">INT 21,E</a>)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;3. &nbsp;get current drive &nbsp;(<a href="int-int_21_19.html">INT 21,19</a>)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;4. &nbsp;if current drive == drive requested<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; then drive exists<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; else drive doesn't exist<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;5. &nbsp;reset original drive &nbsp;(<a href="int-int_21_e.html">INT 21,E</a>)<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- no critical error is generated if invalid drive is selected<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Detecting EGA Video</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;INT 10h, function 12h (<a href="int-int_10_12.html">INT 10,12</a>), subfunction 10h (in BL) will<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;return BL = 10h if not an EGA since invalid functions requests<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;return without register modification<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Detecting VGA Video</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_10_1a.html">INT 10,1A</a> can be used to detect the presence of VGA.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;BL = 7 &nbsp;VGA with analog monochrome display<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 8 &nbsp;VGA with analog color display<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- some enhanced EGA adapters will incorrectly identify as VGA<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;when <a href="int-int_10_1b.html">INT 10,1B</a>&nbsp;is used<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Detecting Extended Keyboard BIOS</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1. &nbsp;use <a href="int-int_16_5.html">INT 16,5</a>&nbsp;to stuff FFFF into the keyboard buffer<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;2. &nbsp;use <a href="int-int_16_10.html">INT 16,10</a>&nbsp;to read the keystrokes back<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;3. &nbsp;if the data stuffed into the keyboard is returned within 16<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;extended reads, the BIOS handles the extended keyboard<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;4. &nbsp;byte at 40:96 (<a href="table-BIOS_Data_Area.html">BDA</a>) is another method of detecting extended BIOS<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;but is not reliable since some compatibles give false positives<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see &nbsp; <a href="table-BIOS_Data_Area.html">BIOS DATA AREA</a>&nbsp; &nbsp;<a href="int-int_9.html">INT 9</a><br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Detecting present of Expanded Memory Manager</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1. &nbsp;attempt to open file/device 'EMMXXXX0' using <a href="int-int_21_3d.html">INT 21,3D</a>;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if successful continue, else no EMM<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;2. &nbsp;make sure EMMXXXX0 is a character device and not a disk file<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;by using IOCTL function 0 (Get Device Info); &nbsp;bit 7 of DX<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;should be set for char device and clear for disk file<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;3. &nbsp;make sure Expanded Memory Manager is available using IOCTL<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;function 7 (Get Output Status); &nbsp;AL should be non-zero (FF)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if Memory Manager is available, and zero if not available.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;4. &nbsp;call <a href="int-int_67_46.html">INT 67,46</a>&nbsp; to get version information<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see also &nbsp; <a href="int-int_21_44_0.html">IOCTL,0</a>&nbsp; &nbsp;<a href="int-int_21_44_7.html">IOCTL,7</a><br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Detecting Existence of Mouse Driver</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1. &nbsp;check <a href="int-int_33.html">INT 33</a>&nbsp;vector is not 0:0<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;2. &nbsp;check INT 33 vector does not point to an IRET<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;3. &nbsp;call <a href="int-int_33_0.html">INT 33,0</a>&nbsp;to reset the mouse and get installed state<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;4. &nbsp;call <a href="int-int_33_24.html">INT 33,24</a>&nbsp;to check version, type and IRQ<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Detecting Miscellaneous</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Boot drive; &nbsp; see <a href="int-int_21_33.html">INT 21,33</a>&nbsp;(DOS 4.0+)<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;CPU type; &nbsp; see <a href="misc-CPU.html">CPU</a><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Hardware configuration; &nbsp; see <a href="int-int_11.html">INT 11</a><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Logical Drive Assignment; &nbsp; see <a href="int-int_21_44_e.html">IOCTL,E</a><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Memory size, Base; &nbsp; see <a href="int-int_12.html">INT 12</a><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Memory size, Extended; &nbsp; see <a href="">CMOS</a><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Micro Channel Bus on PS/2; &nbsp; see <a href="int-int_15_c0.html">INT 15,C0</a><br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Network or Local Disk; &nbsp; see <a href="int-int_21_44_9.html">IOCTL,9</a><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Network or Local File; &nbsp; see <a href="int-int_21_44_a.html">IOCTL,A</a><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Parallel ports; &nbsp; see &nbsp;<a href="table-BIOS_Data_Area.html">BIOS DATA AREA</a> &nbsp;locations 40:08-40:0F<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;RAM Disk; &nbsp; see &nbsp;<a href="int-int_21_32.html">INT 21,32</a> &nbsp; and &nbsp; <a href="table-media_descriptor_byte.html">MEDIA DESCRIPTOR</a><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Redirection on command line; &nbsp; see &nbsp;<a href="int-int_21_44_0.html">IOCTL,0</a><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Removable media; &nbsp; <a href="int-int_21_1b.html">INT 21,1B</a>&nbsp; &nbsp; <a href="int-int_21_1c.html">INT 21,1C</a><br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="table-media_descriptor_byte.html">MEDIA DESCRIPTOR BYTE</a>&nbsp; and &nbsp;<a href="int-int_21_44_8.html">IOCTL,8</a><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Serial ports; &nbsp; see <a href="table-BIOS_Data_Area.html">BIOS DATA AREA</a>&nbsp; locations 40:00-40:07<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Single drive A: or B: selection; &nbsp; see <a href="table-BIOS_Data_Area.html">BIOS DATA AREA</a>&nbsp;byte 50:04<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;SUBST'ed drive; &nbsp;see <a href="int-int_21_32.html">INT 21,32</a><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Video Screen Size in Columns; &nbsp;see &nbsp;<a href="int-int_10_f.html">INT 10,F</a><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Video Screen Size in Rows; &nbsp;see &nbsp;<a href="int-int_10_11.html">INT 10,11</a> &nbsp;subfunction 30h (EGA+)<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;APPEND resident; &nbsp; see <a href="int-int_2f_0.html">INT 2F,0</a><br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ASSIGN resident; &nbsp; see <a href="int-int_2f_0.html">INT 2F,0</a><br />
+ &nbsp; &nbsp; &nbsp; &nbsp;DOSSHELL resident; &nbsp; see <a href="int-int_2f_0.html">INT 2F,0</a><br />
+ &nbsp; &nbsp; &nbsp; &nbsp;NLSFUNC resident; &nbsp; see <a href="int-int_2f_0.html">INT 2F,0</a><br />
+ &nbsp; &nbsp; &nbsp; &nbsp;PRINT resident; &nbsp; see <a href="int-int_2f_0.html">INT 2F,0</a><br />
+ &nbsp; &nbsp; &nbsp; &nbsp;SHARE resident; &nbsp; see <a href="int-int_2f_0.html">INT 2F,0</a><br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">detecting</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

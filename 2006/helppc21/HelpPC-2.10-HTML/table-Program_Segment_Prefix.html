@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - Program Segment Prefix</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;PSP - DOS Program Segment Prefix Layout</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; Offset Size &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Description</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;00 &nbsp; word &nbsp; &nbsp; &nbsp; machine code <a href="int-int_20.html">INT 20</a>&nbsp;instruction (CDh 20h)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;02 &nbsp; word &nbsp; &nbsp; &nbsp; top of memory in segment (paragraph) form<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;04 &nbsp; byte &nbsp; &nbsp; &nbsp; reserved for DOS, usually 0<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;05 &nbsp;5bytes &nbsp; &nbsp; &nbsp;machine code instruction long call to the DOS<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;function dispatcher (obsolete CP/M)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;06 &nbsp; word &nbsp; &nbsp; &nbsp; .COM programs bytes available in segment (CP/M)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0A &nbsp; dword &nbsp; &nbsp; &nbsp;<a href="int-int_22.html">INT 22</a> terminate address; &nbsp;DOS loader jumps to this<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;address upon exit; &nbsp;the EXEC function forces a child<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;process to return to the parent by setting this<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;vector to code within the parent (IP,CS)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0E &nbsp; dword &nbsp; &nbsp; &nbsp;<a href="int-int_23.html">INT 23</a> Ctrl-Break exit address; the original INT 23<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;vector is NOT restored from this pointer (IP,CS)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;12 &nbsp; dword &nbsp; &nbsp; &nbsp;<a href="int-int_24.html">INT 24</a> critical error exit address; the original<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;INT 24 vector is NOT restored from this field (IP,CS)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;16 &nbsp; word &nbsp; &nbsp; &nbsp; parent process segment addr (Undoc. DOS 2.x+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;COMMAND.COM has a parent id of zero, or its own PSP<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;18 &nbsp;20bytes &nbsp; &nbsp; file handle array (Undocumented DOS 2.x+); if handle<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;array element is FF then handle is available. &nbsp;Network<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;redirectors often indicate remotes files by setting<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;these to values between 80-FE.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;2C &nbsp; word &nbsp; &nbsp; &nbsp; segment address of the environment, or zero (DOS 2.x+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;2E &nbsp; dword &nbsp; &nbsp; &nbsp;SS:SP on entry to last INT 21 function (Undoc. 2.x+) &#9578;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;32 &nbsp; word &nbsp; &nbsp; &nbsp; handle array size (Undocumented DOS 3.x+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;34 &nbsp; dword &nbsp; &nbsp; &nbsp;handle array pointer (Undocumented DOS 3.x+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;38 &nbsp; dword &nbsp; &nbsp; &nbsp;pointer to previous PSP (deflt FFFF:FFFF, Undoc 3.x+) &#9578;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;3C &nbsp;20bytes &nbsp; &nbsp; unused in DOS before 4.01 &nbsp;&#9578;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;50 &nbsp; 3bytes &nbsp; &nbsp; DOS function dispatcher CDh 21h CBh (Undoc. 3.x+) &#9578;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;53 &nbsp; 9bytes &nbsp; &nbsp; unused<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;5C &nbsp;36bytes &nbsp; &nbsp; default unopened <a href="table-FCB.html">FCB</a>&nbsp;#1 (parts overlayed by FCB #2)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;6C &nbsp;20bytes &nbsp; &nbsp; default unopened FCB #2 (overlays part of FCB #1)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;80 &nbsp; byte &nbsp; &nbsp; &nbsp; count of characters in command tail; &nbsp;all bytes<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;following command name; &nbsp;also default <a href="table-DTA.html">DTA</a>&nbsp;(128 bytes)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;81 127bytes &nbsp; &nbsp; all characters entered after the program name followed<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;by a CR byte<br />
+<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- offset 5 contains a jump address which is 2 bytes too low for<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;PSP's created by the DOS EXEC function in DOS 2.x+ &nbsp;&#9578;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- program name and complete path can be found after the environment<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;in DOS versions after 3.0. &nbsp;See offset 2Ch.<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;&#9578; see <a href="misc-Bibliography.html">Bibliography</a>&nbsp;for reference to "Undocumented DOS"<br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">Program Segment Prefix</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

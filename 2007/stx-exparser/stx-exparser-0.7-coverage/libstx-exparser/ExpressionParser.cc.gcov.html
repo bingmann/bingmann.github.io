@@ -1,0 +1,1647 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>LCOV - STX ExpressionParser Testsuite - libstx-exparser/ExpressionParser.cc</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LTP GCOV extension - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+        <tr>
+          <td class="headerItem" width="20%">Current&nbsp;view:</td>
+          <td class="headerValue" width="80%" colspan=4><a href="../index.html">directory</a> - <a href="index.html">libstx-exparser</a> - ExpressionParser.cc</td>
+        </tr>
+        <tr>
+          <td class="headerItem" width="20%">Test:</td>
+          <td class="headerValue" width="80%" colspan=4>STX ExpressionParser Testsuite</td>
+        </tr>
+        <tr>
+          <td class="headerItem" width="20%">Date:</td>
+          <td class="headerValue" width="20%">2007-07-17</td>
+          <td width="20%"></td>
+          <td class="headerItem" width="20%">Instrumented&nbsp;lines:</td>
+          <td class="headerValue" width="20%">523</td>
+        </tr>
+        <tr>
+          <td class="headerItem" width="20%">Code&nbsp;covered:</td>
+          <td class="headerValue" width="20%">75.1 %</td>
+          <td width="20%"></td>
+          <td class="headerItem" width="20%">Executed&nbsp;lines:</td>
+          <td class="headerValue" width="20%">393</td>
+        </tr>
+        </table>
+      </td>
+    </tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td><pre class="source">
+<span class="lineNum">       1 </span>                : // $Id: ExpressionParser.cc 59 2007-07-17 14:43:23Z tb $
+<span class="lineNum">       2 </span>                : 
+<span class="lineNum">       3 </span>                : /*
+<span class="lineNum">       4 </span>                :  * STX Expression Parser C++ Framework v0.7
+<span class="lineNum">       5 </span>                :  * Copyright (C) 2007 Timo Bingmann
+<span class="lineNum">       6 </span>                :  *
+<span class="lineNum">       7 </span>                :  * This library is free software; you can redistribute it and/or modify it
+<span class="lineNum">       8 </span>                :  * under the terms of the GNU Lesser General Public License as published by the
+<span class="lineNum">       9 </span>                :  * Free Software Foundation; either version 2.1 of the License, or (at your
+<span class="lineNum">      10 </span>                :  * option) any later version.
+<span class="lineNum">      11 </span>                :  *
+<span class="lineNum">      12 </span>                :  * This library is distributed in the hope that it will be useful, but WITHOUT
+<span class="lineNum">      13 </span>                :  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+<span class="lineNum">      14 </span>                :  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
+<span class="lineNum">      15 </span>                :  * for more details.
+<span class="lineNum">      16 </span>                :  *
+<span class="lineNum">      17 </span>                :  * You should have received a copy of the GNU Lesser General Public License
+<span class="lineNum">      18 </span>                :  * along with this library; if not, write to the Free Software Foundation,
+<span class="lineNum">      19 </span>                :  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+<span class="lineNum">      20 </span>                :  */
+<span class="lineNum">      21 </span>                : 
+<span class="lineNum">      22 </span>                : /** \file ExpressionParser.cc
+<span class="lineNum">      23 </span>                :  * Implementation of the parser using a boost::spirit grammar and a different
+<span class="lineNum">      24 </span>                :  * specializations of ParseNode.
+<span class="lineNum">      25 </span>                :  */
+<span class="lineNum">      26 </span>                : 
+<span class="lineNum">      27 </span>                : #include &quot;ExpressionParser.h&quot;
+<span class="lineNum">      28 </span>                : 
+<span class="lineNum">      29 </span>                : #include &lt;boost/spirit/core.hpp&gt;
+<span class="lineNum">      30 </span>                : 
+<span class="lineNum">      31 </span>                : #include &lt;boost/spirit/tree/ast.hpp&gt;
+<span class="lineNum">      32 </span>                : #include &lt;boost/spirit/tree/tree_to_xml.hpp&gt;
+<span class="lineNum">      33 </span>                : 
+<span class="lineNum">      34 </span>                : #include &lt;boost/spirit/utility/lists.hpp&gt;
+<span class="lineNum">      35 </span>                : #include &lt;boost/spirit/utility/distinct.hpp&gt;
+<span class="lineNum">      36 </span>                : #include &lt;boost/spirit/utility/escape_char.hpp&gt;
+<span class="lineNum">      37 </span>                : #include &lt;boost/spirit/utility/grammar_def.hpp&gt; 
+<span class="lineNum">      38 </span>                : 
+<span class="lineNum">      39 </span>                : #include &lt;iostream&gt;
+<span class="lineNum">      40 </span>                : #include &lt;sstream&gt;
+<span class="lineNum">      41 </span>                : #include &lt;cmath&gt;
+<span class="lineNum">      42 </span>                : 
+<span class="lineNum">      43 </span>                : // #define STX_DEBUG_PARSER
+<span class="lineNum">      44 </span>                : 
+<span class="lineNum">      45 </span>                : namespace stx {
+<span class="lineNum">      46 </span>                : 
+<span class="lineNum">      47 </span>                : /// Enclosure for the spirit parser grammar and hidden parse node
+<span class="lineNum">      48 </span>                : /// implementation classes.
+<span class="lineNum">      49 </span>                : namespace Grammar {
+<span class="lineNum">      50 </span>                : 
+<span class="lineNum">      51 </span>                : using namespace boost::spirit;
+<span class="lineNum">      52 </span>                : 
+<span class="lineNum">      53 </span>                : /// This enum specifies ids for the parse tree nodes created for each rule.
+<span class="lineNum">      54 </span>                : enum parser_ids
+<span class="lineNum">      55 </span>                : {
+<span class="lineNum">      56 </span>                :     boolean_const_id = 1,
+<span class="lineNum">      57 </span>                :     integer_const_id,
+<span class="lineNum">      58 </span>                :     long_const_id,
+<span class="lineNum">      59 </span>                :     double_const_id,
+<span class="lineNum">      60 </span>                :     string_const_id,
+<span class="lineNum">      61 </span>                :     constant_id,
+<span class="lineNum">      62 </span>                : 
+<span class="lineNum">      63 </span>                :     function_call_id,
+<span class="lineNum">      64 </span>                :     function_identifier_id,
+<span class="lineNum">      65 </span>                : 
+<span class="lineNum">      66 </span>                :     varname_id,
+<span class="lineNum">      67 </span>                : 
+<span class="lineNum">      68 </span>                :     atom_expr_id,
+<span class="lineNum">      69 </span>                : 
+<span class="lineNum">      70 </span>                :     unary_expr_id,
+<span class="lineNum">      71 </span>                :     mul_expr_id,
+<span class="lineNum">      72 </span>                :     add_expr_id,
+<span class="lineNum">      73 </span>                : 
+<span class="lineNum">      74 </span>                :     cast_expr_id,
+<span class="lineNum">      75 </span>                :     cast_spec_id,
+<span class="lineNum">      76 </span>                : 
+<span class="lineNum">      77 </span>                :     comp_expr_id,
+<span class="lineNum">      78 </span>                :     and_expr_id,
+<span class="lineNum">      79 </span>                :     or_expr_id,
+<span class="lineNum">      80 </span>                : 
+<span class="lineNum">      81 </span>                :     expr_id,
+<span class="lineNum">      82 </span>                :     exprlist_id,
+<span class="lineNum">      83 </span>                : };
+<span class="lineNum">      84 </span>                : 
+<span class="lineNum">      85 </span>                : /// Keyword parser used for matching words with () and spaces as separators.
+<span class="lineNum">      86 </span><span class="lineCov">              2 : distinct_parser&lt;&gt; keyword_p(&quot;a-zA-Z0-9_&quot;);</span>
+<span class="lineNum">      87 </span>                : 
+<span class="lineNum">      88 </span>                : /// The boost::spirit expression parser grammar
+<span class="lineNum">      89 </span>                : struct ExpressionGrammar : public grammar&lt;ExpressionGrammar&gt;
+<span class="lineNum">      90 </span><span class="lineCov">             72 : {</span>
+<span class="lineNum">      91 </span>                :     /// The boost::spirit expression parser grammar definition (for a specific
+<span class="lineNum">      92 </span>                :     /// scanner) with two entry points.
+<span class="lineNum">      93 </span>                :     template &lt;typename ScannerT&gt;
+<span class="lineNum">      94 </span>                :     struct definition : public grammar_def&lt;rule&lt;ScannerT, parser_context&lt;&gt;, parser_tag&lt;expr_id&gt; &gt;,
+<span class="lineNum">      95 </span>                :                                            rule&lt;ScannerT, parser_context&lt;&gt;, parser_tag&lt;exprlist_id&gt; &gt; &gt;
+<span class="lineNum">      96 </span><span class="lineCov">             36 :     {</span>
+<span class="lineNum">      97 </span>                :         /// Real definition function of the grammar.
+<span class="lineNum">      98 </span><span class="lineCov">             36 :         definition(ExpressionGrammar const&amp; /*self*/)</span>
+<span class="lineNum">      99 </span><span class="lineCov">             36 :         {</span>
+<span class="lineNum">     100 </span>                :             // *** Constants
+<span class="lineNum">     101 </span>                : 
+<span class="lineNum">     102 </span><span class="lineCov">             36 :             constant</span>
+<span class="lineNum">     103 </span>                :                 = double_const
+<span class="lineNum">     104 </span>                :                 | integer_const
+<span class="lineNum">     105 </span>                :                 | long_const
+<span class="lineNum">     106 </span>                :                 | boolean_const
+<span class="lineNum">     107 </span>                :                 | string_const
+<span class="lineNum">     108 </span>                :                 ;
+<span class="lineNum">     109 </span>                :             
+<span class="lineNum">     110 </span><span class="lineCov">             36 :             boolean_const</span>
+<span class="lineNum">     111 </span>                :                 = as_lower_d[keyword_p(&quot;true&quot;) | keyword_p(&quot;false&quot;)]
+<span class="lineNum">     112 </span>                :                 ;
+<span class="lineNum">     113 </span>                : 
+<span class="lineNum">     114 </span><span class="lineCov">             36 :             integer_const</span>
+<span class="lineNum">     115 </span>                :                 = int_p
+<span class="lineNum">     116 </span>                :                 ;
+<span class="lineNum">     117 </span>                : 
+<span class="lineNum">     118 </span>                :             // this is needed because spirit's int_parsers don't work with
+<span class="lineNum">     119 </span>                :             // these long numbers
+<span class="lineNum">     120 </span><span class="lineCov">             36 :             long_const</span>
+<span class="lineNum">     121 </span>                :                 = token_node_d[ lexeme_d[ !( ch_p('+') | ch_p('-' ) ) &gt;&gt; +( range_p('0','9') ) ] ]
+<span class="lineNum">     122 </span>                :                 ;
+<span class="lineNum">     123 </span>                : 
+<span class="lineNum">     124 </span><span class="lineCov">             36 :             double_const</span>
+<span class="lineNum">     125 </span>                :                 = strict_real_p
+<span class="lineNum">     126 </span>                :                 ;
+<span class="lineNum">     127 </span>                : 
+<span class="lineNum">     128 </span><span class="lineCov">             36 :             string_const</span>
+<span class="lineNum">     129 </span>                :                 = lexeme_d[
+<span class="lineNum">     130 </span>                :                     token_node_d[ '&quot;' &gt;&gt; *(c_escape_ch_p - '&quot;') &gt;&gt; '&quot;' ]
+<span class="lineNum">     131 </span>                :                     ]
+<span class="lineNum">     132 </span>                :                 ;
+<span class="lineNum">     133 </span>                : 
+<span class="lineNum">     134 </span>                :             // *** Function call and function identifier
+<span class="lineNum">     135 </span>                : 
+<span class="lineNum">     136 </span><span class="lineCov">             36 :             function_call</span>
+<span class="lineNum">     137 </span>                :                 = root_node_d[function_identifier]
+<span class="lineNum">     138 </span>                :                 &gt;&gt; discard_node_d[ ch_p('(') ] &gt;&gt; exprlist &gt;&gt; discard_node_d[ ch_p(')') ]
+<span class="lineNum">     139 </span>                :                 ;
+<span class="lineNum">     140 </span>                : 
+<span class="lineNum">     141 </span><span class="lineCov">             36 :             function_identifier</span>
+<span class="lineNum">     142 </span>                :                 = lexeme_d[ 
+<span class="lineNum">     143 </span>                :                     token_node_d[ alpha_p &gt;&gt; *(alnum_p | ch_p('_')) ]
+<span class="lineNum">     144 </span>                :                     ]
+<span class="lineNum">     145 </span>                :                 ;
+<span class="lineNum">     146 </span>                : 
+<span class="lineNum">     147 </span>                :             // *** Expression names
+<span class="lineNum">     148 </span>                : 
+<span class="lineNum">     149 </span><span class="lineCov">             36 :             varname</span>
+<span class="lineNum">     150 </span>                :                 = lexeme_d[ 
+<span class="lineNum">     151 </span>                :                     token_node_d[ alpha_p &gt;&gt; *(alnum_p | ch_p('_')) ]
+<span class="lineNum">     152 </span>                :                     ]
+<span class="lineNum">     153 </span>                :                 ;
+<span class="lineNum">     154 </span>                : 
+<span class="lineNum">     155 </span>                :             // *** Valid Expressions, from small to large
+<span class="lineNum">     156 </span>                : 
+<span class="lineNum">     157 </span><span class="lineCov">             36 :             atom_expr</span>
+<span class="lineNum">     158 </span>                :                 = constant
+<span class="lineNum">     159 </span>                :                 | inner_node_d[ ch_p('(') &gt;&gt; expr &gt;&gt; ch_p(')') ]
+<span class="lineNum">     160 </span>                :                 | function_call
+<span class="lineNum">     161 </span>                :                 | varname
+<span class="lineNum">     162 </span>                :                 ;
+<span class="lineNum">     163 </span>                : 
+<span class="lineNum">     164 </span><span class="lineCov">             36 :             unary_expr</span>
+<span class="lineNum">     165 </span>                :                 = !( root_node_d[ as_lower_d[ch_p('+') | ch_p('-') | ch_p('!') | str_p(&quot;not&quot;)] ] )
+<span class="lineNum">     166 </span>                :                 &gt;&gt; atom_expr
+<span class="lineNum">     167 </span>                :                 ;
+<span class="lineNum">     168 </span>                : 
+<span class="lineNum">     169 </span><span class="lineCov">             36 :             cast_spec</span>
+<span class="lineNum">     170 </span>                :                 = discard_node_d[ ch_p('(') ]
+<span class="lineNum">     171 </span>                :                 &gt;&gt; (
+<span class="lineNum">     172 </span>                :                     keyword_p(&quot;bool&quot;) |
+<span class="lineNum">     173 </span>                :                     keyword_p(&quot;char&quot;) | keyword_p(&quot;short&quot;) | keyword_p(&quot;int&quot;) | keyword_p(&quot;integer&quot;) | keyword_p(&quot;long&quot;) |
+<span class="lineNum">     174 </span>                :                     keyword_p(&quot;byte&quot;) | keyword_p(&quot;word&quot;) | keyword_p(&quot;dword&quot;) | keyword_p(&quot;qword&quot;) |
+<span class="lineNum">     175 </span>                :                     keyword_p(&quot;float&quot;) | keyword_p(&quot;double&quot;) |
+<span class="lineNum">     176 </span>                :                     keyword_p(&quot;string&quot;)
+<span class="lineNum">     177 </span>                :                     )
+<span class="lineNum">     178 </span>                :                 &gt;&gt; discard_node_d[ ch_p(')') ]
+<span class="lineNum">     179 </span>                :                 ;
+<span class="lineNum">     180 </span>                : 
+<span class="lineNum">     181 </span><span class="lineCov">             36 :             cast_expr</span>
+<span class="lineNum">     182 </span>                :                 = root_node_d[ !cast_spec ] &gt;&gt; unary_expr
+<span class="lineNum">     183 </span>                :                 ;
+<span class="lineNum">     184 </span>                : 
+<span class="lineNum">     185 </span><span class="lineCov">             36 :             mul_expr</span>
+<span class="lineNum">     186 </span>                :                 = cast_expr
+<span class="lineNum">     187 </span>                :                 &gt;&gt; *( root_node_d[ch_p('*') | ch_p('/')] &gt;&gt; cast_expr )
+<span class="lineNum">     188 </span>                :                 ;
+<span class="lineNum">     189 </span>                : 
+<span class="lineNum">     190 </span><span class="lineCov">             36 :             add_expr</span>
+<span class="lineNum">     191 </span>                :                 = mul_expr
+<span class="lineNum">     192 </span>                :                 &gt;&gt; *( root_node_d[ch_p('+') | ch_p('-')] &gt;&gt; mul_expr )
+<span class="lineNum">     193 </span>                :                 ;
+<span class="lineNum">     194 </span>                : 
+<span class="lineNum">     195 </span><span class="lineCov">             36 :             comp_expr</span>
+<span class="lineNum">     196 </span>                :                 = add_expr
+<span class="lineNum">     197 </span>                :                 &gt;&gt; *( root_node_d[( str_p(&quot;==&quot;) | str_p(&quot;!=&quot;) |
+<span class="lineNum">     198 </span>                :                                     str_p(&quot;&lt;=&quot;) | str_p(&quot;&gt;=&quot;) | str_p(&quot;=&lt;&quot;) | str_p(&quot;=&gt;&quot;) |
+<span class="lineNum">     199 </span>                :                                     ch_p('=') | ch_p('&lt;') | ch_p('&gt;') )] &gt;&gt; add_expr )
+<span class="lineNum">     200 </span>                :                 ;
+<span class="lineNum">     201 </span>                : 
+<span class="lineNum">     202 </span><span class="lineCov">             36 :             and_expr</span>
+<span class="lineNum">     203 </span>                :                 = comp_expr
+<span class="lineNum">     204 </span>                :                 &gt;&gt; *( root_node_d[ as_lower_d[str_p(&quot;and&quot;) | str_p(&quot;&amp;&amp;&quot;)] ] &gt;&gt; comp_expr )
+<span class="lineNum">     205 </span>                :                 ;
+<span class="lineNum">     206 </span>                : 
+<span class="lineNum">     207 </span><span class="lineCov">             36 :             or_expr</span>
+<span class="lineNum">     208 </span>                :                 = and_expr
+<span class="lineNum">     209 </span>                :                 &gt;&gt; *( root_node_d[ as_lower_d[str_p(&quot;or&quot;) | str_p(&quot;||&quot;)] ] &gt;&gt; and_expr )
+<span class="lineNum">     210 </span>                :                 ;
+<span class="lineNum">     211 </span>                : 
+<span class="lineNum">     212 </span>                :             // *** Base Expression and List
+<span class="lineNum">     213 </span>                : 
+<span class="lineNum">     214 </span><span class="lineCov">             36 :             expr</span>
+<span class="lineNum">     215 </span>                :                 = or_expr
+<span class="lineNum">     216 </span>                :                 ;
+<span class="lineNum">     217 </span>                : 
+<span class="lineNum">     218 </span><span class="lineCov">             36 :             exprlist</span>
+<span class="lineNum">     219 </span>                :                 = infix_node_d[ !list_p(expr, ch_p(',')) ]
+<span class="lineNum">     220 </span>                :                 ;
+<span class="lineNum">     221 </span>                : 
+<span class="lineNum">     222 </span>                :             // Special spirit feature to declare multiple grammar entry points
+<span class="lineNum">     223 </span><span class="lineCov">             36 :             this-&gt;start_parsers(expr, exprlist); </span>
+<span class="lineNum">     224 </span>                : 
+<span class="lineNum">     225 </span>                : #ifdef STX_DEBUG_PARSER
+<span class="lineNum">     226 </span>                :             BOOST_SPIRIT_DEBUG_RULE(constant);
+<span class="lineNum">     227 </span>                : 
+<span class="lineNum">     228 </span>                :             BOOST_SPIRIT_DEBUG_RULE(boolean_const);
+<span class="lineNum">     229 </span>                :             BOOST_SPIRIT_DEBUG_RULE(integer_const);
+<span class="lineNum">     230 </span>                :             BOOST_SPIRIT_DEBUG_RULE(long_const);
+<span class="lineNum">     231 </span>                :             BOOST_SPIRIT_DEBUG_RULE(double_const);
+<span class="lineNum">     232 </span>                :             BOOST_SPIRIT_DEBUG_RULE(string_const);
+<span class="lineNum">     233 </span>                : 
+<span class="lineNum">     234 </span>                :             BOOST_SPIRIT_DEBUG_RULE(function_call);
+<span class="lineNum">     235 </span>                :             BOOST_SPIRIT_DEBUG_RULE(function_identifier);
+<span class="lineNum">     236 </span>                :             
+<span class="lineNum">     237 </span>                :             BOOST_SPIRIT_DEBUG_RULE(varname);
+<span class="lineNum">     238 </span>                : 
+<span class="lineNum">     239 </span>                :             BOOST_SPIRIT_DEBUG_RULE(atom_expr);
+<span class="lineNum">     240 </span>                : 
+<span class="lineNum">     241 </span>                :             BOOST_SPIRIT_DEBUG_RULE(unary_expr);
+<span class="lineNum">     242 </span>                :             BOOST_SPIRIT_DEBUG_RULE(mul_expr);
+<span class="lineNum">     243 </span>                :             BOOST_SPIRIT_DEBUG_RULE(add_expr);
+<span class="lineNum">     244 </span>                : 
+<span class="lineNum">     245 </span>                :             BOOST_SPIRIT_DEBUG_RULE(cast_spec);
+<span class="lineNum">     246 </span>                :             BOOST_SPIRIT_DEBUG_RULE(cast_expr);
+<span class="lineNum">     247 </span>                : 
+<span class="lineNum">     248 </span>                :             BOOST_SPIRIT_DEBUG_RULE(comp_expr);
+<span class="lineNum">     249 </span>                :             BOOST_SPIRIT_DEBUG_RULE(and_expr);
+<span class="lineNum">     250 </span>                :             BOOST_SPIRIT_DEBUG_RULE(or_expr);
+<span class="lineNum">     251 </span>                : 
+<span class="lineNum">     252 </span>                :             BOOST_SPIRIT_DEBUG_RULE(expr);
+<span class="lineNum">     253 </span>                :             BOOST_SPIRIT_DEBUG_RULE(exprlist);
+<span class="lineNum">     254 </span>                : #endif
+<span class="lineNum">     255 </span>                :         }
+<span class="lineNum">     256 </span>                : 
+<span class="lineNum">     257 </span>                :         /// Rule for a constant: one of the three scalar types integer_const,
+<span class="lineNum">     258 </span>                :         /// double_const or string_const
+<span class="lineNum">     259 </span>                :         rule&lt;ScannerT, parser_context&lt;&gt;, parser_tag&lt;constant_id&gt; &gt;            constant;
+<span class="lineNum">     260 </span>                : 
+<span class="lineNum">     261 </span>                :         /// Boolean value constant rule: &quot;true&quot; or &quot;false&quot;
+<span class="lineNum">     262 </span>                :         rule&lt;ScannerT, parser_context&lt;&gt;, parser_tag&lt;boolean_const_id&gt; &gt;       boolean_const;
+<span class="lineNum">     263 </span>                :         /// Integer constant rule: &quot;1234&quot;
+<span class="lineNum">     264 </span>                :         rule&lt;ScannerT, parser_context&lt;&gt;, parser_tag&lt;integer_const_id&gt; &gt;       integer_const;
+<span class="lineNum">     265 </span>                :         /// Long integer constant rule: &quot;12345452154&quot;
+<span class="lineNum">     266 </span>                :         rule&lt;ScannerT, parser_context&lt;&gt;, parser_tag&lt;long_const_id&gt; &gt;          long_const;
+<span class="lineNum">     267 </span>                :         /// Float constant rule: &quot;1234.3&quot;
+<span class="lineNum">     268 </span>                :         rule&lt;ScannerT, parser_context&lt;&gt;, parser_tag&lt;double_const_id&gt; &gt;                double_const;
+<span class="lineNum">     269 </span>                :         /// String constant rule: with quotes &quot;abc&quot;
+<span class="lineNum">     270 </span>                :         rule&lt;ScannerT, parser_context&lt;&gt;, parser_tag&lt;string_const_id&gt; &gt;                string_const;
+<span class="lineNum">     271 </span>                : 
+<span class="lineNum">     272 </span>                :         /// Function call rule: func1(a,b,c) where a,b,c is a list of exprs
+<span class="lineNum">     273 </span>                :         rule&lt;ScannerT, parser_context&lt;&gt;, parser_tag&lt;function_call_id&gt; &gt;       function_call;
+<span class="lineNum">     274 </span>                :         /// Function rule to match a function identifier: alphanumeric and _
+<span class="lineNum">     275 </span>                :         /// are allowed.
+<span class="lineNum">     276 </span>                :         rule&lt;ScannerT, parser_context&lt;&gt;, parser_tag&lt;function_identifier_id&gt; &gt;         function_identifier;
+<span class="lineNum">     277 </span>                : 
+<span class="lineNum">     278 </span>                :         /// Rule to match a variable name: alphanumeric with _
+<span class="lineNum">     279 </span>                :         rule&lt;ScannerT, parser_context&lt;&gt;, parser_tag&lt;varname_id&gt; &gt;             varname;
+<span class="lineNum">     280 </span>                : 
+<span class="lineNum">     281 </span>                :         /// Helper rule which implements () bracket grouping.
+<span class="lineNum">     282 </span>                :         rule&lt;ScannerT, parser_context&lt;&gt;, parser_tag&lt;atom_expr_id&gt; &gt;           atom_expr;
+<span class="lineNum">     283 </span>                : 
+<span class="lineNum">     284 </span>                :         /// Unary operator rule: recognizes + - ! and &quot;not&quot;.
+<span class="lineNum">     285 </span>                :         rule&lt;ScannerT, parser_context&lt;&gt;, parser_tag&lt;unary_expr_id&gt; &gt;          unary_expr;
+<span class="lineNum">     286 </span>                :         /// Binary operator rule taking precedent before add_expr:
+<span class="lineNum">     287 </span>                :         /// recognizes * and /
+<span class="lineNum">     288 </span>                :         rule&lt;ScannerT, parser_context&lt;&gt;, parser_tag&lt;mul_expr_id&gt; &gt;            mul_expr;
+<span class="lineNum">     289 </span>                :         /// Binary operator rule: recognizes + and -
+<span class="lineNum">     290 </span>                :         rule&lt;ScannerT, parser_context&lt;&gt;, parser_tag&lt;add_expr_id&gt; &gt;            add_expr;
+<span class="lineNum">     291 </span>                : 
+<span class="lineNum">     292 </span>                :         /// Match all the allowed cast types: short, double, etc.
+<span class="lineNum">     293 </span>                :         rule&lt;ScannerT, parser_context&lt;&gt;, parser_tag&lt;cast_spec_id&gt; &gt;           cast_spec;
+<span class="lineNum">     294 </span>                :         /// Cast operator written like in C: (short)
+<span class="lineNum">     295 </span>                :         rule&lt;ScannerT, parser_context&lt;&gt;, parser_tag&lt;cast_expr_id&gt; &gt;           cast_expr;
+<span class="lineNum">     296 </span>                : 
+<span class="lineNum">     297 </span>                :         /// Comparison operator: recognizes == = != &lt;= &gt;= &lt; &gt; =&gt; =&lt;
+<span class="lineNum">     298 </span>                :         rule&lt;ScannerT, parser_context&lt;&gt;, parser_tag&lt;comp_expr_id&gt; &gt;           comp_expr;
+<span class="lineNum">     299 </span>                :         /// Boolean operator: recognizes &amp;&amp; and &quot;and&quot; and works only on boolean
+<span class="lineNum">     300 </span>                :         /// values
+<span class="lineNum">     301 </span>                :         rule&lt;ScannerT, parser_context&lt;&gt;, parser_tag&lt;and_expr_id&gt; &gt;            and_expr;
+<span class="lineNum">     302 </span>                :         /// Boolean operator: recognizes || and &quot;or&quot; and works only on boolean
+<span class="lineNum">     303 </span>                :         /// values
+<span class="lineNum">     304 </span>                :         rule&lt;ScannerT, parser_context&lt;&gt;, parser_tag&lt;or_expr_id&gt; &gt;             or_expr;
+<span class="lineNum">     305 </span>                : 
+<span class="lineNum">     306 </span>                :         /// Base rule to match an expression 
+<span class="lineNum">     307 </span>                :         rule&lt;ScannerT, parser_context&lt;&gt;, parser_tag&lt;expr_id&gt; &gt;                        expr;
+<span class="lineNum">     308 </span>                :         /// Base rule to match a comma-separated list of expressions (used for
+<span class="lineNum">     309 </span>                :         /// function arguments and lists of expressions)
+<span class="lineNum">     310 </span>                :         rule&lt;ScannerT, parser_context&lt;&gt;, parser_tag&lt;exprlist_id&gt; &gt;                    exprlist;
+<span class="lineNum">     311 </span>                :     };
+<span class="lineNum">     312 </span>                : };
+<span class="lineNum">     313 </span>                : 
+<span class="lineNum">     314 </span>                : // *** Classes representing the nodes in the resulting parse tree, these need
+<span class="lineNum">     315 </span>                : // *** not be publicly available via the header file.
+<span class="lineNum">     316 </span>                : 
+<span class="lineNum">     317 </span>                : /// Constant value nodes of the parse tree. This class holds any of the three
+<span class="lineNum">     318 </span>                : /// constant types in the enclosed AnyScalar object.
+<span class="lineNum">     319 </span>                : class PNConstant : public ParseNode
+<span class="lineNum">     320 </span><span class="lineCov">            132 : {</span>
+<span class="lineNum">     321 </span>                : private:
+<span class="lineNum">     322 </span>                :     /// The constant parsed value.
+<span class="lineNum">     323 </span>                :     class AnyScalar     value;
+<span class="lineNum">     324 </span>                : 
+<span class="lineNum">     325 </span>                : public:
+<span class="lineNum">     326 </span>                :     /// Assignment from the string received from the parser.
+<span class="lineNum">     327 </span><span class="lineCov">             86 :     PNConstant(AnyScalar::attrtype_t type, std::string strvalue)</span>
+<span class="lineNum">     328 </span><span class="lineCov">             86 :         : ParseNode(), value(type)</span>
+<span class="lineNum">     329 </span>                :     {
+<span class="lineNum">     330 </span>                :         // check whether to dequote the incoming string.
+<span class="lineNum">     331 </span><span class="lineCov">             86 :         if (type == AnyScalar::ATTRTYPE_STRING)</span>
+<span class="lineNum">     332 </span><span class="lineCov">              6 :             value.setStringQuoted(strvalue);</span>
+<span class="lineNum">     333 </span>                :         else
+<span class="lineNum">     334 </span><span class="lineCov">             80 :             value.setString(strvalue); // not a string, but an integer or double or boolean value</span>
+<span class="lineNum">     335 </span><span class="lineCov">             86 :     }</span>
+<span class="lineNum">     336 </span>                : 
+<span class="lineNum">     337 </span>                :     /// constructor for folded constant values.
+<span class="lineNum">     338 </span><span class="lineCov">             46 :     PNConstant(const AnyScalar &amp;_value)</span>
+<span class="lineNum">     339 </span><span class="lineCov">             46 :         : value(_value)</span>
+<span class="lineNum">     340 </span>                :     {
+<span class="lineNum">     341 </span><span class="lineCov">             46 :     }</span>
+<span class="lineNum">     342 </span>                : 
+<span class="lineNum">     343 </span>                :     /// Easiest evaluation: return the constant.
+<span class="lineNum">     344 </span><span class="lineCov">             24 :     virtual AnyScalar evaluate(const class SymbolTable &amp;) const</span>
+<span class="lineNum">     345 </span>                :     {
+<span class="lineNum">     346 </span><span class="lineCov">             24 :         return value;</span>
+<span class="lineNum">     347 </span>                :     }
+<span class="lineNum">     348 </span>                : 
+<span class="lineNum">     349 </span>                :     /// Returns true, because value is constant
+<span class="lineNum">     350 </span><span class="lineCov">            176 :     virtual bool evaluate_const(AnyScalar *dest) const</span>
+<span class="lineNum">     351 </span>                :     {
+<span class="lineNum">     352 </span><span class="lineCov">            176 :         if (dest) *dest = value;</span>
+<span class="lineNum">     353 </span><span class="lineCov">            176 :         return true;</span>
+<span class="lineNum">     354 </span>                :     }
+<span class="lineNum">     355 </span>                : 
+<span class="lineNum">     356 </span>                :     /// String representation of the constant AnyScalar value.
+<span class="lineNum">     357 </span><span class="lineCov">             48 :     virtual std::string toString() const</span>
+<span class="lineNum">     358 </span>                :     {
+<span class="lineNum">     359 </span><span class="lineCov">             48 :         if (value.getType() == AnyScalar::ATTRTYPE_STRING) {</span>
+<span class="lineNum">     360 </span><span class="lineCov">              4 :             return value.getStringQuoted();</span>
+<span class="lineNum">     361 </span>                :         }
+<span class="lineNum">     362 </span><span class="lineCov">             44 :         return value.getString();</span>
+<span class="lineNum">     363 </span>                :     }
+<span class="lineNum">     364 </span>                : };
+<span class="lineNum">     365 </span>                : 
+<span class="lineNum">     366 </span>                : /// Parse tree node representing a variable place-holder. It is filled when
+<span class="lineNum">     367 </span>                : /// parameterized by a symbol table.
+<span class="lineNum">     368 </span>                : class PNVariable : public ParseNode
+<span class="lineNum">     369 </span><span class="lineCov">              8 : {</span>
+<span class="lineNum">     370 </span>                : private:
+<span class="lineNum">     371 </span>                :     /// String name of the variable
+<span class="lineNum">     372 </span>                :     std::string         varname;
+<span class="lineNum">     373 </span>                : 
+<span class="lineNum">     374 </span>                : public:
+<span class="lineNum">     375 </span>                :     /// Constructor from the string received from the parser.
+<span class="lineNum">     376 </span><span class="lineCov">              8 :     PNVariable(std::string _varname)</span>
+<span class="lineNum">     377 </span><span class="lineCov">              8 :         : ParseNode(), varname(_varname)</span>
+<span class="lineNum">     378 </span>                :     {
+<span class="lineNum">     379 </span><span class="lineCov">              8 :     }</span>
+<span class="lineNum">     380 </span>                : 
+<span class="lineNum">     381 </span>                :     /// Check the given symbol table for the actual value of this variable.
+<span class="lineNum">     382 </span><span class="lineCov">              4 :     virtual AnyScalar evaluate(const class SymbolTable &amp;st) const</span>
+<span class="lineNum">     383 </span>                :     {
+<span class="lineNum">     384 </span><span class="lineCov">              4 :         return st.lookupVariable(varname);</span>
+<span class="lineNum">     385 </span>                :     }
+<span class="lineNum">     386 </span>                : 
+<span class="lineNum">     387 </span>                :     /// Returns false, because value isn't constant.
+<span class="lineNum">     388 </span><span class="lineCov">              8 :     virtual bool evaluate_const(AnyScalar *) const</span>
+<span class="lineNum">     389 </span>                :     {
+<span class="lineNum">     390 </span><span class="lineCov">              8 :         return false;</span>
+<span class="lineNum">     391 </span>                :     }
+<span class="lineNum">     392 </span>                : 
+<span class="lineNum">     393 </span>                :     /// Nothing but the variable name.
+<span class="lineNum">     394 </span><span class="lineCov">              8 :     virtual std::string toString() const</span>
+<span class="lineNum">     395 </span>                :     {
+<span class="lineNum">     396 </span><span class="lineCov">              8 :         return varname;</span>
+<span class="lineNum">     397 </span>                :     }
+<span class="lineNum">     398 </span>                : };
+<span class="lineNum">     399 </span>                : 
+<span class="lineNum">     400 </span>                : /// Parse tree node representing a function place-holder. It is filled when
+<span class="lineNum">     401 </span>                : /// parameterized by a symbol table.
+<span class="lineNum">     402 </span>                : class PNFunction : public ParseNode
+<span class="lineNum">     403 </span>                : {
+<span class="lineNum">     404 </span>                : public:
+<span class="lineNum">     405 </span>                :     /// Type of sequence of subtrees to evaluate as function parameters.
+<span class="lineNum">     406 </span>                :     typedef std::vector&lt;const class ParseNode*&gt; paramlist_type;
+<span class="lineNum">     407 </span>                : 
+<span class="lineNum">     408 </span>                : private:
+<span class="lineNum">     409 </span>                :     /// String name of the function
+<span class="lineNum">     410 </span>                :     std::string         funcname;
+<span class="lineNum">     411 </span>                : 
+<span class="lineNum">     412 </span>                :     /// The array of function parameter subtrees
+<span class="lineNum">     413 </span>                :     paramlist_type      paramlist;
+<span class="lineNum">     414 </span>                : 
+<span class="lineNum">     415 </span>                : public:
+<span class="lineNum">     416 </span>                :     /// Constructor from the string received from the parser.
+<span class="lineNum">     417 </span><span class="lineCov">             12 :     PNFunction(std::string _funcname, const paramlist_type&amp; _paramlist)</span>
+<span class="lineNum">     418 </span><span class="lineCov">             12 :         : ParseNode(), funcname(_funcname), paramlist(_paramlist)</span>
+<span class="lineNum">     419 </span>                :     {
+<span class="lineNum">     420 </span><span class="lineCov">             12 :     }</span>
+<span class="lineNum">     421 </span>                : 
+<span class="lineNum">     422 </span>                :     /// Delete the paramlist
+<span class="lineNum">     423 </span><span class="lineCov">             12 :     ~PNFunction()</span>
+<span class="lineNum">     424 </span><span class="lineCov">             12 :     {</span>
+<span class="lineNum">     425 </span><span class="lineCov">             26 :         for(unsigned int i = 0; i &lt; paramlist.size(); ++i)</span>
+<span class="lineNum">     426 </span><span class="lineCov">             14 :             delete paramlist[i];</span>
+<span class="lineNum">     427 </span><span class="lineCov">             12 :     }</span>
+<span class="lineNum">     428 </span>                : 
+<span class="lineNum">     429 </span>                :     /// Check the given symbol table for the actual value of this variable.
+<span class="lineNum">     430 </span><span class="lineCov">              6 :     virtual AnyScalar evaluate(const class SymbolTable &amp;st) const</span>
+<span class="lineNum">     431 </span>                :     {
+<span class="lineNum">     432 </span><span class="lineCov">              6 :         std::vector&lt;AnyScalar&gt; paramvalues;</span>
+<span class="lineNum">     433 </span>                : 
+<span class="lineNum">     434 </span><span class="lineCov">             13 :         for(unsigned int i = 0; i &lt; paramlist.size(); ++i)</span>
+<span class="lineNum">     435 </span>                :         {
+<span class="lineNum">     436 </span><span class="lineCov">              7 :             paramvalues.push_back( paramlist[i]-&gt;evaluate(st) );</span>
+<span class="lineNum">     437 </span>                :         }
+<span class="lineNum">     438 </span>                : 
+<span class="lineNum">     439 </span><span class="lineCov">              6 :         return st.processFunction(funcname, paramvalues);</span>
+<span class="lineNum">     440 </span>                :     }
+<span class="lineNum">     441 </span>                : 
+<span class="lineNum">     442 </span>                :     /// Returns false, because value isn't constant.
+<span class="lineNum">     443 </span><span class="lineCov">              6 :     virtual bool evaluate_const(AnyScalar *) const</span>
+<span class="lineNum">     444 </span>                :     {
+<span class="lineNum">     445 </span><span class="lineCov">              6 :         return false;</span>
+<span class="lineNum">     446 </span>                :     }
+<span class="lineNum">     447 </span>                : 
+<span class="lineNum">     448 </span>                :     /// Nothing but the function and its parameters
+<span class="lineNum">     449 </span><span class="lineCov">             12 :     virtual std::string toString() const</span>
+<span class="lineNum">     450 </span>                :     {
+<span class="lineNum">     451 </span><span class="lineCov">             12 :         std::string str = funcname + &quot;(&quot;;</span>
+<span class="lineNum">     452 </span><span class="lineCov">             26 :         for(unsigned int i = 0; i &lt; paramlist.size(); ++i)</span>
+<span class="lineNum">     453 </span>                :         {
+<span class="lineNum">     454 </span><span class="lineCov">             14 :             if (i != 0) str += &quot;,&quot;;</span>
+<span class="lineNum">     455 </span><span class="lineCov">             14 :             str += paramlist[i]-&gt;toString();</span>
+<span class="lineNum">     456 </span>                :         }
+<span class="lineNum">     457 </span><span class="lineCov">             12 :         return str + &quot;)&quot;;</span>
+<span class="lineNum">     458 </span>                :     }
+<span class="lineNum">     459 </span>                : };
+<span class="lineNum">     460 </span>                : 
+<span class="lineNum">     461 </span>                : /// Parse tree node representing an unary operator: '+', '-', '!' or
+<span class="lineNum">     462 </span>                : /// &quot;not&quot;. This node has one child.
+<span class="lineNum">     463 </span>                : class PNUnaryArithmExpr : public ParseNode
+<span class="lineNum">     464 </span>                : {
+<span class="lineNum">     465 </span>                : private:
+<span class="lineNum">     466 </span>                :     /// Pointer to the single operand
+<span class="lineNum">     467 </span>                :     const ParseNode     *operand;
+<span class="lineNum">     468 </span>                : 
+<span class="lineNum">     469 </span>                :     /// Arithmetic operation to perform: either '+', '-' or '!'. Further
+<span class="lineNum">     470 </span>                :     /// optimization would be to create an extra class for each op
+<span class="lineNum">     471 </span>                :     char        op;
+<span class="lineNum">     472 </span>                : 
+<span class="lineNum">     473 </span>                : public:
+<span class="lineNum">     474 </span>                :     /// Constructor from the parser: operand subnode and operator id.
+<span class="lineNum">     475 </span><span class="lineCov">              8 :     PNUnaryArithmExpr(const ParseNode* _operand, char _op)</span>
+<span class="lineNum">     476 </span><span class="lineCov">              8 :         : ParseNode(), operand(_operand), op(_op)</span>
+<span class="lineNum">     477 </span>                :     {
+<span class="lineNum">     478 </span><span class="lineCov">              8 :         if (op == 'n' || op == 'N') op = '!';</span>
+<span class="lineNum">     479 </span><span class="lineCov">              8 :     }</span>
+<span class="lineNum">     480 </span>                : 
+<span class="lineNum">     481 </span>                :     /// Recursively delete the parse tree.
+<span class="lineNum">     482 </span><span class="lineCov">              8 :     virtual ~PNUnaryArithmExpr()</span>
+<span class="lineNum">     483 </span><span class="lineCov">              8 :     {</span>
+<span class="lineNum">     484 </span><span class="lineCov">              8 :         delete operand;</span>
+<span class="lineNum">     485 </span><span class="lineCov">              8 :     }</span>
+<span class="lineNum">     486 </span>                : 
+<span class="lineNum">     487 </span>                :     /// Applies the operator to the recursively calculated value.
+<span class="lineNum">     488 </span><span class="lineCov">              1 :     virtual AnyScalar evaluate(const class SymbolTable &amp;st) const</span>
+<span class="lineNum">     489 </span>                :     {
+<span class="lineNum">     490 </span><span class="lineCov">              1 :         AnyScalar dest = operand-&gt;evaluate(st);</span>
+<span class="lineNum">     491 </span>                : 
+<span class="lineNum">     492 </span><span class="lineCov">              1 :         if (op == '-') {</span>
+<span class="lineNum">     493 </span><span class="lineCov">              1 :             dest = -dest;           </span>
+<span class="lineNum">     494 </span>                :         }
+<span class="lineNum">     495 </span><span class="lineNoCov">              0 :         else if (op == '!')</span>
+<span class="lineNum">     496 </span>                :         {
+<span class="lineNum">     497 </span>                :             // This should not happend, as types are constant in the parse tree
+<span class="lineNum">     498 </span><span class="lineNoCov">              0 :             if (dest.getType() != AnyScalar::ATTRTYPE_BOOL)</span>
+<span class="lineNum">     499 </span><span class="lineNoCov">              0 :                 throw(BadSyntaxException(&quot;Invalid operand for !. Operand must be of type bool.&quot;));</span>
+<span class="lineNum">     500 </span>                : 
+<span class="lineNum">     501 </span><span class="lineNoCov">              0 :             dest = -dest;</span>
+<span class="lineNum">     502 </span>                :         }
+<span class="lineNum">     503 </span>                :         else {
+<span class="lineNum">     504 </span><span class="lineNoCov">              0 :             assert(op == '+');</span>
+<span class="lineNum">     505 </span>                :         }
+<span class="lineNum">     506 </span>                : 
+<span class="lineNum">     507 </span><span class="lineNoCov">              0 :         return dest;</span>
+<span class="lineNum">     508 </span>                :     }
+<span class="lineNum">     509 </span>                : 
+<span class="lineNum">     510 </span>                :     /// Calculates subnodes and returns result if the operator can be applied.
+<span class="lineNum">     511 </span><span class="lineCov">              8 :     virtual bool evaluate_const(AnyScalar *dest) const</span>
+<span class="lineNum">     512 </span>                :     {
+<span class="lineNum">     513 </span><span class="lineCov">              8 :         if (!dest) return false;</span>
+<span class="lineNum">     514 </span>                : 
+<span class="lineNum">     515 </span><span class="lineCov">              6 :         bool b = operand-&gt;evaluate_const(dest);</span>
+<span class="lineNum">     516 </span>                : 
+<span class="lineNum">     517 </span><span class="lineCov">              6 :         if (op == '-') {</span>
+<span class="lineNum">     518 </span><span class="lineCov">              4 :             *dest = -(*dest);</span>
+<span class="lineNum">     519 </span>                :         }
+<span class="lineNum">     520 </span><span class="lineCov">              2 :         else if (op == '!')</span>
+<span class="lineNum">     521 </span>                :         {
+<span class="lineNum">     522 </span><span class="lineCov">              2 :             if (dest-&gt;getType() != AnyScalar::ATTRTYPE_BOOL)</span>
+<span class="lineNum">     523 </span><span class="lineNoCov">              0 :                 throw(BadSyntaxException(&quot;Invalid operand for !. Operand must be of type bool.&quot;));</span>
+<span class="lineNum">     524 </span>                : 
+<span class="lineNum">     525 </span><span class="lineCov">              2 :             *dest = -(*dest);</span>
+<span class="lineNum">     526 </span>                :         }
+<span class="lineNum">     527 </span>                :         else {
+<span class="lineNum">     528 </span><span class="lineNoCov">              0 :             assert(op == '+');</span>
+<span class="lineNum">     529 </span>                :         }
+<span class="lineNum">     530 </span>                :         
+<span class="lineNum">     531 </span><span class="lineCov">              6 :         return b;</span>
+<span class="lineNum">     532 </span>                :     }
+<span class="lineNum">     533 </span>                : 
+<span class="lineNum">     534 </span>                :     /// Return the subnode's string with this operator prepended.
+<span class="lineNum">     535 </span><span class="lineCov">              2 :     virtual std::string toString() const</span>
+<span class="lineNum">     536 </span>                :     {
+<span class="lineNum">     537 </span><span class="lineCov">              2 :         return std::string(&quot;(&quot;) + op + &quot; &quot; + operand-&gt;toString() + &quot;)&quot;;</span>
+<span class="lineNum">     538 </span>                :     }
+<span class="lineNum">     539 </span>                : };
+<span class="lineNum">     540 </span>                : 
+<span class="lineNum">     541 </span>                : /// Parse tree node representing a binary operators: +, -, * and / for numeric
+<span class="lineNum">     542 </span>                : /// values. This node has two children.
+<span class="lineNum">     543 </span>                : class PNBinaryArithmExpr : public ParseNode
+<span class="lineNum">     544 </span>                : {
+<span class="lineNum">     545 </span>                : private:
+<span class="lineNum">     546 </span>                :     /// Pointers to the left of the two child parse trees.
+<span class="lineNum">     547 </span>                :     const ParseNode     *left;
+<span class="lineNum">     548 </span>                : 
+<span class="lineNum">     549 </span>                :     /// Pointers to the right of the two child parse trees.
+<span class="lineNum">     550 </span>                :     const ParseNode     *right;
+<span class="lineNum">     551 </span>                : 
+<span class="lineNum">     552 </span>                :     /// Arithmetic operation to perform: left op right.
+<span class="lineNum">     553 </span>                :     /// Further optimization would be to create an extra class for each op
+<span class="lineNum">     554 </span>                :     char        op;
+<span class="lineNum">     555 </span>                : 
+<span class="lineNum">     556 </span>                : public:
+<span class="lineNum">     557 </span>                :     /// Constructor from the parser: both operand subnodes and the operator id.
+<span class="lineNum">     558 </span>                :     PNBinaryArithmExpr(const ParseNode* _left,
+<span class="lineNum">     559 </span>                :                        const ParseNode* _right,
+<span class="lineNum">     560 </span><span class="lineCov">             28 :                        char _op)</span>
+<span class="lineNum">     561 </span>                :         : ParseNode(),
+<span class="lineNum">     562 </span><span class="lineCov">             28 :           left(_left), right(_right), op(_op)</span>
+<span class="lineNum">     563 </span><span class="lineCov">             28 :     { }</span>
+<span class="lineNum">     564 </span>                : 
+<span class="lineNum">     565 </span>                :     /// Recursively delete parse tree.
+<span class="lineNum">     566 </span><span class="lineCov">             28 :     virtual ~PNBinaryArithmExpr()</span>
+<span class="lineNum">     567 </span><span class="lineCov">             28 :     {</span>
+<span class="lineNum">     568 </span><span class="lineCov">             28 :         delete left;</span>
+<span class="lineNum">     569 </span><span class="lineCov">             28 :         delete right;</span>
+<span class="lineNum">     570 </span><span class="lineCov">             28 :     }</span>
+<span class="lineNum">     571 </span>                : 
+<span class="lineNum">     572 </span>                :     /// Applies the operator to the two recursive calculated values. The actual
+<span class="lineNum">     573 </span>                :     /// switching between types is handled by AnyScalar's operators.
+<span class="lineNum">     574 </span><span class="lineCov">              8 :     virtual AnyScalar evaluate(const class SymbolTable &amp;st) const</span>
+<span class="lineNum">     575 </span>                :     {
+<span class="lineNum">     576 </span><span class="lineCov">              8 :         AnyScalar vl = left-&gt;evaluate(st);</span>
+<span class="lineNum">     577 </span><span class="lineCov">              8 :         AnyScalar vr = right-&gt;evaluate(st);</span>
+<span class="lineNum">     578 </span>                : 
+<span class="lineNum">     579 </span><span class="lineCov">              5 :         if (op == '+') {</span>
+<span class="lineNum">     580 </span><span class="lineCov">              3 :             return (vl + vr);</span>
+<span class="lineNum">     581 </span>                :         }
+<span class="lineNum">     582 </span><span class="lineCov">              2 :         else if (op == '-') {</span>
+<span class="lineNum">     583 </span><span class="lineNoCov">              0 :             return (vl - vr);</span>
+<span class="lineNum">     584 </span>                :         }
+<span class="lineNum">     585 </span><span class="lineCov">              2 :         else if (op == '*') {</span>
+<span class="lineNum">     586 </span><span class="lineCov">              1 :             return (vl * vr);</span>
+<span class="lineNum">     587 </span>                :         }
+<span class="lineNum">     588 </span><span class="lineCov">              1 :         else if (op == '/') {</span>
+<span class="lineNum">     589 </span><span class="lineCov">              1 :             return (vl / vr);</span>
+<span class="lineNum">     590 </span>                :         }
+<span class="lineNum">     591 </span>                : 
+<span class="lineNum">     592 </span><span class="lineNoCov">              0 :         assert(0);</span>
+<span class="lineNum">     593 </span><span class="lineNoCov">              0 :         return 0;</span>
+<span class="lineNum">     594 </span>                :     }
+<span class="lineNum">     595 </span>                : 
+<span class="lineNum">     596 </span>                :     /// Returns false because this node isn't always constant. Tries to
+<span class="lineNum">     597 </span>                :     /// calculate a constant subtree's value.
+<span class="lineNum">     598 </span><span class="lineCov">             20 :     virtual bool evaluate_const(AnyScalar *dest) const</span>
+<span class="lineNum">     599 </span>                :     {
+<span class="lineNum">     600 </span><span class="lineCov">             20 :         if (!dest) return false;</span>
+<span class="lineNum">     601 </span>                : 
+<span class="lineNum">     602 </span><span class="lineCov">             12 :         AnyScalar vl(AnyScalar::ATTRTYPE_INVALID), vr(AnyScalar::ATTRTYPE_INVALID);</span>
+<span class="lineNum">     603 </span>                :         
+<span class="lineNum">     604 </span><span class="lineCov">             12 :         bool bl = left-&gt;evaluate_const(&amp;vl);</span>
+<span class="lineNum">     605 </span><span class="lineCov">             12 :         bool br = right-&gt;evaluate_const(&amp;vr);</span>
+<span class="lineNum">     606 </span>                : 
+<span class="lineNum">     607 </span><span class="lineCov">             12 :         if (op == '+') {</span>
+<span class="lineNum">     608 </span><span class="lineCov">              7 :             *dest = vl + vr;</span>
+<span class="lineNum">     609 </span>                :         }
+<span class="lineNum">     610 </span><span class="lineCov">              5 :         else if (op == '-') {</span>
+<span class="lineNum">     611 </span><span class="lineCov">              1 :             *dest = vl - vr;</span>
+<span class="lineNum">     612 </span>                :         }
+<span class="lineNum">     613 </span><span class="lineCov">              4 :         else if (op == '*') {</span>
+<span class="lineNum">     614 </span><span class="lineCov">              4 :             *dest = vl * vr;</span>
+<span class="lineNum">     615 </span>                :         }
+<span class="lineNum">     616 </span><span class="lineNoCov">              0 :         else if (op == '/') {</span>
+<span class="lineNum">     617 </span><span class="lineNoCov">              0 :             *dest = vl / vr;</span>
+<span class="lineNum">     618 </span>                :         }
+<span class="lineNum">     619 </span>                : 
+<span class="lineNum">     620 </span><span class="lineCov">             12 :         return (bl &amp;&amp; br);</span>
+<span class="lineNum">     621 </span>                :     }
+<span class="lineNum">     622 </span>                : 
+<span class="lineNum">     623 </span>                :     /// String representing (operandA op operandB)
+<span class="lineNum">     624 </span><span class="lineCov">             16 :     virtual std::string toString() const</span>
+<span class="lineNum">     625 </span>                :     {
+<span class="lineNum">     626 </span><span class="lineCov">             16 :         return std::string(&quot;(&quot;) + left-&gt;toString() + &quot; &quot; + op + &quot; &quot; + right-&gt;toString() + &quot;)&quot;;</span>
+<span class="lineNum">     627 </span>                :     }
+<span class="lineNum">     628 </span>                : };
+<span class="lineNum">     629 </span>                : 
+<span class="lineNum">     630 </span>                : /// Parse tree node handling type conversions within the tree.
+<span class="lineNum">     631 </span>                : class PNCastExpr : public ParseNode
+<span class="lineNum">     632 </span>                : {
+<span class="lineNum">     633 </span>                : private:
+<span class="lineNum">     634 </span>                :     /// Child tree of which the return value should be casted.
+<span class="lineNum">     635 </span>                :     const ParseNode*    operand;
+<span class="lineNum">     636 </span>                : 
+<span class="lineNum">     637 </span>                :     /// AnyScalar type to cast the value to.
+<span class="lineNum">     638 </span>                :     AnyScalar::attrtype_t       type;
+<span class="lineNum">     639 </span>                : 
+<span class="lineNum">     640 </span>                : public:
+<span class="lineNum">     641 </span>                :     /// Constructor from the parser: operand subnode and the cast type as
+<span class="lineNum">     642 </span>                :     /// recognized by AnyScalar.
+<span class="lineNum">     643 </span><span class="lineCov">              4 :     PNCastExpr(const ParseNode* _operand, AnyScalar::attrtype_t _type)</span>
+<span class="lineNum">     644 </span>                :         : ParseNode(),
+<span class="lineNum">     645 </span><span class="lineCov">              4 :           operand(_operand), type(_type)</span>
+<span class="lineNum">     646 </span><span class="lineCov">              4 :     { }</span>
+<span class="lineNum">     647 </span>                : 
+<span class="lineNum">     648 </span>                :     /// Recursively delete parse tree.
+<span class="lineNum">     649 </span><span class="lineCov">              4 :     virtual ~PNCastExpr()</span>
+<span class="lineNum">     650 </span><span class="lineCov">              4 :     {</span>
+<span class="lineNum">     651 </span><span class="lineCov">              4 :         delete operand;</span>
+<span class="lineNum">     652 </span><span class="lineCov">              4 :     }</span>
+<span class="lineNum">     653 </span>                : 
+<span class="lineNum">     654 </span>                :     /// Recursive calculation of the value and subsequent casting via
+<span class="lineNum">     655 </span>                :     /// AnyScalar's convertType method.
+<span class="lineNum">     656 </span><span class="lineCov">              1 :     virtual AnyScalar evaluate(const class SymbolTable &amp;st) const</span>
+<span class="lineNum">     657 </span>                :     {
+<span class="lineNum">     658 </span><span class="lineCov">              1 :         AnyScalar val = operand-&gt;evaluate(st);</span>
+<span class="lineNum">     659 </span><span class="lineCov">              1 :         val.convertType(type);</span>
+<span class="lineNum">     660 </span><span class="lineNoCov">              0 :         return val;</span>
+<span class="lineNum">     661 </span>                :     }
+<span class="lineNum">     662 </span>                : 
+<span class="lineNum">     663 </span>                :     /// Returns false because this node isn't always constant.
+<span class="lineNum">     664 </span><span class="lineCov">              2 :     virtual bool evaluate_const(AnyScalar *dest) const</span>
+<span class="lineNum">     665 </span>                :     {
+<span class="lineNum">     666 </span><span class="lineCov">              2 :         if (!dest) return false;</span>
+<span class="lineNum">     667 </span>                : 
+<span class="lineNum">     668 </span><span class="lineCov">              2 :         bool b = operand-&gt;evaluate_const(dest);</span>
+<span class="lineNum">     669 </span><span class="lineCov">              2 :         dest-&gt;convertType(type);</span>
+<span class="lineNum">     670 </span><span class="lineCov">              2 :         return b;</span>
+<span class="lineNum">     671 </span>                :     }
+<span class="lineNum">     672 </span>                : 
+<span class="lineNum">     673 </span>                :     /// c-like representation of the cast
+<span class="lineNum">     674 </span><span class="lineCov">              2 :     virtual std::string toString() const</span>
+<span class="lineNum">     675 </span>                :     {
+<span class="lineNum">     676 </span><span class="lineCov">              2 :         return std::string(&quot;((&quot;) + AnyScalar::getTypeString(type) + &quot;)&quot; + operand-&gt;toString() + &quot;)&quot;;</span>
+<span class="lineNum">     677 </span>                :     }
+<span class="lineNum">     678 </span>                : };
+<span class="lineNum">     679 </span>                : 
+<span class="lineNum">     680 </span>                : /// Parse tree node representing a binary comparison operator: ==, =, !=, &lt;, &gt;,
+<span class="lineNum">     681 </span>                : /// &gt;=, &lt;=, =&gt;, =&lt;. This node has two children.
+<span class="lineNum">     682 </span>                : class PNBinaryComparisonExpr : public ParseNode
+<span class="lineNum">     683 </span>                : {
+<span class="lineNum">     684 </span>                : private:
+<span class="lineNum">     685 </span>                :     /// Pointers to the left of the two child parse trees.
+<span class="lineNum">     686 </span>                :     const ParseNode     *left;
+<span class="lineNum">     687 </span>                : 
+<span class="lineNum">     688 </span>                :     /// Pointers to the right of the two child parse trees.
+<span class="lineNum">     689 </span>                :     const ParseNode     *right;
+<span class="lineNum">     690 </span>                : 
+<span class="lineNum">     691 </span>                :     /// Comparison operation to perform: left op right
+<span class="lineNum">     692 </span>                :     enum { EQUAL, NOTEQUAL, LESS, GREATER, LESSEQUAL, GREATEREQUAL } op;
+<span class="lineNum">     693 </span>                : 
+<span class="lineNum">     694 </span>                :     /// String saved for toString()
+<span class="lineNum">     695 </span>                :     std::string         opstr;
+<span class="lineNum">     696 </span>                : 
+<span class="lineNum">     697 </span>                : public:
+<span class="lineNum">     698 </span>                :     /// Constructor from the parser: both operand subnodes and the operator id.
+<span class="lineNum">     699 </span>                :     PNBinaryComparisonExpr(const ParseNode* _left,
+<span class="lineNum">     700 </span>                :                            const ParseNode* _right,
+<span class="lineNum">     701 </span><span class="lineCov">             17 :                            std::string _op)</span>
+<span class="lineNum">     702 </span>                :         : ParseNode(),
+<span class="lineNum">     703 </span><span class="lineCov">             17 :           left(_left), right(_right), opstr(_op)</span>
+<span class="lineNum">     704 </span>                :     {
+<span class="lineNum">     705 </span><span class="lineCov">             17 :         if (_op == &quot;==&quot; || _op == &quot;=&quot;)</span>
+<span class="lineNum">     706 </span><span class="lineCov">              7 :             op = EQUAL;</span>
+<span class="lineNum">     707 </span><span class="lineCov">             10 :         else if (_op == &quot;!=&quot;)</span>
+<span class="lineNum">     708 </span><span class="lineCov">              1 :             op = NOTEQUAL;</span>
+<span class="lineNum">     709 </span><span class="lineCov">              9 :         else if (_op == &quot;&lt;&quot;)</span>
+<span class="lineNum">     710 </span><span class="lineCov">              1 :             op = LESS;</span>
+<span class="lineNum">     711 </span><span class="lineCov">              8 :         else if (_op == &quot;&gt;&quot;)</span>
+<span class="lineNum">     712 </span><span class="lineCov">              2 :             op = GREATER;</span>
+<span class="lineNum">     713 </span><span class="lineCov">              6 :         else if (_op == &quot;&lt;=&quot; || _op == &quot;=&lt;&quot;)</span>
+<span class="lineNum">     714 </span><span class="lineCov">              3 :             op = LESSEQUAL;</span>
+<span class="lineNum">     715 </span><span class="lineCov">              3 :         else if (_op == &quot;&gt;=&quot; || _op == &quot;=&gt;&quot;)</span>
+<span class="lineNum">     716 </span><span class="lineCov">              3 :             op = GREATEREQUAL;</span>
+<span class="lineNum">     717 </span>                :         else
+<span class="lineNum">     718 </span><span class="lineNoCov">              0 :             throw(BadSyntaxException(&quot;Program Error: invalid binary comparision operator.&quot;));</span>
+<span class="lineNum">     719 </span><span class="lineCov">             17 :     }</span>
+<span class="lineNum">     720 </span>                : 
+<span class="lineNum">     721 </span>                :     /// Recursively delete parse tree.
+<span class="lineNum">     722 </span><span class="lineCov">             17 :     virtual ~PNBinaryComparisonExpr()</span>
+<span class="lineNum">     723 </span><span class="lineCov">             17 :     {</span>
+<span class="lineNum">     724 </span><span class="lineCov">             17 :         delete left;</span>
+<span class="lineNum">     725 </span><span class="lineCov">             17 :         delete right;</span>
+<span class="lineNum">     726 </span><span class="lineCov">             17 :     }</span>
+<span class="lineNum">     727 </span>                : 
+<span class="lineNum">     728 </span>                :     /// Applies the operator to the two recursive calculated values. The actual
+<span class="lineNum">     729 </span>                :     /// switching between types is handled by AnyScalar's operators. This
+<span class="lineNum">     730 </span>                :     /// result type of this processing node is always bool.
+<span class="lineNum">     731 </span><span class="lineCov">              2 :     virtual AnyScalar evaluate(const class SymbolTable &amp;st) const</span>
+<span class="lineNum">     732 </span>                :     {
+<span class="lineNum">     733 </span><span class="lineCov">              2 :         AnyScalar vl = left-&gt;evaluate(st);</span>
+<span class="lineNum">     734 </span><span class="lineCov">              2 :         AnyScalar vr = right-&gt;evaluate(st);</span>
+<span class="lineNum">     735 </span>                : 
+<span class="lineNum">     736 </span><span class="lineCov">              2 :         AnyScalar dest(AnyScalar::ATTRTYPE_BOOL);</span>
+<span class="lineNum">     737 </span>                : 
+<span class="lineNum">     738 </span><span class="lineCov">              2 :         switch(op)</span>
+<span class="lineNum">     739 </span>                :         {
+<span class="lineNum">     740 </span>                :         case EQUAL:
+<span class="lineNum">     741 </span><span class="lineCov">              2 :             dest = AnyScalar( vl.equal_to(vr) );</span>
+<span class="lineNum">     742 </span><span class="lineCov">              2 :             break;</span>
+<span class="lineNum">     743 </span>                : 
+<span class="lineNum">     744 </span>                :         case NOTEQUAL:
+<span class="lineNum">     745 </span><span class="lineNoCov">              0 :             dest = AnyScalar( vl.not_equal_to(vr) );</span>
+<span class="lineNum">     746 </span><span class="lineNoCov">              0 :             break;</span>
+<span class="lineNum">     747 </span>                : 
+<span class="lineNum">     748 </span>                :         case LESS:
+<span class="lineNum">     749 </span><span class="lineNoCov">              0 :             dest = AnyScalar( vl.less(vr) );</span>
+<span class="lineNum">     750 </span><span class="lineNoCov">              0 :             break;</span>
+<span class="lineNum">     751 </span>                : 
+<span class="lineNum">     752 </span>                :         case GREATER:
+<span class="lineNum">     753 </span><span class="lineNoCov">              0 :             dest = AnyScalar( vl.greater(vr) );</span>
+<span class="lineNum">     754 </span><span class="lineNoCov">              0 :             break;</span>
+<span class="lineNum">     755 </span>                : 
+<span class="lineNum">     756 </span>                :         case LESSEQUAL:
+<span class="lineNum">     757 </span><span class="lineNoCov">              0 :             dest = AnyScalar( vl.less_equal(vr) );</span>
+<span class="lineNum">     758 </span><span class="lineNoCov">              0 :             break;</span>
+<span class="lineNum">     759 </span>                : 
+<span class="lineNum">     760 </span>                :         case GREATEREQUAL:
+<span class="lineNum">     761 </span><span class="lineNoCov">              0 :             dest = AnyScalar( vl.greater_equal(vr) );</span>
+<span class="lineNum">     762 </span><span class="lineNoCov">              0 :             break;</span>
+<span class="lineNum">     763 </span>                : 
+<span class="lineNum">     764 </span>                :         default:
+<span class="lineNum">     765 </span><span class="lineNoCov">              0 :             assert(0);</span>
+<span class="lineNum">     766 </span>                :         }
+<span class="lineNum">     767 </span>                : 
+<span class="lineNum">     768 </span><span class="lineCov">              2 :         return dest;</span>
+<span class="lineNum">     769 </span>                :     }
+<span class="lineNum">     770 </span>                : 
+<span class="lineNum">     771 </span>                :     /// Returns false because this node isn't always constant.
+<span class="lineNum">     772 </span><span class="lineCov">             13 :     virtual bool evaluate_const(AnyScalar *dest) const</span>
+<span class="lineNum">     773 </span>                :     {
+<span class="lineNum">     774 </span><span class="lineCov">             13 :         if (!dest) return false;</span>
+<span class="lineNum">     775 </span>                : 
+<span class="lineNum">     776 </span><span class="lineCov">             13 :         AnyScalar vl(AnyScalar::ATTRTYPE_INVALID), vr(AnyScalar::ATTRTYPE_INVALID);</span>
+<span class="lineNum">     777 </span>                :         
+<span class="lineNum">     778 </span><span class="lineCov">             13 :         bool bl = left-&gt;evaluate_const(&amp;vl);</span>
+<span class="lineNum">     779 </span><span class="lineCov">             13 :         bool br = right-&gt;evaluate_const(&amp;vr);</span>
+<span class="lineNum">     780 </span>                : 
+<span class="lineNum">     781 </span><span class="lineCov">             13 :         switch(op)</span>
+<span class="lineNum">     782 </span>                :         {
+<span class="lineNum">     783 </span>                :         case EQUAL:
+<span class="lineNum">     784 </span><span class="lineCov">              3 :             *dest = AnyScalar( vl.equal_to(vr) );</span>
+<span class="lineNum">     785 </span><span class="lineCov">              3 :             break;</span>
+<span class="lineNum">     786 </span>                : 
+<span class="lineNum">     787 </span>                :         case NOTEQUAL:
+<span class="lineNum">     788 </span><span class="lineCov">              1 :             *dest = AnyScalar( vl.not_equal_to(vr) );</span>
+<span class="lineNum">     789 </span><span class="lineCov">              1 :             break;</span>
+<span class="lineNum">     790 </span>                : 
+<span class="lineNum">     791 </span>                :         case LESS:
+<span class="lineNum">     792 </span><span class="lineCov">              1 :             *dest = AnyScalar( vl.less(vr) );</span>
+<span class="lineNum">     793 </span><span class="lineCov">              1 :             break;</span>
+<span class="lineNum">     794 </span>                : 
+<span class="lineNum">     795 </span>                :         case GREATER:
+<span class="lineNum">     796 </span><span class="lineCov">              2 :             *dest = AnyScalar( vl.greater(vr) );</span>
+<span class="lineNum">     797 </span><span class="lineCov">              2 :             break;</span>
+<span class="lineNum">     798 </span>                : 
+<span class="lineNum">     799 </span>                :         case LESSEQUAL:
+<span class="lineNum">     800 </span><span class="lineCov">              3 :             *dest = AnyScalar( vl.less_equal(vr) );</span>
+<span class="lineNum">     801 </span><span class="lineCov">              3 :             break;</span>
+<span class="lineNum">     802 </span>                : 
+<span class="lineNum">     803 </span>                :         case GREATEREQUAL:
+<span class="lineNum">     804 </span><span class="lineCov">              3 :             *dest = AnyScalar( vl.greater_equal(vr) );</span>
+<span class="lineNum">     805 </span><span class="lineCov">              3 :             break;</span>
+<span class="lineNum">     806 </span>                : 
+<span class="lineNum">     807 </span>                :         default:
+<span class="lineNum">     808 </span><span class="lineNoCov">              0 :             assert(0);</span>
+<span class="lineNum">     809 </span>                :         }
+<span class="lineNum">     810 </span>                : 
+<span class="lineNum">     811 </span><span class="lineCov">             13 :         return (bl &amp;&amp; br);</span>
+<span class="lineNum">     812 </span>                :     }
+<span class="lineNum">     813 </span>                : 
+<span class="lineNum">     814 </span>                :     /// String (operandA op operandB)
+<span class="lineNum">     815 </span><span class="lineCov">              4 :     virtual std::string toString() const</span>
+<span class="lineNum">     816 </span>                :     {
+<span class="lineNum">     817 </span><span class="lineCov">              4 :         return std::string(&quot;(&quot;) + left-&gt;toString() + &quot; &quot; + opstr + &quot; &quot; + right-&gt;toString() + &quot;)&quot;;</span>
+<span class="lineNum">     818 </span>                :     }
+<span class="lineNum">     819 </span>                : };
+<span class="lineNum">     820 </span>                : 
+<span class="lineNum">     821 </span>                : /// Parse tree node representing a binary logic operator: and, or, &amp;&amp;, ||. This
+<span class="lineNum">     822 </span>                : /// node has two children.
+<span class="lineNum">     823 </span>                : class PNBinaryLogicExpr : public ParseNode
+<span class="lineNum">     824 </span>                : {
+<span class="lineNum">     825 </span>                : private:
+<span class="lineNum">     826 </span>                :     /// Pointers to the left of the two child parse trees.
+<span class="lineNum">     827 </span>                :     ParseNode*          left;
+<span class="lineNum">     828 </span>                : 
+<span class="lineNum">     829 </span>                :     /// Pointers to the right of the two child parse trees.
+<span class="lineNum">     830 </span>                :     ParseNode*          right;
+<span class="lineNum">     831 </span>                : 
+<span class="lineNum">     832 </span>                :     /// Comparison operation to perform: left op right
+<span class="lineNum">     833 </span>                :     enum { OP_AND, OP_OR } op;
+<span class="lineNum">     834 </span>                : 
+<span class="lineNum">     835 </span>                : public:
+<span class="lineNum">     836 </span>                :     /// Constructor from the parser: both operand subnodes and the operator id.
+<span class="lineNum">     837 </span>                :     PNBinaryLogicExpr(ParseNode* _left,
+<span class="lineNum">     838 </span>                :                       ParseNode* _right,
+<span class="lineNum">     839 </span><span class="lineCov">             13 :                       std::string _op)</span>
+<span class="lineNum">     840 </span>                :         : ParseNode(),
+<span class="lineNum">     841 </span><span class="lineCov">             13 :           left(_left), right(_right)</span>
+<span class="lineNum">     842 </span>                :     {
+<span class="lineNum">     843 </span><span class="lineCov">             13 :         if (_op == &quot;and&quot; || _op == &quot;&amp;&amp;&quot;)</span>
+<span class="lineNum">     844 </span><span class="lineCov">             10 :             op = OP_AND;</span>
+<span class="lineNum">     845 </span><span class="lineCov">              3 :         else if (_op == &quot;or&quot; || _op == &quot;||&quot;)</span>
+<span class="lineNum">     846 </span><span class="lineCov">              3 :             op = OP_OR;</span>
+<span class="lineNum">     847 </span>                :         else
+<span class="lineNum">     848 </span><span class="lineNoCov">              0 :             throw(BadSyntaxException(&quot;Program Error: invalid binary logic operator.&quot;));</span>
+<span class="lineNum">     849 </span><span class="lineCov">             13 :     }</span>
+<span class="lineNum">     850 </span>                : 
+<span class="lineNum">     851 </span>                :     /// Recursively delete parse tree.
+<span class="lineNum">     852 </span><span class="lineCov">             13 :     virtual ~PNBinaryLogicExpr()</span>
+<span class="lineNum">     853 </span><span class="lineCov">             13 :     {</span>
+<span class="lineNum">     854 </span><span class="lineCov">             13 :         if (left) delete left;</span>
+<span class="lineNum">     855 </span><span class="lineCov">             13 :         if (right) delete right;</span>
+<span class="lineNum">     856 </span><span class="lineCov">             13 :     }</span>
+<span class="lineNum">     857 </span>                : 
+<span class="lineNum">     858 </span>                :     /// Calculate the operator
+<span class="lineNum">     859 </span><span class="lineCov">             13 :     inline bool do_operator(bool left, bool right) const</span>
+<span class="lineNum">     860 </span>                :     {
+<span class="lineNum">     861 </span><span class="lineCov">             13 :         if (op == OP_AND)</span>
+<span class="lineNum">     862 </span><span class="lineCov">             10 :             return left &amp;&amp; right;</span>
+<span class="lineNum">     863 </span><span class="lineCov">              3 :         else if (op == OP_OR)</span>
+<span class="lineNum">     864 </span><span class="lineCov">              3 :             return left || right;</span>
+<span class="lineNum">     865 </span>                :         else
+<span class="lineNum">     866 </span><span class="lineNoCov">              0 :             return false;</span>
+<span class="lineNum">     867 </span>                :     }
+<span class="lineNum">     868 </span>                : 
+<span class="lineNum">     869 </span>                :     /// Return the string of this operator
+<span class="lineNum">     870 </span><span class="lineNoCov">              0 :     inline std::string get_opstr() const</span>
+<span class="lineNum">     871 </span>                :     {
+<span class="lineNum">     872 </span><span class="lineNoCov">              0 :         return (op == OP_AND) ? &quot;&amp;&amp;&quot; : &quot;||&quot;;</span>
+<span class="lineNum">     873 </span>                :     }
+<span class="lineNum">     874 </span>                : 
+<span class="lineNum">     875 </span>                :     /// Applies the operator to the two recursive calculated values. The actual
+<span class="lineNum">     876 </span>                :     /// switching between types is handled by AnyScalar's operators.
+<span class="lineNum">     877 </span><span class="lineNoCov">              0 :     virtual AnyScalar evaluate(const class SymbolTable &amp;st) const</span>
+<span class="lineNum">     878 </span>                :     {
+<span class="lineNum">     879 </span><span class="lineNoCov">              0 :         AnyScalar vl = left-&gt;evaluate(st);</span>
+<span class="lineNum">     880 </span><span class="lineNoCov">              0 :         AnyScalar vr = right-&gt;evaluate(st);</span>
+<span class="lineNum">     881 </span>                : 
+<span class="lineNum">     882 </span>                :         // these should never happen.
+<span class="lineNum">     883 </span><span class="lineNoCov">              0 :         if (vl.getType() != AnyScalar::ATTRTYPE_BOOL)</span>
+<span class="lineNum">     884 </span><span class="lineNoCov">              0 :             throw(BadSyntaxException(std::string(&quot;Invalid left operand for &quot;) + get_opstr() + &quot;. Both operands must be of type bool.&quot;));</span>
+<span class="lineNum">     885 </span><span class="lineNoCov">              0 :         if (vr.getType() != AnyScalar::ATTRTYPE_BOOL)</span>
+<span class="lineNum">     886 </span><span class="lineNoCov">              0 :             throw(BadSyntaxException(std::string(&quot;Invalid right operand for &quot;) + get_opstr() + &quot;. Both operands must be of type bool.&quot;));</span>
+<span class="lineNum">     887 </span>                : 
+<span class="lineNum">     888 </span><span class="lineNoCov">              0 :         int bvl = vl.getInteger();</span>
+<span class="lineNum">     889 </span><span class="lineNoCov">              0 :         int bvr = vr.getInteger();</span>
+<span class="lineNum">     890 </span>                : 
+<span class="lineNum">     891 </span><span class="lineNoCov">              0 :         return AnyScalar( do_operator(bvl, bvr) );</span>
+<span class="lineNum">     892 </span>                :     }
+<span class="lineNum">     893 </span>                : 
+<span class="lineNum">     894 </span>                :     /// Applies the operator to the two recursive calculated const
+<span class="lineNum">     895 </span>                :     /// values. Determining if this node is constant is somewhat more tricky
+<span class="lineNum">     896 </span>                :     /// than with the other parse nodes: AND with a false operand is always
+<span class="lineNum">     897 </span>                :     /// false. OR with a true operand is always true.
+<span class="lineNum">     898 </span><span class="lineCov">             13 :     virtual bool evaluate_const(AnyScalar *dest) const</span>
+<span class="lineNum">     899 </span>                :     {
+<span class="lineNum">     900 </span><span class="lineCov">             13 :         if (!dest) return false; // returns false because this node isn't always constant</span>
+<span class="lineNum">     901 </span>                : 
+<span class="lineNum">     902 </span><span class="lineCov">             13 :         AnyScalar vl(AnyScalar::ATTRTYPE_INVALID), vr(AnyScalar::ATTRTYPE_INVALID);</span>
+<span class="lineNum">     903 </span>                :         
+<span class="lineNum">     904 </span><span class="lineCov">             13 :         bool bl = left-&gt;evaluate_const(&amp;vl);</span>
+<span class="lineNum">     905 </span><span class="lineCov">             13 :         bool br = right-&gt;evaluate_const(&amp;vr);</span>
+<span class="lineNum">     906 </span>                : 
+<span class="lineNum">     907 </span><span class="lineCov">             13 :         if (vl.getType() != AnyScalar::ATTRTYPE_BOOL)</span>
+<span class="lineNum">     908 </span><span class="lineNoCov">              0 :             throw(BadSyntaxException(std::string(&quot;Invalid left operand for &quot;) + get_opstr() + &quot;. Both operands must be of type bool.&quot;));</span>
+<span class="lineNum">     909 </span><span class="lineCov">             13 :         if (vr.getType() != AnyScalar::ATTRTYPE_BOOL)</span>
+<span class="lineNum">     910 </span><span class="lineNoCov">              0 :             throw(BadSyntaxException(std::string(&quot;Invalid right operand for &quot;) + get_opstr() + &quot;. Both operands must be of type bool.&quot;));</span>
+<span class="lineNum">     911 </span>                : 
+<span class="lineNum">     912 </span><span class="lineCov">             13 :         int bvl = vl.getInteger();</span>
+<span class="lineNum">     913 </span><span class="lineCov">             13 :         int bvr = vr.getInteger();</span>
+<span class="lineNum">     914 </span>                : 
+<span class="lineNum">     915 </span><span class="lineCov">             13 :         *dest = AnyScalar( do_operator(bvl, bvr) );</span>
+<span class="lineNum">     916 </span>                : 
+<span class="lineNum">     917 </span><span class="lineCov">             13 :         if (op == OP_AND)</span>
+<span class="lineNum">     918 </span>                :         {
+<span class="lineNum">     919 </span>                :             // true if either both ops are themselves constant, or if either of
+<span class="lineNum">     920 </span>                :             // the ops are constant and evaluates to false.
+<span class="lineNum">     921 </span><span class="lineCov">             23 :             return (bl &amp;&amp; br) || (bl &amp;&amp; !bvl) || (br &amp;&amp; !bvr);</span>
+<span class="lineNum">     922 </span>                :         }
+<span class="lineNum">     923 </span><span class="lineCov">              3 :         else if (op == OP_OR)</span>
+<span class="lineNum">     924 </span>                :         {
+<span class="lineNum">     925 </span>                :             // true if either both ops are themselves constant, or if either of
+<span class="lineNum">     926 </span>                :             // the ops is constant and evaluates to true.
+<span class="lineNum">     927 </span><span class="lineCov">              3 :             return (bl &amp;&amp; br) || (bl &amp;&amp; bvl) || (br &amp;&amp; bvr);</span>
+<span class="lineNum">     928 </span>                :         }
+<span class="lineNum">     929 </span>                :         else {
+<span class="lineNum">     930 </span><span class="lineNoCov">              0 :             assert(0);</span>
+<span class="lineNum">     931 </span>                :             return false;
+<span class="lineNum">     932 </span><span class="lineNoCov">              0 :         }</span>
+<span class="lineNum">     933 </span>                :     }
+<span class="lineNum">     934 </span>                : 
+<span class="lineNum">     935 </span>                :     /// String (operandA op operandB)
+<span class="lineNum">     936 </span><span class="lineNoCov">              0 :     virtual std::string toString() const</span>
+<span class="lineNum">     937 </span>                :     {
+<span class="lineNum">     938 </span><span class="lineNoCov">              0 :         return std::string(&quot;(&quot;) + left-&gt;toString() + &quot; &quot; + get_opstr() + &quot; &quot; + right-&gt;toString() + &quot;)&quot;;</span>
+<span class="lineNum">     939 </span>                :     }
+<span class="lineNum">     940 </span>                : 
+<span class="lineNum">     941 </span>                :     /// Detach left node
+<span class="lineNum">     942 </span><span class="lineNoCov">              0 :     inline ParseNode* detach_left()</span>
+<span class="lineNum">     943 </span>                :     {
+<span class="lineNum">     944 </span><span class="lineNoCov">              0 :         ParseNode *n = left;</span>
+<span class="lineNum">     945 </span><span class="lineNoCov">              0 :         left = NULL;</span>
+<span class="lineNum">     946 </span><span class="lineNoCov">              0 :         return n;</span>
+<span class="lineNum">     947 </span>                :     }
+<span class="lineNum">     948 </span>                : 
+<span class="lineNum">     949 </span>                :     /// Detach right node
+<span class="lineNum">     950 </span><span class="lineNoCov">              0 :     inline ParseNode* detach_right()</span>
+<span class="lineNum">     951 </span>                :     {
+<span class="lineNum">     952 </span><span class="lineNoCov">              0 :         ParseNode *n = right;</span>
+<span class="lineNum">     953 </span><span class="lineNoCov">              0 :         right = NULL;</span>
+<span class="lineNum">     954 </span><span class="lineNoCov">              0 :         return n;</span>
+<span class="lineNum">     955 </span>                :     }
+<span class="lineNum">     956 </span>                : };
+<span class="lineNum">     957 </span>                : 
+<span class="lineNum">     958 </span>                : // *** Functions which translate the resulting parse tree into our expression
+<span class="lineNum">     959 </span>                : // *** tree, simultaneously folding constants.
+<span class="lineNum">     960 </span>                : 
+<span class="lineNum">     961 </span>                : /// Iterator type used by spirit's parsers.
+<span class="lineNum">     962 </span>                : typedef std::string::const_iterator InputIterT;
+<span class="lineNum">     963 </span>                : 
+<span class="lineNum">     964 </span>                : /// Resulting match tree after parsing
+<span class="lineNum">     965 </span>                : typedef tree_match&lt;InputIterT&gt; ParseTreeMatchT;
+<span class="lineNum">     966 </span>                : 
+<span class="lineNum">     967 </span>                : /// The iterator of the match tree used in build_expr()
+<span class="lineNum">     968 </span>                : typedef ParseTreeMatchT::const_tree_iterator TreeIterT;
+<span class="lineNum">     969 </span>                : 
+<span class="lineNum">     970 </span>                : /// Build_expr is the constructor method to create a parse tree from the
+<span class="lineNum">     971 </span>                : /// AST-tree returned by the spirit parser.
+<span class="lineNum">     972 </span><span class="lineCov">            176 : static ParseNode* build_expr(TreeIterT const&amp; i)</span>
+<span class="lineNum">     973 </span>                : {
+<span class="lineNum">     974 </span>                : #ifdef STX_DEBUG_PARSER
+<span class="lineNum">     975 </span>                :     std::cout &lt;&lt; &quot;In build_expr. i-&gt;value = &quot; &lt;&lt;
+<span class="lineNum">     976 </span>                :         std::string(i-&gt;value.begin(), i-&gt;value.end()) &lt;&lt;
+<span class="lineNum">     977 </span>                :         &quot; i-&gt;children.size() = &quot; &lt;&lt; i-&gt;children.size() &lt;&lt; 
+<span class="lineNum">     978 </span>                :         &quot; i-&gt;value.id = &quot; &lt;&lt; i-&gt;value.id().to_long() &lt;&lt; std::endl;
+<span class="lineNum">     979 </span>                : #endif
+<span class="lineNum">     980 </span>                : 
+<span class="lineNum">     981 </span><span class="lineCov">            176 :     switch(i-&gt;value.id().to_long())</span>
+<span class="lineNum">     982 </span>                :     {
+<span class="lineNum">     983 </span>                :     // *** Constant node cases
+<span class="lineNum">     984 </span>                : 
+<span class="lineNum">     985 </span>                :     case boolean_const_id:
+<span class="lineNum">     986 </span>                :     {
+<span class="lineNum">     987 </span>                :         return new PNConstant(AnyScalar::ATTRTYPE_BOOL,
+<span class="lineNum">     988 </span><span class="lineCov">              7 :                               std::string(i-&gt;value.begin(), i-&gt;value.end()));</span>
+<span class="lineNum">     989 </span>                :     }
+<span class="lineNum">     990 </span>                : 
+<span class="lineNum">     991 </span>                :     case integer_const_id:
+<span class="lineNum">     992 </span>                :     {
+<span class="lineNum">     993 </span>                :         return new PNConstant(AnyScalar::ATTRTYPE_INTEGER,
+<span class="lineNum">     994 </span><span class="lineCov">             63 :                               std::string(i-&gt;value.begin(), i-&gt;value.end()));</span>
+<span class="lineNum">     995 </span>                :     }
+<span class="lineNum">     996 </span>                : 
+<span class="lineNum">     997 </span>                :     case long_const_id:
+<span class="lineNum">     998 </span>                :     {
+<span class="lineNum">     999 </span>                :         return new PNConstant(AnyScalar::ATTRTYPE_LONG,
+<span class="lineNum">    1000 </span><span class="lineNoCov">              0 :                               std::string(i-&gt;value.begin(), i-&gt;value.end()));</span>
+<span class="lineNum">    1001 </span>                :     }
+<span class="lineNum">    1002 </span>                : 
+<span class="lineNum">    1003 </span>                :     case double_const_id:
+<span class="lineNum">    1004 </span>                :     {
+<span class="lineNum">    1005 </span>                :         return new PNConstant(AnyScalar::ATTRTYPE_DOUBLE,
+<span class="lineNum">    1006 </span><span class="lineCov">             10 :                               std::string(i-&gt;value.begin(), i-&gt;value.end()));</span>
+<span class="lineNum">    1007 </span>                :     }
+<span class="lineNum">    1008 </span>                : 
+<span class="lineNum">    1009 </span>                :     case string_const_id:
+<span class="lineNum">    1010 </span>                :     {
+<span class="lineNum">    1011 </span>                :         return new PNConstant(AnyScalar::ATTRTYPE_STRING,
+<span class="lineNum">    1012 </span><span class="lineCov">              6 :                               std::string(i-&gt;value.begin(), i-&gt;value.end()));</span>
+<span class="lineNum">    1013 </span>                :     }
+<span class="lineNum">    1014 </span>                : 
+<span class="lineNum">    1015 </span>                :     // *** Arithmetic node cases
+<span class="lineNum">    1016 </span>                : 
+<span class="lineNum">    1017 </span>                :     case unary_expr_id:
+<span class="lineNum">    1018 </span>                :     {
+<span class="lineNum">    1019 </span><span class="lineCov">              8 :         char arithop = *i-&gt;value.begin();</span>
+<span class="lineNum">    1020 </span><span class="lineCov">              8 :         assert(i-&gt;children.size() == 1);</span>
+<span class="lineNum">    1021 </span>                : 
+<span class="lineNum">    1022 </span><span class="lineCov">              8 :         const ParseNode *val = build_expr(i-&gt;children.begin());</span>
+<span class="lineNum">    1023 </span>                : 
+<span class="lineNum">    1024 </span><span class="lineCov">              8 :         if (val-&gt;evaluate_const(NULL))</span>
+<span class="lineNum">    1025 </span>                :         {
+<span class="lineNum">    1026 </span>                :             // construct a constant node
+<span class="lineNum">    1027 </span><span class="lineCov">              6 :             PNUnaryArithmExpr tmpnode(val, arithop);</span>
+<span class="lineNum">    1028 </span><span class="lineCov">              6 :             AnyScalar constval(AnyScalar::ATTRTYPE_INVALID);</span>
+<span class="lineNum">    1029 </span>                : 
+<span class="lineNum">    1030 </span><span class="lineCov">              6 :             tmpnode.evaluate_const(&amp;constval);</span>
+<span class="lineNum">    1031 </span>                : 
+<span class="lineNum">    1032 </span><span class="lineCov">              6 :             return new PNConstant(constval);</span>
+<span class="lineNum">    1033 </span>                :         }
+<span class="lineNum">    1034 </span>                :         else
+<span class="lineNum">    1035 </span>                :         {
+<span class="lineNum">    1036 </span>                :             // calculation node
+<span class="lineNum">    1037 </span><span class="lineCov">              2 :             return new PNUnaryArithmExpr(val, arithop);</span>
+<span class="lineNum">    1038 </span>                :         }
+<span class="lineNum">    1039 </span>                :     }
+<span class="lineNum">    1040 </span>                : 
+<span class="lineNum">    1041 </span>                :     case add_expr_id:
+<span class="lineNum">    1042 </span>                :     case mul_expr_id:
+<span class="lineNum">    1043 </span>                :     {
+<span class="lineNum">    1044 </span><span class="lineCov">             28 :         char arithop = *i-&gt;value.begin();</span>
+<span class="lineNum">    1045 </span><span class="lineCov">             28 :         assert(i-&gt;children.size() == 2);</span>
+<span class="lineNum">    1046 </span>                : 
+<span class="lineNum">    1047 </span>                :         // auto_ptr needed because of possible parse exceptions in build_expr.
+<span class="lineNum">    1048 </span>                : 
+<span class="lineNum">    1049 </span><span class="lineCov">             28 :         std::auto_ptr&lt;const ParseNode&gt; left( build_expr(i-&gt;children.begin()) );</span>
+<span class="lineNum">    1050 </span><span class="lineCov">             28 :         std::auto_ptr&lt;const ParseNode&gt; right( build_expr(i-&gt;children.begin()+1) );</span>
+<span class="lineNum">    1051 </span>                : 
+<span class="lineNum">    1052 </span><span class="lineCov">             28 :         if (left-&gt;evaluate_const(NULL) &amp;&amp; right-&gt;evaluate_const(NULL))</span>
+<span class="lineNum">    1053 </span>                :         {
+<span class="lineNum">    1054 </span>                :             // construct a constant node
+<span class="lineNum">    1055 </span><span class="lineCov">             12 :             PNBinaryArithmExpr tmpnode(left.release(), right.release(), arithop);</span>
+<span class="lineNum">    1056 </span><span class="lineCov">             12 :             AnyScalar both(AnyScalar::ATTRTYPE_INVALID);</span>
+<span class="lineNum">    1057 </span>                : 
+<span class="lineNum">    1058 </span><span class="lineCov">             12 :             tmpnode.evaluate_const(&amp;both);</span>
+<span class="lineNum">    1059 </span>                : 
+<span class="lineNum">    1060 </span>                :             // left and right are deleted by tmpnode's deconstructor
+<span class="lineNum">    1061 </span>                : 
+<span class="lineNum">    1062 </span><span class="lineCov">             40 :             return new PNConstant(both);</span>
+<span class="lineNum">    1063 </span>                :         }
+<span class="lineNum">    1064 </span>                :         else
+<span class="lineNum">    1065 </span>                :         {
+<span class="lineNum">    1066 </span>                :             // calculation node
+<span class="lineNum">    1067 </span><span class="lineCov">             16 :             return new PNBinaryArithmExpr(left.release(), right.release(), arithop);</span>
+<span class="lineNum">    1068 </span><span class="lineNoCov">              0 :         }</span>
+<span class="lineNum">    1069 </span>                :     }
+<span class="lineNum">    1070 </span>                : 
+<span class="lineNum">    1071 </span>                :     // *** Cast node case
+<span class="lineNum">    1072 </span>                : 
+<span class="lineNum">    1073 </span>                :     case cast_spec_id:
+<span class="lineNum">    1074 </span>                :     {
+<span class="lineNum">    1075 </span><span class="lineCov">              4 :         assert(i-&gt;children.size() == 1);</span>
+<span class="lineNum">    1076 </span>                : 
+<span class="lineNum">    1077 </span><span class="lineCov">              4 :         std::string tname(i-&gt;value.begin(), i-&gt;value.end());</span>
+<span class="lineNum">    1078 </span><span class="lineCov">              8 :         AnyScalar::attrtype_t at = AnyScalar::stringToType(tname);</span>
+<span class="lineNum">    1079 </span>                :         
+<span class="lineNum">    1080 </span><span class="lineCov">              4 :         const ParseNode *val = build_expr(i-&gt;children.begin());</span>
+<span class="lineNum">    1081 </span>                : 
+<span class="lineNum">    1082 </span><span class="lineCov">              4 :         if (val-&gt;evaluate_const(NULL))</span>
+<span class="lineNum">    1083 </span>                :         {
+<span class="lineNum">    1084 </span>                :             // construct a constant node
+<span class="lineNum">    1085 </span><span class="lineCov">              2 :             PNCastExpr tmpnode(val, at);</span>
+<span class="lineNum">    1086 </span>                : 
+<span class="lineNum">    1087 </span><span class="lineCov">              2 :             AnyScalar constval(AnyScalar::ATTRTYPE_INVALID);</span>
+<span class="lineNum">    1088 </span>                : 
+<span class="lineNum">    1089 </span><span class="lineCov">              2 :             tmpnode.evaluate_const(&amp;constval);</span>
+<span class="lineNum">    1090 </span>                : 
+<span class="lineNum">    1091 </span><span class="lineCov">              6 :             return new PNConstant(constval);</span>
+<span class="lineNum">    1092 </span>                :         }
+<span class="lineNum">    1093 </span>                :         else
+<span class="lineNum">    1094 </span>                :         {
+<span class="lineNum">    1095 </span><span class="lineCov">              2 :             return new PNCastExpr(val, at);</span>
+<span class="lineNum">    1096 </span><span class="lineNoCov">              0 :         }</span>
+<span class="lineNum">    1097 </span>                :     }
+<span class="lineNum">    1098 </span>                : 
+<span class="lineNum">    1099 </span>                :     // *** Binary Comparison Operator
+<span class="lineNum">    1100 </span>                : 
+<span class="lineNum">    1101 </span>                :     case comp_expr_id:
+<span class="lineNum">    1102 </span>                :     {
+<span class="lineNum">    1103 </span><span class="lineCov">             17 :         assert(i-&gt;children.size() == 2);</span>
+<span class="lineNum">    1104 </span>                : 
+<span class="lineNum">    1105 </span><span class="lineCov">             17 :         std::string arithop(i-&gt;value.begin(), i-&gt;value.end());</span>
+<span class="lineNum">    1106 </span>                : 
+<span class="lineNum">    1107 </span>                :         // we need auto_ptr because of possible parse exceptions in build_expr.
+<span class="lineNum">    1108 </span>                : 
+<span class="lineNum">    1109 </span><span class="lineCov">             34 :         std::auto_ptr&lt;const ParseNode&gt; left( build_expr(i-&gt;children.begin()) );</span>
+<span class="lineNum">    1110 </span><span class="lineCov">             17 :         std::auto_ptr&lt;const ParseNode&gt; right( build_expr(i-&gt;children.begin()+1) );</span>
+<span class="lineNum">    1111 </span>                : 
+<span class="lineNum">    1112 </span><span class="lineCov">             17 :         if (left-&gt;evaluate_const(NULL) &amp;&amp; right-&gt;evaluate_const(NULL))</span>
+<span class="lineNum">    1113 </span>                :         {
+<span class="lineNum">    1114 </span>                :             // construct a constant node
+<span class="lineNum">    1115 </span><span class="lineCov">             13 :             PNBinaryComparisonExpr tmpnode(left.release(), right.release(), arithop);</span>
+<span class="lineNum">    1116 </span><span class="lineCov">             13 :             AnyScalar both(AnyScalar::ATTRTYPE_INVALID);</span>
+<span class="lineNum">    1117 </span>                : 
+<span class="lineNum">    1118 </span><span class="lineCov">             13 :             tmpnode.evaluate_const(&amp;both);</span>
+<span class="lineNum">    1119 </span>                : 
+<span class="lineNum">    1120 </span>                :             // left and right are deleted by tmpnode's deconstructor
+<span class="lineNum">    1121 </span>                : 
+<span class="lineNum">    1122 </span><span class="lineCov">             30 :             return new PNConstant(both);</span>
+<span class="lineNum">    1123 </span>                :         }
+<span class="lineNum">    1124 </span>                :         else
+<span class="lineNum">    1125 </span>                :         {
+<span class="lineNum">    1126 </span>                :             // calculation node
+<span class="lineNum">    1127 </span><span class="lineCov">              4 :             return new PNBinaryComparisonExpr(left.release(), right.release(), arithop);</span>
+<span class="lineNum">    1128 </span><span class="lineNoCov">              0 :         }</span>
+<span class="lineNum">    1129 </span>                :     }
+<span class="lineNum">    1130 </span>                : 
+<span class="lineNum">    1131 </span>                :     // *** Binary Logic Operator
+<span class="lineNum">    1132 </span>                : 
+<span class="lineNum">    1133 </span>                :     case and_expr_id:
+<span class="lineNum">    1134 </span>                :     case or_expr_id:
+<span class="lineNum">    1135 </span>                :     {
+<span class="lineNum">    1136 </span><span class="lineCov">             13 :         assert(i-&gt;children.size() == 2);</span>
+<span class="lineNum">    1137 </span>                : 
+<span class="lineNum">    1138 </span><span class="lineCov">             13 :         std::string logicop(i-&gt;value.begin(), i-&gt;value.end());</span>
+<span class="lineNum">    1139 </span><span class="lineCov">             26 :         std::transform(logicop.begin(), logicop.end(), logicop.begin(), tolower);</span>
+<span class="lineNum">    1140 </span>                : 
+<span class="lineNum">    1141 </span>                :         // auto_ptr needed because of possible parse exceptions in build_expr.
+<span class="lineNum">    1142 </span>                : 
+<span class="lineNum">    1143 </span><span class="lineCov">             13 :         std::auto_ptr&lt;ParseNode&gt; left( build_expr(i-&gt;children.begin()) );</span>
+<span class="lineNum">    1144 </span><span class="lineCov">             13 :         std::auto_ptr&lt;ParseNode&gt; right( build_expr(i-&gt;children.begin()+1) );</span>
+<span class="lineNum">    1145 </span>                : 
+<span class="lineNum">    1146 </span><span class="lineCov">             13 :         bool constleft = left-&gt;evaluate_const(NULL);</span>
+<span class="lineNum">    1147 </span><span class="lineCov">             13 :         bool constright = right-&gt;evaluate_const(NULL);</span>
+<span class="lineNum">    1148 </span>                : 
+<span class="lineNum">    1149 </span>                :         // a logical node is constant if one of the two ops is constant. so we
+<span class="lineNum">    1150 </span>                :         // construct a calculation node and check later.
+<span class="lineNum">    1151 </span><span class="lineCov">             13 :         std::auto_ptr&lt;PNBinaryLogicExpr&gt; node( new PNBinaryLogicExpr(left.release(), right.release(), logicop) );</span>
+<span class="lineNum">    1152 </span>                : 
+<span class="lineNum">    1153 </span><span class="lineCov">             13 :         if (constleft || constright)</span>
+<span class="lineNum">    1154 </span>                :         {
+<span class="lineNum">    1155 </span><span class="lineCov">             13 :             AnyScalar both(AnyScalar::ATTRTYPE_INVALID);</span>
+<span class="lineNum">    1156 </span>                : 
+<span class="lineNum">    1157 </span>                :             // test if the node is really const.
+<span class="lineNum">    1158 </span><span class="lineCov">             13 :             if (node-&gt;evaluate_const(&amp;both))</span>
+<span class="lineNum">    1159 </span>                :             {
+<span class="lineNum">    1160 </span>                :                 // return a constant node instead, node will be deleted by
+<span class="lineNum">    1161 </span>                :                 // auto_ptr, left,right by node's destructor.
+<span class="lineNum">    1162 </span><span class="lineCov">             26 :                 return new PNConstant(both);</span>
+<span class="lineNum">    1163 </span><span class="lineNoCov">              0 :             }</span>
+<span class="lineNum">    1164 </span>                :         }
+<span class="lineNum">    1165 </span><span class="lineNoCov">              0 :         if (constleft)</span>
+<span class="lineNum">    1166 </span>                :         {
+<span class="lineNum">    1167 </span>                :             // left node is constant, but the evaluation is not
+<span class="lineNum">    1168 </span>                :             // -&gt; only right node is meaningful.
+<span class="lineNum">    1169 </span><span class="lineNoCov">              0 :             return node-&gt;detach_right();</span>
+<span class="lineNum">    1170 </span>                :         }
+<span class="lineNum">    1171 </span><span class="lineNoCov">              0 :         if (constright)</span>
+<span class="lineNum">    1172 </span>                :         {
+<span class="lineNum">    1173 </span>                :             // right node is constant, but the evaluation is not
+<span class="lineNum">    1174 </span>                :             // -&gt; only left node is meaningful.
+<span class="lineNum">    1175 </span><span class="lineNoCov">              0 :             return node-&gt;detach_left();</span>
+<span class="lineNum">    1176 </span>                :         }
+<span class="lineNum">    1177 </span>                : 
+<span class="lineNum">    1178 </span><span class="lineNoCov">              0 :         return node.release();</span>
+<span class="lineNum">    1179 </span>                :     }
+<span class="lineNum">    1180 </span>                : 
+<span class="lineNum">    1181 </span>                :     // *** Variable and Function name place-holder
+<span class="lineNum">    1182 </span>                : 
+<span class="lineNum">    1183 </span>                :     case varname_id:
+<span class="lineNum">    1184 </span>                :     {
+<span class="lineNum">    1185 </span><span class="lineCov">              8 :         assert(i-&gt;children.size() == 0);</span>
+<span class="lineNum">    1186 </span>                : 
+<span class="lineNum">    1187 </span><span class="lineCov">              8 :         std::string varname(i-&gt;value.begin(), i-&gt;value.end());</span>
+<span class="lineNum">    1188 </span>                : 
+<span class="lineNum">    1189 </span><span class="lineCov">             16 :         return new PNVariable(varname);</span>
+<span class="lineNum">    1190 </span>                :     }
+<span class="lineNum">    1191 </span>                : 
+<span class="lineNum">    1192 </span>                :     case function_identifier_id:
+<span class="lineNum">    1193 </span>                :     {
+<span class="lineNum">    1194 </span><span class="lineCov">             12 :         std::string funcname(i-&gt;value.begin(), i-&gt;value.end());</span>
+<span class="lineNum">    1195 </span><span class="lineCov">             24 :         std::vector&lt;const class ParseNode*&gt; paramlist;</span>
+<span class="lineNum">    1196 </span>                : 
+<span class="lineNum">    1197 </span><span class="lineCov">             24 :         if (i-&gt;children.size() &gt; 0)</span>
+<span class="lineNum">    1198 </span>                :         {
+<span class="lineNum">    1199 </span><span class="lineCov">             10 :             TreeIterT const&amp; paramlistchild = i-&gt;children.begin();</span>
+<span class="lineNum">    1200 </span>                : 
+<span class="lineNum">    1201 </span><span class="lineCov">             10 :             if (paramlistchild-&gt;value.id().to_long() == exprlist_id)</span>
+<span class="lineNum">    1202 </span>                :             {
+<span class="lineNum">    1203 </span>                :                 try
+<span class="lineNum">    1204 </span>                :                 {
+<span class="lineNum">    1205 </span><span class="lineCov">             12 :                     for(TreeIterT ci = paramlistchild-&gt;children.begin(); ci != paramlistchild-&gt;children.end(); ++ci)</span>
+<span class="lineNum">    1206 </span>                :                     {
+<span class="lineNum">    1207 </span><span class="lineCov">              8 :                         const ParseNode *pas = build_expr(ci);</span>
+<span class="lineNum">    1208 </span><span class="lineCov">              8 :                         paramlist.push_back(pas);</span>
+<span class="lineNum">    1209 </span>                :                     }
+<span class="lineNum">    1210 </span>                :                 }
+<span class="lineNum">    1211 </span><span class="lineNoCov">              0 :                 catch (...) // need to clean-up</span>
+<span class="lineNum">    1212 </span>                :                 {
+<span class="lineNum">    1213 </span><span class="lineNoCov">              0 :                     for(unsigned int i = 0; i &lt; paramlist.size(); ++i)</span>
+<span class="lineNum">    1214 </span><span class="lineNoCov">              0 :                         delete paramlist[i];</span>
+<span class="lineNum">    1215 </span><span class="lineNoCov">              0 :                     throw;</span>
+<span class="lineNum">    1216 </span>                :                 }
+<span class="lineNum">    1217 </span>                :             }
+<span class="lineNum">    1218 </span>                :             else
+<span class="lineNum">    1219 </span>                :             {
+<span class="lineNum">    1220 </span>                :                 // just one subnode and its not a full expression list
+<span class="lineNum">    1221 </span><span class="lineCov">              6 :                 paramlist.push_back( build_expr(paramlistchild) );</span>
+<span class="lineNum">    1222 </span>                :             }
+<span class="lineNum">    1223 </span>                :         }
+<span class="lineNum">    1224 </span>                : 
+<span class="lineNum">    1225 </span><span class="lineCov">             12 :         return new PNFunction(funcname, paramlist);</span>
+<span class="lineNum">    1226 </span>                :     }
+<span class="lineNum">    1227 </span>                : 
+<span class="lineNum">    1228 </span>                :     default:
+<span class="lineNum">    1229 </span><span class="lineNoCov">              0 :         throw(ExpressionParserException(&quot;Unknown AST parse tree node found. This should never happen.&quot;));</span>
+<span class="lineNum">    1230 </span>                :     }
+<span class="lineNum">    1231 </span>                : }
+<span class="lineNum">    1232 </span>                : 
+<span class="lineNum">    1233 </span>                : /// build_exprlist constructs the vector holding the ParseNode parse tree for
+<span class="lineNum">    1234 </span>                : /// each parse tree.
+<span class="lineNum">    1235 </span><span class="lineNoCov">              0 : ParseTreeList build_exprlist(TreeIterT const &amp;i)</span>
+<span class="lineNum">    1236 </span>                : {
+<span class="lineNum">    1237 </span>                : #ifdef STX_DEBUG_PARSER
+<span class="lineNum">    1238 </span>                :     std::cout &lt;&lt; &quot;In build_exprlist. i-&gt;value = &quot; &lt;&lt;
+<span class="lineNum">    1239 </span>                :         std::string(i-&gt;value.begin(), i-&gt;value.end()) &lt;&lt;
+<span class="lineNum">    1240 </span>                :         &quot; i-&gt;children.size() = &quot; &lt;&lt; i-&gt;children.size() &lt;&lt; 
+<span class="lineNum">    1241 </span>                :         &quot; i-&gt;value.id = &quot; &lt;&lt; i-&gt;value.id().to_long() &lt;&lt; std::endl;
+<span class="lineNum">    1242 </span>                : #endif
+<span class="lineNum">    1243 </span>                : 
+<span class="lineNum">    1244 </span><span class="lineNoCov">              0 :     ParseTreeList ptlist;</span>
+<span class="lineNum">    1245 </span>                : 
+<span class="lineNum">    1246 </span><span class="lineNoCov">              0 :     for(TreeIterT ci = i-&gt;children.begin(); ci != i-&gt;children.end(); ++ci)</span>
+<span class="lineNum">    1247 </span>                :     {
+<span class="lineNum">    1248 </span><span class="lineNoCov">              0 :         ParseNode *vas = build_expr(ci);</span>
+<span class="lineNum">    1249 </span>                : 
+<span class="lineNum">    1250 </span><span class="lineNoCov">              0 :         ptlist.push_back( ParseTree(vas) );</span>
+<span class="lineNum">    1251 </span>                :     }
+<span class="lineNum">    1252 </span>                : 
+<span class="lineNum">    1253 </span><span class="lineNoCov">              0 :     return ptlist;</span>
+<span class="lineNum">    1254 </span>                : }
+<span class="lineNum">    1255 </span>                : 
+<span class="lineNum">    1256 </span>                : /// Uses boost::spirit function to convert the parse tree into a XML document.
+<span class="lineNum">    1257 </span><span class="lineCov">              1 : static inline void tree_dump_xml(std::ostream &amp;os, const std::string &amp;input, const tree_parse_info&lt;InputIterT&gt; &amp;info)</span>
+<span class="lineNum">    1258 </span>                : {
+<span class="lineNum">    1259 </span>                :     // map used by the xml dumper to label the nodes
+<span class="lineNum">    1260 </span>                : 
+<span class="lineNum">    1261 </span><span class="lineCov">              1 :     std::map&lt;parser_id, std::string&gt; rule_names;</span>
+<span class="lineNum">    1262 </span>                : 
+<span class="lineNum">    1263 </span><span class="lineCov">              1 :     rule_names[boolean_const_id] = &quot;boolean_const&quot;;</span>
+<span class="lineNum">    1264 </span><span class="lineCov">              1 :     rule_names[integer_const_id] = &quot;integer_const&quot;;</span>
+<span class="lineNum">    1265 </span><span class="lineCov">              1 :     rule_names[long_const_id] = &quot;long_const&quot;;</span>
+<span class="lineNum">    1266 </span><span class="lineCov">              1 :     rule_names[double_const_id] = &quot;double_const&quot;;</span>
+<span class="lineNum">    1267 </span><span class="lineCov">              1 :     rule_names[string_const_id] = &quot;string_const&quot;;</span>
+<span class="lineNum">    1268 </span><span class="lineCov">              1 :     rule_names[constant_id] = &quot;constant&quot;;</span>
+<span class="lineNum">    1269 </span>                : 
+<span class="lineNum">    1270 </span><span class="lineCov">              1 :     rule_names[function_call_id] = &quot;function_call&quot;;</span>
+<span class="lineNum">    1271 </span><span class="lineCov">              1 :     rule_names[function_identifier_id] = &quot;function_identifier&quot;;</span>
+<span class="lineNum">    1272 </span>                : 
+<span class="lineNum">    1273 </span><span class="lineCov">              1 :     rule_names[varname_id] = &quot;varname&quot;;</span>
+<span class="lineNum">    1274 </span>                : 
+<span class="lineNum">    1275 </span><span class="lineCov">              1 :     rule_names[unary_expr_id] = &quot;unary_expr&quot;;</span>
+<span class="lineNum">    1276 </span><span class="lineCov">              1 :     rule_names[mul_expr_id] = &quot;mul_expr&quot;;</span>
+<span class="lineNum">    1277 </span><span class="lineCov">              1 :     rule_names[add_expr_id] = &quot;add_expr&quot;;</span>
+<span class="lineNum">    1278 </span>                : 
+<span class="lineNum">    1279 </span><span class="lineCov">              1 :     rule_names[cast_expr_id] = &quot;cast_expr&quot;;</span>
+<span class="lineNum">    1280 </span><span class="lineCov">              1 :     rule_names[cast_spec_id] = &quot;cast_spec&quot;;</span>
+<span class="lineNum">    1281 </span>                : 
+<span class="lineNum">    1282 </span><span class="lineCov">              1 :     rule_names[comp_expr_id] = &quot;comp_expr&quot;;</span>
+<span class="lineNum">    1283 </span><span class="lineCov">              1 :     rule_names[and_expr_id] = &quot;and_expr&quot;;</span>
+<span class="lineNum">    1284 </span><span class="lineCov">              1 :     rule_names[or_expr_id] = &quot;or_expr&quot;;</span>
+<span class="lineNum">    1285 </span>                : 
+<span class="lineNum">    1286 </span><span class="lineCov">              1 :     rule_names[expr_id] = &quot;expr&quot;;</span>
+<span class="lineNum">    1287 </span><span class="lineCov">              1 :     rule_names[exprlist_id] = &quot;exprlist&quot;;</span>
+<span class="lineNum">    1288 </span>                : 
+<span class="lineNum">    1289 </span><span class="lineCov">              1 :     tree_to_xml(os, info.trees, input.c_str(), rule_names);</span>
+<span class="lineNum">    1290 </span><span class="lineCov">              1 : }</span>
+<span class="lineNum">    1291 </span>                : 
+<span class="lineNum">    1292 </span>                : } // namespace Grammar
+<span class="lineNum">    1293 </span>                : 
+<span class="lineNum">    1294 </span><span class="lineCov">             35 : const ParseTree parseExpression(const std::string &amp;input)</span>
+<span class="lineNum">    1295 </span>                : {
+<span class="lineNum">    1296 </span>                :     // instance of the grammar
+<span class="lineNum">    1297 </span><span class="lineCov">             35 :     Grammar::ExpressionGrammar g;</span>
+<span class="lineNum">    1298 </span>                : 
+<span class="lineNum">    1299 </span>                : #ifdef STX_DEBUG_PARSER
+<span class="lineNum">    1300 </span>                :     BOOST_SPIRIT_DEBUG_GRAMMAR(g);
+<span class="lineNum">    1301 </span>                : #endif
+<span class="lineNum">    1302 </span>                : 
+<span class="lineNum">    1303 </span>                :     Grammar::tree_parse_info&lt;Grammar::InputIterT&gt; info =
+<span class="lineNum">    1304 </span>                :         boost::spirit::ast_parse(input.begin(), input.end(),
+<span class="lineNum">    1305 </span>                :                                  g.use_parser&lt;0&gt;(),       // use first entry point: expr
+<span class="lineNum">    1306 </span><span class="lineCov">             35 :                                  boost::spirit::space_p);</span>
+<span class="lineNum">    1307 </span>                : 
+<span class="lineNum">    1308 </span><span class="lineCov">             35 :     if (!info.full)</span>
+<span class="lineNum">    1309 </span>                :     {
+<span class="lineNum">    1310 </span><span class="lineCov">              1 :         std::ostringstream oss;</span>
+<span class="lineNum">    1311 </span>                :         oss &lt;&lt; &quot;Syntax error at position &quot;
+<span class="lineNum">    1312 </span>                :             &lt;&lt; static_cast&lt;int&gt;(info.stop - input.begin())
+<span class="lineNum">    1313 </span>                :             &lt;&lt; &quot; near &quot; 
+<span class="lineNum">    1314 </span><span class="lineCov">              1 :             &lt;&lt; std::string(info.stop, input.end());</span>
+<span class="lineNum">    1315 </span>                : 
+<span class="lineNum">    1316 </span><span class="lineCov">              2 :         throw(BadSyntaxException(oss.str()));</span>
+<span class="lineNum">    1317 </span>                :     }
+<span class="lineNum">    1318 </span>                : 
+<span class="lineNum">    1319 </span><span class="lineCov">             34 :     return ParseTree( Grammar::build_expr(info.trees.begin()) );</span>
+<span class="lineNum">    1320 </span>                : }
+<span class="lineNum">    1321 </span>                : 
+<span class="lineNum">    1322 </span><span class="lineCov">              1 : std::string parseExpressionXML(const std::string &amp;input)</span>
+<span class="lineNum">    1323 </span>                : {
+<span class="lineNum">    1324 </span>                :     // instance of the grammar
+<span class="lineNum">    1325 </span><span class="lineCov">              1 :     Grammar::ExpressionGrammar g;</span>
+<span class="lineNum">    1326 </span>                : 
+<span class="lineNum">    1327 </span>                : #ifdef STX_DEBUG_PARSER
+<span class="lineNum">    1328 </span>                :     BOOST_SPIRIT_DEBUG_GRAMMAR(g);
+<span class="lineNum">    1329 </span>                : #endif
+<span class="lineNum">    1330 </span>                : 
+<span class="lineNum">    1331 </span>                :     Grammar::tree_parse_info&lt;Grammar::InputIterT&gt; info =
+<span class="lineNum">    1332 </span>                :         boost::spirit::ast_parse(input.begin(), input.end(),
+<span class="lineNum">    1333 </span>                :                                  g.use_parser&lt;0&gt;(),       // use first entry point: expr
+<span class="lineNum">    1334 </span><span class="lineCov">              1 :                                  boost::spirit::space_p);</span>
+<span class="lineNum">    1335 </span>                : 
+<span class="lineNum">    1336 </span><span class="lineCov">              1 :     if (!info.full)</span>
+<span class="lineNum">    1337 </span>                :     {
+<span class="lineNum">    1338 </span><span class="lineNoCov">              0 :         std::ostringstream oss;</span>
+<span class="lineNum">    1339 </span>                :         oss &lt;&lt; &quot;Syntax error at position &quot;
+<span class="lineNum">    1340 </span>                :             &lt;&lt; static_cast&lt;int&gt;(info.stop - input.begin())
+<span class="lineNum">    1341 </span>                :             &lt;&lt; &quot; near &quot; 
+<span class="lineNum">    1342 </span><span class="lineNoCov">              0 :             &lt;&lt; std::string(info.stop, input.end());</span>
+<span class="lineNum">    1343 </span>                : 
+<span class="lineNum">    1344 </span><span class="lineNoCov">              0 :         throw(BadSyntaxException(oss.str()));</span>
+<span class="lineNum">    1345 </span>                :     }
+<span class="lineNum">    1346 </span>                : 
+<span class="lineNum">    1347 </span><span class="lineCov">              1 :     std::ostringstream oss;</span>
+<span class="lineNum">    1348 </span><span class="lineCov">              1 :     Grammar::tree_dump_xml(oss, input, info);</span>
+<span class="lineNum">    1349 </span><span class="lineCov">              1 :     return oss.str();</span>
+<span class="lineNum">    1350 </span>                : }
+<span class="lineNum">    1351 </span>                : 
+<span class="lineNum">    1352 </span><span class="lineNoCov">              0 : ParseTreeList parseExpressionList(const std::string &amp;input)</span>
+<span class="lineNum">    1353 </span>                : {
+<span class="lineNum">    1354 </span>                :     // instance of the grammar
+<span class="lineNum">    1355 </span><span class="lineNoCov">              0 :     Grammar::ExpressionGrammar g;</span>
+<span class="lineNum">    1356 </span>                : 
+<span class="lineNum">    1357 </span>                : #ifdef STX_DEBUG_PARSER
+<span class="lineNum">    1358 </span>                :     BOOST_SPIRIT_DEBUG_GRAMMAR(g);
+<span class="lineNum">    1359 </span>                : #endif
+<span class="lineNum">    1360 </span>                : 
+<span class="lineNum">    1361 </span>                :     Grammar::tree_parse_info&lt;Grammar::InputIterT&gt; info =
+<span class="lineNum">    1362 </span>                :         boost::spirit::ast_parse(input.begin(), input.end(),
+<span class="lineNum">    1363 </span>                :                                  g.use_parser&lt;1&gt;(),       // use second entry point: exprlist
+<span class="lineNum">    1364 </span><span class="lineNoCov">              0 :                                  boost::spirit::space_p);</span>
+<span class="lineNum">    1365 </span>                : 
+<span class="lineNum">    1366 </span><span class="lineNoCov">              0 :     if (!info.full)</span>
+<span class="lineNum">    1367 </span>                :     {
+<span class="lineNum">    1368 </span><span class="lineNoCov">              0 :         std::ostringstream oss;</span>
+<span class="lineNum">    1369 </span>                :         oss &lt;&lt; &quot;Syntax error at position &quot;
+<span class="lineNum">    1370 </span>                :             &lt;&lt; static_cast&lt;int&gt;(info.stop - input.begin())
+<span class="lineNum">    1371 </span>                :             &lt;&lt; &quot; near &quot; 
+<span class="lineNum">    1372 </span><span class="lineNoCov">              0 :             &lt;&lt; std::string(info.stop, input.end());</span>
+<span class="lineNum">    1373 </span>                : 
+<span class="lineNum">    1374 </span><span class="lineNoCov">              0 :         throw(BadSyntaxException(oss.str()));</span>
+<span class="lineNum">    1375 </span>                :     }
+<span class="lineNum">    1376 </span>                : 
+<span class="lineNum">    1377 </span><span class="lineNoCov">              0 :     return Grammar::build_exprlist(info.trees.begin());</span>
+<span class="lineNum">    1378 </span>                : }
+<span class="lineNum">    1379 </span>                : 
+<span class="lineNum">    1380 </span><span class="lineNoCov">              0 : std::vector&lt;AnyScalar&gt; ParseTreeList::evaluate(const class SymbolTable &amp;st) const</span>
+<span class="lineNum">    1381 </span>                : {
+<span class="lineNum">    1382 </span><span class="lineNoCov">              0 :     std::vector&lt;AnyScalar&gt; vl;</span>
+<span class="lineNum">    1383 </span>                : 
+<span class="lineNum">    1384 </span><span class="lineNoCov">              0 :     for(parent_type::const_iterator i = parent_type::begin(); i != parent_type::end(); i++)</span>
+<span class="lineNum">    1385 </span>                :     {
+<span class="lineNum">    1386 </span><span class="lineNoCov">              0 :         vl.push_back( i-&gt;evaluate(st) );</span>
+<span class="lineNum">    1387 </span>                :     }
+<span class="lineNum">    1388 </span>                : 
+<span class="lineNum">    1389 </span><span class="lineNoCov">              0 :     return vl;</span>
+<span class="lineNum">    1390 </span>                : }
+<span class="lineNum">    1391 </span>                : 
+<span class="lineNum">    1392 </span><span class="lineNoCov">              0 : std::string ParseTreeList::toString() const</span>
+<span class="lineNum">    1393 </span>                : {
+<span class="lineNum">    1394 </span><span class="lineNoCov">              0 :     std::string sl;</span>
+<span class="lineNum">    1395 </span>                : 
+<span class="lineNum">    1396 </span><span class="lineNoCov">              0 :     for(parent_type::const_iterator i = parent_type::begin(); i != parent_type::end(); i++)</span>
+<span class="lineNum">    1397 </span>                :     {
+<span class="lineNum">    1398 </span><span class="lineNoCov">              0 :         if (i != parent_type::begin()) {</span>
+<span class="lineNum">    1399 </span><span class="lineNoCov">              0 :             sl += &quot;, &quot;;</span>
+<span class="lineNum">    1400 </span>                :         }
+<span class="lineNum">    1401 </span>                : 
+<span class="lineNum">    1402 </span><span class="lineNoCov">              0 :         sl += i-&gt;toString();</span>
+<span class="lineNum">    1403 </span>                :     }
+<span class="lineNum">    1404 </span>                : 
+<span class="lineNum">    1405 </span><span class="lineNoCov">              0 :     return sl;</span>
+<span class="lineNum">    1406 </span>                : }
+<span class="lineNum">    1407 </span>                : 
+<span class="lineNum">    1408 </span>                : /// *** SymbolTable, EmptySymbolTable and BasicSymbolTable implementation
+<span class="lineNum">    1409 </span>                : 
+<span class="lineNum">    1410 </span><span class="lineCov">             17 : SymbolTable::~SymbolTable()</span>
+<span class="lineNum">    1411 </span>                : {
+<span class="lineNum">    1412 </span><span class="lineCov">             17 : }</span>
+<span class="lineNum">    1413 </span>                : 
+<span class="lineNum">    1414 </span><span class="lineNoCov">              0 : EmptySymbolTable::~EmptySymbolTable()</span>
+<span class="lineNum">    1415 </span>                : {
+<span class="lineNum">    1416 </span><span class="lineNoCov">              0 : }</span>
+<span class="lineNum">    1417 </span>                : 
+<span class="lineNum">    1418 </span><span class="lineNoCov">              0 : AnyScalar EmptySymbolTable::lookupVariable(const std::string &amp;varname) const</span>
+<span class="lineNum">    1419 </span>                : {
+<span class="lineNum">    1420 </span><span class="lineNoCov">              0 :     throw(UnknownSymbolException(std::string(&quot;Unknown variable &quot;) + varname));</span>
+<span class="lineNum">    1421 </span>                : }
+<span class="lineNum">    1422 </span>                : 
+<span class="lineNum">    1423 </span>                : AnyScalar EmptySymbolTable::processFunction(const std::string &amp;funcname,
+<span class="lineNum">    1424 </span><span class="lineNoCov">              0 :                                             const paramlist_type &amp;) const</span>
+<span class="lineNum">    1425 </span>                : {
+<span class="lineNum">    1426 </span><span class="lineNoCov">              0 :     throw(UnknownSymbolException(std::string(&quot;Unknown function &quot;) + funcname + &quot;()&quot;));</span>
+<span class="lineNum">    1427 </span>                : }
+<span class="lineNum">    1428 </span>                : 
+<span class="lineNum">    1429 </span><span class="lineCov">             17 : BasicSymbolTable::BasicSymbolTable()</span>
+<span class="lineNum">    1430 </span>                : {
+<span class="lineNum">    1431 </span><span class="lineCov">             17 :     addStandardFunctions();</span>
+<span class="lineNum">    1432 </span><span class="lineCov">             17 : }</span>
+<span class="lineNum">    1433 </span>                : 
+<span class="lineNum">    1434 </span><span class="lineCov">             17 : BasicSymbolTable::~BasicSymbolTable()</span>
+<span class="lineNum">    1435 </span>                : {
+<span class="lineNum">    1436 </span><span class="lineCov">             17 : }</span>
+<span class="lineNum">    1437 </span>                : 
+<span class="lineNum">    1438 </span><span class="lineCov">             34 : void BasicSymbolTable::setVariable(const std::string&amp; varname, const AnyScalar &amp;value)</span>
+<span class="lineNum">    1439 </span>                : {
+<span class="lineNum">    1440 </span><span class="lineCov">             34 :     std::string vn = varname;</span>
+<span class="lineNum">    1441 </span><span class="lineCov">             34 :     std::transform(vn.begin(), vn.end(), vn.begin(), tolower);</span>
+<span class="lineNum">    1442 </span>                : 
+<span class="lineNum">    1443 </span><span class="lineCov">             34 :     variablemap[vn] = value;</span>
+<span class="lineNum">    1444 </span><span class="lineCov">             34 : }</span>
+<span class="lineNum">    1445 </span>                : 
+<span class="lineNum">    1446 </span><span class="lineCov">            153 : void BasicSymbolTable::setFunction(const std::string&amp; funcname, int arguments, functionptr_type funcptr)</span>
+<span class="lineNum">    1447 </span>                : {
+<span class="lineNum">    1448 </span><span class="lineCov">            153 :     std::string fn = funcname;</span>
+<span class="lineNum">    1449 </span><span class="lineCov">            153 :     std::transform(fn.begin(), fn.end(), fn.begin(), toupper);</span>
+<span class="lineNum">    1450 </span>                : 
+<span class="lineNum">    1451 </span><span class="lineCov">            153 :     functionmap[fn] = FunctionInfo(arguments, funcptr);</span>
+<span class="lineNum">    1452 </span><span class="lineCov">            153 : }</span>
+<span class="lineNum">    1453 </span>                : 
+<span class="lineNum">    1454 </span><span class="lineNoCov">              0 : void BasicSymbolTable::clearVariables()</span>
+<span class="lineNum">    1455 </span>                : {
+<span class="lineNum">    1456 </span><span class="lineNoCov">              0 :     variablemap.clear();</span>
+<span class="lineNum">    1457 </span><span class="lineNoCov">              0 : }</span>
+<span class="lineNum">    1458 </span>                : 
+<span class="lineNum">    1459 </span><span class="lineNoCov">              0 : void BasicSymbolTable::clearFunctions()</span>
+<span class="lineNum">    1460 </span>                : {
+<span class="lineNum">    1461 </span><span class="lineNoCov">              0 :     functionmap.clear();</span>
+<span class="lineNum">    1462 </span><span class="lineNoCov">              0 : }</span>
+<span class="lineNum">    1463 </span>                : 
+<span class="lineNum">    1464 </span><span class="lineNoCov">              0 : AnyScalar BasicSymbolTable::funcPI(const paramlist_type &amp;)</span>
+<span class="lineNum">    1465 </span>                : {
+<span class="lineNum">    1466 </span><span class="lineNoCov">              0 :     return AnyScalar(3.14159265358979323846);</span>
+<span class="lineNum">    1467 </span>                : }
+<span class="lineNum">    1468 </span>                : 
+<span class="lineNum">    1469 </span><span class="lineNoCov">              0 : AnyScalar BasicSymbolTable::funcSIN(const paramlist_type &amp;paramlist)</span>
+<span class="lineNum">    1470 </span>                : {
+<span class="lineNum">    1471 </span><span class="lineNoCov">              0 :     return AnyScalar( std::sin(paramlist[0].getDouble()) );</span>
+<span class="lineNum">    1472 </span>                : }
+<span class="lineNum">    1473 </span>                : 
+<span class="lineNum">    1474 </span><span class="lineNoCov">              0 : AnyScalar BasicSymbolTable::funcCOS(const paramlist_type &amp;paramlist)</span>
+<span class="lineNum">    1475 </span>                : {
+<span class="lineNum">    1476 </span><span class="lineNoCov">              0 :     return AnyScalar( std::cos(paramlist[0].getDouble()) );</span>
+<span class="lineNum">    1477 </span>                : }
+<span class="lineNum">    1478 </span>                : 
+<span class="lineNum">    1479 </span><span class="lineNoCov">              0 : AnyScalar BasicSymbolTable::funcTAN(const paramlist_type &amp;paramlist)</span>
+<span class="lineNum">    1480 </span>                : {
+<span class="lineNum">    1481 </span><span class="lineNoCov">              0 :     return AnyScalar( std::tan(paramlist[0].getDouble()) );</span>
+<span class="lineNum">    1482 </span>                : }
+<span class="lineNum">    1483 </span>                : 
+<span class="lineNum">    1484 </span><span class="lineNoCov">              0 : AnyScalar BasicSymbolTable::funcABS(const paramlist_type &amp;paramlist)</span>
+<span class="lineNum">    1485 </span>                : {
+<span class="lineNum">    1486 </span><span class="lineNoCov">              0 :     if (paramlist[0].isIntegerType()) {</span>
+<span class="lineNum">    1487 </span><span class="lineNoCov">              0 :         return AnyScalar( std::abs(paramlist[0].getInteger()) );</span>
+<span class="lineNum">    1488 </span>                :     }
+<span class="lineNum">    1489 </span><span class="lineNoCov">              0 :     else if (paramlist[0].isFloatingType()) {</span>
+<span class="lineNum">    1490 </span><span class="lineNoCov">              0 :         return AnyScalar( std::fabs(paramlist[0].getDouble()) );</span>
+<span class="lineNum">    1491 </span>                :     }
+<span class="lineNum">    1492 </span>                :     else {
+<span class="lineNum">    1493 </span><span class="lineNoCov">              0 :         throw(BadFunctionCallException(&quot;Function ABS() takes exactly one parameter&quot;));</span>
+<span class="lineNum">    1494 </span>                :     }
+<span class="lineNum">    1495 </span>                : }
+<span class="lineNum">    1496 </span>                : 
+<span class="lineNum">    1497 </span><span class="lineCov">              1 : AnyScalar BasicSymbolTable::funcEXP(const paramlist_type &amp;paramlist)</span>
+<span class="lineNum">    1498 </span>                : {
+<span class="lineNum">    1499 </span><span class="lineCov">              1 :     return AnyScalar( std::exp(paramlist[0].getDouble()) );</span>
+<span class="lineNum">    1500 </span>                : }
+<span class="lineNum">    1501 </span>                : 
+<span class="lineNum">    1502 </span><span class="lineCov">              1 : AnyScalar BasicSymbolTable::funcLOGN(const paramlist_type &amp;paramlist)</span>
+<span class="lineNum">    1503 </span>                : {
+<span class="lineNum">    1504 </span><span class="lineCov">              1 :     return AnyScalar( std::log(paramlist[0].getDouble()) );</span>
+<span class="lineNum">    1505 </span>                : }
+<span class="lineNum">    1506 </span>                : 
+<span class="lineNum">    1507 </span><span class="lineCov">              1 : AnyScalar BasicSymbolTable::funcPOW(const paramlist_type &amp;paramlist)</span>
+<span class="lineNum">    1508 </span>                : {
+<span class="lineNum">    1509 </span><span class="lineCov">              1 :     return AnyScalar( std::pow(paramlist[0].getDouble(), paramlist[1].getDouble()) );</span>
+<span class="lineNum">    1510 </span>                : }
+<span class="lineNum">    1511 </span>                : 
+<span class="lineNum">    1512 </span><span class="lineCov">              1 : AnyScalar BasicSymbolTable::funcSQRT(const paramlist_type &amp;paramlist)</span>
+<span class="lineNum">    1513 </span>                : {
+<span class="lineNum">    1514 </span><span class="lineCov">              1 :     return AnyScalar( std::sqrt(paramlist[0].getDouble()) );</span>
+<span class="lineNum">    1515 </span>                : }
+<span class="lineNum">    1516 </span>                : 
+<span class="lineNum">    1517 </span><span class="lineCov">             17 : void BasicSymbolTable::addStandardFunctions()</span>
+<span class="lineNum">    1518 </span>                : {
+<span class="lineNum">    1519 </span><span class="lineCov">             17 :     setFunction(&quot;PI&quot;, 0, funcPI);</span>
+<span class="lineNum">    1520 </span>                : 
+<span class="lineNum">    1521 </span><span class="lineCov">             34 :     setFunction(&quot;SIN&quot;, 1, funcSIN);</span>
+<span class="lineNum">    1522 </span><span class="lineCov">             34 :     setFunction(&quot;COS&quot;, 1, funcCOS);</span>
+<span class="lineNum">    1523 </span><span class="lineCov">             34 :     setFunction(&quot;TAN&quot;, 1, funcTAN);</span>
+<span class="lineNum">    1524 </span>                : 
+<span class="lineNum">    1525 </span><span class="lineCov">             34 :     setFunction(&quot;ABS&quot;, 1, funcABS);</span>
+<span class="lineNum">    1526 </span><span class="lineCov">             34 :     setFunction(&quot;EXP&quot;, 1, funcEXP);</span>
+<span class="lineNum">    1527 </span><span class="lineCov">             34 :     setFunction(&quot;LOGN&quot;, 1, funcLOGN);</span>
+<span class="lineNum">    1528 </span><span class="lineCov">             34 :     setFunction(&quot;POW&quot;, 2, funcPOW);</span>
+<span class="lineNum">    1529 </span><span class="lineCov">             34 :     setFunction(&quot;SQRT&quot;, 1, funcSQRT);</span>
+<span class="lineNum">    1530 </span><span class="lineCov">             17 : }</span>
+<span class="lineNum">    1531 </span>                : 
+<span class="lineNum">    1532 </span><span class="lineCov">              4 : AnyScalar BasicSymbolTable::lookupVariable(const std::string &amp;_varname) const</span>
+<span class="lineNum">    1533 </span>                : {
+<span class="lineNum">    1534 </span><span class="lineCov">              4 :     std::string varname = _varname;</span>
+<span class="lineNum">    1535 </span><span class="lineCov">              4 :     std::transform(varname.begin(), varname.end(), varname.begin(), tolower);</span>
+<span class="lineNum">    1536 </span>                : 
+<span class="lineNum">    1537 </span><span class="lineCov">              4 :     variablemap_type::const_iterator fi = variablemap.find(varname);</span>
+<span class="lineNum">    1538 </span>                : 
+<span class="lineNum">    1539 </span><span class="lineCov">              4 :     if (fi != variablemap.end())</span>
+<span class="lineNum">    1540 </span>                :     {
+<span class="lineNum">    1541 </span><span class="lineCov">              3 :         return fi-&gt;second;</span>
+<span class="lineNum">    1542 </span>                :     }
+<span class="lineNum">    1543 </span>                : 
+<span class="lineNum">    1544 </span><span class="lineCov">              3 :     throw(UnknownSymbolException(std::string(&quot;Unknown variable &quot;) + varname));</span>
+<span class="lineNum">    1545 </span>                : }
+<span class="lineNum">    1546 </span>                : 
+<span class="lineNum">    1547 </span>                : AnyScalar BasicSymbolTable::processFunction(const std::string &amp;_funcname,
+<span class="lineNum">    1548 </span><span class="lineCov">              6 :                                             const paramlist_type &amp;paramlist) const</span>
+<span class="lineNum">    1549 </span>                : {
+<span class="lineNum">    1550 </span><span class="lineCov">              6 :     std::string funcname = _funcname;</span>
+<span class="lineNum">    1551 </span><span class="lineCov">              6 :     std::transform(funcname.begin(), funcname.end(), funcname.begin(), toupper);</span>
+<span class="lineNum">    1552 </span>                : 
+<span class="lineNum">    1553 </span><span class="lineCov">              6 :     functionmap_type::const_iterator fi = functionmap.find(funcname);</span>
+<span class="lineNum">    1554 </span>                : 
+<span class="lineNum">    1555 </span><span class="lineCov">              6 :     if (fi != functionmap.end())</span>
+<span class="lineNum">    1556 </span>                :     {
+<span class="lineNum">    1557 </span><span class="lineCov">              5 :         if (fi-&gt;second.arguments &gt;= 0)</span>
+<span class="lineNum">    1558 </span>                :         {
+<span class="lineNum">    1559 </span><span class="lineCov">              5 :             if (fi-&gt;second.arguments == 0 &amp;&amp; paramlist.size() != 0)</span>
+<span class="lineNum">    1560 </span>                :             {
+<span class="lineNum">    1561 </span><span class="lineNoCov">              0 :                 throw(BadFunctionCallException(std::string(&quot;Function &quot;) + funcname + &quot;() does not take any parameter.&quot;));</span>
+<span class="lineNum">    1562 </span>                :             }
+<span class="lineNum">    1563 </span><span class="lineCov">              5 :             else if (fi-&gt;second.arguments == 1 &amp;&amp; paramlist.size() != 1)</span>
+<span class="lineNum">    1564 </span>                :             {
+<span class="lineNum">    1565 </span><span class="lineCov">              1 :                 throw(BadFunctionCallException(std::string(&quot;Function &quot;) + funcname + &quot;() takes exactly one parameter.&quot;));</span>
+<span class="lineNum">    1566 </span>                :             }
+<span class="lineNum">    1567 </span><span class="lineCov">              4 :             else if (static_cast&lt;unsigned int&gt;(fi-&gt;second.arguments) != paramlist.size())</span>
+<span class="lineNum">    1568 </span>                :             {
+<span class="lineNum">    1569 </span><span class="lineNoCov">              0 :                 std::ostringstream oss;</span>
+<span class="lineNum">    1570 </span><span class="lineNoCov">              0 :                 oss &lt;&lt; &quot;Function &quot; &lt;&lt; funcname &lt;&lt; &quot;() takes exactly &quot; &lt;&lt; fi-&gt;second.arguments &lt;&lt; &quot; parameters.&quot;;</span>
+<span class="lineNum">    1571 </span><span class="lineNoCov">              0 :                 throw(BadFunctionCallException(oss.str()));</span>
+<span class="lineNum">    1572 </span>                :             }
+<span class="lineNum">    1573 </span>                :         }
+<span class="lineNum">    1574 </span><span class="lineCov">              4 :         return fi-&gt;second.func(paramlist);</span>
+<span class="lineNum">    1575 </span>                :     }
+<span class="lineNum">    1576 </span>                : 
+<span class="lineNum">    1577 </span><span class="lineCov">              4 :     throw(UnknownSymbolException(std::string(&quot;Unknown function &quot;) + funcname + &quot;()&quot;));</span>
+<span class="lineNum">    1578 </span>                : }
+<span class="lineNum">    1579 </span><span class="lineNoCov">              0 : </span>
+<span class="lineNum">    1580 </span><span class="lineCov">              2 : } // namespace stx</span>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+  <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LTP GCOV extension version 1.4</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

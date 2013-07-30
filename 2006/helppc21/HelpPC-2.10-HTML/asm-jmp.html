@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - jmp</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;JMP - Unconditional Jump</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Usage: &nbsp;JMP &nbsp; &nbsp; target<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Modifies flags: None<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Unconditionally transfers control to "label". &nbsp;Jumps by default<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;are within -32768 to 32767 bytes from the instruction following<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;the jump. &nbsp;NEAR and SHORT jumps cause the IP to be updated while FAR<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;jumps cause CS and IP to be updated.<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Clocks</span><br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Operands &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 808x &nbsp;286 &nbsp; &nbsp;386 &nbsp; 486</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;rel8 &nbsp;(relative) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;15 &nbsp; &nbsp;7+m &nbsp; &nbsp;7+m &nbsp; &nbsp;3<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;rel16 (relative) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;15 &nbsp; &nbsp;7+m &nbsp; &nbsp;7+m &nbsp; &nbsp;3<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;rel32 (relative) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - &nbsp; &nbsp; - &nbsp; &nbsp; 7+m &nbsp; &nbsp;3<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;reg16 (near, register indirect) &nbsp; &nbsp; &nbsp; &nbsp; 11 &nbsp; &nbsp;7+m &nbsp; &nbsp;7+m &nbsp; &nbsp;5<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;reg32 (near, register indirect) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;- &nbsp; &nbsp; - &nbsp; &nbsp; 7+m &nbsp; &nbsp;5<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;mem16 (near, mem indirect) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 18+EA &nbsp;11+m &nbsp;10+m &nbsp; &nbsp;5<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;mem32 (near, mem indirect) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 24+EA &nbsp;15+m &nbsp;10+m &nbsp; &nbsp;5<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ptr16:16 (far, dword immed) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;- &nbsp; &nbsp; - &nbsp; &nbsp;12+m &nbsp; &nbsp;17<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ptr16:16 (far, PM dword immed) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - &nbsp; &nbsp; - &nbsp; &nbsp;27+m &nbsp; &nbsp;19<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ptr16:16 (call gate, same priv.) &nbsp; &nbsp; &nbsp; &nbsp; - &nbsp; &nbsp;38+m &nbsp;45+m &nbsp; &nbsp;32<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ptr16:16 (via TSS) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - &nbsp; 175+m &nbsp; TS &nbsp; 42+TS<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ptr16:16 (via task gate) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - &nbsp; 180+m &nbsp; TS &nbsp; 43+TS<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;mem16:16 (far, indirect) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - &nbsp; &nbsp; - &nbsp; &nbsp;43+m &nbsp; &nbsp;13<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;mem16:16 (far, PM indirect) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;- &nbsp; &nbsp; - &nbsp; &nbsp;31+m &nbsp; &nbsp;18<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;mem16:16 (call gate, same priv.) &nbsp; &nbsp; &nbsp; &nbsp; - &nbsp; &nbsp;41+m &nbsp;49+m &nbsp; &nbsp;31<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;mem16:16 (via TSS) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - &nbsp; 178+m &nbsp;5+TS &nbsp;41+TS<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;mem16:16 (via task gate) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - &nbsp; 183+m &nbsp;5+TS &nbsp;42+TS<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ptr16:32 (far, 6 byte immed) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - &nbsp; &nbsp; - &nbsp; &nbsp;12+m &nbsp; &nbsp;13<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ptr16:32 (far, PM 6 byte immed) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;- &nbsp; &nbsp; - &nbsp; &nbsp;27+m &nbsp; &nbsp;18<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ptr16:32 (call gate, same priv.) &nbsp; &nbsp; &nbsp; &nbsp; - &nbsp; &nbsp; - &nbsp; &nbsp;45+m &nbsp; &nbsp;31<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ptr16:32 (via TSS) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - &nbsp; &nbsp; - &nbsp; &nbsp; TS &nbsp; 42+TS<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ptr16:32 (via task state) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;- &nbsp; &nbsp; - &nbsp; &nbsp; TS &nbsp; 43+TS<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;m16:32 (far, address at dword) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - &nbsp; &nbsp; - &nbsp; &nbsp;43+m &nbsp; &nbsp;13<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;m16:32 (far, address at dword) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - &nbsp; &nbsp; - &nbsp; &nbsp;31+m &nbsp; &nbsp;18<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;m16:32 (call gate, same priv.) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - &nbsp; &nbsp; - &nbsp; &nbsp;49+m &nbsp; &nbsp;31<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;m16:32 (via TSS) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - &nbsp; &nbsp; - &nbsp; &nbsp;5+TS &nbsp;41+TS<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;m16:32 (via task state) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;- &nbsp; &nbsp; - &nbsp; &nbsp;5+TS &nbsp;42+TS<br />
+<br />
+ - see <a href="asm-Instruction_Timing.html">Instruction Timing</a><br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">jmp</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

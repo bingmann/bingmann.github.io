@@ -1,0 +1,25 @@
+/*
+ * $Id: iffile.idl 43 2006-07-13 17:54:16Z sdi2 $
+ */
+#include <types.idl>
+
+exception disk_full {};
+
+[uuid(IF_FILEDIRECTORY_ID)]
+interface IF_FILEDIRECTORY {
+
+	void Create(in objectid_t dir, in string name, out L4_ThreadId_t server,
+			    out objectid_t handle)
+		raises(invalid_objectid, disk_full);
+	
+	void Remove(in objectid_t dir, in objectid_t handle)
+		raises(invalid_objectid, not_found);
+
+	void MkDir(in objectid_t parentdir, in string name)
+		raises(invalid_objectid, disk_full);
+
+	void RmDir(out objectid_t parendir, in objectid_t handle)
+		raises(invalid_objectid, not_found);
+};
+
+

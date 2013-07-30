@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - int 24</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;INT 24 - Critical Error Handler</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;no input data<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;on entry to INT 24:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AH = bit 7 of register AH is set to one if other than disk error<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = bit 7 of register AH is set to zero if disk error<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; AL = failing drive number<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; AH = bits 0-2 indicate affected disk area and read/write status<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474; &nbsp;AH<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472; read = 0, write = 1<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9492;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472; 00=DOS, 01=FAT, 10=DIR, 11=data area<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 0=FAIL not allowed, 1=FAIL allowed<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 0=RETRY not allowed, 1=RETRY allowed<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 0=IGNORE not allowed, 1=IGNORE allowed<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;DI = error code in lower byte<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;BP:SI = pointer to device header control block where additional<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;information about the error can be found<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;on exit:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AL = action code determining exit behavior<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 00 &nbsp;ignore error<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 01 &nbsp;retry<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 02 &nbsp;terminate through <a href="int-int_23.html">INT 23</a><br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 03 &nbsp;fail system call (DOS 3.x+)<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Error Codes in low order byte of DI:</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;00 &nbsp;write protect error<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;01 &nbsp;unknown unit<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;02 &nbsp;drive not ready<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;03 &nbsp;unknown command<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;04 &nbsp;data error (bad CRC)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;05 &nbsp;bad request structure length<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;06 &nbsp;seek error<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;07 &nbsp;unknown media type<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;08 &nbsp;sector not found<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;09 &nbsp;printer out of paper<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0A &nbsp;write fault<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0B &nbsp;read fault<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0C &nbsp;general failure<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Users Stack at Entry to Error Handler:</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;(top of stack)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;IP &nbsp; &nbsp; &nbsp; &nbsp; DOS code next instruction pointer<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;CS<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FLAGS &nbsp; &nbsp; &nbsp;DOS's flags<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;AX -\<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;BX &nbsp; \<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;CX &nbsp; &nbsp;\<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;DX &nbsp; &nbsp; \<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;SI &nbsp; &nbsp; &nbsp;|- User's registers at entry to INT 21 function<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;DI &nbsp; &nbsp; /<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;BP &nbsp; &nbsp;/<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;DS &nbsp; /<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ES -/<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;IP &nbsp; &nbsp; &nbsp; &nbsp; User code next instruction pointer<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;CS<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FLAGS<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- on entry registers are setup for a retry operation<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- user routine must issue an IRET or simulate an IRET<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- <a href="int-int_21_0.html">INT 21,0</a>&nbsp;through <a href="int-int_21_c.html">INT 21,C</a>&nbsp;and <a href="int-int_21_59.html">INT 21,59</a>&nbsp;can safely be invoked<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;from the handler. &nbsp;Other calls may destroy DOS's stack<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- handler must preserve register SS,SP,DS,ES,BX,CX,DX<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- choosing ignore can show side effects, since it causes DOS<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;to continue as if it the call were successful<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- if an improper action code is specified in DOS 3.x it is changed:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if IGNORE is invalidly specified, action is converted to FAIL<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if RETRY is invalidly specified, action is converted to FAIL<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if FAIL is invalidly specified, action is converted to ABORT<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- IGNORE requests are converted to FAIL for <a href="table-FAT.html">FAT</a>&nbsp;and <a href="">DIR</a>&nbsp;disk<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;errors and network critical errors<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- if the user routine wishes to handle the error instead of passing<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;it to DOS, it must restore the user program registers from the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;stack and remove all but the last 3 words from the stack (FLAGS,<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;CS, IP) and issue an <a href="asm-iret.html">IRET</a><br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- do not execute this interrupt directly<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- <a href="int-int_21_34.html">INDOS</a>&nbsp;flag is cleared on INT 24 (see <a href="int-int_21_34.html">INT 21,34</a>)<br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">int 24</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

@@ -1,0 +1,149 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0107 
+header_name {.h} 
+code_name {.cc}
+decl {\#include "FractalUi.h"} {public
+} 
+
+class FractalWin {open : {public FractalUi}
+} {
+  Function {FractalWin()} {open
+  } {
+    Fl_Window WMain {
+      label {Fractal Control}
+      callback {WinClose(o)} open
+      xywh {538 417 385 235} type Single labelsize 12 resizable
+      code0 {UpdateValues();} visible
+    } {
+      Fl_Tabs Tabs0 {
+        user_data 0 user_data_type long
+        callback {TabChange(o,v)} open
+        xywh {5 5 375 190} labelsize 12 when 1 resizable
+      } {
+        Fl_Group {} {
+          label Mandelbrot
+          user_data 1 user_data_type long open
+          xywh {5 30 375 130}
+        } {
+          Fl_Choice cb_mandelbrot_colorscheme {
+            label {Color Scheme}
+            callback {Mandelbrot_Choice_ColorScheme(o)} open
+            xywh {175 50 190 25} down_box BORDER_BOX when 1
+          } {}
+          Fl_Value_Input vi_mandelbrot_numcolor {
+            label {Color Gradient Length}
+            callback {Mandelbrot_Update_numcolor(o)}
+            xywh {175 85 190 25} when 4
+            code0 {o->range(16,INT_MAX);}
+            code1 {o->step(8);}
+          }
+          Fl_Value_Input vi_mandelbrot_maxsquarenorm {
+            label {Max Square Norm}
+            callback {Mandelbrot_Set_MaxSquareNorm(o)}
+            xywh {175 120 190 25} when 4
+          }
+        }
+        Fl_Group {} {
+          label Feigenbaum
+          user_data 2 user_data_type long open
+          xywh {5 30 235 100} hide resizable
+        } {}
+        Fl_Group {} {
+          label Mira
+          user_data 3 user_data_type long open
+          xywh {5 32 255 163} hide
+        } {
+          Fl_Value_Input vi_mira_a {
+            label a
+            callback {Update_Mira_A(o)}
+            tooltip {Parameter a of the Mira fractal} xywh {115 45 110 25}
+            code0 {o->step(0.0001);}
+          }
+          Fl_Value_Input vi_mira_b {
+            label b
+            callback {Update_Mira_B(o)}
+            tooltip {Parameter b of the Mira fractal} xywh {115 80 113 25}
+            code0 {o->step(0.0001);}
+          }
+          Fl_Value_Input vi_mira_iterations {
+            label Iterations
+            callback {Update_Mira_Iterations(o)}
+            tooltip {Number of points to draw} xywh {115 115 113 25} resizable
+            code0 {o->step(100);}
+            code1 {o->range(0,INT_MAX);}
+          }
+          Fl_Value_Input vi_mira_drawoffset {
+            label {Draw Offset}
+            callback {Update_Mira_DrawOffset(o)}
+            tooltip {Start drawing points after this number of iterations} xywh {115 150 113 25}
+            code0 {o->step(100);}
+            code1 {o->range(0,INT_MAX);}
+          }
+        }
+        Fl_Group {} {
+          label {Simpler Fractals}
+          user_data 4 open
+          xywh {5 30 370 89} hide
+        } {
+          Fl_Tabs Tabs1 {
+            user_data 1 user_data_type long
+            callback {TabChange(o,v)} open
+            xywh {10 35 360 79} when 1
+          } {
+            Fl_Group {} {
+              label {H-Fractal}
+              user_data 4 open
+              xywh {10 60 265 54} hide resizable
+            } {
+              Fl_Value_Input vi_hfractal_order {
+                label Order
+                callback {Update_HFractal_Order(o)}
+                xywh {85 75 150 25} when 4 resizable
+              }
+            }
+            Fl_Group {} {
+              label {Pythagoras-Tree}
+              user_data 5 open
+              xywh {10 60 265 54} hide
+            } {
+              Fl_Value_Input vi_pythagorastree_order {
+                label Order
+                callback {Update_PythagorasTree_Order(o)}
+                xywh {85 75 150 25} when 4 resizable
+              }
+            }
+            Fl_Group {} {
+              label {Sierpinski-Triangle}
+              user_data 6 open
+              xywh {10 60 265 54}
+            } {
+              Fl_Value_Input vi_sierpinski_order {
+                label Order
+                callback {Update_Sierpinski_Order(o)}
+                xywh {85 75 150 25} when 4 resizable
+              }
+            }
+          }
+        }
+      }
+      Fl_Button button_savepng {
+        label {Save PNG}
+        callback {Button_SavePNG(vi_pngwidth->value())}
+        xywh {140 200 80 25}
+      }
+      Fl_Value_Input vi_pngwidth {
+        label Width
+        xywh {48 200 69 25}
+        code0 {o->range(256,INT_MAX);}
+        code1 {o->step(32);}
+      }
+      Fl_Button {} {
+        label Redraw
+        callback {Button_Redraw();} selected
+        xywh {315 200 65 25}
+      }
+    }
+  }
+  decl {void UpdateValues()} {public
+  }
+} 

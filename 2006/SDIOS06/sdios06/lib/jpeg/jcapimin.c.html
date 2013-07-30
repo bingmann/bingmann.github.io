@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2006/SDIOS06/sdios06/lib/jpeg/jcapimin.c - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal7.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2006/">2006</a> / <a href="/2006/SDIOS06/">SDIOS06</a> / <a href="/2006/SDIOS06/sdios06/">sdios06</a> / <a href="/2006/SDIOS06/sdios06/lib/">lib</a> / <a href="/2006/SDIOS06/sdios06/lib/jpeg/">jpeg</a> / <a href="/2006/SDIOS06/sdios06/lib/jpeg/jcapimin.c.html">jcapimin.c</a> (<a href="/2006/SDIOS06/sdios06/lib/jpeg/jcapimin.c">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">/*</span>
+<span class="comment"> * jcapimin.c</span>
+<span class="comment"> *</span>
+<span class="comment"> * Copyright (C) 1994-1998, Thomas G. Lane.</span>
+<span class="comment"> * This file is part of the Independent JPEG Group's software.</span>
+<span class="comment"> * For conditions of distribution and use, see the accompanying README file.</span>
+<span class="comment"> *</span>
+<span class="comment"> * This file contains application interface code for the compression half</span>
+<span class="comment"> * of the JPEG library.  These are the "minimum" API routines that may be</span>
+<span class="comment"> * needed in either the normal full-compression case or the transcoding-only</span>
+<span class="comment"> * case.</span>
+<span class="comment"> *</span>
+<span class="comment"> * Most of the routines intended to be called directly by an application</span>
+<span class="comment"> * are in this file or in jcapistd.c.  But also see jcparam.c for</span>
+<span class="comment"> * parameter-setup helper routines, jcomapi.c for routines shared by</span>
+<span class="comment"> * compression and decompression, and jctrans.c for the transcoding case.</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#define</span><span class="normal"> JPEG_INTERNALS</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"jinclude.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"jpeglib.h"</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Initialization of a JPEG compression object.</span>
+<span class="comment"> * The error manager must already be set up (in case memory manager fails).</span>
+<span class="comment"> */</span>
+
+<span class="function">GLOBAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">jpeg_CreateCompress</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> version</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">size_t</span><span class="normal"> structsize</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> i</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Guard against version mismatches between library and caller. */</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">mem </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* so jpeg_destroy knows mem mgr not called */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">version </span><span class="symbol">!=</span><span class="normal"> JPEG_LIB_VERSION</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">ERREXIT2</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_LIB_VERSION</span><span class="symbol">,</span><span class="normal"> JPEG_LIB_VERSION</span><span class="symbol">,</span><span class="normal"> version</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">structsize </span><span class="symbol">!=</span><span class="normal"> </span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">jpeg_compress_struct</span><span class="symbol">))</span>
+<span class="normal">    </span><span class="function">ERREXIT2</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_STRUCT_SIZE</span><span class="symbol">,</span><span class="normal"> </span>
+<span class="normal">	     </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> </span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">jpeg_compress_struct</span><span class="symbol">),</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> structsize</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* For debugging purposes, we zero the whole master structure.</span>
+<span class="comment">   * But the application has already set the err pointer, and may have set</span>
+<span class="comment">   * client_data, so we have to save and restore those fields.</span>
+<span class="comment">   * Note: if application hasn't set client_data, tools like Purify may</span>
+<span class="comment">   * complain here.</span>
+<span class="comment">   */</span>
+<span class="normal">  </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">jpeg_error_mgr</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> err </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">err</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> client_data </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">client_data</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* ignore Purify complaint here */</span>
+<span class="normal">    </span><span class="function">MEMZERO</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">jpeg_compress_struct</span><span class="symbol">));</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">err </span><span class="symbol">=</span><span class="normal"> err</span><span class="symbol">;</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">client_data </span><span class="symbol">=</span><span class="normal"> client_data</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">is_decompressor </span><span class="symbol">=</span><span class="normal"> FALSE</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Initialize a memory manager instance for this object */</span>
+<span class="normal">  </span><span class="function">jinit_memory_mgr</span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* Zero out pointers to permanent structures. */</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">progress </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">dest </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">comp_info </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> NUM_QUANT_TBLS</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">quant_tbl_ptrs</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> NUM_HUFF_TBLS</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">dc_huff_tbl_ptrs</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">ac_huff_tbl_ptrs</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">script_space </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">input_gamma </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1.0</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* in case application forgets */</span>
+
+<span class="normal">  </span><span class="comment">/* OK, I'm ready */</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">global_state </span><span class="symbol">=</span><span class="normal"> CSTATE_START</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Destruction of a JPEG compression object</span>
+<span class="comment"> */</span>
+
+<span class="function">GLOBAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">jpeg_destroy_compress</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="function">jpeg_destroy</span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">);</span><span class="normal"> </span><span class="comment">/* use common routine */</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Abort processing of a JPEG compression operation,</span>
+<span class="comment"> * but don't destroy the object itself.</span>
+<span class="comment"> */</span>
+
+<span class="function">GLOBAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">jpeg_abort_compress</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="function">jpeg_abort</span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">);</span><span class="normal"> </span><span class="comment">/* use common routine */</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Forcibly suppress or un-suppress all quantization and Huffman tables.</span>
+<span class="comment"> * Marks all currently defined tables as already written (if suppress)</span>
+<span class="comment"> * or not written (if !suppress).  This will control whether they get emitted</span>
+<span class="comment"> * by a subsequent jpeg_start_compress call.</span>
+<span class="comment"> *</span>
+<span class="comment"> * This routine is exported for use by applications that want to produce</span>
+<span class="comment"> * abbreviated JPEG datastreams.  It logically belongs in jcparam.c, but</span>
+<span class="comment"> * since it is called by jpeg_start_compress, we put it here --- otherwise</span>
+<span class="comment"> * jcparam.o would be linked whether the application used it or not.</span>
+<span class="comment"> */</span>
+
+<span class="function">GLOBAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">jpeg_suppress_tables</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">boolean</span><span class="normal"> suppress</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> i</span><span class="symbol">;</span>
+<span class="normal">  JQUANT_TBL </span><span class="symbol">*</span><span class="normal"> qtbl</span><span class="symbol">;</span>
+<span class="normal">  JHUFF_TBL </span><span class="symbol">*</span><span class="normal"> htbl</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> NUM_QUANT_TBLS</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">qtbl </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">quant_tbl_ptrs</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">])</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">      qtbl</span><span class="symbol">-&gt;</span><span class="normal">sent_table </span><span class="symbol">=</span><span class="normal"> suppress</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> NUM_HUFF_TBLS</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">htbl </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">dc_huff_tbl_ptrs</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">])</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">      htbl</span><span class="symbol">-&gt;</span><span class="normal">sent_table </span><span class="symbol">=</span><span class="normal"> suppress</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">htbl </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">ac_huff_tbl_ptrs</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">])</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">      htbl</span><span class="symbol">-&gt;</span><span class="normal">sent_table </span><span class="symbol">=</span><span class="normal"> suppress</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Finish JPEG compression.</span>
+<span class="comment"> *</span>
+<span class="comment"> * If a multipass operating mode was selected, this may do a great deal of</span>
+<span class="comment"> * work including most of the actual output.</span>
+<span class="comment"> */</span>
+
+<span class="function">GLOBAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">jpeg_finish_compress</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">JDIMENSION</span><span class="normal"> iMCU_row</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">global_state </span><span class="symbol">==</span><span class="normal"> CSTATE_SCANNING </span><span class="symbol">||</span>
+<span class="normal">      cinfo</span><span class="symbol">-&gt;</span><span class="normal">global_state </span><span class="symbol">==</span><span class="normal"> CSTATE_RAW_OK</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">/* Terminate first pass */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">next_scanline </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_height</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_TOO_LITTLE_DATA</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">master</span><span class="symbol">-&gt;</span><span class="normal">finish_pass</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">global_state </span><span class="symbol">!=</span><span class="normal"> CSTATE_WRCOEFS</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">ERREXIT1</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_STATE</span><span class="symbol">,</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">global_state</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="comment">/* Perform any remaining passes */</span>
+<span class="normal">  </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">master</span><span class="symbol">-&gt;</span><span class="normal">is_last_pass</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">master</span><span class="symbol">-&gt;</span><span class="normal">prepare_for_pass</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">iMCU_row </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> iMCU_row </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">total_iMCU_rows</span><span class="symbol">;</span><span class="normal"> iMCU_row</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">progress </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	cinfo</span><span class="symbol">-&gt;</span><span class="normal">progress</span><span class="symbol">-&gt;</span><span class="normal">pass_counter </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> iMCU_row</span><span class="symbol">;</span>
+<span class="normal">	cinfo</span><span class="symbol">-&gt;</span><span class="normal">progress</span><span class="symbol">-&gt;</span><span class="normal">pass_limit </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">total_iMCU_rows</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">progress</span><span class="symbol">-&gt;</span><span class="normal">progress_monitor</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="comment">/* We bypass the main controller and invoke coef controller directly;</span>
+<span class="comment">       * all work is being done from the coefficient buffer.</span>
+<span class="comment">       */</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">coef</span><span class="symbol">-&gt;</span><span class="normal">compress_data</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPIMAGE</span><span class="symbol">)</span><span class="normal"> NULL</span><span class="symbol">))</span>
+<span class="normal">	</span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_CANT_SUSPEND</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">master</span><span class="symbol">-&gt;</span><span class="normal">finish_pass</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="comment">/* Write EOI, do final cleanup */</span>
+<span class="normal">  </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">marker</span><span class="symbol">-&gt;</span><span class="normal">write_file_trailer</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">dest</span><span class="symbol">-&gt;</span><span class="normal">term_destination</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="comment">/* We can use jpeg_abort to release memory and reset global_state */</span>
+<span class="normal">  </span><span class="function">jpeg_abort</span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Write a special marker.</span>
+<span class="comment"> * This is only recommended for writing COM or APPn markers.</span>
+<span class="comment"> * Must be called after jpeg_start_compress() and before</span>
+<span class="comment"> * first call to jpeg_write_scanlines() or jpeg_write_raw_data().</span>
+<span class="comment"> */</span>
+
+<span class="function">GLOBAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">jpeg_write_marker</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> marker</span><span class="symbol">,</span>
+<span class="normal">		   </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">JOCTET</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dataptr</span><span class="symbol">,</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> datalen</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="function">JMETHOD</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">,</span><span class="normal"> write_marker_byte</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> info</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> val</span><span class="symbol">));</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">next_scanline </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">||</span>
+<span class="normal">      </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">global_state </span><span class="symbol">!=</span><span class="normal"> CSTATE_SCANNING </span><span class="symbol">&amp;&amp;</span>
+<span class="normal">       cinfo</span><span class="symbol">-&gt;</span><span class="normal">global_state </span><span class="symbol">!=</span><span class="normal"> CSTATE_RAW_OK </span><span class="symbol">&amp;&amp;</span>
+<span class="normal">       cinfo</span><span class="symbol">-&gt;</span><span class="normal">global_state </span><span class="symbol">!=</span><span class="normal"> CSTATE_WRCOEFS</span><span class="symbol">))</span>
+<span class="normal">    </span><span class="function">ERREXIT1</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_STATE</span><span class="symbol">,</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">global_state</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">marker</span><span class="symbol">-&gt;</span><span class="normal">write_marker_header</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> marker</span><span class="symbol">,</span><span class="normal"> datalen</span><span class="symbol">);</span>
+<span class="normal">  write_marker_byte </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">marker</span><span class="symbol">-&gt;</span><span class="normal">write_marker_byte</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* copy for speed */</span>
+<span class="normal">  </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">datalen</span><span class="symbol">--)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="symbol">(*</span><span class="normal">write_marker_byte</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dataptr</span><span class="symbol">);</span>
+<span class="normal">    dataptr</span><span class="symbol">++;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/* Same, but piecemeal. */</span>
+
+<span class="function">GLOBAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">jpeg_write_m_header</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> marker</span><span class="symbol">,</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> datalen</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">next_scanline </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">||</span>
+<span class="normal">      </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">global_state </span><span class="symbol">!=</span><span class="normal"> CSTATE_SCANNING </span><span class="symbol">&amp;&amp;</span>
+<span class="normal">       cinfo</span><span class="symbol">-&gt;</span><span class="normal">global_state </span><span class="symbol">!=</span><span class="normal"> CSTATE_RAW_OK </span><span class="symbol">&amp;&amp;</span>
+<span class="normal">       cinfo</span><span class="symbol">-&gt;</span><span class="normal">global_state </span><span class="symbol">!=</span><span class="normal"> CSTATE_WRCOEFS</span><span class="symbol">))</span>
+<span class="normal">    </span><span class="function">ERREXIT1</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_STATE</span><span class="symbol">,</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">global_state</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">marker</span><span class="symbol">-&gt;</span><span class="normal">write_marker_header</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> marker</span><span class="symbol">,</span><span class="normal"> datalen</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="function">GLOBAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">jpeg_write_m_byte</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> val</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">marker</span><span class="symbol">-&gt;</span><span class="normal">write_marker_byte</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> val</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Alternate compression function: just write an abbreviated table file.</span>
+<span class="comment"> * Before calling this, all parameters and a data destination must be set up.</span>
+<span class="comment"> *</span>
+<span class="comment"> * To produce a pair of files containing abbreviated tables and abbreviated</span>
+<span class="comment"> * image data, one would proceed as follows:</span>
+<span class="comment"> *</span>
+<span class="comment"> *		initialize JPEG object</span>
+<span class="comment"> *		set JPEG parameters</span>
+<span class="comment"> *		set destination to table file</span>
+<span class="comment"> *		jpeg_write_tables(cinfo);</span>
+<span class="comment"> *		set destination to image file</span>
+<span class="comment"> *		jpeg_start_compress(cinfo, FALSE);</span>
+<span class="comment"> *		write data...</span>
+<span class="comment"> *		jpeg_finish_compress(cinfo);</span>
+<span class="comment"> *</span>
+<span class="comment"> * jpeg_write_tables has the side effect of marking all tables written</span>
+<span class="comment"> * (same as jpeg_suppress_tables(..., TRUE)).  Thus a subsequent start_compress</span>
+<span class="comment"> * will not re-emit the tables unless it is passed write_all_tables=TRUE.</span>
+<span class="comment"> */</span>
+
+<span class="function">GLOBAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">jpeg_write_tables</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">global_state </span><span class="symbol">!=</span><span class="normal"> CSTATE_START</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">ERREXIT1</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_STATE</span><span class="symbol">,</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">global_state</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* (Re)initialize error mgr and destination modules */</span>
+<span class="normal">  </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">err</span><span class="symbol">-&gt;</span><span class="normal">reset_error_mgr</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">dest</span><span class="symbol">-&gt;</span><span class="normal">init_destination</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="comment">/* Initialize the marker writer ... bit of a crock to do it here. */</span>
+<span class="normal">  </span><span class="function">jinit_marker_writer</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="comment">/* Write them tables! */</span>
+<span class="normal">  </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">marker</span><span class="symbol">-&gt;</span><span class="normal">write_tables_only</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="comment">/* And clean up. */</span>
+<span class="normal">  </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">dest</span><span class="symbol">-&gt;</span><span class="normal">term_destination</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="comment">/*</span>
+<span class="comment">   * In library releases up through v6a, we called jpeg_abort() here to free</span>
+<span class="comment">   * any working memory allocated by the destination manager and marker</span>
+<span class="comment">   * writer.  Some applications had a problem with that: they allocated space</span>
+<span class="comment">   * of their own from the library memory manager, and didn't want it to go</span>
+<span class="comment">   * away during write_tables.  So now we do nothing.  This will cause a</span>
+<span class="comment">   * memory leak if an app calls write_tables repeatedly without doing a full</span>
+<span class="comment">   * compression cycle or otherwise resetting the JPEG object.  However, that</span>
+<span class="comment">   * seems less bad than unexpectedly freeing memory in the normal case.</span>
+<span class="comment">   * An app that prefers the old behavior can call jpeg_abort for itself after</span>
+<span class="comment">   * each call to jpeg_write_tables().</span>
+<span class="comment">   */</span>
+<span class="cbracket">}</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

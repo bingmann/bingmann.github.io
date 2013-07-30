@@ -1,0 +1,54 @@
+#ifndef UTILITY_
+#define UTILITY_
+
+namespace std {
+
+	template<typename T1, typename T2>
+	class pair
+	{
+	public:
+		T1 first;
+		T2 second;
+		
+		pair()
+			: first(), second()
+		{}
+		
+		pair(const T1& v1, const T2& v2)
+			: first(v1), second(v2)
+		{}
+		
+		template<typename U1, typename U2>
+		pair(const pair<U1, U2>& other)
+			: first(other.first), second(other.second)
+		{}
+		
+		bool operator== (const pair& other) const
+		{
+			return first == other.first && second == other.second;
+		}
+		
+		bool operator!= (const pair& other) const
+		{
+			return ! (*this == other);
+		}
+		
+		bool operator< (const pair& other) const
+		{
+			if(first < other.first)
+				return true;
+			if(other.first < first)
+				return false;
+			return second < other.second;
+		}		
+	};
+	
+	template<typename T1, typename T2>
+	inline pair<T1, T2>
+	make_pair(T1 v1, T2 v2)
+	{
+		return pair<T1, T2> (v1, v2);
+	}
+}
+
+#endif /*UTILITY_*/

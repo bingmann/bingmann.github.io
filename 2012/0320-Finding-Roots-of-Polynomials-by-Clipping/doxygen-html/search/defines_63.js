@@ -1,0 +1,1 @@
+var searchData=[["chkstr",["CHKSTR",["../clipper_8cc.html#ad4d704c8bfdeb928a96bb9806b8ba91e",1,"clipper.cc"]]]];

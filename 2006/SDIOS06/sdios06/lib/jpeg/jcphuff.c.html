@@ -1,0 +1,834 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2006/SDIOS06/sdios06/lib/jpeg/jcphuff.c - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal2.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2006/">2006</a> / <a href="/2006/SDIOS06/">SDIOS06</a> / <a href="/2006/SDIOS06/sdios06/">sdios06</a> / <a href="/2006/SDIOS06/sdios06/lib/">lib</a> / <a href="/2006/SDIOS06/sdios06/lib/jpeg/">jpeg</a> / <a href="/2006/SDIOS06/sdios06/lib/jpeg/jcphuff.c.html">jcphuff.c</a> (<a href="/2006/SDIOS06/sdios06/lib/jpeg/jcphuff.c">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">/*</span>
+<span class="comment"> * jcphuff.c</span>
+<span class="comment"> *</span>
+<span class="comment"> * Copyright (C) 1995-1997, Thomas G. Lane.</span>
+<span class="comment"> * This file is part of the Independent JPEG Group's software.</span>
+<span class="comment"> * For conditions of distribution and use, see the accompanying README file.</span>
+<span class="comment"> *</span>
+<span class="comment"> * This file contains Huffman entropy encoding routines for progressive JPEG.</span>
+<span class="comment"> *</span>
+<span class="comment"> * We do not support output suspension in this module, since the library</span>
+<span class="comment"> * currently does not allow multiple-scan files to be written with output</span>
+<span class="comment"> * suspension.</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#define</span><span class="normal"> JPEG_INTERNALS</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"jinclude.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"jpeglib.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"jchuff.h"</span><span class="normal">		</span><span class="comment">/* Declarations shared with jchuff.c */</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> C_PROGRESSIVE_SUPPORTED</span>
+
+<span class="comment">/* Expanded entropy encoder object for progressive Huffman encoding. */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">jpeg_entropy_encoder</span><span class="normal"> pub</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* public fields */</span>
+
+<span class="normal">  </span><span class="comment">/* Mode flag: TRUE for optimization, FALSE for actual data output */</span>
+<span class="normal">  </span><span class="usertype">boolean</span><span class="normal"> gather_statistics</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Bit-level coding status.</span>
+<span class="comment">   * next_output_byte/free_in_buffer are local copies of cinfo-&gt;dest fields.</span>
+<span class="comment">   */</span>
+<span class="normal">  JOCTET </span><span class="symbol">*</span><span class="normal"> next_output_byte</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* =&gt; next byte to write in buffer */</span>
+<span class="normal">  </span><span class="usertype">size_t</span><span class="normal"> free_in_buffer</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* # of byte spaces remaining in buffer */</span>
+<span class="normal">  </span><span class="usertype">INT32</span><span class="normal"> put_buffer</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* current bit-accumulation buffer */</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> put_bits</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* # of bits now in it */</span>
+<span class="normal">  </span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* link to cinfo (needed for dump_buffer) */</span>
+
+<span class="normal">  </span><span class="comment">/* Coding status for DC components */</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> last_dc_val</span><span class="symbol">[</span><span class="normal">MAX_COMPS_IN_SCAN</span><span class="symbol">];</span><span class="normal"> </span><span class="comment">/* last DC coef for each component */</span>
+
+<span class="normal">  </span><span class="comment">/* Coding status for AC components */</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> ac_tbl_no</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* the table number of the single component */</span>
+<span class="normal">  </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> EOBRUN</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* run length of EOBs */</span>
+<span class="normal">  </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> BE</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* # of buffered correction bits before MCU */</span>
+<span class="normal">  </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> bit_buffer</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* buffer for correction bits (1 per char) */</span>
+<span class="normal">  </span><span class="comment">/* packing correction bits tightly would save some space but cost time... */</span>
+
+<span class="normal">  </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> restarts_to_go</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* MCUs left in this restart interval */</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> next_restart_num</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* next restart number to write (0-7) */</span>
+
+<span class="normal">  </span><span class="comment">/* Pointers to derived tables (these workspaces have image lifespan).</span>
+<span class="comment">   * Since any one scan codes only DC or only AC, we only need one set</span>
+<span class="comment">   * of tables, not one for DC and one for AC.</span>
+<span class="comment">   */</span>
+<span class="normal">  c_derived_tbl </span><span class="symbol">*</span><span class="normal"> derived_tbls</span><span class="symbol">[</span><span class="normal">NUM_HUFF_TBLS</span><span class="symbol">];</span>
+
+<span class="normal">  </span><span class="comment">/* Statistics tables for optimization; again, one set is enough */</span>
+<span class="normal">  </span><span class="type">long</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> count_ptrs</span><span class="symbol">[</span><span class="normal">NUM_HUFF_TBLS</span><span class="symbol">];</span>
+<span class="cbracket">}</span><span class="normal"> phuff_entropy_encoder</span><span class="symbol">;</span>
+
+<span class="keyword">typedef</span><span class="normal"> phuff_entropy_encoder </span><span class="symbol">*</span><span class="normal"> phuff_entropy_ptr</span><span class="symbol">;</span>
+
+<span class="comment">/* MAX_CORR_BITS is the number of bits the AC refinement correction-bit</span>
+<span class="comment"> * buffer can hold.  Larger sizes may slightly improve compression, but</span>
+<span class="comment"> * 1000 is already well into the realm of overkill.</span>
+<span class="comment"> * The minimum safe size is 64 bits.</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#define</span><span class="normal"> MAX_CORR_BITS  </span><span class="number">1000</span><span class="normal">	</span><span class="comment">/* Max # of correction bits I can buffer */</span>
+
+<span class="comment">/* IRIGHT_SHIFT is like RIGHT_SHIFT, but works on int rather than INT32.</span>
+<span class="comment"> * We assume that int right shift is unsigned if INT32 right shift is,</span>
+<span class="comment"> * which should be safe.</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> RIGHT_SHIFT_IS_UNSIGNED</span>
+<span class="preproc">#define</span><span class="normal"> ISHIFT_TEMPS	</span><span class="usertype">int</span><span class="normal"> ishift_temp</span><span class="symbol">;</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">IRIGHT_SHIFT</span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">,</span><span class="normal">shft</span><span class="symbol">)</span><span class="normal">  </span><span class="symbol">\</span>
+<span class="normal">	</span><span class="symbol">((</span><span class="normal">ishift_temp </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">?</span><span class="normal"> </span><span class="symbol">\</span>
+<span class="normal">	 </span><span class="symbol">(</span><span class="normal">ishift_temp </span><span class="symbol">&gt;&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">shft</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">|</span><span class="normal"> </span><span class="symbol">((~</span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="symbol">(</span><span class="number">16</span><span class="symbol">-(</span><span class="normal">shft</span><span class="symbol">)))</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> </span><span class="symbol">\</span>
+<span class="normal">	 </span><span class="symbol">(</span><span class="normal">ishift_temp </span><span class="symbol">&gt;&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">shft</span><span class="symbol">)))</span>
+<span class="preproc">#else</span>
+<span class="preproc">#define</span><span class="normal"> ISHIFT_TEMPS</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">IRIGHT_SHIFT</span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">,</span><span class="normal">shft</span><span class="symbol">)</span><span class="normal">	</span><span class="symbol">((</span><span class="normal">x</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&gt;&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">shft</span><span class="symbol">))</span>
+<span class="preproc">#endif</span>
+
+<span class="comment">/* Forward declarations */</span>
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="normal">boolean</span><span class="symbol">)</span><span class="normal"> </span><span class="usertype">encode_mcu_DC_first</span><span class="normal"> </span><span class="function">JPP</span><span class="symbol">((</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span>
+<span class="normal">					    </span><span class="usertype">JBLOCKROW</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">MCU_data</span><span class="symbol">));</span>
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="normal">boolean</span><span class="symbol">)</span><span class="normal"> </span><span class="usertype">encode_mcu_AC_first</span><span class="normal"> </span><span class="function">JPP</span><span class="symbol">((</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span>
+<span class="normal">					    </span><span class="usertype">JBLOCKROW</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">MCU_data</span><span class="symbol">));</span>
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="normal">boolean</span><span class="symbol">)</span><span class="normal"> </span><span class="usertype">encode_mcu_DC_refine</span><span class="normal"> </span><span class="function">JPP</span><span class="symbol">((</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span>
+<span class="normal">					     </span><span class="usertype">JBLOCKROW</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">MCU_data</span><span class="symbol">));</span>
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="normal">boolean</span><span class="symbol">)</span><span class="normal"> </span><span class="usertype">encode_mcu_AC_refine</span><span class="normal"> </span><span class="function">JPP</span><span class="symbol">((</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span>
+<span class="normal">					     </span><span class="usertype">JBLOCKROW</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">MCU_data</span><span class="symbol">));</span>
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span><span class="normal"> </span><span class="usertype">finish_pass_phuff</span><span class="normal"> </span><span class="function">JPP</span><span class="symbol">((</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">));</span>
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span><span class="normal"> </span><span class="usertype">finish_pass_gather_phuff</span><span class="normal"> </span><span class="function">JPP</span><span class="symbol">((</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">));</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Initialize for a Huffman-compressed scan using progressive JPEG.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">start_pass_phuff</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">boolean</span><span class="normal"> gather_statistics</span><span class="symbol">)</span>
+<span class="cbracket">{</span><span class="normal">  </span>
+<span class="normal">  </span><span class="usertype">phuff_entropy_ptr</span><span class="normal"> entropy </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">phuff_entropy_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">entropy</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">boolean</span><span class="normal"> is_DC_band</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> ci</span><span class="symbol">,</span><span class="normal"> tbl</span><span class="symbol">;</span>
+<span class="normal">  jpeg_component_info </span><span class="symbol">*</span><span class="normal"> compptr</span><span class="symbol">;</span>
+
+<span class="normal">  entropy</span><span class="symbol">-&gt;</span><span class="normal">cinfo </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">;</span>
+<span class="normal">  entropy</span><span class="symbol">-&gt;</span><span class="normal">gather_statistics </span><span class="symbol">=</span><span class="normal"> gather_statistics</span><span class="symbol">;</span>
+
+<span class="normal">  is_DC_band </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">Ss </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* We assume jcmaster.c already validated the scan parameters. */</span>
+
+<span class="normal">  </span><span class="comment">/* Select execution routines */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">Ah </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">is_DC_band</span><span class="symbol">)</span>
+<span class="normal">      entropy</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">encode_mcu </span><span class="symbol">=</span><span class="normal"> encode_mcu_DC_first</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">else</span>
+<span class="normal">      entropy</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">encode_mcu </span><span class="symbol">=</span><span class="normal"> encode_mcu_AC_first</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">is_DC_band</span><span class="symbol">)</span>
+<span class="normal">      entropy</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">encode_mcu </span><span class="symbol">=</span><span class="normal"> encode_mcu_DC_refine</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      entropy</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">encode_mcu </span><span class="symbol">=</span><span class="normal"> encode_mcu_AC_refine</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="comment">/* AC refinement needs a correction bit buffer */</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">-&gt;</span><span class="normal">bit_buffer </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">	entropy</span><span class="symbol">-&gt;</span><span class="normal">bit_buffer </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">char</span><span class="normal"> </span><span class="symbol">*)</span>
+<span class="normal">	  </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">mem</span><span class="symbol">-&gt;</span><span class="normal">alloc_small</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> JPOOL_IMAGE</span><span class="symbol">,</span>
+<span class="normal">				      MAX_CORR_BITS </span><span class="symbol">*</span><span class="normal"> </span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="type">char</span><span class="symbol">));</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">gather_statistics</span><span class="symbol">)</span>
+<span class="normal">    entropy</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">finish_pass </span><span class="symbol">=</span><span class="normal"> finish_pass_gather_phuff</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">else</span>
+<span class="normal">    entropy</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">finish_pass </span><span class="symbol">=</span><span class="normal"> finish_pass_phuff</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Only DC coefficients may be interleaved, so cinfo-&gt;comps_in_scan = 1</span>
+<span class="comment">   * for AC coefficients.</span>
+<span class="comment">   */</span>
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> ci </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">comps_in_scan</span><span class="symbol">;</span><span class="normal"> ci</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    compptr </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">cur_comp_info</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">];</span>
+<span class="normal">    </span><span class="comment">/* Initialize DC predictions to 0 */</span>
+<span class="normal">    entropy</span><span class="symbol">-&gt;</span><span class="normal">last_dc_val</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* Get table index */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">is_DC_band</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">Ah </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal">	</span><span class="comment">/* DC refinement needs no table */</span>
+<span class="normal">	</span><span class="keyword">continue</span><span class="symbol">;</span>
+<span class="normal">      tbl </span><span class="symbol">=</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">dc_tbl_no</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      entropy</span><span class="symbol">-&gt;</span><span class="normal">ac_tbl_no </span><span class="symbol">=</span><span class="normal"> tbl </span><span class="symbol">=</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">ac_tbl_no</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">gather_statistics</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="comment">/* Check for invalid table index */</span>
+<span class="normal">      </span><span class="comment">/* (make_c_derived_tbl does this in the other path) */</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">tbl </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> tbl </span><span class="symbol">&gt;=</span><span class="normal"> NUM_HUFF_TBLS</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="function">ERREXIT1</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_NO_HUFF_TABLE</span><span class="symbol">,</span><span class="normal"> tbl</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="comment">/* Allocate and zero the statistics tables */</span>
+<span class="normal">      </span><span class="comment">/* Note that jpeg_gen_optimal_table expects 257 entries in each table! */</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">-&gt;</span><span class="normal">count_ptrs</span><span class="symbol">[</span><span class="normal">tbl</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">	entropy</span><span class="symbol">-&gt;</span><span class="normal">count_ptrs</span><span class="symbol">[</span><span class="normal">tbl</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">long</span><span class="normal"> </span><span class="symbol">*)</span>
+<span class="normal">	  </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">mem</span><span class="symbol">-&gt;</span><span class="normal">alloc_small</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> JPOOL_IMAGE</span><span class="symbol">,</span>
+<span class="normal">				      </span><span class="number">257</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="type">long</span><span class="symbol">));</span>
+<span class="normal">      </span><span class="function">MEMZERO</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">-&gt;</span><span class="normal">count_ptrs</span><span class="symbol">[</span><span class="normal">tbl</span><span class="symbol">],</span><span class="normal"> </span><span class="number">257</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="type">long</span><span class="symbol">));</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="comment">/* Compute derived values for Huffman table */</span>
+<span class="normal">      </span><span class="comment">/* We may do this more than once for a table, but it's not expensive */</span>
+<span class="normal">      </span><span class="function">jpeg_make_c_derived_tbl</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> is_DC_band</span><span class="symbol">,</span><span class="normal"> tbl</span><span class="symbol">,</span>
+<span class="normal">			      </span><span class="symbol">&amp;</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">derived_tbls</span><span class="symbol">[</span><span class="normal">tbl</span><span class="symbol">]);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="comment">/* Initialize AC stuff */</span>
+<span class="normal">  entropy</span><span class="symbol">-&gt;</span><span class="normal">EOBRUN </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">  entropy</span><span class="symbol">-&gt;</span><span class="normal">BE </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Initialize bit buffer to empty */</span>
+<span class="normal">  entropy</span><span class="symbol">-&gt;</span><span class="normal">put_buffer </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">  entropy</span><span class="symbol">-&gt;</span><span class="normal">put_bits </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Initialize restart stuff */</span>
+<span class="normal">  entropy</span><span class="symbol">-&gt;</span><span class="normal">restarts_to_go </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">restart_interval</span><span class="symbol">;</span>
+<span class="normal">  entropy</span><span class="symbol">-&gt;</span><span class="normal">next_restart_num </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/* Outputting bytes to the file.</span>
+<span class="comment"> * NB: these must be called only when actually outputting,</span>
+<span class="comment"> * that is, entropy-&gt;gather_statistics == FALSE.</span>
+<span class="comment"> */</span>
+
+<span class="comment">/* Emit a byte */</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">,</span><span class="normal">val</span><span class="symbol">)</span><span class="normal">  </span><span class="symbol">\</span>
+<span class="normal">	</span><span class="cbracket">{</span><span class="normal"> </span><span class="symbol">*(</span><span class="normal">entropy</span><span class="symbol">)-&gt;</span><span class="normal">next_output_byte</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JOCTET</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">val</span><span class="symbol">);</span><span class="normal">  </span><span class="symbol">\</span>
+<span class="normal">	  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(--(</span><span class="normal">entropy</span><span class="symbol">)-&gt;</span><span class="normal">free_in_buffer </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal">  </span><span class="symbol">\</span>
+<span class="normal">	    </span><span class="function">dump_buffer</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">);</span><span class="normal"> </span><span class="cbracket">}</span>
+
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">dump_buffer</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">phuff_entropy_ptr</span><span class="normal"> entropy</span><span class="symbol">)</span>
+<span class="comment">/* Empty the output buffer; we do not support suspension in this module. */</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">jpeg_destination_mgr</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> dest </span><span class="symbol">=</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">dest</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">dest</span><span class="symbol">-&gt;</span><span class="normal">empty_output_buffer</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">-&gt;</span><span class="normal">cinfo</span><span class="symbol">))</span>
+<span class="normal">    </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">-&gt;</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_CANT_SUSPEND</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="comment">/* After a successful buffer dump, must reset buffer pointers */</span>
+<span class="normal">  entropy</span><span class="symbol">-&gt;</span><span class="normal">next_output_byte </span><span class="symbol">=</span><span class="normal"> dest</span><span class="symbol">-&gt;</span><span class="normal">next_output_byte</span><span class="symbol">;</span>
+<span class="normal">  entropy</span><span class="symbol">-&gt;</span><span class="normal">free_in_buffer </span><span class="symbol">=</span><span class="normal"> dest</span><span class="symbol">-&gt;</span><span class="normal">free_in_buffer</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/* Outputting bits to the file */</span>
+
+<span class="comment">/* Only the right 24 bits of put_buffer are used; the valid bits are</span>
+<span class="comment"> * left-justified in this part.  At most 16 bits can be passed to emit_bits</span>
+<span class="comment"> * in one call, and we never retain more than 7 bits in put_buffer</span>
+<span class="comment"> * between calls, so 24 bits are sufficient.</span>
+<span class="comment"> */</span>
+
+<span class="normal">INLINE</span>
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">emit_bits</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">phuff_entropy_ptr</span><span class="normal"> entropy</span><span class="symbol">,</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> code</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> size</span><span class="symbol">)</span>
+<span class="comment">/* Emit some bits, unless we are in gather mode */</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="comment">/* This routine is heavily used, so it's worth coding tightly. */</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">INT32</span><span class="normal"> put_buffer </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">INT32</span><span class="symbol">)</span><span class="normal"> code</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="type">int</span><span class="normal"> put_bits </span><span class="symbol">=</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">put_bits</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* if size is 0, caller used an invalid Huffman table entry */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">size </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">-&gt;</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_HUFF_MISSING_CODE</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">-&gt;</span><span class="normal">gather_statistics</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* do nothing if we're only getting stats */</span>
+
+<span class="normal">  put_buffer </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="symbol">(((</span><span class="normal">INT32</span><span class="symbol">)</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)&lt;&lt;</span><span class="normal">size</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* mask off any extra bits in code */</span>
+<span class="normal">  </span>
+<span class="normal">  put_bits </span><span class="symbol">+=</span><span class="normal"> size</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* new number of bits in buffer */</span>
+<span class="normal">  </span>
+<span class="normal">  put_buffer </span><span class="symbol">&lt;&lt;=</span><span class="normal"> </span><span class="number">24</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> put_bits</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* align incoming bits */</span>
+
+<span class="normal">  put_buffer </span><span class="symbol">|=</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">put_buffer</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* and merge with old buffer contents */</span>
+
+<span class="normal">  </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">put_bits </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">8</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal"> c </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">put_buffer </span><span class="symbol">&gt;&gt;</span><span class="normal"> </span><span class="number">16</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="number">0xFF</span><span class="symbol">);</span>
+<span class="normal">    </span>
+<span class="normal">    </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">,</span><span class="normal"> c</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">c </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0xFF</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal">		</span><span class="comment">/* need to stuff a zero byte? */</span>
+<span class="normal">      </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    put_buffer </span><span class="symbol">&lt;&lt;=</span><span class="normal"> </span><span class="number">8</span><span class="symbol">;</span>
+<span class="normal">    put_bits </span><span class="symbol">-=</span><span class="normal"> </span><span class="number">8</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  entropy</span><span class="symbol">-&gt;</span><span class="normal">put_buffer </span><span class="symbol">=</span><span class="normal"> put_buffer</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* update variables */</span>
+<span class="normal">  entropy</span><span class="symbol">-&gt;</span><span class="normal">put_bits </span><span class="symbol">=</span><span class="normal"> put_bits</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">flush_bits</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">phuff_entropy_ptr</span><span class="normal"> entropy</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="function">emit_bits</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0x7F</span><span class="symbol">,</span><span class="normal"> </span><span class="number">7</span><span class="symbol">);</span><span class="normal"> </span><span class="comment">/* fill any partial byte with ones */</span>
+<span class="normal">  entropy</span><span class="symbol">-&gt;</span><span class="normal">put_buffer </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal">     </span><span class="comment">/* and reset bit-buffer to empty */</span>
+<span class="normal">  entropy</span><span class="symbol">-&gt;</span><span class="normal">put_bits </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Emit (or just count) a Huffman symbol.</span>
+<span class="comment"> */</span>
+
+<span class="normal">INLINE</span>
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">emit_symbol</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">phuff_entropy_ptr</span><span class="normal"> entropy</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> tbl_no</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> symbol</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">-&gt;</span><span class="normal">gather_statistics</span><span class="symbol">)</span>
+<span class="normal">    entropy</span><span class="symbol">-&gt;</span><span class="normal">count_ptrs</span><span class="symbol">[</span><span class="normal">tbl_no</span><span class="symbol">][</span><span class="normal">symbol</span><span class="symbol">]++;</span>
+<span class="normal">  </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    c_derived_tbl </span><span class="symbol">*</span><span class="normal"> tbl </span><span class="symbol">=</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">derived_tbls</span><span class="symbol">[</span><span class="normal">tbl_no</span><span class="symbol">];</span>
+<span class="normal">    </span><span class="function">emit_bits</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">,</span><span class="normal"> tbl</span><span class="symbol">-&gt;</span><span class="normal">ehufco</span><span class="symbol">[</span><span class="normal">symbol</span><span class="symbol">],</span><span class="normal"> tbl</span><span class="symbol">-&gt;</span><span class="normal">ehufsi</span><span class="symbol">[</span><span class="normal">symbol</span><span class="symbol">]);</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Emit bits from a correction bit buffer.</span>
+<span class="comment"> */</span>
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">emit_buffered_bits</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">phuff_entropy_ptr</span><span class="normal"> entropy</span><span class="symbol">,</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> bufstart</span><span class="symbol">,</span>
+<span class="normal">		    </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> nbits</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">-&gt;</span><span class="normal">gather_statistics</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* no real work */</span>
+
+<span class="normal">  </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">nbits </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">emit_bits</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">bufstart</span><span class="symbol">),</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">    bufstart</span><span class="symbol">++;</span>
+<span class="normal">    nbits</span><span class="symbol">--;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Emit any pending EOBRUN symbol.</span>
+<span class="comment"> */</span>
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">emit_eobrun</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">phuff_entropy_ptr</span><span class="normal"> entropy</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="type">int</span><span class="normal"> temp</span><span class="symbol">,</span><span class="normal"> nbits</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">-&gt;</span><span class="normal">EOBRUN </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal">	</span><span class="comment">/* if there is any pending EOBRUN */</span>
+<span class="normal">    temp </span><span class="symbol">=</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">EOBRUN</span><span class="symbol">;</span>
+<span class="normal">    nbits </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">temp </span><span class="symbol">&gt;&gt;=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">))</span>
+<span class="normal">      nbits</span><span class="symbol">++;</span>
+<span class="normal">    </span><span class="comment">/* safety check: shouldn't happen given limited correction-bit buffer */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">nbits </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">14</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">-&gt;</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_HUFF_MISSING_CODE</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="function">emit_symbol</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">,</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">ac_tbl_no</span><span class="symbol">,</span><span class="normal"> nbits </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="number">4</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">nbits</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">emit_bits</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">,</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">EOBRUN</span><span class="symbol">,</span><span class="normal"> nbits</span><span class="symbol">);</span>
+
+<span class="normal">    entropy</span><span class="symbol">-&gt;</span><span class="normal">EOBRUN </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/* Emit any buffered correction bits */</span>
+<span class="normal">    </span><span class="function">emit_buffered_bits</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">,</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">bit_buffer</span><span class="symbol">,</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">BE</span><span class="symbol">);</span>
+<span class="normal">    entropy</span><span class="symbol">-&gt;</span><span class="normal">BE </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Emit a restart marker &amp; resynchronize predictions.</span>
+<span class="comment"> */</span>
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">emit_restart</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">phuff_entropy_ptr</span><span class="normal"> entropy</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> restart_num</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> ci</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="function">emit_eobrun</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">gather_statistics</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">flush_bits</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0xFF</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">,</span><span class="normal"> JPEG_RST0 </span><span class="symbol">+</span><span class="normal"> restart_num</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">-&gt;</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">Ss </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">/* Re-initialize DC predictions to 0 */</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> ci </span><span class="symbol">&lt;</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">comps_in_scan</span><span class="symbol">;</span><span class="normal"> ci</span><span class="symbol">++)</span>
+<span class="normal">      entropy</span><span class="symbol">-&gt;</span><span class="normal">last_dc_val</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">/* Re-initialize all AC-related fields to 0 */</span>
+<span class="normal">    entropy</span><span class="symbol">-&gt;</span><span class="normal">EOBRUN </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">    entropy</span><span class="symbol">-&gt;</span><span class="normal">BE </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * MCU encoding for DC initial scan (either spectral selection,</span>
+<span class="comment"> * or first pass of successive approximation).</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="normal">boolean</span><span class="symbol">)</span>
+<span class="function">encode_mcu_DC_first</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">JBLOCKROW</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">MCU_data</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">phuff_entropy_ptr</span><span class="normal"> entropy </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">phuff_entropy_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">entropy</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="type">int</span><span class="normal"> temp</span><span class="symbol">,</span><span class="normal"> temp2</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="type">int</span><span class="normal"> nbits</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> blkn</span><span class="symbol">,</span><span class="normal"> ci</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> Al </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">Al</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JBLOCKROW</span><span class="normal"> block</span><span class="symbol">;</span>
+<span class="normal">  jpeg_component_info </span><span class="symbol">*</span><span class="normal"> compptr</span><span class="symbol">;</span>
+<span class="normal">  ISHIFT_TEMPS</span>
+
+<span class="normal">  entropy</span><span class="symbol">-&gt;</span><span class="normal">next_output_byte </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">dest</span><span class="symbol">-&gt;</span><span class="normal">next_output_byte</span><span class="symbol">;</span>
+<span class="normal">  entropy</span><span class="symbol">-&gt;</span><span class="normal">free_in_buffer </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">dest</span><span class="symbol">-&gt;</span><span class="normal">free_in_buffer</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Emit restart marker if needed */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">restart_interval</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">-&gt;</span><span class="normal">restarts_to_go </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">emit_restart</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">,</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">next_restart_num</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* Encode the MCU data blocks */</span>
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">blkn </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> blkn </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">blocks_in_MCU</span><span class="symbol">;</span><span class="normal"> blkn</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    block </span><span class="symbol">=</span><span class="normal"> MCU_data</span><span class="symbol">[</span><span class="normal">blkn</span><span class="symbol">];</span>
+<span class="normal">    ci </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">MCU_membership</span><span class="symbol">[</span><span class="normal">blkn</span><span class="symbol">];</span>
+<span class="normal">    compptr </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">cur_comp_info</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">];</span>
+
+<span class="normal">    </span><span class="comment">/* Compute the DC value after the required point transform by Al.</span>
+<span class="comment">     * This is simply an arithmetic right shift.</span>
+<span class="comment">     */</span>
+<span class="normal">    temp2 </span><span class="symbol">=</span><span class="normal"> </span><span class="function">IRIGHT_SHIFT</span><span class="symbol">((</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((*</span><span class="normal">block</span><span class="symbol">)[</span><span class="number">0</span><span class="symbol">]),</span><span class="normal"> Al</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="comment">/* DC differences are figured on the point-transformed values. */</span>
+<span class="normal">    temp </span><span class="symbol">=</span><span class="normal"> temp2 </span><span class="symbol">-</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">last_dc_val</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">];</span>
+<span class="normal">    entropy</span><span class="symbol">-&gt;</span><span class="normal">last_dc_val</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> temp2</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/* Encode the DC coefficient difference per section G.1.2.1 */</span>
+<span class="normal">    temp2 </span><span class="symbol">=</span><span class="normal"> temp</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">temp </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      temp </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">-</span><span class="normal">temp</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* temp is abs value of input */</span>
+<span class="normal">      </span><span class="comment">/* For a negative input, want temp2 = bitwise complement of abs(input) */</span>
+<span class="normal">      </span><span class="comment">/* This code assumes we are on a two's complement machine */</span>
+<span class="normal">      temp2</span><span class="symbol">--;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span>
+<span class="normal">    </span><span class="comment">/* Find the number of bits needed for the magnitude of the coefficient */</span>
+<span class="normal">    nbits </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">temp</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      nbits</span><span class="symbol">++;</span>
+<span class="normal">      temp </span><span class="symbol">&gt;&gt;=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="comment">/* Check for out-of-range coefficient values.</span>
+<span class="comment">     * Since we're encoding a difference, the range limit is twice as much.</span>
+<span class="comment">     */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">nbits </span><span class="symbol">&gt;</span><span class="normal"> MAX_COEF_BITS</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_DCT_COEF</span><span class="symbol">);</span>
+<span class="normal">    </span>
+<span class="normal">    </span><span class="comment">/* Count/emit the Huffman-coded symbol for the number of bits */</span>
+<span class="normal">    </span><span class="function">emit_symbol</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">,</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">dc_tbl_no</span><span class="symbol">,</span><span class="normal"> nbits</span><span class="symbol">);</span>
+<span class="normal">    </span>
+<span class="normal">    </span><span class="comment">/* Emit that number of bits of the value, if positive, */</span>
+<span class="normal">    </span><span class="comment">/* or the complement of its magnitude, if negative. */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">nbits</span><span class="symbol">)</span><span class="normal">			</span><span class="comment">/* emit_bits rejects calls with size 0 */</span>
+<span class="normal">      </span><span class="function">emit_bits</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="symbol">)</span><span class="normal"> temp2</span><span class="symbol">,</span><span class="normal"> nbits</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">dest</span><span class="symbol">-&gt;</span><span class="normal">next_output_byte </span><span class="symbol">=</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">next_output_byte</span><span class="symbol">;</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">dest</span><span class="symbol">-&gt;</span><span class="normal">free_in_buffer </span><span class="symbol">=</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">free_in_buffer</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Update restart-interval state too */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">restart_interval</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">-&gt;</span><span class="normal">restarts_to_go </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      entropy</span><span class="symbol">-&gt;</span><span class="normal">restarts_to_go </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">restart_interval</span><span class="symbol">;</span>
+<span class="normal">      entropy</span><span class="symbol">-&gt;</span><span class="normal">next_restart_num</span><span class="symbol">++;</span>
+<span class="normal">      entropy</span><span class="symbol">-&gt;</span><span class="normal">next_restart_num </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="number">7</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    entropy</span><span class="symbol">-&gt;</span><span class="normal">restarts_to_go</span><span class="symbol">--;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">return</span><span class="normal"> TRUE</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * MCU encoding for AC initial scan (either spectral selection,</span>
+<span class="comment"> * or first pass of successive approximation).</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="normal">boolean</span><span class="symbol">)</span>
+<span class="function">encode_mcu_AC_first</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">JBLOCKROW</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">MCU_data</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">phuff_entropy_ptr</span><span class="normal"> entropy </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">phuff_entropy_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">entropy</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="type">int</span><span class="normal"> temp</span><span class="symbol">,</span><span class="normal"> temp2</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="type">int</span><span class="normal"> nbits</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="type">int</span><span class="normal"> r</span><span class="symbol">,</span><span class="normal"> k</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> Se </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">Se</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> Al </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">Al</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JBLOCKROW</span><span class="normal"> block</span><span class="symbol">;</span>
+
+<span class="normal">  entropy</span><span class="symbol">-&gt;</span><span class="normal">next_output_byte </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">dest</span><span class="symbol">-&gt;</span><span class="normal">next_output_byte</span><span class="symbol">;</span>
+<span class="normal">  entropy</span><span class="symbol">-&gt;</span><span class="normal">free_in_buffer </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">dest</span><span class="symbol">-&gt;</span><span class="normal">free_in_buffer</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Emit restart marker if needed */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">restart_interval</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">-&gt;</span><span class="normal">restarts_to_go </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">emit_restart</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">,</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">next_restart_num</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* Encode the MCU data block */</span>
+<span class="normal">  block </span><span class="symbol">=</span><span class="normal"> MCU_data</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">];</span>
+
+<span class="normal">  </span><span class="comment">/* Encode the AC coefficients per section G.1.2.2, fig. G.3 */</span>
+<span class="normal">  </span>
+<span class="normal">  r </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* r = run length of zeros */</span>
+<span class="normal">   </span>
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">k </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">Ss</span><span class="symbol">;</span><span class="normal"> k </span><span class="symbol">&lt;=</span><span class="normal"> Se</span><span class="symbol">;</span><span class="normal"> k</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">temp </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">block</span><span class="symbol">)[</span><span class="normal">jpeg_natural_order</span><span class="symbol">[</span><span class="normal">k</span><span class="symbol">]])</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      r</span><span class="symbol">++;</span>
+<span class="normal">      </span><span class="keyword">continue</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="comment">/* We must apply the point transform by Al.  For AC coefficients this</span>
+<span class="comment">     * is an integer division with rounding towards 0.  To do this portably</span>
+<span class="comment">     * in C, we shift after obtaining the absolute value; so the code is</span>
+<span class="comment">     * interwoven with finding the abs value (temp) and output bits (temp2).</span>
+<span class="comment">     */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">temp </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      temp </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">-</span><span class="normal">temp</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* temp is abs value of input */</span>
+<span class="normal">      temp </span><span class="symbol">&gt;&gt;=</span><span class="normal"> Al</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* apply the point transform */</span>
+<span class="normal">      </span><span class="comment">/* For a negative coef, want temp2 = bitwise complement of abs(coef) */</span>
+<span class="normal">      temp2 </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">~</span><span class="normal">temp</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      temp </span><span class="symbol">&gt;&gt;=</span><span class="normal"> Al</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* apply the point transform */</span>
+<span class="normal">      temp2 </span><span class="symbol">=</span><span class="normal"> temp</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="comment">/* Watch out for case that nonzero coef is zero after point transform */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">temp </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      r</span><span class="symbol">++;</span>
+<span class="normal">      </span><span class="keyword">continue</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/* Emit any pending EOBRUN */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">-&gt;</span><span class="normal">EOBRUN </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">emit_eobrun</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="comment">/* if run length &gt; 15, must emit special run-length-16 codes (0xF0) */</span>
+<span class="normal">    </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">r </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">15</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">emit_symbol</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">,</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">ac_tbl_no</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0xF0</span><span class="symbol">);</span>
+<span class="normal">      r </span><span class="symbol">-=</span><span class="normal"> </span><span class="number">16</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/* Find the number of bits needed for the magnitude of the coefficient */</span>
+<span class="normal">    nbits </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* there must be at least one 1 bit */</span>
+<span class="normal">    </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">temp </span><span class="symbol">&gt;&gt;=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">))</span>
+<span class="normal">      nbits</span><span class="symbol">++;</span>
+<span class="normal">    </span><span class="comment">/* Check for out-of-range coefficient values */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">nbits </span><span class="symbol">&gt;</span><span class="normal"> MAX_COEF_BITS</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_DCT_COEF</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="comment">/* Count/emit Huffman symbol for run length / number of bits */</span>
+<span class="normal">    </span><span class="function">emit_symbol</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">,</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">ac_tbl_no</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">r </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="number">4</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> nbits</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="comment">/* Emit that number of bits of the value, if positive, */</span>
+<span class="normal">    </span><span class="comment">/* or the complement of its magnitude, if negative. */</span>
+<span class="normal">    </span><span class="function">emit_bits</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="symbol">)</span><span class="normal"> temp2</span><span class="symbol">,</span><span class="normal"> nbits</span><span class="symbol">);</span>
+
+<span class="normal">    r </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* reset zero run length */</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">r </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal">			</span><span class="comment">/* If there are trailing zeroes, */</span>
+<span class="normal">    entropy</span><span class="symbol">-&gt;</span><span class="normal">EOBRUN</span><span class="symbol">++;</span><span class="normal">		</span><span class="comment">/* count an EOB */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">-&gt;</span><span class="normal">EOBRUN </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0x7FFF</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">emit_eobrun</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">);</span><span class="normal">	</span><span class="comment">/* force it out to avoid overflow */</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">dest</span><span class="symbol">-&gt;</span><span class="normal">next_output_byte </span><span class="symbol">=</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">next_output_byte</span><span class="symbol">;</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">dest</span><span class="symbol">-&gt;</span><span class="normal">free_in_buffer </span><span class="symbol">=</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">free_in_buffer</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Update restart-interval state too */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">restart_interval</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">-&gt;</span><span class="normal">restarts_to_go </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      entropy</span><span class="symbol">-&gt;</span><span class="normal">restarts_to_go </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">restart_interval</span><span class="symbol">;</span>
+<span class="normal">      entropy</span><span class="symbol">-&gt;</span><span class="normal">next_restart_num</span><span class="symbol">++;</span>
+<span class="normal">      entropy</span><span class="symbol">-&gt;</span><span class="normal">next_restart_num </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="number">7</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    entropy</span><span class="symbol">-&gt;</span><span class="normal">restarts_to_go</span><span class="symbol">--;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">return</span><span class="normal"> TRUE</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * MCU encoding for DC successive approximation refinement scan.</span>
+<span class="comment"> * Note: we assume such scans can be multi-component, although the spec</span>
+<span class="comment"> * is not very clear on the point.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="normal">boolean</span><span class="symbol">)</span>
+<span class="function">encode_mcu_DC_refine</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">JBLOCKROW</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">MCU_data</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">phuff_entropy_ptr</span><span class="normal"> entropy </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">phuff_entropy_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">entropy</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="type">int</span><span class="normal"> temp</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> blkn</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> Al </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">Al</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JBLOCKROW</span><span class="normal"> block</span><span class="symbol">;</span>
+
+<span class="normal">  entropy</span><span class="symbol">-&gt;</span><span class="normal">next_output_byte </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">dest</span><span class="symbol">-&gt;</span><span class="normal">next_output_byte</span><span class="symbol">;</span>
+<span class="normal">  entropy</span><span class="symbol">-&gt;</span><span class="normal">free_in_buffer </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">dest</span><span class="symbol">-&gt;</span><span class="normal">free_in_buffer</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Emit restart marker if needed */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">restart_interval</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">-&gt;</span><span class="normal">restarts_to_go </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">emit_restart</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">,</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">next_restart_num</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* Encode the MCU data blocks */</span>
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">blkn </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> blkn </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">blocks_in_MCU</span><span class="symbol">;</span><span class="normal"> blkn</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    block </span><span class="symbol">=</span><span class="normal"> MCU_data</span><span class="symbol">[</span><span class="normal">blkn</span><span class="symbol">];</span>
+
+<span class="normal">    </span><span class="comment">/* We simply emit the Al'th bit of the DC coefficient value. */</span>
+<span class="normal">    temp </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">block</span><span class="symbol">)[</span><span class="number">0</span><span class="symbol">];</span>
+<span class="normal">    </span><span class="function">emit_bits</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">temp </span><span class="symbol">&gt;&gt;</span><span class="normal"> Al</span><span class="symbol">),</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">dest</span><span class="symbol">-&gt;</span><span class="normal">next_output_byte </span><span class="symbol">=</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">next_output_byte</span><span class="symbol">;</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">dest</span><span class="symbol">-&gt;</span><span class="normal">free_in_buffer </span><span class="symbol">=</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">free_in_buffer</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Update restart-interval state too */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">restart_interval</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">-&gt;</span><span class="normal">restarts_to_go </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      entropy</span><span class="symbol">-&gt;</span><span class="normal">restarts_to_go </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">restart_interval</span><span class="symbol">;</span>
+<span class="normal">      entropy</span><span class="symbol">-&gt;</span><span class="normal">next_restart_num</span><span class="symbol">++;</span>
+<span class="normal">      entropy</span><span class="symbol">-&gt;</span><span class="normal">next_restart_num </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="number">7</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    entropy</span><span class="symbol">-&gt;</span><span class="normal">restarts_to_go</span><span class="symbol">--;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">return</span><span class="normal"> TRUE</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * MCU encoding for AC successive approximation refinement scan.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="normal">boolean</span><span class="symbol">)</span>
+<span class="function">encode_mcu_AC_refine</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">JBLOCKROW</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">MCU_data</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">phuff_entropy_ptr</span><span class="normal"> entropy </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">phuff_entropy_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">entropy</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="type">int</span><span class="normal"> temp</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="type">int</span><span class="normal"> r</span><span class="symbol">,</span><span class="normal"> k</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> EOB</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">BR_buffer</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> BR</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> Se </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">Se</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> Al </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">Al</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JBLOCKROW</span><span class="normal"> block</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> absvalues</span><span class="symbol">[</span><span class="normal">DCTSIZE2</span><span class="symbol">];</span>
+
+<span class="normal">  entropy</span><span class="symbol">-&gt;</span><span class="normal">next_output_byte </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">dest</span><span class="symbol">-&gt;</span><span class="normal">next_output_byte</span><span class="symbol">;</span>
+<span class="normal">  entropy</span><span class="symbol">-&gt;</span><span class="normal">free_in_buffer </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">dest</span><span class="symbol">-&gt;</span><span class="normal">free_in_buffer</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Emit restart marker if needed */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">restart_interval</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">-&gt;</span><span class="normal">restarts_to_go </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">emit_restart</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">,</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">next_restart_num</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* Encode the MCU data block */</span>
+<span class="normal">  block </span><span class="symbol">=</span><span class="normal"> MCU_data</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">];</span>
+
+<span class="normal">  </span><span class="comment">/* It is convenient to make a pre-pass to determine the transformed</span>
+<span class="comment">   * coefficients' absolute values and the EOB position.</span>
+<span class="comment">   */</span>
+<span class="normal">  EOB </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">k </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">Ss</span><span class="symbol">;</span><span class="normal"> k </span><span class="symbol">&lt;=</span><span class="normal"> Se</span><span class="symbol">;</span><span class="normal"> k</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    temp </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">block</span><span class="symbol">)[</span><span class="normal">jpeg_natural_order</span><span class="symbol">[</span><span class="normal">k</span><span class="symbol">]];</span>
+<span class="normal">    </span><span class="comment">/* We must apply the point transform by Al.  For AC coefficients this</span>
+<span class="comment">     * is an integer division with rounding towards 0.  To do this portably</span>
+<span class="comment">     * in C, we shift after obtaining the absolute value.</span>
+<span class="comment">     */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">temp </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">      temp </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">-</span><span class="normal">temp</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* temp is abs value of input */</span>
+<span class="normal">    temp </span><span class="symbol">&gt;&gt;=</span><span class="normal"> Al</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* apply the point transform */</span>
+<span class="normal">    absvalues</span><span class="symbol">[</span><span class="normal">k</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> temp</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* save abs value for main pass */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">temp </span><span class="symbol">==</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">      EOB </span><span class="symbol">=</span><span class="normal"> k</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* EOB = index of last newly-nonzero coef */</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="comment">/* Encode the AC coefficients per section G.1.2.3, fig. G.7 */</span>
+<span class="normal">  </span>
+<span class="normal">  r </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* r = run length of zeros */</span>
+<span class="normal">  BR </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* BR = count of buffered bits added now */</span>
+<span class="normal">  BR_buffer </span><span class="symbol">=</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">bit_buffer </span><span class="symbol">+</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">BE</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* Append bits to buffer */</span>
+
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">k </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">Ss</span><span class="symbol">;</span><span class="normal"> k </span><span class="symbol">&lt;=</span><span class="normal"> Se</span><span class="symbol">;</span><span class="normal"> k</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">temp </span><span class="symbol">=</span><span class="normal"> absvalues</span><span class="symbol">[</span><span class="normal">k</span><span class="symbol">])</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      r</span><span class="symbol">++;</span>
+<span class="normal">      </span><span class="keyword">continue</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/* Emit any required ZRLs, but not if they can be folded into EOB */</span>
+<span class="normal">    </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">r </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">15</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> k </span><span class="symbol">&lt;=</span><span class="normal"> EOB</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="comment">/* emit any pending EOBRUN and the BE correction bits */</span>
+<span class="normal">      </span><span class="function">emit_eobrun</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="comment">/* Emit ZRL */</span>
+<span class="normal">      </span><span class="function">emit_symbol</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">,</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">ac_tbl_no</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0xF0</span><span class="symbol">);</span>
+<span class="normal">      r </span><span class="symbol">-=</span><span class="normal"> </span><span class="number">16</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="comment">/* Emit buffered correction bits that must be associated with ZRL */</span>
+<span class="normal">      </span><span class="function">emit_buffered_bits</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">,</span><span class="normal"> BR_buffer</span><span class="symbol">,</span><span class="normal"> BR</span><span class="symbol">);</span>
+<span class="normal">      BR_buffer </span><span class="symbol">=</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">bit_buffer</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* BE bits are gone now */</span>
+<span class="normal">      BR </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/* If the coef was previously nonzero, it only needs a correction bit.</span>
+<span class="comment">     * NOTE: a straight translation of the spec's figure G.7 would suggest</span>
+<span class="comment">     * that we also need to test r &gt; 15.  But if r &gt; 15, we can only get here</span>
+<span class="comment">     * if k &gt; EOB, which implies that this coefficient is not 1.</span>
+<span class="comment">     */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">temp </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="comment">/* The correction bit is the next bit of the absolute value. */</span>
+<span class="normal">      BR_buffer</span><span class="symbol">[</span><span class="normal">BR</span><span class="symbol">++]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">char</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">temp </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">continue</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/* Emit any pending EOBRUN and the BE correction bits */</span>
+<span class="normal">    </span><span class="function">emit_eobrun</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="comment">/* Count/emit Huffman symbol for run length / number of bits */</span>
+<span class="normal">    </span><span class="function">emit_symbol</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">,</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">ac_tbl_no</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">r </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="number">4</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="comment">/* Emit output bit for newly-nonzero coef */</span>
+<span class="normal">    temp </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">((*</span><span class="normal">block</span><span class="symbol">)[</span><span class="normal">jpeg_natural_order</span><span class="symbol">[</span><span class="normal">k</span><span class="symbol">]]</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">?</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="function">emit_bits</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="symbol">)</span><span class="normal"> temp</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="comment">/* Emit buffered correction bits that must be associated with this code */</span>
+<span class="normal">    </span><span class="function">emit_buffered_bits</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">,</span><span class="normal"> BR_buffer</span><span class="symbol">,</span><span class="normal"> BR</span><span class="symbol">);</span>
+<span class="normal">    BR_buffer </span><span class="symbol">=</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">bit_buffer</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* BE bits are gone now */</span>
+<span class="normal">    BR </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">    r </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* reset zero run length */</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">r </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> BR </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal">	</span><span class="comment">/* If there are trailing zeroes, */</span>
+<span class="normal">    entropy</span><span class="symbol">-&gt;</span><span class="normal">EOBRUN</span><span class="symbol">++;</span><span class="normal">		</span><span class="comment">/* count an EOB */</span>
+<span class="normal">    entropy</span><span class="symbol">-&gt;</span><span class="normal">BE </span><span class="symbol">+=</span><span class="normal"> BR</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* concat my correction bits to older ones */</span>
+<span class="normal">    </span><span class="comment">/* We force out the EOB if we risk either:</span>
+<span class="comment">     * 1. overflow of the EOB counter;</span>
+<span class="comment">     * 2. overflow of the correction bit buffer during the next MCU.</span>
+<span class="comment">     */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">-&gt;</span><span class="normal">EOBRUN </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0x7FFF</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">BE </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">MAX_CORR_BITS</span><span class="symbol">-</span><span class="normal">DCTSIZE2</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">))</span>
+<span class="normal">      </span><span class="function">emit_eobrun</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">dest</span><span class="symbol">-&gt;</span><span class="normal">next_output_byte </span><span class="symbol">=</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">next_output_byte</span><span class="symbol">;</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">dest</span><span class="symbol">-&gt;</span><span class="normal">free_in_buffer </span><span class="symbol">=</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">free_in_buffer</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Update restart-interval state too */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">restart_interval</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">-&gt;</span><span class="normal">restarts_to_go </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      entropy</span><span class="symbol">-&gt;</span><span class="normal">restarts_to_go </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">restart_interval</span><span class="symbol">;</span>
+<span class="normal">      entropy</span><span class="symbol">-&gt;</span><span class="normal">next_restart_num</span><span class="symbol">++;</span>
+<span class="normal">      entropy</span><span class="symbol">-&gt;</span><span class="normal">next_restart_num </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="number">7</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    entropy</span><span class="symbol">-&gt;</span><span class="normal">restarts_to_go</span><span class="symbol">--;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">return</span><span class="normal"> TRUE</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Finish up at the end of a Huffman-compressed progressive scan.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">finish_pass_phuff</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span><span class="normal">   </span>
+<span class="normal">  </span><span class="usertype">phuff_entropy_ptr</span><span class="normal"> entropy </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">phuff_entropy_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">entropy</span><span class="symbol">;</span>
+
+<span class="normal">  entropy</span><span class="symbol">-&gt;</span><span class="normal">next_output_byte </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">dest</span><span class="symbol">-&gt;</span><span class="normal">next_output_byte</span><span class="symbol">;</span>
+<span class="normal">  entropy</span><span class="symbol">-&gt;</span><span class="normal">free_in_buffer </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">dest</span><span class="symbol">-&gt;</span><span class="normal">free_in_buffer</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Flush out any buffered data */</span>
+<span class="normal">  </span><span class="function">emit_eobrun</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function">flush_bits</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">);</span>
+
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">dest</span><span class="symbol">-&gt;</span><span class="normal">next_output_byte </span><span class="symbol">=</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">next_output_byte</span><span class="symbol">;</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">dest</span><span class="symbol">-&gt;</span><span class="normal">free_in_buffer </span><span class="symbol">=</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">free_in_buffer</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Finish up a statistics-gathering pass and create the new Huffman tables.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">finish_pass_gather_phuff</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">phuff_entropy_ptr</span><span class="normal"> entropy </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">phuff_entropy_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">entropy</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">boolean</span><span class="normal"> is_DC_band</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> ci</span><span class="symbol">,</span><span class="normal"> tbl</span><span class="symbol">;</span>
+<span class="normal">  jpeg_component_info </span><span class="symbol">*</span><span class="normal"> compptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JHUFF_TBL</span><span class="normal"> </span><span class="symbol">**</span><span class="normal">htblptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">boolean</span><span class="normal"> did</span><span class="symbol">[</span><span class="normal">NUM_HUFF_TBLS</span><span class="symbol">];</span>
+
+<span class="normal">  </span><span class="comment">/* Flush out buffered data (all we care about is counting the EOB symbol) */</span>
+<span class="normal">  </span><span class="function">emit_eobrun</span><span class="symbol">(</span><span class="normal">entropy</span><span class="symbol">);</span>
+
+<span class="normal">  is_DC_band </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">Ss </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* It's important not to apply jpeg_gen_optimal_table more than once</span>
+<span class="comment">   * per table, because it clobbers the input frequency counts!</span>
+<span class="comment">   */</span>
+<span class="normal">  </span><span class="function">MEMZERO</span><span class="symbol">(</span><span class="normal">did</span><span class="symbol">,</span><span class="normal"> </span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="normal">did</span><span class="symbol">));</span>
+
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> ci </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">comps_in_scan</span><span class="symbol">;</span><span class="normal"> ci</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    compptr </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">cur_comp_info</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">];</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">is_DC_band</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">Ah </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal">	</span><span class="comment">/* DC refinement needs no table */</span>
+<span class="normal">	</span><span class="keyword">continue</span><span class="symbol">;</span>
+<span class="normal">      tbl </span><span class="symbol">=</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">dc_tbl_no</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      tbl </span><span class="symbol">=</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">ac_tbl_no</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal"> did</span><span class="symbol">[</span><span class="normal">tbl</span><span class="symbol">])</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">is_DC_band</span><span class="symbol">)</span>
+<span class="normal">        htblptr </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">dc_huff_tbl_ptrs</span><span class="symbol">[</span><span class="normal">tbl</span><span class="symbol">];</span>
+<span class="normal">      </span><span class="keyword">else</span>
+<span class="normal">        htblptr </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">ac_huff_tbl_ptrs</span><span class="symbol">[</span><span class="normal">tbl</span><span class="symbol">];</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">htblptr </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="symbol">*</span><span class="normal">htblptr </span><span class="symbol">=</span><span class="normal"> </span><span class="function">jpeg_alloc_huff_table</span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="function">jpeg_gen_optimal_table</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">htblptr</span><span class="symbol">,</span><span class="normal"> entropy</span><span class="symbol">-&gt;</span><span class="normal">count_ptrs</span><span class="symbol">[</span><span class="normal">tbl</span><span class="symbol">]);</span>
+<span class="normal">      did</span><span class="symbol">[</span><span class="normal">tbl</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> TRUE</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Module initialization routine for progressive Huffman entropy encoding.</span>
+<span class="comment"> */</span>
+
+<span class="function">GLOBAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">jinit_phuff_encoder</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">phuff_entropy_ptr</span><span class="normal"> entropy</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> i</span><span class="symbol">;</span>
+
+<span class="normal">  entropy </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">phuff_entropy_ptr</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">mem</span><span class="symbol">-&gt;</span><span class="normal">alloc_small</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> JPOOL_IMAGE</span><span class="symbol">,</span>
+<span class="normal">				</span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="normal">phuff_entropy_encoder</span><span class="symbol">));</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">entropy </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">jpeg_entropy_encoder</span><span class="normal"> </span><span class="symbol">*)</span><span class="normal"> entropy</span><span class="symbol">;</span>
+<span class="normal">  entropy</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">start_pass </span><span class="symbol">=</span><span class="normal"> start_pass_phuff</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Mark tables unallocated */</span>
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> NUM_HUFF_TBLS</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    entropy</span><span class="symbol">-&gt;</span><span class="normal">derived_tbls</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">    entropy</span><span class="symbol">-&gt;</span><span class="normal">count_ptrs</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="normal">  entropy</span><span class="symbol">-&gt;</span><span class="normal">bit_buffer </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* needed only in AC refinement scan */</span>
+<span class="cbracket">}</span>
+
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* C_PROGRESSIVE_SUPPORTED */</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

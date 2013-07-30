@@ -1,0 +1,938 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2006/SDIOS06/sdios06/lib/png/pngget.c - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal8.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2006/">2006</a> / <a href="/2006/SDIOS06/">SDIOS06</a> / <a href="/2006/SDIOS06/sdios06/">sdios06</a> / <a href="/2006/SDIOS06/sdios06/lib/">lib</a> / <a href="/2006/SDIOS06/sdios06/lib/png/">png</a> / <a href="/2006/SDIOS06/sdios06/lib/png/pngget.c.html">pngget.c</a> (<a href="/2006/SDIOS06/sdios06/lib/png/pngget.c">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt>
+<span class="comment">/* pngget.c - retrieval of values from info struct</span>
+<span class="comment"> *</span>
+<span class="comment"> * Last changed in libpng 1.2.9 April 14, 2006</span>
+<span class="comment"> * For conditions of distribution and use, see copyright notice in png.h</span>
+<span class="comment"> * Copyright (c) 1998-2006 Glenn Randers-Pehrson</span>
+<span class="comment"> * (Version 0.96 Copyright (c) 1996, 1997 Andreas Dilger)</span>
+<span class="comment"> * (Version 0.88 Copyright (c) 1995, 1996 Guy Eric Schalnat, Group 42, Inc.)</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#define</span><span class="normal"> PNG_INTERNAL</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"png.h"</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_READ_SUPPORTED</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_WRITE_SUPPORTED</span><span class="symbol">)</span>
+
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_valid</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_uint_32</span><span class="normal"> flag</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">valid </span><span class="symbol">&amp;</span><span class="normal"> flag</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="keyword">else</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_rowbytes</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">rowbytes</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="keyword">else</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_INFO_IMAGE_SUPPORTED</span><span class="symbol">)</span>
+<span class="normal">png_bytepp PNGAPI</span>
+<span class="function">png_get_rows</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">row_pointers</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="keyword">else</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> PNG_EASY_ACCESS_SUPPORTED</span>
+<span class="comment">/* easy access to info, added in libpng-0.99 */</span>
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_image_width</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">width</span><span class="symbol">;</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_image_height</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">height</span><span class="symbol">;</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="normal">png_byte PNGAPI</span>
+<span class="function">png_get_bit_depth</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">bit_depth</span><span class="symbol">;</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="normal">png_byte PNGAPI</span>
+<span class="function">png_get_color_type</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">color_type</span><span class="symbol">;</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="normal">png_byte PNGAPI</span>
+<span class="function">png_get_filter_type</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">filter_type</span><span class="symbol">;</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="normal">png_byte PNGAPI</span>
+<span class="function">png_get_interlace_type</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">interlace_type</span><span class="symbol">;</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="normal">png_byte PNGAPI</span>
+<span class="function">png_get_compression_type</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">compression_type</span><span class="symbol">;</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_x_pixels_per_meter</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_pHYs_SUPPORTED</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">valid </span><span class="symbol">&amp;</span><span class="normal"> PNG_INFO_pHYs</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">png_debug1</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"in %s retrieval function</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"png_get_x_pixels_per_meter"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">phys_unit_type </span><span class="symbol">!=</span><span class="normal"> PNG_RESOLUTION_METER</span><span class="symbol">)</span>
+<span class="normal">          </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">x_pixels_per_unit</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="preproc">#else</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_y_pixels_per_meter</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_pHYs_SUPPORTED</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">valid </span><span class="symbol">&amp;</span><span class="normal"> PNG_INFO_pHYs</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">png_debug1</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"in %s retrieval function</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"png_get_y_pixels_per_meter"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">phys_unit_type </span><span class="symbol">!=</span><span class="normal"> PNG_RESOLUTION_METER</span><span class="symbol">)</span>
+<span class="normal">          </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">y_pixels_per_unit</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="preproc">#else</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_pixels_per_meter</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_pHYs_SUPPORTED</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">valid </span><span class="symbol">&amp;</span><span class="normal"> PNG_INFO_pHYs</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">png_debug1</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"in %s retrieval function</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"png_get_pixels_per_meter"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">phys_unit_type </span><span class="symbol">!=</span><span class="normal"> PNG_RESOLUTION_METER </span><span class="symbol">||</span>
+<span class="normal">         info_ptr</span><span class="symbol">-&gt;</span><span class="normal">x_pixels_per_unit </span><span class="symbol">!=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">y_pixels_per_unit</span><span class="symbol">)</span>
+<span class="normal">          </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">x_pixels_per_unit</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="preproc">#else</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> PNG_FLOATING_POINT_SUPPORTED</span>
+<span class="type">float</span><span class="normal"> PNGAPI</span>
+<span class="function">png_get_pixel_aspect_ratio</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_pHYs_SUPPORTED</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">valid </span><span class="symbol">&amp;</span><span class="normal"> PNG_INFO_pHYs</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">png_debug1</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"in %s retrieval function</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"png_get_aspect_ratio"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">x_pixels_per_unit </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">         </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">((</span><span class="type">float</span><span class="symbol">)</span><span class="number">0.0</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">else</span>
+<span class="normal">         </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">((</span><span class="type">float</span><span class="symbol">)((</span><span class="type">float</span><span class="symbol">)</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">y_pixels_per_unit</span>
+<span class="normal">            </span><span class="symbol">/(</span><span class="type">float</span><span class="symbol">)</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">x_pixels_per_unit</span><span class="symbol">));</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="preproc">#else</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0.0</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">((</span><span class="type">float</span><span class="symbol">)</span><span class="number">0.0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="normal">png_int_32 PNGAPI</span>
+<span class="function">png_get_x_offset_microns</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_oFFs_SUPPORTED</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">valid </span><span class="symbol">&amp;</span><span class="normal"> PNG_INFO_oFFs</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">png_debug1</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"in %s retrieval function</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"png_get_x_offset_microns"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">offset_unit_type </span><span class="symbol">!=</span><span class="normal"> PNG_OFFSET_MICROMETER</span><span class="symbol">)</span>
+<span class="normal">          </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">x_offset</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="preproc">#else</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="normal">png_int_32 PNGAPI</span>
+<span class="function">png_get_y_offset_microns</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_oFFs_SUPPORTED</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">valid </span><span class="symbol">&amp;</span><span class="normal"> PNG_INFO_oFFs</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">png_debug1</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"in %s retrieval function</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"png_get_y_offset_microns"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">offset_unit_type </span><span class="symbol">!=</span><span class="normal"> PNG_OFFSET_MICROMETER</span><span class="symbol">)</span>
+<span class="normal">          </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">y_offset</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="preproc">#else</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="normal">png_int_32 PNGAPI</span>
+<span class="function">png_get_x_offset_pixels</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_oFFs_SUPPORTED</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">valid </span><span class="symbol">&amp;</span><span class="normal"> PNG_INFO_oFFs</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">png_debug1</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"in %s retrieval function</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"png_get_x_offset_microns"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">offset_unit_type </span><span class="symbol">!=</span><span class="normal"> PNG_OFFSET_PIXEL</span><span class="symbol">)</span>
+<span class="normal">          </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">x_offset</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="preproc">#else</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="normal">png_int_32 PNGAPI</span>
+<span class="function">png_get_y_offset_pixels</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_oFFs_SUPPORTED</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">valid </span><span class="symbol">&amp;</span><span class="normal"> PNG_INFO_oFFs</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">png_debug1</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"in %s retrieval function</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"png_get_y_offset_microns"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">offset_unit_type </span><span class="symbol">!=</span><span class="normal"> PNG_OFFSET_PIXEL</span><span class="symbol">)</span>
+<span class="normal">          </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">y_offset</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="preproc">#else</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_INCH_CONVERSIONS</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_FLOATING_POINT_SUPPORTED</span><span class="symbol">)</span>
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_pixels_per_inch</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">png_uint_32</span><span class="symbol">)((</span><span class="type">float</span><span class="symbol">)</span><span class="function">png_get_pixels_per_meter</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> info_ptr</span><span class="symbol">)</span>
+<span class="normal">     </span><span class="symbol">*.</span><span class="number">0254</span><span class="normal"> </span><span class="symbol">+.</span><span class="number">5</span><span class="symbol">));</span>
+<span class="cbracket">}</span>
+
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_x_pixels_per_inch</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">png_uint_32</span><span class="symbol">)((</span><span class="type">float</span><span class="symbol">)</span><span class="function">png_get_x_pixels_per_meter</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> info_ptr</span><span class="symbol">)</span>
+<span class="normal">     </span><span class="symbol">*.</span><span class="number">0254</span><span class="normal"> </span><span class="symbol">+.</span><span class="number">5</span><span class="symbol">));</span>
+<span class="cbracket">}</span>
+
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_y_pixels_per_inch</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">png_uint_32</span><span class="symbol">)((</span><span class="type">float</span><span class="symbol">)</span><span class="function">png_get_y_pixels_per_meter</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> info_ptr</span><span class="symbol">)</span>
+<span class="normal">     </span><span class="symbol">*.</span><span class="number">0254</span><span class="normal"> </span><span class="symbol">+.</span><span class="number">5</span><span class="symbol">));</span>
+<span class="cbracket">}</span>
+
+<span class="type">float</span><span class="normal"> PNGAPI</span>
+<span class="function">png_get_x_offset_inches</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">((</span><span class="type">float</span><span class="symbol">)</span><span class="function">png_get_x_offset_microns</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> info_ptr</span><span class="symbol">)</span>
+<span class="normal">     </span><span class="symbol">*.</span><span class="number">00003937</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="type">float</span><span class="normal"> PNGAPI</span>
+<span class="function">png_get_y_offset_inches</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">((</span><span class="type">float</span><span class="symbol">)</span><span class="function">png_get_y_offset_microns</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> info_ptr</span><span class="symbol">)</span>
+<span class="normal">     </span><span class="symbol">*.</span><span class="number">00003937</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_pHYs_SUPPORTED</span><span class="symbol">)</span>
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_pHYs_dpi</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">,</span>
+<span class="normal">   </span><span class="usertype">png_uint_32</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">res_x</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_uint_32</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">res_y</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">unit_type</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="usertype">png_uint_32</span><span class="normal"> retval </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">valid </span><span class="symbol">&amp;</span><span class="normal"> PNG_INFO_pHYs</span><span class="symbol">))</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">png_debug1</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"in %s retrieval function</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"pHYs"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">res_x </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="cbracket">{</span>
+<span class="normal">         </span><span class="symbol">*</span><span class="normal">res_x </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">x_pixels_per_unit</span><span class="symbol">;</span>
+<span class="normal">         retval </span><span class="symbol">|=</span><span class="normal"> PNG_INFO_pHYs</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">res_y </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="cbracket">{</span>
+<span class="normal">         </span><span class="symbol">*</span><span class="normal">res_y </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">y_pixels_per_unit</span><span class="symbol">;</span>
+<span class="normal">         retval </span><span class="symbol">|=</span><span class="normal"> PNG_INFO_pHYs</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">unit_type </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="cbracket">{</span>
+<span class="normal">         </span><span class="symbol">*</span><span class="normal">unit_type </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">phys_unit_type</span><span class="symbol">;</span>
+<span class="normal">         retval </span><span class="symbol">|=</span><span class="normal"> PNG_INFO_pHYs</span><span class="symbol">;</span>
+<span class="normal">         </span><span class="keyword">if</span><span class="symbol">(*</span><span class="normal">unit_type </span><span class="symbol">==</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">         </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">res_x </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">res_x </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_uint_32</span><span class="symbol">)(*</span><span class="normal">res_x </span><span class="symbol">*</span><span class="normal"> </span><span class="symbol">.</span><span class="number">0254</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="symbol">.</span><span class="number">50</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">res_y </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">res_y </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_uint_32</span><span class="symbol">)(*</span><span class="normal">res_y </span><span class="symbol">*</span><span class="normal"> </span><span class="symbol">.</span><span class="number">0254</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="symbol">.</span><span class="number">50</span><span class="symbol">);</span>
+<span class="normal">         </span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">retval</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* PNG_pHYs_SUPPORTED */</span>
+<span class="preproc">#endif</span><span class="normal">  </span><span class="comment">/* PNG_INCH_CONVERSIONS &amp;&amp; PNG_FLOATING_POINT_SUPPORTED */</span>
+
+<span class="comment">/* png_get_channels really belongs in here, too, but it's been around longer */</span>
+
+<span class="preproc">#endif</span><span class="normal">  </span><span class="comment">/* PNG_EASY_ACCESS_SUPPORTED */</span>
+
+<span class="normal">png_byte PNGAPI</span>
+<span class="function">png_get_channels</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">channels</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="keyword">else</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="normal">png_bytep PNGAPI</span>
+<span class="function">png_get_signature</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">signature</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="keyword">else</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">NULL</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_bKGD_SUPPORTED</span><span class="symbol">)</span>
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_bKGD</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">,</span>
+<span class="normal">   </span><span class="usertype">png_color_16p</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">background</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">valid </span><span class="symbol">&amp;</span><span class="normal"> PNG_INFO_bKGD</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="symbol">&amp;&amp;</span><span class="normal"> background </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">png_debug1</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"in %s retrieval function</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"bKGD"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">background </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">&amp;(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">background</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">PNG_INFO_bKGD</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_cHRM_SUPPORTED</span><span class="symbol">)</span>
+<span class="preproc">#ifdef</span><span class="normal"> PNG_FLOATING_POINT_SUPPORTED</span>
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_cHRM</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">,</span>
+<span class="normal">   </span><span class="type">double</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">white_x</span><span class="symbol">,</span><span class="normal"> </span><span class="type">double</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">white_y</span><span class="symbol">,</span><span class="normal"> </span><span class="type">double</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">red_x</span><span class="symbol">,</span><span class="normal"> </span><span class="type">double</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">red_y</span><span class="symbol">,</span>
+<span class="normal">   </span><span class="type">double</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">green_x</span><span class="symbol">,</span><span class="normal"> </span><span class="type">double</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">green_y</span><span class="symbol">,</span><span class="normal"> </span><span class="type">double</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">blue_x</span><span class="symbol">,</span><span class="normal"> </span><span class="type">double</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">blue_y</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">valid </span><span class="symbol">&amp;</span><span class="normal"> PNG_INFO_cHRM</span><span class="symbol">))</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">png_debug1</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"in %s retrieval function</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"cHRM"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">white_x </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">         </span><span class="symbol">*</span><span class="normal">white_x </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">double</span><span class="symbol">)</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">x_white</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">white_y </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">         </span><span class="symbol">*</span><span class="normal">white_y </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">double</span><span class="symbol">)</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">y_white</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">red_x </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">         </span><span class="symbol">*</span><span class="normal">red_x </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">double</span><span class="symbol">)</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">x_red</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">red_y </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">         </span><span class="symbol">*</span><span class="normal">red_y </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">double</span><span class="symbol">)</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">y_red</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">green_x </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">         </span><span class="symbol">*</span><span class="normal">green_x </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">double</span><span class="symbol">)</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">x_green</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">green_y </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">         </span><span class="symbol">*</span><span class="normal">green_y </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">double</span><span class="symbol">)</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">y_green</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">blue_x </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">         </span><span class="symbol">*</span><span class="normal">blue_x </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">double</span><span class="symbol">)</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">x_blue</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">blue_y </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">         </span><span class="symbol">*</span><span class="normal">blue_y </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">double</span><span class="symbol">)</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">y_blue</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">PNG_INFO_cHRM</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#ifdef</span><span class="normal"> PNG_FIXED_POINT_SUPPORTED</span>
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_cHRM_fixed</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">,</span>
+<span class="normal">   </span><span class="usertype">png_fixed_point</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">white_x</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_fixed_point</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">white_y</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_fixed_point</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">red_x</span><span class="symbol">,</span>
+<span class="normal">   </span><span class="usertype">png_fixed_point</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">red_y</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_fixed_point</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">green_x</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_fixed_point</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">green_y</span><span class="symbol">,</span>
+<span class="normal">   </span><span class="usertype">png_fixed_point</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">blue_x</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_fixed_point</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">blue_y</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">valid </span><span class="symbol">&amp;</span><span class="normal"> PNG_INFO_cHRM</span><span class="symbol">))</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">png_debug1</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"in %s retrieval function</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"cHRM"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">white_x </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">         </span><span class="symbol">*</span><span class="normal">white_x </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">int_x_white</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">white_y </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">         </span><span class="symbol">*</span><span class="normal">white_y </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">int_y_white</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">red_x </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">         </span><span class="symbol">*</span><span class="normal">red_x </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">int_x_red</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">red_y </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">         </span><span class="symbol">*</span><span class="normal">red_y </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">int_y_red</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">green_x </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">         </span><span class="symbol">*</span><span class="normal">green_x </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">int_x_green</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">green_y </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">         </span><span class="symbol">*</span><span class="normal">green_y </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">int_y_green</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">blue_x </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">         </span><span class="symbol">*</span><span class="normal">blue_x </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">int_x_blue</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">blue_y </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">         </span><span class="symbol">*</span><span class="normal">blue_y </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">int_y_blue</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">PNG_INFO_cHRM</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#endif</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_gAMA_SUPPORTED</span><span class="symbol">)</span>
+<span class="preproc">#ifdef</span><span class="normal"> PNG_FLOATING_POINT_SUPPORTED</span>
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_gAMA</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="type">double</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">file_gamma</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">valid </span><span class="symbol">&amp;</span><span class="normal"> PNG_INFO_gAMA</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="symbol">&amp;&amp;</span><span class="normal"> file_gamma </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">png_debug1</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"in %s retrieval function</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"gAMA"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">file_gamma </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">double</span><span class="symbol">)</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">gamma</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">PNG_INFO_gAMA</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#ifdef</span><span class="normal"> PNG_FIXED_POINT_SUPPORTED</span>
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_gAMA_fixed</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="usertype">png_fixed_point</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">int_file_gamma</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">valid </span><span class="symbol">&amp;</span><span class="normal"> PNG_INFO_gAMA</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="symbol">&amp;&amp;</span><span class="normal"> int_file_gamma </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">png_debug1</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"in %s retrieval function</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"gAMA"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">int_file_gamma </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">int_gamma</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">PNG_INFO_gAMA</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#endif</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_sRGB_SUPPORTED</span><span class="symbol">)</span>
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_sRGB</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">file_srgb_intent</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">valid </span><span class="symbol">&amp;</span><span class="normal"> PNG_INFO_sRGB</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="symbol">&amp;&amp;</span><span class="normal"> file_srgb_intent </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">png_debug1</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"in %s retrieval function</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"sRGB"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">file_srgb_intent </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">srgb_intent</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">PNG_INFO_sRGB</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_iCCP_SUPPORTED</span><span class="symbol">)</span>
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_iCCP</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">,</span>
+<span class="normal">             </span><span class="usertype">png_charpp</span><span class="normal"> name</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">compression_type</span><span class="symbol">,</span>
+<span class="normal">             </span><span class="usertype">png_charpp</span><span class="normal"> profile</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_uint_32</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">proflen</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">valid </span><span class="symbol">&amp;</span><span class="normal"> PNG_INFO_iCCP</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="symbol">&amp;&amp;</span><span class="normal"> name </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> profile </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> proflen </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">png_debug1</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"in %s retrieval function</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"iCCP"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">name </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">iccp_name</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">profile </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">iccp_profile</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="comment">/* compression_type is a dummy so the API won't have to change</span>
+<span class="comment">         if we introduce multiple compression types later. */</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">proflen </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">iccp_proflen</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">compression_type </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">iccp_compression</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">PNG_INFO_iCCP</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_sPLT_SUPPORTED</span><span class="symbol">)</span>
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_sPLT</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">,</span>
+<span class="normal">             </span><span class="usertype">png_sPLT_tpp</span><span class="normal"> spalettes</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> spalettes </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">     </span><span class="symbol">*</span><span class="normal">spalettes </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">splt_palettes</span><span class="symbol">;</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">png_uint_32</span><span class="symbol">)</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">splt_palettes_num</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_hIST_SUPPORTED</span><span class="symbol">)</span>
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_hIST</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_uint_16p</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">hist</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">valid </span><span class="symbol">&amp;</span><span class="normal"> PNG_INFO_hIST</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="symbol">&amp;&amp;</span><span class="normal"> hist </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">png_debug1</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"in %s retrieval function</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"hIST"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">hist </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">hist</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">PNG_INFO_hIST</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_IHDR</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">,</span>
+<span class="normal">   </span><span class="usertype">png_uint_32</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">width</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_uint_32</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">height</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">bit_depth</span><span class="symbol">,</span>
+<span class="normal">   </span><span class="type">int</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">color_type</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">interlace_type</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">compression_type</span><span class="symbol">,</span>
+<span class="normal">   </span><span class="type">int</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">filter_type</span><span class="symbol">)</span>
+
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> width </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> height </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span>
+<span class="normal">      bit_depth </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> color_type </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">png_debug1</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"in %s retrieval function</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"IHDR"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">width </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">width</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">height </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">height</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">bit_depth </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">bit_depth</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">bit_depth </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">1</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">bit_depth </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">16</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="function">png_error</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"Invalid bit depth"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">color_type </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">color_type</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">color_type </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">6</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="function">png_error</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"Invalid color type"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">compression_type </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">         </span><span class="symbol">*</span><span class="normal">compression_type </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">compression_type</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">filter_type </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">         </span><span class="symbol">*</span><span class="normal">filter_type </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">filter_type</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">interlace_type </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">         </span><span class="symbol">*</span><span class="normal">interlace_type </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">interlace_type</span><span class="symbol">;</span>
+
+<span class="normal">      </span><span class="comment">/* check for potential overflow of rowbytes */</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">width </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">width </span><span class="symbol">&gt;</span><span class="normal"> PNG_UINT_31_MAX</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="function">png_error</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"Invalid image width"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">height </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">height </span><span class="symbol">&gt;</span><span class="normal"> PNG_UINT_31_MAX</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="function">png_error</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"Invalid image height"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">width </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">PNG_UINT_32_MAX</span>
+<span class="normal">                 </span><span class="symbol">&gt;&gt;</span><span class="normal"> </span><span class="number">3</span><span class="symbol">)</span><span class="normal">      </span><span class="comment">/* 8-byte RGBA pixels */</span>
+<span class="normal">                 </span><span class="symbol">-</span><span class="normal"> </span><span class="number">64</span><span class="normal">       </span><span class="comment">/* bigrowbuf hack */</span>
+<span class="normal">                 </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="normal">        </span><span class="comment">/* filter byte */</span>
+<span class="normal">                 </span><span class="symbol">-</span><span class="normal"> </span><span class="number">7</span><span class="symbol">*</span><span class="number">8</span><span class="normal">      </span><span class="comment">/* rounding of width to multiple of 8 pixels */</span>
+<span class="normal">                 </span><span class="symbol">-</span><span class="normal"> </span><span class="number">8</span><span class="symbol">)</span><span class="normal">       </span><span class="comment">/* extra max_pixel_depth pad */</span>
+<span class="normal">      </span><span class="cbracket">{</span>
+<span class="normal">         </span><span class="function">png_warning</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span>
+<span class="normal">            </span><span class="string">"Width too large for libpng to process image data."</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_oFFs_SUPPORTED</span><span class="symbol">)</span>
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_oFFs</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">,</span>
+<span class="normal">   </span><span class="usertype">png_int_32</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">offset_x</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_int_32</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">offset_y</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">unit_type</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">valid </span><span class="symbol">&amp;</span><span class="normal"> PNG_INFO_oFFs</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="symbol">&amp;&amp;</span><span class="normal"> offset_x </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> offset_y </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> unit_type </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">png_debug1</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"in %s retrieval function</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"oFFs"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">offset_x </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">x_offset</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">offset_y </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">y_offset</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">unit_type </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">offset_unit_type</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">PNG_INFO_oFFs</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_pCAL_SUPPORTED</span><span class="symbol">)</span>
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_pCAL</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">,</span>
+<span class="normal">   </span><span class="usertype">png_charp</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">purpose</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_int_32</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">X0</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_int_32</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">X1</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">type</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">nparams</span><span class="symbol">,</span>
+<span class="normal">   </span><span class="usertype">png_charp</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">units</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_charpp</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">params</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">valid </span><span class="symbol">&amp;</span><span class="normal"> PNG_INFO_pCAL</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="symbol">&amp;&amp;</span><span class="normal"> purpose </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> X0 </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> X1 </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> type </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span>
+<span class="normal">      nparams </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> units </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> params </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">png_debug1</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"in %s retrieval function</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"pCAL"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">purpose </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">pcal_purpose</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">X0 </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">pcal_X0</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">X1 </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">pcal_X1</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">type </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">pcal_type</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">nparams </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">pcal_nparams</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">units </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">pcal_units</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">params </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">pcal_params</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">PNG_INFO_pCAL</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_sCAL_SUPPORTED</span><span class="symbol">)</span>
+<span class="preproc">#ifdef</span><span class="normal"> PNG_FLOATING_POINT_SUPPORTED</span>
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_sCAL</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">,</span>
+<span class="normal">             </span><span class="type">int</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">unit</span><span class="symbol">,</span><span class="normal"> </span><span class="type">double</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">width</span><span class="symbol">,</span><span class="normal"> </span><span class="type">double</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">height</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span>
+<span class="normal">       </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">valid </span><span class="symbol">&amp;</span><span class="normal"> PNG_INFO_sCAL</span><span class="symbol">))</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="symbol">*</span><span class="normal">unit </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">scal_unit</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="symbol">*</span><span class="normal">width </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">scal_pixel_width</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="symbol">*</span><span class="normal">height </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">scal_pixel_height</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">PNG_INFO_sCAL</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="preproc">#else</span>
+<span class="preproc">#ifdef</span><span class="normal"> PNG_FIXED_POINT_SUPPORTED</span>
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_sCAL_s</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">,</span>
+<span class="normal">             </span><span class="type">int</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">unit</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_charpp</span><span class="normal"> width</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_charpp</span><span class="normal"> height</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span>
+<span class="normal">       </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">valid </span><span class="symbol">&amp;</span><span class="normal"> PNG_INFO_sCAL</span><span class="symbol">))</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="symbol">*</span><span class="normal">unit </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">scal_unit</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="symbol">*</span><span class="normal">width </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">scal_s_width</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="symbol">*</span><span class="normal">height </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">scal_s_height</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">PNG_INFO_sCAL</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#endif</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_pHYs_SUPPORTED</span><span class="symbol">)</span>
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_pHYs</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">,</span>
+<span class="normal">   </span><span class="usertype">png_uint_32</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">res_x</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_uint_32</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">res_y</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">unit_type</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="usertype">png_uint_32</span><span class="normal"> retval </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span>
+<span class="normal">      </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">valid </span><span class="symbol">&amp;</span><span class="normal"> PNG_INFO_pHYs</span><span class="symbol">))</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">png_debug1</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"in %s retrieval function</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"pHYs"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">res_x </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="cbracket">{</span>
+<span class="normal">         </span><span class="symbol">*</span><span class="normal">res_x </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">x_pixels_per_unit</span><span class="symbol">;</span>
+<span class="normal">         retval </span><span class="symbol">|=</span><span class="normal"> PNG_INFO_pHYs</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">res_y </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="cbracket">{</span>
+<span class="normal">         </span><span class="symbol">*</span><span class="normal">res_y </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">y_pixels_per_unit</span><span class="symbol">;</span>
+<span class="normal">         retval </span><span class="symbol">|=</span><span class="normal"> PNG_INFO_pHYs</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">unit_type </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="cbracket">{</span>
+<span class="normal">         </span><span class="symbol">*</span><span class="normal">unit_type </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">phys_unit_type</span><span class="symbol">;</span>
+<span class="normal">         retval </span><span class="symbol">|=</span><span class="normal"> PNG_INFO_pHYs</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">retval</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_PLTE</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_colorp</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">palette</span><span class="symbol">,</span>
+<span class="normal">   </span><span class="type">int</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">num_palette</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">valid </span><span class="symbol">&amp;</span><span class="normal"> PNG_INFO_PLTE</span><span class="symbol">)</span>
+<span class="normal">       </span><span class="symbol">&amp;&amp;</span><span class="normal"> palette </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">png_debug1</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"in %s retrieval function</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"PLTE"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">palette </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">palette</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">num_palette </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">num_palette</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="function">png_debug1</span><span class="symbol">(</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"num_palette = %d</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">num_palette</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">PNG_INFO_PLTE</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_sBIT_SUPPORTED</span><span class="symbol">)</span>
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_sBIT</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_color_8p</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">sig_bit</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">valid </span><span class="symbol">&amp;</span><span class="normal"> PNG_INFO_sBIT</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="symbol">&amp;&amp;</span><span class="normal"> sig_bit </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">png_debug1</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"in %s retrieval function</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"sBIT"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">sig_bit </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">&amp;(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">sig_bit</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">PNG_INFO_sBIT</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_TEXT_SUPPORTED</span><span class="symbol">)</span>
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_text</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_textp</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">text_ptr</span><span class="symbol">,</span>
+<span class="normal">   </span><span class="type">int</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">num_text</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">num_text </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">png_debug1</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"in %s retrieval function</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span>
+<span class="normal">         </span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">chunk_name</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="string">'</span><span class="specialchar">\0</span><span class="string">'</span><span class="normal"> </span><span class="symbol">?</span><span class="normal"> </span><span class="string">"text"</span>
+<span class="normal">             </span><span class="symbol">:</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_const_charp</span><span class="symbol">)</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">chunk_name</span><span class="symbol">));</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">text_ptr </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">         </span><span class="symbol">*</span><span class="normal">text_ptr </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">text</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">num_text </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">         </span><span class="symbol">*</span><span class="normal">num_text </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">num_text</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">png_uint_32</span><span class="symbol">)</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">num_text</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">num_text </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">     </span><span class="symbol">*</span><span class="normal">num_text </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_tIME_SUPPORTED</span><span class="symbol">)</span>
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_tIME</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_timep</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">mod_time</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">valid </span><span class="symbol">&amp;</span><span class="normal"> PNG_INFO_tIME</span><span class="symbol">)</span>
+<span class="normal">       </span><span class="symbol">&amp;&amp;</span><span class="normal"> mod_time </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">png_debug1</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"in %s retrieval function</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"tIME"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">mod_time </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">&amp;(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">mod_time</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">PNG_INFO_tIME</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_tRNS_SUPPORTED</span><span class="symbol">)</span>
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_tRNS</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">,</span>
+<span class="normal">   </span><span class="usertype">png_bytep</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">trans</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">num_trans</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_color_16p</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">trans_values</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="usertype">png_uint_32</span><span class="normal"> retval </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">valid </span><span class="symbol">&amp;</span><span class="normal"> PNG_INFO_tRNS</span><span class="symbol">))</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">png_debug1</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"in %s retrieval function</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"tRNS"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">color_type </span><span class="symbol">==</span><span class="normal"> PNG_COLOR_TYPE_PALETTE</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="cbracket">{</span>
+<span class="normal">          </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">trans </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">          </span><span class="cbracket">{</span>
+<span class="normal">             </span><span class="symbol">*</span><span class="normal">trans </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">trans</span><span class="symbol">;</span>
+<span class="normal">             retval </span><span class="symbol">|=</span><span class="normal"> PNG_INFO_tRNS</span><span class="symbol">;</span>
+<span class="normal">          </span><span class="cbracket">}</span>
+<span class="normal">          </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">trans_values </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">             </span><span class="symbol">*</span><span class="normal">trans_values </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">&amp;(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">trans_values</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="keyword">else</span><span class="normal"> </span><span class="comment">/* if (info_ptr-&gt;color_type != PNG_COLOR_TYPE_PALETTE) */</span>
+<span class="normal">      </span><span class="cbracket">{</span>
+<span class="normal">          </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">trans_values </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">          </span><span class="cbracket">{</span>
+<span class="normal">             </span><span class="symbol">*</span><span class="normal">trans_values </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">&amp;(</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">trans_values</span><span class="symbol">);</span>
+<span class="normal">             retval </span><span class="symbol">|=</span><span class="normal"> PNG_INFO_tRNS</span><span class="symbol">;</span>
+<span class="normal">          </span><span class="cbracket">}</span>
+<span class="normal">          </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">trans </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">             </span><span class="symbol">*</span><span class="normal">trans </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">num_trans </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="cbracket">{</span>
+<span class="normal">         </span><span class="symbol">*</span><span class="normal">num_trans </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">num_trans</span><span class="symbol">;</span>
+<span class="normal">         retval </span><span class="symbol">|=</span><span class="normal"> PNG_INFO_tRNS</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">retval</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_UNKNOWN_CHUNKS_SUPPORTED</span><span class="symbol">)</span>
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_unknown_chunks</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_infop</span><span class="normal"> info_ptr</span><span class="symbol">,</span>
+<span class="normal">             </span><span class="usertype">png_unknown_chunkpp</span><span class="normal"> unknowns</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> info_ptr </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> unknowns </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">     </span><span class="symbol">*</span><span class="normal">unknowns </span><span class="symbol">=</span><span class="normal"> info_ptr</span><span class="symbol">-&gt;</span><span class="normal">unknown_chunks</span><span class="symbol">;</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">png_uint_32</span><span class="symbol">)</span><span class="normal">info_ptr</span><span class="symbol">-&gt;</span><span class="normal">unknown_chunks_num</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_READ_RGB_TO_GRAY_SUPPORTED</span><span class="symbol">)</span>
+<span class="normal">png_byte PNGAPI</span>
+<span class="function">png_get_rgb_to_gray_status</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_byte</span><span class="symbol">)(</span><span class="normal">png_ptr</span><span class="symbol">?</span><span class="normal"> png_ptr</span><span class="symbol">-&gt;</span><span class="normal">rgb_to_gray_status </span><span class="symbol">:</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_USER_CHUNKS_SUPPORTED</span><span class="symbol">)</span>
+<span class="normal">png_voidp PNGAPI</span>
+<span class="function">png_get_user_chunk_ptr</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">?</span><span class="normal"> png_ptr</span><span class="symbol">-&gt;</span><span class="normal">user_chunk_ptr </span><span class="symbol">:</span><span class="normal"> NULL</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> PNG_WRITE_SUPPORTED</span>
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_compression_buffer_size</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_uint_32</span><span class="symbol">)(</span><span class="normal">png_ptr</span><span class="symbol">?</span><span class="normal"> png_ptr</span><span class="symbol">-&gt;</span><span class="normal">zbuf_size </span><span class="symbol">:</span><span class="normal"> </span><span class="number">0L</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="preproc">#ifndef</span><span class="normal"> PNG_1_0_X</span>
+<span class="preproc">#ifdef</span><span class="normal"> PNG_ASSEMBLER_CODE_SUPPORTED</span>
+<span class="comment">/* this function was added to libpng 1.2.0 and should exist by default */</span>
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_asm_flags</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_uint_32</span><span class="symbol">)(</span><span class="normal">png_ptr</span><span class="symbol">?</span><span class="normal"> png_ptr</span><span class="symbol">-&gt;</span><span class="normal">asm_flags </span><span class="symbol">:</span><span class="normal"> </span><span class="number">0L</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/* this function was added to libpng 1.2.0 and should exist by default */</span>
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_asm_flagmask</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> flag_select</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">png_uint_32</span><span class="normal"> settable_asm_flags </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">flag_select </span><span class="symbol">&amp;</span><span class="normal"> PNG_SELECT_READ</span><span class="symbol">)</span>
+<span class="normal">        settable_asm_flags </span><span class="symbol">|=</span>
+<span class="normal">          PNG_ASM_FLAG_MMX_READ_COMBINE_ROW  </span><span class="symbol">|</span>
+<span class="normal">          PNG_ASM_FLAG_MMX_READ_INTERLACE    </span><span class="symbol">|</span>
+<span class="normal">          PNG_ASM_FLAG_MMX_READ_FILTER_SUB   </span><span class="symbol">|</span>
+<span class="normal">          PNG_ASM_FLAG_MMX_READ_FILTER_UP    </span><span class="symbol">|</span>
+<span class="normal">          PNG_ASM_FLAG_MMX_READ_FILTER_AVG   </span><span class="symbol">|</span>
+<span class="normal">          PNG_ASM_FLAG_MMX_READ_FILTER_PAETH </span><span class="symbol">;</span>
+<span class="normal">          </span><span class="comment">/* no non-MMX flags yet */</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="number">0</span>
+<span class="normal">    </span><span class="comment">/* GRR:  no write-flags yet, either, but someday... */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">flag_select </span><span class="symbol">&amp;</span><span class="normal"> PNG_SELECT_WRITE</span><span class="symbol">)</span>
+<span class="normal">        settable_asm_flags </span><span class="symbol">|=</span>
+<span class="normal">          PNG_ASM_FLAG_MMX_WRITE_ </span><span class="symbol">[</span><span class="normal">whatever</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">;</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* 0 */</span>
+
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> settable_asm_flags</span><span class="symbol">;</span><span class="normal">  </span><span class="comment">/* _theoretically_ settable capabilities only */</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* PNG_ASSEMBLER_CODE_SUPPORTED */</span>
+
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_ASSEMBLER_CODE_SUPPORTED</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="comment">/* GRR:  could add this:   &amp;&amp; defined(PNG_MMX_CODE_SUPPORTED) */</span>
+<span class="comment">/* this function was added to libpng 1.2.0 */</span>
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_mmx_flagmask</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> flag_select</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">compilerID</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">png_uint_32</span><span class="normal"> settable_mmx_flags </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">flag_select </span><span class="symbol">&amp;</span><span class="normal"> PNG_SELECT_READ</span><span class="symbol">)</span>
+<span class="normal">        settable_mmx_flags </span><span class="symbol">|=</span>
+<span class="normal">          PNG_ASM_FLAG_MMX_READ_COMBINE_ROW  </span><span class="symbol">|</span>
+<span class="normal">          PNG_ASM_FLAG_MMX_READ_INTERLACE    </span><span class="symbol">|</span>
+<span class="normal">          PNG_ASM_FLAG_MMX_READ_FILTER_SUB   </span><span class="symbol">|</span>
+<span class="normal">          PNG_ASM_FLAG_MMX_READ_FILTER_UP    </span><span class="symbol">|</span>
+<span class="normal">          PNG_ASM_FLAG_MMX_READ_FILTER_AVG   </span><span class="symbol">|</span>
+<span class="normal">          PNG_ASM_FLAG_MMX_READ_FILTER_PAETH </span><span class="symbol">;</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="number">0</span>
+<span class="normal">    </span><span class="comment">/* GRR:  no MMX write support yet, but someday... */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">flag_select </span><span class="symbol">&amp;</span><span class="normal"> PNG_SELECT_WRITE</span><span class="symbol">)</span>
+<span class="normal">        settable_mmx_flags </span><span class="symbol">|=</span>
+<span class="normal">          PNG_ASM_FLAG_MMX_WRITE_ </span><span class="symbol">[</span><span class="normal">whatever</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">;</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* 0 */</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">compilerID </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="preproc">#ifdef</span><span class="normal"> PNG_USE_PNGVCRD</span>
+<span class="normal">        </span><span class="symbol">*</span><span class="normal">compilerID </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal">    </span><span class="comment">/* MSVC */</span>
+<span class="preproc">#else</span>
+<span class="preproc">#ifdef</span><span class="normal"> PNG_USE_PNGGCCRD</span>
+<span class="normal">        </span><span class="symbol">*</span><span class="normal">compilerID </span><span class="symbol">=</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span><span class="normal">    </span><span class="comment">/* gcc/gas */</span>
+<span class="preproc">#else</span>
+<span class="normal">        </span><span class="symbol">*</span><span class="normal">compilerID </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span><span class="normal">   </span><span class="comment">/* unknown (i.e., no asm/MMX code compiled) */</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#endif</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> settable_mmx_flags</span><span class="symbol">;</span><span class="normal">  </span><span class="comment">/* _theoretically_ settable capabilities only */</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/* this function was added to libpng 1.2.0 */</span>
+<span class="normal">png_byte PNGAPI</span>
+<span class="function">png_get_mmx_bitdepth_threshold</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_byte</span><span class="symbol">)(</span><span class="normal">png_ptr</span><span class="symbol">?</span><span class="normal"> png_ptr</span><span class="symbol">-&gt;</span><span class="normal">mmx_bitdepth_threshold </span><span class="symbol">:</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/* this function was added to libpng 1.2.0 */</span>
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_mmx_rowbytes_threshold</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_uint_32</span><span class="symbol">)(</span><span class="normal">png_ptr</span><span class="symbol">?</span><span class="normal"> png_ptr</span><span class="symbol">-&gt;</span><span class="normal">mmx_rowbytes_threshold </span><span class="symbol">:</span><span class="normal"> </span><span class="number">0L</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* ?PNG_ASSEMBLER_CODE_SUPPORTED */</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* ?PNG_1_0_X */</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> PNG_SET_USER_LIMITS_SUPPORTED</span>
+<span class="comment">/* these functions were added to libpng 1.2.6 */</span>
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_user_width_max</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">?</span><span class="normal"> png_ptr</span><span class="symbol">-&gt;</span><span class="normal">user_width_max </span><span class="symbol">:</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="normal">png_uint_32 PNGAPI</span>
+<span class="function">png_get_user_height_max</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">?</span><span class="normal"> png_ptr</span><span class="symbol">-&gt;</span><span class="normal">user_height_max </span><span class="symbol">:</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* ?PNG_SET_USER_LIMITS_SUPPORTED */</span>
+
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* PNG_READ_SUPPORTED || PNG_WRITE_SUPPORTED */</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

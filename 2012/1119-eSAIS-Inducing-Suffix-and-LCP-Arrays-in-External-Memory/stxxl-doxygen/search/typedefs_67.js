@@ -1,0 +1,1 @@
+var searchData=[["grshrtp",["GrShrTp",["../classstxxl_1_1STACK__GENERATOR.html#a2e9a8e923bf66d6b0a581a37a6765d4f",1,"stxxl::STACK_GENERATOR"]]]];

@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - CMOS RAM</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;CMOS RTC - Real Time Clock and Memory (ports 70h &amp; 71h)</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Reg# &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Description</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 00 &nbsp;RTC seconds<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 01 &nbsp;RTC seconds alarm<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 02 &nbsp;RTC minutes<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 03 &nbsp;RTC minutes alarm<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 04 &nbsp;RTC hours<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 05 &nbsp;RTC hours alarm<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 06 &nbsp;RTC day of week<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 07 &nbsp;RTC day of month<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 08 &nbsp;RTC month<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 09 &nbsp;RTC year<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 0A &nbsp;RTC Status register A:<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9474;7&#9474;6&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474; &nbsp;RTC Status Register A<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472; rate selection Bits for divider output<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; frequency (set to 0110 = 1.024kHz, 976.562&#956;s)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 22 stage divider, time base being used;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(initialized to 010 = 32.768kHz)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 1=time update in progress, 0=time/date available<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; <br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 0B &nbsp;RTC Status register B:<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9474;7&#9474;6&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474; &nbsp;RTC Status Register B<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472; 1=enable daylight savings, 0=disable (default)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472; 1=24 hour mode, 0=12 hour mode (24 default)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 1=time/date in binary, 0=BCD (BCD default)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 1=enable square wave frequency, 0=disable<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 1=enable update ended interrupt, 0=disable<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 1=enable alarm interrupt, 0=disable<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 1=enable periodic interrupt, 0=disable<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 1=disable clock update, 0=update count normally<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 0C &nbsp;RTC Status register C (read only):<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9474;7&#9474;6&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474; &nbsp;RTC Status Register C &nbsp;(read only)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472; reserved (set to 0)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; update ended interrupt enabled<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; alarm interrupt enabled<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; periodic interrupt enabled<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; IRQF flag<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 0D &nbsp;RTC Status register D (read only):<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9474;7&#9474;6-0&#9474; &nbsp;RTC Status Register D &nbsp;(read only)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &nbsp;&#9492;&#9472;&#9472;&#9472;&#9472;&#9472; reserved (set to 0)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 1=CMOS RAM has power, 0=CMOS RAM has lost power<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 0E &nbsp;Diagnostic status byte:<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9474;7&#9474;6&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474; &nbsp;Diagnostic Status Byte<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472; reserved<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 1=time is invalid, 0=ok (POST validity check)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 1=fixed disk 0 failed initialization, 0=ok<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 1=memory size doesn't match config info, 0=ok<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 1=invalid config info found, 0=ok (see below)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 1=config record checksum is bad, 0=ok<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 1=RTC lost power, 0=power state stable<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 0F &nbsp;Shutdown status byte:<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0 &nbsp;soft reset or unexpected shutdown<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1 &nbsp;shut down after memory size determination<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2 &nbsp;shut down after memory test<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3 &nbsp;shut down with memory error<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4 &nbsp;shut down with boot loader request<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5 &nbsp;JMP DWORD request with INT init<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 6 &nbsp;protected mode test 7 passed<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 7 &nbsp;protected mode test 7 failed<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 8 &nbsp;protected mode test1 failed<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 9 &nbsp;block move shutdown request<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; A &nbsp;JMP DWORD request without INT init<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 10 &nbsp;Diskette drive type for A: and B:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9474;7&#9474;6&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474; &nbsp;Diskette drive type for A: and B:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472; second diskette type<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; first diskette type<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0000 &nbsp;no drive installed<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0001 &nbsp;DSDD 48 TPI drive<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0010 &nbsp;DSQD 96 TPI drive<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;other values are reserved<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 11 &nbsp;Reserved<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 12 &nbsp;Fixed disk drive type for drive 0 and drive 1<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9474;7&#9474;6&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474; &nbsp;Diskette drive type for A: and B:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472; second hard disk drive code (0000=no disk)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; first hard disk drive code (0000=no disk)<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 13 &nbsp;Reserved<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 14 &nbsp;Equipment byte<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9474;7&#9474;6&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474; &nbsp;Equipment byte<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472; 1=diskette drives installed, 0=none<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472; 1=math coprocessor installed, 0=none<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; unused<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9492;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; primary display<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; number of diskette drives installed<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Bits &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Bits</span><br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 54 &nbsp;Primary Display &nbsp; &nbsp; &nbsp; &nbsp;76 &nbsp;Number of Drives</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 00 &nbsp;reserved &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 00 &nbsp;1 diskette drive<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 01 &nbsp;40 column color &nbsp; &nbsp; &nbsp; &nbsp;01 &nbsp;2 diskette drives<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 10 &nbsp;80 column color &nbsp; &nbsp; &nbsp; &nbsp;10 &nbsp;reserved<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 11 &nbsp;monochrome &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 11 &nbsp;reserved<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 15 &nbsp;LSB of system base memory in 1k blocks<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 16 &nbsp;MSB of system base memory in 1k blocks<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 17 &nbsp;LSB of total extended memory in 1k blocks<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 18 &nbsp;MSB of total extended memory in 1k blocks<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 19 &nbsp;Drive C extension byte (reserved AT)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 1A &nbsp;Drive D extension byte (reserved AT)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 1B &nbsp;13 bytes reserved<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 2E &nbsp;CMOS checksum of bytes 10h-20h (MSB)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 2F &nbsp;CMOS checksum of bytes 10h-20h (LSB)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 30 &nbsp;LSB of extended memory size found above 1 megabyte during POST<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 31 &nbsp;MSB of extended memory size found above 1 megabyte during POST<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 32 &nbsp;Date century byte in BCD ( BIOS interface to read and set)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 33 &nbsp;Information flags (set during power-on)<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9474;7&#9474;6&#9474;5-0&#9474; &nbsp;Information Flags<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &nbsp;&#9492;&#9472;&#9472;&#9472;&#9472;&#9472; reserved<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; initial setup message flag<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 1=IBM 128k expansion installed, 0=none<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 34 &nbsp;12 bytes reserved<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Programming Considerations:</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Write CMOS address to read or write to port 70h<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Read/write port 71h to get/set data<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- the information here is only applicable to AT and PS/2 systems<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- INT 1A is used to read/set the Time of Day and Alarm. &nbsp;To use the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;alarm, INT 4A must be a valid interrupt service routine.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- configuration settings are maintained using the Motorola MC146818<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Real Time Clock. &nbsp;Each of this chips 64 memory registers is used<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;for storage (0-3F).<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- Bit 5 of the diagnostic (0Eh) status byte is set during a power<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;on test. &nbsp;This Bit is set if no floppy disks are found or the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;display doesn't match the system display switch setting.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- all addresses sent to port 70h have Bits 7&amp;6 clear since Bit 7<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;of port 70h is used to enable/disable NMI. &nbsp;Setting this Bit 7<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;enables NMI, clearing this Bit disables NMI.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- when masking the NMI through using port 70H, port 71H should be<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;read immediately after or the RTC may be left in an unknown state.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;This wont affect the PS/2 watchdog timer or system channel timeout.<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see &nbsp; <a href="int-int_1a.html">INT 1A</a><br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">CMOS RAM</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

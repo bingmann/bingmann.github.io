@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2006/SDIOS06/sdios06/lib/jpeg/jctrans.c - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal1.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2006/">2006</a> / <a href="/2006/SDIOS06/">SDIOS06</a> / <a href="/2006/SDIOS06/sdios06/">sdios06</a> / <a href="/2006/SDIOS06/sdios06/lib/">lib</a> / <a href="/2006/SDIOS06/sdios06/lib/jpeg/">jpeg</a> / <a href="/2006/SDIOS06/sdios06/lib/jpeg/jctrans.c.html">jctrans.c</a> (<a href="/2006/SDIOS06/sdios06/lib/jpeg/jctrans.c">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">/*</span>
+<span class="comment"> * jctrans.c</span>
+<span class="comment"> *</span>
+<span class="comment"> * Copyright (C) 1995-1998, Thomas G. Lane.</span>
+<span class="comment"> * This file is part of the Independent JPEG Group's software.</span>
+<span class="comment"> * For conditions of distribution and use, see the accompanying README file.</span>
+<span class="comment"> *</span>
+<span class="comment"> * This file contains library routines for transcoding compression,</span>
+<span class="comment"> * that is, writing raw DCT coefficient arrays to an output JPEG file.</span>
+<span class="comment"> * The routines in jcapimin.c will also be needed by a transcoder.</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#define</span><span class="normal"> JPEG_INTERNALS</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"jinclude.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"jpeglib.h"</span>
+
+
+<span class="comment">/* Forward declarations */</span>
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span><span class="normal"> transencode_master_selection</span>
+<span class="normal">	</span><span class="function">JPP</span><span class="symbol">((</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> jvirt_barray_ptr </span><span class="symbol">*</span><span class="normal"> coef_arrays</span><span class="symbol">));</span>
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span><span class="normal"> transencode_coef_controller</span>
+<span class="normal">	</span><span class="function">JPP</span><span class="symbol">((</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> jvirt_barray_ptr </span><span class="symbol">*</span><span class="normal"> coef_arrays</span><span class="symbol">));</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Compression initialization for writing raw-coefficient data.</span>
+<span class="comment"> * Before calling this, all parameters and a data destination must be set up.</span>
+<span class="comment"> * Call jpeg_finish_compress() to actually write the data.</span>
+<span class="comment"> *</span>
+<span class="comment"> * The number of passed virtual arrays must match cinfo-&gt;num_components.</span>
+<span class="comment"> * Note that the virtual arrays need not be filled or even realized at</span>
+<span class="comment"> * the time write_coefficients is called; indeed, if the virtual arrays</span>
+<span class="comment"> * were requested from this compression object's memory manager, they</span>
+<span class="comment"> * typically will be realized during this routine and filled afterwards.</span>
+<span class="comment"> */</span>
+
+<span class="function">GLOBAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">jpeg_write_coefficients</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> jvirt_barray_ptr </span><span class="symbol">*</span><span class="normal"> coef_arrays</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">global_state </span><span class="symbol">!=</span><span class="normal"> CSTATE_START</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">ERREXIT1</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_STATE</span><span class="symbol">,</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">global_state</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="comment">/* Mark all tables to be written */</span>
+<span class="normal">  </span><span class="function">jpeg_suppress_tables</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> FALSE</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="comment">/* (Re)initialize error mgr and destination modules */</span>
+<span class="normal">  </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">err</span><span class="symbol">-&gt;</span><span class="normal">reset_error_mgr</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">dest</span><span class="symbol">-&gt;</span><span class="normal">init_destination</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="comment">/* Perform master selection of active modules */</span>
+<span class="normal">  </span><span class="function">transencode_master_selection</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> coef_arrays</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="comment">/* Wait for jpeg_finish_compress() call */</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">next_scanline </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* so jpeg_write_marker works */</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">global_state </span><span class="symbol">=</span><span class="normal"> CSTATE_WRCOEFS</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Initialize the compression object with default parameters,</span>
+<span class="comment"> * then copy from the source object all parameters needed for lossless</span>
+<span class="comment"> * transcoding.  Parameters that can be varied without loss (such as</span>
+<span class="comment"> * scan script and Huffman optimization) are left in their default states.</span>
+<span class="comment"> */</span>
+
+<span class="function">GLOBAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">jpeg_copy_critical_parameters</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> srcinfo</span><span class="symbol">,</span>
+<span class="normal">			       </span><span class="usertype">j_compress_ptr</span><span class="normal"> dstinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  JQUANT_TBL </span><span class="symbol">**</span><span class="normal"> qtblptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">jpeg_component_info</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">incomp</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">outcomp</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JQUANT_TBL</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">c_quant</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">slot_quant</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> tblno</span><span class="symbol">,</span><span class="normal"> ci</span><span class="symbol">,</span><span class="normal"> coefi</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Safety check to ensure start_compress not called yet. */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">dstinfo</span><span class="symbol">-&gt;</span><span class="normal">global_state </span><span class="symbol">!=</span><span class="normal"> CSTATE_START</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">ERREXIT1</span><span class="symbol">(</span><span class="normal">dstinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_STATE</span><span class="symbol">,</span><span class="normal"> dstinfo</span><span class="symbol">-&gt;</span><span class="normal">global_state</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="comment">/* Copy fundamental image dimensions */</span>
+<span class="normal">  dstinfo</span><span class="symbol">-&gt;</span><span class="normal">image_width </span><span class="symbol">=</span><span class="normal"> srcinfo</span><span class="symbol">-&gt;</span><span class="normal">image_width</span><span class="symbol">;</span>
+<span class="normal">  dstinfo</span><span class="symbol">-&gt;</span><span class="normal">image_height </span><span class="symbol">=</span><span class="normal"> srcinfo</span><span class="symbol">-&gt;</span><span class="normal">image_height</span><span class="symbol">;</span>
+<span class="normal">  dstinfo</span><span class="symbol">-&gt;</span><span class="normal">input_components </span><span class="symbol">=</span><span class="normal"> srcinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components</span><span class="symbol">;</span>
+<span class="normal">  dstinfo</span><span class="symbol">-&gt;</span><span class="normal">in_color_space </span><span class="symbol">=</span><span class="normal"> srcinfo</span><span class="symbol">-&gt;</span><span class="normal">jpeg_color_space</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="comment">/* Initialize all parameters to default values */</span>
+<span class="normal">  </span><span class="function">jpeg_set_defaults</span><span class="symbol">(</span><span class="normal">dstinfo</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="comment">/* jpeg_set_defaults may choose wrong colorspace, eg YCbCr if input is RGB.</span>
+<span class="comment">   * Fix it to get the right header markers for the image colorspace.</span>
+<span class="comment">   */</span>
+<span class="normal">  </span><span class="function">jpeg_set_colorspace</span><span class="symbol">(</span><span class="normal">dstinfo</span><span class="symbol">,</span><span class="normal"> srcinfo</span><span class="symbol">-&gt;</span><span class="normal">jpeg_color_space</span><span class="symbol">);</span>
+<span class="normal">  dstinfo</span><span class="symbol">-&gt;</span><span class="normal">data_precision </span><span class="symbol">=</span><span class="normal"> srcinfo</span><span class="symbol">-&gt;</span><span class="normal">data_precision</span><span class="symbol">;</span>
+<span class="normal">  dstinfo</span><span class="symbol">-&gt;</span><span class="normal">CCIR601_sampling </span><span class="symbol">=</span><span class="normal"> srcinfo</span><span class="symbol">-&gt;</span><span class="normal">CCIR601_sampling</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="comment">/* Copy the source's quantization tables. */</span>
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">tblno </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> tblno </span><span class="symbol">&lt;</span><span class="normal"> NUM_QUANT_TBLS</span><span class="symbol">;</span><span class="normal"> tblno</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">srcinfo</span><span class="symbol">-&gt;</span><span class="normal">quant_tbl_ptrs</span><span class="symbol">[</span><span class="normal">tblno</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      qtblptr </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal"> dstinfo</span><span class="symbol">-&gt;</span><span class="normal">quant_tbl_ptrs</span><span class="symbol">[</span><span class="normal">tblno</span><span class="symbol">];</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">qtblptr </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="symbol">*</span><span class="normal">qtblptr </span><span class="symbol">=</span><span class="normal"> </span><span class="function">jpeg_alloc_quant_table</span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> dstinfo</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="function">MEMCOPY</span><span class="symbol">((*</span><span class="normal">qtblptr</span><span class="symbol">)-&gt;</span><span class="normal">quantval</span><span class="symbol">,</span>
+<span class="normal">	      srcinfo</span><span class="symbol">-&gt;</span><span class="normal">quant_tbl_ptrs</span><span class="symbol">[</span><span class="normal">tblno</span><span class="symbol">]-&gt;</span><span class="normal">quantval</span><span class="symbol">,</span>
+<span class="normal">	      </span><span class="function">SIZEOF</span><span class="symbol">((*</span><span class="normal">qtblptr</span><span class="symbol">)-&gt;</span><span class="normal">quantval</span><span class="symbol">));</span>
+<span class="normal">      </span><span class="symbol">(*</span><span class="normal">qtblptr</span><span class="symbol">)-&gt;</span><span class="normal">sent_table </span><span class="symbol">=</span><span class="normal"> FALSE</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="comment">/* Copy the source's per-component info.</span>
+<span class="comment">   * Note we assume jpeg_set_defaults has allocated the dest comp_info array.</span>
+<span class="comment">   */</span>
+<span class="normal">  dstinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components </span><span class="symbol">=</span><span class="normal"> srcinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">dstinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">1</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> dstinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components </span><span class="symbol">&gt;</span><span class="normal"> MAX_COMPONENTS</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">ERREXIT2</span><span class="symbol">(</span><span class="normal">dstinfo</span><span class="symbol">,</span><span class="normal"> JERR_COMPONENT_COUNT</span><span class="symbol">,</span><span class="normal"> dstinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components</span><span class="symbol">,</span>
+<span class="normal">	     MAX_COMPONENTS</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> incomp </span><span class="symbol">=</span><span class="normal"> srcinfo</span><span class="symbol">-&gt;</span><span class="normal">comp_info</span><span class="symbol">,</span><span class="normal"> outcomp </span><span class="symbol">=</span><span class="normal"> dstinfo</span><span class="symbol">-&gt;</span><span class="normal">comp_info</span><span class="symbol">;</span>
+<span class="normal">       ci </span><span class="symbol">&lt;</span><span class="normal"> dstinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components</span><span class="symbol">;</span><span class="normal"> ci</span><span class="symbol">++,</span><span class="normal"> incomp</span><span class="symbol">++,</span><span class="normal"> outcomp</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    outcomp</span><span class="symbol">-&gt;</span><span class="normal">component_id </span><span class="symbol">=</span><span class="normal"> incomp</span><span class="symbol">-&gt;</span><span class="normal">component_id</span><span class="symbol">;</span>
+<span class="normal">    outcomp</span><span class="symbol">-&gt;</span><span class="normal">h_samp_factor </span><span class="symbol">=</span><span class="normal"> incomp</span><span class="symbol">-&gt;</span><span class="normal">h_samp_factor</span><span class="symbol">;</span>
+<span class="normal">    outcomp</span><span class="symbol">-&gt;</span><span class="normal">v_samp_factor </span><span class="symbol">=</span><span class="normal"> incomp</span><span class="symbol">-&gt;</span><span class="normal">v_samp_factor</span><span class="symbol">;</span>
+<span class="normal">    outcomp</span><span class="symbol">-&gt;</span><span class="normal">quant_tbl_no </span><span class="symbol">=</span><span class="normal"> incomp</span><span class="symbol">-&gt;</span><span class="normal">quant_tbl_no</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* Make sure saved quantization table for component matches the qtable</span>
+<span class="comment">     * slot.  If not, the input file re-used this qtable slot.</span>
+<span class="comment">     * IJG encoder currently cannot duplicate this.</span>
+<span class="comment">     */</span>
+<span class="normal">    tblno </span><span class="symbol">=</span><span class="normal"> outcomp</span><span class="symbol">-&gt;</span><span class="normal">quant_tbl_no</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">tblno </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> tblno </span><span class="symbol">&gt;=</span><span class="normal"> NUM_QUANT_TBLS </span><span class="symbol">||</span>
+<span class="normal">	srcinfo</span><span class="symbol">-&gt;</span><span class="normal">quant_tbl_ptrs</span><span class="symbol">[</span><span class="normal">tblno</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">ERREXIT1</span><span class="symbol">(</span><span class="normal">dstinfo</span><span class="symbol">,</span><span class="normal"> JERR_NO_QUANT_TABLE</span><span class="symbol">,</span><span class="normal"> tblno</span><span class="symbol">);</span>
+<span class="normal">    slot_quant </span><span class="symbol">=</span><span class="normal"> srcinfo</span><span class="symbol">-&gt;</span><span class="normal">quant_tbl_ptrs</span><span class="symbol">[</span><span class="normal">tblno</span><span class="symbol">];</span>
+<span class="normal">    c_quant </span><span class="symbol">=</span><span class="normal"> incomp</span><span class="symbol">-&gt;</span><span class="normal">quant_table</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">c_quant </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">coefi </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> coefi </span><span class="symbol">&lt;</span><span class="normal"> DCTSIZE2</span><span class="symbol">;</span><span class="normal"> coefi</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">c_quant</span><span class="symbol">-&gt;</span><span class="normal">quantval</span><span class="symbol">[</span><span class="normal">coefi</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> slot_quant</span><span class="symbol">-&gt;</span><span class="normal">quantval</span><span class="symbol">[</span><span class="normal">coefi</span><span class="symbol">])</span>
+<span class="normal">	  </span><span class="function">ERREXIT1</span><span class="symbol">(</span><span class="normal">dstinfo</span><span class="symbol">,</span><span class="normal"> JERR_MISMATCHED_QUANT_TABLE</span><span class="symbol">,</span><span class="normal"> tblno</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="comment">/* Note: we do not copy the source's Huffman table assignments;</span>
+<span class="comment">     * instead we rely on jpeg_set_colorspace to have made a suitable choice.</span>
+<span class="comment">     */</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="comment">/* Also copy JFIF version and resolution information, if available.</span>
+<span class="comment">   * Strictly speaking this isn't "critical" info, but it's nearly</span>
+<span class="comment">   * always appropriate to copy it if available.  In particular,</span>
+<span class="comment">   * if the application chooses to copy JFIF 1.02 extension markers from</span>
+<span class="comment">   * the source file, we need to copy the version to make sure we don't</span>
+<span class="comment">   * emit a file that has 1.02 extensions but a claimed version of 1.01.</span>
+<span class="comment">   * We will *not*, however, copy version info from mislabeled "2.01" files.</span>
+<span class="comment">   */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">srcinfo</span><span class="symbol">-&gt;</span><span class="normal">saw_JFIF_marker</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">srcinfo</span><span class="symbol">-&gt;</span><span class="normal">JFIF_major_version </span><span class="symbol">==</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      dstinfo</span><span class="symbol">-&gt;</span><span class="normal">JFIF_major_version </span><span class="symbol">=</span><span class="normal"> srcinfo</span><span class="symbol">-&gt;</span><span class="normal">JFIF_major_version</span><span class="symbol">;</span>
+<span class="normal">      dstinfo</span><span class="symbol">-&gt;</span><span class="normal">JFIF_minor_version </span><span class="symbol">=</span><span class="normal"> srcinfo</span><span class="symbol">-&gt;</span><span class="normal">JFIF_minor_version</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    dstinfo</span><span class="symbol">-&gt;</span><span class="normal">density_unit </span><span class="symbol">=</span><span class="normal"> srcinfo</span><span class="symbol">-&gt;</span><span class="normal">density_unit</span><span class="symbol">;</span>
+<span class="normal">    dstinfo</span><span class="symbol">-&gt;</span><span class="normal">X_density </span><span class="symbol">=</span><span class="normal"> srcinfo</span><span class="symbol">-&gt;</span><span class="normal">X_density</span><span class="symbol">;</span>
+<span class="normal">    dstinfo</span><span class="symbol">-&gt;</span><span class="normal">Y_density </span><span class="symbol">=</span><span class="normal"> srcinfo</span><span class="symbol">-&gt;</span><span class="normal">Y_density</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Master selection of compression modules for transcoding.</span>
+<span class="comment"> * This substitutes for jcinit.c's initialization of the full compressor.</span>
+<span class="comment"> */</span>
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">transencode_master_selection</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span>
+<span class="normal">			      jvirt_barray_ptr </span><span class="symbol">*</span><span class="normal"> coef_arrays</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="comment">/* Although we don't actually use input_components for transcoding,</span>
+<span class="comment">   * jcmaster.c's initial_setup will complain if input_components is 0.</span>
+<span class="comment">   */</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">input_components </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="comment">/* Initialize master control (includes parameter checking/processing) */</span>
+<span class="normal">  </span><span class="function">jinit_c_master_control</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> TRUE </span><span class="comment">/* transcode only */</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* Entropy encoding: either Huffman or arithmetic coding. */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">arith_code</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_ARITH_NOTIMPL</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">progressive_mode</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="preproc">#ifdef</span><span class="normal"> C_PROGRESSIVE_SUPPORTED</span>
+<span class="normal">      </span><span class="function">jinit_phuff_encoder</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="preproc">#else</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_NOT_COMPILED</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span>
+<span class="normal">      </span><span class="function">jinit_huff_encoder</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="comment">/* We need a special coefficient buffer controller. */</span>
+<span class="normal">  </span><span class="function">transencode_coef_controller</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> coef_arrays</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="function">jinit_marker_writer</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* We can now tell the memory manager to allocate virtual arrays. */</span>
+<span class="normal">  </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">mem</span><span class="symbol">-&gt;</span><span class="normal">realize_virt_arrays</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* Write the datastream header (SOI, JFIF) immediately.</span>
+<span class="comment">   * Frame and scan headers are postponed till later.</span>
+<span class="comment">   * This lets application insert special markers after the SOI.</span>
+<span class="comment">   */</span>
+<span class="normal">  </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">marker</span><span class="symbol">-&gt;</span><span class="normal">write_file_header</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * The rest of this file is a special implementation of the coefficient</span>
+<span class="comment"> * buffer controller.  This is similar to jccoefct.c, but it handles only</span>
+<span class="comment"> * output from presupplied virtual arrays.  Furthermore, we generate any</span>
+<span class="comment"> * dummy padding blocks on-the-fly rather than expecting them to be present</span>
+<span class="comment"> * in the arrays.</span>
+<span class="comment"> */</span>
+
+<span class="comment">/* Private buffer controller object */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">jpeg_c_coef_controller</span><span class="normal"> pub</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* public fields */</span>
+
+<span class="normal">  </span><span class="usertype">JDIMENSION</span><span class="normal"> iMCU_row_num</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* iMCU row # within image */</span>
+<span class="normal">  </span><span class="usertype">JDIMENSION</span><span class="normal"> mcu_ctr</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* counts MCUs processed in current row */</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> MCU_vert_offset</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* counts MCU rows within iMCU row */</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> MCU_rows_per_iMCU_row</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* number of such rows needed */</span>
+
+<span class="normal">  </span><span class="comment">/* Virtual block array for each component. */</span>
+<span class="normal">  jvirt_barray_ptr </span><span class="symbol">*</span><span class="normal"> whole_image</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Workspace for constructing dummy blocks at right/bottom edges. */</span>
+<span class="normal">  </span><span class="usertype">JBLOCKROW</span><span class="normal"> dummy_buffer</span><span class="symbol">[</span><span class="normal">C_MAX_BLOCKS_IN_MCU</span><span class="symbol">];</span>
+<span class="cbracket">}</span><span class="normal"> my_coef_controller</span><span class="symbol">;</span>
+
+<span class="keyword">typedef</span><span class="normal"> my_coef_controller </span><span class="symbol">*</span><span class="normal"> my_coef_ptr</span><span class="symbol">;</span>
+
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">start_iMCU_row</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="comment">/* Reset within-iMCU-row counters for a new row */</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_coef_ptr</span><span class="normal"> coef </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_coef_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">coef</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* In an interleaved scan, an MCU row is the same as an iMCU row.</span>
+<span class="comment">   * In a noninterleaved scan, an iMCU row has v_samp_factor MCU rows.</span>
+<span class="comment">   * But at the bottom of the image, process only what's left.</span>
+<span class="comment">   */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">comps_in_scan </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    coef</span><span class="symbol">-&gt;</span><span class="normal">MCU_rows_per_iMCU_row </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">coef</span><span class="symbol">-&gt;</span><span class="normal">iMCU_row_num </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">total_iMCU_rows</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">))</span>
+<span class="normal">      coef</span><span class="symbol">-&gt;</span><span class="normal">MCU_rows_per_iMCU_row </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">cur_comp_info</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]-&gt;</span><span class="normal">v_samp_factor</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">else</span>
+<span class="normal">      coef</span><span class="symbol">-&gt;</span><span class="normal">MCU_rows_per_iMCU_row </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">cur_comp_info</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]-&gt;</span><span class="normal">last_row_height</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  coef</span><span class="symbol">-&gt;</span><span class="normal">mcu_ctr </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">  coef</span><span class="symbol">-&gt;</span><span class="normal">MCU_vert_offset </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Initialize for a processing pass.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">start_pass_coef</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">J_BUF_MODE</span><span class="normal"> pass_mode</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_coef_ptr</span><span class="normal"> coef </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_coef_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">coef</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">pass_mode </span><span class="symbol">!=</span><span class="normal"> JBUF_CRANK_DEST</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_BUFFER_MODE</span><span class="symbol">);</span>
+
+<span class="normal">  coef</span><span class="symbol">-&gt;</span><span class="normal">iMCU_row_num </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="function">start_iMCU_row</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Process some data.</span>
+<span class="comment"> * We process the equivalent of one fully interleaved MCU row ("iMCU" row)</span>
+<span class="comment"> * per call, ie, v_samp_factor block rows for each component in the scan.</span>
+<span class="comment"> * The data is obtained from the virtual arrays and fed to the entropy coder.</span>
+<span class="comment"> * Returns TRUE if the iMCU row is completed, FALSE if suspended.</span>
+<span class="comment"> *</span>
+<span class="comment"> * NB: input_buf is ignored; it is likely to be a NULL pointer.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="normal">boolean</span><span class="symbol">)</span>
+<span class="function">compress_output</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">JSAMPIMAGE</span><span class="normal"> input_buf</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_coef_ptr</span><span class="normal"> coef </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_coef_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">coef</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JDIMENSION</span><span class="normal"> MCU_col_num</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* index of current MCU within row */</span>
+<span class="normal">  </span><span class="usertype">JDIMENSION</span><span class="normal"> last_MCU_col </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">MCUs_per_row </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JDIMENSION</span><span class="normal"> last_iMCU_row </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">total_iMCU_rows </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> blkn</span><span class="symbol">,</span><span class="normal"> ci</span><span class="symbol">,</span><span class="normal"> xindex</span><span class="symbol">,</span><span class="normal"> yindex</span><span class="symbol">,</span><span class="normal"> yoffset</span><span class="symbol">,</span><span class="normal"> blockcnt</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JDIMENSION</span><span class="normal"> start_col</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JBLOCKARRAY</span><span class="normal"> buffer</span><span class="symbol">[</span><span class="normal">MAX_COMPS_IN_SCAN</span><span class="symbol">];</span>
+<span class="normal">  </span><span class="usertype">JBLOCKROW</span><span class="normal"> MCU_buffer</span><span class="symbol">[</span><span class="normal">C_MAX_BLOCKS_IN_MCU</span><span class="symbol">];</span>
+<span class="normal">  </span><span class="usertype">JBLOCKROW</span><span class="normal"> buffer_ptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">jpeg_component_info</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">compptr</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Align the virtual buffers for the components used in this scan. */</span>
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> ci </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">comps_in_scan</span><span class="symbol">;</span><span class="normal"> ci</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    compptr </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">cur_comp_info</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">];</span>
+<span class="normal">    buffer</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">mem</span><span class="symbol">-&gt;</span><span class="normal">access_virt_barray</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> coef</span><span class="symbol">-&gt;</span><span class="normal">whole_image</span><span class="symbol">[</span><span class="normal">compptr</span><span class="symbol">-&gt;</span><span class="normal">component_index</span><span class="symbol">],</span>
+<span class="normal">       coef</span><span class="symbol">-&gt;</span><span class="normal">iMCU_row_num </span><span class="symbol">*</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">v_samp_factor</span><span class="symbol">,</span>
+<span class="normal">       </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">v_samp_factor</span><span class="symbol">,</span><span class="normal"> FALSE</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="comment">/* Loop to process one whole iMCU row */</span>
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">yoffset </span><span class="symbol">=</span><span class="normal"> coef</span><span class="symbol">-&gt;</span><span class="normal">MCU_vert_offset</span><span class="symbol">;</span><span class="normal"> yoffset </span><span class="symbol">&lt;</span><span class="normal"> coef</span><span class="symbol">-&gt;</span><span class="normal">MCU_rows_per_iMCU_row</span><span class="symbol">;</span>
+<span class="normal">       yoffset</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">MCU_col_num </span><span class="symbol">=</span><span class="normal"> coef</span><span class="symbol">-&gt;</span><span class="normal">mcu_ctr</span><span class="symbol">;</span><span class="normal"> MCU_col_num </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">MCUs_per_row</span><span class="symbol">;</span>
+<span class="normal">	 MCU_col_num</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="comment">/* Construct list of pointers to DCT blocks belonging to this MCU */</span>
+<span class="normal">      blkn </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* index of current DCT block within MCU */</span>
+<span class="normal">      </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> ci </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">comps_in_scan</span><span class="symbol">;</span><span class="normal"> ci</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	compptr </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">cur_comp_info</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">];</span>
+<span class="normal">	start_col </span><span class="symbol">=</span><span class="normal"> MCU_col_num </span><span class="symbol">*</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">MCU_width</span><span class="symbol">;</span>
+<span class="normal">	blockcnt </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">MCU_col_num </span><span class="symbol">&lt;</span><span class="normal"> last_MCU_col</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">?</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">MCU_width</span>
+<span class="normal">						</span><span class="symbol">:</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">last_col_width</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">yindex </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> yindex </span><span class="symbol">&lt;</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">MCU_height</span><span class="symbol">;</span><span class="normal"> yindex</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">coef</span><span class="symbol">-&gt;</span><span class="normal">iMCU_row_num </span><span class="symbol">&lt;</span><span class="normal"> last_iMCU_row </span><span class="symbol">||</span>
+<span class="normal">	      yindex</span><span class="symbol">+</span><span class="normal">yoffset </span><span class="symbol">&lt;</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">last_row_height</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="comment">/* Fill in pointers to real blocks in this row */</span>
+<span class="normal">	    buffer_ptr </span><span class="symbol">=</span><span class="normal"> buffer</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">][</span><span class="normal">yindex</span><span class="symbol">+</span><span class="normal">yoffset</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> start_col</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">xindex </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> xindex </span><span class="symbol">&lt;</span><span class="normal"> blockcnt</span><span class="symbol">;</span><span class="normal"> xindex</span><span class="symbol">++)</span>
+<span class="normal">	      MCU_buffer</span><span class="symbol">[</span><span class="normal">blkn</span><span class="symbol">++]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> buffer_ptr</span><span class="symbol">++;</span>
+<span class="normal">	  </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="comment">/* At bottom of image, need a whole row of dummy blocks */</span>
+<span class="normal">	    xindex </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	  </span><span class="cbracket">}</span>
+<span class="normal">	  </span><span class="comment">/* Fill in any dummy blocks needed in this row.</span>
+<span class="comment">	   * Dummy blocks are filled in the same way as in jccoefct.c:</span>
+<span class="comment">	   * all zeroes in the AC entries, DC entries equal to previous</span>
+<span class="comment">	   * block's DC value.  The init routine has already zeroed the</span>
+<span class="comment">	   * AC entries, so we need only set the DC entries correctly.</span>
+<span class="comment">	   */</span>
+<span class="normal">	  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(;</span><span class="normal"> xindex </span><span class="symbol">&lt;</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">MCU_width</span><span class="symbol">;</span><span class="normal"> xindex</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	    MCU_buffer</span><span class="symbol">[</span><span class="normal">blkn</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> coef</span><span class="symbol">-&gt;</span><span class="normal">dummy_buffer</span><span class="symbol">[</span><span class="normal">blkn</span><span class="symbol">];</span>
+<span class="normal">	    MCU_buffer</span><span class="symbol">[</span><span class="normal">blkn</span><span class="symbol">][</span><span class="number">0</span><span class="symbol">][</span><span class="number">0</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> MCU_buffer</span><span class="symbol">[</span><span class="normal">blkn</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">][</span><span class="number">0</span><span class="symbol">][</span><span class="number">0</span><span class="symbol">];</span>
+<span class="normal">	    blkn</span><span class="symbol">++;</span>
+<span class="normal">	  </span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="comment">/* Try to write the MCU. */</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">entropy</span><span class="symbol">-&gt;</span><span class="normal">encode_mcu</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> MCU_buffer</span><span class="symbol">))</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="comment">/* Suspension forced; update state counters and exit */</span>
+<span class="normal">	coef</span><span class="symbol">-&gt;</span><span class="normal">MCU_vert_offset </span><span class="symbol">=</span><span class="normal"> yoffset</span><span class="symbol">;</span>
+<span class="normal">	coef</span><span class="symbol">-&gt;</span><span class="normal">mcu_ctr </span><span class="symbol">=</span><span class="normal"> MCU_col_num</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> FALSE</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="comment">/* Completed an MCU row, but perhaps not an iMCU row */</span>
+<span class="normal">    coef</span><span class="symbol">-&gt;</span><span class="normal">mcu_ctr </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="comment">/* Completed the iMCU row, advance counters for next one */</span>
+<span class="normal">  coef</span><span class="symbol">-&gt;</span><span class="normal">iMCU_row_num</span><span class="symbol">++;</span>
+<span class="normal">  </span><span class="function">start_iMCU_row</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="keyword">return</span><span class="normal"> TRUE</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Initialize coefficient buffer controller.</span>
+<span class="comment"> *</span>
+<span class="comment"> * Each passed coefficient array must be the right size for that</span>
+<span class="comment"> * coefficient: width_in_blocks wide and height_in_blocks high,</span>
+<span class="comment"> * with unitheight at least v_samp_factor.</span>
+<span class="comment"> */</span>
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">transencode_coef_controller</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span>
+<span class="normal">			     jvirt_barray_ptr </span><span class="symbol">*</span><span class="normal"> coef_arrays</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_coef_ptr</span><span class="normal"> coef</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JBLOCKROW</span><span class="normal"> buffer</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> i</span><span class="symbol">;</span>
+
+<span class="normal">  coef </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_coef_ptr</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">mem</span><span class="symbol">-&gt;</span><span class="normal">alloc_small</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> JPOOL_IMAGE</span><span class="symbol">,</span>
+<span class="normal">				</span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="normal">my_coef_controller</span><span class="symbol">));</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">coef </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">jpeg_c_coef_controller</span><span class="normal"> </span><span class="symbol">*)</span><span class="normal"> coef</span><span class="symbol">;</span>
+<span class="normal">  coef</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">start_pass </span><span class="symbol">=</span><span class="normal"> start_pass_coef</span><span class="symbol">;</span>
+<span class="normal">  coef</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">compress_data </span><span class="symbol">=</span><span class="normal"> compress_output</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Save pointer to virtual arrays */</span>
+<span class="normal">  coef</span><span class="symbol">-&gt;</span><span class="normal">whole_image </span><span class="symbol">=</span><span class="normal"> coef_arrays</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Allocate and pre-zero space for dummy DCT blocks. */</span>
+<span class="normal">  buffer </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JBLOCKROW</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">mem</span><span class="symbol">-&gt;</span><span class="normal">alloc_large</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> JPOOL_IMAGE</span><span class="symbol">,</span>
+<span class="normal">				C_MAX_BLOCKS_IN_MCU </span><span class="symbol">*</span><span class="normal"> </span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="normal">JBLOCK</span><span class="symbol">));</span>
+<span class="normal">  </span><span class="function">jzero_far</span><span class="symbol">((</span><span class="type">void</span><span class="normal"> FAR </span><span class="symbol">*)</span><span class="normal"> buffer</span><span class="symbol">,</span><span class="normal"> C_MAX_BLOCKS_IN_MCU </span><span class="symbol">*</span><span class="normal"> </span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="normal">JBLOCK</span><span class="symbol">));</span>
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> C_MAX_BLOCKS_IN_MCU</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    coef</span><span class="symbol">-&gt;</span><span class="normal">dummy_buffer</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> buffer </span><span class="symbol">+</span><span class="normal"> i</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

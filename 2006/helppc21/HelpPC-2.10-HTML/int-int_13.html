@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - int 13</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;INT 13 - Diskette BIOS Services</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; For more information see the following topics:</span><br />
+<br />
+ &nbsp; &nbsp; <a href="int-int_13_0.html">INT 13,0</a>&nbsp; Reset disk system<br />
+ &nbsp; &nbsp; <a href="int-int_13_1.html">INT 13,1</a>&nbsp; Get disk status<br />
+ &nbsp; &nbsp; <a href="int-int_13_2.html">INT 13,2</a>&nbsp; Read disk sectors<br />
+ &nbsp; &nbsp; <a href="int-int_13_3.html">INT 13,3</a>&nbsp; Write disk sectors<br />
+ &nbsp; &nbsp; <a href="int-int_13_4.html">INT 13,4</a>&nbsp; Verify disk sectors<br />
+ &nbsp; &nbsp; <a href="int-int_13_5.html">INT 13,5</a>&nbsp; Format disk track<br />
+ &nbsp; &nbsp; <a href="int-int_13_6.html">INT 13,6</a>&nbsp; Format track and set bad sector flag (XT &amp; portable)<br />
+ &nbsp; &nbsp; <a href="int-int_13_7.html">INT 13,7</a>&nbsp; Format the drive starting at track (XT &amp; portable)<br />
+ &nbsp; &nbsp; <a href="int-int_13_8.html">INT 13,8</a>&nbsp; Get current drive parameters (XT &amp; newer, see note &#9578;)<br />
+ &nbsp; &nbsp; <a href="int-int_13_9.html">INT 13,9</a>&nbsp; Initialize 2 fixed disk base tables (XT &amp; newer, see note &#9578;)<br />
+ &nbsp; &nbsp; <a href="int-int_13_a.html">INT 13,A</a>&nbsp; Read long sector (XT &amp; newer, see note &#9578;)<br />
+ &nbsp; &nbsp; <a href="int-int_13_b.html">INT 13,B</a>&nbsp; Write long sector (XT &amp; newer, see note &#9578;)<br />
+ &nbsp; &nbsp; <a href="int-int_13_c.html">INT 13,C</a>&nbsp; Seek to cylinder (XT &amp; newer, see note &#9578;)<br />
+ &nbsp; &nbsp; <a href="int-int_13_d.html">INT 13,D</a>&nbsp; Alternate disk reset (XT &amp; newer, see note &#9578;)<br />
+ &nbsp; &nbsp; <a href="int-int_13_e.html">INT 13,E</a>&nbsp; Read sector buffer (XT &amp; portable only)<br />
+ &nbsp; &nbsp; <a href="int-int_13_f.html">INT 13,F</a>&nbsp; Write sector buffer (XT &amp; portable only)<br />
+ &nbsp; &nbsp;<a href="int-int_13_10.html">INT 13,10</a> &nbsp;Test for drive ready (XT &amp; newer, see note &#9578;)<br />
+ &nbsp; &nbsp;<a href="int-int_13_11.html">INT 13,11</a> &nbsp;Recalibrate drive (XT &amp; newer, see note &#9578;)<br />
+ &nbsp; &nbsp;<a href="int-int_13_12.html">INT 13,12</a> &nbsp;Controller ram diagnostic (XT &amp; portable only)<br />
+ &nbsp; &nbsp;<a href="int-int_13_13.html">INT 13,13</a> &nbsp;Drive diagnostic (XT &amp; portable only)<br />
+ &nbsp; &nbsp;<a href="int-int_13_14.html">INT 13,14</a> &nbsp;Controller internal diagnostic (XT &amp; newer, see note &#9578;)<br />
+ &nbsp; &nbsp;<a href="int-int_13_15.html">INT 13,15</a> &nbsp;Read disk type/DASD type (XT BIOS from 1/10/86 &amp; newer)<br />
+ &nbsp; &nbsp;<a href="int-int_13_16.html">INT 13,16</a> &nbsp;Disk change line status (XT BIOS from 1/10/86 &amp; newer)<br />
+ &nbsp; &nbsp;<a href="int-int_13_17.html">INT 13,17</a> &nbsp;Set dasd type for format (XT BIOS from 1/10/86 &amp; newer)<br />
+ &nbsp; &nbsp;<a href="int-int_13_18.html">INT 13,18</a> &nbsp;Set media type for format (BIOS date specific)<br />
+ &nbsp; &nbsp;<a href="int-int_13_19.html">INT 13,19</a> &nbsp;Park fixed disk heads (AT &amp; newer)<br />
+ &nbsp; &nbsp;<a href="int-int_13_1a.html">INT 13,1A</a> &nbsp;Format ESDI drive unit (PS/2 50+)<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;&#9578; &nbsp;The 1983 version of the "IBM XT BIOS Technical Reference"<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; shows these functions are available for the XT but many other<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; programming references say they aren't available until the AT.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; This is probably due to misunderstanding the design of the disk<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; BIOS. &nbsp; Upon bootup the hard disk BIOS replaces the default<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; INT 13h diskette handler with the hard disk INT 13h handler.<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Most disk BIOS calls use the following parameter scheme:</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;AH = function request number<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;AL = number of sectors &nbsp;(1-128 dec.)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;CH = cylinder number &nbsp;(0-1023 dec.)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;CL = sector number &nbsp;(1-17 dec.)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;DH = head number &nbsp;(0-15 dec.)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;DL = drive number (0=A:, 1=2nd floppy, 80h=drive 0, 81h=drive 1)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;DL = drive number (0=A:, 1=2nd floppy, 80h=C:, 81h=D:)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Note that some programming references use (0-3) as the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; drive number which represents diskettes only.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ES:BX = address of user buffer<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;and return with:</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp;CF = 0 if successful<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 1 if error<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AH = status of operation &nbsp;(see INT 13,STATUS)<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- INT 13 diskette read functions should be retried at least 3<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;times to assure the disk motor has time to spin up to speed<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- physical sector numbers can be converted to and from DOS sector<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;numbers with the following formulas:<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;dos_sector = (sector - 1) + (head * sectors_per_track) +<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (track * sectors_per_track * num_heads)<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;physical_sector = 1 + (dos_sector &nbsp;MOD &nbsp;sectors_per_track)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;physical_head = (dos_sector / sectors_per_track) &nbsp;MOD &nbsp;num_heads<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;physical_track = dos_sector / (sectors_per_track * num_heads)<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- registers DS, BX, CX and DX are preserved<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see &nbsp;<a href="int-int_13_1.html">INT 13,STATUS</a><br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">int 13</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

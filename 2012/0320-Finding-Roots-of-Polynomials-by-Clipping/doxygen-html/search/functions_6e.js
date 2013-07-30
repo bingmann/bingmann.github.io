@@ -1,0 +1,1 @@
+var searchData=[["numerator",["numerator",["../classFraction.html#a6e324b8ca6302834cd3949d18910501d",1,"Fraction"]]]];

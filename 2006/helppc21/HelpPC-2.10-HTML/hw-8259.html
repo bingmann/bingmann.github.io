@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - 8259</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 8259 &nbsp;Programmable Interrupt Controller &nbsp;(PIC)</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Initialization Command Word 1 at Port 20h and A0h</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;&#9474;7&#9474;6&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474; &nbsp;ICW1<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472; 1=ICW4 is needed, 0=no ICW4 needed<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472; 1=single 8259, 0=cascading 8259's<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 1=4 byte interrupt vectors, 0=8 byte int vectors<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 1=level triggered mode, 0=edge triggered mode<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; must be 1 for ICW1 (port must also be 20h or A0h)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; must be zero for PC systems<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Initialization Command Word 2 at Port 21h and A1h</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;&#9474;7&#9474;6&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474; &nbsp;ICW2<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472; 000= on 80x86 systems<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; A7-A3 of 80x86 interrupt vector<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Initialization Command Word 3 at Port 21h and A1h</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;&#9474;7&#9474;6&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474; &nbsp;ICW3 for Master Device<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472; 1=interrupt request 0 has slave, 0=no slave<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472; 1=interrupt request 1 has slave, 0=no slave<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 1=interrupt request 2 has slave, 0=no slave<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 1=interrupt request 3 has slave, 0=no slave<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 1=interrupt request 4 has slave, 0=no slave<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 1=interrupt request 5 has slave, 0=no slave<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 1=interrupt request 6 has slave, 0=no slave<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 1=interrupt request 7 has slave, 0=no slave<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;&#9474;7&#9474;6&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474; &nbsp;ICW3 for Slave Device<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472; master interrupt request slave is attached to<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; must be zero<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Initialization Command Word 4 at Port 21h and A1h</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;&#9474;7&#9474;6&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474; &nbsp;ICW4<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472; 1 for 80x86 mode, 0 = MCS 80/85 mode<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472; 1 = auto EOI, 0=normal EOI<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; slave/master buffered mode (see below)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 1 = special fully nested mode (SFNM), 0=sequential<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; unused (set to zero)<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Bits</span><br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; 32 &nbsp; &nbsp; Buffering Mode</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 00 &nbsp; &nbsp; not buffered<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 01 &nbsp; &nbsp; not buffered<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 10 &nbsp; &nbsp; buffered mode slave (PC mode)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 11 &nbsp; &nbsp; buffered mode master (PC mode)<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Operation Control Word 1 / Interrupt Mask Reg. &nbsp;(Ports 21h &amp; A1h)</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;&#9474;7&#9474;6&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474; &nbsp;OCW1 - IMR Interrupt Mask Register<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472; 0 = service IRQ0, 1 = mask off<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472; 0 = service IRQ1, 1 = mask off<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 0 = service IRQ2, 1 = mask off<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 0 = service IRQ3, 1 = mask off<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 0 = service IRQ4, 1 = mask off<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 0 = service IRQ5, 1 = mask off<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 0 = service IRQ6, 1 = mask off<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 0 = service IRQ7, 1 = mask off<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Operation Control Word 2 / Interrupt Command Reg. (Ports 20h &amp; A0h)</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;&#9474;7&#9474;6&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474; &nbsp;OCW2 - ICR Interrupt Command Register<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472; interrupt request level to act upon<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; must be 0 for OCW2<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; must be 0 for OCW2<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; EOI type (see table)<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Bits</span><br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;765 &nbsp;EOI - End Of Interrupt code (PC specific)</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp;001 &nbsp;non-specific EOI command<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;010 &nbsp;NOP<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;011 &nbsp;specific EOI command<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;100 &nbsp;rotate in automatic EOI mode<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;101 &nbsp;rotate on non-specific EOI command<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;110 &nbsp;set priority command &nbsp;(uses bits 2-0)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;111 &nbsp;rotate on specific EOI command<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Operation Control Word 3 &nbsp; (Ports 20h &amp; A0h)</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;&#9474;7&#9474;6&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474; &nbsp;OCW3<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472; 1=read IRR on next read, 0=read ISR on next read<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472; 1=act on value of bit 0, 0=no action if bit 0 set<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472; 1=poll command issued, 0=no poll command issued<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; must be 1 for OCW3<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; must be 0 for OCW3<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 1=set special mask, 0=reset special mask<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 1=act on value of bit 5, 0=no action if bit 5 set<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; not used (zero)<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Other Registers</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;IRR - Interrupt Request Register, maintains a bit vector indicating<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;which IRQ hardware events are awaiting service. &nbsp; Highest<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;level interrupt is reset when the CPU acknowledges interrupt.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ISR - In Service Register, tracks IRQ line currently being serviced.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Updated by EOI command.<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Hardware Interrupt Sequence of Events:</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1. 8259 <a href="int-int_table.html">IRQ</a>&nbsp;signal is raised high by hardware setting the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; corresponding IRR bits true.<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;2. PIC evaluates the interrupt requests and signals the CPU<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; where appropriate.<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;3. CPU acknowledges the INT by pulsing INTA (inverted)<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;4. INTA signal from CPU is received by the PIC, which then sets the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; highest priority ISR bit, and clears the corresponding IRR bit<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;5. CPU sends a second INTA pulse which causes the PIC to send the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; interrupt ID byte onto the bus. &nbsp;CPU begins interrupt processing.<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;6. Interrupts of lower and equal priority are blocked until a<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Non-Specific EOI (20h) is sent to the command port.<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Initialization Procedure</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Initialization</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 1. write ICW1 to port 20h<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 2. write ICW2 to port 21h<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 3. if ICW1 bit D1=1 &nbsp;do nothing<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if ICW1 bit D1=0 &nbsp;write ICW3 to port 20h<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 4. write ICW4 to port 21h<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 5. OCW's can follow in any order<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;8259 Programmable Interrupt Controller Notes</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- Operation Command Word (OCW), commands that set the 8259 in<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;various interrupt modes. &nbsp;These can be written to the 8259<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;anytime after initialization.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- The 8259 differentiates between the OCW1, OCW2 and OCW3 by the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;port address and the value of the data bits D4 and D3. &nbsp;ICW2<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;through ICW4 are order related and must follow ICW1. &nbsp;ICW1 is<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;identified by an even port number and data bit D4 set to 1.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- PCs operate in fully nested mode, where a Non-Specific EOI resets<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;the interrupt identified by the highest bit value in the ISR<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- 8259s can be chained together where the INT pin (output) of a<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;slave 8259 can be used as the input to an IRQ line allowing up<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;to 64 priority vectored interrupts. &nbsp;AT level machines use two<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;8259's for a total of 16 hardware interrupt levels<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- the first 8259 ports are located at 20h and 21h<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- the second 8259 ports are located at A0h and A1h<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- PC and AT interrupts are Edge Triggered while PS/2's are Level<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Triggered<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- some ASIC chips designed for Tandy 1000 Systems malfunction if<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;specific and non-specific EOIs are mixed<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- for a more in-depth discussion of the 8259, see Intel's "Micro-<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;processor and Peripherals Handbook, Volume I"<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see &nbsp;<a href="hw-ports.html">PORTS</a> &nbsp;and &nbsp;<a href="int-int_table.html">INT TABLE</a><br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">8259</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

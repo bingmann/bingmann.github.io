@@ -1,0 +1,823 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2006/SDIOS06/sdios06/src/supertux/gameloop.cpp - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal3.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2006/">2006</a> / <a href="/2006/SDIOS06/">SDIOS06</a> / <a href="/2006/SDIOS06/sdios06/">sdios06</a> / <a href="/2006/SDIOS06/sdios06/src/">src</a> / <a href="/2006/SDIOS06/sdios06/src/supertux/">supertux</a> / <a href="/2006/SDIOS06/sdios06/src/supertux/gameloop.cpp.html">gameloop.cpp</a> (<a href="/2006/SDIOS06/sdios06/src/supertux/gameloop.cpp">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">//  $Id: gameloop.cpp 2664 2005-07-01 17:23:40Z matzebraun $</span>
+<span class="comment">// </span>
+<span class="comment">//  SuperTux</span>
+<span class="comment">//  Copyright (C) 2000 Bill Kendrick &lt;bill@newbreedsoftware.com&gt;</span>
+<span class="comment">//  Copyright (C) 2004 Tobias Glaesser &lt;tobi.web@gmx.de&gt;</span>
+<span class="comment">//  Copyright (C) 2004 Ingo Ruhnke &lt;grumbel@gmx.de&gt;</span>
+<span class="comment">//</span>
+<span class="comment">//  This program is free software; you can redistribute it and/or</span>
+<span class="comment">//  modify it under the terms of the GNU General Public License</span>
+<span class="comment">//  as published by the Free Software Foundation; either version 2</span>
+<span class="comment">//  of the License, or (at your option) any later version.</span>
+<span class="comment">//</span>
+<span class="comment">//  This program is distributed in the hope that it will be useful,</span>
+<span class="comment">//  but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="comment">//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="comment">//  GNU General Public License for more details.</span>
+<span class="comment">// </span>
+<span class="comment">//  You should have received a copy of the GNU General Public License</span>
+<span class="comment">//  along with this program; if not, write to the Free Software</span>
+<span class="comment">//  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;assert.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;stdio.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;stdlib.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;math.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;string.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;errno.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;math.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;time.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;SDL.h&gt;</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;ctype.h&gt;</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"defines.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"globals.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"gameloop.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"screen.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"setup.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"high_scores.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"menu.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"badguy.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"world.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"special.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"player.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"level.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"scene.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"collision.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"tile.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"particlesystem.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"resources.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"music_manager.h"</span>
+
+<span class="normal">GameSession</span><span class="symbol">*</span><span class="normal"> GameSession</span><span class="symbol">::</span><span class="normal">current_ </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="normal">GameSession</span><span class="symbol">::</span><span class="function">GameSession</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">string</span><span class="symbol">&amp;</span><span class="normal"> subset_</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> levelnb_</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> mode</span><span class="symbol">)</span>
+<span class="normal">  </span><span class="symbol">:</span><span class="normal"> </span><span class="function">world</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">),</span><span class="normal"> </span><span class="function">st_gl_mode</span><span class="symbol">(</span><span class="normal">mode</span><span class="symbol">),</span><span class="normal"> </span><span class="function">levelnb</span><span class="symbol">(</span><span class="normal">levelnb_</span><span class="symbol">),</span><span class="normal"> </span><span class="function">end_sequence</span><span class="symbol">(</span><span class="normal">NO_ENDSEQUENCE</span><span class="symbol">),</span>
+<span class="normal">    </span><span class="function">subset</span><span class="symbol">(</span><span class="normal">subset_</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  current_ </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">this</span><span class="symbol">;</span>
+<span class="normal">  </span>
+<span class="normal">  global_frame_counter </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">  game_pause </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+
+<span class="normal">  fps_timer</span><span class="symbol">.</span><span class="function">init</span><span class="symbol">(</span><span class="keyword">true</span><span class="symbol">);</span><span class="normal">            </span>
+<span class="normal">  frame_timer</span><span class="symbol">.</span><span class="function">init</span><span class="symbol">(</span><span class="keyword">true</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="function">restart_level</span><span class="symbol">();</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span>
+<span class="normal">GameSession</span><span class="symbol">::</span><span class="function">restart_level</span><span class="symbol">()</span>
+<span class="cbracket">{</span>
+<span class="normal">  game_pause   </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">  exit_status  </span><span class="symbol">=</span><span class="normal"> ES_NONE</span><span class="symbol">;</span>
+<span class="normal">  end_sequence </span><span class="symbol">=</span><span class="normal"> NO_ENDSEQUENCE</span><span class="symbol">;</span>
+
+<span class="normal">  fps_timer</span><span class="symbol">.</span><span class="function">init</span><span class="symbol">(</span><span class="keyword">true</span><span class="symbol">);</span>
+<span class="normal">  frame_timer</span><span class="symbol">.</span><span class="function">init</span><span class="symbol">(</span><span class="keyword">true</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="type">float</span><span class="normal"> old_x_pos </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">world</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span><span class="normal"> </span><span class="comment">// Tux has lost a life, so we try to respawn him at the nearest reset point</span>
+<span class="normal">      old_x_pos </span><span class="symbol">=</span><span class="normal"> world</span><span class="symbol">-&gt;</span><span class="function">get_tux</span><span class="symbol">()-&gt;</span><span class="normal">base</span><span class="symbol">.</span><span class="normal">x</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span>
+<span class="normal">  </span><span class="keyword">delete</span><span class="normal"> world</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">st_gl_mode </span><span class="symbol">==</span><span class="normal"> ST_GL_LOAD_LEVEL_FILE</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      world </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="function">World</span><span class="symbol">(</span><span class="normal">subset</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">st_gl_mode </span><span class="symbol">==</span><span class="normal"> ST_GL_DEMO_GAME</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      world </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="function">World</span><span class="symbol">(</span><span class="normal">subset</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="keyword">else</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      world </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="function">World</span><span class="symbol">(</span><span class="normal">subset</span><span class="symbol">,</span><span class="normal"> levelnb</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="comment">// Set Tux to the nearest reset point</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">old_x_pos </span><span class="symbol">!=</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="usertype">ResetPoint</span><span class="normal"> best_reset_point </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">for</span><span class="symbol">(</span><span class="normal">std</span><span class="symbol">::</span><span class="normal">vector</span><span class="symbol">&lt;</span><span class="normal">ResetPoint</span><span class="symbol">&gt;::</span><span class="usertype">iterator</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="function">get_level</span><span class="symbol">()-&gt;</span><span class="normal">reset_points</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">();</span>
+<span class="normal">          i </span><span class="symbol">!=</span><span class="normal"> </span><span class="function">get_level</span><span class="symbol">()-&gt;</span><span class="normal">reset_points</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">();</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">          </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i</span><span class="symbol">-&gt;</span><span class="normal">x </span><span class="symbol">-</span><span class="normal"> screen</span><span class="symbol">-&gt;</span><span class="normal">w</span><span class="symbol">/</span><span class="number">2</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> old_x_pos </span><span class="symbol">&amp;&amp;</span><span class="normal"> best_reset_point</span><span class="symbol">.</span><span class="normal">x </span><span class="symbol">&lt;</span><span class="normal"> i</span><span class="symbol">-&gt;</span><span class="normal">x</span><span class="symbol">)</span>
+<span class="normal">            best_reset_point </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">i</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">      </span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">best_reset_point</span><span class="symbol">.</span><span class="normal">x </span><span class="symbol">!=</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">          world</span><span class="symbol">-&gt;</span><span class="function">get_tux</span><span class="symbol">()-&gt;</span><span class="normal">base</span><span class="symbol">.</span><span class="normal">x </span><span class="symbol">=</span><span class="normal"> best_reset_point</span><span class="symbol">.</span><span class="normal">x</span><span class="symbol">;</span>
+<span class="normal">          world</span><span class="symbol">-&gt;</span><span class="function">get_tux</span><span class="symbol">()-&gt;</span><span class="normal">base</span><span class="symbol">.</span><span class="normal">y </span><span class="symbol">=</span><span class="normal"> best_reset_point</span><span class="symbol">.</span><span class="normal">y</span><span class="symbol">;</span>
+<span class="normal">          world</span><span class="symbol">-&gt;</span><span class="function">get_tux</span><span class="symbol">()-&gt;</span><span class="normal">old_base </span><span class="symbol">=</span><span class="normal"> world</span><span class="symbol">-&gt;</span><span class="function">get_tux</span><span class="symbol">()-&gt;</span><span class="normal">base</span><span class="symbol">;</span>
+<span class="normal">          world</span><span class="symbol">-&gt;</span><span class="function">get_tux</span><span class="symbol">()-&gt;</span><span class="normal">previous_base </span><span class="symbol">=</span><span class="normal"> world</span><span class="symbol">-&gt;</span><span class="function">get_tux</span><span class="symbol">()-&gt;</span><span class="normal">base</span><span class="symbol">;</span>
+
+<span class="normal">          </span><span class="keyword">if</span><span class="symbol">(</span><span class="function">collision_object_map</span><span class="symbol">(</span><span class="normal">world</span><span class="symbol">-&gt;</span><span class="function">get_tux</span><span class="symbol">()-&gt;</span><span class="normal">base</span><span class="symbol">))</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">              std</span><span class="symbol">::</span><span class="normal">cout </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">"Warning: reset point inside a wall.</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">;</span>
+<span class="normal">          </span><span class="cbracket">}</span><span class="normal">                                                                  </span>
+
+<span class="normal">          scroll_x </span><span class="symbol">=</span><span class="normal"> best_reset_point</span><span class="symbol">.</span><span class="normal">x </span><span class="symbol">-</span><span class="normal"> screen</span><span class="symbol">-&gt;</span><span class="normal">w</span><span class="symbol">/</span><span class="number">2</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">st_gl_mode </span><span class="symbol">!=</span><span class="normal"> ST_GL_DEMO_GAME</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">st_gl_mode </span><span class="symbol">==</span><span class="normal"> ST_GL_PLAY </span><span class="symbol">||</span><span class="normal"> st_gl_mode </span><span class="symbol">==</span><span class="normal"> ST_GL_LOAD_LEVEL_FILE</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="function">levelintro</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">  time_left</span><span class="symbol">.</span><span class="function">init</span><span class="symbol">(</span><span class="keyword">true</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function">start_timers</span><span class="symbol">();</span>
+<span class="normal">  world</span><span class="symbol">-&gt;</span><span class="function">play_music</span><span class="symbol">(</span><span class="normal">LEVEL_MUSIC</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="normal">GameSession</span><span class="symbol">::~</span><span class="function">GameSession</span><span class="symbol">()</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">delete</span><span class="normal"> world</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span>
+<span class="normal">GameSession</span><span class="symbol">::</span><span class="function">levelintro</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  music_manager</span><span class="symbol">-&gt;</span><span class="function">halt_music</span><span class="symbol">();</span>
+<span class="normal">  </span>
+<span class="normal">  </span><span class="type">char</span><span class="normal"> str</span><span class="symbol">[</span><span class="number">60</span><span class="symbol">];</span>
+<span class="normal"> </span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">get_level</span><span class="symbol">()-&gt;</span><span class="normal">img_bkgd</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">get_level</span><span class="symbol">()-&gt;</span><span class="normal">img_bkgd</span><span class="symbol">-&gt;</span><span class="function">draw</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="keyword">else</span>
+<span class="normal">    </span><span class="function">drawgradient</span><span class="symbol">(</span><span class="function">get_level</span><span class="symbol">()-&gt;</span><span class="normal">bkgd_top</span><span class="symbol">,</span><span class="normal"> </span><span class="function">get_level</span><span class="symbol">()-&gt;</span><span class="normal">bkgd_bottom</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="function">sprintf</span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"%s"</span><span class="symbol">,</span><span class="normal"> world</span><span class="symbol">-&gt;</span><span class="function">get_level</span><span class="symbol">()-&gt;</span><span class="normal">name</span><span class="symbol">.</span><span class="function">c_str</span><span class="symbol">());</span>
+<span class="normal">  gold_text</span><span class="symbol">-&gt;</span><span class="function">drawf</span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">200</span><span class="symbol">,</span><span class="normal"> A_HMIDDLE</span><span class="symbol">,</span><span class="normal"> A_TOP</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="function">sprintf</span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"TUX x %d"</span><span class="symbol">,</span><span class="normal"> player_status</span><span class="symbol">.</span><span class="normal">lives</span><span class="symbol">);</span>
+<span class="normal">  white_text</span><span class="symbol">-&gt;</span><span class="function">drawf</span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">224</span><span class="symbol">,</span><span class="normal"> A_HMIDDLE</span><span class="symbol">,</span><span class="normal"> A_TOP</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">  </span>
+<span class="normal">  </span><span class="function">sprintf</span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"by %s"</span><span class="symbol">,</span><span class="normal"> world</span><span class="symbol">-&gt;</span><span class="function">get_level</span><span class="symbol">()-&gt;</span><span class="normal">author</span><span class="symbol">.</span><span class="function">c_str</span><span class="symbol">());</span>
+<span class="normal">  white_small_text</span><span class="symbol">-&gt;</span><span class="function">drawf</span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">360</span><span class="symbol">,</span><span class="normal"> A_HMIDDLE</span><span class="symbol">,</span><span class="normal"> A_TOP</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">  </span>
+
+<span class="normal">  </span><span class="function">flipscreen</span><span class="symbol">();</span>
+
+<span class="normal">  </span><span class="usertype">SDL_Event</span><span class="normal"> event</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="function">wait_for_event</span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">,</span><span class="number">1000</span><span class="symbol">,</span><span class="number">3000</span><span class="symbol">,</span><span class="keyword">true</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/* Reset Timers */</span>
+<span class="type">void</span>
+<span class="normal">GameSession</span><span class="symbol">::</span><span class="function">start_timers</span><span class="symbol">()</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="function">st_pause_ticks_init</span><span class="symbol">();</span>
+<span class="normal">  time_left</span><span class="symbol">.</span><span class="function">start</span><span class="symbol">(</span><span class="normal">world</span><span class="symbol">-&gt;</span><span class="function">get_level</span><span class="symbol">()-&gt;</span><span class="normal">time_left</span><span class="symbol">*</span><span class="number">1000</span><span class="symbol">);</span>
+<span class="normal">  update_time </span><span class="symbol">=</span><span class="normal"> </span><span class="function">st_get_ticks</span><span class="symbol">();</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span>
+<span class="normal">GameSession</span><span class="symbol">::</span><span class="function">on_escape_press</span><span class="symbol">()</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">game_pause</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">st_gl_mode </span><span class="symbol">==</span><span class="normal"> ST_GL_TEST</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      exit_status </span><span class="symbol">=</span><span class="normal"> ES_LEVEL_ABORT</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">Menu</span><span class="symbol">::</span><span class="function">current</span><span class="symbol">())</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      Menu</span><span class="symbol">::</span><span class="function">set_current</span><span class="symbol">(</span><span class="normal">game_menu</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="function">st_pause_ticks_start</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span>
+<span class="normal">GameSession</span><span class="symbol">::</span><span class="function">process_events</span><span class="symbol">()</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">end_sequence </span><span class="symbol">!=</span><span class="normal"> NO_ENDSEQUENCE</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      Player</span><span class="symbol">&amp;</span><span class="normal"> tux </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">world</span><span class="symbol">-&gt;</span><span class="function">get_tux</span><span class="symbol">();</span>
+<span class="normal">         </span>
+<span class="normal">      tux</span><span class="symbol">.</span><span class="normal">input</span><span class="symbol">.</span><span class="normal">fire  </span><span class="symbol">=</span><span class="normal"> UP</span><span class="symbol">;</span>
+<span class="normal">      tux</span><span class="symbol">.</span><span class="normal">input</span><span class="symbol">.</span><span class="normal">left  </span><span class="symbol">=</span><span class="normal"> UP</span><span class="symbol">;</span>
+<span class="normal">      tux</span><span class="symbol">.</span><span class="normal">input</span><span class="symbol">.</span><span class="normal">right </span><span class="symbol">=</span><span class="normal"> DOWN</span><span class="symbol">;</span>
+<span class="normal">      tux</span><span class="symbol">.</span><span class="normal">input</span><span class="symbol">.</span><span class="normal">down  </span><span class="symbol">=</span><span class="normal"> UP</span><span class="symbol">;</span><span class="normal"> </span>
+
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">(</span><span class="normal">last_x_pos</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="type">int</span><span class="symbol">(</span><span class="normal">tux</span><span class="symbol">.</span><span class="normal">base</span><span class="symbol">.</span><span class="normal">x</span><span class="symbol">))</span>
+<span class="normal">        tux</span><span class="symbol">.</span><span class="normal">input</span><span class="symbol">.</span><span class="normal">up    </span><span class="symbol">=</span><span class="normal"> DOWN</span><span class="symbol">;</span><span class="normal"> </span>
+<span class="normal">      </span><span class="keyword">else</span>
+<span class="normal">        tux</span><span class="symbol">.</span><span class="normal">input</span><span class="symbol">.</span><span class="normal">up    </span><span class="symbol">=</span><span class="normal"> UP</span><span class="symbol">;</span><span class="normal"> </span>
+
+<span class="normal">      last_x_pos </span><span class="symbol">=</span><span class="normal"> tux</span><span class="symbol">.</span><span class="normal">base</span><span class="symbol">.</span><span class="normal">x</span><span class="symbol">;</span>
+
+<span class="normal">      </span><span class="usertype">SDL_Event</span><span class="normal"> event</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="function">SDL_PollEvent</span><span class="symbol">(&amp;</span><span class="normal">event</span><span class="symbol">))</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">          </span><span class="comment">/* Check for menu-events, if the menu is shown */</span>
+<span class="normal">          </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">Menu</span><span class="symbol">::</span><span class="function">current</span><span class="symbol">())</span>
+<span class="normal">            </span><span class="cbracket">{</span>
+<span class="normal">              Menu</span><span class="symbol">::</span><span class="function">current</span><span class="symbol">()-&gt;</span><span class="function">event</span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">);</span>
+<span class="normal">	      </span><span class="keyword">if</span><span class="symbol">(!</span><span class="normal">Menu</span><span class="symbol">::</span><span class="function">current</span><span class="symbol">())</span>
+<span class="normal">	      </span><span class="function">st_pause_ticks_stop</span><span class="symbol">();</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+
+<span class="normal">          </span><span class="keyword">switch</span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">.</span><span class="normal">type</span><span class="symbol">)</span>
+<span class="normal">            </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="keyword">case</span><span class="normal"> SDL_QUIT</span><span class="symbol">:</span><span class="normal">        </span><span class="comment">/* Quit event - quit: */</span>
+<span class="normal">              </span><span class="function">st_abort</span><span class="symbol">(</span><span class="string">"Received window close"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">""</span><span class="symbol">);</span>
+<span class="normal">              </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">              </span>
+<span class="normal">            </span><span class="keyword">case</span><span class="normal"> SDL_KEYDOWN</span><span class="symbol">:</span><span class="normal">     </span><span class="comment">/* A keypress! */</span>
+<span class="normal">              </span><span class="cbracket">{</span>
+<span class="normal">                </span><span class="usertype">SDLKey</span><span class="normal"> key </span><span class="symbol">=</span><span class="normal"> event</span><span class="symbol">.</span><span class="normal">key</span><span class="symbol">.</span><span class="normal">keysym</span><span class="symbol">.</span><span class="normal">sym</span><span class="symbol">;</span>
+<span class="normal">           </span>
+<span class="normal">                </span><span class="keyword">switch</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">)</span>
+<span class="normal">                  </span><span class="cbracket">{</span>
+<span class="normal">                  </span><span class="keyword">case</span><span class="normal"> SDLK_ESCAPE</span><span class="symbol">:</span><span class="normal">    </span><span class="comment">/* Escape: Open/Close the menu: */</span>
+<span class="normal">                    </span><span class="function">on_escape_press</span><span class="symbol">();</span>
+<span class="normal">                    </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="label">                  default:</span>
+<span class="normal">                    </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">                  </span><span class="cbracket">}</span>
+<span class="normal">              </span><span class="cbracket">}</span>
+<span class="normal">          </span>
+<span class="normal">            </span><span class="keyword">case</span><span class="normal"> SDL_JOYBUTTONDOWN</span><span class="symbol">:</span>
+<span class="normal">              </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">.</span><span class="normal">jbutton</span><span class="symbol">.</span><span class="normal">button </span><span class="symbol">==</span><span class="normal"> joystick_keymap</span><span class="symbol">.</span><span class="normal">start_button</span><span class="symbol">)</span>
+<span class="normal">                </span><span class="function">on_escape_press</span><span class="symbol">();</span>
+<span class="normal">              </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="keyword">else</span><span class="normal"> </span><span class="comment">// normal mode</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="symbol">(!</span><span class="normal">Menu</span><span class="symbol">::</span><span class="function">current</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">game_pause</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="function">st_pause_ticks_stop</span><span class="symbol">();</span>
+
+<span class="normal">      </span><span class="usertype">SDL_Event</span><span class="normal"> event</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="function">SDL_PollEvent</span><span class="symbol">(&amp;</span><span class="normal">event</span><span class="symbol">))</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">          </span><span class="comment">/* Check for menu-events, if the menu is shown */</span>
+<span class="normal">          </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">Menu</span><span class="symbol">::</span><span class="function">current</span><span class="symbol">())</span>
+<span class="normal">            </span><span class="cbracket">{</span>
+<span class="normal">              Menu</span><span class="symbol">::</span><span class="function">current</span><span class="symbol">()-&gt;</span><span class="function">event</span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">);</span>
+<span class="normal">	      </span><span class="keyword">if</span><span class="symbol">(!</span><span class="normal">Menu</span><span class="symbol">::</span><span class="function">current</span><span class="symbol">())</span>
+<span class="normal">	      </span><span class="function">st_pause_ticks_stop</span><span class="symbol">();</span>
+
+<span class="normal">            </span><span class="comment">/* Tell Tux that the keys are all down, otherwise</span>
+<span class="comment">               it could have nasty bugs, like going allways to the right</span>
+<span class="comment">               or whatever that key does */</span>
+<span class="normal">            Player</span><span class="symbol">&amp;</span><span class="normal"> tux </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">world</span><span class="symbol">-&gt;</span><span class="function">get_tux</span><span class="symbol">();</span>
+<span class="normal">            tux</span><span class="symbol">.</span><span class="function">key_event</span><span class="symbol">((</span><span class="normal">SDLKey</span><span class="symbol">)</span><span class="normal">keymap</span><span class="symbol">.</span><span class="normal">jump</span><span class="symbol">,</span><span class="normal"> UP</span><span class="symbol">);</span>
+<span class="normal">            tux</span><span class="symbol">.</span><span class="function">key_event</span><span class="symbol">((</span><span class="normal">SDLKey</span><span class="symbol">)</span><span class="normal">keymap</span><span class="symbol">.</span><span class="normal">duck</span><span class="symbol">,</span><span class="normal"> UP</span><span class="symbol">);</span>
+<span class="normal">            tux</span><span class="symbol">.</span><span class="function">key_event</span><span class="symbol">((</span><span class="normal">SDLKey</span><span class="symbol">)</span><span class="normal">keymap</span><span class="symbol">.</span><span class="normal">left</span><span class="symbol">,</span><span class="normal"> UP</span><span class="symbol">);</span>
+<span class="normal">            tux</span><span class="symbol">.</span><span class="function">key_event</span><span class="symbol">((</span><span class="normal">SDLKey</span><span class="symbol">)</span><span class="normal">keymap</span><span class="symbol">.</span><span class="normal">right</span><span class="symbol">,</span><span class="normal"> UP</span><span class="symbol">);</span>
+<span class="normal">            tux</span><span class="symbol">.</span><span class="function">key_event</span><span class="symbol">((</span><span class="normal">SDLKey</span><span class="symbol">)</span><span class="normal">keymap</span><span class="symbol">.</span><span class="normal">fire</span><span class="symbol">,</span><span class="normal"> UP</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">          </span><span class="keyword">else</span>
+<span class="normal">            </span><span class="cbracket">{</span>
+<span class="normal">              Player</span><span class="symbol">&amp;</span><span class="normal"> tux </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">world</span><span class="symbol">-&gt;</span><span class="function">get_tux</span><span class="symbol">();</span>
+<span class="normal">  </span>
+<span class="normal">              </span><span class="keyword">switch</span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">.</span><span class="normal">type</span><span class="symbol">)</span>
+<span class="normal">                </span><span class="cbracket">{</span>
+<span class="normal">                </span><span class="keyword">case</span><span class="normal"> SDL_QUIT</span><span class="symbol">:</span><span class="normal">        </span><span class="comment">/* Quit event - quit: */</span>
+<span class="normal">                  </span><span class="function">st_abort</span><span class="symbol">(</span><span class="string">"Received window close"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">""</span><span class="symbol">);</span>
+<span class="normal">                  </span><span class="keyword">break</span><span class="symbol">;</span>
+
+<span class="normal">                </span><span class="keyword">case</span><span class="normal"> SDL_KEYDOWN</span><span class="symbol">:</span><span class="normal">     </span><span class="comment">/* A keypress! */</span>
+<span class="normal">                  </span><span class="cbracket">{</span>
+<span class="normal">                    </span><span class="usertype">SDLKey</span><span class="normal"> key </span><span class="symbol">=</span><span class="normal"> event</span><span class="symbol">.</span><span class="normal">key</span><span class="symbol">.</span><span class="normal">keysym</span><span class="symbol">.</span><span class="normal">sym</span><span class="symbol">;</span>
+<span class="normal">            </span>
+<span class="normal">                    </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">tux</span><span class="symbol">.</span><span class="function">key_event</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">,</span><span class="normal">DOWN</span><span class="symbol">))</span>
+<span class="normal">                      </span><span class="keyword">break</span><span class="symbol">;</span>
+
+<span class="normal">                    </span><span class="keyword">switch</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">)</span>
+<span class="normal">                      </span><span class="cbracket">{</span>
+<span class="normal">                      </span><span class="keyword">case</span><span class="normal"> SDLK_ESCAPE</span><span class="symbol">:</span><span class="normal">    </span><span class="comment">/* Escape: Open/Close the menu: */</span>
+<span class="normal">                        </span><span class="function">on_escape_press</span><span class="symbol">();</span>
+<span class="normal">                        </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="label">                      default:</span>
+<span class="normal">                        </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">                      </span><span class="cbracket">}</span>
+<span class="normal">                  </span><span class="cbracket">}</span>
+<span class="normal">                  </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">                </span><span class="keyword">case</span><span class="normal"> SDL_KEYUP</span><span class="symbol">:</span><span class="normal">      </span><span class="comment">/* A keyrelease! */</span>
+<span class="normal">                  </span><span class="cbracket">{</span>
+<span class="normal">                    </span><span class="usertype">SDLKey</span><span class="normal"> key </span><span class="symbol">=</span><span class="normal"> event</span><span class="symbol">.</span><span class="normal">key</span><span class="symbol">.</span><span class="normal">keysym</span><span class="symbol">.</span><span class="normal">sym</span><span class="symbol">;</span>
+
+<span class="normal">                    </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">tux</span><span class="symbol">.</span><span class="function">key_event</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">,</span><span class="normal"> UP</span><span class="symbol">))</span>
+<span class="normal">                      </span><span class="keyword">break</span><span class="symbol">;</span>
+
+<span class="normal">                    </span><span class="keyword">switch</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">)</span>
+<span class="normal">                      </span><span class="cbracket">{</span>
+<span class="normal">                      </span><span class="keyword">case</span><span class="normal"> SDLK_p</span><span class="symbol">:</span>
+<span class="normal">                        </span><span class="keyword">if</span><span class="symbol">(!</span><span class="normal">Menu</span><span class="symbol">::</span><span class="function">current</span><span class="symbol">())</span>
+<span class="normal">                          </span><span class="cbracket">{</span>
+<span class="normal">                            </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">game_pause</span><span class="symbol">)</span>
+<span class="normal">                              </span><span class="cbracket">{</span>
+<span class="normal">                                game_pause </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">                                </span><span class="function">st_pause_ticks_stop</span><span class="symbol">();</span>
+<span class="normal">                              </span><span class="cbracket">}</span>
+<span class="normal">                            </span><span class="keyword">else</span>
+<span class="normal">                              </span><span class="cbracket">{</span>
+<span class="normal">                                game_pause </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="normal">                                </span><span class="function">st_pause_ticks_start</span><span class="symbol">();</span>
+<span class="normal">                              </span><span class="cbracket">}</span>
+<span class="normal">                          </span><span class="cbracket">}</span>
+<span class="normal">                        </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">                      </span><span class="keyword">case</span><span class="normal"> SDLK_TAB</span><span class="symbol">:</span>
+<span class="normal">                        </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">debug_mode</span><span class="symbol">)</span>
+<span class="normal">                          </span><span class="cbracket">{</span>
+<span class="normal">                            tux</span><span class="symbol">.</span><span class="normal">size </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">tux</span><span class="symbol">.</span><span class="normal">size</span><span class="symbol">;</span>
+<span class="normal">                            </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">tux</span><span class="symbol">.</span><span class="normal">size </span><span class="symbol">==</span><span class="normal"> BIG</span><span class="symbol">)</span>
+<span class="normal">                              </span><span class="cbracket">{</span>
+<span class="normal">                                tux</span><span class="symbol">.</span><span class="normal">base</span><span class="symbol">.</span><span class="normal">height </span><span class="symbol">=</span><span class="normal"> </span><span class="number">64</span><span class="symbol">;</span>
+<span class="normal">                              </span><span class="cbracket">}</span>
+<span class="normal">                            </span><span class="keyword">else</span>
+<span class="normal">                              tux</span><span class="symbol">.</span><span class="normal">base</span><span class="symbol">.</span><span class="normal">height </span><span class="symbol">=</span><span class="normal"> </span><span class="number">32</span><span class="symbol">;</span>
+<span class="normal">                          </span><span class="cbracket">}</span>
+<span class="normal">                        </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">                      </span><span class="keyword">case</span><span class="normal"> SDLK_END</span><span class="symbol">:</span>
+<span class="normal">                        </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">debug_mode</span><span class="symbol">)</span>
+<span class="normal">                          player_status</span><span class="symbol">.</span><span class="normal">distros </span><span class="symbol">+=</span><span class="normal"> </span><span class="number">50</span><span class="symbol">;</span>
+<span class="normal">                        </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">                      </span><span class="keyword">case</span><span class="normal"> SDLK_DELETE</span><span class="symbol">:</span>
+<span class="normal">                        </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">debug_mode</span><span class="symbol">)</span>
+<span class="normal">                          tux</span><span class="symbol">.</span><span class="normal">got_coffee </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">                        </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">                      </span><span class="keyword">case</span><span class="normal"> SDLK_INSERT</span><span class="symbol">:</span>
+<span class="normal">                        </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">debug_mode</span><span class="symbol">)</span>
+<span class="normal">                          tux</span><span class="symbol">.</span><span class="normal">invincible_timer</span><span class="symbol">.</span><span class="function">start</span><span class="symbol">(</span><span class="normal">TUX_INVINCIBLE_TIME</span><span class="symbol">);</span>
+<span class="normal">                        </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">                      </span><span class="keyword">case</span><span class="normal"> SDLK_l</span><span class="symbol">:</span>
+<span class="normal">                        </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">debug_mode</span><span class="symbol">)</span>
+<span class="normal">                          </span><span class="symbol">--</span><span class="normal">player_status</span><span class="symbol">.</span><span class="normal">lives</span><span class="symbol">;</span>
+<span class="normal">                        </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">                      </span><span class="keyword">case</span><span class="normal"> SDLK_s</span><span class="symbol">:</span>
+<span class="normal">                        </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">debug_mode</span><span class="symbol">)</span>
+<span class="normal">                          player_status</span><span class="symbol">.</span><span class="normal">score </span><span class="symbol">+=</span><span class="normal"> </span><span class="number">1000</span><span class="symbol">;</span>
+<span class="normal">                      </span><span class="keyword">case</span><span class="normal"> SDLK_f</span><span class="symbol">:</span>
+<span class="normal">                        </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">debug_fps</span><span class="symbol">)</span>
+<span class="normal">                          debug_fps </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">                        </span><span class="keyword">else</span>
+<span class="normal">                          debug_fps </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="normal">                        </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="label">                      default:</span>
+<span class="normal">                        </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">                      </span><span class="cbracket">}</span>
+<span class="normal">                  </span><span class="cbracket">}</span>
+<span class="normal">                  </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">		</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> SDL_JOYHATMOTION</span><span class="symbol">:</span>
+<span class="normal">		  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">event</span><span class="symbol">.</span><span class="normal">jhat</span><span class="symbol">.</span><span class="normal">value </span><span class="symbol">==</span><span class="normal"> SDL_HAT_RIGHT</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> </span>
+<span class="normal">		      </span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">.</span><span class="normal">jhat</span><span class="symbol">.</span><span class="normal">value </span><span class="symbol">==</span><span class="normal"> SDL_HAT_RIGHTUP</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="cbracket">{</span>
+<span class="normal">			tux</span><span class="symbol">.</span><span class="normal">input</span><span class="symbol">.</span><span class="normal">left  </span><span class="symbol">=</span><span class="normal"> UP</span><span class="symbol">;</span>
+<span class="normal">			tux</span><span class="symbol">.</span><span class="normal">input</span><span class="symbol">.</span><span class="normal">right </span><span class="symbol">=</span><span class="normal"> DOWN</span><span class="symbol">;</span>
+<span class="normal">		  </span><span class="cbracket">}</span>
+<span class="normal">		  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">event</span><span class="symbol">.</span><span class="normal">jhat</span><span class="symbol">.</span><span class="normal">value </span><span class="symbol">==</span><span class="normal"> SDL_HAT_LEFT</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">||</span>
+<span class="normal">		      </span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">.</span><span class="normal">jhat</span><span class="symbol">.</span><span class="normal">value </span><span class="symbol">==</span><span class="normal"> SDL_HAT_LEFTUP</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="cbracket">{</span>
+<span class="normal">			tux</span><span class="symbol">.</span><span class="normal">input</span><span class="symbol">.</span><span class="normal">left  </span><span class="symbol">=</span><span class="normal"> DOWN</span><span class="symbol">;</span>
+<span class="normal">			tux</span><span class="symbol">.</span><span class="normal">input</span><span class="symbol">.</span><span class="normal">right </span><span class="symbol">=</span><span class="normal"> UP</span><span class="symbol">;</span>
+<span class="normal">		  </span><span class="cbracket">}</span>
+<span class="normal">		  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">.</span><span class="normal">jhat</span><span class="symbol">.</span><span class="normal">value </span><span class="symbol">==</span><span class="normal"> SDL_HAT_CENTERED</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">                        tux</span><span class="symbol">.</span><span class="normal">input</span><span class="symbol">.</span><span class="normal">left  </span><span class="symbol">=</span><span class="normal"> DOWN</span><span class="symbol">;</span>
+<span class="normal">			tux</span><span class="symbol">.</span><span class="normal">input</span><span class="symbol">.</span><span class="normal">right </span><span class="symbol">=</span><span class="normal"> DOWN</span><span class="symbol">;</span>
+<span class="normal">                  </span><span class="cbracket">}</span>
+<span class="normal">		 </span>
+<span class="normal">		  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">.</span><span class="normal">jhat</span><span class="symbol">.</span><span class="normal">value </span><span class="symbol">==</span><span class="normal">  </span><span class="symbol">(</span><span class="normal"> SDL_HAT_DOWN</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">||</span>
+<span class="normal">		       </span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">.</span><span class="normal">jhat</span><span class="symbol">.</span><span class="normal">value </span><span class="symbol">==</span><span class="normal">  </span><span class="symbol">(</span><span class="normal"> SDL_HAT_LEFTDOWN</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">||</span>
+<span class="normal">		       </span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">.</span><span class="normal">jhat</span><span class="symbol">.</span><span class="normal">value </span><span class="symbol">==</span><span class="normal">  </span><span class="symbol">(</span><span class="normal"> SDL_HAT_RIGHTDOWN</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">			 tux</span><span class="symbol">.</span><span class="normal">input</span><span class="symbol">.</span><span class="normal">down </span><span class="symbol">=</span><span class="normal"> DOWN</span><span class="symbol">;</span>
+
+<span class="normal">		  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">event</span><span class="symbol">.</span><span class="normal">jhat</span><span class="symbol">.</span><span class="normal">value </span><span class="symbol">!=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> SDL_HAT_DOWN</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span>
+<span class="normal">                      </span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">.</span><span class="normal">jhat</span><span class="symbol">.</span><span class="normal">value </span><span class="symbol">!=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> SDL_HAT_LEFTDOWN</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span>
+<span class="normal">                      </span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">.</span><span class="normal">jhat</span><span class="symbol">.</span><span class="normal">value </span><span class="symbol">!=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> SDL_HAT_RIGHTDOWN</span><span class="symbol">)))</span>
+<span class="normal">			 tux</span><span class="symbol">.</span><span class="normal">input</span><span class="symbol">.</span><span class="normal">down </span><span class="symbol">=</span><span class="normal"> UP</span><span class="symbol">;</span>
+<span class="normal">                           </span>
+<span class="normal">                  </span><span class="keyword">break</span><span class="symbol">;</span>
+
+
+<span class="normal">                </span><span class="keyword">case</span><span class="normal"> SDL_JOYAXISMOTION</span><span class="symbol">:</span>
+<span class="normal">                  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">.</span><span class="normal">jaxis</span><span class="symbol">.</span><span class="normal">axis </span><span class="symbol">==</span><span class="normal"> joystick_keymap</span><span class="symbol">.</span><span class="normal">x_axis</span><span class="symbol">)</span>
+<span class="normal">                    </span><span class="cbracket">{</span>
+<span class="normal">                      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">.</span><span class="normal">jaxis</span><span class="symbol">.</span><span class="normal">value </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="symbol">-</span><span class="normal">joystick_keymap</span><span class="symbol">.</span><span class="normal">dead_zone</span><span class="symbol">)</span>
+<span class="normal">                        </span><span class="cbracket">{</span>
+<span class="normal">                          tux</span><span class="symbol">.</span><span class="normal">input</span><span class="symbol">.</span><span class="normal">left  </span><span class="symbol">=</span><span class="normal"> DOWN</span><span class="symbol">;</span>
+<span class="normal">                          tux</span><span class="symbol">.</span><span class="normal">input</span><span class="symbol">.</span><span class="normal">right </span><span class="symbol">=</span><span class="normal"> UP</span><span class="symbol">;</span>
+<span class="normal">                        </span><span class="cbracket">}</span>
+<span class="normal">                      </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">.</span><span class="normal">jaxis</span><span class="symbol">.</span><span class="normal">value </span><span class="symbol">&gt;</span><span class="normal"> joystick_keymap</span><span class="symbol">.</span><span class="normal">dead_zone</span><span class="symbol">)</span>
+<span class="normal">                        </span><span class="cbracket">{</span>
+<span class="normal">                          tux</span><span class="symbol">.</span><span class="normal">input</span><span class="symbol">.</span><span class="normal">left  </span><span class="symbol">=</span><span class="normal"> UP</span><span class="symbol">;</span>
+<span class="normal">                          tux</span><span class="symbol">.</span><span class="normal">input</span><span class="symbol">.</span><span class="normal">right </span><span class="symbol">=</span><span class="normal"> DOWN</span><span class="symbol">;</span>
+<span class="normal">                        </span><span class="cbracket">}</span>
+<span class="normal">                      </span><span class="keyword">else</span>
+<span class="normal">                        </span><span class="cbracket">{</span>
+<span class="normal">                          tux</span><span class="symbol">.</span><span class="normal">input</span><span class="symbol">.</span><span class="normal">left  </span><span class="symbol">=</span><span class="normal"> DOWN</span><span class="symbol">;</span>
+<span class="normal">                          tux</span><span class="symbol">.</span><span class="normal">input</span><span class="symbol">.</span><span class="normal">right </span><span class="symbol">=</span><span class="normal"> DOWN</span><span class="symbol">;</span>
+<span class="normal">                        </span><span class="cbracket">}</span>
+<span class="normal">                    </span><span class="cbracket">}</span>
+<span class="normal">                  </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">.</span><span class="normal">jaxis</span><span class="symbol">.</span><span class="normal">axis </span><span class="symbol">==</span><span class="normal"> joystick_keymap</span><span class="symbol">.</span><span class="normal">y_axis</span><span class="symbol">)</span>
+<span class="normal">                    </span><span class="cbracket">{</span>
+<span class="normal">                      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">.</span><span class="normal">jaxis</span><span class="symbol">.</span><span class="normal">value </span><span class="symbol">&gt;</span><span class="normal"> joystick_keymap</span><span class="symbol">.</span><span class="normal">dead_zone</span><span class="symbol">)</span>
+<span class="normal">                        tux</span><span class="symbol">.</span><span class="normal">input</span><span class="symbol">.</span><span class="normal">down </span><span class="symbol">=</span><span class="normal"> DOWN</span><span class="symbol">;</span>
+<span class="normal">                      </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">.</span><span class="normal">jaxis</span><span class="symbol">.</span><span class="normal">value </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="symbol">-</span><span class="normal">joystick_keymap</span><span class="symbol">.</span><span class="normal">dead_zone</span><span class="symbol">)</span>
+<span class="normal">                        tux</span><span class="symbol">.</span><span class="normal">input</span><span class="symbol">.</span><span class="normal">down </span><span class="symbol">=</span><span class="normal"> UP</span><span class="symbol">;</span>
+<span class="normal">                      </span><span class="keyword">else</span>
+<span class="normal">                        tux</span><span class="symbol">.</span><span class="normal">input</span><span class="symbol">.</span><span class="normal">down </span><span class="symbol">=</span><span class="normal"> UP</span><span class="symbol">;</span>
+<span class="normal">                    </span><span class="cbracket">}</span>
+<span class="normal">                  </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">            </span>
+<span class="normal">                </span><span class="keyword">case</span><span class="normal"> SDL_JOYBUTTONDOWN</span><span class="symbol">:</span>
+<span class="normal">                  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">.</span><span class="normal">jbutton</span><span class="symbol">.</span><span class="normal">button </span><span class="symbol">==</span><span class="normal"> joystick_keymap</span><span class="symbol">.</span><span class="normal">a_button</span><span class="symbol">)</span>
+<span class="normal">                    tux</span><span class="symbol">.</span><span class="normal">input</span><span class="symbol">.</span><span class="normal">up </span><span class="symbol">=</span><span class="normal"> DOWN</span><span class="symbol">;</span>
+<span class="normal">                  </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">.</span><span class="normal">jbutton</span><span class="symbol">.</span><span class="normal">button </span><span class="symbol">==</span><span class="normal"> joystick_keymap</span><span class="symbol">.</span><span class="normal">b_button</span><span class="symbol">)</span>
+<span class="normal">                    tux</span><span class="symbol">.</span><span class="normal">input</span><span class="symbol">.</span><span class="normal">fire </span><span class="symbol">=</span><span class="normal"> DOWN</span><span class="symbol">;</span>
+<span class="normal">                  </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">.</span><span class="normal">jbutton</span><span class="symbol">.</span><span class="normal">button </span><span class="symbol">==</span><span class="normal"> joystick_keymap</span><span class="symbol">.</span><span class="normal">start_button</span><span class="symbol">)</span>
+<span class="normal">                    </span><span class="function">on_escape_press</span><span class="symbol">();</span>
+<span class="normal">                  </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">                </span><span class="keyword">case</span><span class="normal"> SDL_JOYBUTTONUP</span><span class="symbol">:</span>
+<span class="normal">                  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">.</span><span class="normal">jbutton</span><span class="symbol">.</span><span class="normal">button </span><span class="symbol">==</span><span class="normal"> joystick_keymap</span><span class="symbol">.</span><span class="normal">a_button</span><span class="symbol">)</span>
+<span class="normal">                    tux</span><span class="symbol">.</span><span class="normal">input</span><span class="symbol">.</span><span class="normal">up </span><span class="symbol">=</span><span class="normal"> UP</span><span class="symbol">;</span>
+<span class="normal">                  </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">.</span><span class="normal">jbutton</span><span class="symbol">.</span><span class="normal">button </span><span class="symbol">==</span><span class="normal"> joystick_keymap</span><span class="symbol">.</span><span class="normal">b_button</span><span class="symbol">)</span>
+<span class="normal">                    tux</span><span class="symbol">.</span><span class="normal">input</span><span class="symbol">.</span><span class="normal">fire </span><span class="symbol">=</span><span class="normal"> UP</span><span class="symbol">;</span>
+<span class="normal">                  </span><span class="keyword">break</span><span class="symbol">;</span>
+
+<span class="label">                default:</span>
+<span class="normal">                  </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">                </span><span class="cbracket">}</span><span class="normal">  </span><span class="comment">/* switch */</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="cbracket">}</span><span class="normal"> </span><span class="comment">/* while */</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span>
+<span class="normal">GameSession</span><span class="symbol">::</span><span class="function">check_end_conditions</span><span class="symbol">()</span>
+<span class="cbracket">{</span>
+<span class="normal">  Player</span><span class="symbol">*</span><span class="normal"> tux </span><span class="symbol">=</span><span class="normal"> world</span><span class="symbol">-&gt;</span><span class="function">get_tux</span><span class="symbol">();</span>
+
+<span class="normal">  </span><span class="comment">/* End of level? */</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> endpos </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">World</span><span class="symbol">::</span><span class="function">current</span><span class="symbol">()-&gt;</span><span class="function">get_level</span><span class="symbol">()-&gt;</span><span class="normal">width</span><span class="symbol">-</span><span class="number">5</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="number">32</span><span class="symbol">;</span>
+<span class="normal">  Tile</span><span class="symbol">*</span><span class="normal"> endtile </span><span class="symbol">=</span><span class="normal"> </span><span class="function">collision_goal</span><span class="symbol">(</span><span class="normal">tux</span><span class="symbol">-&gt;</span><span class="normal">base</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">// fallback in case the other endpositions don't trigger</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">end_sequence </span><span class="symbol">&amp;&amp;</span><span class="normal"> tux</span><span class="symbol">-&gt;</span><span class="normal">base</span><span class="symbol">.</span><span class="normal">x </span><span class="symbol">&gt;=</span><span class="normal"> endpos</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      end_sequence </span><span class="symbol">=</span><span class="normal"> ENDSEQUENCE_WAITING</span><span class="symbol">;</span>
+<span class="normal">      last_x_pos </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">      music_manager</span><span class="symbol">-&gt;</span><span class="function">play_music</span><span class="symbol">(</span><span class="normal">level_end_song</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">      endsequence_timer</span><span class="symbol">.</span><span class="function">start</span><span class="symbol">(</span><span class="number">7000</span><span class="symbol">);</span>
+<span class="normal">      tux</span><span class="symbol">-&gt;</span><span class="normal">invincible_timer</span><span class="symbol">.</span><span class="function">start</span><span class="symbol">(</span><span class="number">7000</span><span class="symbol">);</span><span class="normal"> </span><span class="comment">//FIXME: Implement a winning timer for the end sequence (with special winning animation etc.)</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">end_sequence </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">endsequence_timer</span><span class="symbol">.</span><span class="function">check</span><span class="symbol">())</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      exit_status </span><span class="symbol">=</span><span class="normal"> ES_LEVEL_FINISHED</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">end_sequence </span><span class="symbol">==</span><span class="normal"> ENDSEQUENCE_RUNNING </span><span class="symbol">&amp;&amp;</span><span class="normal"> endtile </span><span class="symbol">&amp;&amp;</span><span class="normal"> endtile</span><span class="symbol">-&gt;</span><span class="normal">data </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      end_sequence </span><span class="symbol">=</span><span class="normal"> ENDSEQUENCE_WAITING</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="symbol">(!</span><span class="normal">end_sequence </span><span class="symbol">&amp;&amp;</span><span class="normal"> endtile </span><span class="symbol">&amp;&amp;</span><span class="normal"> endtile</span><span class="symbol">-&gt;</span><span class="normal">data </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      end_sequence </span><span class="symbol">=</span><span class="normal"> ENDSEQUENCE_RUNNING</span><span class="symbol">;</span>
+<span class="normal">      last_x_pos </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">      music_manager</span><span class="symbol">-&gt;</span><span class="function">play_music</span><span class="symbol">(</span><span class="normal">level_end_song</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">      endsequence_timer</span><span class="symbol">.</span><span class="function">start</span><span class="symbol">(</span><span class="number">7000</span><span class="symbol">);</span><span class="normal"> </span><span class="comment">// 5 seconds until we finish the map</span>
+<span class="normal">      tux</span><span class="symbol">-&gt;</span><span class="normal">invincible_timer</span><span class="symbol">.</span><span class="function">start</span><span class="symbol">(</span><span class="number">7000</span><span class="symbol">);</span><span class="normal"> </span><span class="comment">//FIXME: Implement a winning timer for the end sequence (with special winning animation etc.)</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">end_sequence </span><span class="symbol">&amp;&amp;</span><span class="normal"> tux</span><span class="symbol">-&gt;</span><span class="function">is_dead</span><span class="symbol">())</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      player_status</span><span class="symbol">.</span><span class="normal">bonus </span><span class="symbol">=</span><span class="normal"> PlayerStatus</span><span class="symbol">::</span><span class="normal">NO_BONUS</span><span class="symbol">;</span>
+
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">player_status</span><span class="symbol">.</span><span class="normal">lives </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span><span class="normal"> </span><span class="comment">// No more lives!?</span>
+<span class="normal">          </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">st_gl_mode </span><span class="symbol">!=</span><span class="normal"> ST_GL_TEST</span><span class="symbol">)</span>
+<span class="normal">            </span><span class="function">drawendscreen</span><span class="symbol">();</span>
+<span class="normal">          </span>
+<span class="normal">          exit_status </span><span class="symbol">=</span><span class="normal"> ES_GAME_OVER</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="keyword">else</span>
+<span class="normal">        </span><span class="cbracket">{</span><span class="normal"> </span><span class="comment">// Still has lives, so reset Tux to the levelstart</span>
+<span class="normal">          </span><span class="function">restart_level</span><span class="symbol">();</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">      </span><span class="keyword">return</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span>
+<span class="normal">GameSession</span><span class="symbol">::</span><span class="function">action</span><span class="symbol">(</span><span class="type">double</span><span class="normal"> frame_ratio</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">exit_status </span><span class="symbol">==</span><span class="normal"> ES_NONE</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="comment">// Update Tux and the World</span>
+<span class="normal">      world</span><span class="symbol">-&gt;</span><span class="function">action</span><span class="symbol">(</span><span class="normal">frame_ratio</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> </span>
+<span class="normal">GameSession</span><span class="symbol">::</span><span class="function">draw</span><span class="symbol">()</span>
+<span class="cbracket">{</span>
+<span class="normal">  world</span><span class="symbol">-&gt;</span><span class="function">draw</span><span class="symbol">();</span>
+<span class="normal">  </span><span class="function">drawstatus</span><span class="symbol">();</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">game_pause</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="type">int</span><span class="normal"> x </span><span class="symbol">=</span><span class="normal"> screen</span><span class="symbol">-&gt;</span><span class="normal">h </span><span class="symbol">/</span><span class="normal"> </span><span class="number">20</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">for</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> x</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">          </span><span class="function">fillrect</span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">%</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">?</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">pause_menu_frame </span><span class="symbol">*</span><span class="normal"> i</span><span class="symbol">)%</span><span class="normal">screen</span><span class="symbol">-&gt;</span><span class="normal">w </span><span class="symbol">:</span><span class="normal"> </span><span class="symbol">-((</span><span class="normal">pause_menu_frame </span><span class="symbol">*</span><span class="normal"> i</span><span class="symbol">)%</span><span class="normal">screen</span><span class="symbol">-&gt;</span><span class="normal">w</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">,(</span><span class="normal">i</span><span class="symbol">*</span><span class="number">20</span><span class="symbol">+</span><span class="normal">pause_menu_frame</span><span class="symbol">)%</span><span class="normal">screen</span><span class="symbol">-&gt;</span><span class="normal">h</span><span class="symbol">,</span><span class="normal">screen</span><span class="symbol">-&gt;</span><span class="normal">w</span><span class="symbol">,</span><span class="number">10</span><span class="symbol">,</span><span class="number">20</span><span class="symbol">,</span><span class="number">20</span><span class="symbol">,</span><span class="number">20</span><span class="symbol">,</span><span class="normal"> </span><span class="function">rand</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">%</span><span class="normal"> </span><span class="number">20</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="function">fillrect</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">,</span><span class="number">0</span><span class="symbol">,</span><span class="normal">screen</span><span class="symbol">-&gt;</span><span class="normal">w</span><span class="symbol">,</span><span class="normal">screen</span><span class="symbol">-&gt;</span><span class="normal">h</span><span class="symbol">,</span><span class="function">rand</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">%</span><span class="normal"> </span><span class="number">50</span><span class="symbol">,</span><span class="normal"> </span><span class="function">rand</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">%</span><span class="normal"> </span><span class="number">50</span><span class="symbol">,</span><span class="normal"> </span><span class="function">rand</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">%</span><span class="normal"> </span><span class="number">50</span><span class="symbol">,</span><span class="normal"> </span><span class="number">128</span><span class="symbol">);</span>
+<span class="normal">      blue_text</span><span class="symbol">-&gt;</span><span class="function">drawf</span><span class="symbol">(</span><span class="string">"PAUSE - Press 'P' To Play"</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">230</span><span class="symbol">,</span><span class="normal"> A_HMIDDLE</span><span class="symbol">,</span><span class="normal"> A_TOP</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">Menu</span><span class="symbol">::</span><span class="function">current</span><span class="symbol">())</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      Menu</span><span class="symbol">::</span><span class="function">current</span><span class="symbol">()-&gt;</span><span class="function">draw</span><span class="symbol">();</span>
+<span class="normal">      mouse_cursor</span><span class="symbol">-&gt;</span><span class="function">draw</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="function">updatescreen</span><span class="symbol">();</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span>
+<span class="normal">GameSession</span><span class="symbol">::</span><span class="function">process_menu</span><span class="symbol">()</span>
+<span class="cbracket">{</span>
+<span class="normal">  Menu</span><span class="symbol">*</span><span class="normal"> menu </span><span class="symbol">=</span><span class="normal"> Menu</span><span class="symbol">::</span><span class="function">current</span><span class="symbol">();</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">menu</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      menu</span><span class="symbol">-&gt;</span><span class="function">action</span><span class="symbol">();</span>
+
+<span class="normal">      </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">menu </span><span class="symbol">==</span><span class="normal"> game_menu</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">          </span><span class="keyword">switch</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">game_menu</span><span class="symbol">-&gt;</span><span class="function">check</span><span class="symbol">())</span>
+<span class="normal">            </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="keyword">case</span><span class="normal"> MNID_CONTINUE</span><span class="symbol">:</span>
+<span class="normal">              </span><span class="function">st_pause_ticks_stop</span><span class="symbol">();</span>
+<span class="normal">              </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="keyword">case</span><span class="normal"> MNID_ABORTLEVEL</span><span class="symbol">:</span>
+<span class="normal">              </span><span class="function">st_pause_ticks_stop</span><span class="symbol">();</span>
+<span class="normal">              exit_status </span><span class="symbol">=</span><span class="normal"> ES_LEVEL_ABORT</span><span class="symbol">;</span>
+<span class="normal">              </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">menu </span><span class="symbol">==</span><span class="normal"> options_menu</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">          </span><span class="function">process_options_menu</span><span class="symbol">();</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">menu </span><span class="symbol">==</span><span class="normal"> load_game_menu </span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">          </span><span class="function">process_load_game_menu</span><span class="symbol">();</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="normal">GameSession</span><span class="symbol">::</span><span class="normal">ExitStatus</span>
+<span class="normal">GameSession</span><span class="symbol">::</span><span class="function">run</span><span class="symbol">()</span>
+<span class="cbracket">{</span>
+<span class="normal">  Menu</span><span class="symbol">::</span><span class="function">set_current</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">  current_ </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">this</span><span class="symbol">;</span>
+<span class="normal">  </span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> fps_cnt </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="normal">  update_time </span><span class="symbol">=</span><span class="normal"> last_update_time </span><span class="symbol">=</span><span class="normal"> </span><span class="function">st_get_ticks</span><span class="symbol">();</span>
+
+<span class="normal">  </span><span class="comment">// Eat unneeded events</span>
+<span class="normal">  </span><span class="usertype">SDL_Event</span><span class="normal"> event</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="function">SDL_PollEvent</span><span class="symbol">(&amp;</span><span class="normal">event</span><span class="symbol">))</span><span class="normal"> </span><span class="cbracket">{}</span>
+
+<span class="normal">  </span><span class="function">draw</span><span class="symbol">();</span>
+
+<span class="normal">  </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">exit_status </span><span class="symbol">==</span><span class="normal"> ES_NONE</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="comment">/* Calculate the movement-factor */</span>
+<span class="normal">      </span><span class="type">double</span><span class="normal"> frame_ratio </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">((</span><span class="type">double</span><span class="symbol">)(</span><span class="normal">update_time</span><span class="symbol">-</span><span class="normal">last_update_time</span><span class="symbol">))/((</span><span class="type">double</span><span class="symbol">)</span><span class="normal">FRAME_RATE</span><span class="symbol">);</span>
+
+<span class="normal">      </span><span class="keyword">if</span><span class="symbol">(!</span><span class="normal">frame_timer</span><span class="symbol">.</span><span class="function">check</span><span class="symbol">())</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">          frame_timer</span><span class="symbol">.</span><span class="function">start</span><span class="symbol">(</span><span class="number">25</span><span class="symbol">);</span>
+<span class="normal">          </span><span class="symbol">++</span><span class="normal">global_frame_counter</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">      </span><span class="comment">/* Handle events: */</span>
+<span class="normal">      world</span><span class="symbol">-&gt;</span><span class="function">get_tux</span><span class="symbol">()-&gt;</span><span class="normal">input</span><span class="symbol">.</span><span class="normal">old_fire </span><span class="symbol">=</span><span class="normal"> world</span><span class="symbol">-&gt;</span><span class="function">get_tux</span><span class="symbol">()-&gt;</span><span class="normal">input</span><span class="symbol">.</span><span class="normal">fire</span><span class="symbol">;</span>
+
+<span class="normal">      </span><span class="function">process_events</span><span class="symbol">();</span>
+<span class="normal">      </span><span class="function">process_menu</span><span class="symbol">();</span>
+
+<span class="normal">      </span><span class="comment">// Update the world state and all objects in the world</span>
+<span class="normal">      </span><span class="comment">// Do that with a constante time-delta so that the game will run</span>
+<span class="normal">      </span><span class="comment">// determistic and not different on different machines</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="symbol">(!</span><span class="normal">game_pause </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">Menu</span><span class="symbol">::</span><span class="function">current</span><span class="symbol">())</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">          </span><span class="comment">// Update the world</span>
+<span class="normal">          </span><span class="function">check_end_conditions</span><span class="symbol">();</span>
+<span class="normal">          </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">end_sequence </span><span class="symbol">==</span><span class="normal"> ENDSEQUENCE_RUNNING</span><span class="symbol">)</span>
+<span class="normal">             </span><span class="function">action</span><span class="symbol">(</span><span class="normal">frame_ratio</span><span class="symbol">/</span><span class="number">2</span><span class="symbol">);</span>
+<span class="normal">          </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">end_sequence </span><span class="symbol">==</span><span class="normal"> NO_ENDSEQUENCE</span><span class="symbol">)</span>
+<span class="normal">             </span><span class="function">action</span><span class="symbol">(</span><span class="normal">frame_ratio</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="keyword">else</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">          </span><span class="symbol">++</span><span class="normal">pause_menu_frame</span><span class="symbol">;</span>
+<span class="normal">          </span><span class="function">SDL_Delay</span><span class="symbol">(</span><span class="number">50</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">      </span><span class="function">draw</span><span class="symbol">();</span>
+
+<span class="normal">      </span><span class="comment">/* Time stops in pause mode */</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">game_pause </span><span class="symbol">||</span><span class="normal"> Menu</span><span class="symbol">::</span><span class="function">current</span><span class="symbol">())</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">          </span><span class="keyword">continue</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">      </span><span class="comment">/* Set the time of the last update and the time of the current update */</span>
+<span class="normal">      last_update_time </span><span class="symbol">=</span><span class="normal"> update_time</span><span class="symbol">;</span>
+<span class="normal">      update_time      </span><span class="symbol">=</span><span class="normal"> </span><span class="function">st_get_ticks</span><span class="symbol">();</span>
+
+<span class="normal">      </span><span class="comment">/* Pause till next frame, if the machine running the game is too fast: */</span>
+<span class="normal">      </span><span class="comment">/* </span><span class="todo">FIXME:</span><span class="comment"> Works great for in OpenGl mode, where the CPU doesn't have to do that much. But</span>
+<span class="comment">         the results in SDL mode aren't perfect (thought the 100 FPS are reached), even on an AMD2500+. */</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">last_update_time </span><span class="symbol">&gt;=</span><span class="normal"> update_time </span><span class="symbol">-</span><span class="normal"> </span><span class="number">12</span><span class="symbol">)</span><span class="normal"> </span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">          </span><span class="function">SDL_Delay</span><span class="symbol">(</span><span class="number">10</span><span class="symbol">);</span>
+<span class="normal">          update_time </span><span class="symbol">=</span><span class="normal"> </span><span class="function">st_get_ticks</span><span class="symbol">();</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">      </span><span class="comment">/* Handle time: */</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">time_left</span><span class="symbol">.</span><span class="function">check</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> world</span><span class="symbol">-&gt;</span><span class="function">get_tux</span><span class="symbol">()-&gt;</span><span class="normal">dying </span><span class="symbol">==</span><span class="normal"> DYING_NOT</span>
+<span class="normal">              </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">end_sequence</span><span class="symbol">)</span>
+<span class="normal">        world</span><span class="symbol">-&gt;</span><span class="function">get_tux</span><span class="symbol">()-&gt;</span><span class="function">kill</span><span class="symbol">(</span><span class="normal">Player</span><span class="symbol">::</span><span class="normal">KILL</span><span class="symbol">);</span>
+
+<span class="normal">      </span><span class="comment">/* Handle music: */</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">world</span><span class="symbol">-&gt;</span><span class="function">get_tux</span><span class="symbol">()-&gt;</span><span class="normal">invincible_timer</span><span class="symbol">.</span><span class="function">check</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">end_sequence</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">          world</span><span class="symbol">-&gt;</span><span class="function">play_music</span><span class="symbol">(</span><span class="normal">HERRING_MUSIC</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="comment">/* are we low on time ? */</span>
+<span class="normal">      </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">time_left</span><span class="symbol">.</span><span class="function">get_left</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> TIME_WARNING </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">end_sequence</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">          world</span><span class="symbol">-&gt;</span><span class="function">play_music</span><span class="symbol">(</span><span class="normal">HURRYUP_MUSIC</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="comment">/* or just normal music? */</span>
+<span class="normal">      </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">world</span><span class="symbol">-&gt;</span><span class="function">get_music_type</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> LEVEL_MUSIC </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">end_sequence</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">          world</span><span class="symbol">-&gt;</span><span class="function">play_music</span><span class="symbol">(</span><span class="normal">LEVEL_MUSIC</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">      </span><span class="comment">/* Calculate frames per second */</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">show_fps</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">          </span><span class="symbol">++</span><span class="normal">fps_cnt</span><span class="symbol">;</span>
+<span class="normal">          fps_fps </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="number">1000.0</span><span class="normal"> </span><span class="symbol">/</span><span class="normal"> </span><span class="symbol">(</span><span class="type">float</span><span class="symbol">)</span><span class="normal">fps_timer</span><span class="symbol">.</span><span class="function">get_gone</span><span class="symbol">())</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="symbol">(</span><span class="type">float</span><span class="symbol">)</span><span class="normal">fps_cnt</span><span class="symbol">;</span>
+
+<span class="normal">          </span><span class="keyword">if</span><span class="symbol">(!</span><span class="normal">fps_timer</span><span class="symbol">.</span><span class="function">check</span><span class="symbol">())</span>
+<span class="normal">            </span><span class="cbracket">{</span>
+<span class="normal">              fps_timer</span><span class="symbol">.</span><span class="function">start</span><span class="symbol">(</span><span class="number">1000</span><span class="symbol">);</span>
+<span class="normal">              fps_cnt </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span>
+<span class="normal">  </span><span class="keyword">return</span><span class="normal"> exit_status</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/* Bounce a brick: */</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">bumpbrick</span><span class="symbol">(</span><span class="type">float</span><span class="normal"> x</span><span class="symbol">,</span><span class="normal"> </span><span class="type">float</span><span class="normal"> y</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  World</span><span class="symbol">::</span><span class="function">current</span><span class="symbol">()-&gt;</span><span class="function">add_bouncy_brick</span><span class="symbol">(((</span><span class="type">int</span><span class="symbol">)(</span><span class="normal">x </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">/</span><span class="normal"> </span><span class="number">32</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="number">32</span><span class="symbol">,</span>
+<span class="normal">                         </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)(</span><span class="normal">y </span><span class="symbol">/</span><span class="normal"> </span><span class="number">32</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="number">32</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="function">play_sound</span><span class="symbol">(</span><span class="normal">sounds</span><span class="symbol">[</span><span class="normal">SND_BRICK</span><span class="symbol">],</span><span class="normal"> SOUND_CENTER_SPEAKER</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/* (Status): */</span>
+<span class="type">void</span>
+<span class="normal">GameSession</span><span class="symbol">::</span><span class="function">drawstatus</span><span class="symbol">()</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="type">char</span><span class="normal"> str</span><span class="symbol">[</span><span class="number">60</span><span class="symbol">];</span>
+
+<span class="normal">  </span><span class="function">sprintf</span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"%d"</span><span class="symbol">,</span><span class="normal"> player_status</span><span class="symbol">.</span><span class="normal">score</span><span class="symbol">);</span>
+<span class="normal">  white_text</span><span class="symbol">-&gt;</span><span class="function">draw</span><span class="symbol">(</span><span class="string">"SCORE"</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">  gold_text</span><span class="symbol">-&gt;</span><span class="function">draw</span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="number">96</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">st_gl_mode </span><span class="symbol">==</span><span class="normal"> ST_GL_TEST</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      white_text</span><span class="symbol">-&gt;</span><span class="function">draw</span><span class="symbol">(</span><span class="string">"Press ESC To Return"</span><span class="symbol">,</span><span class="number">0</span><span class="symbol">,</span><span class="number">20</span><span class="symbol">,</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="symbol">(!</span><span class="normal">time_left</span><span class="symbol">.</span><span class="function">check</span><span class="symbol">())</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    white_text</span><span class="symbol">-&gt;</span><span class="function">draw</span><span class="symbol">(</span><span class="string">"TIME'S UP"</span><span class="symbol">,</span><span class="normal"> </span><span class="number">224</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">time_left</span><span class="symbol">.</span><span class="function">get_left</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">&gt;</span><span class="normal"> TIME_WARNING </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">global_frame_counter </span><span class="symbol">%</span><span class="normal"> </span><span class="number">10</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">5</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">sprintf</span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"%d"</span><span class="symbol">,</span><span class="normal"> time_left</span><span class="symbol">.</span><span class="function">get_left</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">/</span><span class="normal"> </span><span class="number">1000</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">    white_text</span><span class="symbol">-&gt;</span><span class="function">draw</span><span class="symbol">(</span><span class="string">"TIME"</span><span class="symbol">,</span><span class="normal"> </span><span class="number">224</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">    gold_text</span><span class="symbol">-&gt;</span><span class="function">draw</span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="number">304</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="function">sprintf</span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"%d"</span><span class="symbol">,</span><span class="normal"> player_status</span><span class="symbol">.</span><span class="normal">distros</span><span class="symbol">);</span>
+<span class="normal">  white_text</span><span class="symbol">-&gt;</span><span class="function">draw</span><span class="symbol">(</span><span class="string">"COINS"</span><span class="symbol">,</span><span class="normal"> screen</span><span class="symbol">-&gt;</span><span class="normal">h</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">  gold_text</span><span class="symbol">-&gt;</span><span class="function">draw</span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="number">608</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+
+<span class="normal">  white_text</span><span class="symbol">-&gt;</span><span class="function">draw</span><span class="symbol">(</span><span class="string">"LIVES"</span><span class="symbol">,</span><span class="normal"> </span><span class="number">480</span><span class="symbol">,</span><span class="normal"> </span><span class="number">20</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">player_status</span><span class="symbol">.</span><span class="normal">lives </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">5</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">sprintf</span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"%dx"</span><span class="symbol">,</span><span class="normal"> player_status</span><span class="symbol">.</span><span class="normal">lives</span><span class="symbol">);</span>
+<span class="normal">      gold_text</span><span class="symbol">-&gt;</span><span class="function">draw_align</span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="number">617</span><span class="symbol">,</span><span class="normal"> </span><span class="number">20</span><span class="symbol">,</span><span class="normal"> A_RIGHT</span><span class="symbol">,</span><span class="normal"> A_TOP</span><span class="symbol">);</span>
+<span class="normal">      tux_life</span><span class="symbol">-&gt;</span><span class="function">draw</span><span class="symbol">(</span><span class="number">565</span><span class="symbol">+(</span><span class="number">18</span><span class="symbol">*</span><span class="number">3</span><span class="symbol">),</span><span class="normal"> </span><span class="number">20</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="keyword">else</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="keyword">for</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> i</span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> player_status</span><span class="symbol">.</span><span class="normal">lives</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">        tux_life</span><span class="symbol">-&gt;</span><span class="function">draw</span><span class="symbol">(</span><span class="number">565</span><span class="symbol">+(</span><span class="number">18</span><span class="symbol">*</span><span class="normal">i</span><span class="symbol">),</span><span class="number">20</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">show_fps</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">sprintf</span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"%2.1f"</span><span class="symbol">,</span><span class="normal"> fps_fps</span><span class="symbol">);</span>
+<span class="normal">      white_text</span><span class="symbol">-&gt;</span><span class="function">draw</span><span class="symbol">(</span><span class="string">"FPS"</span><span class="symbol">,</span><span class="normal"> screen</span><span class="symbol">-&gt;</span><span class="normal">h</span><span class="symbol">,</span><span class="normal"> </span><span class="number">40</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">      gold_text</span><span class="symbol">-&gt;</span><span class="function">draw</span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> screen</span><span class="symbol">-&gt;</span><span class="normal">h </span><span class="symbol">+</span><span class="normal"> </span><span class="number">60</span><span class="symbol">,</span><span class="normal"> </span><span class="number">40</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span>
+<span class="normal">GameSession</span><span class="symbol">::</span><span class="function">drawendscreen</span><span class="symbol">()</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="type">char</span><span class="normal"> str</span><span class="symbol">[</span><span class="number">80</span><span class="symbol">];</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">get_level</span><span class="symbol">()-&gt;</span><span class="normal">img_bkgd</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">get_level</span><span class="symbol">()-&gt;</span><span class="normal">img_bkgd</span><span class="symbol">-&gt;</span><span class="function">draw</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="keyword">else</span>
+<span class="normal">    </span><span class="function">drawgradient</span><span class="symbol">(</span><span class="function">get_level</span><span class="symbol">()-&gt;</span><span class="normal">bkgd_top</span><span class="symbol">,</span><span class="normal"> </span><span class="function">get_level</span><span class="symbol">()-&gt;</span><span class="normal">bkgd_bottom</span><span class="symbol">);</span>
+
+<span class="normal">  blue_text</span><span class="symbol">-&gt;</span><span class="function">drawf</span><span class="symbol">(</span><span class="string">"GAMEOVER"</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">200</span><span class="symbol">,</span><span class="normal"> A_HMIDDLE</span><span class="symbol">,</span><span class="normal"> A_TOP</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="function">sprintf</span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"SCORE: %d"</span><span class="symbol">,</span><span class="normal"> player_status</span><span class="symbol">.</span><span class="normal">score</span><span class="symbol">);</span>
+<span class="normal">  gold_text</span><span class="symbol">-&gt;</span><span class="function">drawf</span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">224</span><span class="symbol">,</span><span class="normal"> A_HMIDDLE</span><span class="symbol">,</span><span class="normal"> A_TOP</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="function">sprintf</span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"COINS: %d"</span><span class="symbol">,</span><span class="normal"> player_status</span><span class="symbol">.</span><span class="normal">distros</span><span class="symbol">);</span>
+<span class="normal">  gold_text</span><span class="symbol">-&gt;</span><span class="function">drawf</span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">256</span><span class="symbol">,</span><span class="normal"> A_HMIDDLE</span><span class="symbol">,</span><span class="normal"> A_TOP</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="function">flipscreen</span><span class="symbol">();</span>
+<span class="normal">  </span>
+<span class="normal">  </span><span class="usertype">SDL_Event</span><span class="normal"> event</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="function">wait_for_event</span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">,</span><span class="number">2000</span><span class="symbol">,</span><span class="number">5000</span><span class="symbol">,</span><span class="keyword">true</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span>
+<span class="normal">GameSession</span><span class="symbol">::</span><span class="function">drawresultscreen</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="type">char</span><span class="normal"> str</span><span class="symbol">[</span><span class="number">80</span><span class="symbol">];</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">get_level</span><span class="symbol">()-&gt;</span><span class="normal">img_bkgd</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">get_level</span><span class="symbol">()-&gt;</span><span class="normal">img_bkgd</span><span class="symbol">-&gt;</span><span class="function">draw</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="keyword">else</span>
+<span class="normal">    </span><span class="function">drawgradient</span><span class="symbol">(</span><span class="function">get_level</span><span class="symbol">()-&gt;</span><span class="normal">bkgd_top</span><span class="symbol">,</span><span class="normal"> </span><span class="function">get_level</span><span class="symbol">()-&gt;</span><span class="normal">bkgd_bottom</span><span class="symbol">);</span>
+
+<span class="normal">  blue_text</span><span class="symbol">-&gt;</span><span class="function">drawf</span><span class="symbol">(</span><span class="string">"Result:"</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">200</span><span class="symbol">,</span><span class="normal"> A_HMIDDLE</span><span class="symbol">,</span><span class="normal"> A_TOP</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="function">sprintf</span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"SCORE: %d"</span><span class="symbol">,</span><span class="normal"> player_status</span><span class="symbol">.</span><span class="normal">score</span><span class="symbol">);</span>
+<span class="normal">  gold_text</span><span class="symbol">-&gt;</span><span class="function">drawf</span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">224</span><span class="symbol">,</span><span class="normal"> A_HMIDDLE</span><span class="symbol">,</span><span class="normal"> A_TOP</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="function">sprintf</span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"COINS: %d"</span><span class="symbol">,</span><span class="normal"> player_status</span><span class="symbol">.</span><span class="normal">distros</span><span class="symbol">);</span>
+<span class="normal">  gold_text</span><span class="symbol">-&gt;</span><span class="function">drawf</span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">256</span><span class="symbol">,</span><span class="normal"> A_HMIDDLE</span><span class="symbol">,</span><span class="normal"> A_TOP</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="function">flipscreen</span><span class="symbol">();</span>
+<span class="normal">  </span>
+<span class="normal">  </span><span class="usertype">SDL_Event</span><span class="normal"> event</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="function">wait_for_event</span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">,</span><span class="number">2000</span><span class="symbol">,</span><span class="number">5000</span><span class="symbol">,</span><span class="keyword">true</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="normal">std</span><span class="symbol">::</span><span class="usertype">string</span><span class="normal"> </span><span class="function">slotinfo</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> slot</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="type">char</span><span class="normal"> tmp</span><span class="symbol">[</span><span class="number">1024</span><span class="symbol">];</span>
+<span class="normal">  </span><span class="type">char</span><span class="normal"> slotfile</span><span class="symbol">[</span><span class="number">1024</span><span class="symbol">];</span>
+<span class="normal">  std</span><span class="symbol">::</span><span class="usertype">string</span><span class="normal"> title</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="function">sprintf</span><span class="symbol">(</span><span class="normal">slotfile</span><span class="symbol">,</span><span class="string">"%s/slot%d.stsg"</span><span class="symbol">,</span><span class="normal">st_save_dir</span><span class="symbol">,</span><span class="normal">slot</span><span class="symbol">);</span>
+
+<span class="normal">  lisp_object_t</span><span class="symbol">*</span><span class="normal"> savegame </span><span class="symbol">=</span><span class="normal"> </span><span class="function">lisp_read_from_file</span><span class="symbol">(</span><span class="normal">slotfile</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">savegame</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="usertype">LispReader</span><span class="normal"> </span><span class="function">reader</span><span class="symbol">(</span><span class="function">lisp_cdr</span><span class="symbol">(</span><span class="normal">savegame</span><span class="symbol">));</span>
+<span class="normal">      reader</span><span class="symbol">.</span><span class="function">read_string</span><span class="symbol">(</span><span class="string">"title"</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">title</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="function">lisp_free</span><span class="symbol">(</span><span class="normal">savegame</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">faccessible</span><span class="symbol">(</span><span class="normal">slotfile</span><span class="symbol">))</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">title</span><span class="symbol">.</span><span class="function">empty</span><span class="symbol">())</span>
+<span class="normal">        </span><span class="function">snprintf</span><span class="symbol">(</span><span class="normal">tmp</span><span class="symbol">,</span><span class="number">1024</span><span class="symbol">,</span><span class="string">"Slot %d - %s"</span><span class="symbol">,</span><span class="normal">slot</span><span class="symbol">,</span><span class="normal"> title</span><span class="symbol">.</span><span class="function">c_str</span><span class="symbol">());</span>
+<span class="normal">      </span><span class="keyword">else</span>
+<span class="normal">        </span><span class="function">snprintf</span><span class="symbol">(</span><span class="normal">tmp</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1024</span><span class="symbol">,</span><span class="string">"Slot %d - Savegame"</span><span class="symbol">,</span><span class="normal">slot</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="keyword">else</span>
+<span class="normal">    </span><span class="function">sprintf</span><span class="symbol">(</span><span class="normal">tmp</span><span class="symbol">,</span><span class="string">"Slot %d - Free"</span><span class="symbol">,</span><span class="normal">slot</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="keyword">return</span><span class="normal"> tmp</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

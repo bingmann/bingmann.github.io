@@ -1,0 +1,1 @@
+var searchData=[["iterationscale",["IterationScale",["../classDouble.html#ad3462597e2822e3a8a70a8688cdf4b6d",1,"Double::IterationScale()"],["../classMpfrFloat.html#a7c1483d0302b15a6eaf4b8f480b34040",1,"MpfrFloat::IterationScale()"]]]];

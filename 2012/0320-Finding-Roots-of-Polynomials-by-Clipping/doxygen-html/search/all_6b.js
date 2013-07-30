@@ -1,0 +1,1 @@
+var searchData=[["kclip",["KClip",["../classKClip.html",1,"KClip&lt; Numeric &gt;"],["../classKClip.html#a233abf7469ddcf60da1e7b07ea50591a",1,"KClip::KClip()"]]]];

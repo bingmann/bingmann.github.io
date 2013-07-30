@@ -1,0 +1,747 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2006/qtsqlview/src/QtSqlView-0.8.0/src/DbConnection.h - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal3.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2006/">2006</a> / <a href="/2006/qtsqlview/">qtsqlview</a> / <a href="/2006/qtsqlview/src/">src</a> / <a href="/2006/qtsqlview/src/QtSqlView-0.8.0/">QtSqlView-0.8.0</a> / <a href="/2006/qtsqlview/src/QtSqlView-0.8.0/src/">src</a> / <a href="/2006/qtsqlview/src/QtSqlView-0.8.0/src/DbConnection.h.html">DbConnection.h</a> (<a href="/2006/qtsqlview/src/QtSqlView-0.8.0/src/DbConnection.h">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">// $Id: DbConnection.h 20 2006-10-10 08:24:36Z tb $</span>
+<span class="comment">// Copyright 2006 Timo Bingmann</span>
+<span class="comment">//</span>
+<span class="comment">// Contains the classes for the database connection listing, the subtrees</span>
+<span class="comment">// showing the containing tables and the schema display model.</span>
+<span class="comment">//</span>
+
+<span class="preproc">#ifndef</span><span class="normal"> _DbConnection_H_</span>
+<span class="preproc">#define</span><span class="normal"> _DbConnection_H_</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;QtSql/QSqlDatabase&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;QtSql/QSqlError&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;QtSql/QSqlTableModel&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;QtSql/QSqlRecord&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;QtSql/QSqlField&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;QtSql/QSqlIndex&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;QtSql/QSqlQuery&gt;</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;QtGui/QIcon&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;QtGui/QHeaderView&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;QtGui/QMessageBox&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;QtGui/QInputDialog&gt;</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;QtCore/QAbstractItemModel&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;QtCore/QVector&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;QtCore/QSettings&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;QtCore/QUuid&gt;</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"DbTypes.h"</span>
+
+<span class="keyword">struct</span><span class="normal"> </span><span class="classname">DbParameter</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">QString</span><span class="normal">	label</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">QString</span><span class="normal">	hostname</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal">		port</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">QString</span><span class="normal">	driver</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">QString</span><span class="normal">	username</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">QString</span><span class="normal">	password</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal">		askpassword</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">QString</span><span class="normal">	database</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal">		showsystables</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">saveToSettings</span><span class="symbol">(</span><span class="usertype">QSettings</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">settings</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	settings</span><span class="symbol">.</span><span class="function">setValue</span><span class="symbol">(</span><span class="string">"label"</span><span class="symbol">,</span><span class="normal"> label</span><span class="symbol">);</span>
+<span class="normal">	settings</span><span class="symbol">.</span><span class="function">setValue</span><span class="symbol">(</span><span class="string">"hostname"</span><span class="symbol">,</span><span class="normal"> hostname</span><span class="symbol">);</span>
+<span class="normal">	settings</span><span class="symbol">.</span><span class="function">setValue</span><span class="symbol">(</span><span class="string">"port"</span><span class="symbol">,</span><span class="normal"> port</span><span class="symbol">);</span>
+<span class="normal">	settings</span><span class="symbol">.</span><span class="function">setValue</span><span class="symbol">(</span><span class="string">"driver"</span><span class="symbol">,</span><span class="normal"> driver</span><span class="symbol">);</span>
+<span class="normal">	settings</span><span class="symbol">.</span><span class="function">setValue</span><span class="symbol">(</span><span class="string">"username"</span><span class="symbol">,</span><span class="normal"> username</span><span class="symbol">);</span>
+<span class="normal">	settings</span><span class="symbol">.</span><span class="function">setValue</span><span class="symbol">(</span><span class="string">"password"</span><span class="symbol">,</span><span class="normal"> password</span><span class="symbol">);</span>
+<span class="normal">	settings</span><span class="symbol">.</span><span class="function">setValue</span><span class="symbol">(</span><span class="string">"askpassword"</span><span class="symbol">,</span><span class="normal"> askpassword</span><span class="symbol">);</span>
+<span class="normal">	settings</span><span class="symbol">.</span><span class="function">setValue</span><span class="symbol">(</span><span class="string">"database"</span><span class="symbol">,</span><span class="normal"> database</span><span class="symbol">);</span>
+<span class="normal">	settings</span><span class="symbol">.</span><span class="function">setValue</span><span class="symbol">(</span><span class="string">"showsystables"</span><span class="symbol">,</span><span class="normal"> showsystables</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">loadFromSettings</span><span class="symbol">(</span><span class="usertype">QSettings</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">settings</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	label </span><span class="symbol">=</span><span class="normal"> settings</span><span class="symbol">.</span><span class="function">value</span><span class="symbol">(</span><span class="string">"label"</span><span class="symbol">).</span><span class="function">toString</span><span class="symbol">();</span>
+<span class="normal">	hostname </span><span class="symbol">=</span><span class="normal"> settings</span><span class="symbol">.</span><span class="function">value</span><span class="symbol">(</span><span class="string">"hostname"</span><span class="symbol">).</span><span class="function">toString</span><span class="symbol">();</span>
+<span class="normal">	port </span><span class="symbol">=</span><span class="normal"> settings</span><span class="symbol">.</span><span class="function">value</span><span class="symbol">(</span><span class="string">"port"</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">).</span><span class="function">toUInt</span><span class="symbol">();</span>
+<span class="normal">	driver </span><span class="symbol">=</span><span class="normal"> settings</span><span class="symbol">.</span><span class="function">value</span><span class="symbol">(</span><span class="string">"driver"</span><span class="symbol">).</span><span class="function">toString</span><span class="symbol">();</span>
+<span class="normal">	username </span><span class="symbol">=</span><span class="normal"> settings</span><span class="symbol">.</span><span class="function">value</span><span class="symbol">(</span><span class="string">"username"</span><span class="symbol">).</span><span class="function">toString</span><span class="symbol">();</span>
+<span class="normal">	password </span><span class="symbol">=</span><span class="normal"> settings</span><span class="symbol">.</span><span class="function">value</span><span class="symbol">(</span><span class="string">"password"</span><span class="symbol">).</span><span class="function">toString</span><span class="symbol">();</span>
+<span class="normal">	askpassword </span><span class="symbol">=</span><span class="normal"> settings</span><span class="symbol">.</span><span class="function">value</span><span class="symbol">(</span><span class="string">"askpassword"</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">).</span><span class="function">toUInt</span><span class="symbol">();</span>
+<span class="normal">	database </span><span class="symbol">=</span><span class="normal"> settings</span><span class="symbol">.</span><span class="function">value</span><span class="symbol">(</span><span class="string">"database"</span><span class="symbol">).</span><span class="function">toString</span><span class="symbol">();</span>
+<span class="normal">	showsystables </span><span class="symbol">=</span><span class="normal"> settings</span><span class="symbol">.</span><span class="function">value</span><span class="symbol">(</span><span class="string">"showsystables"</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">).</span><span class="function">toUInt</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="keyword">class</span><span class="normal"> </span><span class="classname">DbTable</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> </span><span class="keyword">public</span><span class="normal"> QObject</span>
+<span class="cbracket">{</span>
+<span class="normal">    Q_OBJECT</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">/// link to parent connection object</span>
+<span class="normal">    </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">DbConnection</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dbconn</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// guess</span>
+<span class="normal">    </span><span class="usertype">QString</span><span class="normal">	tablename</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// 0 = user table, 1 = view, 2 = system table</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal"> 	tabletype</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="function">DbTable</span><span class="symbol">(</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">DbConnection</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dbc</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">QString</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">tab</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> _tabletype</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="symbol">:</span><span class="normal"> </span><span class="function">QObject</span><span class="symbol">(),</span><span class="normal"> </span><span class="function">dbconn</span><span class="symbol">(</span><span class="normal">dbc</span><span class="symbol">),</span><span class="normal"> </span><span class="function">tablename</span><span class="symbol">(</span><span class="normal">tab</span><span class="symbol">),</span><span class="normal"> </span><span class="function">tabletype</span><span class="symbol">(</span><span class="normal">_tabletype</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="keyword">class</span><span class="normal"> </span><span class="classname">DbError</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> </span><span class="keyword">public</span><span class="normal"> QObject</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">public</span><span class="normal"> QSqlError</span>
+<span class="cbracket">{</span>
+<span class="normal">    Q_OBJECT</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">/// link to parent connection object</span>
+<span class="normal">    </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">DbConnection</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dbconn</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="function">DbError</span><span class="symbol">(</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">DbConnection</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">_dbconn</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="symbol">:</span><span class="normal"> </span><span class="function">QObject</span><span class="symbol">(),</span><span class="normal"> </span><span class="function">QSqlError</span><span class="symbol">(),</span><span class="normal"> </span><span class="function">dbconn</span><span class="symbol">(</span><span class="normal">_dbconn</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="function">DbError</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">QSqlError</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">e</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="symbol">:</span><span class="normal"> </span><span class="function">QObject</span><span class="symbol">(),</span><span class="normal"> </span><span class="function">QSqlError</span><span class="symbol">(</span><span class="normal">e</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    DbError</span><span class="symbol">&amp;</span><span class="normal"> </span><span class="keyword">operator</span><span class="symbol">=(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">QSqlError</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">e</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="symbol">*(</span><span class="normal">QSqlError</span><span class="symbol">*)</span><span class="keyword">this</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> e</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">*</span><span class="keyword">this</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="keyword">class</span><span class="normal"> </span><span class="classname">DbConnection</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> </span><span class="keyword">public</span><span class="normal"> QObject</span>
+<span class="cbracket">{</span>
+<span class="normal">    Q_OBJECT</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">/// parameters of the connection</span>
+<span class="normal">    </span><span class="usertype">DbParameter</span><span class="normal">		dbparam</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// because qt requires us to use addDatabase with a unique id, we use the</span>
+<span class="normal">    </span><span class="comment">/// only random function aviablable in qt itself here.</span>
+<span class="normal">    </span><span class="usertype">QUuid</span><span class="normal">		dbuuid</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="usertype">QSqlDatabase</span><span class="normal">	db</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="usertype">DbError</span><span class="normal">		connecterror</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="function">DbConnection</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">DbParameter</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">params</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="symbol">:</span><span class="normal"> </span><span class="function">QObject</span><span class="symbol">(),</span><span class="normal"> </span><span class="function">dbparam</span><span class="symbol">(</span><span class="normal">params</span><span class="symbol">),</span>
+<span class="normal">	  </span><span class="function">dbuuid</span><span class="symbol">(</span><span class="normal"> QUuid</span><span class="symbol">::</span><span class="function">createUuid</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">),</span>
+<span class="normal">	  </span><span class="function">connecterror</span><span class="symbol">(</span><span class="keyword">this</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="usertype">QSqlError</span><span class="normal">	</span><span class="function">connect</span><span class="symbol">(</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">DbList</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">dblist</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="type">void</span><span class="normal"> 	</span><span class="function">disconnect</span><span class="symbol">(</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">DbList</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">dblist</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">QVector&lt;DbTable*&gt;</span><span class="normal"> tablelist_t</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="usertype">QVector&lt;DbTable*&gt;</span><span class="normal">	tablelist</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="function">numChildren</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">db</span><span class="symbol">.</span><span class="function">isOpen</span><span class="symbol">())</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> tablelist</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">connecterror</span><span class="symbol">.</span><span class="function">isValid</span><span class="symbol">())</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">else</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="keyword">class</span><span class="normal"> </span><span class="classname">DbList</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> </span><span class="keyword">public</span><span class="normal"> QAbstractItemModel</span>
+<span class="cbracket">{</span>
+<span class="normal">    Q_OBJECT</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="symbol">~</span><span class="function">DbList</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="function">clear</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// the primary list of data connections</span>
+<span class="normal">    </span><span class="usertype">QVector&lt;DbConnection*&gt;</span><span class="normal"> 	list</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// correctly delete all dbconnections</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">clear</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">list</span><span class="symbol">.</span><span class="function">isEmpty</span><span class="symbol">())</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="comment">// first delete children, then the db entries. otherwise the model</span>
+<span class="normal">	    </span><span class="comment">// goes crazy</span>
+<span class="normal">	    </span><span class="function">Q_FOREACH</span><span class="symbol">(</span><span class="usertype">DbConnection</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dbc</span><span class="symbol">,</span><span class="normal"> list</span><span class="symbol">)</span>
+<span class="normal">	    </span><span class="cbracket">{</span>
+<span class="normal">		dbc</span><span class="symbol">-&gt;</span><span class="function">disconnect</span><span class="symbol">(*</span><span class="keyword">this</span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+
+<span class="normal">	    </span><span class="function">beginRemoveRows</span><span class="symbol">(</span><span class="function">QModelIndex</span><span class="symbol">(),</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> list</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">()-</span><span class="number">1</span><span class="symbol">);</span>
+
+<span class="normal">	    </span><span class="function">Q_FOREACH</span><span class="symbol">(</span><span class="usertype">DbConnection</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dbc</span><span class="symbol">,</span><span class="normal"> list</span><span class="symbol">)</span>
+<span class="normal">	    </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">delete</span><span class="normal"> dbc</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+<span class="normal">	    list</span><span class="symbol">.</span><span class="function">clear</span><span class="symbol">();</span>
+
+<span class="normal">	    </span><span class="function">endRemoveRows</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// add a new dbconnection</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">addDbConnection</span><span class="symbol">(</span><span class="usertype">DbParameter</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">dbp</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="function">beginInsertRows</span><span class="symbol">(</span><span class="function">QModelIndex</span><span class="symbol">(),</span><span class="normal"> list</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">(),</span><span class="normal"> list</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">());</span>
+<span class="normal">	</span>
+<span class="normal">	list</span><span class="symbol">.</span><span class="function">push_back</span><span class="symbol">(</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="function">DbConnection</span><span class="symbol">(</span><span class="normal">dbp</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="function">endInsertRows</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// change a dbconnection</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">editDbConnection</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> num</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">DbParameter</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">dbp</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="normal"> </span><span class="symbol">&gt;</span><span class="normal"> num </span><span class="symbol">||</span><span class="normal"> num </span><span class="symbol">&gt;=</span><span class="normal"> list</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">())</span><span class="normal"> </span><span class="keyword">return</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">// close old connection and change parameters</span>
+<span class="normal">	list</span><span class="symbol">[</span><span class="normal">num</span><span class="symbol">]-&gt;</span><span class="function">disconnect</span><span class="symbol">(*</span><span class="keyword">this</span><span class="symbol">);</span>
+
+<span class="normal">	list</span><span class="symbol">[</span><span class="normal">num</span><span class="symbol">]-&gt;</span><span class="normal">dbparam </span><span class="symbol">=</span><span class="normal"> dbp</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="usertype">emit</span><span class="normal"> </span><span class="function">dataChanged</span><span class="symbol">(</span><span class="function">createIndex</span><span class="symbol">(</span><span class="normal">num</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> list</span><span class="symbol">[</span><span class="normal">num</span><span class="symbol">]),</span>
+<span class="normal">			 </span><span class="function">createIndex</span><span class="symbol">(</span><span class="normal">num</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> list</span><span class="symbol">[</span><span class="normal">num</span><span class="symbol">]));</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// remove a dbconnection</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">delDbConnection</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> num</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="normal"> </span><span class="symbol">&gt;</span><span class="normal"> num </span><span class="symbol">||</span><span class="normal"> num </span><span class="symbol">&gt;=</span><span class="normal"> list</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">())</span><span class="normal"> </span><span class="keyword">return</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="function">beginRemoveRows</span><span class="symbol">(</span><span class="function">QModelIndex</span><span class="symbol">(),</span><span class="normal"> num</span><span class="symbol">,</span><span class="normal"> num</span><span class="symbol">);</span>
+
+<span class="normal">	list</span><span class="symbol">[</span><span class="normal">num</span><span class="symbol">]-&gt;</span><span class="function">disconnect</span><span class="symbol">(*</span><span class="keyword">this</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">delete</span><span class="normal"> list</span><span class="symbol">[</span><span class="normal">num</span><span class="symbol">];</span>
+
+<span class="normal">	list</span><span class="symbol">.</span><span class="function">remove</span><span class="symbol">(</span><span class="normal">num</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="function">endRemoveRows</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// save all database parameters to settings</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">saveToSettings</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">QSettings</span><span class="normal"> </span><span class="function">settings</span><span class="normal"> </span><span class="symbol">(</span><span class="string">"idlebox.net"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"QtSqlView"</span><span class="symbol">);</span>
+
+<span class="normal">	settings</span><span class="symbol">.</span><span class="function">beginWriteArray</span><span class="symbol">(</span><span class="string">"connections"</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="function">Q_FOREACH</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">DbConnection</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dbc</span><span class="symbol">,</span><span class="normal"> list</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    settings</span><span class="symbol">.</span><span class="function">setArrayIndex</span><span class="symbol">(</span><span class="normal">i</span><span class="symbol">++);</span>
+
+<span class="normal">	    dbc</span><span class="symbol">-&gt;</span><span class="normal">dbparam</span><span class="symbol">.</span><span class="function">saveToSettings</span><span class="symbol">(</span><span class="normal">settings</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	settings</span><span class="symbol">.</span><span class="function">endArray</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// load all database parameters from settings</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">loadFromSettings</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">QSettings</span><span class="normal"> </span><span class="function">settings</span><span class="normal"> </span><span class="symbol">(</span><span class="string">"idlebox.net"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"QtSqlView"</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="function">clear</span><span class="symbol">();</span>
+
+<span class="normal">	</span><span class="type">int</span><span class="normal"> connnum </span><span class="symbol">=</span><span class="normal"> settings</span><span class="symbol">.</span><span class="function">beginReadArray</span><span class="symbol">(</span><span class="string">"connections"</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> connnum</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    settings</span><span class="symbol">.</span><span class="function">setArrayIndex</span><span class="symbol">(</span><span class="normal">i</span><span class="symbol">);</span>
+
+<span class="normal">	    </span><span class="usertype">DbParameter</span><span class="normal"> dbp</span><span class="symbol">;</span>
+<span class="normal">	    dbp</span><span class="symbol">.</span><span class="function">loadFromSettings</span><span class="symbol">(</span><span class="normal">settings</span><span class="symbol">);</span>
+
+<span class="normal">	    list</span><span class="symbol">.</span><span class="function">push_back</span><span class="symbol">(</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="function">DbConnection</span><span class="symbol">(</span><span class="normal">dbp</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	settings</span><span class="symbol">.</span><span class="function">endArray</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="keyword">public</span><span class="symbol">:</span><span class="normal"> </span><span class="comment">// *** implements QAbstractItemModel</span>
+
+<span class="normal">    </span><span class="comment">// *** Columns</span>
+
+<span class="normal">    </span><span class="keyword">virtual</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="function">columnCount</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> QModelIndex </span><span class="symbol">&amp;)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">virtual</span><span class="normal"> </span><span class="usertype">QVariant</span><span class="normal"> </span><span class="function">headerData</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> section</span><span class="symbol">,</span><span class="normal"> Qt</span><span class="symbol">::</span><span class="usertype">Orientation</span><span class="normal"> orientation</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> role </span><span class="symbol">=</span><span class="normal"> Qt</span><span class="symbol">::</span><span class="normal">DisplayRole</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">orientation </span><span class="symbol">==</span><span class="normal"> Qt</span><span class="symbol">::</span><span class="normal">Horizontal</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">role </span><span class="symbol">==</span><span class="normal"> Qt</span><span class="symbol">::</span><span class="normal">DisplayRole</span><span class="symbol">)</span>
+<span class="normal">	    </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">switch</span><span class="symbol">(</span><span class="normal">section</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> </span><span class="number">0</span><span class="symbol">:</span>
+<span class="normal">		    </span><span class="keyword">return</span><span class="normal"> </span><span class="string">"Connections"</span><span class="symbol">;</span>
+<span class="label">		default:</span>
+<span class="normal">		    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">QString</span><span class="symbol">(</span><span class="string">"Column %1"</span><span class="symbol">).</span><span class="function">arg</span><span class="symbol">(</span><span class="normal">section</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+<span class="normal">	    </span><span class="keyword">else</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> </span><span class="function">QVariant</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">else</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">role </span><span class="symbol">!=</span><span class="normal"> Qt</span><span class="symbol">::</span><span class="normal">DisplayRole</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> </span><span class="function">QVariant</span><span class="symbol">();</span>
+<span class="normal">	    </span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">QString</span><span class="symbol">(</span><span class="string">"Row %1"</span><span class="symbol">).</span><span class="function">arg</span><span class="symbol">(</span><span class="normal">section</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">// *** Rows</span>
+
+<span class="normal">    </span><span class="keyword">virtual</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="function">rowCount</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">QModelIndex</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">index</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">index</span><span class="symbol">.</span><span class="function">isValid</span><span class="symbol">())</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> list</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="keyword">else</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="usertype">QObject</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">obj </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">QObject</span><span class="symbol">*)</span><span class="normal">index</span><span class="symbol">.</span><span class="function">internalPointer</span><span class="symbol">();</span>
+
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">DbConnection</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dbc </span><span class="symbol">=</span><span class="normal"> qobject_cast</span><span class="symbol">&lt;</span><span class="keyword">const</span><span class="normal"> DbConnection</span><span class="symbol">*&gt;(</span><span class="normal">obj</span><span class="symbol">))</span>
+<span class="normal">	    </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> dbc</span><span class="symbol">-&gt;</span><span class="function">numChildren</span><span class="symbol">();</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">virtual</span><span class="normal"> </span><span class="type">bool</span><span class="normal"> </span><span class="function">hasChildren</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> QModelIndex</span><span class="symbol">&amp;</span><span class="normal"> parent </span><span class="symbol">=</span><span class="normal"> </span><span class="function">QModelIndex</span><span class="symbol">())</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">parent</span><span class="symbol">.</span><span class="function">isValid</span><span class="symbol">())</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="usertype">QObject</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">obj </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">QObject</span><span class="symbol">*)</span><span class="normal">parent</span><span class="symbol">.</span><span class="function">internalPointer</span><span class="symbol">();</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">DbConnection</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dbc </span><span class="symbol">=</span><span class="normal"> qobject_cast</span><span class="symbol">&lt;</span><span class="keyword">const</span><span class="normal"> DbConnection</span><span class="symbol">*&gt;(</span><span class="normal">obj</span><span class="symbol">))</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    dbc</span><span class="symbol">++;</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span>
+<span class="normal">    </span><span class="keyword">virtual</span><span class="normal"> </span><span class="usertype">QVariant</span><span class="normal"> </span><span class="function">data</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">QModelIndex</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">index</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> role </span><span class="symbol">=</span><span class="normal"> Qt</span><span class="symbol">::</span><span class="normal">DisplayRole</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">index</span><span class="symbol">.</span><span class="function">isValid</span><span class="symbol">())</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">QVariant</span><span class="symbol">();</span>
+
+<span class="normal">	</span><span class="usertype">QObject</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">obj </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">QObject</span><span class="symbol">*)</span><span class="normal">index</span><span class="symbol">.</span><span class="function">internalPointer</span><span class="symbol">();</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">DbConnection</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dbc </span><span class="symbol">=</span><span class="normal"> qobject_cast</span><span class="symbol">&lt;</span><span class="keyword">const</span><span class="normal"> DbConnection</span><span class="symbol">*&gt;(</span><span class="normal">obj</span><span class="symbol">))</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">role </span><span class="symbol">==</span><span class="normal"> Qt</span><span class="symbol">::</span><span class="normal">DisplayRole</span><span class="symbol">)</span>
+<span class="normal">	    </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">dbc</span><span class="symbol">-&gt;</span><span class="normal">dbparam</span><span class="symbol">.</span><span class="normal">label</span><span class="symbol">.</span><span class="function">isEmpty</span><span class="symbol">())</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		    </span><span class="keyword">return</span><span class="normal"> </span><span class="string">"&lt;no label&gt;"</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> dbc</span><span class="symbol">-&gt;</span><span class="normal">dbparam</span><span class="symbol">.</span><span class="normal">label</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+<span class="normal">	    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">role </span><span class="symbol">==</span><span class="normal"> Qt</span><span class="symbol">::</span><span class="normal">DecorationRole</span><span class="symbol">)</span>
+<span class="normal">	    </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">static</span><span class="normal"> </span><span class="usertype">QIcon</span><span class="normal"> </span><span class="function">dbicon</span><span class="symbol">(</span><span class="string">":/img/database.png"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> </span><span class="function">qVariantFromValue</span><span class="symbol">(</span><span class="normal">dbicon</span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">DbTable</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dbt </span><span class="symbol">=</span><span class="normal"> qobject_cast</span><span class="symbol">&lt;</span><span class="keyword">const</span><span class="normal"> DbTable</span><span class="symbol">*&gt;(</span><span class="normal">obj</span><span class="symbol">))</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">role </span><span class="symbol">==</span><span class="normal"> Qt</span><span class="symbol">::</span><span class="normal">DisplayRole</span><span class="symbol">)</span>
+<span class="normal">	    </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> dbt</span><span class="symbol">-&gt;</span><span class="normal">tablename</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+<span class="normal">	    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">role </span><span class="symbol">==</span><span class="normal"> Qt</span><span class="symbol">::</span><span class="normal">DecorationRole</span><span class="symbol">)</span>
+<span class="normal">	    </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">static</span><span class="normal"> </span><span class="usertype">QIcon</span><span class="normal"> </span><span class="function">tableicon</span><span class="symbol">(</span><span class="string">":/img/table.png"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">static</span><span class="normal"> </span><span class="usertype">QIcon</span><span class="normal"> </span><span class="function">tablesysicon</span><span class="symbol">(</span><span class="string">":/img/tablesys.png"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">static</span><span class="normal"> </span><span class="usertype">QIcon</span><span class="normal"> </span><span class="function">viewicon</span><span class="symbol">(</span><span class="string">":/img/view.png"</span><span class="symbol">);</span>
+
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">dbt</span><span class="symbol">-&gt;</span><span class="normal">tabletype </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">		    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">qVariantFromValue</span><span class="symbol">(</span><span class="normal">tableicon</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">dbt</span><span class="symbol">-&gt;</span><span class="normal">tabletype </span><span class="symbol">==</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">		    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">qVariantFromValue</span><span class="symbol">(</span><span class="normal">viewicon</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">dbt</span><span class="symbol">-&gt;</span><span class="normal">tabletype </span><span class="symbol">==</span><span class="normal"> </span><span class="number">2</span><span class="symbol">)</span>
+<span class="normal">		    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">qVariantFromValue</span><span class="symbol">(</span><span class="normal">tablesysicon</span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">DbError</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">err </span><span class="symbol">=</span><span class="normal"> qobject_cast</span><span class="symbol">&lt;</span><span class="keyword">const</span><span class="normal"> DbError</span><span class="symbol">*&gt;(</span><span class="normal">obj</span><span class="symbol">))</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">role </span><span class="symbol">==</span><span class="normal"> Qt</span><span class="symbol">::</span><span class="normal">DisplayRole</span><span class="symbol">)</span>
+<span class="normal">	    </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">index</span><span class="symbol">.</span><span class="function">row</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">		    </span><span class="keyword">return</span><span class="normal"> err</span><span class="symbol">-&gt;</span><span class="function">driverText</span><span class="symbol">();</span>
+<span class="normal">		</span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">index</span><span class="symbol">.</span><span class="function">row</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">		    </span><span class="keyword">return</span><span class="normal"> err</span><span class="symbol">-&gt;</span><span class="function">databaseText</span><span class="symbol">();</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+<span class="normal">	    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">role </span><span class="symbol">==</span><span class="normal"> Qt</span><span class="symbol">::</span><span class="normal">DecorationRole</span><span class="symbol">)</span>
+<span class="normal">	    </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">static</span><span class="normal"> </span><span class="usertype">QIcon</span><span class="normal"> </span><span class="function">erroricon</span><span class="symbol">(</span><span class="string">":/img/error.png"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> </span><span class="function">qVariantFromValue</span><span class="symbol">(</span><span class="normal">erroricon</span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="function">QVariant</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span>
+<span class="normal">    </span><span class="keyword">virtual</span><span class="normal"> </span><span class="usertype">QModelIndex</span><span class="normal"> </span><span class="function">index</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> row</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> column</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> QModelIndex</span><span class="symbol">&amp;</span><span class="normal"> parent </span><span class="symbol">=</span><span class="normal"> </span><span class="function">QModelIndex</span><span class="symbol">())</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">parent</span><span class="symbol">.</span><span class="function">isValid</span><span class="symbol">())</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">row </span><span class="symbol">&lt;</span><span class="normal"> list</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">())</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> </span><span class="function">createIndex</span><span class="symbol">(</span><span class="normal">row</span><span class="symbol">,</span><span class="normal"> column</span><span class="symbol">,</span><span class="normal"> list</span><span class="symbol">[</span><span class="normal">row</span><span class="symbol">]);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">else</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="usertype">QObject</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">obj </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">QObject</span><span class="symbol">*)</span><span class="normal">parent</span><span class="symbol">.</span><span class="function">internalPointer</span><span class="symbol">();</span>
+
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">DbConnection</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dbc </span><span class="symbol">=</span><span class="normal"> qobject_cast</span><span class="symbol">&lt;</span><span class="keyword">const</span><span class="normal"> DbConnection</span><span class="symbol">*&gt;(</span><span class="normal">obj</span><span class="symbol">))</span>
+<span class="normal">	    </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">dbc</span><span class="symbol">-&gt;</span><span class="normal">db</span><span class="symbol">.</span><span class="function">isOpen</span><span class="symbol">())</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">		    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">row </span><span class="symbol">&lt;</span><span class="normal"> dbc</span><span class="symbol">-&gt;</span><span class="normal">tablelist</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">())</span>
+<span class="normal">			</span><span class="keyword">return</span><span class="normal"> </span><span class="function">createIndex</span><span class="symbol">(</span><span class="normal">row</span><span class="symbol">,</span><span class="normal"> column</span><span class="symbol">,</span><span class="normal"> dbc</span><span class="symbol">-&gt;</span><span class="normal">tablelist</span><span class="symbol">[</span><span class="normal">row</span><span class="symbol">]);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">dbc</span><span class="symbol">-&gt;</span><span class="normal">connecterror</span><span class="symbol">.</span><span class="function">isValid</span><span class="symbol">())</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">		    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">createIndex</span><span class="symbol">(</span><span class="normal">row</span><span class="symbol">,</span><span class="normal"> column</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="type">void</span><span class="symbol">*)&amp;</span><span class="normal">dbc</span><span class="symbol">-&gt;</span><span class="normal">connecterror</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="function">QModelIndex</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">virtual</span><span class="normal"> </span><span class="usertype">QModelIndex</span><span class="normal"> </span><span class="function">parent</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> QModelIndex</span><span class="symbol">&amp;</span><span class="normal"> index</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">index</span><span class="symbol">.</span><span class="function">isValid</span><span class="symbol">())</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">QModelIndex</span><span class="symbol">();</span>
+
+<span class="normal">	</span><span class="usertype">QObject</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">obj </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">QObject</span><span class="symbol">*)</span><span class="normal">index</span><span class="symbol">.</span><span class="function">internalPointer</span><span class="symbol">();</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">DbConnection</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dbc </span><span class="symbol">=</span><span class="normal"> qobject_cast</span><span class="symbol">&lt;</span><span class="keyword">const</span><span class="normal"> DbConnection</span><span class="symbol">*&gt;(</span><span class="normal">obj</span><span class="symbol">))</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    dbc</span><span class="symbol">++;</span>
+<span class="normal">	    </span><span class="comment">// table entries have the root as parent</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">QModelIndex</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">DbTable</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dbt </span><span class="symbol">=</span><span class="normal"> qobject_cast</span><span class="symbol">&lt;</span><span class="keyword">const</span><span class="normal"> DbTable</span><span class="symbol">*&gt;(</span><span class="normal">obj</span><span class="symbol">))</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">createIndex</span><span class="symbol">(</span><span class="normal">list</span><span class="symbol">.</span><span class="function">indexOf</span><span class="symbol">(</span><span class="normal">dbt</span><span class="symbol">-&gt;</span><span class="normal">dbconn</span><span class="symbol">),</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> dbt</span><span class="symbol">-&gt;</span><span class="normal">dbconn</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">DbError</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">err </span><span class="symbol">=</span><span class="normal"> qobject_cast</span><span class="symbol">&lt;</span><span class="keyword">const</span><span class="normal"> DbError</span><span class="symbol">*&gt;(</span><span class="normal">obj</span><span class="symbol">))</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">createIndex</span><span class="symbol">(</span><span class="normal">list</span><span class="symbol">.</span><span class="function">indexOf</span><span class="symbol">(</span><span class="normal">err</span><span class="symbol">-&gt;</span><span class="normal">dbconn</span><span class="symbol">),</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> err</span><span class="symbol">-&gt;</span><span class="normal">dbconn</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="function">QModelIndex</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="type">int</span><span class="normal"> </span><span class="function">getDbConnectionNum</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">QModelIndex</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">index</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">index</span><span class="symbol">.</span><span class="function">isValid</span><span class="symbol">())</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="usertype">QObject</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">obj </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">QObject</span><span class="symbol">*)</span><span class="normal">index</span><span class="symbol">.</span><span class="function">internalPointer</span><span class="symbol">();</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">DbConnection</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dbc </span><span class="symbol">=</span><span class="normal"> qobject_cast</span><span class="symbol">&lt;</span><span class="normal">DbConnection</span><span class="symbol">*&gt;(</span><span class="normal">obj</span><span class="symbol">))</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> list</span><span class="symbol">.</span><span class="function">indexOf</span><span class="symbol">(</span><span class="normal">dbc</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">DbTable</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dbt </span><span class="symbol">=</span><span class="normal"> qobject_cast</span><span class="symbol">&lt;</span><span class="keyword">const</span><span class="normal"> DbTable</span><span class="symbol">*&gt;(</span><span class="normal">obj</span><span class="symbol">))</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> list</span><span class="symbol">.</span><span class="function">indexOf</span><span class="symbol">(</span><span class="normal">dbt</span><span class="symbol">-&gt;</span><span class="normal">dbconn</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    DbConnection</span><span class="symbol">*</span><span class="normal"> </span><span class="function">getDbConnection</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">QModelIndex</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">index</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">index</span><span class="symbol">.</span><span class="function">isValid</span><span class="symbol">())</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> NULL</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="usertype">QObject</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">obj </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">QObject</span><span class="symbol">*)</span><span class="normal">index</span><span class="symbol">.</span><span class="function">internalPointer</span><span class="symbol">();</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">DbConnection</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dbc </span><span class="symbol">=</span><span class="normal"> qobject_cast</span><span class="symbol">&lt;</span><span class="normal">DbConnection</span><span class="symbol">*&gt;(</span><span class="normal">obj</span><span class="symbol">))</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> dbc</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">DbTable</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dbt </span><span class="symbol">=</span><span class="normal"> qobject_cast</span><span class="symbol">&lt;</span><span class="normal">DbTable</span><span class="symbol">*&gt;(</span><span class="normal">obj</span><span class="symbol">))</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> dbt</span><span class="symbol">-&gt;</span><span class="normal">dbconn</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal"> </span>
+<span class="normal">    DbTable</span><span class="symbol">*</span><span class="normal"> </span><span class="function">getDbTable</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">QModelIndex</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">index</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">index</span><span class="symbol">.</span><span class="function">isValid</span><span class="symbol">())</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> NULL</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="usertype">QObject</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">obj </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">QObject</span><span class="symbol">*)</span><span class="normal">index</span><span class="symbol">.</span><span class="function">internalPointer</span><span class="symbol">();</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">DbTable</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dbt </span><span class="symbol">=</span><span class="normal"> qobject_cast</span><span class="symbol">&lt;</span><span class="normal">DbTable</span><span class="symbol">*&gt;(</span><span class="normal">obj</span><span class="symbol">))</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> dbt</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">expanding</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">QModelIndex</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">index</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">index</span><span class="symbol">.</span><span class="function">isValid</span><span class="symbol">())</span><span class="normal"> </span><span class="keyword">return</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="usertype">QObject</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">obj </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">QObject</span><span class="symbol">*)</span><span class="normal">index</span><span class="symbol">.</span><span class="function">internalPointer</span><span class="symbol">();</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">DbConnection</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dbc </span><span class="symbol">=</span><span class="normal"> qobject_cast</span><span class="symbol">&lt;</span><span class="normal">DbConnection</span><span class="symbol">*&gt;(</span><span class="normal">obj</span><span class="symbol">))</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">dbc</span><span class="symbol">-&gt;</span><span class="normal">db</span><span class="symbol">.</span><span class="function">isOpen</span><span class="symbol">())</span>
+<span class="normal">	    </span><span class="cbracket">{</span>
+<span class="normal">		dbc</span><span class="symbol">-&gt;</span><span class="function">connect</span><span class="symbol">(*</span><span class="keyword">this</span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">collapsed</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">QModelIndex</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">index</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">index</span><span class="symbol">.</span><span class="function">isValid</span><span class="symbol">())</span><span class="normal"> </span><span class="keyword">return</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="usertype">QObject</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">obj </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">QObject</span><span class="symbol">*)</span><span class="normal">index</span><span class="symbol">.</span><span class="function">internalPointer</span><span class="symbol">();</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">DbConnection</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dbc </span><span class="symbol">=</span><span class="normal"> qobject_cast</span><span class="symbol">&lt;</span><span class="normal">DbConnection</span><span class="symbol">*&gt;(</span><span class="normal">obj</span><span class="symbol">))</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">dbc</span><span class="symbol">-&gt;</span><span class="normal">db</span><span class="symbol">.</span><span class="function">isOpen</span><span class="symbol">())</span>
+<span class="normal">	    </span><span class="cbracket">{</span>
+<span class="normal">		dbc</span><span class="symbol">-&gt;</span><span class="function">disconnect</span><span class="symbol">(*</span><span class="keyword">this</span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">refresh</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="function">Q_FOREACH</span><span class="symbol">(</span><span class="usertype">DbConnection</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dbc</span><span class="symbol">,</span><span class="normal"> list</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">dbc</span><span class="symbol">-&gt;</span><span class="normal">db</span><span class="symbol">.</span><span class="function">isOpen</span><span class="symbol">())</span>
+<span class="normal">	    </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">tablelist_clear</span><span class="symbol">(*</span><span class="normal">dbc</span><span class="symbol">);</span>
+<span class="normal">		</span>
+<span class="normal">		</span><span class="function">tablelist_load</span><span class="symbol">(*</span><span class="normal">dbc</span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">// *** Tablelist Functions are located here, because they have to emit signals</span>
+
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">tablelist_clear</span><span class="symbol">(</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">DbConnection</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">dbc</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">dbc</span><span class="symbol">.</span><span class="normal">tablelist</span><span class="symbol">.</span><span class="function">isEmpty</span><span class="symbol">())</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="function">beginRemoveRows</span><span class="symbol">(</span><span class="function">createIndex</span><span class="symbol">(</span><span class="normal">list</span><span class="symbol">.</span><span class="function">indexOf</span><span class="symbol">(&amp;</span><span class="normal">dbc</span><span class="symbol">),</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">dbc</span><span class="symbol">),</span>
+<span class="normal">			    </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> dbc</span><span class="symbol">.</span><span class="normal">tablelist</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">()-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">	</span>
+<span class="normal">	    </span><span class="function">Q_FOREACH</span><span class="symbol">(</span><span class="usertype">DbTable</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">t</span><span class="symbol">,</span><span class="normal"> dbc</span><span class="symbol">.</span><span class="normal">tablelist</span><span class="symbol">)</span>
+<span class="normal">	    </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">delete</span><span class="normal"> t</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+<span class="normal">	    dbc</span><span class="symbol">.</span><span class="normal">tablelist</span><span class="symbol">.</span><span class="function">clear</span><span class="symbol">();</span>
+
+<span class="normal">	    </span><span class="function">endRemoveRows</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">dbc</span><span class="symbol">.</span><span class="normal">connecterror</span><span class="symbol">.</span><span class="function">isValid</span><span class="symbol">())</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="function">beginRemoveRows</span><span class="symbol">(</span><span class="function">createIndex</span><span class="symbol">(</span><span class="normal">list</span><span class="symbol">.</span><span class="function">indexOf</span><span class="symbol">(&amp;</span><span class="normal">dbc</span><span class="symbol">),</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">dbc</span><span class="symbol">),</span>
+<span class="normal">			    </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+
+
+<span class="normal">	    dbc</span><span class="symbol">.</span><span class="normal">connecterror </span><span class="symbol">=</span><span class="normal"> </span><span class="function">QSqlError</span><span class="symbol">();</span>
+
+<span class="normal">	    </span><span class="function">endRemoveRows</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">tablelist_load</span><span class="symbol">(</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">DbConnection</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">dbc</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="function">tablelist_clear</span><span class="symbol">(</span><span class="normal">dbc</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">dbc</span><span class="symbol">.</span><span class="normal">db</span><span class="symbol">.</span><span class="function">isOpen</span><span class="symbol">())</span><span class="normal"> </span><span class="keyword">return</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="usertype">QVector&lt;DbTable*&gt;</span><span class="normal">	newtablelist</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="function">Q_FOREACH</span><span class="symbol">(</span><span class="usertype">QString</span><span class="normal"> table</span><span class="symbol">,</span><span class="normal"> dbc</span><span class="symbol">.</span><span class="normal">db</span><span class="symbol">.</span><span class="function">tables</span><span class="symbol">())</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    newtablelist</span><span class="symbol">.</span><span class="function">push_back</span><span class="symbol">(</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="function">DbTable</span><span class="symbol">(&amp;</span><span class="normal">dbc</span><span class="symbol">,</span><span class="normal"> table</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="function">Q_FOREACH</span><span class="symbol">(</span><span class="usertype">QString</span><span class="normal"> table</span><span class="symbol">,</span><span class="normal"> dbc</span><span class="symbol">.</span><span class="normal">db</span><span class="symbol">.</span><span class="function">tables</span><span class="symbol">(</span><span class="normal">QSql</span><span class="symbol">::</span><span class="normal">Views</span><span class="symbol">))</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    newtablelist</span><span class="symbol">.</span><span class="function">push_back</span><span class="symbol">(</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="function">DbTable</span><span class="symbol">(&amp;</span><span class="normal">dbc</span><span class="symbol">,</span><span class="normal"> table</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">dbc</span><span class="symbol">.</span><span class="normal">dbparam</span><span class="symbol">.</span><span class="normal">showsystables</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="function">Q_FOREACH</span><span class="symbol">(</span><span class="usertype">QString</span><span class="normal"> table</span><span class="symbol">,</span><span class="normal"> dbc</span><span class="symbol">.</span><span class="normal">db</span><span class="symbol">.</span><span class="function">tables</span><span class="symbol">(</span><span class="normal">QSql</span><span class="symbol">::</span><span class="normal">SystemTables</span><span class="symbol">))</span>
+<span class="normal">	    </span><span class="cbracket">{</span>
+<span class="normal">		newtablelist</span><span class="symbol">.</span><span class="function">push_back</span><span class="symbol">(</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="function">DbTable</span><span class="symbol">(&amp;</span><span class="normal">dbc</span><span class="symbol">,</span><span class="normal"> table</span><span class="symbol">,</span><span class="normal"> </span><span class="number">2</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="function">beginInsertRows</span><span class="symbol">(</span><span class="function">createIndex</span><span class="symbol">(</span><span class="normal">list</span><span class="symbol">.</span><span class="function">indexOf</span><span class="symbol">(&amp;</span><span class="normal">dbc</span><span class="symbol">),</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">dbc</span><span class="symbol">),</span>
+<span class="normal">			</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> newtablelist</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">()-</span><span class="number">1</span><span class="symbol">);</span>
+
+<span class="normal">	dbc</span><span class="symbol">.</span><span class="normal">tablelist </span><span class="symbol">=</span><span class="normal"> newtablelist</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="function">endInsertRows</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">tablelist_seterror</span><span class="symbol">(</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">DbConnection</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">dbc</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">QSqlError</span><span class="normal"> e</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="function">tablelist_clear</span><span class="symbol">(</span><span class="normal">dbc</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="function">beginInsertRows</span><span class="symbol">(</span><span class="function">createIndex</span><span class="symbol">(</span><span class="normal">list</span><span class="symbol">.</span><span class="function">indexOf</span><span class="symbol">(&amp;</span><span class="normal">dbc</span><span class="symbol">),</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">dbc</span><span class="symbol">),</span>
+<span class="normal">			</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+
+<span class="normal">	dbc</span><span class="symbol">.</span><span class="normal">connecterror </span><span class="symbol">=</span><span class="normal"> e</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="function">endInsertRows</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="keyword">class</span><span class="normal"> </span><span class="classname">DbSchemaModel</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> </span><span class="keyword">public</span><span class="normal"> QAbstractTableModel</span>
+<span class="cbracket">{</span>
+<span class="normal">    Q_OBJECT</span>
+
+<span class="keyword">private</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">/// the record of which the schema is displayed</span>
+<span class="normal">    </span><span class="usertype">QSqlRecord</span><span class="normal">	record</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// the database driver name</span>
+<span class="normal">    </span><span class="usertype">QString</span><span class="normal">	driver</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// the primary index of the table</span>
+<span class="normal">    </span><span class="usertype">QSqlIndex</span><span class="normal">	pindex</span><span class="symbol">;</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">/// change the data in the model</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">setRecord</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">DbTable</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dbt</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">QSqlRecord</span><span class="normal"> r</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	record </span><span class="symbol">=</span><span class="normal"> r</span><span class="symbol">;</span>
+<span class="normal">	driver </span><span class="symbol">=</span><span class="normal"> dbt</span><span class="symbol">-&gt;</span><span class="normal">dbconn</span><span class="symbol">-&gt;</span><span class="normal">db</span><span class="symbol">.</span><span class="function">driverName</span><span class="symbol">();</span>
+<span class="normal">	pindex </span><span class="symbol">=</span><span class="normal"> dbt</span><span class="symbol">-&gt;</span><span class="normal">dbconn</span><span class="symbol">-&gt;</span><span class="normal">db</span><span class="symbol">.</span><span class="function">primaryIndex</span><span class="symbol">(</span><span class="normal">dbt</span><span class="symbol">-&gt;</span><span class="normal">tablename</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="usertype">emit</span><span class="normal"> </span><span class="function">layoutChanged</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="keyword">public</span><span class="symbol">:</span><span class="normal"> </span><span class="comment">// *** implements QAbstractItemModel</span>
+
+<span class="normal">    </span><span class="comment">// *** Columns</span>
+
+<span class="normal">    </span><span class="keyword">virtual</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="function">columnCount</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> QModelIndex </span><span class="symbol">&amp;)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="number">5</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">virtual</span><span class="normal"> </span><span class="usertype">QVariant</span><span class="normal"> </span><span class="function">headerData</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> section</span><span class="symbol">,</span><span class="normal"> Qt</span><span class="symbol">::</span><span class="usertype">Orientation</span><span class="normal"> orientation</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> role </span><span class="symbol">=</span><span class="normal"> Qt</span><span class="symbol">::</span><span class="normal">DisplayRole</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">orientation </span><span class="symbol">==</span><span class="normal"> Qt</span><span class="symbol">::</span><span class="normal">Horizontal</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">role </span><span class="symbol">==</span><span class="normal"> Qt</span><span class="symbol">::</span><span class="normal">DisplayRole</span><span class="symbol">)</span>
+<span class="normal">	    </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">switch</span><span class="symbol">(</span><span class="normal">section</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> </span><span class="number">0</span><span class="symbol">:</span>
+<span class="normal">		    </span><span class="keyword">return</span><span class="normal"> </span><span class="string">"Connections"</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> </span><span class="number">1</span><span class="symbol">:</span>
+<span class="normal">		    </span><span class="keyword">return</span><span class="normal"> </span><span class="string">"Type"</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> </span><span class="number">2</span><span class="symbol">:</span>
+<span class="normal">		    </span><span class="keyword">return</span><span class="normal"> </span><span class="string">"Length"</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> </span><span class="number">3</span><span class="symbol">:</span>
+<span class="normal">		    </span><span class="keyword">return</span><span class="normal"> </span><span class="string">"Modifiers"</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> </span><span class="number">4</span><span class="symbol">:</span>
+<span class="normal">		    </span><span class="keyword">return</span><span class="normal"> </span><span class="string">"Default"</span><span class="symbol">;</span>
+<span class="label">		default:</span>
+<span class="normal">		    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">QString</span><span class="symbol">(</span><span class="string">"Column %1"</span><span class="symbol">).</span><span class="function">arg</span><span class="symbol">(</span><span class="normal">section</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="function">QVariant</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">// *** Rows</span>
+
+<span class="normal">    </span><span class="keyword">virtual</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="function">rowCount</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> QModelIndex </span><span class="symbol">&amp;)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> record</span><span class="symbol">.</span><span class="function">count</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">virtual</span><span class="normal"> </span><span class="usertype">QVariant</span><span class="normal"> </span><span class="function">data</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">QModelIndex</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">index</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> role </span><span class="symbol">=</span><span class="normal"> Qt</span><span class="symbol">::</span><span class="normal">DisplayRole</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">index</span><span class="symbol">.</span><span class="function">isValid</span><span class="symbol">())</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">QVariant</span><span class="symbol">();</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">role </span><span class="symbol">==</span><span class="normal"> Qt</span><span class="symbol">::</span><span class="normal">DisplayRole</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">index</span><span class="symbol">.</span><span class="function">row</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">&gt;=</span><span class="normal"> record</span><span class="symbol">.</span><span class="function">count</span><span class="symbol">())</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> </span><span class="function">QVariant</span><span class="symbol">();</span>
+
+<span class="normal">	    </span><span class="usertype">QSqlField</span><span class="normal"> field </span><span class="symbol">=</span><span class="normal"> record</span><span class="symbol">.</span><span class="function">field</span><span class="symbol">(</span><span class="normal">index</span><span class="symbol">.</span><span class="function">row</span><span class="symbol">());</span>
+
+<span class="normal">	    </span><span class="keyword">switch</span><span class="symbol">(</span><span class="normal">index</span><span class="symbol">.</span><span class="function">column</span><span class="symbol">())</span>
+<span class="normal">	    </span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">case</span><span class="normal"> </span><span class="number">0</span><span class="symbol">:</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> field</span><span class="symbol">.</span><span class="function">name</span><span class="symbol">();</span>
+
+<span class="normal">	    </span><span class="keyword">case</span><span class="normal"> </span><span class="number">1</span><span class="symbol">:</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> DbTypes</span><span class="symbol">::</span><span class="function">getName</span><span class="symbol">(</span><span class="normal">driver</span><span class="symbol">,</span><span class="normal"> field</span><span class="symbol">.</span><span class="function">typeID</span><span class="symbol">());</span>
+
+<span class="normal">	    </span><span class="keyword">case</span><span class="normal"> </span><span class="number">2</span><span class="symbol">:</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> field</span><span class="symbol">.</span><span class="function">length</span><span class="symbol">();</span>
+
+<span class="normal">	    </span><span class="keyword">case</span><span class="normal"> </span><span class="number">3</span><span class="symbol">:</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="usertype">QString</span><span class="normal"> mods </span><span class="symbol">=</span><span class="normal"> </span><span class="string">""</span><span class="symbol">;</span>
+
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">pindex</span><span class="symbol">.</span><span class="function">indexOf</span><span class="symbol">(</span><span class="normal">field</span><span class="symbol">.</span><span class="function">name</span><span class="symbol">())</span><span class="normal"> </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		    mods </span><span class="symbol">+=</span><span class="normal"> </span><span class="string">"PRIMARY KEY"</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">field</span><span class="symbol">.</span><span class="function">requiredStatus</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> QSqlField</span><span class="symbol">::</span><span class="normal">Required</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">		    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">mods</span><span class="symbol">.</span><span class="function">isEmpty</span><span class="symbol">())</span><span class="normal"> mods </span><span class="symbol">+=</span><span class="normal"> </span><span class="string">" "</span><span class="symbol">;</span>
+<span class="normal">		    mods </span><span class="symbol">+=</span><span class="normal"> </span><span class="string">"NOT NULL"</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">field</span><span class="symbol">.</span><span class="function">requiredStatus</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> QSqlField</span><span class="symbol">::</span><span class="normal">Optional</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">		    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">mods</span><span class="symbol">.</span><span class="function">isEmpty</span><span class="symbol">())</span><span class="normal"> mods </span><span class="symbol">+=</span><span class="normal"> </span><span class="string">" "</span><span class="symbol">;</span>
+<span class="normal">		    mods </span><span class="symbol">+=</span><span class="normal"> </span><span class="string">"NULL"</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">field</span><span class="symbol">.</span><span class="function">isAutoValue</span><span class="symbol">())</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">		    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">mods</span><span class="symbol">.</span><span class="function">isEmpty</span><span class="symbol">())</span><span class="normal"> mods </span><span class="symbol">+=</span><span class="normal"> </span><span class="string">" "</span><span class="symbol">;</span>
+<span class="normal">		    mods </span><span class="symbol">+=</span><span class="normal"> </span><span class="string">"AUTO_INCREMENT"</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> mods</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+
+<span class="normal">	    </span><span class="keyword">case</span><span class="normal"> </span><span class="number">4</span><span class="symbol">:</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> field</span><span class="symbol">.</span><span class="function">defaultValue</span><span class="symbol">();</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">role </span><span class="symbol">==</span><span class="normal"> Qt</span><span class="symbol">::</span><span class="normal">DecorationRole</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="function">QVariant</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">// _DbConnection_H_</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

@@ -1,0 +1,34 @@
+##
+## $Id$
+##
+
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
+top_builddir = @top_builddir@
+
+include $(top_srcdir)/Mk/l4.base.mk
+
+PROGRAM = sdltest
+PROGRAM_DEPS = \
+	$(top_builddir)/lib/l4/libl4.a \
+	$(top_builddir)/lib/io/libio.a \
+	$(top_builddir)/lib/sdi/libsdi.a \
+	$(top_builddir)/lib/libc/libc.a \
+	$(top_builddir)/lib/SDL_image/libSDL_image.a \
+	$(top_builddir)/lib/zlib/libz.a \
+	$(top_builddir)/lib/png/libpng.a \
+	$(top_builddir)/lib/SDL/libSDL.a \
+	$(top_builddir)/lib/jpeg/libjpeg.a \
+	$(top_srcdir)/include/$(ARCH)/sdi.ld
+
+SRCS = \
+	../$(ARCH)-crt0.S \
+	sdltestmain.cc
+
+IDLS =           
+
+LIBS += -lSDL_image -lpng -ljpeg -lz -lSDL -lc -lsdi -ll4 -lio
+LDFLAGS += $(PROGRAM_LDFLAGS) -T $(top_builddir)/include/$(ARCH)/sdi.ld
+CPPFLAGS += -I$(top_srcdir)/include/SDL
+
+include $(top_srcdir)/Mk/l4.prog.mk

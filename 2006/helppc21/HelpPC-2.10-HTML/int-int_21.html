@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - int 21</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;INT 21 - DOS Function Dispatcher</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;For more information, see the following topics:</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_0.html">INT 21,0</a> &nbsp;Program terminate<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_1.html">INT 21,1</a> &nbsp;Keyboard input with echo<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_2.html">INT 21,2</a> &nbsp;Display output<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_3.html">INT 21,3</a> &nbsp;Wait for auxiliary device input<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_4.html">INT 21,4</a> &nbsp;Auxiliary output<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_5.html">INT 21,5</a> &nbsp;Printer output<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_6.html">INT 21,6</a> &nbsp;Direct console I/O<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_7.html">INT 21,7</a> &nbsp;Wait for direct console input without echo<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_8.html">INT 21,8</a> &nbsp;Wait for console input without echo<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_9.html">INT 21,9</a> &nbsp;Print string<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_a.html">INT 21,A</a> &nbsp;Buffered keyboard input<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_b.html">INT 21,B</a> &nbsp;Check standard input status<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_c.html">INT 21,C</a> &nbsp;Clear keyboard buffer, invoke keyboard function<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_d.html">INT 21,D</a> &nbsp;Disk reset<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_e.html">INT 21,E</a> &nbsp;Select disk<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_f.html">INT 21,F</a> &nbsp;Open file using <a href="table-FCB.html">FCB</a><br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_10.html">INT 21,10</a> &nbsp;Close file using FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_11.html">INT 21,11</a> &nbsp;Search for first entry using FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_12.html">INT 21,12</a> &nbsp;Search for next entry using FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_13.html">INT 21,13</a> &nbsp;Delete file using FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_14.html">INT 21,14</a> &nbsp;Sequential read using FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_15.html">INT 21,15</a> &nbsp;Sequential write using FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_16.html">INT 21,16</a> &nbsp;Create a file using FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_17.html">INT 21,17</a> &nbsp;Rename file using FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="">INT 21,18</a> &nbsp;DOS dummy function (CP/M) (not used/listed)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_19.html">INT 21,19</a> &nbsp;Get current default drive<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_1a.html">INT 21,1A</a> &nbsp;Set disk transfer address<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_1b.html">INT 21,1B</a> &nbsp;Get allocation table information<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_1c.html">INT 21,1C</a> &nbsp;Get allocation table info for specific device<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="">INT 21,1D</a> &nbsp;DOS dummy function (CP/M) (not used/listed)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="">INT 21,1E</a> &nbsp;DOS dummy function (CP/M) (not used/listed)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_1f.html">INT 21,1F</a> &nbsp;Get pointer to default drive parameter table (undocumented)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="">INT 21,20</a> &nbsp;DOS dummy function (CP/M) (not used/listed)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_21.html">INT 21,21</a> &nbsp;Random read using <a href="table-FCB.html">FCB</a><br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_22.html">INT 21,22</a> &nbsp;Random write using FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_23.html">INT 21,23</a> &nbsp;Get file size using FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_24.html">INT 21,24</a> &nbsp;Set relative record field for FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_25.html">INT 21,25</a> &nbsp;Set interrupt vector<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_26.html">INT 21,26</a> &nbsp;Create new program segment<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_27.html">INT 21,27</a> &nbsp;Random block read using FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_28.html">INT 21,28</a> &nbsp;Random block write using FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_29.html">INT 21,29</a> &nbsp;Parse filename for FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_2a.html">INT 21,2A</a> &nbsp;Get date<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_2b.html">INT 21,2B</a> &nbsp;Set date<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_2c.html">INT 21,2C</a> &nbsp;Get time<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_2d.html">INT 21,2D</a> &nbsp;Set time<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_2e.html">INT 21,2E</a> &nbsp;Set/reset verify switch<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_2f.html">INT 21,2F</a> &nbsp;Get disk transfer address<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_30.html">INT 21,30</a> &nbsp;Get DOS version number<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_31.html">INT 21,31</a> &nbsp;Terminate process and remain resident<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_32.html">INT 21,32</a> &nbsp;Get pointer to drive parameter table (undocumented)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_33.html">INT 21,33</a> &nbsp;Get/set <a href="int-int_1b.html">Ctrl-Break</a>&nbsp;check state &amp; get boot drive<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_34.html">INT 21,34</a> &nbsp;Get address to DOS critical flag (undocumented)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_35.html">INT 21,35</a> &nbsp;Get vector<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_36.html">INT 21,36</a> &nbsp;Get disk free space<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_37.html">INT 21,37</a> &nbsp;Get/set switch character (undocumented)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_38.html">INT 21,38</a> &nbsp;Get/set country dependent information<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_39.html">INT 21,39</a> &nbsp;Create subdirectory (mkdir)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_3a.html">INT 21,3A</a> &nbsp;Remove subdirectory (rmdir)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_3b.html">INT 21,3B</a> &nbsp;Change current subdirectory (chdir)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_3c.html">INT 21,3C</a> &nbsp;Create file using handle<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_3d.html">INT 21,3D</a> &nbsp;Open file using handle<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_3e.html">INT 21,3E</a> &nbsp;Close file using handle<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_3f.html">INT 21,3F</a> &nbsp;Read file or device using handle<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_40.html">INT 21,40</a> &nbsp;Write file or device using handle<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_41.html">INT 21,41</a> &nbsp;Delete file<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_42.html">INT 21,42</a> &nbsp;Move file pointer using handle<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_43.html">INT 21,43</a> &nbsp;Change file mode<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_44.html">INT 21,44</a> &nbsp;I/O control for devices (<a href="c-ioctl.html">IOCTL</a>)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_45.html">INT 21,45</a> &nbsp;Duplicate file handle<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_46.html">INT 21,46</a> &nbsp;Force duplicate file handle<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_47.html">INT 21,47</a> &nbsp;Get current directory<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_48.html">INT 21,48</a> &nbsp;Allocate memory blocks<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_49.html">INT 21,49</a> &nbsp;Free allocated memory blocks<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_4a.html">INT 21,4A</a> &nbsp;Modify allocated memory blocks<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_4b.html">INT 21,4B</a> &nbsp;EXEC load and execute program (func 1 undocumented)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_4c.html">INT 21,4C</a> &nbsp;Terminate process with return code<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_4d.html">INT 21,4D</a> &nbsp;Get return code of a sub-process<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_4e.html">INT 21,4E</a> &nbsp;Find first matching file<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_4f.html">INT 21,4F</a> &nbsp;Find next matching file<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_50.html">INT 21,50</a> &nbsp;Set current process id (undocumented)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_51.html">INT 21,51</a> &nbsp;Get current process id (undocumented)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_52.html">INT 21,52</a> &nbsp;Get pointer to DOS "INVARS" (undocumented)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_53.html">INT 21,53</a> &nbsp;Generate drive parameter table (undocumented)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_54.html">INT 21,54</a> &nbsp;Get verify setting<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_55.html">INT 21,55</a> &nbsp;Create <a href="table-Program_Segment_Prefix.html">PSP</a>&nbsp;(undocumented)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_56.html">INT 21,56</a> &nbsp;Rename file<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_57.html">INT 21,57</a> &nbsp;Get/set file date and time using handle<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_58.html">INT 21,58</a> &nbsp;Get/set memory allocation strategy (3.x+, undocumented)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_59.html">INT 21,59</a> &nbsp;Get extended error information (3.x+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_5a.html">INT 21,5A</a> &nbsp;Create temporary file (3.x+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_5b.html">INT 21,5B</a> &nbsp;Create new file (3.x+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_5c.html">INT 21,5C</a> &nbsp;Lock/unlock file access (3.x+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_5d.html">INT 21,5D</a> &nbsp;Critical error information (undocumented 3.x+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_5e.html">INT 21,5E</a> &nbsp;Network services (3.1+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_5f.html">INT 21,5F</a> &nbsp;Network redirection (3.1+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_60.html">INT 21,60</a> &nbsp;Get fully qualified file name (undocumented 3.x+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_62.html">INT 21,62</a> &nbsp;Get address of program segment prefix (3.x+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_63.html">INT 21,63</a> &nbsp;Get system lead byte table (MSDOS 2.25 only)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_64.html">INT 21,64</a> &nbsp;Set device driver look ahead &nbsp;(undocumented 3.3+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_65.html">INT 21,65</a> &nbsp;Get extended country information (3.3+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_66.html">INT 21,66</a> &nbsp;Get/set global code page (3.3+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_67.html">INT 21,67</a> &nbsp;Set handle count (3.3+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_68.html">INT 21,68</a> &nbsp;Flush buffer (3.3+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_69.html">INT 21,69</a> &nbsp;Get/set disk serial number (undocumented DOS 4.0+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="">INT 21,6A</a> &nbsp;DOS reserved (DOS 4.0+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="">INT 21,6B</a> &nbsp;DOS reserved<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_6c.html">INT 21,6C</a> &nbsp;Extended open/create (4.x+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_f8.html">INT 21,F8</a> &nbsp;Set OEM INT 21 handler (functions F9-FF) (undocumented)<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- int 21 functions are called with the function number in AH<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- register AX may be altered, its contents are not guaranteed<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- if an error occurs, CF is set to 1 and AX contains a simple<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;error code; &nbsp; <a href="int-int_21_59.html">INT 21,59</a>&nbsp;can be used to determine cause.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- most INT 21 functions do not restore the flags to pre-interrupt<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;state to allow returning of information via the flags register<br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">int 21</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

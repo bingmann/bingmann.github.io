@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - int 21,44,c</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;INT 21,44,C / IOCTL,C - Generic I/O for Handles</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AH = 44h<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AL = 0C<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;BX = handle<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;CH = device type<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 00 &nbsp;unknown device type &nbsp;(DOS 3.3+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 01 &nbsp;COMx &nbsp;(DOS 3.3+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 03 &nbsp;CON &nbsp;(DOS 3.3+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 05 &nbsp;LPTx &nbsp;(DOS 3.3+), &nbsp;printer &nbsp;(DOS 3.2)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;CL = minor function code (when CH = 3 or CH = 5)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 45 &nbsp;set iteration count &nbsp;(DOS 3.2 only)<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 4A &nbsp;select code page (DOS 3.3+); parameter format:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 00 &nbsp;word &nbsp;length of data<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 02 &nbsp;word &nbsp;code page ID<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 04 nwords character set data array (see offset 00)<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 4C &nbsp;code page prepare start &nbsp;(DOS 3.3+); parameter format:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 00 &nbsp;word &nbsp;flags<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 02 &nbsp;word &nbsp;length of remainder of parameter block<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 04 &nbsp;word &nbsp;number of code pages following<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 06 nwords code page 1,...,N<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 4D &nbsp;code page prepare end &nbsp;(DOS 3.3+); parameter format:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 00 &nbsp;word &nbsp;length of data<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 02 &nbsp;word &nbsp;code page ID<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 5F &nbsp;set display info &nbsp;(DOS 4.x, when CH=3); parameter format:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 00 &nbsp;byte &nbsp;level &nbsp;(0 for DOS 4.0)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 01 &nbsp;byte &nbsp;reserved<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 02 &nbsp;word &nbsp;length of following data<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 04 &nbsp;word &nbsp;control flags<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bit 0 set for blink, clear for intensity<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bits 1 to 15 reserved<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 06 &nbsp;byte &nbsp;mode type (1=text, 2=graphics)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 07 &nbsp;byte &nbsp;reserved<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 08 &nbsp;word &nbsp;colors; &nbsp;0=monochrome, n=bits per pixel<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0A &nbsp;word &nbsp;pixel columns<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0C &nbsp;word &nbsp;pixel rows<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0E &nbsp;word &nbsp;character columns<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 10 &nbsp;word &nbsp;character rows<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 65 &nbsp;get iteration count &nbsp;(DOS 3.2 only)<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 6A &nbsp;query selected code page &nbsp;(DOS 3.3+); parameter format:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 00 &nbsp;word &nbsp;length of data<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 02 &nbsp;word &nbsp;code page ID<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 04 nwords character set data array &nbsp;(see offset 00)<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 6B &nbsp;query prepare list &nbsp;(DOS 3.3+); Parameter format:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 00 &nbsp;word &nbsp;length of following data<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 02 &nbsp;word &nbsp;number of hardware code pages<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 04 nwords hardware code page array<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; xx &nbsp;word &nbsp;number of prepared code pages<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; xx nwords prepared code page array<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 7F &nbsp;get display info &nbsp;(DOS 4.x, CH = 3)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 00 &nbsp;byte &nbsp;level &nbsp;(0 for DOS 4.0)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 01 &nbsp;byte &nbsp;reserved<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 02 &nbsp;word &nbsp;length of following data<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 04 &nbsp;word &nbsp;control flags<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bit 0 set for blink, clear for intensity<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bits 1 to 15 reserved<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 06 &nbsp;byte &nbsp;mode type (1=text, 2=graphics)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 07 &nbsp;byte &nbsp;reserved<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 08 &nbsp;word &nbsp;colors; &nbsp;0=monochrome, n=bits per pixel<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0A &nbsp;word &nbsp;pixel columns<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0C &nbsp;word &nbsp;pixel rows<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0E &nbsp;word &nbsp;character columns<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 10 &nbsp;word &nbsp;character rows<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;DS:DX = pointer to iteration count word &nbsp;(DOS 3.2)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= pointer to parameter block &nbsp;(DOS 3.3)<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;on return<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AX = error code if CF set &nbsp;(see <a href="table-DOS_error_codes.html">DOS ERROR CODES</a>)<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- iteration count word specifies the number of times to retry<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;an operation before aborting<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- DOS 3.3 changed this function to handle code page switching<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- implemented from DOS 3.2<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- DOS 4.x adds support for double byte characters<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see IBM DOS Technical Reference Manual for more details<br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">int 21,44,c</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

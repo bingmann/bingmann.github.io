@@ -1,0 +1,24 @@
+diff -ru t/pistachio-0.4/kernel/include/glue/v4-ia32/config.h pistachio-0.4/kernel/include/glue/v4-ia32/config.h
+--- t/pistachio-0.4/kernel/include/glue/v4-ia32/config.h	2004-03-15 19:22:59.000000000 +0100
++++ pistachio-0.4/kernel/include/glue/v4-ia32/config.h	2006-07-25 22:09:53.000000000 +0200
+@@ -183,7 +183,7 @@
+ /* 1.953ms per timer tick
+  * VU: the hardware clock can only be configured to tick in 2^n Hz
+  * 1000 / 512 Hz = 1.953125 ms/tick */
+-# define TIMER_TICK_LENGTH	(1953)
++# define TIMER_TICK_LENGTH	(7813)
+ #endif
+ 
+ /* enable synchronous XCPU-requests, for TLB shoot-downs */
+diff -ru t/pistachio-0.4/kernel/src/glue/v4-ia32/timer.cc pistachio-0.4/kernel/src/glue/v4-ia32/timer.cc
+--- t/pistachio-0.4/kernel/src/glue/v4-ia32/timer.cc	2003-09-24 21:13:17.000000000 +0200
++++ pistachio-0.4/kernel/src/glue/v4-ia32/timer.cc	2006-07-25 22:10:31.000000000 +0200
+@@ -71,7 +71,7 @@
+ 	while(rtc.read(0x0a) & 0x80);
+ 	
+ 	/* set rtc to 512, rate = 2Hz*2^(15-(x:3..0))*/
+-	rtc.write(0x0A, (rtc.read(0x0a) & 0xf0) | 0x07);
++	rtc.write(0x0A, (rtc.read(0x0a) & 0xf0) | 0x09);
+ 	/* enable interrupts
+ 	   Periodic Interrupt Enable = 0x40	*/
+ 	rtc.write(0x0b, rtc.read(0x0b) | 0x40);

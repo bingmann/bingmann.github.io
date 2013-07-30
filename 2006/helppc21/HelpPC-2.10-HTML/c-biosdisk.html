@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - biosdisk</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;TC: int biosdisk( int cmd, int drive, int head, int track,</span><br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;int sector, int nsects, void *buffer )</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- prototype in bios.h<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- issues interrupt 0x13 for BIOS disk operations<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- drive = (0=A:, 1=2nd floppy, 0x80=drive 0, 0x81=drive 1<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- cmd = 0 &nbsp;reset diskette system (hard disk drive reset)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1 &nbsp;return status of last disk operation, ignore parms<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2 &nbsp;read nsects disk sectors, with starting sector<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; defined by head, track, &amp; sector, reading 512 bytes<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; per sector into buffer<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3 &nbsp;write nsects disk sectors, with starting sector<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; defined by head, track, &amp; sector, writing 512 bytes<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; per sector from buffer<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4 &nbsp;verify nsects disk sectors, with starting sector<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; defined by head, track, &amp; sector<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;5 &nbsp;format a track defined by head &amp; track, where buffer<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; points to a table of sector headers to be written<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; For XT or AT only:<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;6 - formats a track &amp; sets bad sector flags<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;7 - formats drive beginning at specific track<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;8 - returns current drive parms in 1rst 4 bytes of buffer<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;9 - initializes drive-pair characteristics<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 10 - long read (4 extra bytes per sector for ECC)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 11 - long write (4 extra bytes per sector for ECC)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 12 - disk seek<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 13 - alternate disk reset<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 14 - reads sector buffer<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 15 - writes sector buffer<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 16 - tests if named drive is ready<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 17 - recalibrates drive<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 18 - controller ram diagnostic<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 19 - drive diagnostic<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 20 - controller internal diagnostic<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- drive numbers represent physical drives (0 = A:, 1 = B:,<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;80h = drive 0, 81h = drive 1<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- disk reads should be retried at least 3 times<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- MS C uses <a href="c-_bios_disk.html">_bios_disk</a>()<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see &nbsp;<a href="int-int_13.html">INT 13</a> &nbsp;for more return codes and more information<br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">biosdisk</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

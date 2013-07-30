@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - 8253</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;8253/8254 PIT - Programmable Interval Timer</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Port 40h, 8253 Counter 0 Time of Day Clock (normally mode 3)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Port 41h, 8253 Counter 1 RAM Refresh Counter (normally mode 2)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Port 42h, 8253 Counter 2 Cassette and Speaker Functions<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Port 43h, 8253 Mode Control Register, data format:<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;&#9474;7&#9474;6&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474; &nbsp;Mode Control Register<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472; 0=16 binary counter, 1=4 decade BCD counter<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472; counter mode bits<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9492;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; read/write/latch format bits<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; counter select bits (also 8254 read back command)<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Bits</span><br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; 76 Counter Select Bits</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 00 &nbsp;select counter 0<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 01 &nbsp;select counter 1<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 10 &nbsp;select counter 2<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 11 &nbsp;read back command (8254 only, illegal on 8253, see below)<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Bits</span><br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; 54 &nbsp;Read/Write/Latch Format Bits</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 00 &nbsp;latch present counter value<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 01 &nbsp;read/write of MSB only<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 10 &nbsp;read/write of LSB only<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 11 &nbsp;read/write LSB, followed by write of MSB<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Bits</span><br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;321 &nbsp;Counter Mode Bits</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp;000 &nbsp;mode 0, interrupt on terminal count; &nbsp;countdown, interrupt,<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; then wait for a new mode or count; loading a new count in the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; middle of a count stops the countdown<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;001 &nbsp;mode 1, programmable one-shot; countdown with optional<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; restart; reloading the counter will not affect the countdown<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; until after the following trigger<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;010 &nbsp;mode 2, rate generator; generate one pulse after 'count' CLK<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cycles; output remains high until after the new countdown has<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; begun; reloading the count mid-period does not take affect<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; until after the period<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;011 &nbsp;mode 3, square wave rate generator; generate one pulse after<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'count' CLK cycles; output remains high until 1/2 of the next<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; countdown; it does this by decrementing by 2 until zero, at<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; which time it lowers the output signal, reloads the counter<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; and counts down again until interrupting at 0; reloading the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; count mid-period does not take affect until after the period<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;100 &nbsp;mode 4, software triggered strobe; countdown with output high<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; until counter zero; &nbsp;at zero output goes low for one CLK<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; period; &nbsp;countdown is triggered by loading counter; &nbsp;reloading<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; counter takes effect on next CLK pulse<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;101 &nbsp;mode 5, hardware triggered strobe; countdown after triggering<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; with output high until counter zero; at zero output goes low<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; for one CLK period<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Read Back Command Format &nbsp;(8254 only)</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;&#9474;7&#9474;6&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474; Read Back Command (written to Mode Control Reg)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472; must be zero<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472; select counter 0<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472; select counter 1<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; select counter 2<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 0 = latch status of selected counters<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 0 = latch count of selected counters<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 11 = read back command<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Read Back Command Status (8254 only, read from counter register)</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;&#9474;7&#9474;6&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474; &nbsp;Read Back Command Status<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472; 0=16 binary counter, 1=4 decade BCD counter<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472; counter mode bits (see Mode Control Reg above)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9492;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; read/write/latch format (see Mode Control Reg)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 1=null count (no count set), 0=count available<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; state of OUT pin (1=high, 0=low)<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- the 8253 is used on the PC &amp; XT, while the 8254 is used on the AT+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- all counters are decrementing and fully independent<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- the PIT is tied to 3 clock lines all generating 1.19318 MHz.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- the value of 1.19318MHz is derived from (4.77/4 MHz) and has it's<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;roots based on NTSC frequencies<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- counters are 16 bit quantities which are decremented and then<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;tested against zero. &nbsp;Valid range is (0-65535). &nbsp;To get a value<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;of 65536 clocks you must specify 0 as the default count since<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;65536 is a 17 bit value.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- reading by latching the count doesn't disturb the countdown but<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;reading the port directly does; except when using the 8254 Read<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Back Command<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- counter 0 is the time of day interrupt and is generated<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;approximately 18.2 times per sec. &nbsp;The value 18.2 is derived from<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;the frequency 1.10318/65536 (the normal default count).<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- counter 1 is normally set to 18 (dec.) and signals the 8237 to do<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;a RAM refresh approximately every 15&#956;s<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- counter 2 is normally used to generate tones from the speaker<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;but can be used as a regular counter when used in conjunction<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;with the 8255<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- newly loaded counters don't take effect until after a an output<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;pulse or input CLK cycle depending on the mode<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- the 8253 has a max input clock rate of 2.6MHz, the 8254 has max<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;input clock rate of 10MHz<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Programming considerations:</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1. &nbsp;load Mode Control Register<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2. &nbsp;let bus settle (jmp $+2)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3. &nbsp;write counter value<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4. &nbsp;if counter 0 is modified, an INT 8 handler must be written to<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;call the original INT 8 handler every 18.2 seconds. &nbsp;When it<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;does call the original INT 8 handler it must NOT send and EOI<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;to the <a href="hw-8259.html">8259</a>&nbsp;for the timer interrupt, since the original INT 8<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;handler will send the EOI also.<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Example code:</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;countdown &nbsp;equ &nbsp;8000h ; approx 36 interrupts per second<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cli<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; mov &nbsp;al,00110110b &nbsp;; bit 7,6 = (00) timer counter 0<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;; bit 5,4 = (11) write LSB then MSB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;; bit 3-1 = (011) generate square wave<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;; bit 0 = (0) binary counter<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; out &nbsp;43h,al &nbsp; &nbsp; &nbsp; &nbsp;; prep PIT, counter 0, square wave&amp;init count<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; jmp &nbsp;$+2<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; mov &nbsp;cx,countdown &nbsp;; default is 0x0000 (65536) (18.2 per sec)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;; interrupts when counter decrements to 0<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; mov &nbsp;al,cl &nbsp; &nbsp; &nbsp; &nbsp; ; send LSB of timer count<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; out &nbsp;40h,al<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; jmp &nbsp;$+2<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; mov &nbsp;al,ch &nbsp; &nbsp; &nbsp; &nbsp; ; send MSB of timer count<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; out &nbsp;40h,al<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; jmp &nbsp;$+2<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; sti<br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">8253</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

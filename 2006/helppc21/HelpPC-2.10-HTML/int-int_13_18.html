@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - int 13,18</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; INT 13,18 - Set Media Type for Format (BIOS date specific)</span><br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AH = 18h<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;CH = lower 8 bits of number of tracks &nbsp;(0-1023 dec., see below)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;CL = sectors per track (1-17 dec., see below)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;DL = drive number (0=A:, 1=2nd floppy, 80h=drive 0, 81h=drive 1)<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;on return:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ES:DI = pointer to 11-byte <a href="table-DBT.html">Disk Base Table</a>&nbsp;(DBT)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AH = 00h if requested combination supported<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 01h if function not available<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 0Ch if not supported or drive type unknown<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 80h if there is no media in the drive<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;CF = 0 if successful<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 1 if error<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- valid only for XT BIOS dated after 1/10/86, AT after 11/15/86,<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;XT 286 and the PS/2 line<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- only disk number is checked for validity<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- track number is a 10 bit value taken from the 2 high order<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;bits of CL and the 8 bits in CH (low order 8 bits of track):<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9474;F&#9474;E&#9474;D&#9474;C&#9474;B&#9474;A&#9474;9&#9474;8&#9474;7&#9474;6&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474; &nbsp;CX<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472; &nbsp;sectors per track count<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; &nbsp;high order 2 bits track/cyl count<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; &nbsp;low order 8 bits of track/cyl count<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see &nbsp; <a href="int-int_13_1.html">INT 13,STATUS</a><br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">int 13,18</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

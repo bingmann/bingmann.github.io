@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - int 21,52</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;INT 21,52 - Get Pointer to DOS "INVARS" &nbsp;(Undocumented)</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AH = 52h<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;on return:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ES:BX = pointer to DOS "invars", a table of pointers used by DOS.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Known "invars" fields follow (varies with DOS version):<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Offset Size &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Description</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; -12 &nbsp; word &nbsp; sharing retry count (DOS 3.1-3.3)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; -10 &nbsp; word &nbsp; sharing retry delay &nbsp;(DOS 3.1-3.3)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;-8 &nbsp; dword &nbsp;pointer to current disk buffer (DOS 3.x)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;-4 &nbsp; word &nbsp; pointer in DOS code segment of unread CON input;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0 indicates no unread input (DOS 3.x)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;-2 &nbsp; word &nbsp; segment of first Memory Control Block (<a href="table-Memory_Control_Block.html">MCB</a>)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;00 &nbsp; dword &nbsp;pointer to first <a href="">DRIVE PARAMETER TABLE</a>&nbsp;(A:) in chain<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;04 &nbsp; dword &nbsp;pointer to DOS <a href="table-SFT.html">System File Table</a>&nbsp;(SFT)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;08 &nbsp; dword &nbsp;pointer to $CLOCK device driver<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0C &nbsp; dword &nbsp;pointer to CON device driver<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;10 &nbsp; byte &nbsp; number of logical drives in system<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;11 &nbsp; word &nbsp; maximum bytes/block of any block device<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;13 &nbsp; dword &nbsp;pointer to DOS cache buffer header<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;17 18bytes &nbsp;NUL device header, first 4 bytes of device header<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;point to the next device in device chain<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;DOS 3.0 Specific Information</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Offset Size &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Description</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;10 &nbsp; byte &nbsp; number of block devices<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;11 &nbsp; word &nbsp; max sector size used by DOS prior to loading block<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;device drivers; &nbsp;limits allowable device sector size<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;13 &nbsp; dword &nbsp;pointer to DOS cache buffer header<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;17 &nbsp; dword &nbsp;pointer to drive information table<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1B &nbsp; byte &nbsp; value of LASTDRIVE command in CONFIG.SYS<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1C &nbsp; dword &nbsp;pointer to STRING= workspace area<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;20 &nbsp; word &nbsp; size of STRING area (CONFIG.SYS value of STRING=x)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;22 &nbsp; dword &nbsp;<a href="table-FCB.html">FCB</a> file table pointer<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;26 &nbsp; word &nbsp; number of protected FCBs<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;28 &nbsp;18bytes NUL device header, first 4 bytes of device header<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;point to the next device in device chain<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; DOS 3.1-3.3 &nbsp;Specific Information</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Offset Size &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Description</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;10 &nbsp; word &nbsp; max sector size used by DOS prior to loading block<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;device drivers; &nbsp;limits allowable device sector size<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;12 &nbsp; dword &nbsp;pointer to DOS cache buffer header<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;16 &nbsp; dword &nbsp;pointer to drive information table<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1A &nbsp; dword &nbsp;<a href="table-FCB.html">FCB</a> file table pointer<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1E &nbsp; word &nbsp; number of protected FCBs<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;20 &nbsp; byte &nbsp; number of block devices<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;21 &nbsp; byte &nbsp; value of LASTDRIVE command in CONFIG.SYS<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;22 &nbsp;18bytes NUL device header, first 4 bytes of device header<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;point to the next device in device chain<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;34 &nbsp; byte &nbsp; number of JOIN'ed drives<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; DOS 4.x &nbsp;Specific Information</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Offset Size &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Description</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;10 &nbsp; word &nbsp; max sector size used by DOS prior to loading block<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;device drivers; &nbsp;limits allowable device sector size<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;12 &nbsp; dword &nbsp;pointer to DOS cache buffer header<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;16 &nbsp; dword &nbsp;pointer to drive information table<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1A &nbsp; dword &nbsp;FCB file table pointer<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1E &nbsp; word &nbsp; number of protected FCBs<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;20 &nbsp; byte &nbsp; number of block devices<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;21 &nbsp; byte &nbsp; value of LASTDRIVE command in CONFIG.SYS (default 5)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;22 &nbsp;18bytes NUL device header, first 4 bytes of device header<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;point to the next device in device chain<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;34 &nbsp; byte &nbsp; number of joined drives<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;35 &nbsp; word &nbsp; pointer within IBMDOS code segment to list of special<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;program names<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;37 &nbsp; dword &nbsp;pointer to resident IFS utility function<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3B &nbsp; dword &nbsp;pointer to chain of installable file system drivers<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3F &nbsp; word &nbsp; the x in BUFFERS x,y (rounded up to multiple of 30<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if EMS is used)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;41 &nbsp; word &nbsp; the y in BUFFERS x,y<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;43 &nbsp; byte &nbsp; boot drive (1=A:)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;44 &nbsp; byte &nbsp; ???<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;45 &nbsp; byte &nbsp; extended memory size in K bytes<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see <a href="misc-Bibliography.html">Bibliography</a>&nbsp;references for Bernd Schemmer &amp; "Undocumented DOS"<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see &nbsp; <a href="int-int_21_34.html">INDOS</a>&nbsp; <a href="int-int_21_5d.html">INT 21,5D</a><br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">int 21,52</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

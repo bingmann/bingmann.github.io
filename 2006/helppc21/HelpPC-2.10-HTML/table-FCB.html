@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - FCB</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; FCB - Standard DOS File Control Block</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; Offset Size &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Description</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;-7 &nbsp; byte &nbsp; &nbsp; &nbsp; if FF this is an extended FCB &nbsp;&#9578;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;-6 &nbsp;5bytes &nbsp; &nbsp; &nbsp;reserved &nbsp;&#9578; <br />
+ &nbsp; &nbsp; &nbsp; &nbsp;-1 &nbsp; byte &nbsp; &nbsp; &nbsp; file attribute if extended FCB &nbsp;&#9578;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;00 &nbsp; byte &nbsp; &nbsp; &nbsp; drive number (0 for default drive, 1=A:, 2=B:, ...)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;01 &nbsp;8bytes &nbsp; &nbsp; &nbsp;filename, left justified with trailing blanks<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;09 &nbsp;3bytes &nbsp; &nbsp; &nbsp;filename extension, left justified w/blanks<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0C &nbsp; word &nbsp; &nbsp; &nbsp; current block number relative to beginning of the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;file, starting with zero<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0E &nbsp; word &nbsp; &nbsp; &nbsp; logical record size in bytes<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;10 &nbsp; dword &nbsp; &nbsp; &nbsp;file size in bytes<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;14 &nbsp; word &nbsp; &nbsp; &nbsp; date the file was created or last updated<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9474;F&#9474;E&#9474;D&#9474;C&#9474;B&#9474;A&#9474;9&#9474;8&#9474;7&#9474;6&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474; 15,14 (Intel reverse order)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472; day 1-31<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; month 1-12<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; year + 1980<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;16 &nbsp; word &nbsp; &nbsp; &nbsp; time of last write<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9474;F&#9474;E&#9474;D&#9474;C&#9474;B&#9474;A&#9474;9&#9474;8&#9474;7&#9474;6&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474; 17,16 (Intel reverse order)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9472; secs in 2 second increments<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; minutes (0-59)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; hours (0-23)<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;18 &nbsp;8bytes &nbsp; &nbsp; &nbsp;see below for version specific information &nbsp;&#9578;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1A &nbsp; dword &nbsp; &nbsp; &nbsp;address of device header if character device &nbsp;&#9578;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;20 &nbsp; byte &nbsp; &nbsp; &nbsp; current relative record number within current BLOCK<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;21 &nbsp; dword &nbsp; &nbsp; &nbsp;relative record number relative to the beginning of<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;the file, starting with zero; high bit omitted if<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;record length is 64 bytes<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;DOS 2.x Values for reserved fields at offsets 18h-1Ah &nbsp; &nbsp; &nbsp; &#9578;</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; Offset Size &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Description</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp;18 &nbsp; byte &nbsp; &nbsp; &nbsp; &#9474;7&#9474;6&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9472;&#9472; unknown<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 1 = open<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; 1 = logical device<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;19 &nbsp; word &nbsp; &nbsp; &nbsp; starting cluster number &nbsp;&#9578;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;DOS 3.x Values for reserved fields at offsets 18h-19h &nbsp; &nbsp; &nbsp; &#9578;</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; Offset Size &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Description</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp;18 &nbsp; byte &nbsp; &nbsp; &nbsp; System File Table (SFT) entry for file &nbsp;&#9578;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;19 &nbsp; byte &nbsp; &nbsp; &nbsp; attributes &nbsp;&#9578;<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9474;7&#9474;6&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474; &nbsp;attributes<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472; unknown<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9524;&#9472; share status &nbsp;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;00 = SHARE not loaded block device<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;01 = SHARE not loaded characted device<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;10 = SHARE loaded, remote file<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;11 = SHARE loaded local file<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; DOS 3.x with SHARE, local file reserved offsets 1Ah-1Eh &nbsp;&#9578;</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; Offset Size &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Description</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1A &nbsp; word &nbsp; &nbsp; &nbsp; starting cluster number<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1C &nbsp; word &nbsp; &nbsp; &nbsp; offset within SHARE of sharing record<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1E &nbsp; byte &nbsp; &nbsp; &nbsp; file attribute<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;DOS 3.x with SHARE, remote file reserved offsets 1Ah-1Eh &nbsp;&#9578;</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; Offset Size &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Description</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1A &nbsp; word &nbsp; &nbsp; &nbsp; sector number containing directory entry<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1C &nbsp; word &nbsp; &nbsp; &nbsp; last cluster accessed relative to beginning of file<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1E &nbsp; byte &nbsp; &nbsp; &nbsp; absolute cluster number of last cluster accessed<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; DOS 3.x without SHARE reserved offsets 1Ah-1Fh &nbsp;&#9578;</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; Offset Size &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Description</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1A &nbsp; byte &nbsp; &nbsp; &nbsp; ((device attribute word low byte) &amp; 0Ch) || (open mode)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1B &nbsp; word &nbsp; &nbsp; &nbsp; starting cluster number<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1D &nbsp; word &nbsp; &nbsp; &nbsp; sector number containing directory entry<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1F &nbsp; byte &nbsp; &nbsp; &nbsp; number of directory entry within sector<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;The following are FCB related DOS functions:</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_f.html">INT 21,F</a> &nbsp; Open file using FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_10.html">INT 21,10</a> &nbsp;Close file using FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_11.html">INT 21,11</a> &nbsp;Search for first entry using FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_12.html">INT 21,12</a> &nbsp;Search for next entry using FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_13.html">INT 21,13</a> &nbsp;Delete file using FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_14.html">INT 21,14</a> &nbsp;Sequential read using FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_15.html">INT 21,15</a> &nbsp;Sequential write using FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_16.html">INT 21,16</a> &nbsp;Create a file using FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_17.html">INT 21,17</a> &nbsp;Rename file using FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_21.html">INT 21,21</a> &nbsp;Random read using FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_22.html">INT 21,22</a> &nbsp;Random write using FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_23.html">INT 21,23</a> &nbsp;Get file size using FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_24.html">INT 21,24</a> &nbsp;Set relative record field for FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_27.html">INT 21,27</a> &nbsp;Random block read using FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_28.html">INT 21,28</a> &nbsp;Random block write using FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_29.html">INT 21,29</a> &nbsp;Parse filename for FCB<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;&#9578; &nbsp;see <a href="misc-Bibliography.html">Bibliography</a>&nbsp;reference to "Undocumented DOS"<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see &nbsp; <a href="table-XFCB.html">XFCB</a>&nbsp; &nbsp;<a href="int-int_21_52.html">INT 21,52</a><br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">FCB</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

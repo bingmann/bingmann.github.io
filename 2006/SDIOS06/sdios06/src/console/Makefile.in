@@ -1,0 +1,34 @@
+##
+## File:  src/console/Makefile.in
+##
+## Description: Makefile
+##
+
+srcdir=		@srcdir@
+top_srcdir=	@top_srcdir@
+top_builddir=	@top_builddir@
+
+include $(top_srcdir)/Mk/l4.base.mk
+
+
+PROGRAM=	console
+PROGRAM_DEPS=	$(top_builddir)/lib/l4/libl4.a \
+		$(top_builddir)/lib/io/libio.a \
+		$(top_builddir)/lib/libc/libc.a \
+		$(top_builddir)/lib/sdi/libsdi.a \
+		$(top_srcdir)/include/$(ARCH)/sdi.ld
+
+SRCS= ../$(ARCH)-crt0.S \
+		console-server.cc \
+		VirtualConsole.cc \
+		ConsoleBuffer.cc
+
+IDLS=		console.idl
+
+LIBS+=		-lc -ll4 -lio -lsdi
+LDFLAGS+= $(PROGRAM_LDFLAGS) -T $(top_builddir)/include/$(ARCH)/sdi.ld
+
+CFLAGS_powerpc+=	-fno-builtin
+CXXFLAGS_powerpc+=	-fno-rtti
+
+include $(top_srcdir)/Mk/l4.prog.mk

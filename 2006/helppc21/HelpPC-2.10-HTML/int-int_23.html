@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - int 23</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;INT 23 - Control-Break Exit Address</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;no input data<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- not an interrupt but a pointer to a routine that is called when a<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;DOS function detects a <a href="int-int_1b.html">Ctrl-Break</a>&nbsp;or Ctrl-C has been pressed<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;resulting in a "Break condition"<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- a Break condition is detected if DOS's internal Break flag is<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;found set by <a href="int-int_1b.html">INT 1B</a>&nbsp;or the next word in the BIOS keyboard buffer<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;is a scan code representing one of the Break key combinations.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;If a matching scan code is found, the keyboard buffer head pointer<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;is incremented by 2 (which effectively removes the ^C keycode), the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;^C is printed and then INT 23 is called.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- disabling the abort is easy, but to disable the ^C from appearing<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;you must either not use any of the DOS I/O functions that check<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;for Break or you must trap the Ctrl-C keypress from within INT 9.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Another method is to scan the BIOS keyboard buffer and delete any<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Break key combinations.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- Ctrl-Break empties the keyboard buffer by resetting the keyboard<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;head and tail pointers then places a 0000h at the queue head. &nbsp;It<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;then sets an internal "Break" flag. &nbsp;DOS subfunctions that check<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;for Break see this and then issue INT 23h. &nbsp;DOS does not detect<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;INT 1B using the keyboard buffer, but uses it's own internal flag.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- Alt-Keypad-3 and Ctrl-2 also result in this interrupt<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- Ctrl-C places 2E03h in the BIOS keyboard buffer while Ctrl-2<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;places 0300h and Alt-Keypad-3 places 0003h; &nbsp;none of these key<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;combinations empty the keyboard like Ctrl-Break but all result<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;in a ^C being displayed; &nbsp;note that all three produce scan codes<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;containing '03'<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- since DOS checks only the first word of the keyboard buffer<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Ctrl-C, Ctrl-2 and Alt-Keypad-3 are only detected if they are the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;first word in the buffer while Ctrl-Break is detected via the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;internal flag and takes effect as soon as it's detected.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- do not execute this interrupt directly<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see also &nbsp; <a href="int-int_9.html">INT 9</a><br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">int 23</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

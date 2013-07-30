@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - ANSI codes</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ANSI.SYS and NANSI.SYS Functions &nbsp;- &nbsp;ANSI x3.64</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ESC[y,xH &nbsp; &nbsp; &nbsp; &nbsp;Cursor position y,x<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ESC[nA &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Cursor Up n lines<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ESC[nB &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Cursor Down n lines<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ESC[nC &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Cursor Forward n characters<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ESC[nD &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Cursor Backward n characters<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ESC[y;xf &nbsp; &nbsp; &nbsp; &nbsp;Cursor position y,x (less frequently used)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ESC[y;xR &nbsp; &nbsp; &nbsp; &nbsp;Cursor position report y,x<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ESC[6n &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Device status report (cursor pos)(n is constant 'n')<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ESC[s &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Save cursor position<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ESC[u &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Restore cursor position<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ESC[2J &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Erase display<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ESC[K &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Erase to end of line<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ESC[nL &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Inserts n blank lines at cursor line. &nbsp; (NANSI)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ESC[nM &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Deletes n lines including cursor line. &nbsp;(NANSI)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ESC[n@ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Inserts n blank chars at cursor. &nbsp; &nbsp; &nbsp; &nbsp;(NANSI)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ESC[nP &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Deletes n chars including cursor char. &nbsp;(NANSI)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ESC[n;ny &nbsp; &nbsp; &nbsp; &nbsp;Output char translate &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (NANSI)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;When first char is encountered in output request, it<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;is replaced with the second char. &nbsp;When no parameters<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;are given, all chars are reset.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ESC["str"p &nbsp; &nbsp; &nbsp;Keyboard Key Reassignment. The first char of str gives<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;the key to redefine; the rest of the string is the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;key's new value. &nbsp;To specify unprintable chars, give<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;the ASCII value of the char outside of quotes, as a<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;normal parm. &nbsp;IBM function keys are two byte strings.<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Ex: &nbsp;ESC[0;";dir a:";13;p<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;redefines F1 to have the value "dir a:" followed by CR.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;If no parameters given, all keys are reset to their<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;default values. &nbsp;Single or double quotes are valid.<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ESC[n;n;...nm &nbsp; Set Graphics Rendition is used to set attributes as<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;well as foreground and background colors. &nbsp;If multiple<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;parameters are used, they are executed in sequence, and<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;the effects are cumulative. 'n' is one of the following<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;attributes or colors:<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0 &nbsp;All attributes off &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5 &nbsp;Blink<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1 &nbsp;Bold &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 7 &nbsp;Reverse Video<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2 &nbsp;Dim &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;8 &nbsp;Invisible<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4 &nbsp;Underline<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Foreground colors &nbsp; &nbsp; &nbsp; Background colors</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;30 &nbsp;Black &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 40 &nbsp;Black<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;31 &nbsp;Red &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 41 &nbsp;Red<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;32 &nbsp;Green &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 42 &nbsp;Green<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;33 &nbsp;Yellow &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;43 &nbsp;Yellow<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;34 &nbsp;Blue &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;44 &nbsp;Blue<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;35 &nbsp;Magenta &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 45 &nbsp;Magenta<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;36 &nbsp;Cyan &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;46 &nbsp;Cyan<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;37 &nbsp;White &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 47 &nbsp;White<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ESC[=nh Set mode (see screen modes for n)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ESC[=nl Reset Mode (see screen modes for n)<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Screen modes are similar to those found in the IBM BIOS:</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0 &nbsp; text 40x25 Black &amp; White<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1 &nbsp; text 40x25 Color<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2 &nbsp; text 80x25 Black &amp; White<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3 &nbsp; text 80x25 Color<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4 &nbsp; 320x200 4 bits/pixel<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5 &nbsp; 320x200 1 bit/pixel<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 6 &nbsp; 640x200 1 bit/pixel<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 7 &nbsp; cursor wrap<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;13 &nbsp; 320x200 4 bits/pixel (EGA)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;14 &nbsp; 640x200 4 bits/pixel (EGA)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;16 &nbsp; 640x350 4 bits/pixel (EGA)<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- for more information see ANSI document x3.64 or your DOS manual<br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">ANSI codes</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

@@ -1,0 +1,1 @@
+var searchData=[["has_5fonly_5fdata",["has_only_data",["../classstxxl_1_1typed__block.html#a3210d74166ef3a3c8ee6a9ca82617da3a36b8bbe0881d164d802814f571787a13",1,"stxxl::typed_block"]]]];

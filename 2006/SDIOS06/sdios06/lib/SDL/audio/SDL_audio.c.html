@@ -1,0 +1,762 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2006/SDIOS06/sdios06/lib/SDL/audio/SDL_audio.c - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal6.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2006/">2006</a> / <a href="/2006/SDIOS06/">SDIOS06</a> / <a href="/2006/SDIOS06/sdios06/">sdios06</a> / <a href="/2006/SDIOS06/sdios06/lib/">lib</a> / <a href="/2006/SDIOS06/sdios06/lib/SDL/">SDL</a> / <a href="/2006/SDIOS06/sdios06/lib/SDL/audio/">audio</a> / <a href="/2006/SDIOS06/sdios06/lib/SDL/audio/SDL_audio.c.html">SDL_audio.c</a> (<a href="/2006/SDIOS06/sdios06/lib/SDL/audio/SDL_audio.c">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">/*</span>
+<span class="comment">    SDL - Simple DirectMedia Layer</span>
+<span class="comment">    Copyright (C) 1997-2006 Sam Lantinga</span>
+
+<span class="comment">    This library is free software; you can redistribute it and/or</span>
+<span class="comment">    modify it under the terms of the GNU Lesser General Public</span>
+<span class="comment">    License as published by the Free Software Foundation; either</span>
+<span class="comment">    version 2.1 of the License, or (at your option) any later version.</span>
+
+<span class="comment">    This library is distributed in the hope that it will be useful,</span>
+<span class="comment">    but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="comment">    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU</span>
+<span class="comment">    Lesser General Public License for more details.</span>
+
+<span class="comment">    You should have received a copy of the GNU Lesser General Public</span>
+<span class="comment">    License along with this library; if not, write to the Free Software</span>
+<span class="comment">    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA</span>
+
+<span class="comment">    Sam Lantinga</span>
+<span class="comment">    </span><span class="url">slouken@libsdl.org</span>
+<span class="comment">*/</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"SDL_config.h"</span>
+
+<span class="comment">/* Allow access to a raw mixing buffer */</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"SDL.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"SDL_audio_c.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"SDL_audiomem.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"SDL_sysaudio.h"</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> __OS2__</span>
+<span class="comment">/* We'll need the DosSetPriority() API! */</span>
+<span class="preproc">#define</span><span class="normal"> INCL_DOSPROCESS</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;os2.h&gt;</span>
+<span class="preproc">#endif</span>
+
+<span class="comment">/* Available audio drivers */</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="usertype">AudioBootStrap</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">bootstrap</span><span class="symbol">[]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="preproc">#if</span><span class="normal"> SDL_AUDIO_DRIVER_BSD</span>
+<span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">BSD_AUDIO_bootstrap</span><span class="symbol">,</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#if</span><span class="normal"> SDL_AUDIO_DRIVER_OSS</span>
+<span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">DSP_bootstrap</span><span class="symbol">,</span>
+<span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">DMA_bootstrap</span><span class="symbol">,</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#if</span><span class="normal"> SDL_AUDIO_DRIVER_ALSA</span>
+<span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">ALSA_bootstrap</span><span class="symbol">,</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#if</span><span class="normal"> SDL_AUDIO_DRIVER_QNXNTO</span>
+<span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">QNXNTOAUDIO_bootstrap</span><span class="symbol">,</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#if</span><span class="normal"> SDL_AUDIO_DRIVER_SUNAUDIO</span>
+<span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">SUNAUDIO_bootstrap</span><span class="symbol">,</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#if</span><span class="normal"> SDL_AUDIO_DRIVER_DMEDIA</span>
+<span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">DMEDIA_bootstrap</span><span class="symbol">,</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#if</span><span class="normal"> SDL_AUDIO_DRIVER_ARTS</span>
+<span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">ARTS_bootstrap</span><span class="symbol">,</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#if</span><span class="normal"> SDL_AUDIO_DRIVER_ESD</span>
+<span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">ESD_bootstrap</span><span class="symbol">,</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#if</span><span class="normal"> SDL_AUDIO_DRIVER_NAS</span>
+<span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">NAS_bootstrap</span><span class="symbol">,</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#if</span><span class="normal"> SDL_AUDIO_DRIVER_DSOUND</span>
+<span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">DSOUND_bootstrap</span><span class="symbol">,</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#if</span><span class="normal"> SDL_AUDIO_DRIVER_WAVEOUT</span>
+<span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">WAVEOUT_bootstrap</span><span class="symbol">,</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#if</span><span class="normal"> SDL_AUDIO_DRIVER_PAUD</span>
+<span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">Paud_bootstrap</span><span class="symbol">,</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#if</span><span class="normal"> SDL_AUDIO_DRIVER_BAUDIO</span>
+<span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">BAUDIO_bootstrap</span><span class="symbol">,</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#if</span><span class="normal"> SDL_AUDIO_DRIVER_COREAUDIO</span>
+<span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">COREAUDIO_bootstrap</span><span class="symbol">,</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#if</span><span class="normal"> SDL_AUDIO_DRIVER_SNDMGR</span>
+<span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">SNDMGR_bootstrap</span><span class="symbol">,</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#if</span><span class="normal"> SDL_AUDIO_DRIVER_AHI</span>
+<span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">AHI_bootstrap</span><span class="symbol">,</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#if</span><span class="normal"> SDL_AUDIO_DRIVER_MINT</span>
+<span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">MINTAUDIO_GSXB_bootstrap</span><span class="symbol">,</span>
+<span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">MINTAUDIO_MCSN_bootstrap</span><span class="symbol">,</span>
+<span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">MINTAUDIO_STFA_bootstrap</span><span class="symbol">,</span>
+<span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">MINTAUDIO_XBIOS_bootstrap</span><span class="symbol">,</span>
+<span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">MINTAUDIO_DMA8_bootstrap</span><span class="symbol">,</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#if</span><span class="normal"> SDL_AUDIO_DRIVER_DISK</span>
+<span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">DISKAUD_bootstrap</span><span class="symbol">,</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#if</span><span class="normal"> SDL_AUDIO_DRIVER_DUMMY</span>
+<span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">DUMMYAUD_bootstrap</span><span class="symbol">,</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#if</span><span class="normal"> SDL_AUDIO_DRIVER_DC</span>
+<span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">DCAUD_bootstrap</span><span class="symbol">,</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#if</span><span class="normal"> SDL_AUDIO_DRIVER_MMEAUDIO</span>
+<span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">MMEAUDIO_bootstrap</span><span class="symbol">,</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#if</span><span class="normal"> SDL_AUDIO_DRIVER_DART</span>
+<span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">DART_bootstrap</span><span class="symbol">,</span>
+<span class="preproc">#endif</span>
+<span class="normal">	NULL</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+<span class="usertype">SDL_AudioDevice</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">current_audio </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+
+<span class="comment">/* Various local functions */</span>
+<span class="type">int</span><span class="normal"> </span><span class="function">SDL_AudioInit</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">driver_name</span><span class="symbol">);</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">SDL_AudioQuit</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">);</span>
+
+<span class="preproc">#if</span><span class="normal"> SDL_AUDIO_DRIVER_AHI</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="type">int</span><span class="normal"> audio_configured </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="preproc">#endif</span>
+
+<span class="comment">/* The general mixing thread function */</span>
+<span class="type">int</span><span class="normal"> </span><span class="usertype">SDLCALL</span><span class="normal"> </span><span class="function">SDL_RunAudio</span><span class="symbol">(</span><span class="type">void</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">audiop</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">SDL_AudioDevice</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">audio </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">SDL_AudioDevice </span><span class="symbol">*)</span><span class="normal">audiop</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="usertype">Uint8</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">stream</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal">    stream_len</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="type">void</span><span class="normal">  </span><span class="symbol">*</span><span class="normal">udata</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="type">void</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">SDLCALL</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">fill</span><span class="symbol">)(</span><span class="type">void</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">userdata</span><span class="symbol">,</span><span class="usertype">Uint8</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">stream</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> len</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal">    silence</span><span class="symbol">;</span>
+<span class="preproc">#if</span><span class="normal"> SDL_AUDIO_DRIVER_AHI</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> started </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="comment">/* AmigaOS NEEDS that the audio driver is opened in the thread that uses it! */</span>
+
+<span class="normal">	</span><span class="function">D</span><span class="symbol">(</span><span class="function">bug</span><span class="symbol">(</span><span class="string">"Task audio started audio struct:&lt;%lx&gt;...</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal">audiop</span><span class="symbol">));</span>
+
+<span class="normal">	</span><span class="function">D</span><span class="symbol">(</span><span class="function">bug</span><span class="symbol">(</span><span class="string">"Before Openaudio..."</span><span class="symbol">));</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">-&gt;</span><span class="function">OpenAudio</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">audio</span><span class="symbol">-&gt;</span><span class="normal">spec</span><span class="symbol">)==-</span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">D</span><span class="symbol">(</span><span class="function">bug</span><span class="symbol">(</span><span class="string">"Open audio failed...</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">));</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="function">D</span><span class="symbol">(</span><span class="function">bug</span><span class="symbol">(</span><span class="string">"OpenAudio...OK</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">));</span>
+<span class="preproc">#endif</span>
+
+<span class="normal">	</span><span class="comment">/* Perform any thread setup */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">ThreadInit </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		audio</span><span class="symbol">-&gt;</span><span class="function">ThreadInit</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	audio</span><span class="symbol">-&gt;</span><span class="normal">threadid </span><span class="symbol">=</span><span class="normal"> </span><span class="function">SDL_ThreadID</span><span class="symbol">();</span>
+
+<span class="normal">	</span><span class="comment">/* Set up the mixing function */</span>
+<span class="normal">	fill  </span><span class="symbol">=</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">spec</span><span class="symbol">.</span><span class="normal">callback</span><span class="symbol">;</span>
+<span class="normal">	udata </span><span class="symbol">=</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">spec</span><span class="symbol">.</span><span class="normal">userdata</span><span class="symbol">;</span>
+
+<span class="preproc">#if</span><span class="normal"> SDL_AUDIO_DRIVER_AHI</span>
+<span class="normal">	audio_configured </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="function">D</span><span class="symbol">(</span><span class="function">bug</span><span class="symbol">(</span><span class="string">"Audio configured... Checking for conversion</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">));</span>
+<span class="normal">	</span><span class="function">SDL_mutexP</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">-&gt;</span><span class="normal">mixer_lock</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">D</span><span class="symbol">(</span><span class="function">bug</span><span class="symbol">(</span><span class="string">"Semaphore obtained...</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">));</span>
+<span class="preproc">#endif</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">convert</span><span class="symbol">.</span><span class="normal">needed </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">convert</span><span class="symbol">.</span><span class="normal">src_format </span><span class="symbol">==</span><span class="normal"> AUDIO_U8 </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			silence </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0x80</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			silence </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		stream_len </span><span class="symbol">=</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">convert</span><span class="symbol">.</span><span class="normal">len</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		silence </span><span class="symbol">=</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">spec</span><span class="symbol">.</span><span class="normal">silence</span><span class="symbol">;</span>
+<span class="normal">		stream_len </span><span class="symbol">=</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">spec</span><span class="symbol">.</span><span class="normal">size</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="preproc">#if</span><span class="normal"> SDL_AUDIO_DRIVER_AHI</span>
+<span class="normal">	</span><span class="function">SDL_mutexV</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">-&gt;</span><span class="normal">mixer_lock</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">D</span><span class="symbol">(</span><span class="function">bug</span><span class="symbol">(</span><span class="string">"Entering audio loop...</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">));</span>
+<span class="preproc">#endif</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> __OS2__</span>
+<span class="normal">        </span><span class="comment">/* Increase the priority of this thread to make sure that</span>
+<span class="comment">           the audio will be continuous all the time! */</span>
+<span class="preproc">#ifdef</span><span class="normal"> USE_DOSSETPRIORITY</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">SDL_getenv</span><span class="symbol">(</span><span class="string">"SDL_USE_TIMECRITICAL_AUDIO"</span><span class="symbol">))</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="preproc">#ifdef</span><span class="normal"> DEBUG_BUILD</span>
+<span class="normal">          </span><span class="function">printf</span><span class="symbol">(</span><span class="string">"[SDL_RunAudio] : Setting priority to TimeCritical+0! (TID%d)</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="function">SDL_ThreadID</span><span class="symbol">());</span>
+<span class="preproc">#endif</span>
+<span class="normal">          </span><span class="function">DosSetPriority</span><span class="symbol">(</span><span class="normal">PRTYS_THREAD</span><span class="symbol">,</span><span class="normal"> PRTYC_TIMECRITICAL</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="keyword">else</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="preproc">#ifdef</span><span class="normal"> DEBUG_BUILD</span>
+<span class="normal">          </span><span class="function">printf</span><span class="symbol">(</span><span class="string">"[SDL_RunAudio] : Setting priority to ForegroundServer+0! (TID%d)</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="function">SDL_ThreadID</span><span class="symbol">());</span>
+<span class="preproc">#endif</span>
+<span class="normal">          </span><span class="function">DosSetPriority</span><span class="symbol">(</span><span class="normal">PRTYS_THREAD</span><span class="symbol">,</span><span class="normal"> PRTYC_FOREGROUNDSERVER</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#endif</span>
+
+<span class="normal">	</span><span class="comment">/* Loop, filling the audio buffers */</span>
+<span class="normal">	</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">enabled </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+
+<span class="normal">		</span><span class="comment">/* Fill the current buffer with sound */</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">convert</span><span class="symbol">.</span><span class="normal">needed </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">convert</span><span class="symbol">.</span><span class="normal">buf </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				stream </span><span class="symbol">=</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">convert</span><span class="symbol">.</span><span class="normal">buf</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="keyword">continue</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			stream </span><span class="symbol">=</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="function">GetAudioBuf</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> stream </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				stream </span><span class="symbol">=</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">fake_stream</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="function">SDL_memset</span><span class="symbol">(</span><span class="normal">stream</span><span class="symbol">,</span><span class="normal"> silence</span><span class="symbol">,</span><span class="normal"> stream_len</span><span class="symbol">);</span>
+
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">!</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">paused </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">SDL_mutexP</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">-&gt;</span><span class="normal">mixer_lock</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="symbol">(*</span><span class="normal">fill</span><span class="symbol">)(</span><span class="normal">udata</span><span class="symbol">,</span><span class="normal"> stream</span><span class="symbol">,</span><span class="normal"> stream_len</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="function">SDL_mutexV</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">-&gt;</span><span class="normal">mixer_lock</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">		</span><span class="comment">/* Convert the audio if necessary */</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">convert</span><span class="symbol">.</span><span class="normal">needed </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">SDL_ConvertAudio</span><span class="symbol">(&amp;</span><span class="normal">audio</span><span class="symbol">-&gt;</span><span class="normal">convert</span><span class="symbol">);</span>
+<span class="normal">			stream </span><span class="symbol">=</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="function">GetAudioBuf</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> stream </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				stream </span><span class="symbol">=</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">fake_stream</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">			</span><span class="function">SDL_memcpy</span><span class="symbol">(</span><span class="normal">stream</span><span class="symbol">,</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">convert</span><span class="symbol">.</span><span class="normal">buf</span><span class="symbol">,</span>
+<span class="normal">			               audio</span><span class="symbol">-&gt;</span><span class="normal">convert</span><span class="symbol">.</span><span class="normal">len_cvt</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">		</span><span class="comment">/* Ready current buffer for play and change current buffer */</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> stream </span><span class="symbol">!=</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">fake_stream </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			audio</span><span class="symbol">-&gt;</span><span class="function">PlayAudio</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">		</span><span class="comment">/* Wait for an audio buffer to become available */</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> stream </span><span class="symbol">==</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">fake_stream </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">SDL_Delay</span><span class="symbol">((</span><span class="normal">audio</span><span class="symbol">-&gt;</span><span class="normal">spec</span><span class="symbol">.</span><span class="normal">samples</span><span class="symbol">*</span><span class="number">1000</span><span class="symbol">)/</span><span class="normal">audio</span><span class="symbol">-&gt;</span><span class="normal">spec</span><span class="symbol">.</span><span class="normal">freq</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			audio</span><span class="symbol">-&gt;</span><span class="function">WaitAudio</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="comment">/* Wait for the audio to drain.. */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">WaitDone </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		audio</span><span class="symbol">-&gt;</span><span class="function">WaitDone</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="preproc">#if</span><span class="normal"> SDL_AUDIO_DRIVER_AHI</span>
+<span class="normal">	</span><span class="function">D</span><span class="symbol">(</span><span class="function">bug</span><span class="symbol">(</span><span class="string">"WaitAudio...Done</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">));</span>
+
+<span class="normal">	audio</span><span class="symbol">-&gt;</span><span class="function">CloseAudio</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="function">D</span><span class="symbol">(</span><span class="function">bug</span><span class="symbol">(</span><span class="string">"CloseAudio..Done, subtask exiting...</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">));</span>
+<span class="normal">	audio_configured </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#ifdef</span><span class="normal"> __OS2__</span>
+<span class="preproc">#ifdef</span><span class="normal"> DEBUG_BUILD</span>
+<span class="normal">        </span><span class="function">printf</span><span class="symbol">(</span><span class="string">"[SDL_RunAudio] : Task exiting. (TID%d)</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="function">SDL_ThreadID</span><span class="symbol">());</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#endif</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">SDL_LockAudio_Default</span><span class="symbol">(</span><span class="usertype">SDL_AudioDevice</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">audio</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">thread </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="function">SDL_ThreadID</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">threadid</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="function">SDL_mutexP</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">-&gt;</span><span class="normal">mixer_lock</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">SDL_UnlockAudio_Default</span><span class="symbol">(</span><span class="usertype">SDL_AudioDevice</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">audio</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">thread </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="function">SDL_ThreadID</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">threadid</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="function">SDL_mutexV</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">-&gt;</span><span class="normal">mixer_lock</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="keyword">static</span><span class="normal"> </span><span class="usertype">Uint16</span><span class="normal"> </span><span class="function">SDL_ParseAudioFormat</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">string</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">Uint16</span><span class="normal"> format </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">switch</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">string</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">case</span><span class="normal"> </span><span class="string">'U'</span><span class="symbol">:</span>
+<span class="normal">		</span><span class="symbol">++</span><span class="normal">string</span><span class="symbol">;</span>
+<span class="normal">		format </span><span class="symbol">|=</span><span class="normal"> </span><span class="number">0x0000</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="keyword">case</span><span class="normal"> </span><span class="string">'S'</span><span class="symbol">:</span>
+<span class="normal">		</span><span class="symbol">++</span><span class="normal">string</span><span class="symbol">;</span>
+<span class="normal">		format </span><span class="symbol">|=</span><span class="normal"> </span><span class="number">0x8000</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="label">	    default:</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">switch</span><span class="normal"> </span><span class="symbol">(</span><span class="function">SDL_atoi</span><span class="symbol">(</span><span class="normal">string</span><span class="symbol">))</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">case</span><span class="normal"> </span><span class="number">8</span><span class="symbol">:</span>
+<span class="normal">		string </span><span class="symbol">+=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">		format </span><span class="symbol">|=</span><span class="normal"> </span><span class="number">8</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="keyword">case</span><span class="normal"> </span><span class="number">16</span><span class="symbol">:</span>
+<span class="normal">		string </span><span class="symbol">+=</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span>
+<span class="normal">		format </span><span class="symbol">|=</span><span class="normal"> </span><span class="number">16</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="function">SDL_strcmp</span><span class="symbol">(</span><span class="normal">string</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"LSB"</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span>
+<span class="preproc">#if</span><span class="normal"> SDL_BYTEORDER </span><span class="symbol">==</span><span class="normal"> SDL_LIL_ENDIAN</span>
+<span class="normal">		     </span><span class="symbol">||</span><span class="normal"> </span><span class="function">SDL_strcmp</span><span class="symbol">(</span><span class="normal">string</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"SYS"</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span>
+<span class="preproc">#endif</span>
+<span class="normal">		    </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			format </span><span class="symbol">|=</span><span class="normal"> </span><span class="number">0x0000</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="function">SDL_strcmp</span><span class="symbol">(</span><span class="normal">string</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"MSB"</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span>
+<span class="preproc">#if</span><span class="normal"> SDL_BYTEORDER </span><span class="symbol">==</span><span class="normal"> SDL_BIG_ENDIAN</span>
+<span class="normal">		     </span><span class="symbol">||</span><span class="normal"> </span><span class="function">SDL_strcmp</span><span class="symbol">(</span><span class="normal">string</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"SYS"</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span>
+<span class="preproc">#endif</span>
+<span class="normal">		    </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			format </span><span class="symbol">|=</span><span class="normal"> </span><span class="number">0x1000</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="label">	    default:</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> format</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="type">int</span><span class="normal"> </span><span class="function">SDL_AudioInit</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">driver_name</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">SDL_AudioDevice</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">audio</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> idx</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">/* Check to make sure we don't overwrite 'current_audio' */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> current_audio </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_AudioQuit</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="comment">/* Select the proper audio driver */</span>
+<span class="normal">	audio </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">	idx </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="preproc">#if</span><span class="normal"> SDL_AUDIO_DRIVER_ESD</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">driver_name </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="function">SDL_getenv</span><span class="symbol">(</span><span class="string">"ESPEAKER"</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="comment">/* Ahem, we know that if ESPEAKER is set, user probably wants</span>
+<span class="comment">		   to use ESD, but don't start it if it's not already running.</span>
+<span class="comment">		   This probably isn't the place to do this, but... Shh! :)</span>
+<span class="comment">		 */</span>
+<span class="normal">		</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> i</span><span class="symbol">=</span><span class="number">0</span><span class="symbol">;</span><span class="normal"> bootstrap</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="function">SDL_strcmp</span><span class="symbol">(</span><span class="normal">bootstrap</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]-&gt;</span><span class="normal">name</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"esd"</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="preproc">#ifdef</span><span class="normal"> HAVE_PUTENV</span>
+<span class="normal">				</span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">esd_no_spawn</span><span class="symbol">;</span>
+
+<span class="normal">				</span><span class="comment">/* Don't start ESD if it's not running */</span>
+<span class="normal">				esd_no_spawn </span><span class="symbol">=</span><span class="normal"> </span><span class="function">getenv</span><span class="symbol">(</span><span class="string">"ESD_NO_SPAWN"</span><span class="symbol">);</span>
+<span class="normal">				</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> esd_no_spawn </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">					</span><span class="function">putenv</span><span class="symbol">(</span><span class="string">"ESD_NO_SPAWN=1"</span><span class="symbol">);</span>
+<span class="normal">				</span><span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+<span class="normal">				</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> bootstrap</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]-&gt;</span><span class="function">available</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">					audio </span><span class="symbol">=</span><span class="normal"> bootstrap</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]-&gt;</span><span class="function">create</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">					</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">				</span><span class="cbracket">}</span>
+<span class="preproc">#ifdef</span><span class="normal"> HAVE_UNSETENV</span>
+<span class="normal">				</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> esd_no_spawn </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">					</span><span class="function">unsetenv</span><span class="symbol">(</span><span class="string">"ESD_NO_SPAWN"</span><span class="symbol">);</span>
+<span class="normal">				</span><span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* SDL_AUDIO_DRIVER_ESD */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> driver_name </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="number">0</span><span class="normal">	</span><span class="comment">/* This will be replaced with a better driver selection API */</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="function">SDL_strrchr</span><span class="symbol">(</span><span class="normal">driver_name</span><span class="symbol">,</span><span class="normal"> </span><span class="string">':'</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				idx </span><span class="symbol">=</span><span class="normal"> </span><span class="function">atoi</span><span class="symbol">(</span><span class="function">SDL_strrchr</span><span class="symbol">(</span><span class="normal">driver_name</span><span class="symbol">,</span><span class="normal"> </span><span class="string">':'</span><span class="symbol">)+</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+<span class="normal">			</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> i</span><span class="symbol">=</span><span class="number">0</span><span class="symbol">;</span><span class="normal"> bootstrap</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">SDL_strncmp</span><span class="symbol">(</span><span class="normal">bootstrap</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]-&gt;</span><span class="normal">name</span><span class="symbol">,</span><span class="normal"> driver_name</span><span class="symbol">,</span>
+<span class="normal">				            </span><span class="function">SDL_strlen</span><span class="symbol">(</span><span class="normal">bootstrap</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]-&gt;</span><span class="normal">name</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">					</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> bootstrap</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]-&gt;</span><span class="function">available</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">						audio</span><span class="symbol">=</span><span class="normal">bootstrap</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]-&gt;</span><span class="function">create</span><span class="symbol">(</span><span class="normal">idx</span><span class="symbol">);</span>
+<span class="normal">						</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">					</span><span class="cbracket">}</span>
+<span class="normal">				</span><span class="cbracket">}</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> i</span><span class="symbol">=</span><span class="number">0</span><span class="symbol">;</span><span class="normal"> bootstrap</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> bootstrap</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]-&gt;</span><span class="function">available</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">					audio </span><span class="symbol">=</span><span class="normal"> bootstrap</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]-&gt;</span><span class="function">create</span><span class="symbol">(</span><span class="normal">idx</span><span class="symbol">);</span>
+<span class="normal">					</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">						</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">					</span><span class="cbracket">}</span>
+<span class="normal">				</span><span class="cbracket">}</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">SDL_SetError</span><span class="symbol">(</span><span class="string">"No available audio device"</span><span class="symbol">);</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="comment">/* Don't fail SDL_Init() if audio isn't available.</span>
+<span class="comment">         SDL_OpenAudio() will handle it at that point.  *sigh*</span>
+<span class="comment">       */</span>
+<span class="normal">			</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	current_audio </span><span class="symbol">=</span><span class="normal"> audio</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> current_audio </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		current_audio</span><span class="symbol">-&gt;</span><span class="normal">name </span><span class="symbol">=</span><span class="normal"> bootstrap</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]-&gt;</span><span class="normal">name</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">current_audio</span><span class="symbol">-&gt;</span><span class="normal">LockAudio </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">current_audio</span><span class="symbol">-&gt;</span><span class="normal">UnlockAudio </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			current_audio</span><span class="symbol">-&gt;</span><span class="normal">LockAudio </span><span class="symbol">=</span><span class="normal"> SDL_LockAudio_Default</span><span class="symbol">;</span>
+<span class="normal">			current_audio</span><span class="symbol">-&gt;</span><span class="normal">UnlockAudio </span><span class="symbol">=</span><span class="normal"> SDL_UnlockAudio_Default</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="function">SDL_AudioDriverName</span><span class="symbol">(</span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">namebuf</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> maxlen</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> current_audio </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_strlcpy</span><span class="symbol">(</span><span class="normal">namebuf</span><span class="symbol">,</span><span class="normal"> current_audio</span><span class="symbol">-&gt;</span><span class="normal">name</span><span class="symbol">,</span><span class="normal"> maxlen</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">namebuf</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">NULL</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="type">int</span><span class="normal"> </span><span class="function">SDL_OpenAudio</span><span class="symbol">(</span><span class="usertype">SDL_AudioSpec</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">desired</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">SDL_AudioSpec</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">obtained</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">SDL_AudioDevice</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">audio</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">env</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">/* Start up the audio driver, if necessary */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">!</span><span class="normal"> current_audio </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="function">SDL_InitSubSystem</span><span class="symbol">(</span><span class="normal">SDL_INIT_AUDIO</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">||</span>
+<span class="normal">		     </span><span class="symbol">(</span><span class="normal">current_audio </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	audio </span><span class="symbol">=</span><span class="normal"> current_audio</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">-&gt;</span><span class="normal">opened</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_SetError</span><span class="symbol">(</span><span class="string">"Audio device is already opened"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="comment">/* Verify some parameters */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> desired</span><span class="symbol">-&gt;</span><span class="normal">freq </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		env </span><span class="symbol">=</span><span class="normal"> </span><span class="function">SDL_getenv</span><span class="symbol">(</span><span class="string">"SDL_AUDIO_FREQUENCY"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> env </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			desired</span><span class="symbol">-&gt;</span><span class="normal">freq </span><span class="symbol">=</span><span class="normal"> </span><span class="function">SDL_atoi</span><span class="symbol">(</span><span class="normal">env</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> desired</span><span class="symbol">-&gt;</span><span class="normal">freq </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="comment">/* Pick some default audio frequency */</span>
+<span class="normal">		desired</span><span class="symbol">-&gt;</span><span class="normal">freq </span><span class="symbol">=</span><span class="normal"> </span><span class="number">22050</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> desired</span><span class="symbol">-&gt;</span><span class="normal">format </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		env </span><span class="symbol">=</span><span class="normal"> </span><span class="function">SDL_getenv</span><span class="symbol">(</span><span class="string">"SDL_AUDIO_FORMAT"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> env </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			desired</span><span class="symbol">-&gt;</span><span class="normal">format </span><span class="symbol">=</span><span class="normal"> </span><span class="function">SDL_ParseAudioFormat</span><span class="symbol">(</span><span class="normal">env</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> desired</span><span class="symbol">-&gt;</span><span class="normal">format </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="comment">/* Pick some default audio format */</span>
+<span class="normal">		desired</span><span class="symbol">-&gt;</span><span class="normal">format </span><span class="symbol">=</span><span class="normal"> AUDIO_S16</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> desired</span><span class="symbol">-&gt;</span><span class="normal">channels </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		env </span><span class="symbol">=</span><span class="normal"> </span><span class="function">SDL_getenv</span><span class="symbol">(</span><span class="string">"SDL_AUDIO_CHANNELS"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> env </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			desired</span><span class="symbol">-&gt;</span><span class="normal">channels </span><span class="symbol">=</span><span class="normal"> </span><span class="function">SDL_atoi</span><span class="symbol">(</span><span class="normal">env</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> desired</span><span class="symbol">-&gt;</span><span class="normal">channels </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="comment">/* Pick a default number of channels */</span>
+<span class="normal">		desired</span><span class="symbol">-&gt;</span><span class="normal">channels </span><span class="symbol">=</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">switch</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> desired</span><span class="symbol">-&gt;</span><span class="normal">channels </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">case</span><span class="normal"> </span><span class="number">1</span><span class="symbol">:</span><span class="normal">	</span><span class="comment">/* Mono */</span>
+<span class="normal">	    </span><span class="keyword">case</span><span class="normal"> </span><span class="number">2</span><span class="symbol">:</span><span class="normal">	</span><span class="comment">/* Stereo */</span>
+<span class="normal">	    </span><span class="keyword">case</span><span class="normal"> </span><span class="number">4</span><span class="symbol">:</span><span class="normal">	</span><span class="comment">/* surround */</span>
+<span class="normal">	    </span><span class="keyword">case</span><span class="normal"> </span><span class="number">6</span><span class="symbol">:</span><span class="normal">	</span><span class="comment">/* surround with center and lfe */</span>
+<span class="normal">		</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="label">	    default:</span>
+<span class="normal">		</span><span class="function">SDL_SetError</span><span class="symbol">(</span><span class="string">"1 (mono) and 2 (stereo) channels supported"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> desired</span><span class="symbol">-&gt;</span><span class="normal">samples </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		env </span><span class="symbol">=</span><span class="normal"> </span><span class="function">SDL_getenv</span><span class="symbol">(</span><span class="string">"SDL_AUDIO_SAMPLES"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> env </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			desired</span><span class="symbol">-&gt;</span><span class="normal">samples </span><span class="symbol">=</span><span class="normal"> </span><span class="function">SDL_atoi</span><span class="symbol">(</span><span class="normal">env</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> desired</span><span class="symbol">-&gt;</span><span class="normal">samples </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="comment">/* Pick a default of ~46 ms at desired frequency */</span>
+<span class="normal">		</span><span class="type">int</span><span class="normal"> samples </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">desired</span><span class="symbol">-&gt;</span><span class="normal">freq </span><span class="symbol">/</span><span class="normal"> </span><span class="number">1000</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="number">46</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="type">int</span><span class="normal"> power2 </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> power2 </span><span class="symbol">&lt;</span><span class="normal"> samples </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			power2 </span><span class="symbol">*=</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		desired</span><span class="symbol">-&gt;</span><span class="normal">samples </span><span class="symbol">=</span><span class="normal"> power2</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> desired</span><span class="symbol">-&gt;</span><span class="normal">callback </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_SetError</span><span class="symbol">(</span><span class="string">"SDL_OpenAudio() passed a NULL callback"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">__MACOS__</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">(</span><span class="function">defined</span><span class="symbol">(</span><span class="normal">__RISCOS__</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> SDL_THREADS_DISABLED</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="comment">/* </span><span class="todo">FIXME:</span><span class="comment"> Need to implement PPC interrupt asm for SDL_LockAudio() */</span>
+<span class="preproc">#else</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">__MINT__</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> SDL_THREADS_DISABLED</span>
+<span class="normal">	</span><span class="comment">/* Uses interrupt driven audio, without thread */</span>
+<span class="preproc">#else</span>
+<span class="normal">	</span><span class="comment">/* Create a semaphore for locking the sound buffers */</span>
+<span class="normal">	audio</span><span class="symbol">-&gt;</span><span class="normal">mixer_lock </span><span class="symbol">=</span><span class="normal"> </span><span class="function">SDL_CreateMutex</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">mixer_lock </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_SetError</span><span class="symbol">(</span><span class="string">"Couldn't create mixer lock"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="function">SDL_CloseAudio</span><span class="symbol">();</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* __MINT__ */</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* __MACOS__ */</span>
+
+<span class="normal">	</span><span class="comment">/* Calculate the silence and size of the audio specification */</span>
+<span class="normal">	</span><span class="function">SDL_CalculateAudioSpec</span><span class="symbol">(</span><span class="normal">desired</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="comment">/* Open the audio subsystem */</span>
+<span class="normal">	</span><span class="function">SDL_memcpy</span><span class="symbol">(&amp;</span><span class="normal">audio</span><span class="symbol">-&gt;</span><span class="normal">spec</span><span class="symbol">,</span><span class="normal"> desired</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">-&gt;</span><span class="normal">spec</span><span class="symbol">));</span>
+<span class="normal">	audio</span><span class="symbol">-&gt;</span><span class="normal">convert</span><span class="symbol">.</span><span class="normal">needed </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	audio</span><span class="symbol">-&gt;</span><span class="normal">enabled </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">	audio</span><span class="symbol">-&gt;</span><span class="normal">paused  </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_AUDIO_DRIVER_AHI</span>
+
+<span class="comment">/* AmigaOS opens audio inside the main loop */</span>
+<span class="normal">	audio</span><span class="symbol">-&gt;</span><span class="normal">opened </span><span class="symbol">=</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="function">OpenAudio</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">audio</span><span class="symbol">-&gt;</span><span class="normal">spec</span><span class="symbol">)+</span><span class="number">1</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">!</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">opened </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_CloseAudio</span><span class="symbol">();</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="preproc">#else</span>
+<span class="normal">	</span><span class="function">D</span><span class="symbol">(</span><span class="function">bug</span><span class="symbol">(</span><span class="string">"Locking semaphore..."</span><span class="symbol">));</span>
+<span class="normal">	</span><span class="function">SDL_mutexP</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">-&gt;</span><span class="normal">mixer_lock</span><span class="symbol">);</span>
+
+
+<span class="normal">	audio</span><span class="symbol">-&gt;</span><span class="normal">thread </span><span class="symbol">=</span><span class="normal"> </span><span class="function">SDL_CreateThread</span><span class="symbol">(</span><span class="normal">SDL_RunAudio</span><span class="symbol">,</span><span class="normal"> audio</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">D</span><span class="symbol">(</span><span class="function">bug</span><span class="symbol">(</span><span class="string">"Created thread...</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">));</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">thread </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_mutexV</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">-&gt;</span><span class="normal">mixer_lock</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="function">SDL_CloseAudio</span><span class="symbol">();</span>
+<span class="normal">		</span><span class="function">SDL_SetError</span><span class="symbol">(</span><span class="string">"Couldn't create audio thread"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="keyword">while</span><span class="symbol">(!</span><span class="normal">audio_configured</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="function">SDL_Delay</span><span class="symbol">(</span><span class="number">100</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+
+<span class="normal">	</span><span class="comment">/* If the audio driver changes the buffer size, accept it */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">spec</span><span class="symbol">.</span><span class="normal">samples </span><span class="symbol">!=</span><span class="normal"> desired</span><span class="symbol">-&gt;</span><span class="normal">samples </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		desired</span><span class="symbol">-&gt;</span><span class="normal">samples </span><span class="symbol">=</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">spec</span><span class="symbol">.</span><span class="normal">samples</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="function">SDL_CalculateAudioSpec</span><span class="symbol">(</span><span class="normal">desired</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="comment">/* Allocate a fake audio memory buffer */</span>
+<span class="normal">	audio</span><span class="symbol">-&gt;</span><span class="normal">fake_stream </span><span class="symbol">=</span><span class="normal"> </span><span class="function">SDL_AllocAudioMem</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">-&gt;</span><span class="normal">spec</span><span class="symbol">.</span><span class="normal">size</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">fake_stream </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_CloseAudio</span><span class="symbol">();</span>
+<span class="normal">		</span><span class="function">SDL_OutOfMemory</span><span class="symbol">();</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="comment">/* See if we need to do any conversion */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> obtained </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_memcpy</span><span class="symbol">(</span><span class="normal">obtained</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">audio</span><span class="symbol">-&gt;</span><span class="normal">spec</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">-&gt;</span><span class="normal">spec</span><span class="symbol">));</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> desired</span><span class="symbol">-&gt;</span><span class="normal">freq </span><span class="symbol">!=</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">spec</span><span class="symbol">.</span><span class="normal">freq </span><span class="symbol">||</span>
+<span class="normal">                    desired</span><span class="symbol">-&gt;</span><span class="normal">format </span><span class="symbol">!=</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">spec</span><span class="symbol">.</span><span class="normal">format </span><span class="symbol">||</span>
+<span class="normal">	            desired</span><span class="symbol">-&gt;</span><span class="normal">channels </span><span class="symbol">!=</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">spec</span><span class="symbol">.</span><span class="normal">channels </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="comment">/* Build an audio conversion block */</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="function">SDL_BuildAudioCVT</span><span class="symbol">(&amp;</span><span class="normal">audio</span><span class="symbol">-&gt;</span><span class="normal">convert</span><span class="symbol">,</span>
+<span class="normal">			desired</span><span class="symbol">-&gt;</span><span class="normal">format</span><span class="symbol">,</span><span class="normal"> desired</span><span class="symbol">-&gt;</span><span class="normal">channels</span><span class="symbol">,</span>
+<span class="normal">					desired</span><span class="symbol">-&gt;</span><span class="normal">freq</span><span class="symbol">,</span>
+<span class="normal">			audio</span><span class="symbol">-&gt;</span><span class="normal">spec</span><span class="symbol">.</span><span class="normal">format</span><span class="symbol">,</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">spec</span><span class="symbol">.</span><span class="normal">channels</span><span class="symbol">,</span>
+<span class="normal">					audio</span><span class="symbol">-&gt;</span><span class="normal">spec</span><span class="symbol">.</span><span class="normal">freq</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">SDL_CloseAudio</span><span class="symbol">();</span>
+<span class="normal">			</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">convert</span><span class="symbol">.</span><span class="normal">needed </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			audio</span><span class="symbol">-&gt;</span><span class="normal">convert</span><span class="symbol">.</span><span class="normal">len </span><span class="symbol">=</span><span class="normal"> desired</span><span class="symbol">-&gt;</span><span class="normal">size</span><span class="symbol">;</span>
+<span class="normal">			audio</span><span class="symbol">-&gt;</span><span class="normal">convert</span><span class="symbol">.</span><span class="normal">buf </span><span class="symbol">=(</span><span class="normal">Uint8 </span><span class="symbol">*)</span><span class="function">SDL_AllocAudioMem</span><span class="symbol">(</span>
+<span class="normal">			   audio</span><span class="symbol">-&gt;</span><span class="normal">convert</span><span class="symbol">.</span><span class="normal">len</span><span class="symbol">*</span><span class="normal">audio</span><span class="symbol">-&gt;</span><span class="normal">convert</span><span class="symbol">.</span><span class="normal">len_mult</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">convert</span><span class="symbol">.</span><span class="normal">buf </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="function">SDL_CloseAudio</span><span class="symbol">();</span>
+<span class="normal">				</span><span class="function">SDL_OutOfMemory</span><span class="symbol">();</span>
+<span class="normal">				</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_AUDIO_DRIVER_AHI</span>
+<span class="normal">	</span><span class="comment">/* Start the audio thread if necessary */</span>
+<span class="normal">	</span><span class="keyword">switch</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">-&gt;</span><span class="normal">opened</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal">  </span><span class="number">1</span><span class="symbol">:</span>
+<span class="normal">			</span><span class="comment">/* Start the audio thread */</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">defined</span><span class="symbol">(</span><span class="normal">__WIN32__</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="function">defined</span><span class="symbol">(</span><span class="normal">_WIN32_WCE</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="function">defined</span><span class="symbol">(</span><span class="normal">HAVE_LIBC</span><span class="symbol">)</span>
+<span class="preproc">#undef</span><span class="normal"> SDL_CreateThread</span>
+<span class="normal">			audio</span><span class="symbol">-&gt;</span><span class="normal">thread </span><span class="symbol">=</span><span class="normal"> </span><span class="function">SDL_CreateThread</span><span class="symbol">(</span><span class="normal">SDL_RunAudio</span><span class="symbol">,</span><span class="normal"> audio</span><span class="symbol">,</span><span class="normal"> NULL</span><span class="symbol">,</span><span class="normal"> NULL</span><span class="symbol">);</span>
+<span class="preproc">#else</span>
+<span class="normal">			audio</span><span class="symbol">-&gt;</span><span class="normal">thread </span><span class="symbol">=</span><span class="normal"> </span><span class="function">SDL_CreateThread</span><span class="symbol">(</span><span class="normal">SDL_RunAudio</span><span class="symbol">,</span><span class="normal"> audio</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">thread </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="function">SDL_CloseAudio</span><span class="symbol">();</span>
+<span class="normal">				</span><span class="function">SDL_SetError</span><span class="symbol">(</span><span class="string">"Couldn't create audio thread"</span><span class="symbol">);</span>
+<span class="normal">				</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+
+<span class="label">		default:</span>
+<span class="normal">			</span><span class="comment">/* The audio is now playing */</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="preproc">#else</span>
+<span class="normal">	</span><span class="function">SDL_mutexV</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">-&gt;</span><span class="normal">mixer_lock</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">D</span><span class="symbol">(</span><span class="function">bug</span><span class="symbol">(</span><span class="string">"SDL_OpenAudio USCITA...</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">));</span>
+
+<span class="preproc">#endif</span>
+
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="usertype">SDL_audiostatus</span><span class="normal"> </span><span class="function">SDL_GetAudioStatus</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">SDL_AudioDevice</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">audio </span><span class="symbol">=</span><span class="normal"> current_audio</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="usertype">SDL_audiostatus</span><span class="normal"> status</span><span class="symbol">;</span>
+
+<span class="normal">	status </span><span class="symbol">=</span><span class="normal"> SDL_AUDIO_STOPPED</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio </span><span class="symbol">&amp;&amp;</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">enabled </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">paused </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			status </span><span class="symbol">=</span><span class="normal"> SDL_AUDIO_PAUSED</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			status </span><span class="symbol">=</span><span class="normal"> SDL_AUDIO_PLAYING</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">status</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> </span><span class="function">SDL_PauseAudio</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> pause_on</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">SDL_AudioDevice</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">audio </span><span class="symbol">=</span><span class="normal"> current_audio</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		audio</span><span class="symbol">-&gt;</span><span class="normal">paused </span><span class="symbol">=</span><span class="normal"> pause_on</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> </span><span class="function">SDL_LockAudio</span><span class="normal"> </span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">SDL_AudioDevice</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">audio </span><span class="symbol">=</span><span class="normal"> current_audio</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">/* Obtain a lock on the mixing buffers */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio </span><span class="symbol">&amp;&amp;</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">LockAudio </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		audio</span><span class="symbol">-&gt;</span><span class="function">LockAudio</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> </span><span class="function">SDL_UnlockAudio</span><span class="normal"> </span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">SDL_AudioDevice</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">audio </span><span class="symbol">=</span><span class="normal"> current_audio</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">/* Release lock on the mixing buffers */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio </span><span class="symbol">&amp;&amp;</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">UnlockAudio </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		audio</span><span class="symbol">-&gt;</span><span class="function">UnlockAudio</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> </span><span class="function">SDL_CloseAudio</span><span class="normal"> </span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="function">SDL_QuitSubSystem</span><span class="symbol">(</span><span class="normal">SDL_INIT_AUDIO</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> </span><span class="function">SDL_AudioQuit</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">SDL_AudioDevice</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">audio </span><span class="symbol">=</span><span class="normal"> current_audio</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		audio</span><span class="symbol">-&gt;</span><span class="normal">enabled </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">thread </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">SDL_WaitThread</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">-&gt;</span><span class="normal">thread</span><span class="symbol">,</span><span class="normal"> NULL</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">mixer_lock </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">SDL_DestroyMutex</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">-&gt;</span><span class="normal">mixer_lock</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">fake_stream </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">SDL_FreeAudioMem</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">-&gt;</span><span class="normal">fake_stream</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">convert</span><span class="symbol">.</span><span class="normal">needed </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">SDL_FreeAudioMem</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">-&gt;</span><span class="normal">convert</span><span class="symbol">.</span><span class="normal">buf</span><span class="symbol">);</span>
+
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_AUDIO_DRIVER_AHI</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> audio</span><span class="symbol">-&gt;</span><span class="normal">opened </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			audio</span><span class="symbol">-&gt;</span><span class="function">CloseAudio</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">);</span>
+<span class="normal">			audio</span><span class="symbol">-&gt;</span><span class="normal">opened </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+<span class="normal">		</span><span class="comment">/* Free the driver data */</span>
+<span class="normal">		audio</span><span class="symbol">-&gt;</span><span class="function">freeme</span><span class="symbol">(</span><span class="normal">audio</span><span class="symbol">);</span>
+<span class="normal">		current_audio </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="preproc">#define</span><span class="normal"> NUM_FORMATS	</span><span class="number">6</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="type">int</span><span class="normal"> format_idx</span><span class="symbol">;</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="type">int</span><span class="normal"> format_idx_sub</span><span class="symbol">;</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="usertype">Uint16</span><span class="normal"> format_list</span><span class="symbol">[</span><span class="normal">NUM_FORMATS</span><span class="symbol">][</span><span class="normal">NUM_FORMATS</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal"> </span><span class="cbracket">{</span><span class="normal"> AUDIO_U8</span><span class="symbol">,</span><span class="normal"> AUDIO_S8</span><span class="symbol">,</span><span class="normal"> AUDIO_S16LSB</span><span class="symbol">,</span><span class="normal"> AUDIO_S16MSB</span><span class="symbol">,</span><span class="normal"> AUDIO_U16LSB</span><span class="symbol">,</span><span class="normal"> AUDIO_U16MSB </span><span class="cbracket">}</span><span class="symbol">,</span>
+<span class="normal"> </span><span class="cbracket">{</span><span class="normal"> AUDIO_S8</span><span class="symbol">,</span><span class="normal"> AUDIO_U8</span><span class="symbol">,</span><span class="normal"> AUDIO_S16LSB</span><span class="symbol">,</span><span class="normal"> AUDIO_S16MSB</span><span class="symbol">,</span><span class="normal"> AUDIO_U16LSB</span><span class="symbol">,</span><span class="normal"> AUDIO_U16MSB </span><span class="cbracket">}</span><span class="symbol">,</span>
+<span class="normal"> </span><span class="cbracket">{</span><span class="normal"> AUDIO_S16LSB</span><span class="symbol">,</span><span class="normal"> AUDIO_S16MSB</span><span class="symbol">,</span><span class="normal"> AUDIO_U16LSB</span><span class="symbol">,</span><span class="normal"> AUDIO_U16MSB</span><span class="symbol">,</span><span class="normal"> AUDIO_U8</span><span class="symbol">,</span><span class="normal"> AUDIO_S8 </span><span class="cbracket">}</span><span class="symbol">,</span>
+<span class="normal"> </span><span class="cbracket">{</span><span class="normal"> AUDIO_S16MSB</span><span class="symbol">,</span><span class="normal"> AUDIO_S16LSB</span><span class="symbol">,</span><span class="normal"> AUDIO_U16MSB</span><span class="symbol">,</span><span class="normal"> AUDIO_U16LSB</span><span class="symbol">,</span><span class="normal"> AUDIO_U8</span><span class="symbol">,</span><span class="normal"> AUDIO_S8 </span><span class="cbracket">}</span><span class="symbol">,</span>
+<span class="normal"> </span><span class="cbracket">{</span><span class="normal"> AUDIO_U16LSB</span><span class="symbol">,</span><span class="normal"> AUDIO_U16MSB</span><span class="symbol">,</span><span class="normal"> AUDIO_S16LSB</span><span class="symbol">,</span><span class="normal"> AUDIO_S16MSB</span><span class="symbol">,</span><span class="normal"> AUDIO_U8</span><span class="symbol">,</span><span class="normal"> AUDIO_S8 </span><span class="cbracket">}</span><span class="symbol">,</span>
+<span class="normal"> </span><span class="cbracket">{</span><span class="normal"> AUDIO_U16MSB</span><span class="symbol">,</span><span class="normal"> AUDIO_U16LSB</span><span class="symbol">,</span><span class="normal"> AUDIO_S16MSB</span><span class="symbol">,</span><span class="normal"> AUDIO_S16LSB</span><span class="symbol">,</span><span class="normal"> AUDIO_U8</span><span class="symbol">,</span><span class="normal"> AUDIO_S8 </span><span class="cbracket">}</span><span class="symbol">,</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="usertype">Uint16</span><span class="normal"> </span><span class="function">SDL_FirstAudioFormat</span><span class="symbol">(</span><span class="usertype">Uint16</span><span class="normal"> format</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> format_idx</span><span class="symbol">=</span><span class="number">0</span><span class="symbol">;</span><span class="normal"> format_idx </span><span class="symbol">&lt;</span><span class="normal"> NUM_FORMATS</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">format_idx </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> format_list</span><span class="symbol">[</span><span class="normal">format_idx</span><span class="symbol">][</span><span class="number">0</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> format </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	format_idx_sub </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="function">SDL_NextAudioFormat</span><span class="symbol">());</span>
+<span class="cbracket">}</span>
+
+<span class="usertype">Uint16</span><span class="normal"> </span><span class="function">SDL_NextAudioFormat</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">format_idx </span><span class="symbol">==</span><span class="normal"> NUM_FORMATS</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">format_idx_sub </span><span class="symbol">==</span><span class="normal"> NUM_FORMATS</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">format_list</span><span class="symbol">[</span><span class="normal">format_idx</span><span class="symbol">][</span><span class="normal">format_idx_sub</span><span class="symbol">++]);</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> </span><span class="function">SDL_CalculateAudioSpec</span><span class="symbol">(</span><span class="usertype">SDL_AudioSpec</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">spec</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">switch</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">spec</span><span class="symbol">-&gt;</span><span class="normal">format</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> AUDIO_U8</span><span class="symbol">:</span>
+<span class="normal">			spec</span><span class="symbol">-&gt;</span><span class="normal">silence </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0x80</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="label">		default:</span>
+<span class="normal">			spec</span><span class="symbol">-&gt;</span><span class="normal">silence </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0x00</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	spec</span><span class="symbol">-&gt;</span><span class="normal">size </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">spec</span><span class="symbol">-&gt;</span><span class="normal">format</span><span class="symbol">&amp;</span><span class="number">0xFF</span><span class="symbol">)/</span><span class="number">8</span><span class="symbol">;</span>
+<span class="normal">	spec</span><span class="symbol">-&gt;</span><span class="normal">size </span><span class="symbol">*=</span><span class="normal"> spec</span><span class="symbol">-&gt;</span><span class="normal">channels</span><span class="symbol">;</span>
+<span class="normal">	spec</span><span class="symbol">-&gt;</span><span class="normal">size </span><span class="symbol">*=</span><span class="normal"> spec</span><span class="symbol">-&gt;</span><span class="normal">samples</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

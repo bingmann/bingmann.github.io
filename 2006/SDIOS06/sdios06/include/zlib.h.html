@@ -1,0 +1,1358 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2006/SDIOS06/sdios06/include/zlib.h - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal2.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2006/">2006</a> / <a href="/2006/SDIOS06/">SDIOS06</a> / <a href="/2006/SDIOS06/sdios06/">sdios06</a> / <a href="/2006/SDIOS06/sdios06/include/">include</a> / <a href="/2006/SDIOS06/sdios06/include/zlib.h.html">zlib.h</a> (<a href="/2006/SDIOS06/sdios06/include/zlib.h">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">/* zlib.h -- interface of the 'zlib' general purpose compression library</span>
+<span class="comment">  version 1.2.3, July 18th, 2005</span>
+
+<span class="comment">  Copyright (C) 1995-2005 Jean-loup Gailly and Mark Adler</span>
+
+<span class="comment">  This software is provided 'as-is', without any express or implied</span>
+<span class="comment">  warranty.  In no event will the authors be held liable for any damages</span>
+<span class="comment">  arising from the use of this software.</span>
+
+<span class="comment">  Permission is granted to anyone to use this software for any purpose,</span>
+<span class="comment">  including commercial applications, and to alter it and redistribute it</span>
+<span class="comment">  freely, subject to the following restrictions:</span>
+
+<span class="comment">  1. The origin of this software must not be misrepresented; you must not</span>
+<span class="comment">     claim that you wrote the original software. If you use this software</span>
+<span class="comment">     in a product, an acknowledgment in the product documentation would be</span>
+<span class="comment">     appreciated but is not required.</span>
+<span class="comment">  2. Altered source versions must be plainly marked as such, and must not be</span>
+<span class="comment">     misrepresented as being the original software.</span>
+<span class="comment">  3. This notice may not be removed or altered from any source distribution.</span>
+
+<span class="comment">  Jean-loup Gailly        Mark Adler</span>
+<span class="comment">  </span><span class="url">jloup@gzip.org</span><span class="comment">          </span><span class="url">madler@alumni.caltech.edu</span>
+
+
+<span class="comment">  The data format used by the zlib library is described by RFCs (Request for</span>
+<span class="comment">  Comments) 1950 to 1952 in the files </span><span class="url">http://www.ietf.org/rfc/rfc1950.txt</span>
+<span class="comment">  (zlib format), rfc1951.txt (deflate format) and rfc1952.txt (gzip format).</span>
+<span class="comment">*/</span>
+
+<span class="preproc">#ifndef</span><span class="normal"> ZLIB_H</span>
+<span class="preproc">#define</span><span class="normal"> ZLIB_H</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"zconf.h"</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> __cplusplus</span>
+<span class="keyword">extern</span><span class="normal"> </span><span class="string">"C"</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="preproc">#endif</span>
+
+<span class="preproc">#define</span><span class="normal"> ZLIB_VERSION </span><span class="string">"1.2.3"</span>
+<span class="preproc">#define</span><span class="normal"> ZLIB_VERNUM </span><span class="number">0x1230</span>
+
+<span class="comment">/*</span>
+<span class="comment">     The 'zlib' compression library provides in-memory compression and</span>
+<span class="comment">  decompression functions, including integrity checks of the uncompressed</span>
+<span class="comment">  data.  This version of the library supports only one compression method</span>
+<span class="comment">  (deflation) but other algorithms will be added later and will have the same</span>
+<span class="comment">  stream interface.</span>
+
+<span class="comment">     Compression can be done in a single step if the buffers are large</span>
+<span class="comment">  enough (for example if an input file is mmap'ed), or can be done by</span>
+<span class="comment">  repeated calls of the compression function.  In the latter case, the</span>
+<span class="comment">  application must provide more input and/or consume the output</span>
+<span class="comment">  (providing more output space) before each call.</span>
+
+<span class="comment">     The compressed data format used by default by the in-memory functions is</span>
+<span class="comment">  the zlib format, which is a zlib wrapper documented in RFC 1950, wrapped</span>
+<span class="comment">  around a deflate stream, which is itself documented in RFC 1951.</span>
+
+<span class="comment">     The library also supports reading and writing files in gzip (.gz) format</span>
+<span class="comment">  with an interface similar to that of stdio using the functions that start</span>
+<span class="comment">  with "gz".  The gzip format is different from the zlib format.  gzip is a</span>
+<span class="comment">  gzip wrapper, documented in RFC 1952, wrapped around a deflate stream.</span>
+
+<span class="comment">     This library can optionally read and write gzip streams in memory as well.</span>
+
+<span class="comment">     The zlib format was designed to be compact and fast for use in memory</span>
+<span class="comment">  and on communications channels.  The gzip format was designed for single-</span>
+<span class="comment">  file compression on file systems, has a larger header than zlib to maintain</span>
+<span class="comment">  directory information, and uses a different, slower check method than zlib.</span>
+
+<span class="comment">     The library does not install any signal handler. The decoder checks</span>
+<span class="comment">  the consistency of the compressed data, so the library should never</span>
+<span class="comment">  crash even in case of corrupted input.</span>
+<span class="comment">*/</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="function">voidpf</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">alloc_func</span><span class="symbol">)</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">voidpf</span><span class="normal"> opaque</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">uInt</span><span class="normal"> items</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">uInt</span><span class="normal"> size</span><span class="symbol">));</span>
+<span class="keyword">typedef</span><span class="normal"> </span><span class="type">void</span><span class="normal">   </span><span class="symbol">(*</span><span class="normal">free_func</span><span class="symbol">)</span><span class="normal">  </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">voidpf</span><span class="normal"> opaque</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">voidpf</span><span class="normal"> address</span><span class="symbol">));</span>
+
+<span class="keyword">struct</span><span class="normal"> </span><span class="classname">internal_state</span><span class="symbol">;</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">z_stream_s</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">Bytef</span><span class="normal">    </span><span class="symbol">*</span><span class="normal">next_in</span><span class="symbol">;</span><span class="normal">  </span><span class="comment">/* next input byte */</span>
+<span class="normal">    </span><span class="usertype">uInt</span><span class="normal">     avail_in</span><span class="symbol">;</span><span class="normal">  </span><span class="comment">/* number of bytes available at next_in */</span>
+<span class="normal">    </span><span class="usertype">uLong</span><span class="normal">    total_in</span><span class="symbol">;</span><span class="normal">  </span><span class="comment">/* total nb of input bytes read so far */</span>
+
+<span class="normal">    </span><span class="usertype">Bytef</span><span class="normal">    </span><span class="symbol">*</span><span class="normal">next_out</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* next output byte should be put there */</span>
+<span class="normal">    </span><span class="usertype">uInt</span><span class="normal">     avail_out</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* remaining free space at next_out */</span>
+<span class="normal">    </span><span class="usertype">uLong</span><span class="normal">    total_out</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* total nb of bytes output so far */</span>
+
+<span class="normal">    </span><span class="type">char</span><span class="normal">     </span><span class="symbol">*</span><span class="normal">msg</span><span class="symbol">;</span><span class="normal">      </span><span class="comment">/* last error message, NULL if no error */</span>
+<span class="normal">    </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">internal_state</span><span class="normal"> </span><span class="usertype">FAR</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">state</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* not visible by applications */</span>
+
+<span class="normal">    </span><span class="usertype">alloc_func</span><span class="normal"> zalloc</span><span class="symbol">;</span><span class="normal">  </span><span class="comment">/* used to allocate the internal state */</span>
+<span class="normal">    </span><span class="usertype">free_func</span><span class="normal">  zfree</span><span class="symbol">;</span><span class="normal">   </span><span class="comment">/* used to free the internal state */</span>
+<span class="normal">    </span><span class="usertype">voidpf</span><span class="normal">     opaque</span><span class="symbol">;</span><span class="normal">  </span><span class="comment">/* private data object passed to zalloc and zfree */</span>
+
+<span class="normal">    </span><span class="type">int</span><span class="normal">     data_type</span><span class="symbol">;</span><span class="normal">  </span><span class="comment">/* best guess about the data type: binary or text */</span>
+<span class="normal">    </span><span class="usertype">uLong</span><span class="normal">   adler</span><span class="symbol">;</span><span class="normal">      </span><span class="comment">/* adler32 value of the uncompressed data */</span>
+<span class="normal">    </span><span class="usertype">uLong</span><span class="normal">   reserved</span><span class="symbol">;</span><span class="normal">   </span><span class="comment">/* reserved for future use */</span>
+<span class="cbracket">}</span><span class="normal"> z_stream</span><span class="symbol">;</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">z_stream</span><span class="normal"> </span><span class="usertype">FAR</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">z_streamp</span><span class="symbol">;</span>
+
+<span class="comment">/*</span>
+<span class="comment">     gzip header information passed to and from zlib routines.  See RFC 1952</span>
+<span class="comment">  for more details on the meanings of these fields.</span>
+<span class="comment">*/</span>
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">gz_header_s</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal">     text</span><span class="symbol">;</span><span class="normal">       </span><span class="comment">/* true if compressed data believed to be text */</span>
+<span class="normal">    </span><span class="usertype">uLong</span><span class="normal">   time</span><span class="symbol">;</span><span class="normal">       </span><span class="comment">/* modification time */</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal">     xflags</span><span class="symbol">;</span><span class="normal">     </span><span class="comment">/* extra flags (not used when writing a gzip file) */</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal">     os</span><span class="symbol">;</span><span class="normal">         </span><span class="comment">/* operating system */</span>
+<span class="normal">    </span><span class="usertype">Bytef</span><span class="normal">   </span><span class="symbol">*</span><span class="normal">extra</span><span class="symbol">;</span><span class="normal">     </span><span class="comment">/* pointer to extra field or Z_NULL if none */</span>
+<span class="normal">    </span><span class="usertype">uInt</span><span class="normal">    extra_len</span><span class="symbol">;</span><span class="normal">  </span><span class="comment">/* extra field length (valid if extra != Z_NULL) */</span>
+<span class="normal">    </span><span class="usertype">uInt</span><span class="normal">    extra_max</span><span class="symbol">;</span><span class="normal">  </span><span class="comment">/* space at extra (only when reading header) */</span>
+<span class="normal">    </span><span class="usertype">Bytef</span><span class="normal">   </span><span class="symbol">*</span><span class="normal">name</span><span class="symbol">;</span><span class="normal">      </span><span class="comment">/* pointer to zero-terminated file name or Z_NULL */</span>
+<span class="normal">    </span><span class="usertype">uInt</span><span class="normal">    name_max</span><span class="symbol">;</span><span class="normal">   </span><span class="comment">/* space at name (only when reading header) */</span>
+<span class="normal">    </span><span class="usertype">Bytef</span><span class="normal">   </span><span class="symbol">*</span><span class="normal">comment</span><span class="symbol">;</span><span class="normal">   </span><span class="comment">/* pointer to zero-terminated comment or Z_NULL */</span>
+<span class="normal">    </span><span class="usertype">uInt</span><span class="normal">    comm_max</span><span class="symbol">;</span><span class="normal">   </span><span class="comment">/* space at comment (only when reading header) */</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal">     hcrc</span><span class="symbol">;</span><span class="normal">       </span><span class="comment">/* true if there was or will be a header crc */</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal">     done</span><span class="symbol">;</span><span class="normal">       </span><span class="comment">/* true when done reading gzip header (not used</span>
+<span class="comment">                           when writing a gzip file) */</span>
+<span class="cbracket">}</span><span class="normal"> gz_header</span><span class="symbol">;</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">gz_header</span><span class="normal"> </span><span class="usertype">FAR</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">gz_headerp</span><span class="symbol">;</span>
+
+<span class="comment">/*</span>
+<span class="comment">   The application must update next_in and avail_in when avail_in has</span>
+<span class="comment">   dropped to zero. It must update next_out and avail_out when avail_out</span>
+<span class="comment">   has dropped to zero. The application must initialize zalloc, zfree and</span>
+<span class="comment">   opaque before calling the init function. All other fields are set by the</span>
+<span class="comment">   compression library and must not be updated by the application.</span>
+
+<span class="comment">   The opaque value provided by the application will be passed as the first</span>
+<span class="comment">   parameter for calls of zalloc and zfree. This can be useful for custom</span>
+<span class="comment">   memory management. The compression library attaches no meaning to the</span>
+<span class="comment">   opaque value.</span>
+
+<span class="comment">   zalloc must return Z_NULL if there is not enough memory for the object.</span>
+<span class="comment">   If zlib is used in a multi-threaded application, zalloc and zfree must be</span>
+<span class="comment">   thread safe.</span>
+
+<span class="comment">   On 16-bit systems, the functions zalloc and zfree must be able to allocate</span>
+<span class="comment">   exactly 65536 bytes, but will not be required to allocate more than this</span>
+<span class="comment">   if the symbol MAXSEG_64K is defined (see zconf.h). WARNING: On MSDOS,</span>
+<span class="comment">   pointers returned by zalloc for objects of exactly 65536 bytes *must*</span>
+<span class="comment">   have their offset normalized to zero. The default allocation function</span>
+<span class="comment">   provided by this library ensures this (see zutil.c). To reduce memory</span>
+<span class="comment">   requirements and avoid any allocation of 64K objects, at the expense of</span>
+<span class="comment">   compression ratio, compile the library with -DMAX_WBITS=14 (see zconf.h).</span>
+
+<span class="comment">   The fields total_in and total_out can be used for statistics or</span>
+<span class="comment">   progress reports. After compression, total_in holds the total size of</span>
+<span class="comment">   the uncompressed data and may be saved for use in the decompressor</span>
+<span class="comment">   (particularly if the decompressor wants to decompress everything in</span>
+<span class="comment">   a single step).</span>
+<span class="comment">*/</span>
+
+<span class="normal">                        </span><span class="comment">/* constants */</span>
+
+<span class="preproc">#define</span><span class="normal"> Z_NO_FLUSH      </span><span class="number">0</span>
+<span class="preproc">#define</span><span class="normal"> Z_PARTIAL_FLUSH </span><span class="number">1</span><span class="normal"> </span><span class="comment">/* will be removed, use Z_SYNC_FLUSH instead */</span>
+<span class="preproc">#define</span><span class="normal"> Z_SYNC_FLUSH    </span><span class="number">2</span>
+<span class="preproc">#define</span><span class="normal"> Z_FULL_FLUSH    </span><span class="number">3</span>
+<span class="preproc">#define</span><span class="normal"> Z_FINISH        </span><span class="number">4</span>
+<span class="preproc">#define</span><span class="normal"> Z_BLOCK         </span><span class="number">5</span>
+<span class="comment">/* Allowed flush values; see deflate() and inflate() below for details */</span>
+
+<span class="preproc">#define</span><span class="normal"> Z_OK            </span><span class="number">0</span>
+<span class="preproc">#define</span><span class="normal"> Z_STREAM_END    </span><span class="number">1</span>
+<span class="preproc">#define</span><span class="normal"> Z_NEED_DICT     </span><span class="number">2</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">Z_ERRNO</span><span class="normal">        </span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">)</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">Z_STREAM_ERROR</span><span class="normal"> </span><span class="symbol">(-</span><span class="number">2</span><span class="symbol">)</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">Z_DATA_ERROR</span><span class="normal">   </span><span class="symbol">(-</span><span class="number">3</span><span class="symbol">)</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">Z_MEM_ERROR</span><span class="normal">    </span><span class="symbol">(-</span><span class="number">4</span><span class="symbol">)</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">Z_BUF_ERROR</span><span class="normal">    </span><span class="symbol">(-</span><span class="number">5</span><span class="symbol">)</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">Z_VERSION_ERROR</span><span class="normal"> </span><span class="symbol">(-</span><span class="number">6</span><span class="symbol">)</span>
+<span class="comment">/* Return codes for the compression/decompression functions. Negative</span>
+<span class="comment"> * values are errors, positive values are used for special but normal events.</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#define</span><span class="normal"> Z_NO_COMPRESSION         </span><span class="number">0</span>
+<span class="preproc">#define</span><span class="normal"> Z_BEST_SPEED             </span><span class="number">1</span>
+<span class="preproc">#define</span><span class="normal"> Z_BEST_COMPRESSION       </span><span class="number">9</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">Z_DEFAULT_COMPRESSION</span><span class="normal">  </span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">)</span>
+<span class="comment">/* compression levels */</span>
+
+<span class="preproc">#define</span><span class="normal"> Z_FILTERED            </span><span class="number">1</span>
+<span class="preproc">#define</span><span class="normal"> Z_HUFFMAN_ONLY        </span><span class="number">2</span>
+<span class="preproc">#define</span><span class="normal"> Z_RLE                 </span><span class="number">3</span>
+<span class="preproc">#define</span><span class="normal"> Z_FIXED               </span><span class="number">4</span>
+<span class="preproc">#define</span><span class="normal"> Z_DEFAULT_STRATEGY    </span><span class="number">0</span>
+<span class="comment">/* compression strategy; see deflateInit2() below for details */</span>
+
+<span class="preproc">#define</span><span class="normal"> Z_BINARY   </span><span class="number">0</span>
+<span class="preproc">#define</span><span class="normal"> Z_TEXT     </span><span class="number">1</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="usertype">Z_ASCII</span><span class="normal">    Z_TEXT   </span><span class="comment">/* for compatibility with 1.2.2 and earlier */</span>
+<span class="preproc">#define</span><span class="normal"> Z_UNKNOWN  </span><span class="number">2</span>
+<span class="comment">/* Possible values of the data_type field (though see inflate()) */</span>
+
+<span class="preproc">#define</span><span class="normal"> Z_DEFLATED   </span><span class="number">8</span>
+<span class="comment">/* The deflate compression method (the only one supported in this version) */</span>
+
+<span class="preproc">#define</span><span class="normal"> Z_NULL  </span><span class="number">0</span><span class="normal">  </span><span class="comment">/* for initializing zalloc, zfree, opaque */</span>
+
+<span class="preproc">#define</span><span class="normal"> </span><span class="usertype">zlib_version</span><span class="normal"> </span><span class="function">zlibVersion</span><span class="symbol">()</span>
+<span class="comment">/* for compatibility with versions &lt; 1.0.2 */</span>
+
+<span class="normal">                        </span><span class="comment">/* basic functions */</span>
+
+<span class="normal">ZEXTERN </span><span class="usertype">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> ZEXPORT </span><span class="usertype">zlibVersion</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="type">void</span><span class="symbol">));</span>
+<span class="comment">/* The application can compare zlibVersion and ZLIB_VERSION for consistency.</span>
+<span class="comment">   If the first character differs, the library code actually used is</span>
+<span class="comment">   not compatible with the zlib.h header file used by the application.</span>
+<span class="comment">   This check is automatically made by deflateInit and inflateInit.</span>
+<span class="comment"> */</span>
+
+<span class="comment">/*</span>
+<span class="comment">ZEXTERN int ZEXPORT deflateInit OF((z_streamp strm, int level));</span>
+
+<span class="comment">     Initializes the internal stream state for compression. The fields</span>
+<span class="comment">   zalloc, zfree and opaque must be initialized before by the caller.</span>
+<span class="comment">   If zalloc and zfree are set to Z_NULL, deflateInit updates them to</span>
+<span class="comment">   use default allocation functions.</span>
+
+<span class="comment">     The compression level must be Z_DEFAULT_COMPRESSION, or between 0 and 9:</span>
+<span class="comment">   1 gives best speed, 9 gives best compression, 0 gives no compression at</span>
+<span class="comment">   all (the input data is simply copied a block at a time).</span>
+<span class="comment">   Z_DEFAULT_COMPRESSION requests a default compromise between speed and</span>
+<span class="comment">   compression (currently equivalent to level 6).</span>
+
+<span class="comment">     deflateInit returns Z_OK if success, Z_MEM_ERROR if there was not</span>
+<span class="comment">   enough memory, Z_STREAM_ERROR if level is not a valid compression level,</span>
+<span class="comment">   Z_VERSION_ERROR if the zlib library version (zlib_version) is incompatible</span>
+<span class="comment">   with the version assumed by the caller (ZLIB_VERSION).</span>
+<span class="comment">   msg is set to null if there is no error message.  deflateInit does not</span>
+<span class="comment">   perform any compression: this will be done by deflate().</span>
+<span class="comment">*/</span>
+
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT </span><span class="usertype">deflate</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">z_streamp</span><span class="normal"> strm</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> flush</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">    deflate compresses as much data as possible, and stops when the input</span>
+<span class="comment">  buffer becomes empty or the output buffer becomes full. It may introduce some</span>
+<span class="comment">  output latency (reading input without producing any output) except when</span>
+<span class="comment">  forced to flush.</span>
+
+<span class="comment">    The detailed semantics are as follows. deflate performs one or both of the</span>
+<span class="comment">  following actions:</span>
+
+<span class="comment">  - Compress more input starting at next_in and update next_in and avail_in</span>
+<span class="comment">    accordingly. If not all input can be processed (because there is not</span>
+<span class="comment">    enough room in the output buffer), next_in and avail_in are updated and</span>
+<span class="comment">    processing will resume at this point for the next call of deflate().</span>
+
+<span class="comment">  - Provide more output starting at next_out and update next_out and avail_out</span>
+<span class="comment">    accordingly. This action is forced if the parameter flush is non zero.</span>
+<span class="comment">    Forcing flush frequently degrades the compression ratio, so this parameter</span>
+<span class="comment">    should be set only when necessary (in interactive applications).</span>
+<span class="comment">    Some output may be provided even if flush is not set.</span>
+
+<span class="comment">  Before the call of deflate(), the application should ensure that at least</span>
+<span class="comment">  one of the actions is possible, by providing more input and/or consuming</span>
+<span class="comment">  more output, and updating avail_in or avail_out accordingly; avail_out</span>
+<span class="comment">  should never be zero before the call. The application can consume the</span>
+<span class="comment">  compressed output when it wants, for example when the output buffer is full</span>
+<span class="comment">  (avail_out == 0), or after each call of deflate(). If deflate returns Z_OK</span>
+<span class="comment">  and with zero avail_out, it must be called again after making room in the</span>
+<span class="comment">  output buffer because there might be more output pending.</span>
+
+<span class="comment">    Normally the parameter flush is set to Z_NO_FLUSH, which allows deflate to</span>
+<span class="comment">  decide how much data to accumualte before producing output, in order to</span>
+<span class="comment">  maximize compression.</span>
+
+<span class="comment">    If the parameter flush is set to Z_SYNC_FLUSH, all pending output is</span>
+<span class="comment">  flushed to the output buffer and the output is aligned on a byte boundary, so</span>
+<span class="comment">  that the decompressor can get all input data available so far. (In particular</span>
+<span class="comment">  avail_in is zero after the call if enough output space has been provided</span>
+<span class="comment">  before the call.)  Flushing may degrade compression for some compression</span>
+<span class="comment">  algorithms and so it should be used only when necessary.</span>
+
+<span class="comment">    If flush is set to Z_FULL_FLUSH, all output is flushed as with</span>
+<span class="comment">  Z_SYNC_FLUSH, and the compression state is reset so that decompression can</span>
+<span class="comment">  restart from this point if previous compressed data has been damaged or if</span>
+<span class="comment">  random access is desired. Using Z_FULL_FLUSH too often can seriously degrade</span>
+<span class="comment">  compression.</span>
+
+<span class="comment">    If deflate returns with avail_out == 0, this function must be called again</span>
+<span class="comment">  with the same value of the flush parameter and more output space (updated</span>
+<span class="comment">  avail_out), until the flush is complete (deflate returns with non-zero</span>
+<span class="comment">  avail_out). In the case of a Z_FULL_FLUSH or Z_SYNC_FLUSH, make sure that</span>
+<span class="comment">  avail_out is greater than six to avoid repeated flush markers due to</span>
+<span class="comment">  avail_out == 0 on return.</span>
+
+<span class="comment">    If the parameter flush is set to Z_FINISH, pending input is processed,</span>
+<span class="comment">  pending output is flushed and deflate returns with Z_STREAM_END if there</span>
+<span class="comment">  was enough output space; if deflate returns with Z_OK, this function must be</span>
+<span class="comment">  called again with Z_FINISH and more output space (updated avail_out) but no</span>
+<span class="comment">  more input data, until it returns with Z_STREAM_END or an error. After</span>
+<span class="comment">  deflate has returned Z_STREAM_END, the only possible operations on the</span>
+<span class="comment">  stream are deflateReset or deflateEnd.</span>
+
+<span class="comment">    Z_FINISH can be used immediately after deflateInit if all the compression</span>
+<span class="comment">  is to be done in a single step. In this case, avail_out must be at least</span>
+<span class="comment">  the value returned by deflateBound (see below). If deflate does not return</span>
+<span class="comment">  Z_STREAM_END, then it must be called again as described above.</span>
+
+<span class="comment">    deflate() sets strm-&gt;adler to the adler32 checksum of all input read</span>
+<span class="comment">  so far (that is, total_in bytes).</span>
+
+<span class="comment">    deflate() may update strm-&gt;data_type if it can make a good guess about</span>
+<span class="comment">  the input data type (Z_BINARY or Z_TEXT). In doubt, the data is considered</span>
+<span class="comment">  binary. This field is only for information purposes and does not affect</span>
+<span class="comment">  the compression algorithm in any manner.</span>
+
+<span class="comment">    deflate() returns Z_OK if some progress has been made (more input</span>
+<span class="comment">  processed or more output produced), Z_STREAM_END if all input has been</span>
+<span class="comment">  consumed and all output has been produced (only when flush is set to</span>
+<span class="comment">  Z_FINISH), Z_STREAM_ERROR if the stream state was inconsistent (for example</span>
+<span class="comment">  if next_in or next_out was NULL), Z_BUF_ERROR if no progress is possible</span>
+<span class="comment">  (for example avail_in or avail_out was zero). Note that Z_BUF_ERROR is not</span>
+<span class="comment">  fatal, and deflate() can be called again with more input and more output</span>
+<span class="comment">  space to continue compressing.</span>
+<span class="comment">*/</span>
+
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT </span><span class="usertype">deflateEnd</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">z_streamp</span><span class="normal"> strm</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     All dynamically allocated data structures for this stream are freed.</span>
+<span class="comment">   This function discards any unprocessed input and does not flush any</span>
+<span class="comment">   pending output.</span>
+
+<span class="comment">     deflateEnd returns Z_OK if success, Z_STREAM_ERROR if the</span>
+<span class="comment">   stream state was inconsistent, Z_DATA_ERROR if the stream was freed</span>
+<span class="comment">   prematurely (some input or output was discarded). In the error case,</span>
+<span class="comment">   msg may be set but then points to a static string (which must not be</span>
+<span class="comment">   deallocated).</span>
+<span class="comment">*/</span>
+
+
+<span class="comment">/*</span>
+<span class="comment">ZEXTERN int ZEXPORT inflateInit OF((z_streamp strm));</span>
+
+<span class="comment">     Initializes the internal stream state for decompression. The fields</span>
+<span class="comment">   next_in, avail_in, zalloc, zfree and opaque must be initialized before by</span>
+<span class="comment">   the caller. If next_in is not Z_NULL and avail_in is large enough (the exact</span>
+<span class="comment">   value depends on the compression method), inflateInit determines the</span>
+<span class="comment">   compression method from the zlib header and allocates all data structures</span>
+<span class="comment">   accordingly; otherwise the allocation will be deferred to the first call of</span>
+<span class="comment">   inflate.  If zalloc and zfree are set to Z_NULL, inflateInit updates them to</span>
+<span class="comment">   use default allocation functions.</span>
+
+<span class="comment">     inflateInit returns Z_OK if success, Z_MEM_ERROR if there was not enough</span>
+<span class="comment">   memory, Z_VERSION_ERROR if the zlib library version is incompatible with the</span>
+<span class="comment">   version assumed by the caller.  msg is set to null if there is no error</span>
+<span class="comment">   message. inflateInit does not perform any decompression apart from reading</span>
+<span class="comment">   the zlib header if present: this will be done by inflate().  (So next_in and</span>
+<span class="comment">   avail_in may be modified, but next_out and avail_out are unchanged.)</span>
+<span class="comment">*/</span>
+
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT </span><span class="usertype">inflate</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">z_streamp</span><span class="normal"> strm</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> flush</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">    inflate decompresses as much data as possible, and stops when the input</span>
+<span class="comment">  buffer becomes empty or the output buffer becomes full. It may introduce</span>
+<span class="comment">  some output latency (reading input without producing any output) except when</span>
+<span class="comment">  forced to flush.</span>
+
+<span class="comment">  The detailed semantics are as follows. inflate performs one or both of the</span>
+<span class="comment">  following actions:</span>
+
+<span class="comment">  - Decompress more input starting at next_in and update next_in and avail_in</span>
+<span class="comment">    accordingly. If not all input can be processed (because there is not</span>
+<span class="comment">    enough room in the output buffer), next_in is updated and processing</span>
+<span class="comment">    will resume at this point for the next call of inflate().</span>
+
+<span class="comment">  - Provide more output starting at next_out and update next_out and avail_out</span>
+<span class="comment">    accordingly.  inflate() provides as much output as possible, until there</span>
+<span class="comment">    is no more input data or no more space in the output buffer (see below</span>
+<span class="comment">    about the flush parameter).</span>
+
+<span class="comment">  Before the call of inflate(), the application should ensure that at least</span>
+<span class="comment">  one of the actions is possible, by providing more input and/or consuming</span>
+<span class="comment">  more output, and updating the next_* and avail_* values accordingly.</span>
+<span class="comment">  The application can consume the uncompressed output when it wants, for</span>
+<span class="comment">  example when the output buffer is full (avail_out == 0), or after each</span>
+<span class="comment">  call of inflate(). If inflate returns Z_OK and with zero avail_out, it</span>
+<span class="comment">  must be called again after making room in the output buffer because there</span>
+<span class="comment">  might be more output pending.</span>
+
+<span class="comment">    The flush parameter of inflate() can be Z_NO_FLUSH, Z_SYNC_FLUSH,</span>
+<span class="comment">  Z_FINISH, or Z_BLOCK. Z_SYNC_FLUSH requests that inflate() flush as much</span>
+<span class="comment">  output as possible to the output buffer. Z_BLOCK requests that inflate() stop</span>
+<span class="comment">  if and when it gets to the next deflate block boundary. When decoding the</span>
+<span class="comment">  zlib or gzip format, this will cause inflate() to return immediately after</span>
+<span class="comment">  the header and before the first block. When doing a raw inflate, inflate()</span>
+<span class="comment">  will go ahead and process the first block, and will return when it gets to</span>
+<span class="comment">  the end of that block, or when it runs out of data.</span>
+
+<span class="comment">    The Z_BLOCK option assists in appending to or combining deflate streams.</span>
+<span class="comment">  Also to assist in this, on return inflate() will set strm-&gt;data_type to the</span>
+<span class="comment">  number of unused bits in the last byte taken from strm-&gt;next_in, plus 64</span>
+<span class="comment">  if inflate() is currently decoding the last block in the deflate stream,</span>
+<span class="comment">  plus 128 if inflate() returned immediately after decoding an end-of-block</span>
+<span class="comment">  code or decoding the complete header up to just before the first byte of the</span>
+<span class="comment">  deflate stream. The end-of-block will not be indicated until all of the</span>
+<span class="comment">  uncompressed data from that block has been written to strm-&gt;next_out.  The</span>
+<span class="comment">  number of unused bits may in general be greater than seven, except when</span>
+<span class="comment">  bit 7 of data_type is set, in which case the number of unused bits will be</span>
+<span class="comment">  less than eight.</span>
+
+<span class="comment">    inflate() should normally be called until it returns Z_STREAM_END or an</span>
+<span class="comment">  error. However if all decompression is to be performed in a single step</span>
+<span class="comment">  (a single call of inflate), the parameter flush should be set to</span>
+<span class="comment">  Z_FINISH. In this case all pending input is processed and all pending</span>
+<span class="comment">  output is flushed; avail_out must be large enough to hold all the</span>
+<span class="comment">  uncompressed data. (The size of the uncompressed data may have been saved</span>
+<span class="comment">  by the compressor for this purpose.) The next operation on this stream must</span>
+<span class="comment">  be inflateEnd to deallocate the decompression state. The use of Z_FINISH</span>
+<span class="comment">  is never required, but can be used to inform inflate that a faster approach</span>
+<span class="comment">  may be used for the single inflate() call.</span>
+
+<span class="comment">     In this implementation, inflate() always flushes as much output as</span>
+<span class="comment">  possible to the output buffer, and always uses the faster approach on the</span>
+<span class="comment">  first call. So the only effect of the flush parameter in this implementation</span>
+<span class="comment">  is on the return value of inflate(), as noted below, or when it returns early</span>
+<span class="comment">  because Z_BLOCK is used.</span>
+
+<span class="comment">     If a preset dictionary is needed after this call (see inflateSetDictionary</span>
+<span class="comment">  below), inflate sets strm-&gt;adler to the adler32 checksum of the dictionary</span>
+<span class="comment">  chosen by the compressor and returns Z_NEED_DICT; otherwise it sets</span>
+<span class="comment">  strm-&gt;adler to the adler32 checksum of all output produced so far (that is,</span>
+<span class="comment">  total_out bytes) and returns Z_OK, Z_STREAM_END or an error code as described</span>
+<span class="comment">  below. At the end of the stream, inflate() checks that its computed adler32</span>
+<span class="comment">  checksum is equal to that saved by the compressor and returns Z_STREAM_END</span>
+<span class="comment">  only if the checksum is correct.</span>
+
+<span class="comment">    inflate() will decompress and check either zlib-wrapped or gzip-wrapped</span>
+<span class="comment">  deflate data.  The header type is detected automatically.  Any information</span>
+<span class="comment">  contained in the gzip header is not retained, so applications that need that</span>
+<span class="comment">  information should instead use raw inflate, see inflateInit2() below, or</span>
+<span class="comment">  inflateBack() and perform their own processing of the gzip header and</span>
+<span class="comment">  trailer.</span>
+
+<span class="comment">    inflate() returns Z_OK if some progress has been made (more input processed</span>
+<span class="comment">  or more output produced), Z_STREAM_END if the end of the compressed data has</span>
+<span class="comment">  been reached and all uncompressed output has been produced, Z_NEED_DICT if a</span>
+<span class="comment">  preset dictionary is needed at this point, Z_DATA_ERROR if the input data was</span>
+<span class="comment">  corrupted (input stream not conforming to the zlib format or incorrect check</span>
+<span class="comment">  value), Z_STREAM_ERROR if the stream structure was inconsistent (for example</span>
+<span class="comment">  if next_in or next_out was NULL), Z_MEM_ERROR if there was not enough memory,</span>
+<span class="comment">  Z_BUF_ERROR if no progress is possible or if there was not enough room in the</span>
+<span class="comment">  output buffer when Z_FINISH is used. Note that Z_BUF_ERROR is not fatal, and</span>
+<span class="comment">  inflate() can be called again with more input and more output space to</span>
+<span class="comment">  continue decompressing. If Z_DATA_ERROR is returned, the application may then</span>
+<span class="comment">  call inflateSync() to look for a good compression block if a partial recovery</span>
+<span class="comment">  of the data is desired.</span>
+<span class="comment">*/</span>
+
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT </span><span class="usertype">inflateEnd</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">z_streamp</span><span class="normal"> strm</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     All dynamically allocated data structures for this stream are freed.</span>
+<span class="comment">   This function discards any unprocessed input and does not flush any</span>
+<span class="comment">   pending output.</span>
+
+<span class="comment">     inflateEnd returns Z_OK if success, Z_STREAM_ERROR if the stream state</span>
+<span class="comment">   was inconsistent. In the error case, msg may be set but then points to a</span>
+<span class="comment">   static string (which must not be deallocated).</span>
+<span class="comment">*/</span>
+
+<span class="normal">                        </span><span class="comment">/* Advanced functions */</span>
+
+<span class="comment">/*</span>
+<span class="comment">    The following functions are needed only in some special applications.</span>
+<span class="comment">*/</span>
+
+<span class="comment">/*</span>
+<span class="comment">ZEXTERN int ZEXPORT deflateInit2 OF((z_streamp strm,</span>
+<span class="comment">                                     int  level,</span>
+<span class="comment">                                     int  method,</span>
+<span class="comment">                                     int  windowBits,</span>
+<span class="comment">                                     int  memLevel,</span>
+<span class="comment">                                     int  strategy));</span>
+
+<span class="comment">     This is another version of deflateInit with more compression options. The</span>
+<span class="comment">   fields next_in, zalloc, zfree and opaque must be initialized before by</span>
+<span class="comment">   the caller.</span>
+
+<span class="comment">     The method parameter is the compression method. It must be Z_DEFLATED in</span>
+<span class="comment">   this version of the library.</span>
+
+<span class="comment">     The windowBits parameter is the base two logarithm of the window size</span>
+<span class="comment">   (the size of the history buffer). It should be in the range 8..15 for this</span>
+<span class="comment">   version of the library. Larger values of this parameter result in better</span>
+<span class="comment">   compression at the expense of memory usage. The default value is 15 if</span>
+<span class="comment">   deflateInit is used instead.</span>
+
+<span class="comment">     windowBits can also be -8..-15 for raw deflate. In this case, -windowBits</span>
+<span class="comment">   determines the window size. deflate() will then generate raw deflate data</span>
+<span class="comment">   with no zlib header or trailer, and will not compute an adler32 check value.</span>
+
+<span class="comment">     windowBits can also be greater than 15 for optional gzip encoding. Add</span>
+<span class="comment">   16 to windowBits to write a simple gzip header and trailer around the</span>
+<span class="comment">   compressed data instead of a zlib wrapper. The gzip header will have no</span>
+<span class="comment">   file name, no extra data, no comment, no modification time (set to zero),</span>
+<span class="comment">   no header crc, and the operating system will be set to 255 (unknown).  If a</span>
+<span class="comment">   gzip stream is being written, strm-&gt;adler is a crc32 instead of an adler32.</span>
+
+<span class="comment">     The memLevel parameter specifies how much memory should be allocated</span>
+<span class="comment">   for the internal compression state. memLevel=1 uses minimum memory but</span>
+<span class="comment">   is slow and reduces compression ratio; memLevel=9 uses maximum memory</span>
+<span class="comment">   for optimal speed. The default value is 8. See zconf.h for total memory</span>
+<span class="comment">   usage as a function of windowBits and memLevel.</span>
+
+<span class="comment">     The strategy parameter is used to tune the compression algorithm. Use the</span>
+<span class="comment">   value Z_DEFAULT_STRATEGY for normal data, Z_FILTERED for data produced by a</span>
+<span class="comment">   filter (or predictor), Z_HUFFMAN_ONLY to force Huffman encoding only (no</span>
+<span class="comment">   string match), or Z_RLE to limit match distances to one (run-length</span>
+<span class="comment">   encoding). Filtered data consists mostly of small values with a somewhat</span>
+<span class="comment">   random distribution. In this case, the compression algorithm is tuned to</span>
+<span class="comment">   compress them better. The effect of Z_FILTERED is to force more Huffman</span>
+<span class="comment">   coding and less string matching; it is somewhat intermediate between</span>
+<span class="comment">   Z_DEFAULT and Z_HUFFMAN_ONLY. Z_RLE is designed to be almost as fast as</span>
+<span class="comment">   Z_HUFFMAN_ONLY, but give better compression for PNG image data. The strategy</span>
+<span class="comment">   parameter only affects the compression ratio but not the correctness of the</span>
+<span class="comment">   compressed output even if it is not set appropriately.  Z_FIXED prevents the</span>
+<span class="comment">   use of dynamic Huffman codes, allowing for a simpler decoder for special</span>
+<span class="comment">   applications.</span>
+
+<span class="comment">      deflateInit2 returns Z_OK if success, Z_MEM_ERROR if there was not enough</span>
+<span class="comment">   memory, Z_STREAM_ERROR if a parameter is invalid (such as an invalid</span>
+<span class="comment">   method). msg is set to null if there is no error message.  deflateInit2 does</span>
+<span class="comment">   not perform any compression: this will be done by deflate().</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT </span><span class="usertype">deflateSetDictionary</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">z_streamp</span><span class="normal"> strm</span><span class="symbol">,</span>
+<span class="normal">                                             </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">Bytef</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dictionary</span><span class="symbol">,</span>
+<span class="normal">                                             </span><span class="usertype">uInt</span><span class="normal">  dictLength</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     Initializes the compression dictionary from the given byte sequence</span>
+<span class="comment">   without producing any compressed output. This function must be called</span>
+<span class="comment">   immediately after deflateInit, deflateInit2 or deflateReset, before any</span>
+<span class="comment">   call of deflate. The compressor and decompressor must use exactly the same</span>
+<span class="comment">   dictionary (see inflateSetDictionary).</span>
+
+<span class="comment">     The dictionary should consist of strings (byte sequences) that are likely</span>
+<span class="comment">   to be encountered later in the data to be compressed, with the most commonly</span>
+<span class="comment">   used strings preferably put towards the end of the dictionary. Using a</span>
+<span class="comment">   dictionary is most useful when the data to be compressed is short and can be</span>
+<span class="comment">   predicted with good accuracy; the data can then be compressed better than</span>
+<span class="comment">   with the default empty dictionary.</span>
+
+<span class="comment">     Depending on the size of the compression data structures selected by</span>
+<span class="comment">   deflateInit or deflateInit2, a part of the dictionary may in effect be</span>
+<span class="comment">   discarded, for example if the dictionary is larger than the window size in</span>
+<span class="comment">   deflate or deflate2. Thus the strings most likely to be useful should be</span>
+<span class="comment">   put at the end of the dictionary, not at the front. In addition, the</span>
+<span class="comment">   current implementation of deflate will use at most the window size minus</span>
+<span class="comment">   262 bytes of the provided dictionary.</span>
+
+<span class="comment">     Upon return of this function, strm-&gt;adler is set to the adler32 value</span>
+<span class="comment">   of the dictionary; the decompressor may later use this value to determine</span>
+<span class="comment">   which dictionary has been used by the compressor. (The adler32 value</span>
+<span class="comment">   applies to the whole dictionary even if only a subset of the dictionary is</span>
+<span class="comment">   actually used by the compressor.) If a raw deflate was requested, then the</span>
+<span class="comment">   adler32 value is not computed and strm-&gt;adler is not set.</span>
+
+<span class="comment">     deflateSetDictionary returns Z_OK if success, or Z_STREAM_ERROR if a</span>
+<span class="comment">   parameter is invalid (such as NULL dictionary) or the stream state is</span>
+<span class="comment">   inconsistent (for example if deflate has already been called for this stream</span>
+<span class="comment">   or if the compression method is bsort). deflateSetDictionary does not</span>
+<span class="comment">   perform any compression: this will be done by deflate().</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT </span><span class="usertype">deflateCopy</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">z_streamp</span><span class="normal"> dest</span><span class="symbol">,</span>
+<span class="normal">                                    </span><span class="usertype">z_streamp</span><span class="normal"> source</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     Sets the destination stream as a complete copy of the source stream.</span>
+
+<span class="comment">     This function can be useful when several compression strategies will be</span>
+<span class="comment">   tried, for example when there are several ways of pre-processing the input</span>
+<span class="comment">   data with a filter. The streams that will be discarded should then be freed</span>
+<span class="comment">   by calling deflateEnd.  Note that deflateCopy duplicates the internal</span>
+<span class="comment">   compression state which can be quite large, so this strategy is slow and</span>
+<span class="comment">   can consume lots of memory.</span>
+
+<span class="comment">     deflateCopy returns Z_OK if success, Z_MEM_ERROR if there was not</span>
+<span class="comment">   enough memory, Z_STREAM_ERROR if the source stream state was inconsistent</span>
+<span class="comment">   (such as zalloc being NULL). msg is left unchanged in both source and</span>
+<span class="comment">   destination.</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT </span><span class="usertype">deflateReset</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">z_streamp</span><span class="normal"> strm</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     This function is equivalent to deflateEnd followed by deflateInit,</span>
+<span class="comment">   but does not free and reallocate all the internal compression state.</span>
+<span class="comment">   The stream will keep the same compression level and any other attributes</span>
+<span class="comment">   that may have been set by deflateInit2.</span>
+
+<span class="comment">      deflateReset returns Z_OK if success, or Z_STREAM_ERROR if the source</span>
+<span class="comment">   stream state was inconsistent (such as zalloc or state being NULL).</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT </span><span class="usertype">deflateParams</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">z_streamp</span><span class="normal"> strm</span><span class="symbol">,</span>
+<span class="normal">                                      </span><span class="type">int</span><span class="normal"> level</span><span class="symbol">,</span>
+<span class="normal">                                      </span><span class="type">int</span><span class="normal"> strategy</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     Dynamically update the compression level and compression strategy.  The</span>
+<span class="comment">   interpretation of level and strategy is as in deflateInit2.  This can be</span>
+<span class="comment">   used to switch between compression and straight copy of the input data, or</span>
+<span class="comment">   to switch to a different kind of input data requiring a different</span>
+<span class="comment">   strategy. If the compression level is changed, the input available so far</span>
+<span class="comment">   is compressed with the old level (and may be flushed); the new level will</span>
+<span class="comment">   take effect only at the next call of deflate().</span>
+
+<span class="comment">     Before the call of deflateParams, the stream state must be set as for</span>
+<span class="comment">   a call of deflate(), since the currently available input may have to</span>
+<span class="comment">   be compressed and flushed. In particular, strm-&gt;avail_out must be non-zero.</span>
+
+<span class="comment">     deflateParams returns Z_OK if success, Z_STREAM_ERROR if the source</span>
+<span class="comment">   stream state was inconsistent or if a parameter was invalid, Z_BUF_ERROR</span>
+<span class="comment">   if strm-&gt;avail_out was zero.</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT </span><span class="usertype">deflateTune</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">z_streamp</span><span class="normal"> strm</span><span class="symbol">,</span>
+<span class="normal">                                    </span><span class="type">int</span><span class="normal"> good_length</span><span class="symbol">,</span>
+<span class="normal">                                    </span><span class="type">int</span><span class="normal"> max_lazy</span><span class="symbol">,</span>
+<span class="normal">                                    </span><span class="type">int</span><span class="normal"> nice_length</span><span class="symbol">,</span>
+<span class="normal">                                    </span><span class="type">int</span><span class="normal"> max_chain</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     Fine tune deflate's internal compression parameters.  This should only be</span>
+<span class="comment">   used by someone who understands the algorithm used by zlib's deflate for</span>
+<span class="comment">   searching for the best matching string, and even then only by the most</span>
+<span class="comment">   fanatic optimizer trying to squeeze out the last compressed bit for their</span>
+<span class="comment">   specific input data.  Read the deflate.c source code for the meaning of the</span>
+<span class="comment">   max_lazy, good_length, nice_length, and max_chain parameters.</span>
+
+<span class="comment">     deflateTune() can be called after deflateInit() or deflateInit2(), and</span>
+<span class="comment">   returns Z_OK on success, or Z_STREAM_ERROR for an invalid deflate stream.</span>
+<span class="comment"> */</span>
+
+<span class="normal">ZEXTERN uLong ZEXPORT </span><span class="usertype">deflateBound</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">z_streamp</span><span class="normal"> strm</span><span class="symbol">,</span>
+<span class="normal">                                       </span><span class="usertype">uLong</span><span class="normal"> sourceLen</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     deflateBound() returns an upper bound on the compressed size after</span>
+<span class="comment">   deflation of sourceLen bytes.  It must be called after deflateInit()</span>
+<span class="comment">   or deflateInit2().  This would be used to allocate an output buffer</span>
+<span class="comment">   for deflation in a single pass, and so would be called before deflate().</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT </span><span class="usertype">deflatePrime</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">z_streamp</span><span class="normal"> strm</span><span class="symbol">,</span>
+<span class="normal">                                     </span><span class="type">int</span><span class="normal"> bits</span><span class="symbol">,</span>
+<span class="normal">                                     </span><span class="type">int</span><span class="normal"> value</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     deflatePrime() inserts bits in the deflate output stream.  The intent</span>
+<span class="comment">  is that this function is used to start off the deflate output with the</span>
+<span class="comment">  bits leftover from a previous deflate stream when appending to it.  As such,</span>
+<span class="comment">  this function can only be used for raw deflate, and must be used before the</span>
+<span class="comment">  first deflate() call after a deflateInit2() or deflateReset().  bits must be</span>
+<span class="comment">  less than or equal to 16, and that many of the least significant bits of</span>
+<span class="comment">  value will be inserted in the output.</span>
+
+<span class="comment">      deflatePrime returns Z_OK if success, or Z_STREAM_ERROR if the source</span>
+<span class="comment">   stream state was inconsistent.</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT </span><span class="usertype">deflateSetHeader</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">z_streamp</span><span class="normal"> strm</span><span class="symbol">,</span>
+<span class="normal">                                         </span><span class="usertype">gz_headerp</span><span class="normal"> head</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">      deflateSetHeader() provides gzip header information for when a gzip</span>
+<span class="comment">   stream is requested by deflateInit2().  deflateSetHeader() may be called</span>
+<span class="comment">   after deflateInit2() or deflateReset() and before the first call of</span>
+<span class="comment">   deflate().  The text, time, os, extra field, name, and comment information</span>
+<span class="comment">   in the provided gz_header structure are written to the gzip header (xflag is</span>
+<span class="comment">   ignored -- the extra flags are set according to the compression level).  The</span>
+<span class="comment">   caller must assure that, if not Z_NULL, name and comment are terminated with</span>
+<span class="comment">   a zero byte, and that if extra is not Z_NULL, that extra_len bytes are</span>
+<span class="comment">   available there.  If hcrc is true, a gzip header crc is included.  Note that</span>
+<span class="comment">   the current versions of the command-line version of gzip (up through version</span>
+<span class="comment">   1.3.x) do not support header crc's, and will report that it is a "multi-part</span>
+<span class="comment">   gzip file" and give up.</span>
+
+<span class="comment">      If deflateSetHeader is not used, the default gzip header has text false,</span>
+<span class="comment">   the time set to zero, and os set to 255, with no extra, name, or comment</span>
+<span class="comment">   fields.  The gzip header is returned to the default state by deflateReset().</span>
+
+<span class="comment">      deflateSetHeader returns Z_OK if success, or Z_STREAM_ERROR if the source</span>
+<span class="comment">   stream state was inconsistent.</span>
+<span class="comment">*/</span>
+
+<span class="comment">/*</span>
+<span class="comment">ZEXTERN int ZEXPORT inflateInit2 OF((z_streamp strm,</span>
+<span class="comment">                                     int  windowBits));</span>
+
+<span class="comment">     This is another version of inflateInit with an extra parameter. The</span>
+<span class="comment">   fields next_in, avail_in, zalloc, zfree and opaque must be initialized</span>
+<span class="comment">   before by the caller.</span>
+
+<span class="comment">     The windowBits parameter is the base two logarithm of the maximum window</span>
+<span class="comment">   size (the size of the history buffer).  It should be in the range 8..15 for</span>
+<span class="comment">   this version of the library. The default value is 15 if inflateInit is used</span>
+<span class="comment">   instead. windowBits must be greater than or equal to the windowBits value</span>
+<span class="comment">   provided to deflateInit2() while compressing, or it must be equal to 15 if</span>
+<span class="comment">   deflateInit2() was not used. If a compressed stream with a larger window</span>
+<span class="comment">   size is given as input, inflate() will return with the error code</span>
+<span class="comment">   Z_DATA_ERROR instead of trying to allocate a larger window.</span>
+
+<span class="comment">     windowBits can also be -8..-15 for raw inflate. In this case, -windowBits</span>
+<span class="comment">   determines the window size. inflate() will then process raw deflate data,</span>
+<span class="comment">   not looking for a zlib or gzip header, not generating a check value, and not</span>
+<span class="comment">   looking for any check values for comparison at the end of the stream. This</span>
+<span class="comment">   is for use with other formats that use the deflate compressed data format</span>
+<span class="comment">   such as zip.  Those formats provide their own check values. If a custom</span>
+<span class="comment">   format is developed using the raw deflate format for compressed data, it is</span>
+<span class="comment">   recommended that a check value such as an adler32 or a crc32 be applied to</span>
+<span class="comment">   the uncompressed data as is done in the zlib, gzip, and zip formats.  For</span>
+<span class="comment">   most applications, the zlib format should be used as is. Note that comments</span>
+<span class="comment">   above on the use in deflateInit2() applies to the magnitude of windowBits.</span>
+
+<span class="comment">     windowBits can also be greater than 15 for optional gzip decoding. Add</span>
+<span class="comment">   32 to windowBits to enable zlib and gzip decoding with automatic header</span>
+<span class="comment">   detection, or add 16 to decode only the gzip format (the zlib format will</span>
+<span class="comment">   return a Z_DATA_ERROR).  If a gzip stream is being decoded, strm-&gt;adler is</span>
+<span class="comment">   a crc32 instead of an adler32.</span>
+
+<span class="comment">     inflateInit2 returns Z_OK if success, Z_MEM_ERROR if there was not enough</span>
+<span class="comment">   memory, Z_STREAM_ERROR if a parameter is invalid (such as a null strm). msg</span>
+<span class="comment">   is set to null if there is no error message.  inflateInit2 does not perform</span>
+<span class="comment">   any decompression apart from reading the zlib header if present: this will</span>
+<span class="comment">   be done by inflate(). (So next_in and avail_in may be modified, but next_out</span>
+<span class="comment">   and avail_out are unchanged.)</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT </span><span class="usertype">inflateSetDictionary</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">z_streamp</span><span class="normal"> strm</span><span class="symbol">,</span>
+<span class="normal">                                             </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">Bytef</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dictionary</span><span class="symbol">,</span>
+<span class="normal">                                             </span><span class="usertype">uInt</span><span class="normal">  dictLength</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     Initializes the decompression dictionary from the given uncompressed byte</span>
+<span class="comment">   sequence. This function must be called immediately after a call of inflate,</span>
+<span class="comment">   if that call returned Z_NEED_DICT. The dictionary chosen by the compressor</span>
+<span class="comment">   can be determined from the adler32 value returned by that call of inflate.</span>
+<span class="comment">   The compressor and decompressor must use exactly the same dictionary (see</span>
+<span class="comment">   deflateSetDictionary).  For raw inflate, this function can be called</span>
+<span class="comment">   immediately after inflateInit2() or inflateReset() and before any call of</span>
+<span class="comment">   inflate() to set the dictionary.  The application must insure that the</span>
+<span class="comment">   dictionary that was used for compression is provided.</span>
+
+<span class="comment">     inflateSetDictionary returns Z_OK if success, Z_STREAM_ERROR if a</span>
+<span class="comment">   parameter is invalid (such as NULL dictionary) or the stream state is</span>
+<span class="comment">   inconsistent, Z_DATA_ERROR if the given dictionary doesn't match the</span>
+<span class="comment">   expected one (incorrect adler32 value). inflateSetDictionary does not</span>
+<span class="comment">   perform any decompression: this will be done by subsequent calls of</span>
+<span class="comment">   inflate().</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT </span><span class="usertype">inflateSync</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">z_streamp</span><span class="normal"> strm</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">    Skips invalid compressed data until a full flush point (see above the</span>
+<span class="comment">  description of deflate with Z_FULL_FLUSH) can be found, or until all</span>
+<span class="comment">  available input is skipped. No output is provided.</span>
+
+<span class="comment">    inflateSync returns Z_OK if a full flush point has been found, Z_BUF_ERROR</span>
+<span class="comment">  if no more input was provided, Z_DATA_ERROR if no flush point has been found,</span>
+<span class="comment">  or Z_STREAM_ERROR if the stream structure was inconsistent. In the success</span>
+<span class="comment">  case, the application may save the current current value of total_in which</span>
+<span class="comment">  indicates where valid compressed data was found. In the error case, the</span>
+<span class="comment">  application may repeatedly call inflateSync, providing more input each time,</span>
+<span class="comment">  until success or end of the input data.</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT </span><span class="usertype">inflateCopy</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">z_streamp</span><span class="normal"> dest</span><span class="symbol">,</span>
+<span class="normal">                                    </span><span class="usertype">z_streamp</span><span class="normal"> source</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     Sets the destination stream as a complete copy of the source stream.</span>
+
+<span class="comment">     This function can be useful when randomly accessing a large stream.  The</span>
+<span class="comment">   first pass through the stream can periodically record the inflate state,</span>
+<span class="comment">   allowing restarting inflate at those points when randomly accessing the</span>
+<span class="comment">   stream.</span>
+
+<span class="comment">     inflateCopy returns Z_OK if success, Z_MEM_ERROR if there was not</span>
+<span class="comment">   enough memory, Z_STREAM_ERROR if the source stream state was inconsistent</span>
+<span class="comment">   (such as zalloc being NULL). msg is left unchanged in both source and</span>
+<span class="comment">   destination.</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT </span><span class="usertype">inflateReset</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">z_streamp</span><span class="normal"> strm</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     This function is equivalent to inflateEnd followed by inflateInit,</span>
+<span class="comment">   but does not free and reallocate all the internal decompression state.</span>
+<span class="comment">   The stream will keep attributes that may have been set by inflateInit2.</span>
+
+<span class="comment">      inflateReset returns Z_OK if success, or Z_STREAM_ERROR if the source</span>
+<span class="comment">   stream state was inconsistent (such as zalloc or state being NULL).</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT </span><span class="usertype">inflatePrime</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">z_streamp</span><span class="normal"> strm</span><span class="symbol">,</span>
+<span class="normal">                                     </span><span class="type">int</span><span class="normal"> bits</span><span class="symbol">,</span>
+<span class="normal">                                     </span><span class="type">int</span><span class="normal"> value</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     This function inserts bits in the inflate input stream.  The intent is</span>
+<span class="comment">  that this function is used to start inflating at a bit position in the</span>
+<span class="comment">  middle of a byte.  The provided bits will be used before any bytes are used</span>
+<span class="comment">  from next_in.  This function should only be used with raw inflate, and</span>
+<span class="comment">  should be used before the first inflate() call after inflateInit2() or</span>
+<span class="comment">  inflateReset().  bits must be less than or equal to 16, and that many of the</span>
+<span class="comment">  least significant bits of value will be inserted in the input.</span>
+
+<span class="comment">      inflatePrime returns Z_OK if success, or Z_STREAM_ERROR if the source</span>
+<span class="comment">   stream state was inconsistent.</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT </span><span class="usertype">inflateGetHeader</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">z_streamp</span><span class="normal"> strm</span><span class="symbol">,</span>
+<span class="normal">                                         </span><span class="usertype">gz_headerp</span><span class="normal"> head</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">      inflateGetHeader() requests that gzip header information be stored in the</span>
+<span class="comment">   provided gz_header structure.  inflateGetHeader() may be called after</span>
+<span class="comment">   inflateInit2() or inflateReset(), and before the first call of inflate().</span>
+<span class="comment">   As inflate() processes the gzip stream, head-&gt;done is zero until the header</span>
+<span class="comment">   is completed, at which time head-&gt;done is set to one.  If a zlib stream is</span>
+<span class="comment">   being decoded, then head-&gt;done is set to -1 to indicate that there will be</span>
+<span class="comment">   no gzip header information forthcoming.  Note that Z_BLOCK can be used to</span>
+<span class="comment">   force inflate() to return immediately after header processing is complete</span>
+<span class="comment">   and before any actual data is decompressed.</span>
+
+<span class="comment">      The text, time, xflags, and os fields are filled in with the gzip header</span>
+<span class="comment">   contents.  hcrc is set to true if there is a header CRC.  (The header CRC</span>
+<span class="comment">   was valid if done is set to one.)  If extra is not Z_NULL, then extra_max</span>
+<span class="comment">   contains the maximum number of bytes to write to extra.  Once done is true,</span>
+<span class="comment">   extra_len contains the actual extra field length, and extra contains the</span>
+<span class="comment">   extra field, or that field truncated if extra_max is less than extra_len.</span>
+<span class="comment">   If name is not Z_NULL, then up to name_max characters are written there,</span>
+<span class="comment">   terminated with a zero unless the length is greater than name_max.  If</span>
+<span class="comment">   comment is not Z_NULL, then up to comm_max characters are written there,</span>
+<span class="comment">   terminated with a zero unless the length is greater than comm_max.  When</span>
+<span class="comment">   any of extra, name, or comment are not Z_NULL and the respective field is</span>
+<span class="comment">   not present in the header, then that field is set to Z_NULL to signal its</span>
+<span class="comment">   absence.  This allows the use of deflateSetHeader() with the returned</span>
+<span class="comment">   structure to duplicate the header.  However if those fields are set to</span>
+<span class="comment">   allocated memory, then the application will need to save those pointers</span>
+<span class="comment">   elsewhere so that they can be eventually freed.</span>
+
+<span class="comment">      If inflateGetHeader is not used, then the header information is simply</span>
+<span class="comment">   discarded.  The header is always checked for validity, including the header</span>
+<span class="comment">   CRC if present.  inflateReset() will reset the process to discard the header</span>
+<span class="comment">   information.  The application would need to call inflateGetHeader() again to</span>
+<span class="comment">   retrieve the header from the next gzip stream.</span>
+
+<span class="comment">      inflateGetHeader returns Z_OK if success, or Z_STREAM_ERROR if the source</span>
+<span class="comment">   stream state was inconsistent.</span>
+<span class="comment">*/</span>
+
+<span class="comment">/*</span>
+<span class="comment">ZEXTERN int ZEXPORT inflateBackInit OF((z_streamp strm, int windowBits,</span>
+<span class="comment">                                        unsigned char FAR *window));</span>
+
+<span class="comment">     Initialize the internal stream state for decompression using inflateBack()</span>
+<span class="comment">   calls.  The fields zalloc, zfree and opaque in strm must be initialized</span>
+<span class="comment">   before the call.  If zalloc and zfree are Z_NULL, then the default library-</span>
+<span class="comment">   derived memory allocation routines are used.  windowBits is the base two</span>
+<span class="comment">   logarithm of the window size, in the range 8..15.  window is a caller</span>
+<span class="comment">   supplied buffer of that size.  Except for special applications where it is</span>
+<span class="comment">   assured that deflate was used with small window sizes, windowBits must be 15</span>
+<span class="comment">   and a 32K byte window must be supplied to be able to decompress general</span>
+<span class="comment">   deflate streams.</span>
+
+<span class="comment">     See inflateBack() for the usage of these routines.</span>
+
+<span class="comment">     inflateBackInit will return Z_OK on success, Z_STREAM_ERROR if any of</span>
+<span class="comment">   the paramaters are invalid, Z_MEM_ERROR if the internal state could not</span>
+<span class="comment">   be allocated, or Z_VERSION_ERROR if the version of the library does not</span>
+<span class="comment">   match the version of the header file.</span>
+<span class="comment">*/</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">in_func</span><span class="symbol">)</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="type">void</span><span class="normal"> FAR </span><span class="symbol">*,</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">char</span><span class="normal"> FAR </span><span class="symbol">*</span><span class="normal"> FAR </span><span class="symbol">*));</span>
+<span class="keyword">typedef</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">out_func</span><span class="symbol">)</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="type">void</span><span class="normal"> FAR </span><span class="symbol">*,</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">char</span><span class="normal"> FAR </span><span class="symbol">*,</span><span class="normal"> </span><span class="type">unsigned</span><span class="symbol">));</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT </span><span class="usertype">inflateBack</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">z_streamp</span><span class="normal"> strm</span><span class="symbol">,</span>
+<span class="normal">                                    </span><span class="usertype">in_func</span><span class="normal"> in</span><span class="symbol">,</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="usertype">FAR</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">in_desc</span><span class="symbol">,</span>
+<span class="normal">                                    </span><span class="usertype">out_func</span><span class="normal"> out</span><span class="symbol">,</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="usertype">FAR</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">out_desc</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     inflateBack() does a raw inflate with a single call using a call-back</span>
+<span class="comment">   interface for input and output.  This is more efficient than inflate() for</span>
+<span class="comment">   file i/o applications in that it avoids copying between the output and the</span>
+<span class="comment">   sliding window by simply making the window itself the output buffer.  This</span>
+<span class="comment">   function trusts the application to not change the output buffer passed by</span>
+<span class="comment">   the output function, at least until inflateBack() returns.</span>
+
+<span class="comment">     inflateBackInit() must be called first to allocate the internal state</span>
+<span class="comment">   and to initialize the state with the user-provided window buffer.</span>
+<span class="comment">   inflateBack() may then be used multiple times to inflate a complete, raw</span>
+<span class="comment">   deflate stream with each call.  inflateBackEnd() is then called to free</span>
+<span class="comment">   the allocated state.</span>
+
+<span class="comment">     A raw deflate stream is one with no zlib or gzip header or trailer.</span>
+<span class="comment">   This routine would normally be used in a utility that reads zip or gzip</span>
+<span class="comment">   files and writes out uncompressed files.  The utility would decode the</span>
+<span class="comment">   header and process the trailer on its own, hence this routine expects</span>
+<span class="comment">   only the raw deflate stream to decompress.  This is different from the</span>
+<span class="comment">   normal behavior of inflate(), which expects either a zlib or gzip header and</span>
+<span class="comment">   trailer around the deflate stream.</span>
+
+<span class="comment">     inflateBack() uses two subroutines supplied by the caller that are then</span>
+<span class="comment">   called by inflateBack() for input and output.  inflateBack() calls those</span>
+<span class="comment">   routines until it reads a complete deflate stream and writes out all of the</span>
+<span class="comment">   uncompressed data, or until it encounters an error.  The function's</span>
+<span class="comment">   parameters and return types are defined above in the in_func and out_func</span>
+<span class="comment">   typedefs.  inflateBack() will call in(in_desc, &amp;buf) which should return the</span>
+<span class="comment">   number of bytes of provided input, and a pointer to that input in buf.  If</span>
+<span class="comment">   there is no input available, in() must return zero--buf is ignored in that</span>
+<span class="comment">   case--and inflateBack() will return a buffer error.  inflateBack() will call</span>
+<span class="comment">   out(out_desc, buf, len) to write the uncompressed data buf[0..len-1].  out()</span>
+<span class="comment">   should return zero on success, or non-zero on failure.  If out() returns</span>
+<span class="comment">   non-zero, inflateBack() will return with an error.  Neither in() nor out()</span>
+<span class="comment">   are permitted to change the contents of the window provided to</span>
+<span class="comment">   inflateBackInit(), which is also the buffer that out() uses to write from.</span>
+<span class="comment">   The length written by out() will be at most the window size.  Any non-zero</span>
+<span class="comment">   amount of input may be provided by in().</span>
+
+<span class="comment">     For convenience, inflateBack() can be provided input on the first call by</span>
+<span class="comment">   setting strm-&gt;next_in and strm-&gt;avail_in.  If that input is exhausted, then</span>
+<span class="comment">   in() will be called.  Therefore strm-&gt;next_in must be initialized before</span>
+<span class="comment">   calling inflateBack().  If strm-&gt;next_in is Z_NULL, then in() will be called</span>
+<span class="comment">   immediately for input.  If strm-&gt;next_in is not Z_NULL, then strm-&gt;avail_in</span>
+<span class="comment">   must also be initialized, and then if strm-&gt;avail_in is not zero, input will</span>
+<span class="comment">   initially be taken from strm-&gt;next_in[0 .. strm-&gt;avail_in - 1].</span>
+
+<span class="comment">     The in_desc and out_desc parameters of inflateBack() is passed as the</span>
+<span class="comment">   first parameter of in() and out() respectively when they are called.  These</span>
+<span class="comment">   descriptors can be optionally used to pass any information that the caller-</span>
+<span class="comment">   supplied in() and out() functions need to do their job.</span>
+
+<span class="comment">     On return, inflateBack() will set strm-&gt;next_in and strm-&gt;avail_in to</span>
+<span class="comment">   pass back any unused input that was provided by the last in() call.  The</span>
+<span class="comment">   return values of inflateBack() can be Z_STREAM_END on success, Z_BUF_ERROR</span>
+<span class="comment">   if in() or out() returned an error, Z_DATA_ERROR if there was a format</span>
+<span class="comment">   error in the deflate stream (in which case strm-&gt;msg is set to indicate the</span>
+<span class="comment">   nature of the error), or Z_STREAM_ERROR if the stream was not properly</span>
+<span class="comment">   initialized.  In the case of Z_BUF_ERROR, an input or output error can be</span>
+<span class="comment">   distinguished using strm-&gt;next_in which will be Z_NULL only if in() returned</span>
+<span class="comment">   an error.  If strm-&gt;next is not Z_NULL, then the Z_BUF_ERROR was due to</span>
+<span class="comment">   out() returning non-zero.  (in() will always be called before out(), so</span>
+<span class="comment">   strm-&gt;next_in is assured to be defined if out() returns non-zero.)  Note</span>
+<span class="comment">   that inflateBack() cannot return Z_OK.</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT </span><span class="usertype">inflateBackEnd</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">z_streamp</span><span class="normal"> strm</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     All memory allocated by inflateBackInit() is freed.</span>
+
+<span class="comment">     inflateBackEnd() returns Z_OK on success, or Z_STREAM_ERROR if the stream</span>
+<span class="comment">   state was inconsistent.</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN uLong ZEXPORT </span><span class="usertype">zlibCompileFlags</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="type">void</span><span class="symbol">));</span>
+<span class="comment">/* Return flags indicating compile-time options.</span>
+
+<span class="comment">    Type sizes, two bits each, 00 = 16 bits, 01 = 32, 10 = 64, 11 = other:</span>
+<span class="comment">     1.0: size of uInt</span>
+<span class="comment">     3.2: size of uLong</span>
+<span class="comment">     5.4: size of voidpf (pointer)</span>
+<span class="comment">     7.6: size of z_off_t</span>
+
+<span class="comment">    Compiler, assembler, and debug options:</span>
+<span class="comment">     8: DEBUG</span>
+<span class="comment">     9: ASMV or ASMINF -- use ASM code</span>
+<span class="comment">     10: ZLIB_WINAPI -- exported functions use the WINAPI calling convention</span>
+<span class="comment">     11: 0 (reserved)</span>
+
+<span class="comment">    One-time table building (smaller code, but not thread-safe if true):</span>
+<span class="comment">     12: BUILDFIXED -- build static block decoding tables when needed</span>
+<span class="comment">     13: DYNAMIC_CRC_TABLE -- build CRC calculation tables when needed</span>
+<span class="comment">     14,15: 0 (reserved)</span>
+
+<span class="comment">    Library content (indicates missing functionality):</span>
+<span class="comment">     16: NO_GZCOMPRESS -- gz* functions cannot compress (to avoid linking</span>
+<span class="comment">                          deflate code when not needed)</span>
+<span class="comment">     17: NO_GZIP -- deflate can't write gzip streams, and inflate can't detect</span>
+<span class="comment">                    and decode gzip streams (to avoid linking crc code)</span>
+<span class="comment">     18-19: 0 (reserved)</span>
+
+<span class="comment">    Operation variations (changes in library functionality):</span>
+<span class="comment">     20: PKZIP_BUG_WORKAROUND -- slightly more permissive inflate</span>
+<span class="comment">     21: FASTEST -- deflate algorithm with only one, lowest compression level</span>
+<span class="comment">     22,23: 0 (reserved)</span>
+
+<span class="comment">    The sprintf variant used by gzprintf (zero is best):</span>
+<span class="comment">     24: 0 = vs*, 1 = s* -- 1 means limited to 20 arguments after the format</span>
+<span class="comment">     25: 0 = *nprintf, 1 = *printf -- 1 means gzprintf() not secure!</span>
+<span class="comment">     26: 0 = returns value, 1 = void -- 1 means inferred string length returned</span>
+
+<span class="comment">    Remainder:</span>
+<span class="comment">     27-31: 0 (reserved)</span>
+<span class="comment"> */</span>
+
+
+<span class="normal">                        </span><span class="comment">/* utility functions */</span>
+
+<span class="comment">/*</span>
+<span class="comment">     The following utility functions are implemented on top of the</span>
+<span class="comment">   basic stream-oriented functions. To simplify the interface, some</span>
+<span class="comment">   default options are assumed (compression level and memory usage,</span>
+<span class="comment">   standard memory allocation functions). The source code of these</span>
+<span class="comment">   utility functions can easily be modified if you need special options.</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT </span><span class="usertype">compress</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">Bytef</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dest</span><span class="symbol">,</span><span class="normal">   </span><span class="usertype">uLongf</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">destLen</span><span class="symbol">,</span>
+<span class="normal">                                 </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">Bytef</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">source</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">uLong</span><span class="normal"> sourceLen</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     Compresses the source buffer into the destination buffer.  sourceLen is</span>
+<span class="comment">   the byte length of the source buffer. Upon entry, destLen is the total</span>
+<span class="comment">   size of the destination buffer, which must be at least the value returned</span>
+<span class="comment">   by compressBound(sourceLen). Upon exit, destLen is the actual size of the</span>
+<span class="comment">   compressed buffer.</span>
+<span class="comment">     This function can be used to compress a whole file at once if the</span>
+<span class="comment">   input file is mmap'ed.</span>
+<span class="comment">     compress returns Z_OK if success, Z_MEM_ERROR if there was not</span>
+<span class="comment">   enough memory, Z_BUF_ERROR if there was not enough room in the output</span>
+<span class="comment">   buffer.</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT </span><span class="usertype">compress2</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">Bytef</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dest</span><span class="symbol">,</span><span class="normal">   </span><span class="usertype">uLongf</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">destLen</span><span class="symbol">,</span>
+<span class="normal">                                  </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">Bytef</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">source</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">uLong</span><span class="normal"> sourceLen</span><span class="symbol">,</span>
+<span class="normal">                                  </span><span class="type">int</span><span class="normal"> level</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     Compresses the source buffer into the destination buffer. The level</span>
+<span class="comment">   parameter has the same meaning as in deflateInit.  sourceLen is the byte</span>
+<span class="comment">   length of the source buffer. Upon entry, destLen is the total size of the</span>
+<span class="comment">   destination buffer, which must be at least the value returned by</span>
+<span class="comment">   compressBound(sourceLen). Upon exit, destLen is the actual size of the</span>
+<span class="comment">   compressed buffer.</span>
+
+<span class="comment">     compress2 returns Z_OK if success, Z_MEM_ERROR if there was not enough</span>
+<span class="comment">   memory, Z_BUF_ERROR if there was not enough room in the output buffer,</span>
+<span class="comment">   Z_STREAM_ERROR if the level parameter is invalid.</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN uLong ZEXPORT </span><span class="usertype">compressBound</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">uLong</span><span class="normal"> sourceLen</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     compressBound() returns an upper bound on the compressed size after</span>
+<span class="comment">   compress() or compress2() on sourceLen bytes.  It would be used before</span>
+<span class="comment">   a compress() or compress2() call to allocate the destination buffer.</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT </span><span class="usertype">uncompress</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">Bytef</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dest</span><span class="symbol">,</span><span class="normal">   </span><span class="usertype">uLongf</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">destLen</span><span class="symbol">,</span>
+<span class="normal">                                   </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">Bytef</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">source</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">uLong</span><span class="normal"> sourceLen</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     Decompresses the source buffer into the destination buffer.  sourceLen is</span>
+<span class="comment">   the byte length of the source buffer. Upon entry, destLen is the total</span>
+<span class="comment">   size of the destination buffer, which must be large enough to hold the</span>
+<span class="comment">   entire uncompressed data. (The size of the uncompressed data must have</span>
+<span class="comment">   been saved previously by the compressor and transmitted to the decompressor</span>
+<span class="comment">   by some mechanism outside the scope of this compression library.)</span>
+<span class="comment">   Upon exit, destLen is the actual size of the compressed buffer.</span>
+<span class="comment">     This function can be used to decompress a whole file at once if the</span>
+<span class="comment">   input file is mmap'ed.</span>
+
+<span class="comment">     uncompress returns Z_OK if success, Z_MEM_ERROR if there was not</span>
+<span class="comment">   enough memory, Z_BUF_ERROR if there was not enough room in the output</span>
+<span class="comment">   buffer, or Z_DATA_ERROR if the input data was corrupted or incomplete.</span>
+<span class="comment">*/</span>
+
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">voidp</span><span class="normal"> gzFile</span><span class="symbol">;</span>
+
+<span class="normal">ZEXTERN gzFile ZEXPORT </span><span class="usertype">gzopen</span><span class="normal">  </span><span class="function">OF</span><span class="symbol">((</span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">path</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">mode</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     Opens a gzip (.gz) file for reading or writing. The mode parameter</span>
+<span class="comment">   is as in fopen ("rb" or "wb") but can also include a compression level</span>
+<span class="comment">   ("wb9") or a strategy: 'f' for filtered data as in "wb6f", 'h' for</span>
+<span class="comment">   Huffman only compression as in "wb1h", or 'R' for run-length encoding</span>
+<span class="comment">   as in "wb1R". (See the description of deflateInit2 for more information</span>
+<span class="comment">   about the strategy parameter.)</span>
+
+<span class="comment">     gzopen can be used to read a file which is not in gzip format; in this</span>
+<span class="comment">   case gzread will directly read from the file without decompression.</span>
+
+<span class="comment">     gzopen returns NULL if the file could not be opened or if there was</span>
+<span class="comment">   insufficient memory to allocate the (de)compression state; errno</span>
+<span class="comment">   can be checked to distinguish the two cases (if errno is zero, the</span>
+<span class="comment">   zlib error is Z_MEM_ERROR).  */</span>
+
+<span class="normal">ZEXTERN gzFile ZEXPORT </span><span class="usertype">gzdopen</span><span class="normal">  </span><span class="function">OF</span><span class="symbol">((</span><span class="type">int</span><span class="normal"> fd</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">mode</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     gzdopen() associates a gzFile with the file descriptor fd.  File</span>
+<span class="comment">   descriptors are obtained from calls like open, dup, creat, pipe or</span>
+<span class="comment">   fileno (in the file has been previously opened with fopen).</span>
+<span class="comment">   The mode parameter is as in gzopen.</span>
+<span class="comment">     The next call of gzclose on the returned gzFile will also close the</span>
+<span class="comment">   file descriptor fd, just like fclose(fdopen(fd), mode) closes the file</span>
+<span class="comment">   descriptor fd. If you want to keep fd open, use gzdopen(dup(fd), mode).</span>
+<span class="comment">     gzdopen returns NULL if there was insufficient memory to allocate</span>
+<span class="comment">   the (de)compression state.</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT </span><span class="usertype">gzsetparams</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">gzFile</span><span class="normal"> file</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> level</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> strategy</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     Dynamically update the compression level or strategy. See the description</span>
+<span class="comment">   of deflateInit2 for the meaning of these parameters.</span>
+<span class="comment">     gzsetparams returns Z_OK if success, or Z_STREAM_ERROR if the file was not</span>
+<span class="comment">   opened for writing.</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT    </span><span class="usertype">gzread</span><span class="normal">  </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">gzFile</span><span class="normal"> file</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">voidp</span><span class="normal"> buf</span><span class="symbol">,</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> len</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     Reads the given number of uncompressed bytes from the compressed file.</span>
+<span class="comment">   If the input file was not in gzip format, gzread copies the given number</span>
+<span class="comment">   of bytes into the buffer.</span>
+<span class="comment">     gzread returns the number of uncompressed bytes actually read (0 for</span>
+<span class="comment">   end of file, -1 for error). */</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT    </span><span class="usertype">gzwrite</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">gzFile</span><span class="normal"> file</span><span class="symbol">,</span>
+<span class="normal">                                   </span><span class="usertype">voidpc</span><span class="normal"> buf</span><span class="symbol">,</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> len</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     Writes the given number of uncompressed bytes into the compressed file.</span>
+<span class="comment">   gzwrite returns the number of uncompressed bytes actually written</span>
+<span class="comment">   (0 in case of error).</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORTVA   </span><span class="usertype">gzprintf</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">gzFile</span><span class="normal"> file</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">format</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">...));</span>
+<span class="comment">/*</span>
+<span class="comment">     Converts, formats, and writes the args to the compressed file under</span>
+<span class="comment">   control of the format string, as in fprintf. gzprintf returns the number of</span>
+<span class="comment">   uncompressed bytes actually written (0 in case of error).  The number of</span>
+<span class="comment">   uncompressed bytes written is limited to 4095. The caller should assure that</span>
+<span class="comment">   this limit is not exceeded. If it is exceeded, then gzprintf() will return</span>
+<span class="comment">   return an error (0) with nothing written. In this case, there may also be a</span>
+<span class="comment">   buffer overflow with unpredictable consequences, which is possible only if</span>
+<span class="comment">   zlib was compiled with the insecure functions sprintf() or vsprintf()</span>
+<span class="comment">   because the secure snprintf() or vsnprintf() functions were not available.</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT </span><span class="usertype">gzputs</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">gzFile</span><span class="normal"> file</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">s</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">      Writes the given null-terminated string to the compressed file, excluding</span>
+<span class="comment">   the terminating null character.</span>
+<span class="comment">      gzputs returns the number of characters written, or -1 in case of error.</span>
+<span class="comment">*/</span>
+
+<span class="usertype">ZEXTERN</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> ZEXPORT </span><span class="usertype">gzgets</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">gzFile</span><span class="normal"> file</span><span class="symbol">,</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">buf</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> len</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">      Reads bytes from the compressed file until len-1 characters are read, or</span>
+<span class="comment">   a newline character is read and transferred to buf, or an end-of-file</span>
+<span class="comment">   condition is encountered.  The string is then terminated with a null</span>
+<span class="comment">   character.</span>
+<span class="comment">      gzgets returns buf, or Z_NULL in case of error.</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT    </span><span class="usertype">gzputc</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">gzFile</span><span class="normal"> file</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> c</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">      Writes c, converted to an unsigned char, into the compressed file.</span>
+<span class="comment">   gzputc returns the value that was written, or -1 in case of error.</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT    </span><span class="usertype">gzgetc</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">gzFile</span><span class="normal"> file</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">      Reads one byte from the compressed file. gzgetc returns this byte</span>
+<span class="comment">   or -1 in case of end of file or error.</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT    </span><span class="usertype">gzungetc</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="type">int</span><span class="normal"> c</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">gzFile</span><span class="normal"> file</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">      Push one character back onto the stream to be read again later.</span>
+<span class="comment">   Only one character of push-back is allowed.  gzungetc() returns the</span>
+<span class="comment">   character pushed, or -1 on failure.  gzungetc() will fail if a</span>
+<span class="comment">   character has been pushed but not read yet, or if c is -1. The pushed</span>
+<span class="comment">   character will be discarded if the stream is repositioned with gzseek()</span>
+<span class="comment">   or gzrewind().</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT    </span><span class="usertype">gzflush</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">gzFile</span><span class="normal"> file</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> flush</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     Flushes all pending output into the compressed file. The parameter</span>
+<span class="comment">   flush is as in the deflate() function. The return value is the zlib</span>
+<span class="comment">   error number (see function gzerror below). gzflush returns Z_OK if</span>
+<span class="comment">   the flush parameter is Z_FINISH and all output could be flushed.</span>
+<span class="comment">     gzflush should be called only when strictly necessary because it can</span>
+<span class="comment">   degrade compression.</span>
+<span class="comment">*/</span>
+
+<span class="usertype">ZEXTERN</span><span class="normal"> z_off_t ZEXPORT    </span><span class="usertype">gzseek</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">gzFile</span><span class="normal"> file</span><span class="symbol">,</span>
+<span class="normal">                                      </span><span class="usertype">z_off_t</span><span class="normal"> offset</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> whence</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">      Sets the starting position for the next gzread or gzwrite on the</span>
+<span class="comment">   given compressed file. The offset represents a number of bytes in the</span>
+<span class="comment">   uncompressed data stream. The whence parameter is defined as in lseek(2);</span>
+<span class="comment">   the value SEEK_END is not supported.</span>
+<span class="comment">     If the file is opened for reading, this function is emulated but can be</span>
+<span class="comment">   extremely slow. If the file is opened for writing, only forward seeks are</span>
+<span class="comment">   supported; gzseek then compresses a sequence of zeroes up to the new</span>
+<span class="comment">   starting position.</span>
+
+<span class="comment">      gzseek returns the resulting offset location as measured in bytes from</span>
+<span class="comment">   the beginning of the uncompressed stream, or -1 in case of error, in</span>
+<span class="comment">   particular if the file is opened for writing and the new starting position</span>
+<span class="comment">   would be before the current position.</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT    </span><span class="usertype">gzrewind</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">gzFile</span><span class="normal"> file</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     Rewinds the given file. This function is supported only for reading.</span>
+
+<span class="comment">   gzrewind(file) is equivalent to (int)gzseek(file, 0L, SEEK_SET)</span>
+<span class="comment">*/</span>
+
+<span class="usertype">ZEXTERN</span><span class="normal"> z_off_t ZEXPORT    </span><span class="usertype">gztell</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">gzFile</span><span class="normal"> file</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     Returns the starting position for the next gzread or gzwrite on the</span>
+<span class="comment">   given compressed file. This position represents a number of bytes in the</span>
+<span class="comment">   uncompressed data stream.</span>
+
+<span class="comment">   gztell(file) is equivalent to gzseek(file, 0L, SEEK_CUR)</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT </span><span class="usertype">gzeof</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">gzFile</span><span class="normal"> file</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     Returns 1 when EOF has previously been detected reading the given</span>
+<span class="comment">   input stream, otherwise zero.</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT </span><span class="usertype">gzdirect</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">gzFile</span><span class="normal"> file</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     Returns 1 if file is being read directly without decompression, otherwise</span>
+<span class="comment">   zero.</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> ZEXPORT    </span><span class="usertype">gzclose</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">gzFile</span><span class="normal"> file</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     Flushes all pending output if necessary, closes the compressed file</span>
+<span class="comment">   and deallocates all the (de)compression state. The return value is the zlib</span>
+<span class="comment">   error number (see function gzerror below).</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="usertype">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> ZEXPORT </span><span class="usertype">gzerror</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">gzFile</span><span class="normal"> file</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">errnum</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     Returns the error message for the last error which occurred on the</span>
+<span class="comment">   given compressed file. errnum is set to zlib error number. If an</span>
+<span class="comment">   error occurred in the file system and not in the compression library,</span>
+<span class="comment">   errnum is set to Z_ERRNO and the application may consult errno</span>
+<span class="comment">   to get the exact error code.</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN </span><span class="type">void</span><span class="normal"> ZEXPORT </span><span class="usertype">gzclearerr</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">gzFile</span><span class="normal"> file</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     Clears the error and end-of-file flags for file. This is analogous to the</span>
+<span class="comment">   clearerr() function in stdio. This is useful for continuing to read a gzip</span>
+<span class="comment">   file that is being written concurrently.</span>
+<span class="comment">*/</span>
+
+<span class="normal">                        </span><span class="comment">/* checksum functions */</span>
+
+<span class="comment">/*</span>
+<span class="comment">     These functions are not related to compression but are exported</span>
+<span class="comment">   anyway because they might be useful in applications using the</span>
+<span class="comment">   compression library.</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN uLong ZEXPORT </span><span class="usertype">adler32</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">uLong</span><span class="normal"> adler</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">Bytef</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">buf</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">uInt</span><span class="normal"> len</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     Update a running Adler-32 checksum with the bytes buf[0..len-1] and</span>
+<span class="comment">   return the updated checksum. If buf is NULL, this function returns</span>
+<span class="comment">   the required initial value for the checksum.</span>
+<span class="comment">   An Adler-32 checksum is almost as reliable as a CRC32 but can be computed</span>
+<span class="comment">   much faster. Usage example:</span>
+
+<span class="comment">     uLong adler = adler32(0L, Z_NULL, 0);</span>
+
+<span class="comment">     while (read_buffer(buffer, length) != EOF) {</span>
+<span class="comment">       adler = adler32(adler, buffer, length);</span>
+<span class="comment">     }</span>
+<span class="comment">     if (adler != original_adler) error();</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN uLong </span><span class="usertype">ZEXPORT</span><span class="normal"> </span><span class="usertype">adler32_combine</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">uLong</span><span class="normal"> adler1</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">uLong</span><span class="normal"> adler2</span><span class="symbol">,</span>
+<span class="normal">                                          </span><span class="usertype">z_off_t</span><span class="normal"> len2</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     Combine two Adler-32 checksums into one.  For two sequences of bytes, seq1</span>
+<span class="comment">   and seq2 with lengths len1 and len2, Adler-32 checksums were calculated for</span>
+<span class="comment">   each, adler1 and adler2.  adler32_combine() returns the Adler-32 checksum of</span>
+<span class="comment">   seq1 and seq2 concatenated, requiring only adler1, adler2, and len2.</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN uLong ZEXPORT </span><span class="usertype">crc32</span><span class="normal">   </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">uLong</span><span class="normal"> crc</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">Bytef</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">buf</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">uInt</span><span class="normal"> len</span><span class="symbol">));</span>
+<span class="comment">/*</span>
+<span class="comment">     Update a running CRC-32 with the bytes buf[0..len-1] and return the</span>
+<span class="comment">   updated CRC-32. If buf is NULL, this function returns the required initial</span>
+<span class="comment">   value for the for the crc. Pre- and post-conditioning (one's complement) is</span>
+<span class="comment">   performed within this function so it shouldn't be done by the application.</span>
+<span class="comment">   Usage example:</span>
+
+<span class="comment">     uLong crc = crc32(0L, Z_NULL, 0);</span>
+
+<span class="comment">     while (read_buffer(buffer, length) != EOF) {</span>
+<span class="comment">       crc = crc32(crc, buffer, length);</span>
+<span class="comment">     }</span>
+<span class="comment">     if (crc != original_crc) error();</span>
+<span class="comment">*/</span>
+
+<span class="normal">ZEXTERN uLong </span><span class="usertype">ZEXPORT</span><span class="normal"> </span><span class="usertype">crc32_combine</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">uLong</span><span class="normal"> crc1</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">uLong</span><span class="normal"> crc2</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">z_off_t</span><span class="normal"> len2</span><span class="symbol">));</span>
+
+<span class="comment">/*</span>
+<span class="comment">     Combine two CRC-32 check values into one.  For two sequences of bytes,</span>
+<span class="comment">   seq1 and seq2 with lengths len1 and len2, CRC-32 check values were</span>
+<span class="comment">   calculated for each, crc1 and crc2.  crc32_combine() returns the CRC-32</span>
+<span class="comment">   check value of seq1 and seq2 concatenated, requiring only crc1, crc2, and</span>
+<span class="comment">   len2.</span>
+<span class="comment">*/</span>
+
+
+<span class="normal">                        </span><span class="comment">/* various hacks, don't look :) */</span>
+
+<span class="comment">/* deflateInit and inflateInit are macros to allow checking the zlib version</span>
+<span class="comment"> * and the compiler's view of z_stream:</span>
+<span class="comment"> */</span>
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> </span><span class="usertype">ZEXPORT</span><span class="normal"> </span><span class="usertype">deflateInit_</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">z_streamp</span><span class="normal"> strm</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> level</span><span class="symbol">,</span>
+<span class="normal">                                     </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">version</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> stream_size</span><span class="symbol">));</span>
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> </span><span class="usertype">ZEXPORT</span><span class="normal"> </span><span class="usertype">inflateInit_</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">z_streamp</span><span class="normal"> strm</span><span class="symbol">,</span>
+<span class="normal">                                     </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">version</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> stream_size</span><span class="symbol">));</span>
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> </span><span class="usertype">ZEXPORT</span><span class="normal"> </span><span class="usertype">deflateInit2_</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">z_streamp</span><span class="normal"> strm</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal">  level</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal">  method</span><span class="symbol">,</span>
+<span class="normal">                                      </span><span class="type">int</span><span class="normal"> windowBits</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> memLevel</span><span class="symbol">,</span>
+<span class="normal">                                      </span><span class="type">int</span><span class="normal"> strategy</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">version</span><span class="symbol">,</span>
+<span class="normal">                                      </span><span class="type">int</span><span class="normal"> stream_size</span><span class="symbol">));</span>
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> </span><span class="usertype">ZEXPORT</span><span class="normal"> </span><span class="usertype">inflateInit2_</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">z_streamp</span><span class="normal"> strm</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal">  windowBits</span><span class="symbol">,</span>
+<span class="normal">                                      </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">version</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> stream_size</span><span class="symbol">));</span>
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal"> </span><span class="usertype">ZEXPORT</span><span class="normal"> </span><span class="usertype">inflateBackInit_</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">z_streamp</span><span class="normal"> strm</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> windowBits</span><span class="symbol">,</span>
+<span class="normal">                                         </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="usertype">FAR</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">window</span><span class="symbol">,</span>
+<span class="normal">                                         </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">version</span><span class="symbol">,</span>
+<span class="normal">                                         </span><span class="type">int</span><span class="normal"> stream_size</span><span class="symbol">));</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">deflateInit</span><span class="symbol">(</span><span class="normal">strm</span><span class="symbol">,</span><span class="normal"> level</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">\</span>
+<span class="normal">        </span><span class="function">deflateInit_</span><span class="symbol">((</span><span class="normal">strm</span><span class="symbol">),</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">level</span><span class="symbol">),</span><span class="normal">       ZLIB_VERSION</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">z_stream</span><span class="symbol">))</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">inflateInit</span><span class="symbol">(</span><span class="normal">strm</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">\</span>
+<span class="normal">        </span><span class="function">inflateInit_</span><span class="symbol">((</span><span class="normal">strm</span><span class="symbol">),</span><span class="normal">                ZLIB_VERSION</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">z_stream</span><span class="symbol">))</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">deflateInit2</span><span class="symbol">(</span><span class="normal">strm</span><span class="symbol">,</span><span class="normal"> level</span><span class="symbol">,</span><span class="normal"> method</span><span class="symbol">,</span><span class="normal"> windowBits</span><span class="symbol">,</span><span class="normal"> memLevel</span><span class="symbol">,</span><span class="normal"> strategy</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">\</span>
+<span class="normal">        </span><span class="function">deflateInit2_</span><span class="symbol">((</span><span class="normal">strm</span><span class="symbol">),(</span><span class="normal">level</span><span class="symbol">),(</span><span class="normal">method</span><span class="symbol">),(</span><span class="normal">windowBits</span><span class="symbol">),(</span><span class="normal">memLevel</span><span class="symbol">),\</span>
+<span class="normal">                      </span><span class="symbol">(</span><span class="normal">strategy</span><span class="symbol">),</span><span class="normal">           ZLIB_VERSION</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">z_stream</span><span class="symbol">))</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">inflateInit2</span><span class="symbol">(</span><span class="normal">strm</span><span class="symbol">,</span><span class="normal"> windowBits</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">\</span>
+<span class="normal">        </span><span class="function">inflateInit2_</span><span class="symbol">((</span><span class="normal">strm</span><span class="symbol">),</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">windowBits</span><span class="symbol">),</span><span class="normal"> ZLIB_VERSION</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">z_stream</span><span class="symbol">))</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">inflateBackInit</span><span class="symbol">(</span><span class="normal">strm</span><span class="symbol">,</span><span class="normal"> windowBits</span><span class="symbol">,</span><span class="normal"> window</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">\</span>
+<span class="normal">        </span><span class="function">inflateBackInit_</span><span class="symbol">((</span><span class="normal">strm</span><span class="symbol">),</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">windowBits</span><span class="symbol">),</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">window</span><span class="symbol">),</span><span class="normal"> </span><span class="symbol">\</span>
+<span class="normal">        ZLIB_VERSION</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">z_stream</span><span class="symbol">))</span>
+
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="function">defined</span><span class="symbol">(</span><span class="normal">ZUTIL_H</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="function">defined</span><span class="symbol">(</span><span class="normal">NO_DUMMY_DECL</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">internal_state</span><span class="normal"> </span><span class="cbracket">{</span><span class="type">int</span><span class="normal"> dummy</span><span class="symbol">;</span><span class="cbracket">}</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* hack for buggy compilers */</span>
+<span class="preproc">#endif</span>
+
+<span class="normal">ZEXTERN </span><span class="usertype">const</span><span class="normal"> </span><span class="type">char</span><span class="normal">   </span><span class="symbol">*</span><span class="normal"> ZEXPORT </span><span class="usertype">zError</span><span class="normal">           </span><span class="function">OF</span><span class="symbol">((</span><span class="type">int</span><span class="symbol">));</span>
+<span class="normal">ZEXTERN </span><span class="type">int</span><span class="normal">            ZEXPORT </span><span class="usertype">inflateSyncPoint</span><span class="normal"> </span><span class="function">OF</span><span class="symbol">((</span><span class="usertype">z_streamp</span><span class="normal"> z</span><span class="symbol">));</span>
+<span class="normal">ZEXTERN </span><span class="usertype">const</span><span class="normal"> uLongf </span><span class="symbol">*</span><span class="normal"> </span><span class="usertype">ZEXPORT</span><span class="normal"> </span><span class="usertype">get_crc_table</span><span class="normal">    </span><span class="function">OF</span><span class="symbol">((</span><span class="type">void</span><span class="symbol">));</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> __cplusplus</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* ZLIB_H */</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - file handles</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;DOS Default/Predefined File Handles</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 0 - Standard Input Device - can be redirected (STDIN)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 1 - Standard Output Device - can be redirected (STDOUT)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 2 - Standard Error Device - can be redirected (STDERR)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 3 - Standard Auxiliary Device (STDAUX)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 4 - Standard Printer Device (STDPRN)<br />
+<br />
+<br />
+<span class="highlight">See the following &nbsp;INT 21h &nbsp;Handle related function calls:</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_3c.html">INT 21,3C</a> &nbsp;Create file using handle<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_3d.html">INT 21,3D</a> &nbsp;Open file using handle<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_3e.html">INT 21,3E</a> &nbsp;Close file using handle<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_3f.html">INT 21,3F</a> &nbsp;Read file or device using handle<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_40.html">INT 21,40</a> &nbsp;Write file or device using handle<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_41.html">INT 21,41</a> &nbsp;Delete file<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_42.html">INT 21,42</a> &nbsp;Move file pointer using handle<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_43.html">INT 21,43</a> &nbsp;Change file mode<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_45.html">INT 21,45</a> &nbsp;Duplicate file handle<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_46.html">INT 21,46</a> &nbsp;Force duplicate file handle<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_56.html">INT 21,56</a> &nbsp;Rename file<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_57.html">INT 21,57</a> &nbsp;Get/set file date and time using handle<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_5a.html">INT 21,5A</a> &nbsp;Create temporary file (3.x+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_5b.html">INT 21,5B</a> &nbsp;Create new file (3.x+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_67.html">INT 21,67</a> &nbsp;Set handle count (3.3+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_68.html">INT 21,68</a> &nbsp;Flush buffer (3.3+)<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- STDIN, STDOUT and STDERR can be redirected<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- maximum number of files available to all DOS processes at one<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;time is defined by the FILES=N statement of <a href="">CONFIG.SYS</a><br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- maximum number of files available to an application is N-3 where<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;N is derived from the CONFIG.SYS FILES=N statement minus the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;count of handles used by other processes<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- <a href="int-int_21_67.html">INT 21,67</a>&nbsp;can be used in DOS 3.3+ to increase the number of file<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;handles for an application to greater than 20; &nbsp;the max handle<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;count is still limited by the value of FILES= in CONFIG.SYS file<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- An application can increase the maximum allowed file handles in<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;DOS 3.0-3.2 by copying the open file table located through offset<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;34h in the <a href="table-Program_Segment_Prefix.html">PSP</a>&nbsp;to another location. &nbsp;All unopened slots must be<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;initialized to FF and the values at PSP offsets 32h and 34h must<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;be updated to reflect the new values.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see &nbsp; <a href="table-SFT.html">SFT</a>&nbsp; &nbsp;<a href="int-int_21.html">INT 21</a> &nbsp; <a href="int-int_21_52.html">INT 21,52</a>&nbsp; &nbsp;<a href="int-int_21_67.html">INT 21,67</a><br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">file handles</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

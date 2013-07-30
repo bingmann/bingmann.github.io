@@ -1,0 +1,1 @@
+var searchData=[["zone",["Zone",["../structstxxl_1_1DiskGeometry_1_1Zone.html#aa25be196bedc321948fae26d18e7e089",1,"stxxl::DiskGeometry::Zone::Zone(int _first_sector)"],["../structstxxl_1_1DiskGeometry_1_1Zone.html#afe3c21bcdb7d58ec35cdf0f12e2ff4f8",1,"stxxl::DiskGeometry::Zone::Zone(int _first_sector, int _sectors, double _rate)"]]]];

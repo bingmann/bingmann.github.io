@@ -1,0 +1,1 @@
+var searchData=[["x",["X",["../structstxxl_1_1priority__queue__local_1_1compute__N.html#a461d737f8f7780e0ced7b29753bf5a7a",1,"stxxl::priority_queue_local::compute_N"]]]];

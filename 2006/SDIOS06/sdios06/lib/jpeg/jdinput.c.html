@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2006/SDIOS06/sdios06/lib/jpeg/jdinput.c - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal2.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2006/">2006</a> / <a href="/2006/SDIOS06/">SDIOS06</a> / <a href="/2006/SDIOS06/sdios06/">sdios06</a> / <a href="/2006/SDIOS06/sdios06/lib/">lib</a> / <a href="/2006/SDIOS06/sdios06/lib/jpeg/">jpeg</a> / <a href="/2006/SDIOS06/sdios06/lib/jpeg/jdinput.c.html">jdinput.c</a> (<a href="/2006/SDIOS06/sdios06/lib/jpeg/jdinput.c">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">/*</span>
+<span class="comment"> * jdinput.c</span>
+<span class="comment"> *</span>
+<span class="comment"> * Copyright (C) 1991-1997, Thomas G. Lane.</span>
+<span class="comment"> * This file is part of the Independent JPEG Group's software.</span>
+<span class="comment"> * For conditions of distribution and use, see the accompanying README file.</span>
+<span class="comment"> *</span>
+<span class="comment"> * This file contains input control logic for the JPEG decompressor.</span>
+<span class="comment"> * These routines are concerned with controlling the decompressor's input</span>
+<span class="comment"> * processing (marker reading and coefficient decoding).  The actual input</span>
+<span class="comment"> * reading is done in jdmarker.c, jdhuff.c, and jdphuff.c.</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#define</span><span class="normal"> JPEG_INTERNALS</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"jinclude.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"jpeglib.h"</span>
+
+
+<span class="comment">/* Private state */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">jpeg_input_controller</span><span class="normal"> pub</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* public fields */</span>
+
+<span class="normal">  </span><span class="usertype">boolean</span><span class="normal"> inheaders</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* TRUE until first SOS is reached */</span>
+<span class="cbracket">}</span><span class="normal"> my_input_controller</span><span class="symbol">;</span>
+
+<span class="keyword">typedef</span><span class="normal"> my_input_controller </span><span class="symbol">*</span><span class="normal"> my_inputctl_ptr</span><span class="symbol">;</span>
+
+
+<span class="comment">/* Forward declarations */</span>
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> </span><span class="usertype">consume_markers</span><span class="normal"> </span><span class="function">JPP</span><span class="symbol">((</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">));</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Routines to calculate various quantities related to the size of the image.</span>
+<span class="comment"> */</span>
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">initial_setup</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="comment">/* Called once, when first SOS marker is reached */</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> ci</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">jpeg_component_info</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">compptr</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Make sure image isn't bigger than I can handle */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_height </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> JPEG_MAX_DIMENSION </span><span class="symbol">||</span>
+<span class="normal">      </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_width </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> JPEG_MAX_DIMENSION</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">ERREXIT1</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_IMAGE_TOO_BIG</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="symbol">)</span><span class="normal"> JPEG_MAX_DIMENSION</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* For now, precision must match compiled-in value... */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">data_precision </span><span class="symbol">!=</span><span class="normal"> BITS_IN_JSAMPLE</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">ERREXIT1</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_PRECISION</span><span class="symbol">,</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">data_precision</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* Check that number of components won't exceed internal array sizes */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components </span><span class="symbol">&gt;</span><span class="normal"> MAX_COMPONENTS</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">ERREXIT2</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_COMPONENT_COUNT</span><span class="symbol">,</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components</span><span class="symbol">,</span>
+<span class="normal">	     MAX_COMPONENTS</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* Compute maximum sampling factors; check factor validity */</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_h_samp_factor </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_v_samp_factor </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> compptr </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">comp_info</span><span class="symbol">;</span><span class="normal"> ci </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components</span><span class="symbol">;</span>
+<span class="normal">       ci</span><span class="symbol">++,</span><span class="normal"> compptr</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">compptr</span><span class="symbol">-&gt;</span><span class="normal">h_samp_factor</span><span class="symbol">&lt;=</span><span class="number">0</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">h_samp_factor</span><span class="symbol">&gt;</span><span class="normal">MAX_SAMP_FACTOR </span><span class="symbol">||</span>
+<span class="normal">	compptr</span><span class="symbol">-&gt;</span><span class="normal">v_samp_factor</span><span class="symbol">&lt;=</span><span class="number">0</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">v_samp_factor</span><span class="symbol">&gt;</span><span class="normal">MAX_SAMP_FACTOR</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_SAMPLING</span><span class="symbol">);</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_h_samp_factor </span><span class="symbol">=</span><span class="normal"> </span><span class="function">MAX</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_h_samp_factor</span><span class="symbol">,</span>
+<span class="normal">				   compptr</span><span class="symbol">-&gt;</span><span class="normal">h_samp_factor</span><span class="symbol">);</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_v_samp_factor </span><span class="symbol">=</span><span class="normal"> </span><span class="function">MAX</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_v_samp_factor</span><span class="symbol">,</span>
+<span class="normal">				   compptr</span><span class="symbol">-&gt;</span><span class="normal">v_samp_factor</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="comment">/* We initialize DCT_scaled_size and min_DCT_scaled_size to DCTSIZE.</span>
+<span class="comment">   * In the full decompressor, this will be overridden by jdmaster.c;</span>
+<span class="comment">   * but in the transcoder, jdmaster.c is not used, so we must do it here.</span>
+<span class="comment">   */</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">min_DCT_scaled_size </span><span class="symbol">=</span><span class="normal"> DCTSIZE</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Compute dimensions of components */</span>
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> compptr </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">comp_info</span><span class="symbol">;</span><span class="normal"> ci </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components</span><span class="symbol">;</span>
+<span class="normal">       ci</span><span class="symbol">++,</span><span class="normal"> compptr</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    compptr</span><span class="symbol">-&gt;</span><span class="normal">DCT_scaled_size </span><span class="symbol">=</span><span class="normal"> DCTSIZE</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* Size in DCT blocks */</span>
+<span class="normal">    compptr</span><span class="symbol">-&gt;</span><span class="normal">width_in_blocks </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">jdiv_round_up</span><span class="symbol">((</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_width </span><span class="symbol">*</span><span class="normal"> </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">h_samp_factor</span><span class="symbol">,</span>
+<span class="normal">		    </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_h_samp_factor </span><span class="symbol">*</span><span class="normal"> DCTSIZE</span><span class="symbol">));</span>
+<span class="normal">    compptr</span><span class="symbol">-&gt;</span><span class="normal">height_in_blocks </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">jdiv_round_up</span><span class="symbol">((</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_height </span><span class="symbol">*</span><span class="normal"> </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">v_samp_factor</span><span class="symbol">,</span>
+<span class="normal">		    </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_v_samp_factor </span><span class="symbol">*</span><span class="normal"> DCTSIZE</span><span class="symbol">));</span>
+<span class="normal">    </span><span class="comment">/* downsampled_width and downsampled_height will also be overridden by</span>
+<span class="comment">     * jdmaster.c if we are doing full decompression.  The transcoder library</span>
+<span class="comment">     * doesn't use these values, but the calling application might.</span>
+<span class="comment">     */</span>
+<span class="normal">    </span><span class="comment">/* Size in samples */</span>
+<span class="normal">    compptr</span><span class="symbol">-&gt;</span><span class="normal">downsampled_width </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">jdiv_round_up</span><span class="symbol">((</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_width </span><span class="symbol">*</span><span class="normal"> </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">h_samp_factor</span><span class="symbol">,</span>
+<span class="normal">		    </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_h_samp_factor</span><span class="symbol">);</span>
+<span class="normal">    compptr</span><span class="symbol">-&gt;</span><span class="normal">downsampled_height </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">jdiv_round_up</span><span class="symbol">((</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_height </span><span class="symbol">*</span><span class="normal"> </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">v_samp_factor</span><span class="symbol">,</span>
+<span class="normal">		    </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_v_samp_factor</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="comment">/* Mark component needed, until color conversion says otherwise */</span>
+<span class="normal">    compptr</span><span class="symbol">-&gt;</span><span class="normal">component_needed </span><span class="symbol">=</span><span class="normal"> TRUE</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* Mark no quantization table yet saved for component */</span>
+<span class="normal">    compptr</span><span class="symbol">-&gt;</span><span class="normal">quant_table </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="comment">/* Compute number of fully interleaved MCU rows. */</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">total_iMCU_rows </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">jdiv_round_up</span><span class="symbol">((</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_height</span><span class="symbol">,</span>
+<span class="normal">		  </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_v_samp_factor</span><span class="symbol">*</span><span class="normal">DCTSIZE</span><span class="symbol">));</span>
+
+<span class="normal">  </span><span class="comment">/* Decide whether file contains multiple scans */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">comps_in_scan </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components </span><span class="symbol">||</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">progressive_mode</span><span class="symbol">)</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">inputctl</span><span class="symbol">-&gt;</span><span class="normal">has_multiple_scans </span><span class="symbol">=</span><span class="normal"> TRUE</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">else</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">inputctl</span><span class="symbol">-&gt;</span><span class="normal">has_multiple_scans </span><span class="symbol">=</span><span class="normal"> FALSE</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">per_scan_setup</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="comment">/* Do computations that are needed before processing a JPEG scan */</span>
+<span class="comment">/* cinfo-&gt;comps_in_scan and cinfo-&gt;cur_comp_info[] were set from SOS marker */</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> ci</span><span class="symbol">,</span><span class="normal"> mcublks</span><span class="symbol">,</span><span class="normal"> tmp</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">jpeg_component_info</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">compptr</span><span class="symbol">;</span>
+<span class="normal">  </span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">comps_in_scan </span><span class="symbol">==</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span>
+<span class="normal">    </span><span class="comment">/* Noninterleaved (single-component) scan */</span>
+<span class="normal">    compptr </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">cur_comp_info</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">];</span>
+<span class="normal">    </span>
+<span class="normal">    </span><span class="comment">/* Overall image size in MCUs */</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">MCUs_per_row </span><span class="symbol">=</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">width_in_blocks</span><span class="symbol">;</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">MCU_rows_in_scan </span><span class="symbol">=</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">height_in_blocks</span><span class="symbol">;</span>
+<span class="normal">    </span>
+<span class="normal">    </span><span class="comment">/* For noninterleaved scan, always one block per MCU */</span>
+<span class="normal">    compptr</span><span class="symbol">-&gt;</span><span class="normal">MCU_width </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">    compptr</span><span class="symbol">-&gt;</span><span class="normal">MCU_height </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">    compptr</span><span class="symbol">-&gt;</span><span class="normal">MCU_blocks </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">    compptr</span><span class="symbol">-&gt;</span><span class="normal">MCU_sample_width </span><span class="symbol">=</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">DCT_scaled_size</span><span class="symbol">;</span>
+<span class="normal">    compptr</span><span class="symbol">-&gt;</span><span class="normal">last_col_width </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* For noninterleaved scans, it is convenient to define last_row_height</span>
+<span class="comment">     * as the number of block rows present in the last iMCU row.</span>
+<span class="comment">     */</span>
+<span class="normal">    tmp </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">compptr</span><span class="symbol">-&gt;</span><span class="normal">height_in_blocks </span><span class="symbol">%</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">v_samp_factor</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">tmp </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> tmp </span><span class="symbol">=</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">v_samp_factor</span><span class="symbol">;</span>
+<span class="normal">    compptr</span><span class="symbol">-&gt;</span><span class="normal">last_row_height </span><span class="symbol">=</span><span class="normal"> tmp</span><span class="symbol">;</span>
+<span class="normal">    </span>
+<span class="normal">    </span><span class="comment">/* Prepare array describing MCU composition */</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">blocks_in_MCU </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">MCU_membership</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">    </span>
+<span class="normal">  </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span>
+<span class="normal">    </span><span class="comment">/* Interleaved (multi-component) scan */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">comps_in_scan </span><span class="symbol">&lt;=</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">comps_in_scan </span><span class="symbol">&gt;</span><span class="normal"> MAX_COMPS_IN_SCAN</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">ERREXIT2</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_COMPONENT_COUNT</span><span class="symbol">,</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">comps_in_scan</span><span class="symbol">,</span>
+<span class="normal">	       MAX_COMPS_IN_SCAN</span><span class="symbol">);</span>
+<span class="normal">    </span>
+<span class="normal">    </span><span class="comment">/* Overall image size in MCUs */</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">MCUs_per_row </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">jdiv_round_up</span><span class="symbol">((</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_width</span><span class="symbol">,</span>
+<span class="normal">		    </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_h_samp_factor</span><span class="symbol">*</span><span class="normal">DCTSIZE</span><span class="symbol">));</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">MCU_rows_in_scan </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">jdiv_round_up</span><span class="symbol">((</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_height</span><span class="symbol">,</span>
+<span class="normal">		    </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_v_samp_factor</span><span class="symbol">*</span><span class="normal">DCTSIZE</span><span class="symbol">));</span>
+<span class="normal">    </span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">blocks_in_MCU </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">    </span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> ci </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">comps_in_scan</span><span class="symbol">;</span><span class="normal"> ci</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      compptr </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">cur_comp_info</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">];</span>
+<span class="normal">      </span><span class="comment">/* Sampling factors give # of blocks of component in each MCU */</span>
+<span class="normal">      compptr</span><span class="symbol">-&gt;</span><span class="normal">MCU_width </span><span class="symbol">=</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">h_samp_factor</span><span class="symbol">;</span>
+<span class="normal">      compptr</span><span class="symbol">-&gt;</span><span class="normal">MCU_height </span><span class="symbol">=</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">v_samp_factor</span><span class="symbol">;</span>
+<span class="normal">      compptr</span><span class="symbol">-&gt;</span><span class="normal">MCU_blocks </span><span class="symbol">=</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">MCU_width </span><span class="symbol">*</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">MCU_height</span><span class="symbol">;</span>
+<span class="normal">      compptr</span><span class="symbol">-&gt;</span><span class="normal">MCU_sample_width </span><span class="symbol">=</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">MCU_width </span><span class="symbol">*</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">DCT_scaled_size</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="comment">/* Figure number of non-dummy blocks in last MCU column &amp; row */</span>
+<span class="normal">      tmp </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">compptr</span><span class="symbol">-&gt;</span><span class="normal">width_in_blocks </span><span class="symbol">%</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">MCU_width</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">tmp </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> tmp </span><span class="symbol">=</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">MCU_width</span><span class="symbol">;</span>
+<span class="normal">      compptr</span><span class="symbol">-&gt;</span><span class="normal">last_col_width </span><span class="symbol">=</span><span class="normal"> tmp</span><span class="symbol">;</span>
+<span class="normal">      tmp </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">compptr</span><span class="symbol">-&gt;</span><span class="normal">height_in_blocks </span><span class="symbol">%</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">MCU_height</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">tmp </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> tmp </span><span class="symbol">=</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">MCU_height</span><span class="symbol">;</span>
+<span class="normal">      compptr</span><span class="symbol">-&gt;</span><span class="normal">last_row_height </span><span class="symbol">=</span><span class="normal"> tmp</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="comment">/* Prepare array describing MCU composition */</span>
+<span class="normal">      mcublks </span><span class="symbol">=</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">MCU_blocks</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">blocks_in_MCU </span><span class="symbol">+</span><span class="normal"> mcublks </span><span class="symbol">&gt;</span><span class="normal"> D_MAX_BLOCKS_IN_MCU</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_MCU_SIZE</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">mcublks</span><span class="symbol">--</span><span class="normal"> </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	cinfo</span><span class="symbol">-&gt;</span><span class="normal">MCU_membership</span><span class="symbol">[</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">blocks_in_MCU</span><span class="symbol">++]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> ci</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Save away a copy of the Q-table referenced by each component present</span>
+<span class="comment"> * in the current scan, unless already saved during a prior scan.</span>
+<span class="comment"> *</span>
+<span class="comment"> * In a multiple-scan JPEG file, the encoder could assign different components</span>
+<span class="comment"> * the same Q-table slot number, but change table definitions between scans</span>
+<span class="comment"> * so that each component uses a different Q-table.  (The IJG encoder is not</span>
+<span class="comment"> * currently capable of doing this, but other encoders might.)  Since we want</span>
+<span class="comment"> * to be able to dequantize all the components at the end of the file, this</span>
+<span class="comment"> * means that we have to save away the table actually used for each component.</span>
+<span class="comment"> * We do this by copying the table at the start of the first scan containing</span>
+<span class="comment"> * the component.</span>
+<span class="comment"> * The JPEG spec prohibits the encoder from changing the contents of a Q-table</span>
+<span class="comment"> * slot between scans of a component using that slot.  If the encoder does so</span>
+<span class="comment"> * anyway, this decoder will simply use the Q-table values that were current</span>
+<span class="comment"> * at the start of the first scan for the component.</span>
+<span class="comment"> *</span>
+<span class="comment"> * The decompressor output side looks only at the saved quant tables,</span>
+<span class="comment"> * not at the current Q-table slots.</span>
+<span class="comment"> */</span>
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">latch_quant_tables</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> ci</span><span class="symbol">,</span><span class="normal"> qtblno</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">jpeg_component_info</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">compptr</span><span class="symbol">;</span>
+<span class="normal">  JQUANT_TBL </span><span class="symbol">*</span><span class="normal"> qtbl</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> ci </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">comps_in_scan</span><span class="symbol">;</span><span class="normal"> ci</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    compptr </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">cur_comp_info</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">];</span>
+<span class="normal">    </span><span class="comment">/* No work if we already saved Q-table for this component */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">compptr</span><span class="symbol">-&gt;</span><span class="normal">quant_table </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="keyword">continue</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* Make sure specified quantization table is present */</span>
+<span class="normal">    qtblno </span><span class="symbol">=</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">quant_tbl_no</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">qtblno </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> qtblno </span><span class="symbol">&gt;=</span><span class="normal"> NUM_QUANT_TBLS </span><span class="symbol">||</span>
+<span class="normal">	cinfo</span><span class="symbol">-&gt;</span><span class="normal">quant_tbl_ptrs</span><span class="symbol">[</span><span class="normal">qtblno</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">ERREXIT1</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_NO_QUANT_TABLE</span><span class="symbol">,</span><span class="normal"> qtblno</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="comment">/* OK, save away the quantization table */</span>
+<span class="normal">    qtbl </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JQUANT_TBL </span><span class="symbol">*)</span>
+<span class="normal">      </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">mem</span><span class="symbol">-&gt;</span><span class="normal">alloc_small</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> JPOOL_IMAGE</span><span class="symbol">,</span>
+<span class="normal">				  </span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="normal">JQUANT_TBL</span><span class="symbol">));</span>
+<span class="normal">    </span><span class="function">MEMCOPY</span><span class="symbol">(</span><span class="normal">qtbl</span><span class="symbol">,</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">quant_tbl_ptrs</span><span class="symbol">[</span><span class="normal">qtblno</span><span class="symbol">],</span><span class="normal"> </span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="normal">JQUANT_TBL</span><span class="symbol">));</span>
+<span class="normal">    compptr</span><span class="symbol">-&gt;</span><span class="normal">quant_table </span><span class="symbol">=</span><span class="normal"> qtbl</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Initialize the input modules to read a scan of compressed data.</span>
+<span class="comment"> * The first call to this is done by jdmaster.c after initializing</span>
+<span class="comment"> * the entire decompressor (during jpeg_start_decompress).</span>
+<span class="comment"> * Subsequent calls come from consume_markers, below.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">start_input_pass</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="function">per_scan_setup</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function">latch_quant_tables</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">entropy</span><span class="symbol">-&gt;</span><span class="normal">start_pass</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">coef</span><span class="symbol">-&gt;</span><span class="normal">start_input_pass</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">inputctl</span><span class="symbol">-&gt;</span><span class="normal">consume_input </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">coef</span><span class="symbol">-&gt;</span><span class="normal">consume_data</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Finish up after inputting a compressed-data scan.</span>
+<span class="comment"> * This is called by the coefficient controller after it's read all</span>
+<span class="comment"> * the expected data of the scan.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">finish_input_pass</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">inputctl</span><span class="symbol">-&gt;</span><span class="normal">consume_input </span><span class="symbol">=</span><span class="normal"> consume_markers</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Read JPEG markers before, between, or after compressed-data scans.</span>
+<span class="comment"> * Change state as necessary when a new scan is reached.</span>
+<span class="comment"> * Return value is JPEG_SUSPENDED, JPEG_REACHED_SOS, or JPEG_REACHED_EOI.</span>
+<span class="comment"> *</span>
+<span class="comment"> * The consume_input method pointer points either here or to the</span>
+<span class="comment"> * coefficient controller's consume_data routine, depending on whether</span>
+<span class="comment"> * we are reading a compressed data segment or inter-segment markers.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span>
+<span class="function">consume_markers</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_inputctl_ptr</span><span class="normal"> inputctl </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_inputctl_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">inputctl</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> val</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">inputctl</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">eoi_reached</span><span class="symbol">)</span><span class="normal"> </span><span class="comment">/* After hitting EOI, read no further */</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> JPEG_REACHED_EOI</span><span class="symbol">;</span>
+
+<span class="normal">  val </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">marker</span><span class="symbol">-&gt;</span><span class="normal">read_markers</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="keyword">switch</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">val</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">case</span><span class="normal"> JPEG_REACHED_SOS</span><span class="symbol">:</span><span class="normal">	</span><span class="comment">/* Found SOS */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">inputctl</span><span class="symbol">-&gt;</span><span class="normal">inheaders</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal">	</span><span class="comment">/* 1st SOS */</span>
+<span class="normal">      </span><span class="function">initial_setup</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">      inputctl</span><span class="symbol">-&gt;</span><span class="normal">inheaders </span><span class="symbol">=</span><span class="normal"> FALSE</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="comment">/* Note: start_input_pass must be called by jdmaster.c</span>
+<span class="comment">       * before any more input can be consumed.  jdapimin.c is</span>
+<span class="comment">       * responsible for enforcing this sequencing.</span>
+<span class="comment">       */</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal">			</span><span class="comment">/* 2nd or later SOS marker */</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal"> inputctl</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">has_multiple_scans</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_EOI_EXPECTED</span><span class="symbol">);</span><span class="normal"> </span><span class="comment">/* Oops, I wasn't expecting this! */</span>
+<span class="normal">      </span><span class="function">start_input_pass</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">case</span><span class="normal"> JPEG_REACHED_EOI</span><span class="symbol">:</span><span class="normal">	</span><span class="comment">/* Found EOI */</span>
+<span class="normal">    inputctl</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">eoi_reached </span><span class="symbol">=</span><span class="normal"> TRUE</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">inputctl</span><span class="symbol">-&gt;</span><span class="normal">inheaders</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal">	</span><span class="comment">/* Tables-only datastream, apparently */</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">marker</span><span class="symbol">-&gt;</span><span class="normal">saw_SOF</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_SOF_NO_SOS</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="comment">/* Prevent infinite loop in coef ctlr's decompress_data routine</span>
+<span class="comment">       * if user set output_scan_number larger than number of scans.</span>
+<span class="comment">       */</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">output_scan_number </span><span class="symbol">&gt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">input_scan_number</span><span class="symbol">)</span>
+<span class="normal">	cinfo</span><span class="symbol">-&gt;</span><span class="normal">output_scan_number </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">input_scan_number</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">case</span><span class="normal"> JPEG_SUSPENDED</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">return</span><span class="normal"> val</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Reset state to begin a fresh datastream.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">reset_input_controller</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_inputctl_ptr</span><span class="normal"> inputctl </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_inputctl_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">inputctl</span><span class="symbol">;</span>
+
+<span class="normal">  inputctl</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">consume_input </span><span class="symbol">=</span><span class="normal"> consume_markers</span><span class="symbol">;</span>
+<span class="normal">  inputctl</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">has_multiple_scans </span><span class="symbol">=</span><span class="normal"> FALSE</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* "unknown" would be better */</span>
+<span class="normal">  inputctl</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">eoi_reached </span><span class="symbol">=</span><span class="normal"> FALSE</span><span class="symbol">;</span>
+<span class="normal">  inputctl</span><span class="symbol">-&gt;</span><span class="normal">inheaders </span><span class="symbol">=</span><span class="normal"> TRUE</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="comment">/* Reset other modules */</span>
+<span class="normal">  </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">err</span><span class="symbol">-&gt;</span><span class="normal">reset_error_mgr</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">marker</span><span class="symbol">-&gt;</span><span class="normal">reset_marker_reader</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="comment">/* Reset progression state -- would be cleaner if entropy decoder did this */</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">coef_bits </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Initialize the input controller module.</span>
+<span class="comment"> * This is called only once, when the decompression object is created.</span>
+<span class="comment"> */</span>
+
+<span class="function">GLOBAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">jinit_input_controller</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_inputctl_ptr</span><span class="normal"> inputctl</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Create subobject in permanent pool */</span>
+<span class="normal">  inputctl </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_inputctl_ptr</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">mem</span><span class="symbol">-&gt;</span><span class="normal">alloc_small</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> JPOOL_PERMANENT</span><span class="symbol">,</span>
+<span class="normal">				</span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="normal">my_input_controller</span><span class="symbol">));</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">inputctl </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">jpeg_input_controller</span><span class="normal"> </span><span class="symbol">*)</span><span class="normal"> inputctl</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="comment">/* Initialize method pointers */</span>
+<span class="normal">  inputctl</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">consume_input </span><span class="symbol">=</span><span class="normal"> consume_markers</span><span class="symbol">;</span>
+<span class="normal">  inputctl</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">reset_input_controller </span><span class="symbol">=</span><span class="normal"> reset_input_controller</span><span class="symbol">;</span>
+<span class="normal">  inputctl</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">start_input_pass </span><span class="symbol">=</span><span class="normal"> start_input_pass</span><span class="symbol">;</span>
+<span class="normal">  inputctl</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">finish_input_pass </span><span class="symbol">=</span><span class="normal"> finish_input_pass</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="comment">/* Initialize state: can't use reset_input_controller since we don't</span>
+<span class="comment">   * want to try to reset other modules yet.</span>
+<span class="comment">   */</span>
+<span class="normal">  inputctl</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">has_multiple_scans </span><span class="symbol">=</span><span class="normal"> FALSE</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* "unknown" would be better */</span>
+<span class="normal">  inputctl</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">eoi_reached </span><span class="symbol">=</span><span class="normal"> FALSE</span><span class="symbol">;</span>
+<span class="normal">  inputctl</span><span class="symbol">-&gt;</span><span class="normal">inheaders </span><span class="symbol">=</span><span class="normal"> TRUE</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

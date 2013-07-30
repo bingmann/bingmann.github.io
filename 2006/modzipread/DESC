@@ -1,0 +1,48 @@
+WHAT IS IT
+Mod ZipRead is an Apache 2 module to browser Zip Archives. It uses zziplib.
+
+WEBSITE
+http://modzipread.sourceforge.net/
+
+FEATURES
+My main use is to browse archived Web sites (in Zip format) without extracting
+them on my disk.  The module can parse a Zip file (with zziplib) and show the
+contents.
+
+There is a very crude support for index.html/index.htm files. So if a file
+named index.html OR index.htm is found in the current directory, it is sent.
+
+You can use the directive "ZipReadDirIndex" to set the exact list of
+"index.html" files. This directive is similar to "DirectoryIndex"
+
+The module use the Apache API to detect the mime-type of files and send it
+correctly. (that means that, besides html, every file type (like image, pdf,
+...) will be posted correctly).
+
+REQUIREMENTS
+
+This software is currently working on Debian GNU/Linux (i386) with Apache
+2.0.47 and zziplib 0.10.76.
+It should work on any system that support Apache 2.0.45+ and zziplib.
+
+INSTALL
+
+Just download the files from the CVS and type
+
+  make
+  make install
+
+You need to have the apache2-dev and zziplib-dev packages installed 
+Afterwards, you must add these lines to your Apache configuration to activate
+the module :
+
+  LoadModule zipread_module /usr/lib/apache2/modules/mod_zipread.so
+  AddHandler zipread .zip
+
+You may want to adjust the LoadModule directive to reflect where your Apache
+modules are.
+
+AUTHOR
+
+Copyright 2003, Benoit Artuso <benoitfr@users.sourceforge.net>
+This software may be used under the terms of the GNU General Public License (GPL).

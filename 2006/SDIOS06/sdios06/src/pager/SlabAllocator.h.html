@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2006/SDIOS06/sdios06/src/pager/SlabAllocator.h - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal6.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2006/">2006</a> / <a href="/2006/SDIOS06/">SDIOS06</a> / <a href="/2006/SDIOS06/sdios06/">sdios06</a> / <a href="/2006/SDIOS06/sdios06/src/">src</a> / <a href="/2006/SDIOS06/sdios06/src/pager/">pager</a> / <a href="/2006/SDIOS06/sdios06/src/pager/SlabAllocator.h.html">SlabAllocator.h</a> (<a href="/2006/SDIOS06/sdios06/src/pager/SlabAllocator.h">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">// $Id: SlabAllocator.h 126 2006-07-23 07:09:38Z sdi2 $</span>
+
+<span class="preproc">#ifndef</span><span class="normal"> SDI2_PAGER_SLABALLOCATOR_H</span>
+<span class="preproc">#define</span><span class="normal"> SDI2_PAGER_SLABALLOCATOR_H</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;new&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;assert.h&gt;</span>
+
+<span class="comment">/** template SlabAllocator which is used by the pager for it's dynamic data</span>
+<span class="comment"> * structures, because the pager has no heap. */</span>
+
+<span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">Object</span><span class="symbol">,</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> _pagesize </span><span class="symbol">=</span><span class="normal"> </span><span class="number">4096</span><span class="symbol">&gt;</span>
+<span class="keyword">class</span><span class="normal"> </span><span class="classname">SlabAllocator</span>
+<span class="cbracket">{</span>
+<span class="keyword">public</span><span class="symbol">:</span>
+
+<span class="normal">    </span><span class="comment">/// forward declarations</span>
+<span class="normal">	</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">Pool</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">// *** typedefs</span>
+<span class="normal">	</span><span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">Object</span><span class="normal">	Data</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">typedef</span><span class="normal"> Data</span><span class="symbol">*</span><span class="normal">	DataPtr</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">// *** calculations to get the number of objects per slab page right</span>
+
+<span class="normal">	</span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> pagesize </span><span class="symbol">=</span><span class="normal"> _pagesize</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> pageheadersize </span><span class="symbol">=</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">Page</span><span class="symbol">*)</span>
+<span class="normal">		</span><span class="symbol">+</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="symbol">+</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">Data</span><span class="symbol">*);</span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> datarestsize </span><span class="symbol">=</span><span class="normal"> pagesize </span><span class="symbol">-</span><span class="normal"> pageheadersize</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> objperpage </span><span class="symbol">=</span><span class="normal">  datarestsize </span><span class="symbol">/</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">Data</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> remainingbytes </span><span class="symbol">=</span><span class="normal"> datarestsize</span>
+<span class="normal">	    </span><span class="symbol">-</span><span class="normal"> objperpage </span><span class="symbol">*</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">Data</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="comment">/** SlabAllocator::Page is a class sized to _pagesize bytes which contains</span>
+<span class="comment">	 * n objects of the same size. The class holds a free list to quickly</span>
+<span class="comment">	 * allocate new objects from the slab page. */</span>
+
+<span class="normal">	</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">Page</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">protected</span><span class="symbol">:</span>
+<span class="normal">		</span><span class="comment">// *** header structure</span>
+
+<span class="normal">		</span><span class="comment">/// pointers to the previous and next slab page</span>
+<span class="normal">		</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">Page</span><span class="normal">		</span><span class="symbol">*</span><span class="normal">prev</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">next</span><span class="symbol">;</span>
+
+<span class="normal">		</span><span class="keyword">friend</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">Pool</span><span class="symbol">;</span>
+
+<span class="normal">		</span><span class="comment">/// number of used objects in this slab</span>
+<span class="normal">		</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal">	usednum</span><span class="symbol">;</span>
+
+<span class="normal">		</span><span class="comment">/// total number of objects in a slab</span>
+<span class="normal">		</span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> objnum </span><span class="symbol">=</span><span class="normal"> objperpage</span><span class="symbol">;</span>
+
+<span class="normal">		</span><span class="comment">/// pointer to the first free object in this slab</span>
+<span class="normal">		Data</span><span class="symbol">*</span><span class="normal">			firstfree</span><span class="symbol">;</span>
+<span class="normal">		</span>
+<span class="normal">		</span><span class="comment">// *** body data</span>
+<span class="normal">		</span>
+<span class="normal">		</span><span class="usertype">Data</span><span class="normal">			body</span><span class="symbol">[</span><span class="normal">objperpage</span><span class="symbol">];</span>
+
+<span class="normal">		</span><span class="comment">// *** include remaining bytes so the sizeof(Page) == pagesize</span>
+
+<span class="normal">		</span><span class="comment">// this does not work with g++-4.0.2. reason unknown.</span>
+<span class="normal">		</span><span class="comment">// Matze: seems to work fine with my g++ 4.1.1 here...</span>
+<span class="normal">		</span><span class="comment">// char			remaining[remainingbytes];</span>
+<span class="normal">	</span>
+<span class="normal">		</span><span class="comment">// *** functions</span>
+
+<span class="normal">		</span><span class="comment">/// returns a re-cast body object which only contains a pointer when</span>
+<span class="normal">		</span><span class="comment">/// free</span>
+<span class="normal">		</span><span class="keyword">inline</span><span class="normal"> Data</span><span class="symbol">**</span><span class="normal"> </span><span class="function">bodyfreeptr</span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> i</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">reinterpret_cast</span><span class="symbol">&lt;</span><span class="normal">Data</span><span class="symbol">**&gt;(&amp;</span><span class="normal">body</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">		</span><span class="comment">/// returns the pointer in a free body object.</span>
+<span class="normal">		</span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">inline</span><span class="normal"> Data</span><span class="symbol">*</span><span class="normal"> </span><span class="function">freeptr</span><span class="symbol">(</span><span class="usertype">Data</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">data</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">*</span><span class="keyword">reinterpret_cast</span><span class="symbol">&lt;</span><span class="normal">Data</span><span class="symbol">**&gt;(</span><span class="normal">data</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">		</span><span class="comment">// initializes the freelist</span>
+<span class="normal">		</span><span class="keyword">inline</span><span class="normal"> </span><span class="function">Page</span><span class="symbol">()</span>
+<span class="normal">			</span><span class="symbol">:</span><span class="normal"> </span><span class="function">prev</span><span class="symbol">(</span><span class="normal">NULL</span><span class="symbol">),</span><span class="normal"> </span><span class="function">next</span><span class="symbol">(</span><span class="normal">NULL</span><span class="symbol">),</span>
+<span class="normal">			  </span><span class="function">usednum</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">),</span><span class="normal"> </span><span class="function">firstfree</span><span class="symbol">(</span><span class="normal">NULL</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			firstfree </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">body</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">];</span>
+
+<span class="normal">			</span><span class="keyword">for</span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> objnum</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span>
+<span class="normal">			</span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="symbol">*</span><span class="function">bodyfreeptr</span><span class="symbol">(</span><span class="normal">i</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">body</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">];</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+
+<span class="normal">			</span><span class="symbol">*</span><span class="function">bodyfreeptr</span><span class="symbol">(</span><span class="normal">objnum</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">		</span><span class="comment">/// return the number of used objects</span>
+<span class="normal">		</span><span class="keyword">inline</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="function">used</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">		</span><span class="cbracket">{</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> usednum</span><span class="symbol">;</span><span class="normal"> </span><span class="cbracket">}</span>
+
+<span class="normal">		</span><span class="comment">/// return the number of free objects</span>
+<span class="normal">		</span><span class="keyword">inline</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="function">available</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">		</span><span class="cbracket">{</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> objnum </span><span class="symbol">-</span><span class="normal"> usednum</span><span class="symbol">;</span><span class="normal"> </span><span class="cbracket">}</span>
+<span class="normal">		</span>
+<span class="normal">		</span><span class="comment">/// checks if the page can contain the given object address</span>
+<span class="normal">		</span><span class="keyword">inline</span><span class="normal"> </span><span class="type">bool</span><span class="normal"> </span><span class="function">contains</span><span class="symbol">(</span><span class="usertype">Data</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">obj</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">body</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">&lt;=</span><span class="normal"> obj </span><span class="symbol">&amp;&amp;</span><span class="normal"> obj </span><span class="symbol">&lt;=</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">body</span><span class="symbol">[</span><span class="normal">objnum</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">]);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">		</span><span class="comment">/// allocate a free object from the freelist</span>
+<span class="normal">		</span><span class="keyword">inline</span><span class="normal"> Data</span><span class="symbol">*</span><span class="normal"> </span><span class="function">allocate</span><span class="symbol">()</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">firstfree </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span><span class="function">assert</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> NULL</span><span class="symbol">;</span><span class="normal"> </span><span class="cbracket">}</span>
+
+<span class="normal">			Data</span><span class="symbol">*</span><span class="normal"> obj </span><span class="symbol">=</span><span class="normal"> firstfree</span><span class="symbol">;</span>
+
+<span class="normal">			</span><span class="comment">// advance free pointer</span>
+<span class="normal">			firstfree </span><span class="symbol">=</span><span class="normal"> </span><span class="function">freeptr</span><span class="symbol">(</span><span class="normal">firstfree</span><span class="symbol">);</span>
+<span class="normal">			usednum</span><span class="symbol">++;</span>
+
+<span class="normal">			</span><span class="comment">// call object constructor</span>
+<span class="normal">			</span><span class="keyword">new</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">obj</span><span class="symbol">)</span><span class="normal"> </span><span class="function">Data</span><span class="symbol">();</span>
+
+<span class="normal">			</span><span class="keyword">return</span><span class="normal"> obj</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">		</span><span class="comment">/// readd an object to the free list</span>
+<span class="normal">		</span><span class="keyword">inline</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">freeobj</span><span class="symbol">(</span><span class="usertype">Data</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">obj</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">assert</span><span class="symbol">(</span><span class="function">contains</span><span class="symbol">(</span><span class="normal">obj</span><span class="symbol">));</span>
+<span class="normal">			</span><span class="function">assert</span><span class="symbol">(</span><span class="normal">usednum </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="function">assert</span><span class="symbol">(!</span><span class="function">isFree</span><span class="symbol">(</span><span class="normal">obj</span><span class="symbol">));</span>
+
+<span class="normal">			</span><span class="comment">// call destructor</span>
+<span class="normal">			obj</span><span class="symbol">-&gt;~</span><span class="function">Data</span><span class="symbol">();</span>
+
+<span class="normal">			</span><span class="comment">// reinsert the object as the first in the free list</span>
+
+<span class="normal">			</span><span class="symbol">*</span><span class="keyword">reinterpret_cast</span><span class="symbol">&lt;</span><span class="normal">Data</span><span class="symbol">**&gt;(</span><span class="normal">obj</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> firstfree</span><span class="symbol">;</span>
+
+<span class="normal">			firstfree </span><span class="symbol">=</span><span class="normal"> obj</span><span class="symbol">;</span>
+
+<span class="normal">			usednum</span><span class="symbol">--;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">		</span><span class="comment">/// checks that the given object is on the free list</span>
+<span class="normal">		</span><span class="keyword">inline</span><span class="normal"> </span><span class="type">bool</span><span class="normal"> </span><span class="function">isFree</span><span class="symbol">(</span><span class="normal">Data</span><span class="symbol">*</span><span class="normal"> obj</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			Data</span><span class="symbol">*</span><span class="normal"> iter </span><span class="symbol">=</span><span class="normal"> firstfree</span><span class="symbol">;</span>
+
+<span class="normal">			</span><span class="keyword">while</span><span class="symbol">(</span><span class="normal">iter </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">			</span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">obj </span><span class="symbol">==</span><span class="normal"> iter</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+
+<span class="normal">				iter </span><span class="symbol">=</span><span class="normal"> </span><span class="function">freeptr</span><span class="symbol">(</span><span class="normal">iter</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+
+<span class="normal">			</span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">		</span><span class="comment">/// test invariants</span>
+<span class="normal">		</span><span class="keyword">inline</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">test</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="comment">// count free objects.</span>
+<span class="normal">			</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> fonum </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">			</span>
+<span class="normal">			Data</span><span class="symbol">*</span><span class="normal"> fo </span><span class="symbol">=</span><span class="normal"> firstfree</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">while</span><span class="symbol">(</span><span class="normal">fo </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				fonum</span><span class="symbol">++;</span>
+<span class="normal">				fo </span><span class="symbol">=</span><span class="normal"> </span><span class="function">freeptr</span><span class="symbol">(</span><span class="normal">fo</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">			</span>
+<span class="normal">			</span><span class="function">assert</span><span class="symbol">(</span><span class="normal">fonum </span><span class="symbol">==</span><span class="normal"> </span><span class="function">available</span><span class="symbol">());</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">/** SlabAllocator::Pool manages the doubly linked list of pages and has</span>
+<span class="comment">	 * front-end functions to allocate and free objects from the slab pages. */</span>
+
+<span class="normal">	</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">Pool</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">private</span><span class="symbol">:</span>
+<span class="normal">        </span><span class="comment">/// points to the head of the doubly linked list</span>
+<span class="normal">		</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">Page</span><span class="normal">		</span><span class="symbol">*</span><span class="normal">head</span><span class="symbol">;</span>
+
+<span class="normal">		</span><span class="comment">/// allocation callback typedef</span>
+<span class="normal">		</span><span class="keyword">typedef</span><span class="normal"> </span><span class="type">void</span><span class="symbol">*</span><span class="normal">	</span><span class="symbol">(*</span><span class="normal">alloccallback_t</span><span class="symbol">)(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> pagesize</span><span class="symbol">);</span>
+
+<span class="normal">		</span><span class="comment">/// backing allocator if more slab pages are needed.</span>
+<span class="normal">		</span><span class="usertype">alloccallback_t</span><span class="normal">	alloccallback</span><span class="symbol">;</span>
+<span class="normal">		</span>
+<span class="normal">		</span><span class="comment">/// request a pagea from the backing allocator</span>
+<span class="normal">		</span><span class="type">bool</span><span class="normal"> </span><span class="function">requestMoreMemory</span><span class="symbol">()</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="type">void</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">newmem </span><span class="symbol">=</span><span class="normal"> </span><span class="function">alloccallback</span><span class="symbol">(</span><span class="normal">pagesize</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">newmem</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+
+<span class="normal">			</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">Page</span><span class="symbol">*</span><span class="normal"> newpage </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">static_cast</span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">Page</span><span class="symbol">*&gt;(</span><span class="normal">newmem</span><span class="symbol">);</span>
+
+<span class="normal">			</span><span class="comment">// in-place construction</span>
+<span class="normal">			</span><span class="keyword">new</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">newpage</span><span class="symbol">)</span><span class="normal"> </span><span class="function">Page</span><span class="symbol">();</span>
+<span class="normal">			</span>
+<span class="normal">			</span><span class="function">addPage</span><span class="symbol">(</span><span class="normal">newpage</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		</span>
+<span class="normal">	</span><span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">		</span><span class="comment">/// initialize an empty slab page pool</span>
+<span class="normal">		</span><span class="function">Pool</span><span class="symbol">()</span>
+<span class="normal">			</span><span class="symbol">:</span><span class="normal"> </span><span class="function">head</span><span class="symbol">(</span><span class="normal">NULL</span><span class="symbol">),</span><span class="normal"> </span><span class="function">alloccallback</span><span class="symbol">(</span><span class="normal">NULL</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">assert</span><span class="symbol">(</span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">Page</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&lt;=</span><span class="normal"> _pagesize</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		</span>
+<span class="normal">		</span><span class="comment">/// initialize an empty slab page pool and insert add an array of pages</span>
+<span class="normal">		</span><span class="function">Pool</span><span class="symbol">(</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">Page</span><span class="symbol">*</span><span class="normal"> pfirst</span><span class="symbol">,</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> pnum</span><span class="symbol">=</span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">			</span><span class="symbol">:</span><span class="normal"> </span><span class="function">head</span><span class="symbol">(</span><span class="normal">NULL</span><span class="symbol">),</span><span class="normal"> </span><span class="function">alloccallback</span><span class="symbol">(</span><span class="normal">NULL</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">assert</span><span class="symbol">(</span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">Page</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&lt;=</span><span class="normal"> _pagesize</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="keyword">for</span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> pi </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> pi </span><span class="symbol">&lt;</span><span class="normal"> pnum</span><span class="symbol">;</span><span class="normal"> pi</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="function">addPage</span><span class="symbol">(</span><span class="normal">pfirst</span><span class="symbol">+</span><span class="normal">pi</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">		</span><span class="comment">/// set a callback function when more slab pages are required. the</span>
+<span class="normal">		</span><span class="comment">/// callback should allocate page.</span>
+<span class="normal">		</span><span class="type">void</span><span class="normal"> </span><span class="function">setAllocCallback</span><span class="symbol">(</span><span class="usertype">alloccallback_t</span><span class="normal"> acb</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			alloccallback </span><span class="symbol">=</span><span class="normal"> acb</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		</span>
+<span class="normal">		</span><span class="comment">/// add a slab page to the pool</span>
+<span class="normal">		</span><span class="type">void</span><span class="normal"> </span><span class="function">addPage</span><span class="symbol">(</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">Page</span><span class="symbol">*</span><span class="normal"> p</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="comment">// put the new page into the first position</span>
+
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">head</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				p</span><span class="symbol">-&gt;</span><span class="normal">next </span><span class="symbol">=</span><span class="normal"> head</span><span class="symbol">;</span>
+<span class="normal">				head</span><span class="symbol">-&gt;</span><span class="normal">prev </span><span class="symbol">=</span><span class="normal"> p</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">			</span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				p</span><span class="symbol">-&gt;</span><span class="normal">next </span><span class="symbol">=</span><span class="normal"> p</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+
+<span class="normal">			p</span><span class="symbol">-&gt;</span><span class="normal">prev </span><span class="symbol">=</span><span class="normal"> p</span><span class="symbol">;</span>
+<span class="normal">			</span>
+<span class="normal">			head </span><span class="symbol">=</span><span class="normal"> p</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">		</span><span class="comment">/// test doubly linked list</span>
+<span class="normal">		</span><span class="type">void</span><span class="normal"> </span><span class="function">test</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">head</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">return</span><span class="symbol">;</span>
+
+<span class="normal">			</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">Page</span><span class="symbol">*</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> head</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="function">assert</span><span class="symbol">(</span><span class="normal">i</span><span class="symbol">-&gt;</span><span class="normal">prev </span><span class="symbol">==</span><span class="normal"> i</span><span class="symbol">);</span>
+<span class="normal">			</span>
+<span class="normal">			</span><span class="keyword">while</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">			</span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="function">assert</span><span class="symbol">(</span><span class="normal">i</span><span class="symbol">-&gt;</span><span class="normal">next</span><span class="symbol">-&gt;</span><span class="normal">prev </span><span class="symbol">=</span><span class="normal"> i</span><span class="symbol">);</span>
+<span class="normal">				</span>
+<span class="normal">				i</span><span class="symbol">-&gt;</span><span class="function">test</span><span class="symbol">();</span>
+
+<span class="normal">				</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i</span><span class="symbol">-&gt;</span><span class="normal">next </span><span class="symbol">==</span><span class="normal"> i</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">				i </span><span class="symbol">=</span><span class="normal"> i</span><span class="symbol">-&gt;</span><span class="normal">next</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">		</span><span class="comment">/// get a free object from one of the slab pages. returns NULL if no</span>
+<span class="normal">		</span><span class="comment">/// object can be allocated.</span>
+<span class="normal">		Data</span><span class="symbol">*</span><span class="normal"> </span><span class="function">allocate</span><span class="symbol">()</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">Page</span><span class="symbol">*</span><span class="normal"> iter </span><span class="symbol">=</span><span class="normal"> head</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">iter</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="function">panic</span><span class="symbol">(</span><span class="string">"pager: out of slab memory - no pages"</span><span class="symbol">);</span>
+<span class="normal">				</span><span class="keyword">return</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+
+<span class="normal">			</span><span class="keyword">while</span><span class="symbol">(</span><span class="normal">iter</span><span class="symbol">-&gt;</span><span class="function">available</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">			</span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">iter</span><span class="symbol">-&gt;</span><span class="normal">next </span><span class="symbol">==</span><span class="normal"> iter</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">					</span><span class="comment">// no slab page has a free entry</span>
+<span class="normal">					</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">alloccallback</span><span class="symbol">)</span>
+<span class="normal">					</span><span class="cbracket">{</span>
+<span class="normal">						</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="function">requestMoreMemory</span><span class="symbol">())</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">						</span><span class="keyword">return</span><span class="normal"> </span><span class="function">allocate</span><span class="symbol">();</span><span class="normal"> </span><span class="comment">// restart function</span>
+<span class="normal">					</span><span class="cbracket">}</span>
+<span class="normal">					</span><span class="function">panic</span><span class="symbol">(</span><span class="string">"pager: out of slab memory"</span><span class="symbol">);</span>
+<span class="normal">					</span><span class="keyword">return</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">				</span><span class="cbracket">}</span>
+<span class="normal">				iter </span><span class="symbol">=</span><span class="normal"> iter</span><span class="symbol">-&gt;</span><span class="normal">next</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+
+<span class="normal">			</span><span class="keyword">return</span><span class="normal"> iter</span><span class="symbol">-&gt;</span><span class="function">allocate</span><span class="symbol">();</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">		</span><span class="comment">/// return an object into the free list of the slab</span>
+<span class="normal">		</span><span class="type">bool</span><span class="normal"> </span><span class="function">freeobj</span><span class="symbol">(</span><span class="normal">Data</span><span class="symbol">*</span><span class="normal"> obj</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">Page</span><span class="symbol">*</span><span class="normal"> iter </span><span class="symbol">=</span><span class="normal"> head</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">iter</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+
+<span class="normal">			</span><span class="keyword">while</span><span class="symbol">(!</span><span class="normal">iter</span><span class="symbol">-&gt;</span><span class="function">contains</span><span class="symbol">(</span><span class="normal">obj</span><span class="symbol">))</span>
+<span class="normal">			</span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">iter</span><span class="symbol">-&gt;</span><span class="normal">next </span><span class="symbol">==</span><span class="normal"> iter</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">				iter </span><span class="symbol">=</span><span class="normal"> iter</span><span class="symbol">-&gt;</span><span class="normal">next</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+
+<span class="normal">			iter</span><span class="symbol">-&gt;</span><span class="function">freeobj</span><span class="symbol">(</span><span class="normal">obj</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">// SDI2_PAGER_SLABALLOCATOR_H</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

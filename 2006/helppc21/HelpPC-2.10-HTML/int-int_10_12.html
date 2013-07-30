@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - int 10,12</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;INT 10,12 - Video Subsystem Configuration (EGA/VGA)</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AH = 12h<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;BL = 10 &nbsp;return video configuration information</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;on return:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;BH = 0 if color mode in effect<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 1 if mono mode in effect<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;BL = 0 if 64k EGA memory<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 1 if 128k EGA memory<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 2 if 192k EGA memory<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 3 if 256k EGA memory<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;CH = feature bits<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;CL = switch settings<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;BL = 20 &nbsp;select alternate print screen routine</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;BL = 30 &nbsp;select scan lines for alphanumeric modes</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; AL = 0 &nbsp;200 scan lines<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= 1 &nbsp;350 scan lines<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= 2 &nbsp;400 scan lines<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;on return:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AL = 12<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;BL = 31 &nbsp;select default palette loading</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; AL = 0 enable default palette loading<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= 1 disable default palette loading<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;on return:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AL = 12<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;BL = 32 &nbsp;CPU access to video RAM</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; AL = 0 &nbsp;enable CPU access to video RAM and I/O ports<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= 1 &nbsp;disable CPU access to video RAM and I/O ports<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;on return:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AL = 12<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;BL = 33 &nbsp;Gray scale summing</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; AL = 0 &nbsp;enable gray scale summing<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= 2 &nbsp;disable gray scale summing<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;on return:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AL = 12<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;BL = 34 &nbsp;cursor emulation</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; AL = 0 &nbsp;enable cursor emulation<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= 1 &nbsp;disable cursor emulation<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;on return:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AL = 12<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;BL = 35 &nbsp;PS/2 video display switching</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; AL = 0 initial adapter video off<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= 1 initial planar video on<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= 2 switch active video off<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= 3 switch inactive video on<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ES:DX pointer to 128 byte save area (when AL = 0, 2 or 3)<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;on return:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AL = 12<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;BL = 36 &nbsp;video refresh control</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; AL = 0 enable refresh<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= 1 disable refresh<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;on return:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AL = 12<br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">int 10,12</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

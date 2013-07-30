@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - int 21,5f</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; INT 21,5F &nbsp;AL=00 &nbsp;Get Redirection Mode &nbsp;(DOS 3.1+)</span><br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AH = 5F<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AL = 00<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;BL = redirection type<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 03 &nbsp;printer<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 04 &nbsp;disk drive<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;on return:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AX = error code if CF is set<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;BH = device redirection state<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 00 &nbsp;redirection off<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 01 &nbsp;redirection on<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- determines if disk or printer redirection is enabled<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- fails if file sharing is not loaded<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; INT 21,5F &nbsp;AL=01 &nbsp;Set Redirection Mode &nbsp;(DOS 3.1+)</span><br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AH = 5F<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AL = 01<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;BH = device redirection state<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 00 &nbsp;turn redirection off<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 01 &nbsp;turn redirection on<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;BL = redirection type<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 03 &nbsp;printer<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 04 &nbsp;disk drive<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;on return:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AX = error code if CF is set<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- enables or disables disk or printer redirection<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- local devices are used when redirection is off<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- fails if file sharing is not loaded<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;INT 21,5F &nbsp;AL=02 &nbsp;Get Redirection List Entry &nbsp;(DOS 3.1+)</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AH = 5F<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AL = 02<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;BX = redirection list index<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;DS:SI = far pointer to a 16 byte buffer to hold device name<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ES:DI = far pointer to a 128 byte buffer to hold network name<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;on return:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AX = error code if CF is set<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 1 &nbsp;invalid function code<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 12 no more files<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;BH = device status flag,<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bit 0 = 0 &nbsp;device valid<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bit 0 = 1 &nbsp;device invalid<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;BL = device type<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 3 &nbsp;printer<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 4 &nbsp;drive<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;CX = stored parameter value<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;DS:SI = far pointer to ASCIIZ local device name<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ES:DI = far pointer to ASCIIZ network name<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- value returned in CX is the value previously passed to<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;INT 21,5F with subfunction 3 in register CX<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- registers DX and BP are destroyed<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- fails if file sharing is not loaded<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; INT 21,5F &nbsp;AL=03 &nbsp;Redirect Device &nbsp;(DOS 3.1+)</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AH = 5F<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AL = 03<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;BL = device type<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 3 if printer<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 4 if drive<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;CX = parameter to save for caller<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;DS:SI = far pointer to ASCIIZ local device name<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ES:DI = far pointer to ASCIIZ network name followed<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;by ASCIIZ password<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;on return<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AX = error code if CF is set<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 1 &nbsp;invalid function code or<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;invalid source or destination string format or<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;source device already redirected<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 3 &nbsp;path not found<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 5 &nbsp;access denied<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 8 &nbsp;insufficient memory<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- parameter passed in CX can later be retrieved by calls<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;to INT 21,5F subfunction 2<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- local device name in DS:SI can be a drive designator<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(D:), a printer name (PRN or LPTx), or a null string<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- when a null string is followed by a password is used, DOS<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;tries granting access to the network directory using the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;given password<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- fails if file sharing is not loaded<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;INT 21,5F &nbsp;AL=04 &nbsp;Cancel Device Redirection &nbsp;(DOS 3.1+)</span><br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AH = 5F<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AL = 04<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;DS:SI = far pointer to ASCIIZ local device name<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;on return<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AX = error code if CF set<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 01 &nbsp;function code invalid<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ASCIIZ string is not an existing source device<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 0F &nbsp;redirection paused on server<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- local device name in DS:SI can be a drive designator<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(D:), a printer name (PRN or LPTx), or a string beginning<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;with 2 backslashes "\\"<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- when two backslashes are used for the string the connection<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;between the local machine and network directory terminates<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- fails if file sharing is not loaded<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;INT 21,5F &nbsp;AL=05 &nbsp;Get Redirection List Extended Entry (DOS 4.0+)</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AH = 5F<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AL = 05<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;BX = redirection list index<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;DS:SI = pointer to buffer to receive ASCIIZ source device name<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ES:DI = pointer to buffer to receive ASCIIZ network path<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;on return<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AX = error code if CF set<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;BH = device status flag (bit 0 clear if valid)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;BL = device type<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 03 &nbsp;printer device<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 04 &nbsp;disk device<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;CX = stored user parameter value<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;BP = NETBIOS local session number<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;DS:SI = pointer to buffer containing ASCIIZ source device name<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ES:DI = pointer to buffer containing ASCIIZ network path<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- retrieves the status, type, source and target of a given redirection<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- fails if file sharing is not loaded<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; INT 21,5F &nbsp;AL=06 &nbsp;Get Redirection List (DOS 4.0+)</span><br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AH = 5F<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AL = 06<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- no information is currently available for this subfunction<br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">int 21,5f</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

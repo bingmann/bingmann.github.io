@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2006/SDIOS06/sdios06/lib/SDL/events/SDL_events.c - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal4.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2006/">2006</a> / <a href="/2006/SDIOS06/">SDIOS06</a> / <a href="/2006/SDIOS06/sdios06/">sdios06</a> / <a href="/2006/SDIOS06/sdios06/lib/">lib</a> / <a href="/2006/SDIOS06/sdios06/lib/SDL/">SDL</a> / <a href="/2006/SDIOS06/sdios06/lib/SDL/events/">events</a> / <a href="/2006/SDIOS06/sdios06/lib/SDL/events/SDL_events.c.html">SDL_events.c</a> (<a href="/2006/SDIOS06/sdios06/lib/SDL/events/SDL_events.c">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">/*</span>
+<span class="comment">    SDL - Simple DirectMedia Layer</span>
+<span class="comment">    Copyright (C) 1997-2006 Sam Lantinga</span>
+
+<span class="comment">    This library is free software; you can redistribute it and/or</span>
+<span class="comment">    modify it under the terms of the GNU Lesser General Public</span>
+<span class="comment">    License as published by the Free Software Foundation; either</span>
+<span class="comment">    version 2.1 of the License, or (at your option) any later version.</span>
+
+<span class="comment">    This library is distributed in the hope that it will be useful,</span>
+<span class="comment">    but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="comment">    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU</span>
+<span class="comment">    Lesser General Public License for more details.</span>
+
+<span class="comment">    You should have received a copy of the GNU Lesser General Public</span>
+<span class="comment">    License along with this library; if not, write to the Free Software</span>
+<span class="comment">    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA</span>
+
+<span class="comment">    Sam Lantinga</span>
+<span class="comment">    </span><span class="url">slouken@libsdl.org</span>
+<span class="comment">*/</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"SDL_config.h"</span>
+
+<span class="comment">/* General event handling code for SDL */</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"SDL.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"SDL_syswm.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"SDL_sysevents.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"SDL_events_c.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"../timer/SDL_timer_c.h"</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_JOYSTICK_DISABLED</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"../joystick/SDL_joystick_c.h"</span>
+<span class="preproc">#endif</span>
+
+<span class="comment">/* Public data -- the event filter */</span>
+<span class="usertype">SDL_EventFilter</span><span class="normal"> SDL_EventOK </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="usertype">Uint8</span><span class="normal"> SDL_ProcessEvents</span><span class="symbol">[</span><span class="normal">SDL_NUMEVENTS</span><span class="symbol">];</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="usertype">Uint32</span><span class="normal"> SDL_eventstate </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="comment">/* Private data -- event queue */</span>
+<span class="preproc">#define</span><span class="normal"> MAXEVENTS	</span><span class="number">128</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">SDL_mutex</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">lock</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> active</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> head</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> tail</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="usertype">SDL_Event</span><span class="normal"> event</span><span class="symbol">[</span><span class="normal">MAXEVENTS</span><span class="symbol">];</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> wmmsg_next</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">SDL_SysWMmsg</span><span class="normal"> wmmsg</span><span class="symbol">[</span><span class="normal">MAXEVENTS</span><span class="symbol">];</span>
+<span class="cbracket">}</span><span class="normal"> SDL_EventQ</span><span class="symbol">;</span>
+
+<span class="comment">/* Private data -- event locking structure */</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">SDL_mutex</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">lock</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> safe</span><span class="symbol">;</span>
+<span class="cbracket">}</span><span class="normal"> SDL_EventLock</span><span class="symbol">;</span>
+
+<span class="comment">/* Thread functions */</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="usertype">SDL_Thread</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">SDL_EventThread </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* Thread handle */</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="usertype">Uint32</span><span class="normal"> event_thread</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* The event thread id */</span>
+
+<span class="type">void</span><span class="normal"> </span><span class="function">SDL_Lock_EventThread</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> SDL_EventThread </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="function">SDL_ThreadID</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> event_thread</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="comment">/* Grab lock and spin until we're sure event thread stopped */</span>
+<span class="normal">		</span><span class="function">SDL_mutexP</span><span class="symbol">(</span><span class="normal">SDL_EventLock</span><span class="symbol">.</span><span class="normal">lock</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">!</span><span class="normal"> SDL_EventLock</span><span class="symbol">.</span><span class="normal">safe </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">SDL_Delay</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">SDL_Unlock_EventThread</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> SDL_EventThread </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="function">SDL_ThreadID</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> event_thread</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_mutexV</span><span class="symbol">(</span><span class="normal">SDL_EventLock</span><span class="symbol">.</span><span class="normal">lock</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> __OS2__</span>
+<span class="comment">/*</span>
+<span class="comment"> * We'll increase the priority of GobbleEvents thread, so it will process</span>
+<span class="comment"> *  events in time for sure! For this, we need the DosSetPriority() API</span>
+<span class="comment"> *  from the os2.h include file.</span>
+<span class="comment"> */</span>
+<span class="preproc">#define</span><span class="normal"> INCL_DOSPROCESS</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;os2.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;time.h&gt;</span>
+<span class="preproc">#endif</span>
+
+<span class="keyword">static</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="usertype">SDLCALL</span><span class="normal"> </span><span class="function">SDL_GobbleEvents</span><span class="symbol">(</span><span class="type">void</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">unused</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	event_thread </span><span class="symbol">=</span><span class="normal"> </span><span class="function">SDL_ThreadID</span><span class="symbol">();</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> __OS2__</span>
+<span class="preproc">#ifdef</span><span class="normal"> USE_DOSSETPRIORITY</span>
+<span class="normal">	</span><span class="comment">/* Increase thread priority, so it will process events in time for sure! */</span>
+<span class="normal">	</span><span class="function">DosSetPriority</span><span class="symbol">(</span><span class="normal">PRTYS_THREAD</span><span class="symbol">,</span><span class="normal"> PRTYC_REGULAR</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">+</span><span class="number">16</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#endif</span>
+
+<span class="normal">	</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> SDL_EventQ</span><span class="symbol">.</span><span class="normal">active </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="usertype">SDL_VideoDevice</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">video </span><span class="symbol">=</span><span class="normal"> current_video</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="usertype">SDL_VideoDevice</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">this  </span><span class="symbol">=</span><span class="normal"> current_video</span><span class="symbol">;</span>
+
+<span class="normal">		</span><span class="comment">/* Get events from the video subsystem */</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> video </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			video</span><span class="symbol">-&gt;</span><span class="function">PumpEvents</span><span class="symbol">(</span><span class="normal">this</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">		</span><span class="comment">/* Queue pending key-repeat events */</span>
+<span class="normal">		</span><span class="function">SDL_CheckKeyRepeat</span><span class="symbol">();</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_JOYSTICK_DISABLED</span>
+<span class="normal">		</span><span class="comment">/* Check for joystick state change */</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> SDL_numjoysticks </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">SDL_eventstate </span><span class="symbol">&amp;</span><span class="normal"> SDL_JOYEVENTMASK</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">SDL_JoystickUpdate</span><span class="symbol">();</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="normal">		</span><span class="comment">/* Give up the CPU for the rest of our timeslice */</span>
+<span class="normal">		SDL_EventLock</span><span class="symbol">.</span><span class="normal">safe </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> SDL_timer_running </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">SDL_ThreadedTimerCheck</span><span class="symbol">();</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="function">SDL_Delay</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">);</span>
+
+<span class="normal">		</span><span class="comment">/* Check for event locking.</span>
+<span class="comment">		   On the P of the lock mutex, if the lock is held, this thread</span>
+<span class="comment">		   will wait until the lock is released before continuing.  The</span>
+<span class="comment">		   safe flag will be set, meaning that the other thread can go</span>
+<span class="comment">		   about it's business.  The safe flag is reset before the V,</span>
+<span class="comment">		   so as soon as the mutex is free, other threads can see that</span>
+<span class="comment">		   it's not safe to interfere with the event thread.</span>
+<span class="comment">		 */</span>
+<span class="normal">		</span><span class="function">SDL_mutexP</span><span class="symbol">(</span><span class="normal">SDL_EventLock</span><span class="symbol">.</span><span class="normal">lock</span><span class="symbol">);</span>
+<span class="normal">		SDL_EventLock</span><span class="symbol">.</span><span class="normal">safe </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="function">SDL_mutexV</span><span class="symbol">(</span><span class="normal">SDL_EventLock</span><span class="symbol">.</span><span class="normal">lock</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="function">SDL_SetTimerThreaded</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">	event_thread </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="keyword">static</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="function">SDL_StartEventThread</span><span class="symbol">(</span><span class="usertype">Uint32</span><span class="normal"> flags</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="comment">/* Reset everything to zero */</span>
+<span class="normal">	SDL_EventThread </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="function">SDL_memset</span><span class="symbol">(&amp;</span><span class="normal">SDL_EventLock</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">SDL_EventLock</span><span class="symbol">));</span>
+
+<span class="normal">	</span><span class="comment">/* Create the lock and set ourselves active */</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_THREADS_DISABLED</span>
+<span class="normal">	SDL_EventQ</span><span class="symbol">.</span><span class="normal">lock </span><span class="symbol">=</span><span class="normal"> </span><span class="function">SDL_CreateMutex</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> SDL_EventQ</span><span class="symbol">.</span><span class="normal">lock </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="preproc">#ifdef</span><span class="normal"> __MACOS__ </span><span class="comment">/* MacOS classic you can't multithread, so no lock needed */</span>
+<span class="normal">		</span><span class="symbol">;</span>
+<span class="preproc">#else</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* !SDL_THREADS_DISABLED */</span>
+<span class="normal">	SDL_EventQ</span><span class="symbol">.</span><span class="normal">active </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">flags</span><span class="symbol">&amp;</span><span class="normal">SDL_INIT_EVENTTHREAD</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> SDL_INIT_EVENTTHREAD </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		SDL_EventLock</span><span class="symbol">.</span><span class="normal">lock </span><span class="symbol">=</span><span class="normal"> </span><span class="function">SDL_CreateMutex</span><span class="symbol">();</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> SDL_EventLock</span><span class="symbol">.</span><span class="normal">lock </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		SDL_EventLock</span><span class="symbol">.</span><span class="normal">safe </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="normal">		</span><span class="comment">/* The event thread will handle timers too */</span>
+<span class="normal">		</span><span class="function">SDL_SetTimerThreaded</span><span class="symbol">(</span><span class="number">2</span><span class="symbol">);</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">defined</span><span class="symbol">(</span><span class="normal">__WIN32__</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="function">defined</span><span class="symbol">(</span><span class="normal">_WIN32_WCE</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="function">defined</span><span class="symbol">(</span><span class="normal">HAVE_LIBC</span><span class="symbol">)</span>
+<span class="preproc">#undef</span><span class="normal"> SDL_CreateThread</span>
+<span class="normal">		SDL_EventThread </span><span class="symbol">=</span><span class="normal"> </span><span class="function">SDL_CreateThread</span><span class="symbol">(</span><span class="normal">SDL_GobbleEvents</span><span class="symbol">,</span><span class="normal"> NULL</span><span class="symbol">,</span><span class="normal"> NULL</span><span class="symbol">,</span><span class="normal"> NULL</span><span class="symbol">);</span>
+<span class="preproc">#else</span>
+<span class="normal">		SDL_EventThread </span><span class="symbol">=</span><span class="normal"> </span><span class="function">SDL_CreateThread</span><span class="symbol">(</span><span class="normal">SDL_GobbleEvents</span><span class="symbol">,</span><span class="normal"> NULL</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> SDL_EventThread </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		event_thread </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">SDL_StopEventThread</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	SDL_EventQ</span><span class="symbol">.</span><span class="normal">active </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> SDL_EventThread </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_WaitThread</span><span class="symbol">(</span><span class="normal">SDL_EventThread</span><span class="symbol">,</span><span class="normal"> NULL</span><span class="symbol">);</span>
+<span class="normal">		SDL_EventThread </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="function">SDL_DestroyMutex</span><span class="symbol">(</span><span class="normal">SDL_EventLock</span><span class="symbol">.</span><span class="normal">lock</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="preproc">#ifndef</span><span class="normal"> IPOD</span>
+<span class="normal">	</span><span class="function">SDL_DestroyMutex</span><span class="symbol">(</span><span class="normal">SDL_EventQ</span><span class="symbol">.</span><span class="normal">lock</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="cbracket">}</span>
+
+<span class="usertype">Uint32</span><span class="normal"> </span><span class="function">SDL_EventThreadID</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">event_thread</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/* Public functions */</span>
+
+<span class="type">void</span><span class="normal"> </span><span class="function">SDL_StopEventLoop</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="comment">/* Halt the event thread, if running */</span>
+<span class="normal">	</span><span class="function">SDL_StopEventThread</span><span class="symbol">();</span>
+
+<span class="normal">	</span><span class="comment">/* Shutdown event handlers */</span>
+<span class="normal">	</span><span class="function">SDL_AppActiveQuit</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="function">SDL_KeyboardQuit</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="function">SDL_MouseQuit</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="function">SDL_QuitQuit</span><span class="symbol">();</span>
+
+<span class="normal">	</span><span class="comment">/* Clean out EventQ */</span>
+<span class="normal">	SDL_EventQ</span><span class="symbol">.</span><span class="normal">head </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	SDL_EventQ</span><span class="symbol">.</span><span class="normal">tail </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	SDL_EventQ</span><span class="symbol">.</span><span class="normal">wmmsg_next </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/* This function (and associated calls) may be called more than once */</span>
+<span class="type">int</span><span class="normal"> </span><span class="function">SDL_StartEventLoop</span><span class="symbol">(</span><span class="usertype">Uint32</span><span class="normal"> flags</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> retcode</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">/* Clean out the event queue */</span>
+<span class="normal">	SDL_EventThread </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">	SDL_EventQ</span><span class="symbol">.</span><span class="normal">lock </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="function">SDL_StopEventLoop</span><span class="symbol">();</span>
+
+<span class="normal">	</span><span class="comment">/* No filter to start with, process most event types */</span>
+<span class="normal">	SDL_EventOK </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="function">SDL_memset</span><span class="symbol">(</span><span class="normal">SDL_ProcessEvents</span><span class="symbol">,</span><span class="normal">SDL_ENABLE</span><span class="symbol">,</span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">SDL_ProcessEvents</span><span class="symbol">));</span>
+<span class="normal">	SDL_eventstate </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">~</span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="comment">/* It's not save to call SDL_EventState() yet */</span>
+<span class="normal">	SDL_eventstate </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="symbol">~(</span><span class="number">0x00000001</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> SDL_SYSWMEVENT</span><span class="symbol">);</span>
+<span class="normal">	SDL_ProcessEvents</span><span class="symbol">[</span><span class="normal">SDL_SYSWMEVENT</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> SDL_IGNORE</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">/* Initialize event handlers */</span>
+<span class="normal">	retcode </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	retcode </span><span class="symbol">+=</span><span class="normal"> </span><span class="function">SDL_AppActiveInit</span><span class="symbol">();</span>
+<span class="normal">	retcode </span><span class="symbol">+=</span><span class="normal"> </span><span class="function">SDL_KeyboardInit</span><span class="symbol">();</span>
+<span class="normal">	retcode </span><span class="symbol">+=</span><span class="normal"> </span><span class="function">SDL_MouseInit</span><span class="symbol">();</span>
+<span class="normal">	retcode </span><span class="symbol">+=</span><span class="normal"> </span><span class="function">SDL_QuitInit</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> retcode </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="comment">/* We don't expect them to fail, but... */</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="comment">/* Create the lock and event thread */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="function">SDL_StartEventThread</span><span class="symbol">(</span><span class="normal">flags</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_StopEventLoop</span><span class="symbol">();</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/* Add an event to the event queue -- called with the queue locked */</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="function">SDL_AddEvent</span><span class="symbol">(</span><span class="usertype">SDL_Event</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">event</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> tail</span><span class="symbol">,</span><span class="normal"> added</span><span class="symbol">;</span>
+
+<span class="normal">	tail </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">SDL_EventQ</span><span class="symbol">.</span><span class="normal">tail</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">)%</span><span class="normal">MAXEVENTS</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> tail </span><span class="symbol">==</span><span class="normal"> SDL_EventQ</span><span class="symbol">.</span><span class="normal">head </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="comment">/* Overflow, drop event */</span>
+<span class="normal">		added </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		SDL_EventQ</span><span class="symbol">.</span><span class="normal">event</span><span class="symbol">[</span><span class="normal">SDL_EventQ</span><span class="symbol">.</span><span class="normal">tail</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">event</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">-&gt;</span><span class="normal">type </span><span class="symbol">==</span><span class="normal"> SDL_SYSWMEVENT</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="comment">/* Note that it's possible to lose an event */</span>
+<span class="normal">			</span><span class="type">int</span><span class="normal"> next </span><span class="symbol">=</span><span class="normal"> SDL_EventQ</span><span class="symbol">.</span><span class="normal">wmmsg_next</span><span class="symbol">;</span>
+<span class="normal">			SDL_EventQ</span><span class="symbol">.</span><span class="normal">wmmsg</span><span class="symbol">[</span><span class="normal">next</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">event</span><span class="symbol">-&gt;</span><span class="normal">syswm</span><span class="symbol">.</span><span class="normal">msg</span><span class="symbol">;</span>
+<span class="normal">		        SDL_EventQ</span><span class="symbol">.</span><span class="normal">event</span><span class="symbol">[</span><span class="normal">SDL_EventQ</span><span class="symbol">.</span><span class="normal">tail</span><span class="symbol">].</span><span class="normal">syswm</span><span class="symbol">.</span><span class="normal">msg </span><span class="symbol">=</span>
+<span class="normal">						</span><span class="symbol">&amp;</span><span class="normal">SDL_EventQ</span><span class="symbol">.</span><span class="normal">wmmsg</span><span class="symbol">[</span><span class="normal">next</span><span class="symbol">];</span>
+<span class="normal">			SDL_EventQ</span><span class="symbol">.</span><span class="normal">wmmsg_next </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">next</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">)%</span><span class="normal">MAXEVENTS</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		SDL_EventQ</span><span class="symbol">.</span><span class="normal">tail </span><span class="symbol">=</span><span class="normal"> tail</span><span class="symbol">;</span>
+<span class="normal">		added </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">added</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/* Cut an event, and return the next valid spot, or the tail */</span>
+<span class="comment">/*                           -- called with the queue locked */</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="function">SDL_CutEvent</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> spot</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> spot </span><span class="symbol">==</span><span class="normal"> SDL_EventQ</span><span class="symbol">.</span><span class="normal">head </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		SDL_EventQ</span><span class="symbol">.</span><span class="normal">head </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">SDL_EventQ</span><span class="symbol">.</span><span class="normal">head</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">)%</span><span class="normal">MAXEVENTS</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">SDL_EventQ</span><span class="symbol">.</span><span class="normal">head</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">spot</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">)%</span><span class="normal">MAXEVENTS </span><span class="symbol">==</span><span class="normal"> SDL_EventQ</span><span class="symbol">.</span><span class="normal">tail </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		SDL_EventQ</span><span class="symbol">.</span><span class="normal">tail </span><span class="symbol">=</span><span class="normal"> spot</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">SDL_EventQ</span><span class="symbol">.</span><span class="normal">tail</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span>
+<span class="normal">	</span><span class="comment">/* We cut the middle -- shift everything over */</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="type">int</span><span class="normal"> here</span><span class="symbol">,</span><span class="normal"> next</span><span class="symbol">;</span>
+
+<span class="normal">		</span><span class="comment">/* This can probably be optimized with SDL_memcpy() -- careful! */</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">--</span><span class="normal">SDL_EventQ</span><span class="symbol">.</span><span class="normal">tail </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			SDL_EventQ</span><span class="symbol">.</span><span class="normal">tail </span><span class="symbol">=</span><span class="normal"> MAXEVENTS</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> here</span><span class="symbol">=</span><span class="normal">spot</span><span class="symbol">;</span><span class="normal"> here </span><span class="symbol">!=</span><span class="normal"> SDL_EventQ</span><span class="symbol">.</span><span class="normal">tail</span><span class="symbol">;</span><span class="normal"> here </span><span class="symbol">=</span><span class="normal"> next </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			next </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">here</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">)%</span><span class="normal">MAXEVENTS</span><span class="symbol">;</span>
+<span class="normal">			SDL_EventQ</span><span class="symbol">.</span><span class="normal">event</span><span class="symbol">[</span><span class="normal">here</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> SDL_EventQ</span><span class="symbol">.</span><span class="normal">event</span><span class="symbol">[</span><span class="normal">next</span><span class="symbol">];</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">spot</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="comment">/* NOTREACHED */</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/* Lock the event queue, take a peep at it, and unlock it */</span>
+<span class="type">int</span><span class="normal"> </span><span class="function">SDL_PeepEvents</span><span class="symbol">(</span><span class="usertype">SDL_Event</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">events</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> numevents</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">SDL_eventaction</span><span class="normal"> action</span><span class="symbol">,</span>
+<span class="normal">								</span><span class="usertype">Uint32</span><span class="normal"> mask</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> i</span><span class="symbol">,</span><span class="normal"> used</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">/* Don't look after we've quit */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">!</span><span class="normal"> SDL_EventQ</span><span class="symbol">.</span><span class="normal">active </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="comment">/* Lock the event queue */</span>
+<span class="normal">	used </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="function">SDL_mutexP</span><span class="symbol">(</span><span class="normal">SDL_EventQ</span><span class="symbol">.</span><span class="normal">lock</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> action </span><span class="symbol">==</span><span class="normal"> SDL_ADDEVENT </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> i</span><span class="symbol">=</span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">&lt;</span><span class="normal">numevents</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				used </span><span class="symbol">+=</span><span class="normal"> </span><span class="function">SDL_AddEvent</span><span class="symbol">(&amp;</span><span class="normal">events</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]);</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="usertype">SDL_Event</span><span class="normal"> tmpevent</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="type">int</span><span class="normal"> spot</span><span class="symbol">;</span>
+
+<span class="normal">			</span><span class="comment">/* If 'events' is NULL, just see if they exist */</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> events </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				action </span><span class="symbol">=</span><span class="normal"> SDL_PEEKEVENT</span><span class="symbol">;</span>
+<span class="normal">				numevents </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">				events </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">tmpevent</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">			spot </span><span class="symbol">=</span><span class="normal"> SDL_EventQ</span><span class="symbol">.</span><span class="normal">head</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">used </span><span class="symbol">&lt;</span><span class="normal"> numevents</span><span class="symbol">)&amp;&amp;(</span><span class="normal">spot </span><span class="symbol">!=</span><span class="normal"> SDL_EventQ</span><span class="symbol">.</span><span class="normal">tail</span><span class="symbol">))</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> mask </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="function">SDL_EVENTMASK</span><span class="symbol">(</span><span class="normal">SDL_EventQ</span><span class="symbol">.</span><span class="normal">event</span><span class="symbol">[</span><span class="normal">spot</span><span class="symbol">].</span><span class="normal">type</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">					events</span><span class="symbol">[</span><span class="normal">used</span><span class="symbol">++]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> SDL_EventQ</span><span class="symbol">.</span><span class="normal">event</span><span class="symbol">[</span><span class="normal">spot</span><span class="symbol">];</span>
+<span class="normal">					</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> action </span><span class="symbol">==</span><span class="normal"> SDL_GETEVENT </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">						spot </span><span class="symbol">=</span><span class="normal"> </span><span class="function">SDL_CutEvent</span><span class="symbol">(</span><span class="normal">spot</span><span class="symbol">);</span>
+<span class="normal">					</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">						spot </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">spot</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">)%</span><span class="normal">MAXEVENTS</span><span class="symbol">;</span>
+<span class="normal">					</span><span class="cbracket">}</span>
+<span class="normal">				</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">					spot </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">spot</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">)%</span><span class="normal">MAXEVENTS</span><span class="symbol">;</span>
+<span class="normal">				</span><span class="cbracket">}</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="function">SDL_mutexV</span><span class="symbol">(</span><span class="normal">SDL_EventQ</span><span class="symbol">.</span><span class="normal">lock</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_SetError</span><span class="symbol">(</span><span class="string">"Couldn't lock event queue"</span><span class="symbol">);</span>
+<span class="normal">		used </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">used</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/* Run the system dependent event loops */</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">SDL_PumpEvents</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_EventThread </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="usertype">SDL_VideoDevice</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">video </span><span class="symbol">=</span><span class="normal"> current_video</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="usertype">SDL_VideoDevice</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">this  </span><span class="symbol">=</span><span class="normal"> current_video</span><span class="symbol">;</span>
+
+<span class="normal">		</span><span class="comment">/* Get events from the video subsystem */</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> video </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			video</span><span class="symbol">-&gt;</span><span class="function">PumpEvents</span><span class="symbol">(</span><span class="normal">this</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">		</span><span class="comment">/* Queue pending key-repeat events */</span>
+<span class="normal">		</span><span class="function">SDL_CheckKeyRepeat</span><span class="symbol">();</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_JOYSTICK_DISABLED</span>
+<span class="normal">		</span><span class="comment">/* Check for joystick state change */</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> SDL_numjoysticks </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">SDL_eventstate </span><span class="symbol">&amp;</span><span class="normal"> SDL_JOYEVENTMASK</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">SDL_JoystickUpdate</span><span class="symbol">();</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/* Public functions */</span>
+
+<span class="type">int</span><span class="normal"> </span><span class="function">SDL_PollEvent</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">SDL_Event</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">event</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="function">SDL_PumpEvents</span><span class="symbol">();</span>
+
+<span class="normal">	</span><span class="comment">/* We can't return -1, just return 0 (no event) on error */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="function">SDL_PeepEvents</span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> SDL_GETEVENT</span><span class="symbol">,</span><span class="normal"> SDL_ALLEVENTS</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&lt;=</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="type">int</span><span class="normal"> </span><span class="function">SDL_WaitEvent</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">SDL_Event</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">event</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="number">1</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_PumpEvents</span><span class="symbol">();</span>
+<span class="normal">		</span><span class="keyword">switch</span><span class="symbol">(</span><span class="function">SDL_PeepEvents</span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> SDL_GETEVENT</span><span class="symbol">,</span><span class="normal"> SDL_ALLEVENTS</span><span class="symbol">))</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		    </span><span class="keyword">case</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">:</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">		    </span><span class="keyword">case</span><span class="normal"> </span><span class="number">1</span><span class="symbol">:</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">		    </span><span class="keyword">case</span><span class="normal"> </span><span class="number">0</span><span class="symbol">:</span><span class="normal"> </span><span class="function">SDL_Delay</span><span class="symbol">(</span><span class="number">10</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="type">int</span><span class="normal"> </span><span class="function">SDL_PushEvent</span><span class="symbol">(</span><span class="usertype">SDL_Event</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">event</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="function">SDL_PeepEvents</span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> SDL_ADDEVENT</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&lt;=</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> </span><span class="function">SDL_SetEventFilter</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">SDL_EventFilter</span><span class="normal"> filter</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">SDL_Event</span><span class="normal"> bitbucket</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">/* Set filter and discard pending events */</span>
+<span class="normal">	SDL_EventOK </span><span class="symbol">=</span><span class="normal"> filter</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="function">SDL_PollEvent</span><span class="symbol">(&amp;</span><span class="normal">bitbucket</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">		</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="usertype">SDL_EventFilter</span><span class="normal"> </span><span class="function">SDL_GetEventFilter</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">SDL_EventOK</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="usertype">Uint8</span><span class="normal"> </span><span class="function">SDL_EventState</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">Uint8</span><span class="normal"> type</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> state</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">SDL_Event</span><span class="normal"> bitbucket</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="usertype">Uint8</span><span class="normal"> current_state</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">/* If SDL_ALLEVENTS was specified... */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> type </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0xFF</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		current_state </span><span class="symbol">=</span><span class="normal"> SDL_IGNORE</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> type</span><span class="symbol">=</span><span class="number">0</span><span class="symbol">;</span><span class="normal"> type</span><span class="symbol">&lt;</span><span class="normal">SDL_NUMEVENTS</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">type </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> SDL_ProcessEvents</span><span class="symbol">[</span><span class="normal">type</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> SDL_IGNORE </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				current_state </span><span class="symbol">=</span><span class="normal"> SDL_ENABLE</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">			SDL_ProcessEvents</span><span class="symbol">[</span><span class="normal">type</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> state</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> state </span><span class="symbol">==</span><span class="normal"> SDL_ENABLE </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				SDL_eventstate </span><span class="symbol">|=</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0x00000001</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">type</span><span class="symbol">));</span>
+<span class="normal">			</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				SDL_eventstate </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="symbol">~(</span><span class="number">0x00000001</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">type</span><span class="symbol">));</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="function">SDL_PollEvent</span><span class="symbol">(&amp;</span><span class="normal">bitbucket</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">			</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">current_state</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="comment">/* Just set the state for one event type */</span>
+<span class="normal">	current_state </span><span class="symbol">=</span><span class="normal"> SDL_ProcessEvents</span><span class="symbol">[</span><span class="normal">type</span><span class="symbol">];</span>
+<span class="normal">	</span><span class="keyword">switch</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">state</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> SDL_IGNORE</span><span class="symbol">:</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> SDL_ENABLE</span><span class="symbol">:</span>
+<span class="normal">			</span><span class="comment">/* Set state and discard pending events */</span>
+<span class="normal">			SDL_ProcessEvents</span><span class="symbol">[</span><span class="normal">type</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> state</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> state </span><span class="symbol">==</span><span class="normal"> SDL_ENABLE </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				SDL_eventstate </span><span class="symbol">|=</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0x00000001</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">type</span><span class="symbol">));</span>
+<span class="normal">			</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				SDL_eventstate </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="symbol">~(</span><span class="number">0x00000001</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">type</span><span class="symbol">));</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">			</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="function">SDL_PollEvent</span><span class="symbol">(&amp;</span><span class="normal">bitbucket</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">				</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="label">		default:</span>
+<span class="normal">			</span><span class="comment">/* Querying state? */</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">current_state</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/* This is a generic event handler.</span>
+<span class="comment"> */</span>
+<span class="type">int</span><span class="normal"> </span><span class="function">SDL_PrivateSysWMEvent</span><span class="symbol">(</span><span class="usertype">SDL_SysWMmsg</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">message</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> posted</span><span class="symbol">;</span>
+
+<span class="normal">	posted </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> SDL_ProcessEvents</span><span class="symbol">[</span><span class="normal">SDL_SYSWMEVENT</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> SDL_ENABLE </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="usertype">SDL_Event</span><span class="normal"> event</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="function">SDL_memset</span><span class="symbol">(&amp;</span><span class="normal">event</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">));</span>
+<span class="normal">		event</span><span class="symbol">.</span><span class="normal">type </span><span class="symbol">=</span><span class="normal"> SDL_SYSWMEVENT</span><span class="symbol">;</span>
+<span class="normal">		event</span><span class="symbol">.</span><span class="normal">syswm</span><span class="symbol">.</span><span class="normal">msg </span><span class="symbol">=</span><span class="normal"> message</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">SDL_EventOK </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">SDL_EventOK</span><span class="symbol">)(&amp;</span><span class="normal">event</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			posted </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="function">SDL_PushEvent</span><span class="symbol">(&amp;</span><span class="normal">event</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="comment">/* Update internal event state */</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">posted</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

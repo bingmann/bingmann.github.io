@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - int 21,63</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; INT 21,63 - Get Lead Byte Table &nbsp;(MSDOS 2.25 only)</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;See below for information on the Asian INT 21,63 specifications</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AH = 63h<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AL = 00 &nbsp;get address of system lead byte table<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 01 &nbsp;set or clear interim console flag<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 02 &nbsp;get value of interim console flag<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;DL = 00 &nbsp;clear interim console flag (when AL=01)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 01 &nbsp;set interim console flag (when AL=01)<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;on return<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AX = error code if CF set<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;DS:SI = far pointer to lead byte table (AL=00)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;DL = value of interim console flag (AL=02)<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- available only in MSDOS 2.25<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- provides multiple byte character support<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- function 00, returns the address of system table containing<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;legal lead byte ranges<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- function 01 &amp; 02 set and get the interim console flag which<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;determines whether interim bytes are returned on some console<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;functions<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- all registers except CS:IP and SS:SP may be destroyed<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; INT 21,63 - Get Lead Byte Table &nbsp;(Asian DOS 3.2+)</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AH = 63h<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AL = 00 &nbsp;get address of Double Byte Character Set (DBCS) lead table<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 01 &nbsp;set Hongeul (Korean) input mode<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 02 &nbsp;get Hongeul (Korean) input mode<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;DL = new keyboard input mode<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 00 &nbsp;return completely formed characters only<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 01 &nbsp;return partially formed characters also<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;on return<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AL = 00 on success<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = FF if function not supported<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;DS:SI = pointer to DBCS table &nbsp;(function 00)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;DL = current keyboard input mode (function 02)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 00 &nbsp;only completely formed characters are accepted<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 01 &nbsp;partially formed characters are accepted<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- available only in Asian MSDOS 3.2+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- provides Asian multiple byte character support<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- all registers except CS:IP and SS:SP may be destroyed<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- DOS 4.0 returns an empty list<br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">int 21,63</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

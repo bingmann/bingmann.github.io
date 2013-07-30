@@ -1,0 +1,117 @@
+\section{Der Hilbert'sche Nullstellensatz}
+
+\begin{Satz}[Hilbert'scher Nullstellensatz]
+\label{Satz5}
+Sei $K$ ein Körper und $\mathfrak{m}$ ein maximales Ideal in $K[X_1, \dots,
+X_n]$.\\
+Dann ist $L \defeqr \FakRaum{K[X_1, \dots, X_n]}{\mathfrak{m}}$ eine
+algebraische Körpererweiterung von $K$.
+\end{Satz}
+
+\begin{Bew}
+  Für $n=1$ ist das aus Algebra I bekannt. Nimm das als Induktionsanfang einer
+  vollständigen Induktion nach $n$.
+
+  $L$ wird als $K$-Algebra erzeugt von den Restklassen $x_1, \dots, x_n$ der
+  $X_1, \dots, X_n$. Wenn $x_1, \dots, x_n$ algebraisch über $K$ sind, so auch
+  $L$. Wir nehmen an, dass sei nicht der Fall, sei also ohne Einschränkung
+  $x_1$ transzendent über $K$.
+
+  Da $L$ Körper, liegt $K' \defeqr K(x_1)$ in $L$, so dass $L \subset K'[X_1,
+  \dots, X_n]$ ein Faktorring von $K'[X_1, \dots, X_n]$ nach einem maximalen
+  Ideal ist.
+
+  $\overset{\text{I.V.}}{\Rightarrow} x_2, \dots, x_n$ sind algebraisch über $K'
+  \Rightarrow \exists a_{i \nu} \in K'=K(x_1)$ mit $x_i^{n_i} + \sum_{\nu =
+  0}^{n_i -1} a_{i \nu} x_i^{\nu} = 0$ für $i = 2, \dots, n$.
+  Nennen wir den Hauptnenner der $a_{i \nu}$ von nun $b \in K[X_1]$ $\Rightarrow$
+  $x_2, \dots, x_n$ sind ganz über $K[x_1, b^{-1}] \defeql R$.
+
+  \textbf{Beh.:} $R$ ist Körper.\\
+  \textbf{denn:} Sei $a \in R \setminus \{0\}$ und $a^{-1}$ das Inverse von $a$
+  in $L$. Da $L$ ganz über $R$ ist, gibt es $\alpha_0, \dots, \alpha_{m-1} \in
+  R$ mit $(a^{-1})^m + \sum_{i = 0}^{m-1} \alpha_i (a^{-1})^i = 0$ $\overset{
+  \cdot a^m}{\Rightarrow}$ $1 = -\sum_{i=0}^{m-1} \alpha_i a^{m-i} = a
+  (-\sum_{i=0}^{m-1} \alpha_i a^{m-i-1})$ $\Rightarrow$ $R$ ist Körper $\Rightarrow$
+  Widerspruch! $R$ kann niemals Körper sein.
+\end{Bew}
+
+\begin{Def}
+  Sei $I \trianglelefteq K[X_1, \dots, X_n]$ ein Ideal. Dann heißt die Teilmenge
+  $V(I) \subseteq K^n$, die durch
+  $$V(I) \defeqr \{(x_1, \dots, x_n) \in K^n: f(x_1, \dots, x_n) = 0 \; \forall f \in I\}$$
+  bestimmt ist, die \emp{Nullstellenmenge}\index{Nullstellenmenge} von $I$ in $K^n$.
+\end{Def}
+
+\begin{nnBsp} 
+  \begin{enumerate}
+    \item[1.)] aus der LA bekannt: affine Unterräume des $K^n$ sind
+               Nullstellenmenge von linearen Polynomen.
+    \item[2.)] Anschaulicher Spezialfall von 1.):\\
+               Punkte in $K^n: (x_1, \dots, x_n): V(X_1-x_1, X_2 - x_2, \dots,
+               X_n - x_n)$.
+  \end{enumerate}
+\end{nnBsp}
+
+\begin{BemDef}
+  \begin{enumerate}
+    \item \label{2.12a}Für 2 Ideale $I_1 \subseteq I_2$ gilt $V(I_1) \supseteq V(I_2)$.
+    \item Definiert man für eine beliebige Teilmenge $V \subseteq K^n$ das
+      \emp{Verschwindungsideal}\index{Verschwindungsideal} von $V$ durch
+      $$I(V) \defeqr \{ f \in K[X_1,\dots, X_n]: f(x_1, \dots, x_n) = 0 \; \forall (x_1, \dots, x_n) \in V\},$$
+      so gilt $V \subseteq V(I(V))$;
+
+      ist $V$ bereits Nullstellenmenge $V(I)$ eines Ideals $I$ von $K[X_1, \dots, X_n]$,\\
+      so gilt sogar $V = V(I(V))$.
+  \end{enumerate}
+\end{BemDef}
+
+\begin{Bew}
+  \begin{enumerate}
+    \item Sei $x \in V(I_2) \Rightarrow f(x) = 0 \; \forall f \in I_2 \supseteq I_1 \Rightarrow x \in V(I_1)$
+    \item ''$\subseteq$'': Definition von $V$ und $I$\\
+          ''$\supseteq$'': Sei $V = V(I)$ für $I \trianglelefteq K[X_1, \dots, X_n]$.
+	  Nach Definition $I \subseteq I(V) \overset{\text{\ref{2.12a}}}{\Rightarrow} V(I(V)) \subseteq V(I) = V$
+  \end{enumerate}
+\end{Bew}
+
+\begin{nnSatz}[Schwacher Nullstellensatz]
+\label{SatzSchwach}
+  Ist $K$ algebraisch abgeschlossenen, so ist für jedes echte Ideal $I \trianglelefteq K[X_1, \dots, X_n]: V(I) \not= \emptyset$.
+\end{nnSatz}
+
+\begin{Bew}
+  Sei $I \trianglelefteq K[X_1, \dots, X_n]$ echtes Ideal. Nach Algebra I gibt es dann maximales Ideal $\mathfrak{m} \supseteq I$. Weiter gilt: $V(\mathfrak{m}) \subseteq V(I)$, so können wir ohne Einschränkung annehmen, dass $I = \mathfrak{m}$ maximal ist.
+
+  Nach \myref{Satz}{Satz5} ist $K[X_1, \dots, X_n]/\mathfrak{m}$ eine algebraische Körpererweiterung von $K$.\\
+  Da $K$ algebraisch abgeschlossen $\Rightarrow K[X_1, \dots, X_n]/\mathfrak{m} \cong K$.\\
+  Seien nun $x_i$ die Restklasse von $X_i$ in $K[X_1, \dots, X_n]/\mathfrak{m}$ und $x = (x_1, \dots, x_n)$.\\
+  Für $f \in K[X_1, \dots, X_n]$ ist $f(x) = f(\bar{X_1}, \dots, \bar{X_n}) = \bar{f} \text{ mod } I \Rightarrow f(x) = 0 \forall \; f \in I \Rightarrow x \in V(I)$.
+\end{Bew}
+
+\begin{nnSatz}[Starker Nullstellensatz]
+  Ist $K$ algebraisch abgeschlossen, so gilt für jedes Ideal $I \trianglelefteq K[X_1, \dots, X_n]$:
+  $$I(V(I)) = \{ f \in K[X_1, \dots, X_n]: \exists d \ge 1: f^d \in I \} \defeql \sqrt[d]{I}$$
+\end{nnSatz}
+
+\begin{Bew}[Rabinovitsch-Trick]
+  Sei $g \in I(V(I))$ und $f_1, \dots, f_m$ Idealerzeuger von $I \trianglelefteq K[X_1, \dots, X_n]$.\\
+  Zu zeigen: $\exists d \geq 1 \text{ mit } g^d = \sum_{i = 1}^m a_i f_i$ für irgendwelche $a_i$.
+
+  Sei $J \subseteq K[X_1, \dots, X_n, X_{n+1}]$ das von $f_1, \dots, f_m, gX_{n+1}-1$ erzeugte Ideal.
+
+  \textbf{Beh.:} $V(J) = \emptyset$\\
+  \textbf{Bew.:} Sei $x = (x_1, \dots, x_n, x_{n+1}) \in V(J)$.
+  Dann ist $f_i(x') = 0$ für $x' = (x_1, \dots, x_n)$ und $i = 1, \dots, m \Rightarrow x' \in V(I)$.
+
+  Nach Wahl von $g \in I(V(I))$ ist also $g(x') = 0$\\
+  $\Rightarrow$ $(gX_{n+1}-1)(x) = g(x') x_{n+1} - 1 = -1 \not= 0$. $\Rightarrow$ $V(J) = \emptyset$.
+
+  Nach schwachen Nullstellensatz ist $J = K[X_1, \dots, X_{n+1}]$\\
+  $\Rightarrow$ $\exists b_1, \dots, b_m$ und $b \in K[X_1, \dots, X_{n+1}$ mit $\sum_{i=1}^m b_i f_i + b(gX_{n+1} - 1) = 1$.
+
+  Sei $R \defeqr R[X_1, \dots, X_{n+1}]/ (gX_{n+1} - 1) \cong K[X_1, \dots, X_n][\frac{1}{g}]$. Unter dem Isomorphismus werden die $f_i$ auf sich selbst, die $b_i$ auf $\tilde{b_i} \in R$ abgebildet $\Rightarrow \sum_{i = 1}^m \tilde{b_i} f_i = 1 \text{ in } R$.
+  Multipliziere mit dem Hauptnenner $g^d$ der $\tilde{b_i} \Rightarrow \sum_{i = 1}^m \underset{\in K[X_1, \dots, X_n]}{\underbrace{(g^d \tilde{b_i})}} f_i = g^d \Rightarrow I(V(I)) \subseteq \sqrt[d]{I}$.
+
+  ''$\supseteq$'': klar.
+\end{Bew}

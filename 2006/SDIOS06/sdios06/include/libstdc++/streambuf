@@ -1,0 +1,91 @@
+#ifndef STREAMBUF_
+#define STREAMBUF_
+
+namespace std {
+
+	class streambuf
+	{
+	public:
+		static const int eof = -1;
+		
+		virtual ~streambuf()
+		{
+		}
+		
+		virtual int sync()
+		{
+			return 0;
+		}
+		
+		char* eback() const
+		{
+			return in_beg;
+		}
+		
+		char* gptr() const
+		{
+			return in_cur;
+		}
+		
+		char* egptr() const
+		{
+			return in_end;
+		}
+		
+		void setg(char* beg, char* next, char* end)
+		{
+			this->in_beg = beg;
+			this->in_cur = next;
+			this->in_end = end;
+		}
+		
+		char* pbase() const
+		{
+			return out_beg;
+		}
+		
+		char* pptr() const
+		{
+			return out_cur;
+		}
+		
+		char* epptr() const
+		{
+			return out_end;
+		}
+		
+		void setp(char* beg, char* end)
+		{
+			this->out_beg = beg;
+			this->out_cur = beg;
+			this->out_end = end;
+		}
+		
+		void pbump(int n)
+		{
+			out_cur += n;
+		}
+		
+		virtual int overflow(int c = eof)
+		{
+			(void) c;
+			return eof;
+		}
+		
+		virtual int underflow()
+		{
+			return eof;
+		}
+		
+	private:
+		char* in_beg;
+		char* in_cur;
+		char* in_end;
+		char* out_beg;
+		char* out_cur;
+		char* out_end;
+	};
+	
+}
+
+#endif /*STREAMBUF_*/

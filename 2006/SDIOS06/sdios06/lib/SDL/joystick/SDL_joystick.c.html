@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2006/SDIOS06/sdios06/lib/SDL/joystick/SDL_joystick.c - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal2.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2006/">2006</a> / <a href="/2006/SDIOS06/">SDIOS06</a> / <a href="/2006/SDIOS06/sdios06/">sdios06</a> / <a href="/2006/SDIOS06/sdios06/lib/">lib</a> / <a href="/2006/SDIOS06/sdios06/lib/SDL/">SDL</a> / <a href="/2006/SDIOS06/sdios06/lib/SDL/joystick/">joystick</a> / <a href="/2006/SDIOS06/sdios06/lib/SDL/joystick/SDL_joystick.c.html">SDL_joystick.c</a> (<a href="/2006/SDIOS06/sdios06/lib/SDL/joystick/SDL_joystick.c">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">/*</span>
+<span class="comment">    SDL - Simple DirectMedia Layer</span>
+<span class="comment">    Copyright (C) 1997-2006 Sam Lantinga</span>
+
+<span class="comment">    This library is free software; you can redistribute it and/or</span>
+<span class="comment">    modify it under the terms of the GNU Lesser General Public</span>
+<span class="comment">    License as published by the Free Software Foundation; either</span>
+<span class="comment">    version 2.1 of the License, or (at your option) any later version.</span>
+
+<span class="comment">    This library is distributed in the hope that it will be useful,</span>
+<span class="comment">    but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="comment">    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU</span>
+<span class="comment">    Lesser General Public License for more details.</span>
+
+<span class="comment">    You should have received a copy of the GNU Lesser General Public</span>
+<span class="comment">    License along with this library; if not, write to the Free Software</span>
+<span class="comment">    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA</span>
+
+<span class="comment">    Sam Lantinga</span>
+<span class="comment">    </span><span class="url">slouken@libsdl.org</span>
+<span class="comment">*/</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"SDL_config.h"</span>
+
+<span class="comment">/* This is the joystick API for Simple DirectMedia Layer */</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"SDL_events.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"SDL_sysjoystick.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"SDL_joystick_c.h"</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_EVENTS_DISABLED</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"../events/SDL_events_c.h"</span>
+<span class="preproc">#endif</span>
+
+<span class="comment">/* This is used for Quake III Arena */</span>
+<span class="preproc">#if</span><span class="normal"> SDL_EVENTS_DISABLED</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">SDL_Lock_EventThread</span><span class="symbol">()</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">SDL_Unlock_EventThread</span><span class="symbol">()</span>
+<span class="preproc">#endif</span>
+
+<span class="usertype">Uint8</span><span class="normal"> SDL_numjoysticks </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="usertype">SDL_Joystick</span><span class="normal"> </span><span class="symbol">**</span><span class="normal">SDL_joysticks </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="usertype">SDL_Joystick</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">default_joystick </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+
+<span class="type">int</span><span class="normal"> </span><span class="function">SDL_JoystickInit</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> arraylen</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> status</span><span class="symbol">;</span>
+
+<span class="normal">	SDL_numjoysticks </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	status </span><span class="symbol">=</span><span class="normal"> </span><span class="function">SDL_SYS_JoystickInit</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> status </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		arraylen </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">status</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">)*</span><span class="keyword">sizeof</span><span class="symbol">(*</span><span class="normal">SDL_joysticks</span><span class="symbol">);</span>
+<span class="normal">		SDL_joysticks </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">SDL_Joystick </span><span class="symbol">**)</span><span class="function">SDL_malloc</span><span class="symbol">(</span><span class="normal">arraylen</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> SDL_joysticks </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			SDL_numjoysticks </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">SDL_memset</span><span class="symbol">(</span><span class="normal">SDL_joysticks</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> arraylen</span><span class="symbol">);</span>
+<span class="normal">			SDL_numjoysticks </span><span class="symbol">=</span><span class="normal"> status</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		status </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	default_joystick </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">status</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Count the number of joysticks attached to the system</span>
+<span class="comment"> */</span>
+<span class="type">int</span><span class="normal"> </span><span class="function">SDL_NumJoysticks</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> SDL_numjoysticks</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Get the implementation dependent name of a joystick</span>
+<span class="comment"> */</span>
+<span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="function">SDL_JoystickName</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> device_index</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">device_index </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">device_index </span><span class="symbol">&gt;=</span><span class="normal"> SDL_numjoysticks</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_SetError</span><span class="symbol">(</span><span class="string">"There are %d joysticks available"</span><span class="symbol">,</span>
+<span class="normal">		             SDL_numjoysticks</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">NULL</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="function">SDL_SYS_JoystickName</span><span class="symbol">(</span><span class="normal">device_index</span><span class="symbol">));</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Open a joystick for use - the index passed as an argument refers to</span>
+<span class="comment"> * the N'th joystick on the system.  This index is the value which will</span>
+<span class="comment"> * identify this joystick in future joystick events.</span>
+<span class="comment"> *</span>
+<span class="comment"> * This function returns a joystick identifier, or NULL if an error occurred.</span>
+<span class="comment"> */</span>
+<span class="usertype">SDL_Joystick</span><span class="normal"> </span><span class="symbol">*</span><span class="function">SDL_JoystickOpen</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> device_index</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> i</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="usertype">SDL_Joystick</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">joystick</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">device_index </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">device_index </span><span class="symbol">&gt;=</span><span class="normal"> SDL_numjoysticks</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_SetError</span><span class="symbol">(</span><span class="string">"There are %d joysticks available"</span><span class="symbol">,</span>
+<span class="normal">		             SDL_numjoysticks</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">NULL</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="comment">/* If the joystick is already open, return it */</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> i</span><span class="symbol">=</span><span class="number">0</span><span class="symbol">;</span><span class="normal"> SDL_joysticks</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> device_index </span><span class="symbol">==</span><span class="normal"> SDL_joysticks</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]-&gt;</span><span class="normal">index </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			joystick </span><span class="symbol">=</span><span class="normal"> SDL_joysticks</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span>
+<span class="normal">			</span><span class="symbol">++</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">ref_count</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">joystick</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="comment">/* Create and initialize the joystick */</span>
+<span class="normal">	joystick </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">SDL_Joystick </span><span class="symbol">*)</span><span class="function">SDL_malloc</span><span class="symbol">((</span><span class="keyword">sizeof</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">joystick</span><span class="symbol">));</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> joystick </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_memset</span><span class="symbol">(</span><span class="normal">joystick</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">sizeof</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">joystick</span><span class="symbol">));</span>
+<span class="normal">		joystick</span><span class="symbol">-&gt;</span><span class="normal">index </span><span class="symbol">=</span><span class="normal"> device_index</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="function">SDL_SYS_JoystickOpen</span><span class="symbol">(</span><span class="normal">joystick</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">SDL_free</span><span class="symbol">(</span><span class="normal">joystick</span><span class="symbol">);</span>
+<span class="normal">			joystick </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> joystick</span><span class="symbol">-&gt;</span><span class="normal">naxes </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				joystick</span><span class="symbol">-&gt;</span><span class="normal">axes </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">Sint16 </span><span class="symbol">*)</span><span class="normal">SDL_malloc</span>
+<span class="normal">					</span><span class="symbol">(</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">naxes</span><span class="symbol">*</span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">Sint16</span><span class="symbol">));</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> joystick</span><span class="symbol">-&gt;</span><span class="normal">nhats </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				joystick</span><span class="symbol">-&gt;</span><span class="normal">hats </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">Uint8 </span><span class="symbol">*)</span><span class="normal">SDL_malloc</span>
+<span class="normal">					</span><span class="symbol">(</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">nhats</span><span class="symbol">*</span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">Uint8</span><span class="symbol">));</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> joystick</span><span class="symbol">-&gt;</span><span class="normal">nballs </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				joystick</span><span class="symbol">-&gt;</span><span class="normal">balls </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">balldelta</span><span class="normal"> </span><span class="symbol">*)</span><span class="normal">SDL_malloc</span>
+<span class="normal">				  </span><span class="symbol">(</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">nballs</span><span class="symbol">*</span><span class="keyword">sizeof</span><span class="symbol">(*</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">balls</span><span class="symbol">));</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> joystick</span><span class="symbol">-&gt;</span><span class="normal">nbuttons </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				joystick</span><span class="symbol">-&gt;</span><span class="normal">buttons </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">Uint8 </span><span class="symbol">*)</span><span class="normal">SDL_malloc</span>
+<span class="normal">					</span><span class="symbol">(</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">nbuttons</span><span class="symbol">*</span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">Uint8</span><span class="symbol">));</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">naxes </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">axes</span><span class="symbol">)</span>
+<span class="normal">			  </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">nhats </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">hats</span><span class="symbol">)</span>
+<span class="normal">			  </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">nballs </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">balls</span><span class="symbol">)</span>
+<span class="normal">			  </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">nbuttons </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">buttons</span><span class="symbol">))</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="function">SDL_OutOfMemory</span><span class="symbol">();</span>
+<span class="normal">				</span><span class="function">SDL_JoystickClose</span><span class="symbol">(</span><span class="normal">joystick</span><span class="symbol">);</span>
+<span class="normal">				joystick </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> joystick</span><span class="symbol">-&gt;</span><span class="normal">axes </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="function">SDL_memset</span><span class="symbol">(</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">axes</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span>
+<span class="normal">					joystick</span><span class="symbol">-&gt;</span><span class="normal">naxes</span><span class="symbol">*</span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">Sint16</span><span class="symbol">));</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> joystick</span><span class="symbol">-&gt;</span><span class="normal">hats </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="function">SDL_memset</span><span class="symbol">(</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">hats</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span>
+<span class="normal">					joystick</span><span class="symbol">-&gt;</span><span class="normal">nhats</span><span class="symbol">*</span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">Uint8</span><span class="symbol">));</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> joystick</span><span class="symbol">-&gt;</span><span class="normal">balls </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="function">SDL_memset</span><span class="symbol">(</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">balls</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span>
+<span class="normal">				  joystick</span><span class="symbol">-&gt;</span><span class="normal">nballs</span><span class="symbol">*</span><span class="keyword">sizeof</span><span class="symbol">(*</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">balls</span><span class="symbol">));</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> joystick</span><span class="symbol">-&gt;</span><span class="normal">buttons </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="function">SDL_memset</span><span class="symbol">(</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">buttons</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span>
+<span class="normal">					joystick</span><span class="symbol">-&gt;</span><span class="normal">nbuttons</span><span class="symbol">*</span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">Uint8</span><span class="symbol">));</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> joystick </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="comment">/* Add joystick to list */</span>
+<span class="normal">		</span><span class="symbol">++</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">ref_count</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="function">SDL_Lock_EventThread</span><span class="symbol">();</span>
+<span class="normal">		</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> i</span><span class="symbol">=</span><span class="number">0</span><span class="symbol">;</span><span class="normal"> SDL_joysticks</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i </span><span class="symbol">)</span>
+<span class="normal">			</span><span class="comment">/* Skip to next joystick */</span><span class="symbol">;</span>
+<span class="normal">		SDL_joysticks</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> joystick</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="function">SDL_Unlock_EventThread</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">joystick</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Returns 1 if the joystick has been opened, or 0 if it has not.</span>
+<span class="comment"> */</span>
+<span class="type">int</span><span class="normal"> </span><span class="function">SDL_JoystickOpened</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> device_index</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> i</span><span class="symbol">,</span><span class="normal"> opened</span><span class="symbol">;</span>
+
+<span class="normal">	opened </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> i</span><span class="symbol">=</span><span class="number">0</span><span class="symbol">;</span><span class="normal"> SDL_joysticks</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> SDL_joysticks</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]-&gt;</span><span class="normal">index </span><span class="symbol">==</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">Uint8</span><span class="symbol">)</span><span class="normal">device_index </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			opened </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">opened</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="keyword">static</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="function">ValidJoystick</span><span class="symbol">(</span><span class="usertype">SDL_Joystick</span><span class="normal"> </span><span class="symbol">**</span><span class="normal">joystick</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> valid</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">joystick </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="symbol">*</span><span class="normal">joystick </span><span class="symbol">=</span><span class="normal"> default_joystick</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">joystick </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_SetError</span><span class="symbol">(</span><span class="string">"Joystick hasn't been opened yet"</span><span class="symbol">);</span>
+<span class="normal">		valid </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		valid </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> valid</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Get the device index of an opened joystick.</span>
+<span class="comment"> */</span>
+<span class="type">int</span><span class="normal"> </span><span class="function">SDL_JoystickIndex</span><span class="symbol">(</span><span class="usertype">SDL_Joystick</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">joystick</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">!</span><span class="normal"> </span><span class="function">ValidJoystick</span><span class="symbol">(&amp;</span><span class="normal">joystick</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">index</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Get the number of multi-dimensional axis controls on a joystick</span>
+<span class="comment"> */</span>
+<span class="type">int</span><span class="normal"> </span><span class="function">SDL_JoystickNumAxes</span><span class="symbol">(</span><span class="usertype">SDL_Joystick</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">joystick</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">!</span><span class="normal"> </span><span class="function">ValidJoystick</span><span class="symbol">(&amp;</span><span class="normal">joystick</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">naxes</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Get the number of hats on a joystick</span>
+<span class="comment"> */</span>
+<span class="type">int</span><span class="normal"> </span><span class="function">SDL_JoystickNumHats</span><span class="symbol">(</span><span class="usertype">SDL_Joystick</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">joystick</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">!</span><span class="normal"> </span><span class="function">ValidJoystick</span><span class="symbol">(&amp;</span><span class="normal">joystick</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">nhats</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Get the number of trackballs on a joystick</span>
+<span class="comment"> */</span>
+<span class="type">int</span><span class="normal"> </span><span class="function">SDL_JoystickNumBalls</span><span class="symbol">(</span><span class="usertype">SDL_Joystick</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">joystick</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">!</span><span class="normal"> </span><span class="function">ValidJoystick</span><span class="symbol">(&amp;</span><span class="normal">joystick</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">nballs</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Get the number of buttons on a joystick</span>
+<span class="comment"> */</span>
+<span class="type">int</span><span class="normal"> </span><span class="function">SDL_JoystickNumButtons</span><span class="symbol">(</span><span class="usertype">SDL_Joystick</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">joystick</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">!</span><span class="normal"> </span><span class="function">ValidJoystick</span><span class="symbol">(&amp;</span><span class="normal">joystick</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">nbuttons</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Get the current state of an axis control on a joystick</span>
+<span class="comment"> */</span>
+<span class="usertype">Sint16</span><span class="normal"> </span><span class="function">SDL_JoystickGetAxis</span><span class="symbol">(</span><span class="usertype">SDL_Joystick</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">joystick</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> axis</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">Sint16</span><span class="normal"> state</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">!</span><span class="normal"> </span><span class="function">ValidJoystick</span><span class="symbol">(&amp;</span><span class="normal">joystick</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> axis </span><span class="symbol">&lt;</span><span class="normal"> joystick</span><span class="symbol">-&gt;</span><span class="normal">naxes </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		state </span><span class="symbol">=</span><span class="normal"> joystick</span><span class="symbol">-&gt;</span><span class="normal">axes</span><span class="symbol">[</span><span class="normal">axis</span><span class="symbol">];</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_SetError</span><span class="symbol">(</span><span class="string">"Joystick only has %d axes"</span><span class="symbol">,</span><span class="normal"> joystick</span><span class="symbol">-&gt;</span><span class="normal">naxes</span><span class="symbol">);</span>
+<span class="normal">		state </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">state</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Get the current state of a hat on a joystick</span>
+<span class="comment"> */</span>
+<span class="usertype">Uint8</span><span class="normal"> </span><span class="function">SDL_JoystickGetHat</span><span class="symbol">(</span><span class="usertype">SDL_Joystick</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">joystick</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> hat</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">Uint8</span><span class="normal"> state</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">!</span><span class="normal"> </span><span class="function">ValidJoystick</span><span class="symbol">(&amp;</span><span class="normal">joystick</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> hat </span><span class="symbol">&lt;</span><span class="normal"> joystick</span><span class="symbol">-&gt;</span><span class="normal">nhats </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		state </span><span class="symbol">=</span><span class="normal"> joystick</span><span class="symbol">-&gt;</span><span class="normal">hats</span><span class="symbol">[</span><span class="normal">hat</span><span class="symbol">];</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_SetError</span><span class="symbol">(</span><span class="string">"Joystick only has %d hats"</span><span class="symbol">,</span><span class="normal"> joystick</span><span class="symbol">-&gt;</span><span class="normal">nhats</span><span class="symbol">);</span>
+<span class="normal">		state </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">state</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Get the ball axis change since the last poll</span>
+<span class="comment"> */</span>
+<span class="type">int</span><span class="normal"> </span><span class="function">SDL_JoystickGetBall</span><span class="symbol">(</span><span class="usertype">SDL_Joystick</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">joystick</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> ball</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dx</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dy</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> retval</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">!</span><span class="normal"> </span><span class="function">ValidJoystick</span><span class="symbol">(&amp;</span><span class="normal">joystick</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	retval </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> ball </span><span class="symbol">&lt;</span><span class="normal"> joystick</span><span class="symbol">-&gt;</span><span class="normal">nballs </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> dx </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="symbol">*</span><span class="normal">dx </span><span class="symbol">=</span><span class="normal"> joystick</span><span class="symbol">-&gt;</span><span class="normal">balls</span><span class="symbol">[</span><span class="normal">ball</span><span class="symbol">].</span><span class="normal">dx</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> dy </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="symbol">*</span><span class="normal">dy </span><span class="symbol">=</span><span class="normal"> joystick</span><span class="symbol">-&gt;</span><span class="normal">balls</span><span class="symbol">[</span><span class="normal">ball</span><span class="symbol">].</span><span class="normal">dy</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		joystick</span><span class="symbol">-&gt;</span><span class="normal">balls</span><span class="symbol">[</span><span class="normal">ball</span><span class="symbol">].</span><span class="normal">dx </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">		joystick</span><span class="symbol">-&gt;</span><span class="normal">balls</span><span class="symbol">[</span><span class="normal">ball</span><span class="symbol">].</span><span class="normal">dy </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_SetError</span><span class="symbol">(</span><span class="string">"Joystick only has %d balls"</span><span class="symbol">,</span><span class="normal"> joystick</span><span class="symbol">-&gt;</span><span class="normal">nballs</span><span class="symbol">);</span>
+<span class="normal">		retval </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">retval</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Get the current state of a button on a joystick</span>
+<span class="comment"> */</span>
+<span class="usertype">Uint8</span><span class="normal"> </span><span class="function">SDL_JoystickGetButton</span><span class="symbol">(</span><span class="usertype">SDL_Joystick</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">joystick</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> button</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">Uint8</span><span class="normal"> state</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">!</span><span class="normal"> </span><span class="function">ValidJoystick</span><span class="symbol">(&amp;</span><span class="normal">joystick</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> button </span><span class="symbol">&lt;</span><span class="normal"> joystick</span><span class="symbol">-&gt;</span><span class="normal">nbuttons </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		state </span><span class="symbol">=</span><span class="normal"> joystick</span><span class="symbol">-&gt;</span><span class="normal">buttons</span><span class="symbol">[</span><span class="normal">button</span><span class="symbol">];</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_SetError</span><span class="symbol">(</span><span class="string">"Joystick only has %d buttons"</span><span class="symbol">,</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">nbuttons</span><span class="symbol">);</span>
+<span class="normal">		state </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">state</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Close a joystick previously opened with SDL_JoystickOpen()</span>
+<span class="comment"> */</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">SDL_JoystickClose</span><span class="symbol">(</span><span class="usertype">SDL_Joystick</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">joystick</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> i</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">!</span><span class="normal"> </span><span class="function">ValidJoystick</span><span class="symbol">(&amp;</span><span class="normal">joystick</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="comment">/* First decrement ref count */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">--</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">ref_count </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="comment">/* Lock the event queue - prevent joystick polling */</span>
+<span class="normal">	</span><span class="function">SDL_Lock_EventThread</span><span class="symbol">();</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> joystick </span><span class="symbol">==</span><span class="normal"> default_joystick </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		default_joystick </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="function">SDL_SYS_JoystickClose</span><span class="symbol">(</span><span class="normal">joystick</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="comment">/* Remove joystick from list */</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> i</span><span class="symbol">=</span><span class="number">0</span><span class="symbol">;</span><span class="normal"> SDL_joysticks</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> joystick </span><span class="symbol">==</span><span class="normal"> SDL_joysticks</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">SDL_memcpy</span><span class="symbol">(&amp;</span><span class="normal">SDL_joysticks</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">],</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">SDL_joysticks</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">],</span>
+<span class="normal">			       </span><span class="symbol">(</span><span class="normal">SDL_numjoysticks</span><span class="symbol">-</span><span class="normal">i</span><span class="symbol">)*</span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">joystick</span><span class="symbol">));</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="comment">/* Let the event thread keep running */</span>
+<span class="normal">	</span><span class="function">SDL_Unlock_EventThread</span><span class="symbol">();</span>
+
+<span class="normal">	</span><span class="comment">/* Free the data associated with this joystick */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> joystick</span><span class="symbol">-&gt;</span><span class="normal">axes </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_free</span><span class="symbol">(</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">axes</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> joystick</span><span class="symbol">-&gt;</span><span class="normal">hats </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_free</span><span class="symbol">(</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">hats</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> joystick</span><span class="symbol">-&gt;</span><span class="normal">balls </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_free</span><span class="symbol">(</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">balls</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> joystick</span><span class="symbol">-&gt;</span><span class="normal">buttons </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_free</span><span class="symbol">(</span><span class="normal">joystick</span><span class="symbol">-&gt;</span><span class="normal">buttons</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="function">SDL_free</span><span class="symbol">(</span><span class="normal">joystick</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> </span><span class="function">SDL_JoystickQuit</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="comment">/* Stop the event polling */</span>
+<span class="normal">	</span><span class="function">SDL_Lock_EventThread</span><span class="symbol">();</span>
+<span class="normal">	SDL_numjoysticks </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="function">SDL_Unlock_EventThread</span><span class="symbol">();</span>
+
+<span class="normal">	</span><span class="comment">/* Quit the joystick setup */</span>
+<span class="normal">	</span><span class="function">SDL_SYS_JoystickQuit</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> SDL_joysticks </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_free</span><span class="symbol">(</span><span class="normal">SDL_joysticks</span><span class="symbol">);</span>
+<span class="normal">		SDL_joysticks </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/* These are global for SDL_sysjoystick.c and SDL_events.c */</span>
+
+<span class="type">int</span><span class="normal"> </span><span class="function">SDL_PrivateJoystickAxis</span><span class="symbol">(</span><span class="usertype">SDL_Joystick</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">joystick</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">Uint8</span><span class="normal"> axis</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">Sint16</span><span class="normal"> value</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> posted</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">/* Update internal joystick state */</span>
+<span class="normal">	joystick</span><span class="symbol">-&gt;</span><span class="normal">axes</span><span class="symbol">[</span><span class="normal">axis</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> value</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">/* Post the event, if desired */</span>
+<span class="normal">	posted </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_EVENTS_DISABLED</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> SDL_ProcessEvents</span><span class="symbol">[</span><span class="normal">SDL_JOYAXISMOTION</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> SDL_ENABLE </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="usertype">SDL_Event</span><span class="normal"> event</span><span class="symbol">;</span>
+<span class="normal">		event</span><span class="symbol">.</span><span class="normal">type </span><span class="symbol">=</span><span class="normal"> SDL_JOYAXISMOTION</span><span class="symbol">;</span>
+<span class="normal">		event</span><span class="symbol">.</span><span class="normal">jaxis</span><span class="symbol">.</span><span class="normal">which </span><span class="symbol">=</span><span class="normal"> joystick</span><span class="symbol">-&gt;</span><span class="normal">index</span><span class="symbol">;</span>
+<span class="normal">		event</span><span class="symbol">.</span><span class="normal">jaxis</span><span class="symbol">.</span><span class="normal">axis </span><span class="symbol">=</span><span class="normal"> axis</span><span class="symbol">;</span>
+<span class="normal">		event</span><span class="symbol">.</span><span class="normal">jaxis</span><span class="symbol">.</span><span class="normal">value </span><span class="symbol">=</span><span class="normal"> value</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">SDL_EventOK </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">SDL_EventOK</span><span class="symbol">)(&amp;</span><span class="normal">event</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			posted </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="function">SDL_PushEvent</span><span class="symbol">(&amp;</span><span class="normal">event</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* !SDL_EVENTS_DISABLED */</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">posted</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="type">int</span><span class="normal"> </span><span class="function">SDL_PrivateJoystickHat</span><span class="symbol">(</span><span class="usertype">SDL_Joystick</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">joystick</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">Uint8</span><span class="normal"> hat</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">Uint8</span><span class="normal"> value</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> posted</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">/* Update internal joystick state */</span>
+<span class="normal">	joystick</span><span class="symbol">-&gt;</span><span class="normal">hats</span><span class="symbol">[</span><span class="normal">hat</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> value</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">/* Post the event, if desired */</span>
+<span class="normal">	posted </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_EVENTS_DISABLED</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> SDL_ProcessEvents</span><span class="symbol">[</span><span class="normal">SDL_JOYHATMOTION</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> SDL_ENABLE </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="usertype">SDL_Event</span><span class="normal"> event</span><span class="symbol">;</span>
+<span class="normal">		event</span><span class="symbol">.</span><span class="normal">jhat</span><span class="symbol">.</span><span class="normal">type </span><span class="symbol">=</span><span class="normal"> SDL_JOYHATMOTION</span><span class="symbol">;</span>
+<span class="normal">		event</span><span class="symbol">.</span><span class="normal">jhat</span><span class="symbol">.</span><span class="normal">which </span><span class="symbol">=</span><span class="normal"> joystick</span><span class="symbol">-&gt;</span><span class="normal">index</span><span class="symbol">;</span>
+<span class="normal">		event</span><span class="symbol">.</span><span class="normal">jhat</span><span class="symbol">.</span><span class="normal">hat </span><span class="symbol">=</span><span class="normal"> hat</span><span class="symbol">;</span>
+<span class="normal">		event</span><span class="symbol">.</span><span class="normal">jhat</span><span class="symbol">.</span><span class="normal">value </span><span class="symbol">=</span><span class="normal"> value</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">SDL_EventOK </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">SDL_EventOK</span><span class="symbol">)(&amp;</span><span class="normal">event</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			posted </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="function">SDL_PushEvent</span><span class="symbol">(&amp;</span><span class="normal">event</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* !SDL_EVENTS_DISABLED */</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">posted</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="type">int</span><span class="normal"> </span><span class="function">SDL_PrivateJoystickBall</span><span class="symbol">(</span><span class="usertype">SDL_Joystick</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">joystick</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">Uint8</span><span class="normal"> ball</span><span class="symbol">,</span>
+<span class="normal">					</span><span class="usertype">Sint16</span><span class="normal"> xrel</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">Sint16</span><span class="normal"> yrel</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> posted</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">/* Update internal mouse state */</span>
+<span class="normal">	joystick</span><span class="symbol">-&gt;</span><span class="normal">balls</span><span class="symbol">[</span><span class="normal">ball</span><span class="symbol">].</span><span class="normal">dx </span><span class="symbol">+=</span><span class="normal"> xrel</span><span class="symbol">;</span>
+<span class="normal">	joystick</span><span class="symbol">-&gt;</span><span class="normal">balls</span><span class="symbol">[</span><span class="normal">ball</span><span class="symbol">].</span><span class="normal">dy </span><span class="symbol">+=</span><span class="normal"> yrel</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">/* Post the event, if desired */</span>
+<span class="normal">	posted </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_EVENTS_DISABLED</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> SDL_ProcessEvents</span><span class="symbol">[</span><span class="normal">SDL_JOYBALLMOTION</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> SDL_ENABLE </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="usertype">SDL_Event</span><span class="normal"> event</span><span class="symbol">;</span>
+<span class="normal">		event</span><span class="symbol">.</span><span class="normal">jball</span><span class="symbol">.</span><span class="normal">type </span><span class="symbol">=</span><span class="normal"> SDL_JOYBALLMOTION</span><span class="symbol">;</span>
+<span class="normal">		event</span><span class="symbol">.</span><span class="normal">jball</span><span class="symbol">.</span><span class="normal">which </span><span class="symbol">=</span><span class="normal"> joystick</span><span class="symbol">-&gt;</span><span class="normal">index</span><span class="symbol">;</span>
+<span class="normal">		event</span><span class="symbol">.</span><span class="normal">jball</span><span class="symbol">.</span><span class="normal">ball </span><span class="symbol">=</span><span class="normal"> ball</span><span class="symbol">;</span>
+<span class="normal">		event</span><span class="symbol">.</span><span class="normal">jball</span><span class="symbol">.</span><span class="normal">xrel </span><span class="symbol">=</span><span class="normal"> xrel</span><span class="symbol">;</span>
+<span class="normal">		event</span><span class="symbol">.</span><span class="normal">jball</span><span class="symbol">.</span><span class="normal">yrel </span><span class="symbol">=</span><span class="normal"> yrel</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">SDL_EventOK </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">SDL_EventOK</span><span class="symbol">)(&amp;</span><span class="normal">event</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			posted </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="function">SDL_PushEvent</span><span class="symbol">(&amp;</span><span class="normal">event</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* !SDL_EVENTS_DISABLED */</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">posted</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="type">int</span><span class="normal"> </span><span class="function">SDL_PrivateJoystickButton</span><span class="symbol">(</span><span class="usertype">SDL_Joystick</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">joystick</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">Uint8</span><span class="normal"> button</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">Uint8</span><span class="normal"> state</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> posted</span><span class="symbol">;</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_EVENTS_DISABLED</span>
+<span class="normal">	</span><span class="usertype">SDL_Event</span><span class="normal"> event</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">switch</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> state </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> SDL_PRESSED</span><span class="symbol">:</span>
+<span class="normal">			event</span><span class="symbol">.</span><span class="normal">type </span><span class="symbol">=</span><span class="normal"> SDL_JOYBUTTONDOWN</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> SDL_RELEASED</span><span class="symbol">:</span>
+<span class="normal">			event</span><span class="symbol">.</span><span class="normal">type </span><span class="symbol">=</span><span class="normal"> SDL_JOYBUTTONUP</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="label">		default:</span>
+<span class="normal">			</span><span class="comment">/* Invalid state -- bail */</span>
+<span class="normal">			</span><span class="keyword">return</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* !SDL_EVENTS_DISABLED */</span>
+
+<span class="normal">	</span><span class="comment">/* Update internal joystick state */</span>
+<span class="normal">	joystick</span><span class="symbol">-&gt;</span><span class="normal">buttons</span><span class="symbol">[</span><span class="normal">button</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> state</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">/* Post the event, if desired */</span>
+<span class="normal">	posted </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_EVENTS_DISABLED</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> SDL_ProcessEvents</span><span class="symbol">[</span><span class="normal">event</span><span class="symbol">.</span><span class="normal">type</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> SDL_ENABLE </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		event</span><span class="symbol">.</span><span class="normal">jbutton</span><span class="symbol">.</span><span class="normal">which </span><span class="symbol">=</span><span class="normal"> joystick</span><span class="symbol">-&gt;</span><span class="normal">index</span><span class="symbol">;</span>
+<span class="normal">		event</span><span class="symbol">.</span><span class="normal">jbutton</span><span class="symbol">.</span><span class="normal">button </span><span class="symbol">=</span><span class="normal"> button</span><span class="symbol">;</span>
+<span class="normal">		event</span><span class="symbol">.</span><span class="normal">jbutton</span><span class="symbol">.</span><span class="normal">state </span><span class="symbol">=</span><span class="normal"> state</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">SDL_EventOK </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">SDL_EventOK</span><span class="symbol">)(&amp;</span><span class="normal">event</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			posted </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="function">SDL_PushEvent</span><span class="symbol">(&amp;</span><span class="normal">event</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* !SDL_EVENTS_DISABLED */</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">posted</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> </span><span class="function">SDL_JoystickUpdate</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> i</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> i</span><span class="symbol">=</span><span class="number">0</span><span class="symbol">;</span><span class="normal"> SDL_joysticks</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_SYS_JoystickUpdate</span><span class="symbol">(</span><span class="normal">SDL_joysticks</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="type">int</span><span class="normal"> </span><span class="function">SDL_JoystickEventState</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> state</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="preproc">#if</span><span class="normal"> SDL_EVENTS_DISABLED</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> SDL_IGNORE</span><span class="symbol">;</span>
+<span class="preproc">#else</span>
+<span class="normal">	</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">Uint8</span><span class="normal"> event_list</span><span class="symbol">[]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		SDL_JOYAXISMOTION</span><span class="symbol">,</span><span class="normal"> SDL_JOYBALLMOTION</span><span class="symbol">,</span><span class="normal"> SDL_JOYHATMOTION</span><span class="symbol">,</span>
+<span class="normal">		SDL_JOYBUTTONDOWN</span><span class="symbol">,</span><span class="normal"> SDL_JOYBUTTONUP</span><span class="symbol">,</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> i</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">switch</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">state</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> SDL_QUERY</span><span class="symbol">:</span>
+<span class="normal">			state </span><span class="symbol">=</span><span class="normal"> SDL_IGNORE</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> i</span><span class="symbol">=</span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">&lt;</span><span class="function">SDL_arraysize</span><span class="symbol">(</span><span class="normal">event_list</span><span class="symbol">);</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				state </span><span class="symbol">=</span><span class="normal"> </span><span class="function">SDL_EventState</span><span class="symbol">(</span><span class="normal">event_list</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">],</span><span class="normal">SDL_QUERY</span><span class="symbol">);</span>
+<span class="normal">				</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> state </span><span class="symbol">==</span><span class="normal"> SDL_ENABLE </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">					</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">				</span><span class="cbracket">}</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="label">		default:</span>
+<span class="normal">			</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> i</span><span class="symbol">=</span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">&lt;</span><span class="function">SDL_arraysize</span><span class="symbol">(</span><span class="normal">event_list</span><span class="symbol">);</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="function">SDL_EventState</span><span class="symbol">(</span><span class="normal">event_list</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">],</span><span class="normal"> state</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">state</span><span class="symbol">);</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* SDL_EVENTS_DISABLED */</span>
+<span class="cbracket">}</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

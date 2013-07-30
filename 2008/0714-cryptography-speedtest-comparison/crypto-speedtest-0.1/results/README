@@ -1,0 +1,272 @@
+This directory contains speed test result data sets from five different
+computers and five different Linux distributions that are available to me. This
+file contains a description of the test environments. All tests were run with a
+minimal set of process (usually just init and a shell) running in
+background. Tests were performed around 2008-04-09 with up-to-date distribution
+packages.
+
+*** CPUs / Computers ***
+
+** p4-3200 **
+
+is an Intel Pentium 4 clocked at 3.2 GHz with 1024 KB level 2 cache. It has
+give different distributions installed: gentoo (base) and chrooted:
+debian-etch, debian-lenny, ubuntu-gutsy and fedora 8.
+
+** p3-1000 **
+
+is an Intel Pentium 3 Mobile clocked at 1.0 GHz with 512 KB level 2 cache. The
+installed base distribution is (K)Ubuntu 7.10 Gutsy Gibbon (currently the
+stable).
+
+** ath-2000 **
+
+is an AMD Athlon XP 2000+ with 256 KB level 2 cache. It has Debian etch
+(currently the stable) installed in a chroot.
+
+** cel-2660 **
+
+is an Intel Celeron clocked at 2.66 GHz with 256 KB level 2 cache. It has
+Debian etch (currently the stable) installed.
+
+** p2-300 **
+
+is an older Intel Pentium 2 (Klamath) clocked at 300 MHz with 512 KB level 2
+cache. It also has only Debian etch installed.
+
+*** Distributions ***
+
+*** gentoo ***
+
+The speedtest was performed using the following ebuilt library versions. All
+where compiled using portage with:
+
+CFLAGS="-march=i686 -O3 -fomit-frame-pointer -pipe"
+CXXFLAGS="${CFLAGS}"
+
+ebuild package versions used in speedtest:
+
+dev-libs/libgcrypt-1.4.0-r1
+dev-libs/libmcrypt-2.5.8
+dev-libs/botan-1.6.1-r1
+dev-libs/crypto++-5.5.2
+dev-libs/nettle-1.15
+dev-libs/openssl-0.9.8g
+dev-libs/beecrypt-4.1.2-r1
+dev-libs/libtomcrypt-1.06
+
+The speedtest source itself was compiled using:
+
+sys-devel/gcc-4.1.2
+
+gcc (GCC) 4.1.2 20070214 (  (gdc 0.24, using dmd 1.020)) (Gentoo 4.1.2 p1.0.2)
+
+*** debian-etch ***
+
+Debian etch is currently the stable distribution. The following libraries were
+taken from the standard package repositories:
+
+package			version
+
+libgcrypt11		1.2.3-2
+libgcrypt11-dev		1.2.3-2
+libmcrypt4		2.5.7-5
+libmcrypt-dev		2.5.7-5
+libcrypto++5.2c2a	5.2.1c2a-3
+libcrypto++-dev		5.2.1c2a-3
+libnettle2		1.14.1-1
+libnettle-dev		1.14.1-1
+libssl0.9.8		0.9.8c-4etch1
+libssl-dev		0.9.8c-4etch1
+libbeecrypt6		4.1.2-6
+libbeecrypt6-dev	4.1.2-6
+
+Two libraries were not available in the distribution:
+
+Botan was backported to etch by compiling the version available in lenny:
+
+libbotan1.6		1.6.3-4
+libbotan1.6-dev		1.6.3-4
+
+Libtomcrypt is currently not included in Debian lenny, however a new package
+which is being prepared for inclusion in Debian is available from:
+
+http://lists.debian.org/debian-mentors/2007/05/msg00275.html
+
+deb-src http://mentors.debian.net/debian unstable main contrib non-free
+
+libtomcrypt0		1.17-1
+libtomcrypt0-dev	1.17-1
+
+This source package was compiled in Debian etch.
+
+The speedtest source itself was compiled using:
+
+gcc-4.1			4.1.1-21
+
+gcc (GCC) 4.1.2 20061115 (prerelease) (Debian 4.1.1-21)
+
+*** debian-lenny ***
+
+Debian lenny is currently the testing distribution. The following libraries
+were taken from the standard package repositories:
+
+package			version
+
+libgcrypt11		1.4.0-3
+libgcrypt11-dev 	1.4.0-3
+libmcrypt4		2.5.7-5
+libmcrypt-dev		2.5.7-5
+libcrypto++7		5.5.2-1
+libcrypto++-dev 	5.5.2-1
+libbotan1.6		1.6.3-4
+libbotan1.6-dev 	1.6.3-4
+libnettle2		1.15-4
+libnettle-dev		1.15-4
+libssl0.9.8		0.9.8g-4
+libssl-dev		0.9.8g-4
+libbeecrypt6		4.1.2-6
+libbeecrypt6-dev	4.1.2-6
+
+Again libtomcrypt was not available via the standard packages. The proposed
+source package mentioned above was recompiled on Debian lenny:
+
+libtomcrypt0		1.17-1
+libtomcrypt0-dev	1.17-1
+
+The speedtest source itself was compiled using:
+
+gcc-4.2			4:4.2.3-3
+
+gcc (GCC) 4.2.3 (Debian 4.2.3-3)
+
+*** ubuntu-gutsy ***
+
+Ubuntu 7.10 Gutsy Gibbon is currently the old stable distribution. The
+following libraries were taken from the standard package repositories:
+
+package			version
+
+libgcrypt11		1.2.4-2ubuntu2
+libgcrypt11-dev		1.2.4-2ubuntu2
+libmcrypt4		2.5.7-5
+libmcrypt-dev		2.5.7-5
+libcrypto++6		5.5-3
+libcrypto++-dev		5.5-3
+libbotan1.6		1.6.2-3
+libbotan-dev		1.6.2-3
+libnettle2		1.15-4
+libnettle-dev		1.15-4
+libssl0.9.8		0.9.8e-5ubuntu3.1
+libssl-dev		0.9.8e-5ubuntu3.1
+libbeecrypt6		4.1.2-6build1
+libbeecrypt6-dev	4.1.2-6build1
+
+The only library not available in the Ubuntu distribution is libtomcrypt. This
+was taken from the proposed binary packages from
+http://ppa.launchpad.net/pgquiles/ubuntu/pool/main/libt/libtomcrypt/
+
+libtomcrypt0		1.17-0ubuntu1~ppa2
+libtomcrypt0-dev	1.17-0ubuntu1~ppa2
+
+The speedtest source itself was compiled using:
+
+gcc-4.1			4:4.1.2-16ubuntu2
+
+gcc (GCC) 4.1.3 20070929 (prerelease) (Ubuntu 4.1.2-16ubuntu2)
+
+*** ubuntu-hardy ***
+
+Ubuntu 8.04 Hardy Heron is currently the stable distribution. The following
+libraries were taken from the standard package repositories:
+
+package			version
+
+libgcrypt11		1.2.4-2ubuntu7
+libgcrypt11-dev		1.2.4-2ubuntu7
+libmcrypt4		2.5.7-5
+libmcrypt-dev		2.5.7-5
+libcrypto++6		5.5.2-1
+libcrypto++-dev		5.5.2-1
+libbotan1.6		1.6.3-2
+libbotan-dev		1.6.3-2
+libnettle2		1.15-4
+libnettle-dev		1.15-4
+libssl0.9.8		0.9.8g-4ubuntu3
+libssl-dev		0.9.8g-4ubuntu3
+libbeecrypt6		4.1.2-6build1
+libbeecrypt6-dev	4.1.2-6build1
+
+Again the only library not available in the Ubuntu distribution is
+libtomcrypt. This was taken from the proposed package:
+
+http://ppa.launchpad.net/pgquiles/ubuntu/pool/main/libt/libtomcrypt/
+
+The source package was built using the ubuntu system and the resulting binary
+debs installed.
+
+libtomcrypt0		1.17-0ubuntu1~ppa2
+libtomcrypt0-dev	1.17-0ubuntu1~ppa2
+
+The speedtest source itself was compiled using:
+
+gcc-4.2			4.2.3-2ubuntu7
+
+gcc (GCC) 4.2.3 (Ubuntu 4.2.3-2ubuntu7)
+
+*** fedora8 ***
+
+Fedora 8 is currently the stable distribution. The following libraries were
+taken from the standard package repositories:
+
+package			version
+
+libgcrypt		1.2.4-6
+libgcrypt-devel		1.2.4-6
+libmcrypt		2.5.8-4.fc8
+libmcrypt-devel		2.5.8-4.fc8
+nettle			1.15-4.fc8
+nettle-devel		1.15-4.fc8
+openssl			0.9.8b-17.fc8
+openssl-devel		0.9.8b-17.fc8
+beecrypt		4.1.2-13
+beecrypt-devel		4.1.2-13
+libtomcrypt		1.17-8.fc8
+libtomcrypt-devel	1.17-8.fc8
+
+The standard repositories did not contain Crypto++ and Botan. They were
+retrieved from the DAG / RPMforge package repository:
+
+cryptopp		5.2.1-2.1.fc3.rf
+cryptopp-devel		5.2.1-2.1.fc3.rf
+botan			1.6.3-1.fc8.rf
+botan-devel		1.6.3-1.fc8.rf
+
+From the urls:
+
+http://dag.wieers.com/rpm/packages/cryptopp/
+http://dag.wieers.com/rpm/packages/botan/
+
+The speedtest source itself was compiled using:
+
+gcc			4.1.2-33
+
+gcc (GCC) 4.1.2 20070925 (Red Hat 4.1.2-33)
+
+*** Results ***
+
+All available CPU / Distribution combinations were tested and the result text
+files are included in this package. The results are fed into the gnuplot script
+"speedtest.gnuplot" which produces two PDFs per result directory.
+
+Each <cpu>-<distro>.pdf contains 23 pages comparing ciphers and cryptography
+libraries. The second <cpu>-<distro>-all.pdf is a A4-sized plot containing
+_all_ ciphers in _all_ libraries making the graph very full.
+
+Furthermore this directory contains a sidebyside-comparison.pdf, which collect
+each of the 23 different plots from the 9 different CPU / distro combinations
+and displays all 9 plots on a A4-sized page. This enables quick comparison of
+the different architectures.
+
+The file cpu-sidebyside-comparison-3x2.pdf contains only 6 six of the different
+CPU / distro combinations excluding distros on p4-3200 to increase legibility.

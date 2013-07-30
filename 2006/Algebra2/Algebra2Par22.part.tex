@@ -1,0 +1,116 @@
+\section{Ganze Ringerweiterungen}
+
+\begin{Def} 
+  Sei $S/R$ eine Ringerweiterung (d.h. $R \subseteq S$).
+  \begin{enumerate} 
+    \item $b \in S$ heißt \emp{ganz} über $R$, wenn es ein \emp{normiertes}
+          Polynom $f \in R[X]$ gibt mit $f(b) = 0$.
+    \item $S$ heißt \emp{ganz}\index{Ringerweiterung!ganze} über $R$, wenn jedes
+    $b \in S$ ganz über $R$ ist.
+\end{enumerate}
+\end{Def}
+
+\begin{nnBsp} 
+  $\sqrt{2} \in \mathbb{R}$ ist ganz über $\mathbb{Z}$.\\
+  $\frac{1}{2} \in \mathbb{Q}$ ist nicht ganz über $\mathbb{Z}$ (Nullstelle von
+  $2X -1$).
+\end{nnBsp}
+
+\begin{Prop}
+\label{2.7}
+  Sei $S/R$ Ringerweiterung. Für $b \in S$ sind äquivalent:
+  \begin{enumerate} 
+  \item[(i)] $b$ ist ganz über $R$.
+  \item[(ii)] $R[b]$ ist endlich erzeugbarer $R$-Modul.
+  \item[(iii)] $R[b]$ ist enthalten in einem Unterring $S' \subseteq S$, der
+    als $R$-Modul endlich erzeugt ist.
+\end{enumerate}
+\end{Prop}
+
+\begin{Bew} 
+  \textbf{(i) $\Rightarrow$ (ii):} Nach Voraussetzung gibt es $a_0, \dots ,
+  a_{n-1} \in R$, sodass $b^n = a_{n-1}
+  b^{n-1} + \dots + a_0$\\
+  $\Rightarrow b^n$ ist in dem von $1, b, \dots , b^{n-1}$
+  erzeugtem $R$-Untermodul von $S$ enthalten.\\
+  $\Rightarrow b^{n+1} = a_{n-1} b^n + \dots + a_0 b = a_{n-1}
+  (\sum_{i=0}^{n-1} a_i b^i) + \dots + a_0 b \in M$\\
+  $\overset{\text{Induktion}}{\Rightarrow} b^k \in M$ für alle $k \ge
+  0 \Rightarrow M = R[b]$
+
+  \textbf{(iii) $\Rightarrow$ (i):} $S'$ werde als $R$-Modul von $s_1, \dots ,
+  s_n$ erzeugt $\Rightarrow b \cdot s_i \in S'$, d.h. $b \cdot s_i = \sum_{k =
+    1}^n a_{i k} s_k$ für $i=1,\dots,n \Rightarrow \sum_{k = 1}^n (a_{i k}
+  -\delta_{i k} \cdot b) \cdot s_k = 0$ für
+  $i=1, \dots, n$.\\
+  Für die Matrix $A = (a_{i k} - \delta_{i k} \cdot b)_{i,k =1, \dots, n} \in S
+  ^{n \times n}$ gilt also $A \cdot \begin{pmatrix}s_1 \\ \vdots \\ s_n
+  \end{pmatrix} = 0$.
+  $\det(A)$ ist normiertes Polynom in b vom Grad $n$ mit Koeffizienten in $R$
+
+  \textbf{Beh.:} det$(A)$ = 0.\\
+  \textbf{Bew.:} Cramersche Regel:\\
+  $A^{\#} \defeqr (b_{i j}) \text{ mit } b_{i j} = (-1)^{i+j} \det(A'_{j
+  i}), i,j= 1, \dots, n$ wobei $A'_{j i}$ durch Streichen der $j$-ten Zeile und
+  der $i$-ten Spalte aus $A$ hervor geht.\\
+  $A \cdot A^{\#} = (c_{i k}) \text{ mit } c_{i k} = \sum_{j = 1}^n a_{i j} b_{j
+  k} = \sum_{j = 1}^n a_{i j} (-1)^{j+k} \det(A'_{k j}) = \begin{cases}
+  i=k: & \det(A) \text{ (Laplace)}\\
+  i \not= k: & \det(A_k^i) = 0
+  \end{cases}$\\
+  $\det(A_k^i) = 0:$ in der $k$-ten Zeile steht $a_{i 1}, \dots , a_{i n}
+  \Rightarrow i$-te und $k$-te Zeile sind gleich.\\
+  $\Rightarrow A \cdot A^{\#} = \det(A) \cdot E_n = A^{\#} \cdot A
+  \Rightarrow 0 = A^{\#} \cdot A \cdot \begin{pmatrix}s_1 \\ \vdots \\ s_n 
+  \end{pmatrix} = \det(A) \cdot \begin{pmatrix}s_1 \\ \vdots \\ s_n 
+  \end{pmatrix} \Rightarrow \det(A) \cdot s_i = 0$ für $i = 1, \dots,
+  n$.
+  Da $1 \in S'$, gibt es $\lambda_i \in R$ mit $1 = \sum_{i=1}^n \lambda_i s_i
+  \Rightarrow \det(A) \cdot 1 = \sum_{i=1}^n \lambda_i \cdot \det(A)
+  \cdot s_i = 0 \Rightarrow \det(A) = 0$.
+\end{Bew}
+
+\begin{Prop}
+\label{2.8}
+  Ist $S/R$ Ringerweiterung, so ist $\bar{R} \defeqr \{ b \in S: b \text{ ganz 
+  über } R \}$ ein Unterring von $S$.
+\end{Prop}
+
+\begin{Bew} 
+  Seien $b_1, b_2 \in \bar{R}$.\\
+  Zu zeigen: $b_1 \pm b_2, b_1 \cdot b_2 \in \bar{R}$\\
+  Nach \ref{2.7} genügt es zu zeigen: $R[b_1, b_2]$ ist endlich erzeugt als
+  $R$-Modul.
+
+  Dazu: $R[b_1]$ ist endlich erzeugt als $R$-Modul (von $x_1, \dots, x_n$) nach
+  \ref{2.7}.  $R[b_1, b_2] = (R[b_1])[b_2]$ ist endlich erzeugt als
+  $R[b_1]$-Modul (von $y_1, \dots, y_m$).  Dann erzeugen die $x_i y_j \; R[b_1,
+  b_2]$ als $R$-Modul.
+\end{Bew}
+
+\begin{Def} 
+  Sei $S/R$ Ringerweiterung.
+  \begin{enumerate} 
+    \item $\bar{R}$ (wie in \ref{2.8}) heißt der \emp{ganze
+          Abschluss}\index{Abschluss!ganzer} von $R$ in $S$.
+    \item Ist $R = \bar{R}$, so heißt $R$ \emp{ganz
+          abgeschlossen}\index{Ring!ganz abgeschlossener} in $S$.
+    \item Ein nullteilerfreier Ring $R$ heißt \emp{normal}\index{Ring!normaler}, wenn er ganz
+          abgeschlossen in Quot$(R)$ ist.
+    \item Ist $R$ nullteilerfrei, so heißt der ganze Abschluss $\bar{R}$ von $R$
+          in Quot$(R)$ die \emp{Normalisierung}\index{Normalisierung} von $R$.
+  \end{enumerate}
+\end{Def}
+
+\begin{Bem}
+\label{2.10}
+  Jeder faktorielle Ring ist normal.
+\end{Bem}
+
+\begin{Bew} 
+  Sei $K=\mbox{Quot}(R), x= \frac{a}{b} \in K^\times, a,b \in R$ teilerfremd.
+  Sei $x$ ganz über $R$. Dann gibt es $\alpha_0, \dots, \alpha_{n-1} \in R$ mit
+  $x^n + \alpha_{n-1} x^{n-1} + \dots + \alpha_0 = 0 \overset{\cdot b^n}{\Rightarrow}
+  a^n + \alpha_{n-1} b a^{n-1} + \dots + \alpha_1 b^{n-1} a + \alpha_0 b^n = 0
+  \Rightarrow b \mid a^n$ Widerspruch zu teilerfremd. $\Rightarrow$ $x \in R$ $\Rightarrow$ $R$ normal.
+\end{Bew}

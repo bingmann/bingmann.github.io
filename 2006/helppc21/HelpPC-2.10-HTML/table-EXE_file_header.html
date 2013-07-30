@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - EXE file header</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .EXE - DOS EXE File Structure</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; Offset Size &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Description</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;00 &nbsp; word &nbsp;"MZ" - Link file .EXE signature (Mark Zbikowski?)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;02 &nbsp; word &nbsp;length of image mod 512<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;04 &nbsp; word &nbsp;size of file in 512 byte pages<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;06 &nbsp; word &nbsp;number of relocation items following header<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;08 &nbsp; word &nbsp;size of header in 16 byte paragraphs, used to locate<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; the beginning of the load module<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0A &nbsp; word &nbsp;min # of paragraphs needed to run program<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0C &nbsp; word &nbsp;max # of paragraphs the program would like<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0E &nbsp; word &nbsp;offset in load module of stack segment (in paras)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;10 &nbsp; word &nbsp;initial SP value to be loaded<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;12 &nbsp; word &nbsp;negative checksum of pgm used while by EXEC loads pgm<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;14 &nbsp; word &nbsp;program entry point, (initial IP value)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;16 &nbsp; word &nbsp;offset in load module of the code segment (in paras)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;18 &nbsp; word &nbsp;offset in .EXE file of first relocation item<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1A &nbsp; word &nbsp;overlay number (0 for root program)<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- relocation table and the program load module follow the header<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- relocation entries are 32 bit values representing the offset<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;into the load module needing patched<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- once the relocatable item is found, the CS register is added to<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;the value found at the calculated offset<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Registers at load time of the EXE file are as follows:</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AX: &nbsp; &nbsp; contains number of characters in command tail, or 0<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;BX:CX &nbsp; 32 bit value indicating the load module memory size<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;DX &nbsp; &nbsp; &nbsp;zero<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;SS:SP &nbsp; set to stack segment if defined else, &nbsp;SS = CS and<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;SP=FFFFh or top of memory.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;DS &nbsp; &nbsp; &nbsp;set to segment address of EXE header<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ES &nbsp; &nbsp; &nbsp;set to segment address of EXE header<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;CS:IP &nbsp; far address of program entry point, (label on "END"<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;statement of program)<br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">EXE file header</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

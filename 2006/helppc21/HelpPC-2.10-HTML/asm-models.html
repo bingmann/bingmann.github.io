@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - models</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Memory Model Programming &amp; Segment Information</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Model</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp;TINY &nbsp; &nbsp;Data and code fit in one 64K segment. &nbsp;All code and<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;data are accessed via near pointers.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;SMALL &nbsp; 64k data segment max and 64k code segment max. &nbsp;All<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;code and data are accessed via near pointers.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;COMPACT 1Mb data segment max and 64K code segment max. &nbsp;Code<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;is accessed via near pointers, data is accessed via<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;far pointers. &nbsp;No array can be greater than 64K<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;MEDIUM &nbsp;64K data segment max and 1Mb code segment max. &nbsp;Code is<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;accessed via far pointers, data is accessed via near pointers.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;LARGE &nbsp; 1Mb data segment max and 1Mb code segment max. &nbsp;All<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;code and data are accessed via far pointers. &nbsp;No<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;single element can be greater than 64K.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;HUGE &nbsp; &nbsp;1Mb data segment max and 1Mb code segment max. &nbsp;All<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;code and data are accessed via far pointers. &nbsp;This is<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;the only model where arrays can be larger than 64K.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;In this mode is C will normalize all data pointers<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;to avoid segment wrapping.<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Small Memory Model</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Directive &nbsp;Segment &nbsp; &nbsp;Alignment &nbsp; &nbsp;Combine &nbsp; &nbsp; &nbsp;Class</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.CODE &nbsp; &nbsp; &nbsp; _TEXT &nbsp; &nbsp; &nbsp; WORD &nbsp; &nbsp; &nbsp; &nbsp;PUBLIC &nbsp; &nbsp; &nbsp;'CODE'<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.DATA &nbsp; &nbsp; &nbsp; _DATA &nbsp; &nbsp; &nbsp; WORD &nbsp; &nbsp; &nbsp; &nbsp;PUBLIC &nbsp; &nbsp; &nbsp;'DATA'<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.CONST &nbsp; &nbsp; &nbsp;CONST &nbsp; &nbsp; &nbsp; WORD &nbsp; &nbsp; &nbsp; &nbsp;PUBLIC &nbsp; &nbsp; &nbsp;'CONST'<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.DATA? &nbsp; &nbsp; &nbsp;_BSS &nbsp; &nbsp; &nbsp; &nbsp;WORD &nbsp; &nbsp; &nbsp; &nbsp;PUBLIC &nbsp; &nbsp; &nbsp;'BSS'<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.STACK &nbsp; &nbsp; &nbsp;STACK &nbsp; &nbsp; &nbsp; PARA &nbsp; &nbsp; &nbsp; &nbsp;STACK &nbsp; &nbsp; &nbsp; 'STACK'<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Compact Memory Model</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Directive &nbsp; Segment &nbsp; &nbsp;Alignment &nbsp; &nbsp;Combine &nbsp; &nbsp; Class</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.CODE &nbsp; &nbsp; &nbsp; _TEXT &nbsp; &nbsp; &nbsp; WORD &nbsp; &nbsp; &nbsp; &nbsp;PUBLIC &nbsp; &nbsp; &nbsp;'CODE'<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.FARDATA &nbsp; &nbsp;FAR_DATA &nbsp; &nbsp;PARA &nbsp; &nbsp; &nbsp; &nbsp;private &nbsp; &nbsp; 'FAR_DATA'<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.FARDATA? &nbsp; FAR_BSS &nbsp; &nbsp; PARA &nbsp; &nbsp; &nbsp; &nbsp;private &nbsp; &nbsp; 'FAR_BSS'<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.DATA &nbsp; &nbsp; &nbsp; _DATA &nbsp; &nbsp; &nbsp; WORD &nbsp; &nbsp; &nbsp; &nbsp;PUBLIC &nbsp; &nbsp; &nbsp;'DATA'<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.CONST &nbsp; &nbsp; &nbsp;CONST &nbsp; &nbsp; &nbsp; WORD &nbsp; &nbsp; &nbsp; &nbsp;PUBLIC &nbsp; &nbsp; &nbsp;'CONST'<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.DATA? &nbsp; &nbsp; &nbsp;_BSS &nbsp; &nbsp; &nbsp; &nbsp;WORD &nbsp; &nbsp; &nbsp; &nbsp;PUBLIC &nbsp; &nbsp; &nbsp;'BSS'<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.STACK &nbsp; &nbsp; &nbsp;STACK &nbsp; &nbsp; &nbsp; PARA &nbsp; &nbsp; &nbsp; &nbsp;STACK &nbsp; &nbsp; &nbsp; 'STACK'<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Medium Memory Model</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Directive &nbsp;Segment &nbsp; &nbsp;Alignment &nbsp; &nbsp; Combine &nbsp; &nbsp; Class</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.CODE &nbsp; &nbsp; name_TEXT &nbsp; &nbsp; WORD &nbsp; &nbsp; &nbsp; &nbsp;PUBLIC &nbsp; &nbsp; &nbsp;'CODE'<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.DATA &nbsp; &nbsp; &nbsp; _DATA &nbsp; &nbsp; &nbsp; WORD &nbsp; &nbsp; &nbsp; &nbsp;PUBLIC &nbsp; &nbsp; &nbsp;'DATA'<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.CONST &nbsp; &nbsp; &nbsp;CONST &nbsp; &nbsp; &nbsp; WORD &nbsp; &nbsp; &nbsp; &nbsp;PUBLIC &nbsp; &nbsp; &nbsp;'CONST'<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.DATA? &nbsp; &nbsp; &nbsp;_BSS &nbsp; &nbsp; &nbsp; &nbsp;WORD &nbsp; &nbsp; &nbsp; &nbsp;PUBLIC &nbsp; &nbsp; &nbsp;'BSS'<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.STACK &nbsp; &nbsp; &nbsp;STACK &nbsp; &nbsp; &nbsp; PARA &nbsp; &nbsp; &nbsp; &nbsp;STACK &nbsp; &nbsp; &nbsp; 'STACK'<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Large or Huge Memory Models</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Directive &nbsp; &nbsp;Segment &nbsp;Alignment &nbsp; &nbsp; Combine &nbsp; &nbsp; Class</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.CODE &nbsp; &nbsp; &nbsp; name_TEXT &nbsp; WORD &nbsp; &nbsp; &nbsp; &nbsp;PUBLIC &nbsp; &nbsp; &nbsp;'CODE'<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.FARDATA &nbsp; &nbsp;FAR_DATA &nbsp; &nbsp;PARA &nbsp; &nbsp; &nbsp; &nbsp;private &nbsp; &nbsp; 'FAR_DATA'<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.FARDATA? &nbsp; FAR_BSS &nbsp; &nbsp; PARA &nbsp; &nbsp; &nbsp; &nbsp;private &nbsp; &nbsp; 'FAR_BSS'<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.DATA &nbsp; &nbsp; &nbsp; &nbsp;_DATA &nbsp; &nbsp; &nbsp;WORD &nbsp; &nbsp; &nbsp; &nbsp;PUBLIC &nbsp; &nbsp; &nbsp;'DATA'<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.CONST &nbsp; &nbsp; &nbsp; CONST &nbsp; &nbsp; &nbsp;WORD &nbsp; &nbsp; &nbsp; &nbsp;PUBLIC &nbsp; &nbsp; &nbsp;'CONST'<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.DATA? &nbsp; &nbsp; &nbsp; _BSS &nbsp; &nbsp; &nbsp; WORD &nbsp; &nbsp; &nbsp; &nbsp;PUBLIC &nbsp; &nbsp; &nbsp;'BSS'<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.STACK &nbsp; &nbsp; &nbsp; STACK &nbsp; &nbsp; &nbsp;PARA &nbsp; &nbsp; &nbsp; &nbsp;STACK &nbsp; &nbsp; &nbsp; 'STACK'<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- all segments fall into DGROUP except for ???_TEXT, FAR_DATA<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;and FAR_BSS<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see <a href="">MASM DIRECTIVES</a><br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">models</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

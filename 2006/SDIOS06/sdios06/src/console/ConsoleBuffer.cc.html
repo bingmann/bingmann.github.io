@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2006/SDIOS06/sdios06/src/console/ConsoleBuffer.cc - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal2.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2006/">2006</a> / <a href="/2006/SDIOS06/">SDIOS06</a> / <a href="/2006/SDIOS06/sdios06/">sdios06</a> / <a href="/2006/SDIOS06/sdios06/src/">src</a> / <a href="/2006/SDIOS06/sdios06/src/console/">console</a> / <a href="/2006/SDIOS06/sdios06/src/console/ConsoleBuffer.cc.html">ConsoleBuffer.cc</a> (<a href="/2006/SDIOS06/sdios06/src/console/ConsoleBuffer.cc">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="preproc">#include</span><span class="normal"> </span><span class="string">"ConsoleBuffer.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;new&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;assert.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;sdi/panic.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;string.h&gt;</span>
+
+<span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> VIDEO_MEMORY_SIZE </span><span class="symbol">=</span><span class="normal"> </span><span class="number">4000</span><span class="symbol">;</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> LINE_LENGTH </span><span class="symbol">=</span><span class="normal"> </span><span class="number">160</span><span class="symbol">;</span>
+
+<span class="normal">ConsoleBuffer</span><span class="symbol">::</span><span class="function">ConsoleBuffer</span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> size</span><span class="symbol">,</span><span class="normal"> </span><span class="type">char</span><span class="symbol">*</span><span class="normal"> vmStart</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="symbol">*</span><span class="normal"> focus</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">size </span><span class="symbol">&lt;</span><span class="normal"> VIDEO_MEMORY_SIZE</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">panic</span><span class="symbol">(</span><span class="string">"ConsoleBuffer to small! Must be at least 4000 bytes = screen size"</span><span class="symbol">);</span><span class="normal">	</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	hasFocus </span><span class="symbol">=</span><span class="normal"> focus</span><span class="symbol">;</span>
+<span class="normal">	buffer </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="type">char</span><span class="symbol">[</span><span class="normal">size</span><span class="symbol">];</span>
+<span class="normal">	bufferSize </span><span class="symbol">=</span><span class="normal"> size</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="function">memset</span><span class="symbol">(</span><span class="normal">buffer</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> size</span><span class="symbol">);</span>
+<span class="normal">	videoMemStart </span><span class="symbol">=</span><span class="normal"> vmStart</span><span class="symbol">;</span>
+<span class="normal">	colorCode </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0x07</span><span class="symbol">;</span>
+<span class="normal">	cursorColor  </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xf8</span><span class="symbol">;</span>
+<span class="normal">	screenStart </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	cursorPosition </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	savedCursorPos </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="normal">ConsoleBuffer</span><span class="symbol">::~</span><span class="function">ConsoleBuffer</span><span class="symbol">()</span><span class="normal"> </span><span class="cbracket">{}</span><span class="symbol">;</span>
+
+
+<span class="type">void</span><span class="normal"> ConsoleBuffer</span><span class="symbol">::</span><span class="function">CursorUp</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> n</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{}</span><span class="symbol">;</span>
+<span class="type">void</span><span class="normal"> ConsoleBuffer</span><span class="symbol">::</span><span class="function">CursorDown</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> n</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{}</span><span class="symbol">;</span>
+
+<span class="comment">/**</span>
+<span class="comment"> *  Moves the cursor n position to the left. If it is</span>
+<span class="comment"> *  already at the edge of the screen, it has no effect.</span>
+<span class="comment"> */</span>
+<span class="type">void</span><span class="normal"> ConsoleBuffer</span><span class="symbol">::</span><span class="function">CursorLeft</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> n</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="function">assert</span><span class="symbol">(</span><span class="normal">cursorPosition </span><span class="symbol">%</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> newPosition </span><span class="symbol">=</span><span class="normal"> cursorPosition </span><span class="symbol">-</span><span class="normal"> n </span><span class="symbol">*</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">newPosition </span><span class="symbol">&lt;</span><span class="normal"> screenStart </span><span class="symbol">&amp;&amp;</span><span class="normal"> newPosition </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal">	</span><span class="comment">// out of screen</span>
+<span class="normal">		</span><span class="comment">// shift screen one line up</span>
+<span class="normal">		screenStart </span><span class="symbol">-=</span><span class="normal"> LINE_LENGTH</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="comment">// reset color at the current position of the cursor</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="function">SetColor</span><span class="symbol">(</span><span class="normal">colorCode</span><span class="symbol">);</span><span class="normal">	</span><span class="comment">// set the color of our last position back to normal</span>
+<span class="normal">	cursorPosition </span><span class="symbol">=</span><span class="normal"> newPosition</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">// go to the next ascii field</span>
+<span class="normal">	</span><span class="function">SetColor</span><span class="symbol">(</span><span class="normal">cursorColor</span><span class="symbol">);</span><span class="normal">	</span><span class="comment">// set the cursorColor	</span>
+<span class="normal">	</span><span class="comment">//update();	</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="comment">/**</span>
+<span class="comment"> *  Moves the cursor n position to the right. If it is</span>
+<span class="comment"> *  already at the edge of the screen, it has no effect.</span>
+<span class="comment"> */</span>
+<span class="type">void</span><span class="normal"> ConsoleBuffer</span><span class="symbol">::</span><span class="function">CursorRight</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> n</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="comment">// reset color at the current position of the cursor</span>
+<span class="normal">	</span><span class="function">assert</span><span class="symbol">(</span><span class="normal">cursorPosition </span><span class="symbol">%</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">SetColor</span><span class="symbol">(</span><span class="normal">colorCode</span><span class="symbol">);</span><span class="normal">	</span><span class="comment">// set the color of our last position back to normal</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">cursorPosition </span><span class="symbol">+</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">n</span><span class="symbol">*</span><span class="number">2</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&gt;=</span><span class="normal"> screenStart </span><span class="symbol">+</span><span class="normal"> VIDEO_MEMORY_SIZE</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal">	</span><span class="comment">// out of current screen</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">cursorPosition </span><span class="symbol">+</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">n</span><span class="symbol">*</span><span class="number">2</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&gt;=</span><span class="normal"> bufferSize</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal">		</span><span class="comment">// out of current buffer length</span>
+<span class="normal">			</span><span class="comment">// shift enerything # lines up</span>
+<span class="normal">			</span><span class="type">int</span><span class="normal"> lines </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="function">memmove</span><span class="symbol">(</span><span class="normal">buffer</span><span class="symbol">,</span><span class="normal"> buffer </span><span class="symbol">+</span><span class="normal"> lines </span><span class="symbol">*</span><span class="normal"> </span><span class="number">160</span><span class="symbol">,</span><span class="normal"> bufferSize </span><span class="symbol">-</span><span class="normal"> lines </span><span class="symbol">*</span><span class="normal"> </span><span class="number">160</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="function">memset</span><span class="symbol">(</span><span class="normal">buffer </span><span class="symbol">+</span><span class="normal"> bufferSize </span><span class="symbol">-</span><span class="normal"> lines </span><span class="symbol">*</span><span class="normal"> </span><span class="number">160</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> lines </span><span class="symbol">*</span><span class="normal"> </span><span class="number">160</span><span class="symbol">);</span><span class="normal"> </span>
+<span class="normal">			cursorPosition </span><span class="symbol">-=</span><span class="normal"> LINE_LENGTH</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		screenStart </span><span class="symbol">+=</span><span class="normal"> LINE_LENGTH</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	cursorPosition </span><span class="symbol">+=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">n</span><span class="symbol">*</span><span class="number">2</span><span class="symbol">);</span><span class="normal">	</span><span class="comment">// go to the next ascii field</span>
+<span class="normal">	</span><span class="function">SetColor</span><span class="symbol">(</span><span class="normal">cursorColor</span><span class="symbol">);</span><span class="normal">	</span><span class="comment">// set the cursorColor</span>
+<span class="normal">	</span><span class="comment">//update();</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Sets the cursor at the row z, column s</span>
+<span class="comment"> */</span><span class="normal"> </span>
+<span class="type">void</span><span class="normal"> ConsoleBuffer</span><span class="symbol">::</span><span class="function">SetCursor</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> z</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> s</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Saves the current position of the cursor.</span>
+<span class="comment"> */</span>
+<span class="type">void</span><span class="normal"> ConsoleBuffer</span><span class="symbol">::</span><span class="function">SaveCursor</span><span class="symbol">()</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	savedCursorPos </span><span class="symbol">=</span><span class="normal"> cursorPosition</span><span class="symbol">;</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Loads the saved cursor position, 0 as default.</span>
+<span class="comment"> */</span>
+<span class="type">void</span><span class="normal"> ConsoleBuffer</span><span class="symbol">::</span><span class="function">LoadCursor</span><span class="symbol">()</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="function">SetColor</span><span class="symbol">(</span><span class="normal">colorCode</span><span class="symbol">);</span>
+<span class="normal">	cursorPosition </span><span class="symbol">=</span><span class="normal"> savedCursorPos</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="function">SetColor</span><span class="symbol">(</span><span class="normal">cursorColor</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">update</span><span class="symbol">();</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Clears the screen and sets the cursor at the upper left corner.</span>
+<span class="comment"> * </span><span class="todo">TODO:</span><span class="comment"> reset with scrollbuffer</span>
+<span class="comment"> */</span>
+<span class="type">void</span><span class="normal"> ConsoleBuffer</span><span class="symbol">::</span><span class="function">ClearScreen</span><span class="symbol">()</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="function">memset</span><span class="symbol">(</span><span class="normal">buffer </span><span class="symbol">+</span><span class="normal"> screenStart</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> VIDEO_MEMORY_SIZE</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="comment">// setCursor at beginning of screenframe in buffer</span>
+<span class="normal">	cursorPosition </span><span class="symbol">=</span><span class="normal"> screenStart</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="function">SetColor</span><span class="symbol">(</span><span class="normal">cursorColor</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">update</span><span class="symbol">();</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="type">void</span><span class="normal"> ConsoleBuffer</span><span class="symbol">::</span><span class="function">ClearLine</span><span class="symbol">(</span><span class="usertype">uint8_t</span><span class="normal"> n</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(</span><span class="number">0</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> n</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="comment">// clear from cursorPosition till end of line</span>
+<span class="normal">		</span><span class="function">memset</span><span class="symbol">(</span><span class="normal">buffer </span><span class="symbol">+</span><span class="normal"> cursorPosition</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> LINE_LENGTH </span><span class="symbol">-</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cursorPosition </span><span class="symbol">%</span><span class="normal"> LINE_LENGTH</span><span class="symbol">));</span>
+<span class="normal">		</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="number">1</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> n</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="comment">// clear from the beginning of the line till cursorPosition</span>
+<span class="normal">		</span><span class="function">memset</span><span class="symbol">(</span><span class="normal">buffer </span><span class="symbol">+</span><span class="normal"> cursorPosition </span><span class="symbol">-</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cursorPosition </span><span class="symbol">%</span><span class="normal"> LINE_LENGTH</span><span class="symbol">),</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cursorPosition </span><span class="symbol">%</span><span class="normal"> LINE_LENGTH</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">		</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="symbol">(</span><span class="number">2</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> n</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="comment">// clear complete line</span>
+<span class="normal">		</span><span class="function">memset</span><span class="symbol">(</span><span class="normal">buffer </span><span class="symbol">+</span><span class="normal"> cursorPosition </span><span class="symbol">-</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cursorPosition </span><span class="symbol">%</span><span class="normal"> LINE_LENGTH</span><span class="symbol">),</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> LINE_LENGTH</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="function">SetColor</span><span class="symbol">(</span><span class="normal">cursorColor</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">update</span><span class="symbol">();</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="comment">/**</span>
+<span class="comment"> * Sets the color c at the position of the cursor.</span>
+<span class="comment"> * Attention: the position refers to the cursor position and</span>
+<span class="comment"> * the color is saved in the next byte, after the ascci. </span>
+<span class="comment"> */</span>
+<span class="type">void</span><span class="normal"> ConsoleBuffer</span><span class="symbol">::</span><span class="function">SetColor</span><span class="symbol">(</span><span class="usertype">uint8_t</span><span class="normal"> c</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="function">assert</span><span class="symbol">(</span><span class="normal">cursorPosition </span><span class="symbol">%</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">	buffer</span><span class="symbol">[</span><span class="normal">cursorPosition </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> c</span><span class="symbol">;</span><span class="normal">	</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Delets the last entered char, the one left of the cursor.</span>
+<span class="comment"> * After that the cursor is set one step left.</span>
+<span class="comment"> * Do nothing if already at the beginnin.</span>
+<span class="comment"> */</span>
+<span class="type">void</span><span class="normal"> ConsoleBuffer</span><span class="symbol">::</span><span class="function">DeleteLast</span><span class="symbol">()</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="function">assert</span><span class="symbol">(</span><span class="normal">cursorPosition </span><span class="symbol">%</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">cursorPosition </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="symbol">(</span><span class="number">0</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> cursorPosition </span><span class="symbol">%</span><span class="normal"> LINE_LENGTH</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal">	</span><span class="comment">// at the beginning of a new line</span>
+<span class="normal">			</span><span class="function">CursorLeft</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="comment">// go to the last entered char</span>
+<span class="normal">			</span><span class="keyword">while</span><span class="symbol">((</span><span class="normal">cursorPosition </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> buffer</span><span class="symbol">[</span><span class="normal">cursorPosition</span><span class="symbol">]))</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="keyword">if</span><span class="symbol">(</span><span class="number">0</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> cursorPosition </span><span class="symbol">%</span><span class="normal"> LINE_LENGTH</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal">	</span><span class="comment">// at the beginning of a the next new line stop</span>
+<span class="normal">					</span><span class="function">update</span><span class="symbol">();</span>
+<span class="normal">					</span><span class="keyword">return</span><span class="symbol">;</span>
+<span class="normal">				</span><span class="cbracket">}</span>
+<span class="normal">				</span><span class="function">CursorLeft</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">CursorLeft</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		buffer</span><span class="symbol">[</span><span class="normal">cursorPosition</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="function">update</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Deletes the ascii at the current cursor position.</span>
+<span class="comment"> */</span><span class="normal"> </span>
+<span class="type">void</span><span class="normal"> ConsoleBuffer</span><span class="symbol">::</span><span class="function">Delete</span><span class="symbol">()</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="function">assert</span><span class="symbol">(</span><span class="normal">cursorPosition </span><span class="symbol">%</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">	buffer</span><span class="symbol">[</span><span class="normal">cursorPosition</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="function">update</span><span class="symbol">();</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="comment">/**</span>
+<span class="comment"> * Sets the cursor at the beginning of a new line.</span>
+<span class="comment"> */</span>
+<span class="type">void</span><span class="normal"> ConsoleBuffer</span><span class="symbol">::</span><span class="function">NewLine</span><span class="symbol">()</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="function">assert</span><span class="symbol">(</span><span class="normal">cursorPosition </span><span class="symbol">%</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="comment">// reset color at current positioin</span>
+<span class="normal">	</span><span class="function">SetColor</span><span class="symbol">(</span><span class="normal">colorCode</span><span class="symbol">);</span>
+<span class="normal">	buffer</span><span class="symbol">[</span><span class="normal">cursorPosition</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="string">' '</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">// this space character stands as representative for a '\n', but is not visible</span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="comment">// set cursor at the beginning of a new line</span>
+<span class="normal">	</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> newPosition </span><span class="symbol">=</span><span class="normal"> cursorPosition </span><span class="symbol">-</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cursorPosition </span><span class="symbol">%</span><span class="normal"> LINE_LENGTH</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> LINE_LENGTH</span><span class="symbol">;</span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="comment">// check boundaries</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">newPosition </span><span class="symbol">&gt;=</span><span class="normal"> screenStart </span><span class="symbol">+</span><span class="normal"> VIDEO_MEMORY_SIZE</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal">	</span><span class="comment">// out of screen</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">newPosition </span><span class="symbol">&gt;=</span><span class="normal"> bufferSize</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal">		</span><span class="comment">// out of current buffer length</span>
+<span class="normal">			</span><span class="comment">// shift enerything # lines up</span>
+<span class="normal">			</span><span class="type">int</span><span class="normal"> lines </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="function">memmove</span><span class="symbol">(</span><span class="normal">buffer</span><span class="symbol">,</span><span class="normal"> buffer </span><span class="symbol">+</span><span class="normal"> lines </span><span class="symbol">*</span><span class="normal"> </span><span class="number">160</span><span class="symbol">,</span><span class="normal"> bufferSize </span><span class="symbol">-</span><span class="normal"> lines </span><span class="symbol">*</span><span class="normal"> </span><span class="number">160</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="function">memset</span><span class="symbol">(</span><span class="normal">buffer </span><span class="symbol">+</span><span class="normal"> bufferSize </span><span class="symbol">-</span><span class="normal"> lines </span><span class="symbol">*</span><span class="normal"> </span><span class="number">160</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> lines </span><span class="symbol">*</span><span class="normal"> </span><span class="number">160</span><span class="symbol">);</span><span class="normal"> </span>
+<span class="normal">			newPosition </span><span class="symbol">-=</span><span class="normal"> lines </span><span class="symbol">*</span><span class="normal"> LINE_LENGTH</span><span class="symbol">;</span>
+<span class="normal">			screenStart </span><span class="symbol">-=</span><span class="normal"> lines </span><span class="symbol">*</span><span class="normal"> LINE_LENGTH</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="comment">// shift screenStart one line ahead</span>
+<span class="normal">		screenStart </span><span class="symbol">+=</span><span class="normal"> LINE_LENGTH</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	cursorPosition </span><span class="symbol">=</span><span class="normal"> newPosition</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="comment">// set cursor color</span>
+<span class="normal">	</span><span class="function">SetColor</span><span class="symbol">(</span><span class="normal">cursorColor</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">update</span><span class="symbol">();</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Writes the char c at the position of the cursor, sets the current</span>
+<span class="comment"> * color and moves the cursor forward.</span>
+<span class="comment"> */</span>
+<span class="type">void</span><span class="normal"> ConsoleBuffer</span><span class="symbol">::</span><span class="function">appendChar</span><span class="symbol">(</span><span class="type">char</span><span class="normal"> c</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="comment">//TODO; check boundaries </span>
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">cursorPosition </span><span class="symbol">&gt;=</span><span class="normal"> screenStart </span><span class="symbol">+</span><span class="normal"> VIDEO_MEMORY_SIZE</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		screenStart </span><span class="symbol">=</span><span class="normal"> cursorPosition </span><span class="symbol">-</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cursorPosition </span><span class="symbol">%</span><span class="normal"> LINE_LENGTH</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> </span><span class="number">25</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> LINE_LENGTH</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	buffer</span><span class="symbol">[</span><span class="normal">cursorPosition</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> c</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="function">CursorRight</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">);</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="comment">/*</span>
+<span class="comment"> *  Writes the content of the buffer string to the consoleBuffer</span>
+<span class="comment"> */</span>
+<span class="type">void</span><span class="normal"> ConsoleBuffer</span><span class="symbol">::</span><span class="function">appendString</span><span class="symbol">(</span><span class="usertype">buffer_t</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">string</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> i</span><span class="symbol">=</span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">&lt;</span><span class="normal">string</span><span class="symbol">-&gt;</span><span class="normal">_length</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">appendChar</span><span class="symbol">(</span><span class="normal">string</span><span class="symbol">-&gt;</span><span class="normal">_buffer</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Copies the current part of the console buffer to the video memory</span>
+<span class="comment"> * if this console has the focus.</span>
+<span class="comment"> */</span><span class="normal">	</span>
+<span class="type">void</span><span class="normal"> ConsoleBuffer</span><span class="symbol">::</span><span class="function">update</span><span class="symbol">()</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(*</span><span class="normal">hasFocus </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">memcpy</span><span class="symbol">(</span><span class="normal">videoMemStart</span><span class="symbol">,</span><span class="normal"> buffer </span><span class="symbol">+</span><span class="normal"> screenStart</span><span class="symbol">,</span><span class="normal"> VIDEO_MEMORY_SIZE</span><span class="symbol">);</span><span class="normal">	</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Moves the scrollbuffer one line down.</span>
+<span class="comment"> */</span><span class="normal"> </span>
+<span class="type">void</span><span class="normal"> ConsoleBuffer</span><span class="symbol">::</span><span class="function">PageDown</span><span class="symbol">()</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">screenStart </span><span class="symbol">+</span><span class="normal"> VIDEO_MEMORY_SIZE </span><span class="symbol">+</span><span class="normal"> LINE_LENGTH </span><span class="symbol">&lt;=</span><span class="normal"> bufferSize</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		screenStart </span><span class="symbol">+=</span><span class="normal"> </span><span class="number">160</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="function">update</span><span class="symbol">();</span><span class="normal">	</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Moves the scrollbuffer one line up.</span>
+<span class="comment"> */</span>
+<span class="type">void</span><span class="normal"> ConsoleBuffer</span><span class="symbol">::</span><span class="function">PageUp</span><span class="symbol">()</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">screenStart </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">160</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		screenStart </span><span class="symbol">-=</span><span class="normal"> </span><span class="number">160</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="function">update</span><span class="symbol">();</span><span class="normal">	</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Set the graphics parameters. Supports:</span>
+<span class="comment"> * n = ...</span>
+<span class="comment"> * 0	All attributes off	0000 0000</span>
+<span class="comment"> * 1	Bright				xxxx 1xxx</span>
+<span class="comment"> * 5 	Blink				1xxx xxx0</span>
+<span class="comment"> * 30	Black foreground	xxxx x000</span>
+<span class="comment"> * 31	Red foreground		xxxx x100</span>
+<span class="comment"> * 32	Green foreground	xxxx x010</span>
+<span class="comment"> * 33	light blue foreground	xxxx x011</span>
+<span class="comment"> * 34	Blue foreground		xxxx x001</span>
+<span class="comment"> * 35	Magenta foreground	xxxx x101</span>
+<span class="comment"> * 36	Cyan foreground		xxxx x110</span>
+<span class="comment"> * 37	White foreground	xxxx x111</span>
+<span class="comment"> * 40	Blach background	x000 xxxx</span>
+<span class="comment"> * 41	Red backgroundd		x100 xxxx</span>
+<span class="comment"> * 42	Green background	x010 xxxx</span>
+<span class="comment"> * 43	Yellow background	x011 xxxx</span>
+<span class="comment"> * 44	Blue background		x001 xxxx</span>
+<span class="comment"> * 45	Magenta background	x101 xxxx</span>
+<span class="comment"> * 46	Cyan background		x110 xxxx</span>
+<span class="comment"> * 47	White background 	x111 xxxx</span>
+<span class="comment"> * </span>
+<span class="comment"> */</span>
+<span class="type">void</span><span class="normal"> ConsoleBuffer</span><span class="symbol">::</span><span class="function">SetGraphic</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> n</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">switch</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">n</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> </span><span class="number">0</span><span class="symbol">:</span>
+<span class="normal">			colorCode </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0x07</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">// reset all</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span><span class="normal">			</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> </span><span class="number">1</span><span class="symbol">:</span>
+<span class="normal">			colorCode </span><span class="symbol">|=</span><span class="normal">  </span><span class="number">0x8</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">// bright</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span><span class="normal">		</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> </span><span class="number">5</span><span class="symbol">:</span>
+<span class="normal">			colorCode </span><span class="symbol">|=</span><span class="normal"> </span><span class="number">0x80</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">// blink</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span><span class="normal">	</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> </span><span class="number">30</span><span class="symbol">:</span>
+<span class="normal">			colorCode </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="number">0xf8</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">// Black foreground	xxxx x000</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span><span class="normal">		</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> </span><span class="number">31</span><span class="symbol">:</span>
+<span class="normal">			colorCode </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="number">0xf8</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">// Red foreground xxxx x100</span>
+<span class="normal">			colorCode </span><span class="symbol">|=</span><span class="normal"> </span><span class="number">0x04</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> </span><span class="number">32</span><span class="symbol">:</span>
+<span class="normal">			colorCode </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="number">0xf8</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">//	Green foreground xxxx x010</span>
+<span class="normal">			colorCode </span><span class="symbol">|=</span><span class="normal"> </span><span class="number">0x02</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> </span><span class="number">33</span><span class="symbol">:</span>
+<span class="normal">			colorCode </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="number">0xf8</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">// light blue foreground xxxx x011</span>
+<span class="normal">			colorCode </span><span class="symbol">|=</span><span class="normal"> </span><span class="number">0x03</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> </span><span class="number">34</span><span class="symbol">:</span>
+<span class="normal">			colorCode </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="number">0xf8</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">// Blue foreground xxxx x001</span>
+<span class="normal">			colorCode </span><span class="symbol">|=</span><span class="normal"> </span><span class="number">0x01</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> </span><span class="number">35</span><span class="symbol">:</span>
+<span class="normal">			colorCode </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="number">0xf8</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">// Magenta foreground xxxx x101</span>
+<span class="normal">			colorCode </span><span class="symbol">|=</span><span class="normal"> </span><span class="number">0x05</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> </span><span class="number">36</span><span class="symbol">:</span>
+<span class="normal">			colorCode </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="number">0xf8</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">// Cyan foreground xxxx x110</span>
+<span class="normal">			colorCode </span><span class="symbol">|=</span><span class="normal"> </span><span class="number">0x06</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> </span><span class="number">37</span><span class="symbol">:</span>
+<span class="normal">			colorCode </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="number">0xf8</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">// 37	White foreground	xxxx x111</span>
+<span class="normal">			colorCode </span><span class="symbol">|=</span><span class="normal"> </span><span class="number">0x07</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> </span><span class="number">40</span><span class="symbol">:</span>
+<span class="normal">			colorCode </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="number">0x8f</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">// Blach background	x000 xxxx</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> </span><span class="number">41</span><span class="symbol">:</span><span class="normal">				</span><span class="comment">// Red backgroundd		x100 xxxx</span>
+<span class="normal">			colorCode </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="number">0x8f</span><span class="symbol">;</span>
+<span class="normal">			colorCode </span><span class="symbol">|=</span><span class="normal"> </span><span class="number">0x40</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> </span><span class="number">42</span><span class="symbol">:</span><span class="normal">	</span><span class="comment">// Green background	x010 xxxx</span>
+<span class="normal">			colorCode </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="number">0x8f</span><span class="symbol">;</span>
+<span class="normal">			colorCode </span><span class="symbol">|=</span><span class="normal"> </span><span class="number">0x20</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> </span><span class="number">43</span><span class="symbol">:</span><span class="normal">	</span><span class="comment">// light blue background	x011 xxxx</span>
+<span class="normal">			colorCode </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="number">0x8f</span><span class="symbol">;</span>
+<span class="normal">			colorCode </span><span class="symbol">|=</span><span class="normal"> </span><span class="number">0x30</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> </span><span class="number">44</span><span class="symbol">:</span><span class="normal">	</span><span class="comment">// Blue background		x001 xxxx</span>
+<span class="normal">			colorCode </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="number">0x8f</span><span class="symbol">;</span>
+<span class="normal">			colorCode </span><span class="symbol">|=</span><span class="normal"> </span><span class="number">0x10</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> </span><span class="number">45</span><span class="symbol">:</span><span class="normal">	</span><span class="comment">// Magenta background	x101 xxxx</span>
+<span class="normal">			colorCode </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="number">0x8f</span><span class="symbol">;</span>
+<span class="normal">			colorCode </span><span class="symbol">|=</span><span class="normal"> </span><span class="number">0x50</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> </span><span class="number">46</span><span class="symbol">:</span><span class="normal">	</span><span class="comment">// Cyan background		x110 xxxx</span>
+<span class="normal">			colorCode </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="number">0x8f</span><span class="symbol">;</span>
+<span class="normal">			colorCode </span><span class="symbol">|=</span><span class="normal"> </span><span class="number">0x60</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> </span><span class="number">47</span><span class="symbol">:</span><span class="normal">	</span><span class="comment">// White background 	x111 xxxx</span>
+<span class="normal">			colorCode </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="number">0x8f</span><span class="symbol">;</span>
+<span class="normal">			colorCode </span><span class="symbol">|=</span><span class="normal"> </span><span class="number">0x70</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

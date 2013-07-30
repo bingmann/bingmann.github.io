@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>LCOV - STX ExpressionParser Testsuite - testsuite/TestRunner.cc</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LTP GCOV extension - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+        <tr>
+          <td class="headerItem" width="20%">Current&nbsp;view:</td>
+          <td class="headerValue" width="80%" colspan=4><a href="../index.html">directory</a> - <a href="index.html">testsuite</a> - TestRunner.cc</td>
+        </tr>
+        <tr>
+          <td class="headerItem" width="20%">Test:</td>
+          <td class="headerValue" width="80%" colspan=4>STX ExpressionParser Testsuite</td>
+        </tr>
+        <tr>
+          <td class="headerItem" width="20%">Date:</td>
+          <td class="headerValue" width="20%">2007-07-17</td>
+          <td width="20%"></td>
+          <td class="headerItem" width="20%">Instrumented&nbsp;lines:</td>
+          <td class="headerValue" width="20%">11</td>
+        </tr>
+        <tr>
+          <td class="headerItem" width="20%">Code&nbsp;covered:</td>
+          <td class="headerValue" width="20%">100.0 %</td>
+          <td width="20%"></td>
+          <td class="headerItem" width="20%">Executed&nbsp;lines:</td>
+          <td class="headerValue" width="20%">11</td>
+        </tr>
+        </table>
+      </td>
+    </tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td><pre class="source">
+<span class="lineNum">       1 </span>                : // $Id: TestRunner.cc 59 2007-07-17 14:43:23Z tb $
+<span class="lineNum">       2 </span>                : 
+<span class="lineNum">       3 </span>                : /*
+<span class="lineNum">       4 </span>                :  * STX Expression Parser C++ Framework v0.7
+<span class="lineNum">       5 </span>                :  * Copyright (C) 2007 Timo Bingmann
+<span class="lineNum">       6 </span>                :  *
+<span class="lineNum">       7 </span>                :  * This library is free software; you can redistribute it and/or modify it
+<span class="lineNum">       8 </span>                :  * under the terms of the GNU Lesser General Public License as published by the
+<span class="lineNum">       9 </span>                :  * Free Software Foundation; either version 2.1 of the License, or (at your
+<span class="lineNum">      10 </span>                :  * option) any later version.
+<span class="lineNum">      11 </span>                :  *
+<span class="lineNum">      12 </span>                :  * This library is distributed in the hope that it will be useful, but WITHOUT
+<span class="lineNum">      13 </span>                :  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+<span class="lineNum">      14 </span>                :  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
+<span class="lineNum">      15 </span>                :  * for more details.
+<span class="lineNum">      16 </span>                :  *
+<span class="lineNum">      17 </span>                :  * You should have received a copy of the GNU Lesser General Public License
+<span class="lineNum">      18 </span>                :  * along with this library; if not, write to the Free Software Foundation,
+<span class="lineNum">      19 </span>                :  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+<span class="lineNum">      20 </span>                :  */
+<span class="lineNum">      21 </span>                : 
+<span class="lineNum">      22 </span>                : #include &lt;cppunit/TextTestRunner.h&gt;
+<span class="lineNum">      23 </span>                : #include &lt;cppunit/TextOutputter.h&gt;
+<span class="lineNum">      24 </span>                : #include &lt;cppunit/TextTestProgressListener.h&gt;
+<span class="lineNum">      25 </span>                : #include &lt;cppunit/BriefTestProgressListener.h&gt;
+<span class="lineNum">      26 </span>                : 
+<span class="lineNum">      27 </span>                : #include &lt;cppunit/extensions/TestFactoryRegistry.h&gt;
+<span class="lineNum">      28 </span>                : 
+<span class="lineNum">      29 </span>                : #include &lt;cppunit/TestResult.h&gt;
+<span class="lineNum">      30 </span>                : 
+<span class="lineNum">      31 </span><span class="lineCov">              1 : int main()</span>
+<span class="lineNum">      32 </span>                : {
+<span class="lineNum">      33 </span>                :     // Get the top level suite from the registry
+<span class="lineNum">      34 </span><span class="lineCov">              1 :     CppUnit::Test *suite = CppUnit::TestFactoryRegistry::getRegistry().makeTest();</span>
+<span class="lineNum">      35 </span>                : 
+<span class="lineNum">      36 </span>                :     // Adds the test to the list of test to run
+<span class="lineNum">      37 </span><span class="lineCov">              1 :     CppUnit::TextTestRunner runner;</span>
+<span class="lineNum">      38 </span><span class="lineCov">              1 :     runner.addTest( suite );</span>
+<span class="lineNum">      39 </span>                : 
+<span class="lineNum">      40 </span>                :     // add brief output before running each test
+<span class="lineNum">      41 </span><span class="lineCov">              1 :     CppUnit::BriefTestProgressListener proglistener;</span>
+<span class="lineNum">      42 </span><span class="lineCov">              1 :     runner.eventManager().addListener(&amp;proglistener);</span>
+<span class="lineNum">      43 </span>                : 
+<span class="lineNum">      44 </span>                :     // Change the default outputter to a compiler error format outputter
+<span class="lineNum">      45 </span><span class="lineCov">              1 :     runner.setOutputter( new CppUnit::TextOutputter( &amp;runner.result(), std::cout ) );</span>
+<span class="lineNum">      46 </span>                :     
+<span class="lineNum">      47 </span>                :     // Run the tests.
+<span class="lineNum">      48 </span><span class="lineCov">              1 :     bool wasSucessful = runner.run();</span>
+<span class="lineNum">      49 </span>                : 
+<span class="lineNum">      50 </span>                :     // Return error code 1 if the one of test failed.
+<span class="lineNum">      51 </span><span class="lineCov">              2 :     return wasSucessful ? 0 : 1;</span>
+<span class="lineNum">      52 </span><span class="lineCov">              2 : }</span>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+  <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LTP GCOV extension version 1.4</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2007/stx-btree/stx-btree-0.8.6/include/stx/btree_multiset.h - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal3.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2007/">2007</a> / <a href="/2007/stx-btree/">stx-btree</a> / <a href="/2007/stx-btree/stx-btree-0.8.6/">stx-btree-0.8.6</a> / <a href="/2007/stx-btree/stx-btree-0.8.6/include/">include</a> / <a href="/2007/stx-btree/stx-btree-0.8.6/include/stx/">stx</a> / <a href="/2007/stx-btree/stx-btree-0.8.6/include/stx/btree_multiset.h.html">btree_multiset.h</a> (<a href="/2007/stx-btree/stx-btree-0.8.6/include/stx/btree_multiset.h">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">// $Id: btree_multiset.h 128 2011-05-18 07:23:35Z tb $</span>
+<span class="comment">/** \file btree_multiset.h</span>
+<span class="comment"> * Contains the specialized B+ tree template class btree_multiset</span>
+<span class="comment"> */</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * STX B+ Tree Template Classes v0.8.6</span>
+<span class="comment"> * Copyright (C) 2008-2011 Timo Bingmann</span>
+<span class="comment"> *</span>
+<span class="comment"> * This library is free software; you can redistribute it and/or modify it</span>
+<span class="comment"> * under the terms of the GNU Lesser General Public License as published by the</span>
+<span class="comment"> * Free Software Foundation; either version 2.1 of the License, or (at your</span>
+<span class="comment"> * option) any later version.</span>
+<span class="comment"> *</span>
+<span class="comment"> * This library is distributed in the hope that it will be useful, but WITHOUT</span>
+<span class="comment"> * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or</span>
+<span class="comment"> * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License</span>
+<span class="comment"> * for more details.</span>
+<span class="comment"> *</span>
+<span class="comment"> * You should have received a copy of the GNU Lesser General Public License</span>
+<span class="comment"> * along with this library; if not, write to the Free Software Foundation,</span>
+<span class="comment"> * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#ifndef</span><span class="normal"> _STX_BTREE_MULTISET_H_</span>
+<span class="preproc">#define</span><span class="normal"> _STX_BTREE_MULTISET_H_</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;stx/btree.h&gt;</span>
+
+<span class="keyword">namespace</span><span class="normal"> stx </span><span class="cbracket">{</span>
+
+<span class="comment">/** </span><span class="type">@brief</span><span class="comment"> Specialized B+ tree template class implementing STL's multiset</span>
+<span class="comment"> * container.</span>
+<span class="comment"> *</span>
+<span class="comment"> * Implements the STL multiset using a B+ tree. It can be used as a drop-in</span>
+<span class="comment"> * replacement for std::multiset. Not all asymptotic time requirements are met</span>
+<span class="comment"> * in theory. The class has a traits class defining B+ tree properties like</span>
+<span class="comment"> * slots and self-verification. Furthermore an allocator can be specified for</span>
+<span class="comment"> * tree nodes.</span>
+<span class="comment"> *</span>
+<span class="comment"> * It is somewhat inefficient to implement a multiset using a B+ tree, a plain</span>
+<span class="comment"> * B tree would hold fewer copies of the keys.</span>
+<span class="comment"> *</span>
+<span class="comment"> * The set class is derived from the base implementation class btree by</span>
+<span class="comment"> * specifying an empty struct as data_type. All function are adapted to provide</span>
+<span class="comment"> * the inner class with placeholder objects. Most tricky to get right were the</span>
+<span class="comment"> * return type's of iterators which as value_type should be the same as</span>
+<span class="comment"> * key_type, and not a pair of key and dummy-struct. This is taken case of</span>
+<span class="comment"> * using some template magic in the btree class.</span>
+<span class="comment"> */</span>
+<span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">_Key</span><span class="symbol">,</span>
+<span class="normal">	  </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">_Compare</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">less</span><span class="symbol">&lt;</span><span class="normal">_Key</span><span class="symbol">&gt;,</span>
+<span class="normal">	  </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">_Traits</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> btree_default_set_traits</span><span class="symbol">&lt;</span><span class="normal">_Key</span><span class="symbol">&gt;,</span>
+<span class="normal">	  </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">_Alloc</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">allocator</span><span class="symbol">&lt;</span><span class="normal">_Key</span><span class="symbol">&gt;</span><span class="normal"> </span><span class="symbol">&gt;</span>
+<span class="keyword">class</span><span class="normal"> </span><span class="classname">btree_multiset</span>
+<span class="cbracket">{</span>
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">// *** Template Parameter Types</span>
+
+<span class="normal">    </span><span class="comment">/// First template parameter: The key type of the btree. This is stored in</span>
+<span class="normal">    </span><span class="comment">/// inner nodes and leaves</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">_Key</span><span class="normal">                        key_type</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// Second template parameter: Key comparison function object</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">_Compare</span><span class="normal">                    key_compare</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// Third template parameter: Traits object used to define more parameters</span>
+<span class="normal">    </span><span class="comment">/// of the B+ tree</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">_Traits</span><span class="normal">                     traits</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// Fourth template parameter: STL allocator</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">_Alloc</span><span class="normal">                      allocator_type</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">// The macro BTREE_FRIENDS can be used by outside class to access the B+</span>
+<span class="normal">    </span><span class="comment">// tree internals. This was added for wxBTreeDemo to be able to draw the</span>
+<span class="normal">    </span><span class="comment">// tree.</span>
+<span class="normal">    BTREE_FRIENDS</span>
+
+<span class="keyword">private</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">// *** The Data_Type</span>
+
+<span class="normal">    </span><span class="comment">/// The empty struct used as a placeholder for the data_type.</span>
+<span class="normal">    </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">empty_struct</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">// *** Constructed Types</span>
+
+<span class="normal">    </span><span class="comment">/// The empty data_type</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">empty_struct</span><span class="normal">         data_type</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// Construct the set value_type: the key_type.</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">key_type</span><span class="normal">                    value_type</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// Typedef of our own type</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">btree_multiset&lt;key_type, key_compare, traits, allocator_type&gt;</span><span class="normal"> self</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// Implementation type of the btree_base</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> stx</span><span class="symbol">::</span><span class="usertype">btree&lt;key_type, data_type, value_type, key_compare, traits, true, allocator_type&gt;</span><span class="normal"> btree_impl</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// Function class comparing two value_type keys.</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">btree_impl</span><span class="symbol">::</span><span class="usertype">value_compare</span><span class="normal">  value_compare</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// Size type used to count keys</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">btree_impl</span><span class="symbol">::</span><span class="usertype">size_type</span><span class="normal">      size_type</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// Small structure containing statistics about the tree</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">btree_impl</span><span class="symbol">::</span><span class="usertype">tree_stats</span><span class="normal">     tree_stats</span><span class="symbol">;</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">// *** Static Constant Options and Values of the B+ Tree</span>
+
+<span class="normal">    </span><span class="comment">/// Base B+ tree parameter: The number of key/data slots in each leaf</span>
+<span class="normal">    </span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">short</span><span class="normal">         leafslotmax </span><span class="symbol">=</span><span class="normal">  btree_impl</span><span class="symbol">::</span><span class="normal">leafslotmax</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// Base B+ tree parameter: The number of key slots in each inner node,</span>
+<span class="normal">    </span><span class="comment">/// this can differ from slots in each leaf.</span>
+<span class="normal">    </span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">short</span><span class="normal">         innerslotmax </span><span class="symbol">=</span><span class="normal">  btree_impl</span><span class="symbol">::</span><span class="normal">innerslotmax</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// Computed B+ tree parameter: The minimum number of key slots used in a</span>
+<span class="normal">    </span><span class="comment">/// leaf. If fewer slots are used, the leaf will be merged or slots shifted</span>
+<span class="normal">    </span><span class="comment">/// from it's siblings.</span>
+<span class="normal">    </span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">short</span><span class="normal">         minleafslots </span><span class="symbol">=</span><span class="normal"> btree_impl</span><span class="symbol">::</span><span class="normal">minleafslots</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// Computed B+ tree parameter: The minimum number of key slots used</span>
+<span class="normal">    </span><span class="comment">/// in an inner node. If fewer slots are used, the inner node will be</span>
+<span class="normal">    </span><span class="comment">/// merged or slots shifted from it's siblings.</span>
+<span class="normal">    </span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">short</span><span class="normal">         mininnerslots </span><span class="symbol">=</span><span class="normal"> btree_impl</span><span class="symbol">::</span><span class="normal">mininnerslots</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// Debug parameter: Enables expensive and thorough checking of the B+ tree</span>
+<span class="normal">    </span><span class="comment">/// invariants after each insert/erase operation.</span>
+<span class="normal">    </span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">bool</span><span class="normal">                   selfverify </span><span class="symbol">=</span><span class="normal"> btree_impl</span><span class="symbol">::</span><span class="normal">selfverify</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// Debug parameter: Prints out lots of debug information about how the</span>
+<span class="normal">    </span><span class="comment">/// algorithms change the tree. Requires the header file to be compiled</span>
+<span class="normal">    </span><span class="comment">/// with BTREE_DEBUG and the key type must be std::ostream printable.</span>
+<span class="normal">    </span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">bool</span><span class="normal">                   debug </span><span class="symbol">=</span><span class="normal"> btree_impl</span><span class="symbol">::</span><span class="normal">debug</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// Operational parameter: Allow duplicate keys in the btree.</span>
+<span class="normal">    </span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">bool</span><span class="normal">                   allow_duplicates </span><span class="symbol">=</span><span class="normal"> btree_impl</span><span class="symbol">::</span><span class="normal">allow_duplicates</span><span class="symbol">;</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">// *** Iterators and Reverse Iterators</span>
+
+<span class="normal">    </span><span class="comment">/// STL-like iterator object for B+ tree items. The iterator points to a</span>
+<span class="normal">    </span><span class="comment">/// specific slot number in a leaf.</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">btree_impl</span><span class="symbol">::</span><span class="usertype">iterator</span><span class="normal">               iterator</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// STL-like iterator object for B+ tree items. The iterator points to a</span>
+<span class="normal">    </span><span class="comment">/// specific slot number in a leaf.</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">btree_impl</span><span class="symbol">::</span><span class="usertype">const_iterator</span><span class="normal">         const_iterator</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// create mutable reverse iterator by using STL magic</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">btree_impl</span><span class="symbol">::</span><span class="usertype">reverse_iterator</span><span class="normal">       reverse_iterator</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// create constant reverse iterator by using STL magic</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">btree_impl</span><span class="symbol">::</span><span class="usertype">const_reverse_iterator</span><span class="normal"> const_reverse_iterator</span><span class="symbol">;</span>
+
+<span class="keyword">private</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">// *** Tree Implementation Object</span>
+
+<span class="normal">    </span><span class="comment">/// The contained implementation object</span>
+<span class="normal">    </span><span class="usertype">btree_impl</span><span class="normal">  tree</span><span class="symbol">;</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">// *** Constructors and Destructor</span>
+
+<span class="normal">    </span><span class="comment">/// Default constructor initializing an empty B+ tree with the standard key</span>
+<span class="normal">    </span><span class="comment">/// comparison function</span>
+<span class="normal">    </span><span class="keyword">explicit</span><span class="normal"> </span><span class="keyword">inline</span><span class="normal"> </span><span class="function">btree_multiset</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">allocator_type</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">alloc </span><span class="symbol">=</span><span class="normal"> </span><span class="function">allocator_type</span><span class="symbol">())</span>
+<span class="normal">        </span><span class="symbol">:</span><span class="normal"> </span><span class="function">tree</span><span class="symbol">(</span><span class="normal">alloc</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Constructor initializing an empty B+ tree with a special key</span>
+<span class="normal">    </span><span class="comment">/// comparison object</span>
+<span class="normal">    </span><span class="keyword">explicit</span><span class="normal"> </span><span class="keyword">inline</span><span class="normal"> </span><span class="function">btree_multiset</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">key_compare</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">kcf</span><span class="symbol">,</span>
+<span class="normal">                                   </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">allocator_type</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">alloc </span><span class="symbol">=</span><span class="normal"> </span><span class="function">allocator_type</span><span class="symbol">())</span>
+<span class="normal">        </span><span class="symbol">:</span><span class="normal"> </span><span class="function">tree</span><span class="symbol">(</span><span class="normal">kcf</span><span class="symbol">,</span><span class="normal"> alloc</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Constructor initializing a B+ tree with the range [first,last)</span>
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">InputIterator</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="function">btree_multiset</span><span class="symbol">(</span><span class="usertype">InputIterator</span><span class="normal"> first</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">InputIterator</span><span class="normal"> last</span><span class="symbol">,</span>
+<span class="normal">                          </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">allocator_type</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">alloc </span><span class="symbol">=</span><span class="normal"> </span><span class="function">allocator_type</span><span class="symbol">())</span>
+<span class="normal">        </span><span class="symbol">:</span><span class="normal"> </span><span class="function">tree</span><span class="symbol">(</span><span class="normal">alloc</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">insert</span><span class="symbol">(</span><span class="normal">first</span><span class="symbol">,</span><span class="normal"> last</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Constructor initializing a B+ tree with the range [first,last) and a</span>
+<span class="normal">    </span><span class="comment">/// special key comparison object</span>
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">InputIterator</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="function">btree_multiset</span><span class="symbol">(</span><span class="usertype">InputIterator</span><span class="normal"> first</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">InputIterator</span><span class="normal"> last</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">key_compare</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">kcf</span><span class="symbol">,</span>
+<span class="normal">                          </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">allocator_type</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">alloc </span><span class="symbol">=</span><span class="normal"> </span><span class="function">allocator_type</span><span class="symbol">())</span>
+<span class="normal">        </span><span class="symbol">:</span><span class="normal"> </span><span class="function">tree</span><span class="symbol">(</span><span class="normal">kcf</span><span class="symbol">,</span><span class="normal"> alloc</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">insert</span><span class="symbol">(</span><span class="normal">first</span><span class="symbol">,</span><span class="normal"> last</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Frees up all used B+ tree memory pages</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="symbol">~</span><span class="function">btree_multiset</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Fast swapping of two identical B+ tree objects.</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">swap</span><span class="symbol">(</span><span class="normal">self</span><span class="symbol">&amp;</span><span class="normal"> from</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">tree</span><span class="symbol">,</span><span class="normal"> from</span><span class="symbol">.</span><span class="normal">tree</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">// *** Key and Value Comparison Function Objects</span>
+
+<span class="normal">    </span><span class="comment">/// Constant access to the key comparison object sorting the B+ tree</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">key_compare</span><span class="normal"> </span><span class="function">key_comp</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">key_comp</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Constant access to a constructed value_type comparison object. Required</span>
+<span class="normal">    </span><span class="comment">/// by the STL</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">value_compare</span><span class="normal"> </span><span class="function">value_comp</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">value_comp</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">// *** Allocators</span>
+
+<span class="normal">    </span><span class="comment">/// Return the base node allocator provided during construction.</span>
+<span class="normal">    </span><span class="usertype">allocator_type</span><span class="normal"> </span><span class="function">get_allocator</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">get_allocator</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">// *** Fast Destruction of the B+ Tree</span>
+
+<span class="normal">    </span><span class="comment">/// Frees all keys and all nodes of the tree</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">clear</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        tree</span><span class="symbol">.</span><span class="function">clear</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">// *** STL Iterator Construction Functions</span>
+
+<span class="normal">    </span><span class="comment">/// Constructs a read/data-write iterator that points to the first slot in</span>
+<span class="normal">    </span><span class="comment">/// the first leaf of the B+ tree.</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">iterator</span><span class="normal"> </span><span class="function">begin</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Constructs a read/data-write iterator that points to the first invalid</span>
+<span class="normal">    </span><span class="comment">/// slot in the last leaf of the B+ tree.</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">iterator</span><span class="normal"> </span><span class="function">end</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Constructs a read-only constant iterator that points to the first slot</span>
+<span class="normal">    </span><span class="comment">/// in the first leaf of the B+ tree.</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">const_iterator</span><span class="normal"> </span><span class="function">begin</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Constructs a read-only constant iterator that points to the first</span>
+<span class="normal">    </span><span class="comment">/// invalid slot in the last leaf of the B+ tree.</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">const_iterator</span><span class="normal"> </span><span class="function">end</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Constructs a read/data-write reverse iterator that points to the first</span>
+<span class="normal">    </span><span class="comment">/// invalid slot in the last leaf of the B+ tree. Uses STL magic.</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">reverse_iterator</span><span class="normal"> </span><span class="function">rbegin</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">rbegin</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Constructs a read/data-write reverse iterator that points to the first</span>
+<span class="normal">    </span><span class="comment">/// slot in the first leaf of the B+ tree. Uses STL magic.</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">reverse_iterator</span><span class="normal"> </span><span class="function">rend</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">rend</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Constructs a read-only reverse iterator that points to the first</span>
+<span class="normal">    </span><span class="comment">/// invalid slot in the last leaf of the B+ tree. Uses STL magic.</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">const_reverse_iterator</span><span class="normal"> </span><span class="function">rbegin</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">rbegin</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Constructs a read-only reverse iterator that points to the first slot</span>
+<span class="normal">    </span><span class="comment">/// in the first leaf of the B+ tree. Uses STL magic.</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">const_reverse_iterator</span><span class="normal"> </span><span class="function">rend</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">rend</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">// *** Access Functions to the Item Count</span>
+
+<span class="normal">    </span><span class="comment">/// Return the number of keys in the B+ tree</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">size_type</span><span class="normal"> </span><span class="function">size</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Returns true if there is at least one key in the B+ tree</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="type">bool</span><span class="normal"> </span><span class="function">empty</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">empty</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Returns the largest possible size of the B+ Tree. This is just a</span>
+<span class="normal">    </span><span class="comment">/// function required by the STL standard, the B+ Tree can hold more items.</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">size_type</span><span class="normal"> </span><span class="function">max_size</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">max_size</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Return a const reference to the current statistics.</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> tree_stats</span><span class="symbol">&amp;</span><span class="normal"> </span><span class="function">get_stats</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">get_stats</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">// *** Standard Access Functions Querying the Tree by Descending to a Leaf</span>
+
+<span class="normal">    </span><span class="comment">/// Non-STL function checking whether a key is in the B+ tree. The same as</span>
+<span class="normal">    </span><span class="comment">/// (find(k) != end()) or (count() != 0).</span>
+<span class="normal">    </span><span class="type">bool</span><span class="normal"> </span><span class="function">exists</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">key_type</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">key</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">exists</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Tries to locate a key in the B+ tree and returns an iterator to the</span>
+<span class="normal">    </span><span class="comment">/// key slot if found. If unsuccessful it returns end().</span>
+<span class="normal">    </span><span class="usertype">iterator</span><span class="normal"> </span><span class="function">find</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">key_type</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">key</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">find</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Tries to locate a key in the B+ tree and returns an constant iterator</span>
+<span class="normal">    </span><span class="comment">/// to the key slot if found. If unsuccessful it returns end().</span>
+<span class="normal">    </span><span class="usertype">const_iterator</span><span class="normal"> </span><span class="function">find</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">key_type</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">key</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">find</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Tries to locate a key in the B+ tree and returns the number of</span>
+<span class="normal">    </span><span class="comment">/// identical key entries found.</span>
+<span class="normal">    </span><span class="usertype">size_type</span><span class="normal"> </span><span class="function">count</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">key_type</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">key</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">count</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Searches the B+ tree and returns an iterator to the first pair</span>
+<span class="normal">    </span><span class="comment">/// equal to or greater than key, or end() if all keys are smaller.</span>
+<span class="normal">    </span><span class="usertype">iterator</span><span class="normal"> </span><span class="function">lower_bound</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> key_type</span><span class="symbol">&amp;</span><span class="normal"> key</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">lower_bound</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Searches the B+ tree and returns a constant iterator to the</span>
+<span class="normal">    </span><span class="comment">/// first pair equal to or greater than key, or end() if all keys</span>
+<span class="normal">    </span><span class="comment">/// are smaller.</span>
+<span class="normal">    </span><span class="usertype">const_iterator</span><span class="normal"> </span><span class="function">lower_bound</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> key_type</span><span class="symbol">&amp;</span><span class="normal"> key</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">lower_bound</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Searches the B+ tree and returns an iterator to the first pair</span>
+<span class="normal">    </span><span class="comment">/// greater than key, or end() if all keys are smaller or equal.</span>
+<span class="normal">    </span><span class="usertype">iterator</span><span class="normal"> </span><span class="function">upper_bound</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> key_type</span><span class="symbol">&amp;</span><span class="normal"> key</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">upper_bound</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Searches the B+ tree and returns a constant iterator to the</span>
+<span class="normal">    </span><span class="comment">/// first pair greater than key, or end() if all keys are smaller</span>
+<span class="normal">    </span><span class="comment">/// or equal.</span>
+<span class="normal">    </span><span class="usertype">const_iterator</span><span class="normal"> </span><span class="function">upper_bound</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> key_type</span><span class="symbol">&amp;</span><span class="normal"> key</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">upper_bound</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Searches the B+ tree and returns both lower_bound() and upper_bound().</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> std</span><span class="symbol">::</span><span class="usertype">pair&lt;iterator, iterator&gt;</span><span class="normal"> </span><span class="function">equal_range</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> key_type</span><span class="symbol">&amp;</span><span class="normal"> key</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">equal_range</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Searches the B+ tree and returns both lower_bound() and upper_bound().</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> std</span><span class="symbol">::</span><span class="usertype">pair&lt;const_iterator, const_iterator&gt;</span><span class="normal"> </span><span class="function">equal_range</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> key_type</span><span class="symbol">&amp;</span><span class="normal"> key</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">equal_range</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">// *** B+ Tree Object Comparison Functions</span>
+
+<span class="normal">    </span><span class="comment">/// Equality relation of B+ trees of the same type. B+ trees of the same</span>
+<span class="normal">    </span><span class="comment">/// size and equal key (counts) are considered equal.</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="type">bool</span><span class="normal"> </span><span class="keyword">operator</span><span class="symbol">==(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">self</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">other</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">tree </span><span class="symbol">==</span><span class="normal"> other</span><span class="symbol">.</span><span class="normal">tree</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Inequality relation. Based on operator==.</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="type">bool</span><span class="normal"> </span><span class="keyword">operator</span><span class="symbol">!=(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">self</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">other</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">tree </span><span class="symbol">!=</span><span class="normal"> other</span><span class="symbol">.</span><span class="normal">tree</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Total ordering relation of B+ trees of the same type. It uses</span>
+<span class="normal">    </span><span class="comment">/// std::lexicographical_compare() for the actual comparison of elements.</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="type">bool</span><span class="normal"> </span><span class="keyword">operator</span><span class="symbol">&lt;(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">self</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">other</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">tree </span><span class="symbol">&lt;</span><span class="normal"> other</span><span class="symbol">.</span><span class="normal">tree</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Greater relation. Based on operator&lt;.</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="type">bool</span><span class="normal"> </span><span class="keyword">operator</span><span class="symbol">&gt;(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">self</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">other</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">tree </span><span class="symbol">&gt;</span><span class="normal"> other</span><span class="symbol">.</span><span class="normal">tree</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Less-equal relation. Based on operator&lt;.</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="type">bool</span><span class="normal"> </span><span class="keyword">operator</span><span class="symbol">&lt;=(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">self</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">other</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">tree </span><span class="symbol">&lt;=</span><span class="normal"> other</span><span class="symbol">.</span><span class="normal">tree</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Greater-equal relation. Based on operator&lt;.</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="type">bool</span><span class="normal"> </span><span class="keyword">operator</span><span class="symbol">&gt;=(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">self</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">other</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">tree </span><span class="symbol">&gt;=</span><span class="normal"> other</span><span class="symbol">.</span><span class="normal">tree</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">/// *** Fast Copy: Assign Operator and Copy Constructors</span>
+
+<span class="normal">    </span><span class="comment">/// Assignment operator. All the keys are copied</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> self</span><span class="symbol">&amp;</span><span class="normal"> </span><span class="keyword">operator</span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">self</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">other</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">this</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">other</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            tree </span><span class="symbol">=</span><span class="normal"> other</span><span class="symbol">.</span><span class="normal">tree</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">*</span><span class="keyword">this</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Copy constructor. The newly initialized B+ tree object will contain a</span>
+<span class="normal">    </span><span class="comment">/// copy of all keys.</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="function">btree_multiset</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">self</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">other</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="symbol">:</span><span class="normal"> </span><span class="function">tree</span><span class="symbol">(</span><span class="normal">other</span><span class="symbol">.</span><span class="normal">tree</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">// *** Public Insertion Functions</span>
+
+<span class="normal">    </span><span class="comment">/// Attempt to insert a key into the B+ tree. As this set allows</span>
+<span class="normal">    </span><span class="comment">/// duplicates, this function never fails.</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">iterator</span><span class="normal"> </span><span class="function">insert</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> key_type</span><span class="symbol">&amp;</span><span class="normal"> x</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">insert2</span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">,</span><span class="normal"> </span><span class="function">data_type</span><span class="symbol">()).</span><span class="normal">first</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Attempt to insert a key into the B+ tree. The iterator hint is</span>
+<span class="normal">    </span><span class="comment">/// currently ignored by the B+ tree insertion routine.</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">iterator</span><span class="normal"> </span><span class="function">insert</span><span class="symbol">(</span><span class="usertype">iterator</span><span class="normal"> hint</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">key_type</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">x</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">insert2</span><span class="symbol">(</span><span class="normal">hint</span><span class="symbol">,</span><span class="normal"> x</span><span class="symbol">,</span><span class="normal"> </span><span class="function">data_type</span><span class="symbol">());</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Attempt to insert the range [first,last) of key_type into the B+</span>
+<span class="normal">    </span><span class="comment">/// tree. Each key is inserted individually.</span>
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">InputIterator</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">insert</span><span class="symbol">(</span><span class="usertype">InputIterator</span><span class="normal"> first</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">InputIterator</span><span class="normal"> last</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="usertype">InputIterator</span><span class="normal"> iter </span><span class="symbol">=</span><span class="normal"> first</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="keyword">while</span><span class="symbol">(</span><span class="normal">iter </span><span class="symbol">!=</span><span class="normal"> last</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">insert</span><span class="symbol">(*</span><span class="normal">iter</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="symbol">++</span><span class="normal">iter</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">// *** Public Erase Functions</span>
+
+<span class="normal">    </span><span class="comment">/// Erases one (the first) entry of the given key.</span>
+<span class="normal">    </span><span class="type">bool</span><span class="normal"> </span><span class="function">erase_one</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">key_type</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">key</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">erase_one</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Erases all the entries of the given key. This is implemented using</span>
+<span class="normal">    </span><span class="comment">/// erase_one() and thus not very efficient.</span>
+<span class="normal">    </span><span class="usertype">size_type</span><span class="normal"> </span><span class="function">erase</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">key_type</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">key</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">erase</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Erase the key/data pair referenced by the iterator.</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">erase</span><span class="symbol">(</span><span class="usertype">iterator</span><span class="normal"> iter</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">erase</span><span class="symbol">(</span><span class="normal">iter</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> BTREE_TODO</span>
+<span class="normal">    </span><span class="comment">/// Erase all keys in the range [first,last). This function is currently</span>
+<span class="normal">    </span><span class="comment">/// not implemented by the B+ Tree.</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">erase</span><span class="symbol">(</span><span class="normal">iterator </span><span class="comment">/* first */</span><span class="symbol">,</span><span class="normal"> iterator </span><span class="comment">/* last */</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">abort</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> BTREE_DEBUG</span>
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">// *** Debug Printing</span>
+
+<span class="normal">    </span><span class="comment">/// Print out the B+ tree structure with keys onto the given ostream. This function</span>
+<span class="normal">    </span><span class="comment">/// requires that the header is compiled with BTREE_DEBUG and that key_type</span>
+<span class="normal">    </span><span class="comment">/// is printable via std::ostream.</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">print</span><span class="symbol">(</span><span class="normal">std</span><span class="symbol">::</span><span class="usertype">ostream</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">os</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        tree</span><span class="symbol">.</span><span class="function">print</span><span class="symbol">(</span><span class="normal">os</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Print out only the leaves via the double linked list.</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">print_leaves</span><span class="symbol">(</span><span class="normal">std</span><span class="symbol">::</span><span class="usertype">ostream</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">os</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        tree</span><span class="symbol">.</span><span class="function">print_leaves</span><span class="symbol">(</span><span class="normal">os</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">// *** Verification of B+ Tree Invariants</span>
+
+<span class="normal">    </span><span class="comment">/// Run a thorough verification of all B+ tree invariants. The program</span>
+<span class="normal">    </span><span class="comment">/// aborts via BTREE_ASSERT() if something is wrong.</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">verify</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        tree</span><span class="symbol">.</span><span class="function">verify</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+
+<span class="normal">    </span><span class="comment">/// Dump the contents of the B+ tree out onto an ostream as a binary</span>
+<span class="normal">    </span><span class="comment">/// image. The image contains memory pointers which will be fixed when the</span>
+<span class="normal">    </span><span class="comment">/// image is restored. For this to work your key_type must be an integral</span>
+<span class="normal">    </span><span class="comment">/// type and contain no pointers or references.</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">dump</span><span class="symbol">(</span><span class="normal">std</span><span class="symbol">::</span><span class="usertype">ostream</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">os</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        tree</span><span class="symbol">.</span><span class="function">dump</span><span class="symbol">(</span><span class="normal">os</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Restore a binary image of a dumped B+ tree from an istream. The B+ tree</span>
+<span class="normal">    </span><span class="comment">/// pointers are fixed using the dump order. For dump and restore to work</span>
+<span class="normal">    </span><span class="comment">/// your key_type must be an integral type and contain no pointers or</span>
+<span class="normal">    </span><span class="comment">/// references. Returns true if the restore was successful.</span>
+<span class="normal">    </span><span class="type">bool</span><span class="normal"> </span><span class="function">restore</span><span class="symbol">(</span><span class="normal">std</span><span class="symbol">::</span><span class="usertype">istream</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">is</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> tree</span><span class="symbol">.</span><span class="function">restore</span><span class="symbol">(</span><span class="normal">is</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="cbracket">}</span><span class="normal"> </span><span class="comment">// namespace stx</span>
+
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">// _STX_BTREE_MULTISET_H_</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

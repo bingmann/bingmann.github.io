@@ -1,0 +1,35 @@
+/*
+ * $Id: iffile.idl 185 2006-07-26 22:39:10Z sdi2 $
+ */
+#include <types.idl>
+
+[uuid(IF_FILE_ID)]
+interface IF_FILE {
+
+	/**
+	 * Reads up to readsize byte from the file/object identified by filehandle.
+	 * Returns a buffer with the read characters. The readsize specified a
+	 * maximum read size, the returned buffer can actually contain less bytes.
+	 * 
+	 * You can specify a fileposition with the pos parameter. Some objects
+	 * like the console might simply ignore this parameter.
+	 */
+	void Read(in objectid_t filehandle, in uint32_t pos, in idlsize_t readsize, [prealloc] out buffer_t buffer)
+		raises(invalid_objectid);
+	/**
+	 * Writes bufsize bytes into the file/object identified by filehandle. The
+	 * byteswritten variable contains the bytes that could actually be written.
+     *
+	 * You can specify a fileposition with the pos parameter. Some objects
+	 * like the console might simply ignore this parameter.
+	 */
+	void Write(in objectid_t filehandle, in uint32_t pos, out idlsize_t byteswritten, in buffer_t buffer)
+		raises(invalid_objectid);
+	/**
+	 * Returns size of a file or throws a not_supported exception when the
+	 * object has no size
+	 */
+	void GetFileSize(in objectid_t filehandle, out idlsize_t filesize)
+		raises(invalid_objectid);
+
+};

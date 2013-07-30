@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - findfirst</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;TC: int findfirst( const char *path, struct ffblk *ffblk, int attr)</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;MSC unsigned _dos_findfirst( char *path, unsigned attr,</span><br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;struct find_t *fileinfo )</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- prototype in dir.h, also include dos.h (MS C: dos.h only)<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- gets disk directory via DOS 0x4E, where attr is:<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Turbo C &nbsp; &nbsp; &nbsp; &nbsp; Microsoft C</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FA_RDONLY &nbsp; &nbsp; &nbsp; _A_RDONLY<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FA_HIDDEN &nbsp; &nbsp; &nbsp; _A_HIDDEN<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FA_SYSTEM &nbsp; &nbsp; &nbsp; _A_SYSTEM<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FA_LABEL &nbsp; &nbsp; &nbsp; &nbsp;_A_VOLID<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FA_DIREC &nbsp; &nbsp; &nbsp; &nbsp;_A_SUBDIR<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FA_ARCH &nbsp; &nbsp; &nbsp; &nbsp; _A_ARCH<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;struct ffblk &nbsp; &nbsp;(Turbo C) &nbsp; &nbsp; &nbsp; struct find_t &nbsp; (MSC)</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;char &nbsp; &nbsp; ff_reserved[21]; &nbsp; &nbsp; &nbsp; char &nbsp; &nbsp; reserved[21];<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;char &nbsp; &nbsp; ff_attrib; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; char &nbsp; &nbsp; attrib;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;unsigned ff_ftime; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;unsigned wr_time;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;unsigned ff_fdate; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;unsigned wr_date;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;long &nbsp; &nbsp; ff_fsize; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;long &nbsp; &nbsp; size;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;char &nbsp; &nbsp; ff_name[13]; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; char &nbsp; &nbsp; name[13];<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;};<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- attributes can be logically OR'ed<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- struct ffblk is defined in Turbo C's dir.h<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- struct find_t is defined in MS C's dos.h<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- updates <a href="table-DTA.html">DTA</a>, provisions for saving/setting DTA should be made<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- normal files are always included along with files that match<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;the requested attributes except when the LABEL attribute is<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;requested. &nbsp;It's up to the programmer to determine which<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;actually match the requested attributes.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- returns 0 if OK, -1 if no matching files found or on error<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see &nbsp; <a href="table-file_attributes.html">FILE ATTRIBUTES</a>, &nbsp;<a href="c-findnext.html">FINDNEXT</a>, &nbsp;<a href="c-getdta.html">GETDTA</a> &nbsp;and &nbsp;<a href="c-setdta.html">SETDTA</a><br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">findfirst</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

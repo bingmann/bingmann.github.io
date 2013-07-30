@@ -1,0 +1,181 @@
+\section{Differentiale}
+
+\begin{DefBem}
+  Sei $A$ eine kommutative $R$-Algebra, $M$ ein $A$-Modul.
+
+  \begin{enumerate}
+    \item Eine $R$-lineare Abbildung $\delta: A \to M$ heißt
+          \emp{Derivation}\index{Derivation}, wenn für alle $f,g \in A$ gilt:
+          \[\delta(f \cdot g) = f \cdot \delta(g) + g \cdot \delta(f)\]
+    \item $\mbox{Der}_R(A,M) \defeqr \{ \delta: A \to M: \delta \;
+          R\text{-lineare Derivation}\}$ ist ein $A$-Modul.
+    \item $M \mapsto \mbox{Der}_R(A,M)$ ist ein Funktor (Unterfunktor von $\Hom_R(A,\cdot)$).
+  \end{enumerate}
+\end{DefBem}
+
+\begin{nnBsp}
+  \begin{enumerate}
+  \item[1.)] $A = R[X], d = \frac{d}{dX}$ ist eine $R$-Derivation $d: A \to
+    A$, definiert durch $d(\sum_{i=0}^n a_i X^i) \defeqr \sum_{i=1}^n a_i
+    i X^{i-1}$
+  \item[2.)] $A = R \llbracket X \rrbracket, d = \frac{d}{dX}$ wie in 1.) mit
+    $\infty$ statt n.
+    
+    \textbf{Beh.:} $\mbox{Der}_R(A,A) = A \cdot d$ \\
+    \textbf{Bew.:} Sei $\delta: A \to A$ eine $R$-lineare Derivation, $f \defeqr \delta(X)$. \\
+    Dann ist $\delta(1) = \delta(1 \cdot 1) =1 \cdot \delta(1) + 1
+    \cdot \delta(1) \Rightarrow \delta(1) = 0
+    \Rightarrow \forall r \in R:\delta(r) = 0$ \\
+    $\delta(X^2) = 2 \cdot X \cdot \delta(X)$ und (Induktion) $\delta(X^n) = X
+    \cdot \delta(X^{n-1}) + X^{n-1} \cdot \delta(X) = n \cdot X^{n-1}\cdot f
+    \overset{\delta\; R\text{-linear}}{\Rightarrow} \delta(\sum a_i
+    X^i) = \sum a_i i X^{i-1} \cdot f \Rightarrow \delta = f \cdot d$
+    
+  \item[3.)] $A = R[X_1,\dots,X_n]$, $\partial_i = \frac{\partial}{\partial
+      X_i}$ ist Derivation genauso wie für 1.)\\
+    $\mbox{Der}_R(A,A)$ ist freier $A$-Modul mit Basis $\partial_1, \dots , \partial_n$.
+  \end{enumerate}
+\end{nnBsp}
+
+\begin{PropDef} \label{1.21}
+  Der Funktor $M \mapsto \mbox{Der}_R(A,M)$ ist ,,darstellbar``, d.h. es gibt
+  einen $A$-Modul $\Omega_{A/R}$ und eine Derivation $d: A \to \Omega_{A/R}$ mit
+  folgender UAE:\\
+  Zu jedem $A$-Modul $M$ und jeder $R$-linearen Derivation $\delta: A \to M$
+  existiert genau eine $A$-lineare Abbildung $\varphi: \Omega_{A/R} \to M$ mit
+  $\delta = \varphi \circ d$.
+  \[
+    \begin{xy}
+      \xymatrix{
+         A \ar[rr]^{d} \ar[rd]_{\delta}  &     &  \Omega_{A/R} \ar@{-->}[dl]^{\exists!\varphi}  \\
+                                         &  M  &
+      }
+    \end{xy}
+  \]
+\end{PropDef}
+
+\begin{Bew}
+  Sei $F$ der freie Modul mit Basis $A$, dabei sei $X_f$ das zu $f \in A$
+  gehörige Basiselement von $F$.
+  Sei $U$ der Untermodul von $F$, der erzeugt wird von allen
+  \[\left. \begin{array}{l}
+       X_{f+g} - X_f - X_g\\
+       X_{\lambda f} - \lambda X_f\\
+       X_{f \cdot g} - f \cdot X_g - g \cdot X_f
+     \end{array} \right\} \text{für alle } f,g \in A, \lambda \in R\]
+  Sei $\Omega_{A/R} \defeqr F/U, d: A \to \Omega_{A/R}, f \mapsto [X_f] \defeql
+  d f$. $d$ ist Derivation nach Konstruktion (,,universelle Derivation``).
+
+  \textbf{UAE:} Sei $M$ $A$-Modul, $\delta: A \to M$ Derivation. Sei $\Phi: F \to
+  M$ die $A$-lineare Abbildung mit $\Phi(X_f) = \delta(f)$. $U \subseteq
+  \Kern(\Phi)$, weil $\delta$ Derivation, d.h. $\Phi$ induziert $\varphi:
+  F/U \to M$.
+\end{Bew}
+
+\begin{nnBsp}
+  $A = R[X_1, \dots , X_n]$, $\Omega_{A/R}$ ist freier Modul mit Basis $d X_1,
+  \dots d X_n$,\\
+  denn für $f = \sum_{\nu = (\nu_1, \dots , \nu_n)} a_{\nu} X_1^{\nu_1} \cdot \dots \cdot X_n^{\nu_n} \in A$ $(a_{\nu} \in R)$ ist $d f = \sum_{i=1}^n \frac{\partial f}{\partial X_i} d X_i$\\
+  $\Rightarrow$ die $d X_i$ erzeugen $\Omega_{A/R}$.
+
+  Nach \myref{Prop.}{1.21} ist \fbox{$\mbox{Der}_R(A,A) = \Hom_A(\Omega_{A/R},A)$}.
+  \[
+    \begin{xy}
+      \xymatrix{
+         A \ar[rr]^{d} \ar[rd]_{\delta}  &     &  \Omega_{A/R} \ar@{-->}[dl]^{\exists!\varphi}  \\
+                                         &  A  &
+      }
+    \end{xy}
+  \]
+  Zu zeigen: die $dX_i$ sind linear unabhängig.\\
+  Sei also $\sum_{i = 1}^n a_i d X_i = 0 \Rightarrow 0 =
+  \frac{\partial}{\partial X_j}(\sum a_i X_i) = a_j$
+\end{nnBsp}
+
+\begin{nnBsp}
+  Sei $X \subseteq \mathbb{R}^n$ offen (für ein $n>1$), $A \defeqr
+  \mathcal{C}^{\infty}(X)$ die $\mathbb{R}$-Algebra der beliebig oft
+  differenzierbaren Funktionen auf $X$.\\
+  \textbf{Beh.:} $\mbox{Der}_{\mathbb{R}}(A,A)$ ist ein freier $A$-Modul mit
+  Basis $\partial_1, \dots , \partial_n$ (mit $\partial_i \defeqr 
+  \frac{\partial}{\partial X_i}$ partielle Ableitung nach $X_i$).\\
+  Dann ist auch $\Omega_{A/\mathbb{R}}$ freier $A$-Modul mit Basis $d X_1, \dots , d
+  X_n$.\\
+  \textbf{Beh.1:} Für jedes $x \in X$ wird das Ideal $I_x = \{ f \in A: f(x) = 0
+  \}$ erzeugt von $X_i - x_i \; (x = (x_1, \dots , x_n)), i = 1 , \dots , n$
+  (Taylor-Entwicklung).\\
+  Sei nun $\partial: A \to A$ Derivation. Zu zeigen: $\partial = \sum_{i = 1}^n
+  \partial(X_i) \partial_i$.\\
+  Setze $\partial' \defeqr \partial - \sum_{i = 1}^n \partial(X_i) \partial_i$\\
+  \textbf{Beh.2:} Für jedes $x \in X$ ist $\partial'(I_x) \subseteq I_x$\\
+  \textbf{Bew.2:} Sei $f \in I_x, f = \sum_{i = 1}^n g_i (X_i - x_i)$ (siehe
+  Beh. 1) mit $g_i \in A$. Also ist $\partial'(f) = \underset{\in
+  I_x}{\underbrace{\sum_{i = 1}^n
+  \partial'(g_i)(X_i - x_i)}} + \sum_{i = 1}^n g_i \underset{=0, \text{ da } \partial_j(X_i-x_i)=\delta_{ij}}{\underbrace{\partial'(X_i -
+  x_i)}}$.\\
+  Sei nun $g \in A, x \in X$.
+  Schreibe $g = \underset{\in I_x}{\underbrace{g - g(x)}} + g(x) \Rightarrow
+  \partial'(g) = \partial'(g \cdot g(x)) \in I_x$\\
+  d.h. $\partial'(y)(x) = 0 \Rightarrow \partial'(y) = 0 \Rightarrow \partial' =
+  0$
+\end{nnBsp}
+
+\begin{Prop}
+\begin{enumerate}
+\item[a)]
+$\Omega_{\cdot/R}$ ist ein Funktor. \underline{R-Alg} $\rightarrow$ \underline{R-Mod}.
+
+\begin{Bew}
+Sei $\varphi: A \rightarrow B$, $R$-Algebra-Homomorphismus
+$$
+\begin{xy}
+\xymatrix{
+A \ar[rr]^{d_A} \ar[d]_{\varphi} & & \ar@{-->}[d]^{\exists!\, d\varphi \text{ $A$-linear}} \Omega_{A/R} \\
+B \ar[rr]^{d_B}                  & & \Omega_{B/R}
+}
+\end{xy}
+$$
+
+So ist $d_B \circ \varphi : A \rightarrow \Omega_{B/R}$
+
+$d_B \circ \varphi(\lambda \cdot a) = d_B(\lambda \varphi(a)) = \lambda d_B(\varphi(a))$ $\forall$ $\lambda \in R, a \in A$.\\
+$d_B \circ \varphi(a_1 \cdot a_2) = d_B(\varphi(a_1) \cdot \varphi(a_2)) = \varphi(a_1) \cdot d_B(\varphi(a_2)) + \varphi(a_2) \cdot d_B(\varphi(a_1))$
+
+$\Rightarrow$ Derivation, wenn $\Omega_{B/R}$ vermöge $\varphi$ als $A$-Modul aufgefasst wird.
+
+[Man kann $\Omega_{A/R}$ aufwerten zum $B$-Modul durch $\otimes_A B$:]
+$$
+\begin{xy}
+\xymatrix{
+A \ar[rr]^{d_A} \ar[d]_{\varphi}  & & \ar@{-->}[d]^{\exists!\, d\alpha \text{ $B$-linear}} \Omega_{A/R} \otimes_A B \\
+B \ar[rr]^{d_B}                   & & \Omega_{B/R}
+}
+\end{xy}
+$$
+Etwa durch $\alpha(\omega \otimes b) = b \cdot d\varphi(\omega)$
+\end{Bew}
+
+\item[b)]
+$$\Omega_{A/R} \otimes_A B \overset{\alpha}{\rightarrow} \Omega_{B/R} \overset{\beta}{\rightarrow} \Omega_{B/A} \rightarrow 0$$
+ist exakte Sequenz von $B$-Moduln für jeden $R$-Algebra-Homomorphismus $\varphi: A \rightarrow B$
+
+\begin{Bew}
+$\beta$ surjektiv: $\checkmark$ (Konstruktion von $\Omega_{\cdot/\cdot}$)
+
+,,$\beta \circ \alpha = 0$`` (d.h. $\Bild(\alpha) \subseteq \Kern(\beta)$)\\
+$d_{B/A}\varphi(a) = 0$ für jedes $a \in A$. \\
+(In $\Omega_{B/A}$ werden alle ,,konstanten $A$-Funktionen`` durch die Derivation zu 0).
+
+,,$\Kern(\beta) \subseteq \Bild(\alpha)$``,\\
+Sei $\omega = \sum_{i=1}^n{b_i} d_{B/R}(c_i) \in \Kern(\beta)$ mit $b_i,c_i \in B$\\
+Dann ist $\beta(\omega) = \sum_{i=1}^n{b_i d_{B/A}}(c_i) = 0$\\
+$\Rightarrow$ $\sum_{i=1}^n{b_i x_{c_i}} \in U_{B/A}$ (im freien $B$-Modul mit Basis $\{ x_b : b \in B \}$ vgl Beweis zu \ref{1.21})\\
+$\Rightarrow$ $\sum_i b_i x_{c_i} = \sum_j b_j \underbrace{(x_{f_j + g_j} - x_{f_j} - x_{g_j})}_{\in U_{B/R}} + \sum_k b'_k (x_{\varphi(\lambda_k) g_k} - \varphi(\lambda_k) x_{g_k}) + \sum_l b''_l \underbrace{(x_{f_l g_l} - f_l x_{g_l} - g_l x_{f_l})}_{\in U_{B/R}}$ für gewisse $b_j, b'_k, b''_l \in B$, $f_j,f_k,f_l,g_k,g_j,g_l \in B$, $\lambda_k \in A$
+
+$\Rightarrow w = \sum_k b'_k (d_{B/R}(\varphi(\lambda_k) g_k) - \varphi(\lambda_k) d_{B/R}(g_k))$\\
+$= \sum_k b'_k (\varphi(\lambda_k) d_{B/R}(g_k) + g_k d_{B/R}(\varphi(\lambda_k)) - \varphi(\lambda_k) d_{B/R}(g_k))$\\
+$= \sum_k b'_k g_k d_{B/R}(\varphi(\lambda_k))
+ = \alpha(\sum_k d\lambda_k \otimes b'_k g_k)$
+\end{Bew}
+\end{enumerate}
+\end{Prop}

@@ -1,0 +1,66 @@
+#                                               -*- Autoconf -*-
+# Process this file with autoconf to produce a configure script.
+
+AC_PREREQ(2.59)
+AC_INIT(libvgserver, 0.1)
+AC_CONFIG_SRCDIR([GraphServer.h])
+AC_CONFIG_AUX_DIR(scripts)
+
+AM_INIT_AUTOMAKE
+
+if test "$CFLAGS" == ""; then
+    CFLAGS="-g"
+fi
+if test "$CXXFLAGS" == ""; then
+    CXXFLAGS="-g"
+fi
+
+# enable full optimization
+AC_ARG_ENABLE(optimize, [  --enable-optimize        Build with full optimization (default: no)],
+	[ case "${enableval}" in
+	  yes)
+		CFLAGS="$CFLAGS -O3 -DNDEBUG";
+		CXXFLAGS="$CXXFLAGS -O3 -DNDEBUG";
+	  ;;
+	  no) ;;
+	  *) AC_MSG_ERROR(bad value ${enableval} for --enable-optimize) ;;
+	  esac ],
+	[ optimize=false ])
+
+# Checks for programs.
+AC_PROG_CXX
+AC_PROG_CC
+AC_PROG_RANLIB
+
+AC_LANG([C++])
+
+# Checks for libraries.
+
+# Checks for header files.
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_HEADER_STDBOOL
+AC_C_CONST
+AC_C_INLINE
+
+# check for boost spirit
+AC_CHECK_HEADER([boost/spirit/core.hpp],
+    AC_SUBST(HAVE_BOOST_SPIRIT, 1),
+    AC_MSG_WARN([
+*** could not find the boost headers ***
+*** install the libboost-dev package (http://www.boost.org) ***]))
+
+AC_CHECK_HEADER([boost/spirit/phoenix.hpp], [],
+    AC_MSG_WARN([
+*** could not find the boost headers ***
+*** install the libboost-dev package (http://www.boost.org) ***]))
+
+# check whether cppunit is available
+AM_PATH_CPPUNIT(1.10.0)
+
+AM_CONDITIONAL(HAVE_CPPUNIT, test x$CPPUNIT_CONFIG != xno)
+
+# Checks for library functions.
+
+AC_CONFIG_FILES([Makefile testsuite/Makefile tools/Makefile])
+AC_OUTPUT

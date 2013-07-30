@@ -1,0 +1,24 @@
+#ifndef FSTREAM_
+#define FSTREAM_
+
+#include "iostream"
+
+namespace std {
+
+	class ofstream : public ostream
+	{
+	public:	
+		ofstream(const char* fname)
+			: ostream(new fstreambuf(fopen(fname, "w")))
+		{
+		}
+		
+		~ofstream()
+		{
+			delete rdbuf();	
+		}
+	};
+	
+}
+
+#endif /*FSTREAM_*/

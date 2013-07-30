@@ -1,0 +1,137 @@
+# $Id: .htconfig 1275 2004-12-15 08:59:31Z zgium $
+# panthema Web Page Configuration
+
+DirectoryIndex		index.html index.php
+
+# Longer Keep Alive Timeout
+KeepAliveTimeout 	60
+
+<Location "/">
+    Options		-Indexes
+</Location>
+
+# ErrorDocuments
+
+ErrorDocument		404	/404.html
+
+# Redirect some alias domains
+
+RewriteEngine 	On
+
+RewriteCond	%{HTTP_HOST} 	panthema\.(com|de)$ [NC]
+RewriteRule	^(.*)$		http://panthema.net$1 [R=301,L]
+
+RewriteCond	%{HTTP_HOST} 	^www\.panthema\.net$ [NC]
+RewriteRule	^(.*)$		http://panthema.net$1 [R=301,L]
+
+RewriteCond	%{HTTP_HOST} 	(metaset|cel6|cell6|celsix|cellsix|corering|starftp|yhub)\.(com|net|de)$ [NC]
+RewriteRule	^(.*)$		http://panthema.net$1 [R=301,L]
+
+# Expiration Control
+
+ExpiresActive 		On
+ExpiresDefault				"access plus 1 hour"
+ExpiresByType 		image/gif 	"access plus 1 day"
+ExpiresByType 		image/jpeg 	"access plus 1 day"
+ExpiresByType 		image/png 	"access plus 1 day"
+ExpiresByType 		text/html 	"access plus 1 hour"
+
+
+
+
+
+# git-web configuration
+
+SetEnv      	GITWEB_CONFIG   /home/www/panthema.net/gitweb/gitweb.conf
+
+<Location /gitweb/gitweb.cgi>
+      Options -Indexes FollowSymlinks +ExecCGI
+
+      SetHandler perl-script
+      PerlResponseHandler ModPerl::Registry
+      PerlOptions +ParseHeaders
+
+      AuthType	      Basic
+      AuthName	      "GitWeb Interface"
+      AuthUserFile    /home/git/htpasswd      
+      Require	      valid-user
+</Location>
+
+<Location /cgit/cgit.cgi>
+      Options -Indexes FollowSymlinks +ExecCGI
+
+      AuthType	      Basic
+      AuthName	      "cgit Interface"
+      AuthUserFile    /home/git/htpasswd      
+      Require	      valid-user
+</Location>
+
+
+
+
+
+
+# Subversion Repositories
+
+<Location /2006/hmtg/svn>
+	DAV svn
+	SVNPath /home/svn/hmtg
+
+	AuthType Basic
+	AuthName "Subversion Repository"
+	AuthUserFile /home/svn/hmtg/htpasswd
+
+	Require valid-user
+</Location>
+
+<Location /2006/mingw/svn>
+	DAV svn
+	SVNPath /home/svn/mingw
+
+	AuthType Basic
+	AuthName "MinGW Compilation Suite Subversion Repository"
+	AuthUserFile /home/svn/htpasswd
+
+	<LimitExcept GET PROPFIND OPTIONS REPORT>
+		Require valid-user
+	</LimitExcept>
+</Location>
+
+<Location /repo/svn>
+	DAV svn
+	SVNPath /home/svn/repo/
+
+	AuthType Basic
+	AuthName "panthema.net Repository Subversion"
+	AuthUserFile /home/svn/htpasswd
+
+	<LimitExcept GET PROPFIND OPTIONS REPORT>
+		Require valid-user
+	</LimitExcept>
+</Location>
+
+<Location /repo/gentoo>
+	DAV svn
+	SVNPath /home/svn/repo-gentoo/
+
+	AuthType Basic
+	AuthName "panthema.net Gentoo Subversion Repository"
+	AuthUserFile /home/svn/htpasswd
+
+	<LimitExcept GET PROPFIND OPTIONS REPORT>
+		Require valid-user
+	</LimitExcept>
+</Location>
+
+<Location /start/ffsync>
+	DAV svn
+	SVNPath /home/svn/ffsync/
+
+	AuthType Basic
+	AuthName "ffsync Subversion Repository"
+	AuthUserFile /home/svn/htpasswd
+
+	Require valid-user
+
+	SVNAutoversioning on
+</Location>

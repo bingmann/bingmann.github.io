@@ -1,0 +1,108 @@
+\documentclass{article}
+\newcounter{chapter}
+\setcounter{chapter}{1}
+\usepackage{ana}
+
+\newtheorem{nnBsp}{Beispiele}
+\newtheorem{Bew}{Beweis}
+
+\author{Franziska Hinkelmann}
+% Wer nennenswerte Änderungen macht, schreibt euch bei \author dazu
+
+\begin{document}
+
+\section* {Algebra II Übung vom 27.4.06}
+\subsection* {Moduln}
+
+\paragraph{1.3}
+	\begin{enumerate}
+		\item[(a)] R-Untermoduln \\
+			Eine Untergruppe $N$ eines $R$-Moduls $M$ heißt $R$-Untermodul von $M$, falls $R \cdot N \subseteq N$\\
+			\subparagraph{Beispiel}
+				\begin{itemize}
+					\item Jedes Ideal ist ein $R$-Untermodul von $R$
+					\item $R^a$ ist Untermodul von $R^b$ mit $a \leq b \in \mathbb N$
+				\end{itemize}
+		\item[(b)] Kern und Bild $R$-linearer Abbildungen sind $R$-Moduln. Sei $\varphi: M \rightarrow N$ $R$-lineare Abbildung
+			\begin{itemize}
+				\item Kern$(\varphi)$: $m \in \mbox{Kern} (\varphi)$, $r \in R$:\\
+					$\varphi(rm) = r\varphi(m) = 0 \Rightarrow R \cdot \mbox{Kern} ( \varphi ) \subseteq \mbox{Kern} \varphi$; 
+					Untergruppe klar
+				\item Bild$\varphi$: $n \in \mbox{Bild} \varphi $, d. h. $\exists m: n = \varphi (m), m \in M \Rightarrow r \in R:
+					rn = r \varphi(m) = \varphi(rm) \in \mbox{Bild} (\varphi)  \Rightarrow R \cdot \mbox{Bild} 
+					(\varphi) \subseteq \mbox{Bild} (\varphi)$
+			\end{itemize}
+		\item[(c)] Zu jedem Untermodul $N \subseteq M$ gibt es einen Faktormodul $M/N$ ( $M$ abelsch $\Rightarrow$ jedes $N$ Normalteiler )
+			\begin{itemize}
+				\item $M/N$ ist abelsche Gruppe
+				\item Wir definieren $R$-Aktion auf $M/N$ durch $r(m + N) = rm + N$. Das ist wohldefiniert, denn\\
+					$r((m+n)+N)=r(m+n) + N= rm + \underbrace{rn}_{\in N} + N = rm + N$
+				\item $r((m+N) + (m' + N ) ) = r(m+m')+N) = r(m+m') + N = rm + N + rm' + N = r(m+N) + r(m'+N)$
+			\end{itemize}
+		\item[(d)] Homomorphiesatz: Für einen surjektiven homomorphismus $\varphi: M \rightarrow N$ gilt: 
+			$M/\mbox{Kern}(\varphi) \cong N$  (Bild fehlt)
+			\subparagraph{Beweis}
+				\item[-]  Wohldefiniertheit von $\tilde{\varphi}: M/\mbox{Kern}(\varphi) \rightarrow N$:\\
+					Sei $k \in \mbox{Kern}\varphi: \varphi(m+k) = \varphi(m)$
+				\item[-] surjektiv: $\forall n \in N: n = \varphi(m) = \tilde{\varphi}(m+ \mbox{Kern}(\varphi)$ 
+				\item[-] injektiv: $m, m' \in M$ mit $\varphi(m) = \varphi(m') = n \in N \leftrightarrow 
+					\varphi(m-m') = 0 \rightarrow m + \mbox{Kern}(\varphi)(m) = \mbox{Kern}(\varphi)(m')$
+				\item[-] $\tilde{\varphi}$ ist $R$-linear. Klar, wegen $\varphi$ $R$-linear.
+		\item[(e)] Direktes Produkt: Sei ${\{M_{i}\}}_{i \in I}$ eine beliebige Meng von Moduln. Dann ist ihr direktes Produkt 
+			$\Pi_i M_i = X_i M_i$ gegeben durch die Menge aller Tupel ${(m_i)}_{i \in I}$ mit $m_i \in M_i$ und die $R$-Aktion 
+			${r(m_i)}_{i \in I} = {(rm_i)}_{i \in I}$.\\
+			Direkte Summe: Das gleiche wie beim dirketen Produkt, jedoch dürfen in den Tupeln nur endlich viele $m_i \neq 0$ sein.
+				\subparagraph{Beispiel}
+					$R^n = \underbrace{R \times \ldots \times R}_{n \mbox{-mal}}$
+	\end{enumerate} 
+	
+	\paragraph{1.4}
+	\begin{enumerate}
+		\item[(f)] - Freie Moduln verhalten sich wie Vektorräume
+			Sei $R$ ein Ring, $M$ freier $R$-Modul $\{x_i \}_{i  \in I}, x_i \neq x_j (i\neq j)$ Basis von M.
+			Sei $N$ weiterer $R$-Modul und $\{y_i\}_{i \in I}$ Familie von Elementen von $N$ .\\
+			Dann gibt es einen eindeutig bestimmten Homomorphismus $ \varphi: M\rightarrow N $ mit $\varphi(x_i)=y_i \quad \forall i \in I$
+
+			\subparagraph{Beweis:} Sei $x \in M$. Dann ist durch $x=\sum_{i}a_ix_i\quad \{a_i\}_{i  \in I}$ eindeutig bestimmt.\\
+			Wir setzen: $\varphi(x):=\sum_i a_iy_i=\sum_ia_i\varphi(x_i)$
+
+			\paragraph{Korollar 1:} Falls $\{y_i\}_{i\in I}, y_i \neq y_j (i\neq j)$ Basis von $N$ ist, ist $\varphi$ Ismomorphismus
+			\subparagraph{Beweis:} wir können den Beweis des Satzes rückwärts anwenden 
+			$\Rightarrow \exists \psi: N\rightarrow M \mbox{mit} \psi(y_i)=x_i \forall i \in I 
+			\Rightarrow \varphi \circ \psi = id_N, \psi \circ \varphi = id_M$
+
+			\paragraph{Korollar 2:} Zwei freie Moduln mit gleicher Basis sind isomorph.
+			\paragraph{Proposition:} Sei $M$ freier Modul. Dann ist $M^*$ wieder frei und hat dieselbe Dimension wie $M$
+	\end{enumerate}
+
+	\paragraph{1.5 Proposition:}
+		\begin{enumerate}
+		\item[(b)]Sei $0\rightarrow M' \stackrel{\alpha}{\rightarrow} M \stackrel\beta\rightarrow M''\rightarrow 0$ exakt.\\
+		Dann: $0\rightarrow \mbox{Hom}(M'', N) \stackrel{\beta^*}{\rightarrow} \mbox{Hom}(M, N) \stackrel{\alpha^*}\rightarrow \mbox{Hom}(M', N)$ exakt.
+		\subparagraph{Beweis:} \begin{itemize}
+			\item $\beta^*$ inj: Für $\varphi \in \mbox{Hom}(M'', N)$ ist $\beta^*(\varphi)=\varphi\circ \beta$\\
+				Sei $\beta^*(\varphi)= 0 \Rightarrow \varphi \circ \beta = 0 \stackrel{\beta \mbox{ surj.}}{\rightarrow}\varphi=0$.
+			\item Bild$(\beta^*) \subseteq \mbox{Kern}(\alpha^*)$: $(\alpha^* \circ \beta^*)(\varphi)= 
+			\alpha^*(\varphi\circ \beta)=\varphi\circ\beta \underbrace{\circ \alpha}_{=0}=0$
+			\item Kern$(\alpha^*)\subseteq\mbox{Bild}(\beta^*)$: Sei $\psi \in \mbox{Kern}(\alpha^*)$. 
+			D. h. $\psi \in \mbox{Hom}(M, N)$ mit $\psi \circ\alpha=0$\\
+			Weil $\psi$ auf Bild$(\alpha)$ verschwindet, kommutiert DIAGRAMM\\
+			$\Rightarrow \beta^*(\sigma)= \psi \Longrightarrow$ Beh.
+		\item[(c)] im Allgemeinen sind $\beta_*$ und $\alpha^*$ nicht surjektiv\\
+			z.B.: \begin{enumerate}
+				\item[$\alpha$:] $0\rightarrow \mathbb Z \stackrel{\cdot2}{\stackrel\rightarrow{\alpha}} 
+				\mathbb Z \stackrel\beta\rightarrow \mathbb Z / 2\mathbb Z\rightarrow 0$ mit $N:= \mathbb Z / 2\mathbb Z$\\
+				Es gilt: Hom$(N, \mathbb Z)=\{0\}$\\
+					Hom$(N, \mathbb Z/2\mathbb Z)=\{0, id\}  \Longrightarrow  N$ nicht projektiv!
+				\item[$\beta$:] $0\rightarrow \mathbb Z \stackrel{\cdot4}i{\stackrel\rightarrow{\alpha}} 
+				\mathbb Z \stackrel\beta\rightarrow \mathbb Z / 4\mathbb Z\rightarrow 0$ mit $N:= 2\cdot \mathbb Z / 4\mathbb Z$\\
+				Hom$(\mathbb Z, N)= \{0, \Psi\}$, wobei $\Psi(1)=2$.\\
+				Dann: $\alpha^*(\Psi)=\Psi\circ \alpha = 0$
+				\end{enumerate}
+			\end{itemize}
+		\end{enumerate}
+
+	\paragraph{Satz:}(a) Ein $R$-Modul $N$ ist genau dann injektiv, wenn DIAGRAMM kommutiert (Von $M'$ nach N kommutiert mit Einbettung $\alpha$ von $M'$ in $M$ und einer lin. Abb )\\
+	(b) Ein $R$-Modul $N$ ist genau dann injektiv, falls DIAGRAMM kommutiert (phi nach (Ideal I einbettung in R) kommutiert mit abb von I nach N..)
+
+\end{document}

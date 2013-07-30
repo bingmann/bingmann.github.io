@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2006/SDIOS06/sdios06/lib/sdi/elfexec.cc - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal5.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2006/">2006</a> / <a href="/2006/SDIOS06/">SDIOS06</a> / <a href="/2006/SDIOS06/sdios06/">sdios06</a> / <a href="/2006/SDIOS06/sdios06/lib/">lib</a> / <a href="/2006/SDIOS06/sdios06/lib/sdi/">sdi</a> / <a href="/2006/SDIOS06/sdios06/lib/sdi/elfexec.cc.html">elfexec.cc</a> (<a href="/2006/SDIOS06/sdios06/lib/sdi/elfexec.cc">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">// $Id: elfexec.cc 199 2006-07-27 08:12:03Z sdi2 $</span>
+<span class="comment">//</span>
+<span class="comment">// Implements functions to load an ELF binary image into a new address space</span>
+<span class="comment">// and start the task.</span>
+<span class="comment">//</span>
+<span class="comment">// Author: Timo</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;config.h&gt;</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;stdio.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;stdlib.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;assert.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;string.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;unistd.h&gt;</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;elf.h&gt;</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;sdi/log.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;sdi/panic.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;sdi/elfexec.h&gt;</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;idl4glue.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;if/ifmemory.h&gt;</span>
+
+<span class="comment">// #define SHOW_INFO</span>
+
+<span class="keyword">namespace</span><span class="normal"> SDIELFLoader </span><span class="cbracket">{</span>
+<span class="normal">	</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="keyword">inline</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">dbgout</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">str</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"%s"</span><span class="symbol">,</span><span class="normal"> str</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">// the main difficulty while reading this function is that there are two</span>
+<span class="comment">// address spaces involved: the current one and the target one. the stack in</span>
+<span class="comment">// the current address space in a shared page, in the destination the stack</span>
+<span class="comment">// begins at 0xC0000000</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="usertype">L4_Word_t</span><span class="normal"> </span><span class="function">makenewstack</span><span class="symbol">(</span><span class="usertype">L4_ThreadId_t</span><span class="normal"> pagerid</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">L4_ThreadId_t</span><span class="normal"> newthread</span><span class="symbol">,</span>
+<span class="normal">							  </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="keyword">const</span><span class="normal"> argv</span><span class="symbol">[],</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="keyword">const</span><span class="normal"> envp</span><span class="symbol">[])</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">L4_Word_t</span><span class="normal"> addr_t</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">// 16 kb maximum environment and arguments. raise if needed. using this</span>
+<span class="normal">	</span><span class="comment">// limit saves from doing argument wrappings on fpage boundaries</span>
+<span class="normal">	</span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> maxenvstacksize </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0x8000</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">static</span><span class="normal"> </span><span class="usertype">addr_t</span><span class="normal"> stackend </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xC0000000</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">// request the stack fpage from the pager</span>
+<span class="normal">	</span><span class="usertype">CORBA_Environment</span><span class="normal"> </span><span class="function">env</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">idl4_default_environment</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">L4_Pager</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> pagerid</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="comment">// set receive window: this is evil as it has to take some</span>
+<span class="normal">		</span><span class="comment">// arbitrary position in memory</span>
+<span class="normal">		</span><span class="function">idl4_set_rcv_window</span><span class="symbol">(&amp;</span><span class="normal">env</span><span class="symbol">,</span><span class="normal"> </span><span class="function">L4_Fpage</span><span class="symbol">(</span><span class="number">0x90000000</span><span class="symbol">,</span><span class="normal"> maxenvstacksize</span><span class="symbol">));</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="comment">// much nicer: let our pager decide where to place the shared page</span>
+<span class="normal">		</span><span class="function">idl4_set_rcv_window</span><span class="symbol">(&amp;</span><span class="normal">env</span><span class="symbol">,</span><span class="normal"> L4_CompleteAddressSpace</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="usertype">idl4_fpage_t</span><span class="normal"> stackpage</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="function">memset</span><span class="symbol">(&amp;</span><span class="normal">stackpage</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">stackpage</span><span class="symbol">));</span>
+
+<span class="normal">	</span><span class="function">IF_MEMORY_GetSharedRegion</span><span class="symbol">(</span><span class="normal">pagerid</span><span class="symbol">,</span>
+<span class="normal">							  </span><span class="symbol">&amp;</span><span class="normal">newthread</span><span class="symbol">,</span>
+<span class="normal">							  stackend </span><span class="symbol">-</span><span class="normal"> maxenvstacksize</span><span class="symbol">,</span>
+<span class="normal">							  maxenvstacksize</span><span class="symbol">,</span>
+<span class="normal">							  </span><span class="symbol">&amp;</span><span class="normal">stackpage</span><span class="symbol">,</span>
+<span class="normal">							  </span><span class="symbol">&amp;</span><span class="normal">env</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">env</span><span class="symbol">.</span><span class="normal">_major </span><span class="symbol">!=</span><span class="normal"> CORBA_NO_EXCEPTION</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexec: pager call GetSharedRegion failed for stack, code: %d"</span><span class="symbol">,</span><span class="normal"> </span><span class="function">CORBA_exception_id</span><span class="symbol">(&amp;</span><span class="normal">env</span><span class="symbol">));</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> </span><span class="number">0x00000000</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">L4_IsNilFpage</span><span class="symbol">(</span><span class="function">idl4_fpage_get_page</span><span class="symbol">(</span><span class="normal">stackpage</span><span class="symbol">)))</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexec: pager call GetSharedRegion return nilpage."</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> </span><span class="number">0x00000000</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="usertype">L4_Word_t</span><span class="normal"> stackpageaddr </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0x90000000</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">L4_Pager</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> pagerid</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		stackpageaddr </span><span class="symbol">=</span><span class="normal"> </span><span class="function">idl4_fpage_get_base</span><span class="symbol">(</span><span class="normal">stackpage</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="comment">// ** construct stack</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">argv</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="symbol">*</span><span class="normal"> argvnull</span><span class="symbol">[]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> NULL </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">		argv </span><span class="symbol">=</span><span class="normal"> argvnull</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">envp</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="symbol">*</span><span class="normal"> envpnull</span><span class="symbol">[]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> NULL </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">		envp </span><span class="symbol">=</span><span class="normal"> envpnull</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="usertype">addr_t</span><span class="normal"> top </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xC0000000</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">// evil: heavily depends on wrapping of unsigned ints</span>
+<span class="normal">	</span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">stack </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">reinterpret_cast</span><span class="symbol">&lt;</span><span class="type">char</span><span class="symbol">*&gt;(</span><span class="normal">stackpageaddr</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> maxenvstacksize </span><span class="symbol">-</span><span class="normal"> top</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">// count arguments and environment</span>
+<span class="normal">	</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> argvnum </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">while</span><span class="symbol">(</span><span class="normal">argv</span><span class="symbol">[</span><span class="normal">argvnum</span><span class="symbol">])</span><span class="normal"> argvnum</span><span class="symbol">++;</span>
+
+<span class="normal">	</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> envpnum </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">while</span><span class="symbol">(</span><span class="normal">envp</span><span class="symbol">[</span><span class="normal">envpnum</span><span class="symbol">])</span><span class="normal"> envpnum</span><span class="symbol">++;</span>
+
+<span class="normal">	</span><span class="comment">// allocate buffers for string pointers on stack</span>
+<span class="normal">	</span><span class="usertype">addr_t</span><span class="normal"> argvptr</span><span class="symbol">[</span><span class="normal">argvnum</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">];</span>
+<span class="normal">	</span><span class="usertype">addr_t</span><span class="normal"> envpptr</span><span class="symbol">[</span><span class="normal">envpnum</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">];</span>
+
+<span class="normal">	</span><span class="comment">// put a zero word at the bottom of the stack</span>
+<span class="normal">	top </span><span class="symbol">-=</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">uint32_t</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="symbol">*(</span><span class="normal">uint32_t</span><span class="symbol">*)(</span><span class="normal">stack </span><span class="symbol">+</span><span class="normal"> top</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0x00000000</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">// put the environment variables on the stack</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> ei </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> envp</span><span class="symbol">[</span><span class="normal">ei</span><span class="symbol">];</span><span class="normal"> ei</span><span class="symbol">++)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> el </span><span class="symbol">=</span><span class="normal"> </span><span class="function">strlen</span><span class="symbol">(</span><span class="normal">envp</span><span class="symbol">[</span><span class="normal">ei</span><span class="symbol">])</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">// with null char</span>
+
+<span class="normal">		top </span><span class="symbol">-=</span><span class="normal"> el</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="function">memcpy</span><span class="symbol">(</span><span class="normal">stack </span><span class="symbol">+</span><span class="normal"> top</span><span class="symbol">,</span><span class="normal"> envp</span><span class="symbol">[</span><span class="normal">ei</span><span class="symbol">],</span><span class="normal"> el</span><span class="symbol">);</span>
+
+<span class="normal">		envpptr</span><span class="symbol">[</span><span class="normal">ei</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> top</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	envpptr</span><span class="symbol">[</span><span class="normal">envpnum</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">addr_t</span><span class="symbol">)</span><span class="normal">NULL</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">// put command line parameters on the stack</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> ai </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> argv</span><span class="symbol">[</span><span class="normal">ai</span><span class="symbol">];</span><span class="normal"> ai</span><span class="symbol">++)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> al </span><span class="symbol">=</span><span class="normal"> </span><span class="function">strlen</span><span class="symbol">(</span><span class="normal">argv</span><span class="symbol">[</span><span class="normal">ai</span><span class="symbol">])</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">		</span>
+<span class="normal">		top </span><span class="symbol">-=</span><span class="normal"> al</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="function">memcpy</span><span class="symbol">(</span><span class="normal">stack </span><span class="symbol">+</span><span class="normal"> top</span><span class="symbol">,</span><span class="normal"> argv</span><span class="symbol">[</span><span class="normal">ai</span><span class="symbol">],</span><span class="normal"> al</span><span class="symbol">);</span>
+
+<span class="normal">		argvptr</span><span class="symbol">[</span><span class="normal">ai</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> top</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	argvptr</span><span class="symbol">[</span><span class="normal">argvnum</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">addr_t</span><span class="symbol">)</span><span class="normal">NULL</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">// align stack pointer to 4 bytes</span>
+<span class="normal">	top </span><span class="symbol">-=</span><span class="normal"> </span><span class="symbol">((</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="symbol">)</span><span class="normal">top </span><span class="symbol">%</span><span class="normal"> </span><span class="number">4</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="comment">// add pointer arrays for environment and argv</span>
+<span class="normal">	top </span><span class="symbol">-=</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="type">char</span><span class="symbol">*)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">envpnum</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">memcpy</span><span class="symbol">(</span><span class="normal">stack </span><span class="symbol">+</span><span class="normal"> top</span><span class="symbol">,</span><span class="normal"> envpptr</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="type">char</span><span class="symbol">*)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">envpnum</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">));</span>
+<span class="normal">	</span><span class="usertype">addr_t</span><span class="normal"> envpstart </span><span class="symbol">=</span><span class="normal"> top</span><span class="symbol">;</span>
+
+<span class="normal">	top </span><span class="symbol">-=</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="type">char</span><span class="symbol">*)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">argvnum</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">memcpy</span><span class="symbol">(</span><span class="normal">stack </span><span class="symbol">+</span><span class="normal"> top</span><span class="symbol">,</span><span class="normal"> argvptr</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="type">char</span><span class="symbol">*)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">argvnum</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">));</span>
+<span class="normal">	</span><span class="usertype">addr_t</span><span class="normal"> argvstart </span><span class="symbol">=</span><span class="normal"> top</span><span class="symbol">;</span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="comment">// construct main()'s parameters:</span>
+
+<span class="normal">	top </span><span class="symbol">-=</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="type">char</span><span class="symbol">*);</span>
+<span class="normal">	</span><span class="symbol">*(</span><span class="normal">addr_t</span><span class="symbol">*)(</span><span class="normal">stack</span><span class="symbol">+</span><span class="normal">top</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> envpstart</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">// envp</span>
+
+<span class="normal">	top </span><span class="symbol">-=</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="type">char</span><span class="symbol">*);</span>
+<span class="normal">	</span><span class="symbol">*(</span><span class="normal">addr_t</span><span class="symbol">*)(</span><span class="normal">stack</span><span class="symbol">+</span><span class="normal">top</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> argvstart</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">// argv</span>
+
+<span class="normal">	top </span><span class="symbol">-=</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="type">int</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="symbol">*(</span><span class="type">int</span><span class="symbol">*)(</span><span class="normal">stack</span><span class="symbol">+</span><span class="normal">top</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> argvnum</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">// argc;</span>
+
+<span class="normal">	</span><span class="comment">// return stack fpage</span>
+
+<span class="normal">	</span><span class="usertype">L4_Fpage_t</span><span class="normal"> stackfpage </span><span class="symbol">=</span><span class="normal"> </span><span class="function">L4_Fpage</span><span class="symbol">(</span><span class="normal">stackpageaddr</span><span class="symbol">,</span><span class="normal"> maxenvstacksize</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">IF_MEMORY_FreeSharedRegion</span><span class="symbol">(</span><span class="normal">pagerid</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">newthread</span><span class="symbol">,</span><span class="normal"> stackend </span><span class="symbol">-</span><span class="normal"> maxenvstacksize</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">stackfpage</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">env</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">env</span><span class="symbol">.</span><span class="normal">_major </span><span class="symbol">!=</span><span class="normal"> CORBA_NO_EXCEPTION</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexec: pager call FreeSharedRegion failed, code: %d"</span><span class="symbol">,</span><span class="normal"> </span><span class="function">CORBA_exception_id</span><span class="symbol">(&amp;</span><span class="normal">env</span><span class="symbol">));</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> </span><span class="number">0x00000000</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="comment">// trying to work-around a bug in L4 which happens after numerous mapping</span>
+<span class="normal">	</span><span class="comment">// of different size on the same region</span>
+<span class="normal">	</span><span class="function">L4_Flush</span><span class="symbol">(</span><span class="function">L4_Fpage</span><span class="symbol">(</span><span class="normal">stackpageaddr</span><span class="symbol">,</span><span class="normal"> maxenvstacksize</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> L4_FullyAccessible</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="comment">// return esp of new task</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> top</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="keyword">static</span><span class="normal"> </span><span class="type">bool</span><span class="normal"> </span><span class="function">check_elfheader</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> Elf32_Ehdr</span><span class="symbol">*</span><span class="normal"> ehdr</span><span class="symbol">,</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> datalen</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="comment">// check magic bytes</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">ehdr</span><span class="symbol">-&gt;</span><span class="normal">e_ident</span><span class="symbol">[</span><span class="normal">EI_MAG0</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal">  ELFMAG0</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> </span>
+<span class="normal">		</span><span class="symbol">(</span><span class="normal">ehdr</span><span class="symbol">-&gt;</span><span class="normal">e_ident</span><span class="symbol">[</span><span class="normal">EI_MAG1</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal">  ELFMAG1</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> </span>
+<span class="normal">		</span><span class="symbol">(</span><span class="normal">ehdr</span><span class="symbol">-&gt;</span><span class="normal">e_ident</span><span class="symbol">[</span><span class="normal">EI_MAG2</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal">  ELFMAG2</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">||</span>
+<span class="normal">		</span><span class="symbol">(</span><span class="normal">ehdr</span><span class="symbol">-&gt;</span><span class="normal">e_ident</span><span class="symbol">[</span><span class="normal">EI_MAG3</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal">  ELFMAG3</span><span class="symbol">))</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexec: invalid elf header: wrong magic bytes.</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ehdr</span><span class="symbol">-&gt;</span><span class="normal">e_ident</span><span class="symbol">[</span><span class="normal">EI_CLASS</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> ELFCLASS32</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexec: invalid elf header: not 32 bit image.</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ehdr</span><span class="symbol">-&gt;</span><span class="normal">e_ident</span><span class="symbol">[</span><span class="normal">EI_VERSION</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> EV_CURRENT</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexec: invalid elf header: invalid elf version.</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="comment">// check file type</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ehdr</span><span class="symbol">-&gt;</span><span class="normal">e_type </span><span class="symbol">!=</span><span class="normal"> ET_EXEC</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexec: invalid elf header: not an executable elf binary.</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ehdr</span><span class="symbol">-&gt;</span><span class="normal">e_machine </span><span class="symbol">!=</span><span class="normal"> EM_386</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexec: invalid elf header: does not contain Intel 80386 code.</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ehdr</span><span class="symbol">-&gt;</span><span class="normal">e_version </span><span class="symbol">!=</span><span class="normal"> EV_CURRENT</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexec: invalid elf header: invalid elf version.</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ehdr</span><span class="symbol">-&gt;</span><span class="normal">e_flags </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexec: invalid elf header: unknown processor flags.</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> SHOW_INFO</span>
+<span class="normal">	</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexec: Entry point: 0x%x"</span><span class="symbol">,</span><span class="normal"> ehdr</span><span class="symbol">-&gt;</span><span class="normal">e_entry</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ehdr</span><span class="symbol">-&gt;</span><span class="normal">e_phoff </span><span class="symbol">+</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ehdr</span><span class="symbol">-&gt;</span><span class="normal">e_phnum </span><span class="symbol">*</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">Elf32_Phdr</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">&gt;</span><span class="normal"> datalen</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexec: invalid elf file: program header table is beyond file end.</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ehdr</span><span class="symbol">-&gt;</span><span class="normal">e_phnum </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexec: invalid elf file: no program header in file.</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="usertype">L4_ThreadId_t</span><span class="normal"> </span><span class="function">elfexec</span><span class="symbol">(</span><span class="usertype">L4_ThreadId_t</span><span class="normal"> pagerid</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">L4_ThreadId_t</span><span class="normal"> wishthreadid</span><span class="symbol">,</span><span class="normal"> </span>
+<span class="normal">					  </span><span class="keyword">const</span><span class="normal"> </span><span class="type">void</span><span class="symbol">*</span><span class="normal"> data</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">size_t</span><span class="normal"> datalen</span><span class="symbol">,</span>
+<span class="normal">					  </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="keyword">const</span><span class="normal"> argv</span><span class="symbol">[],</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="keyword">const</span><span class="normal"> envp</span><span class="symbol">[])</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">datalen </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">Elf32_Ehdr</span><span class="symbol">))</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexec: invalid elf header: too short</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> L4_nilthread</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="keyword">const</span><span class="normal"> Elf32_Ehdr</span><span class="symbol">*</span><span class="normal"> ehdr </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">static_cast</span><span class="symbol">&lt;</span><span class="keyword">const</span><span class="normal"> Elf32_Ehdr</span><span class="symbol">*&gt;(</span><span class="normal">data</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="function">check_elfheader</span><span class="symbol">(</span><span class="normal">ehdr</span><span class="symbol">,</span><span class="normal"> datalen</span><span class="symbol">))</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> L4_nilthread</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">const</span><span class="normal"> Elf32_Phdr</span><span class="symbol">*</span><span class="normal"> phdr </span><span class="symbol">=</span>
+<span class="normal">		</span><span class="keyword">reinterpret_cast</span><span class="symbol">&lt;</span><span class="keyword">const</span><span class="normal"> Elf32_Phdr</span><span class="symbol">*&gt;(</span><span class="keyword">reinterpret_cast</span><span class="symbol">&lt;</span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="symbol">*&gt;(</span><span class="normal">ehdr</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> ehdr</span><span class="symbol">-&gt;</span><span class="normal">e_phoff</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="comment">// *** create new task</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(</span><span class="function">L4_IsNilThread</span><span class="symbol">(</span><span class="normal">pagerid</span><span class="symbol">))</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		pagerid </span><span class="symbol">=</span><span class="normal"> </span><span class="function">L4_Pager</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="usertype">CORBA_Environment</span><span class="normal"> </span><span class="function">env</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">idl4_default_environment</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="usertype">L4_ThreadId_t</span><span class="normal"> newthread </span><span class="symbol">=</span><span class="normal"> wishthreadid</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="function">IF_MEMORY_CreateTask</span><span class="symbol">(</span><span class="normal">pagerid</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">newthread</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">env</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">env</span><span class="symbol">.</span><span class="normal">_major </span><span class="symbol">!=</span><span class="normal"> CORBA_NO_EXCEPTION</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexec: pager call CreateTask failed, code: %d"</span><span class="symbol">,</span><span class="normal"> </span><span class="function">CORBA_exception_id</span><span class="symbol">(&amp;</span><span class="normal">env</span><span class="symbol">));</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> L4_nilthread</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="comment">// load each program header's data into a page</span>
+
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> phi </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> phi </span><span class="symbol">&lt;</span><span class="normal"> ehdr</span><span class="symbol">-&gt;</span><span class="normal">e_phnum</span><span class="symbol">;</span><span class="normal"> phi</span><span class="symbol">++)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">phdr</span><span class="symbol">[</span><span class="normal">phi</span><span class="symbol">].</span><span class="normal">p_type </span><span class="symbol">!=</span><span class="normal"> PT_LOAD</span><span class="symbol">)</span>
+<span class="normal">			</span><span class="keyword">continue</span><span class="symbol">;</span>
+
+<span class="normal">		</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">phdr</span><span class="symbol">[</span><span class="normal">phi</span><span class="symbol">].</span><span class="normal">p_memsz </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">			</span><span class="keyword">continue</span><span class="symbol">;</span>
+
+<span class="normal">		</span><span class="comment">// figure out the start of the program image in the "file"</span>
+<span class="normal">		</span><span class="usertype">L4_Word_t</span><span class="normal"> fstart </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">L4_Word_t</span><span class="symbol">)</span><span class="normal">ehdr </span><span class="symbol">+</span><span class="normal"> phdr</span><span class="symbol">[</span><span class="normal">phi</span><span class="symbol">].</span><span class="normal">p_offset</span><span class="symbol">;</span>
+
+<span class="normal">		</span><span class="comment">// the start of the image in virtual memory</span>
+<span class="normal">		</span><span class="usertype">L4_Word_t</span><span class="normal"> mstart </span><span class="symbol">=</span><span class="normal"> phdr</span><span class="symbol">[</span><span class="normal">phi</span><span class="symbol">].</span><span class="normal">p_vaddr</span><span class="symbol">;</span>
+
+<span class="normal">		</span><span class="comment">// the size of the fpage we are going to fill, not the size of the</span>
+<span class="normal">		</span><span class="comment">// program image</span>
+<span class="normal">		</span><span class="usertype">L4_Word_t</span><span class="normal"> msize </span><span class="symbol">=</span><span class="normal"> phdr</span><span class="symbol">[</span><span class="normal">phi</span><span class="symbol">].</span><span class="normal">p_filesz</span><span class="symbol">;</span>
+<span class="normal">		</span>
+<span class="normal">		</span><span class="comment">// load the image blockwise and try to align blocks to this modulo</span>
+<span class="normal">		</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">L4_Word_t</span><span class="normal"> mblock </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0x8000</span><span class="symbol">;</span>
+
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">mstart </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">mblock </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elf warning: program image (0x%lx) is not aligned to 0x%lx bytes"</span><span class="symbol">,</span>
+<span class="normal">					   mstart</span><span class="symbol">,</span><span class="normal"> mblock</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="function">panic</span><span class="symbol">(</span><span class="string">"elfexec: program image is not aligned to n bytes"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">		</span><span class="keyword">for</span><span class="symbol">(</span><span class="usertype">L4_Word_t</span><span class="normal"> moff </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> moff </span><span class="symbol">&lt;</span><span class="normal"> msize</span><span class="symbol">;</span><span class="normal"> moff </span><span class="symbol">+=</span><span class="normal"> mblock</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="comment">// request a shared fpage from the pager</span>
+
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">L4_Pager</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> pagerid</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="comment">// set receive window: this is evil as it has to take some</span>
+<span class="normal">				</span><span class="comment">// arbitrary position in memory</span>
+<span class="normal">				</span><span class="function">idl4_set_rcv_window</span><span class="symbol">(&amp;</span><span class="normal">env</span><span class="symbol">,</span><span class="normal"> </span><span class="function">L4_Fpage</span><span class="symbol">(</span><span class="number">0x90000000</span><span class="symbol">,</span><span class="normal"> mblock</span><span class="symbol">));</span>
+<span class="normal">			</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="comment">// much nicer: let our pager decide where to place the shared page</span>
+<span class="normal">				</span><span class="function">idl4_set_rcv_window</span><span class="symbol">(&amp;</span><span class="normal">env</span><span class="symbol">,</span><span class="normal"> L4_CompleteAddressSpace</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">		</span>
+<span class="normal">			</span><span class="usertype">idl4_fpage_t</span><span class="normal"> mpage</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="function">memset</span><span class="symbol">(&amp;</span><span class="normal">mpage</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">mpage</span><span class="symbol">));</span>
+
+<span class="normal">			</span><span class="function">IF_MEMORY_GetSharedRegion</span><span class="symbol">(</span><span class="normal">pagerid</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">newthread</span><span class="symbol">,</span><span class="normal"> mstart </span><span class="symbol">+</span><span class="normal"> moff</span><span class="symbol">,</span><span class="normal"> mblock</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">mpage</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">env</span><span class="symbol">);</span>
+
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">env</span><span class="symbol">.</span><span class="normal">_major </span><span class="symbol">!=</span><span class="normal"> CORBA_NO_EXCEPTION</span><span class="symbol">)</span>
+<span class="normal">			</span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexec: pager call GetSharedRegion failed, code: %d"</span><span class="symbol">,</span><span class="normal"> </span><span class="function">CORBA_exception_id</span><span class="symbol">(&amp;</span><span class="normal">env</span><span class="symbol">));</span>
+<span class="normal">				</span><span class="keyword">return</span><span class="normal"> L4_nilthread</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">L4_IsNilFpage</span><span class="symbol">(</span><span class="function">idl4_fpage_get_page</span><span class="symbol">(</span><span class="normal">mpage</span><span class="symbol">)))</span>
+<span class="normal">			</span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexec: pager call GetSharedRegion return nilpage."</span><span class="symbol">);</span>
+<span class="normal">				</span><span class="keyword">return</span><span class="normal"> L4_nilthread</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">			</span>
+<span class="normal">			</span><span class="usertype">L4_Word_t</span><span class="normal"> mpageaddr </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="function">L4_Pager</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> pagerid</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">?</span><span class="normal"> </span><span class="function">idl4_fpage_get_base</span><span class="symbol">(</span><span class="normal">mpage</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> </span><span class="number">0x90000000</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="usertype">L4_Fpage_t</span><span class="normal"> mfpage </span><span class="symbol">=</span><span class="normal"> </span><span class="function">L4_Fpage</span><span class="symbol">(</span><span class="normal">mpageaddr</span><span class="symbol">,</span><span class="normal"> mblock</span><span class="symbol">);</span>
+
+<span class="normal">			</span><span class="usertype">L4_Word_t</span><span class="normal"> mcopylen </span><span class="symbol">=</span><span class="normal"> mblock</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">moff </span><span class="symbol">+</span><span class="normal"> mcopylen </span><span class="symbol">&gt;</span><span class="normal"> msize</span><span class="symbol">)</span><span class="normal"> mcopylen </span><span class="symbol">=</span><span class="normal"> msize </span><span class="symbol">-</span><span class="normal"> moff</span><span class="symbol">;</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> SHOW_INFO</span>
+<span class="normal">			 </span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexec: copying: file 0x%lx len 0x%lx -&gt; vmem: 0x%lx at shared 0x%lx</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span>
+<span class="normal">						fstart </span><span class="symbol">+</span><span class="normal"> moff</span><span class="symbol">,</span><span class="normal"> mcopylen</span><span class="symbol">,</span><span class="normal"> mstart </span><span class="symbol">+</span><span class="normal"> moff</span><span class="symbol">,</span><span class="normal"> mpageaddr</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+
+<span class="normal">			</span><span class="comment">// copy the image from the file. use idl4's memcpy which has numdwords as 3rd param.</span>
+<span class="normal">			</span><span class="function">idl4_memcpy</span><span class="symbol">((</span><span class="type">void</span><span class="symbol">*)</span><span class="normal">mpageaddr</span><span class="symbol">,</span>
+<span class="normal">						</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">*)(</span><span class="normal">fstart </span><span class="symbol">+</span><span class="normal"> moff</span><span class="symbol">),</span>
+<span class="normal">						mcopylen </span><span class="symbol">/</span><span class="normal"> </span><span class="number">4</span><span class="symbol">);</span>
+
+<span class="normal">			</span><span class="function">IF_MEMORY_FreeSharedRegion</span><span class="symbol">(</span><span class="normal">pagerid</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">newthread</span><span class="symbol">,</span><span class="normal"> mstart </span><span class="symbol">+</span><span class="normal"> moff</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">mfpage</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">env</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">env</span><span class="symbol">.</span><span class="normal">_major </span><span class="symbol">!=</span><span class="normal"> CORBA_NO_EXCEPTION</span><span class="symbol">)</span>
+<span class="normal">			</span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexec: pager call FreeSharedRegion failed, code: %d"</span><span class="symbol">,</span><span class="normal"> </span><span class="function">CORBA_exception_id</span><span class="symbol">(&amp;</span><span class="normal">env</span><span class="symbol">));</span>
+<span class="normal">				</span><span class="keyword">return</span><span class="normal"> L4_nilthread</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+
+<span class="normal">			</span><span class="comment">// trying to work-around a bug in L4 which happens after numerous</span>
+<span class="normal">			</span><span class="comment">// mapping of different size on the same region</span>
+<span class="normal">			</span><span class="function">L4_Flush</span><span class="symbol">(</span><span class="function">L4_Fpage</span><span class="symbol">(</span><span class="normal">mpageaddr</span><span class="symbol">,</span><span class="normal"> mblock</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> L4_FullyAccessible</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">		</span><span class="comment">// the following .bss section is automaticly zeroed by the pager</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="comment">// kick start task</span>
+
+<span class="normal">	</span><span class="usertype">L4_Word_t</span><span class="normal"> esp </span><span class="symbol">=</span><span class="normal"> </span><span class="function">makenewstack</span><span class="symbol">(</span><span class="normal">pagerid</span><span class="symbol">,</span><span class="normal"> newthread</span><span class="symbol">,</span><span class="normal"> argv</span><span class="symbol">,</span><span class="normal"> envp</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">esp </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0x00000000</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">panic</span><span class="symbol">(</span><span class="string">"elfexec: invalid stack frame"</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="function">IF_MEMORY_StartTask</span><span class="symbol">(</span><span class="normal">pagerid</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">newthread</span><span class="symbol">,</span><span class="normal"> ehdr</span><span class="symbol">-&gt;</span><span class="normal">e_entry</span><span class="symbol">,</span><span class="normal"> esp</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">env</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">env</span><span class="symbol">.</span><span class="normal">_major </span><span class="symbol">!=</span><span class="normal"> CORBA_NO_EXCEPTION</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexec: pager call StartTask failed, code: %d"</span><span class="symbol">,</span><span class="normal"> </span><span class="function">CORBA_exception_id</span><span class="symbol">(&amp;</span><span class="normal">env</span><span class="symbol">));</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> L4_nilthread</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> newthread</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="usertype">L4_ThreadId_t</span><span class="normal"> </span><span class="function">elfexecf</span><span class="symbol">(</span><span class="usertype">L4_ThreadId_t</span><span class="normal"> pagerid</span><span class="symbol">,</span>
+<span class="normal">					   </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="symbol">*</span><span class="normal"> path</span><span class="symbol">,</span>
+<span class="normal">					   </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="keyword">const</span><span class="normal"> argv</span><span class="symbol">[],</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="keyword">const</span><span class="normal"> envp</span><span class="symbol">[])</span>
+<span class="cbracket">{</span>
+<span class="normal">	FILE</span><span class="symbol">*</span><span class="normal"> fimage </span><span class="symbol">=</span><span class="normal"> </span><span class="function">fopen</span><span class="symbol">(</span><span class="normal">path</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"r"</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">fimage</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexecf: invalid path name: file does not exist?</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> L4_nilthread</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="usertype">Elf32_Ehdr</span><span class="normal"> ehdr</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">fread</span><span class="symbol">(&amp;</span><span class="normal">ehdr</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">ehdr</span><span class="symbol">),</span><span class="normal"> fimage</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">ehdr</span><span class="symbol">))</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexecf: invalid elf header: file too short</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> L4_nilthread</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="function">fseek</span><span class="symbol">(</span><span class="normal">fimage</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> SEEK_END</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> fsize </span><span class="symbol">=</span><span class="normal"> </span><span class="function">ftell</span><span class="symbol">(</span><span class="normal">fimage</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="function">check_elfheader</span><span class="symbol">(&amp;</span><span class="normal">ehdr</span><span class="symbol">,</span><span class="normal"> fsize</span><span class="symbol">))</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> L4_nilthread</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">// *** create new task</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(</span><span class="function">L4_IsNilThread</span><span class="symbol">(</span><span class="normal">pagerid</span><span class="symbol">))</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		pagerid </span><span class="symbol">=</span><span class="normal"> </span><span class="function">L4_Pager</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="usertype">CORBA_Environment</span><span class="normal"> </span><span class="function">env</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">idl4_default_environment</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="usertype">L4_ThreadId_t</span><span class="normal"> newthread </span><span class="symbol">=</span><span class="normal"> L4_nilthread</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="function">IF_MEMORY_CreateTask</span><span class="symbol">(</span><span class="normal">pagerid</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">newthread</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">env</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">env</span><span class="symbol">.</span><span class="normal">_major </span><span class="symbol">!=</span><span class="normal"> CORBA_NO_EXCEPTION</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexec: pager call CreateTask failed, code: %d"</span><span class="symbol">,</span><span class="normal"> </span><span class="function">CORBA_exception_id</span><span class="symbol">(&amp;</span><span class="normal">env</span><span class="symbol">));</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> L4_nilthread</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="comment">// load each program header's data into a page</span>
+
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> phi </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> phi </span><span class="symbol">&lt;</span><span class="normal"> ehdr</span><span class="symbol">.</span><span class="normal">e_phnum</span><span class="symbol">;</span><span class="normal"> phi</span><span class="symbol">++)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="usertype">Elf32_Phdr</span><span class="normal"> phdr</span><span class="symbol">;</span>
+
+<span class="normal">		</span><span class="function">fseek</span><span class="symbol">(</span><span class="normal">fimage</span><span class="symbol">,</span><span class="normal"> ehdr</span><span class="symbol">.</span><span class="normal">e_phoff </span><span class="symbol">+</span><span class="normal"> phi </span><span class="symbol">*</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">phdr</span><span class="symbol">),</span><span class="normal"> SEEK_SET</span><span class="symbol">);</span>
+<span class="normal">		</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">fread</span><span class="symbol">(&amp;</span><span class="normal">phdr</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">phdr</span><span class="symbol">),</span><span class="normal"> fimage</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">phdr</span><span class="symbol">))</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexecf: invalid elf header: file too short</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">);</span>
+<span class="normal">		    </span><span class="keyword">return</span><span class="normal"> L4_nilthread</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">phdr</span><span class="symbol">.</span><span class="normal">p_type </span><span class="symbol">!=</span><span class="normal"> PT_LOAD</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">continue</span><span class="symbol">;</span>
+
+<span class="normal">		</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">phdr</span><span class="symbol">.</span><span class="normal">p_memsz </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">			</span><span class="keyword">continue</span><span class="symbol">;</span>
+
+<span class="normal">		</span><span class="comment">// figure out the start of the program image in the file</span>
+<span class="normal">		</span><span class="usertype">L4_Word_t</span><span class="normal"> fstart </span><span class="symbol">=</span><span class="normal"> phdr</span><span class="symbol">.</span><span class="normal">p_offset</span><span class="symbol">;</span>
+
+<span class="normal">		</span><span class="comment">// the start of the image in virtual memory</span>
+<span class="normal">		</span><span class="usertype">L4_Word_t</span><span class="normal"> mstart </span><span class="symbol">=</span><span class="normal"> phdr</span><span class="symbol">.</span><span class="normal">p_vaddr</span><span class="symbol">;</span>
+
+<span class="normal">		</span><span class="comment">// the size of the fpage we are going to fill, not the size of the</span>
+<span class="normal">		</span><span class="comment">// program image</span>
+<span class="normal">		</span><span class="usertype">L4_Word_t</span><span class="normal"> msize </span><span class="symbol">=</span><span class="normal"> phdr</span><span class="symbol">.</span><span class="normal">p_filesz</span><span class="symbol">;</span>
+<span class="normal">		</span>
+<span class="normal">		</span><span class="comment">// load the image blockwise and try to align blocks to this modulo</span>
+<span class="normal">		</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">L4_Word_t</span><span class="normal"> mblock </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0x8000</span><span class="symbol">;</span>
+
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">mstart </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">mblock </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elf warning: program image (0x%lx) is not aligned to 0x%lx bytes"</span><span class="symbol">,</span>
+<span class="normal">					   mstart</span><span class="symbol">,</span><span class="normal"> mblock</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="function">panic</span><span class="symbol">(</span><span class="string">"elfexec: program image is not aligned to n bytes"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">		</span><span class="keyword">for</span><span class="symbol">(</span><span class="usertype">L4_Word_t</span><span class="normal"> moff </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> moff </span><span class="symbol">&lt;</span><span class="normal"> msize</span><span class="symbol">;</span><span class="normal"> moff </span><span class="symbol">+=</span><span class="normal"> mblock</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="comment">// request a shared fpage from the pager</span>
+
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">L4_Pager</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> pagerid</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="comment">// set receive window: this is evil as it has to take some</span>
+<span class="normal">				</span><span class="comment">// arbitrary position in memory</span>
+<span class="normal">				</span><span class="function">idl4_set_rcv_window</span><span class="symbol">(&amp;</span><span class="normal">env</span><span class="symbol">,</span><span class="normal"> </span><span class="function">L4_Fpage</span><span class="symbol">(</span><span class="number">0x90000000</span><span class="symbol">,</span><span class="normal"> mblock</span><span class="symbol">));</span>
+<span class="normal">			</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="comment">// much nicer: let our pager decide where to place the shared page</span>
+<span class="normal">				</span><span class="function">idl4_set_rcv_window</span><span class="symbol">(&amp;</span><span class="normal">env</span><span class="symbol">,</span><span class="normal"> L4_CompleteAddressSpace</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">		</span>
+<span class="normal">			</span><span class="usertype">idl4_fpage_t</span><span class="normal"> mpage</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="function">memset</span><span class="symbol">(&amp;</span><span class="normal">mpage</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">mpage</span><span class="symbol">));</span>
+
+<span class="normal">			</span><span class="function">IF_MEMORY_GetSharedRegion</span><span class="symbol">(</span><span class="normal">pagerid</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">newthread</span><span class="symbol">,</span><span class="normal"> mstart </span><span class="symbol">+</span><span class="normal"> moff</span><span class="symbol">,</span><span class="normal"> mblock</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">mpage</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">env</span><span class="symbol">);</span>
+
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">env</span><span class="symbol">.</span><span class="normal">_major </span><span class="symbol">!=</span><span class="normal"> CORBA_NO_EXCEPTION</span><span class="symbol">)</span>
+<span class="normal">			</span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexec: pager call GetSharedRegion failed, code: %d"</span><span class="symbol">,</span><span class="normal"> </span><span class="function">CORBA_exception_id</span><span class="symbol">(&amp;</span><span class="normal">env</span><span class="symbol">));</span>
+<span class="normal">				</span><span class="keyword">return</span><span class="normal"> L4_nilthread</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">L4_IsNilFpage</span><span class="symbol">(</span><span class="function">idl4_fpage_get_page</span><span class="symbol">(</span><span class="normal">mpage</span><span class="symbol">)))</span>
+<span class="normal">			</span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexec: pager call GetSharedRegion return nilpage."</span><span class="symbol">);</span>
+<span class="normal">				</span><span class="keyword">return</span><span class="normal"> L4_nilthread</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+
+<span class="normal">			</span><span class="usertype">L4_Word_t</span><span class="normal"> mpageaddr </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="function">L4_Pager</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> pagerid</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">?</span><span class="normal"> </span><span class="function">idl4_fpage_get_base</span><span class="symbol">(</span><span class="normal">mpage</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> </span><span class="number">0x90000000</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="usertype">L4_Fpage_t</span><span class="normal"> mfpage </span><span class="symbol">=</span><span class="normal"> </span><span class="function">L4_Fpage</span><span class="symbol">(</span><span class="normal">mpageaddr</span><span class="symbol">,</span><span class="normal"> mblock</span><span class="symbol">);</span>
+
+<span class="normal">			</span><span class="usertype">L4_Word_t</span><span class="normal"> mcopylen </span><span class="symbol">=</span><span class="normal"> mblock</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">moff </span><span class="symbol">+</span><span class="normal"> mcopylen </span><span class="symbol">&gt;</span><span class="normal"> msize</span><span class="symbol">)</span><span class="normal"> mcopylen </span><span class="symbol">=</span><span class="normal"> msize </span><span class="symbol">-</span><span class="normal"> moff</span><span class="symbol">;</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> SHOW_INFO</span>
+<span class="normal">			</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexec: fread file 0x%lx len 0x%lx -&gt; vmem: 0x%lx at shared 0x%lx</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span>
+<span class="normal">					   fstart </span><span class="symbol">+</span><span class="normal"> moff</span><span class="symbol">,</span><span class="normal"> mcopylen</span><span class="symbol">,</span><span class="normal"> mstart </span><span class="symbol">+</span><span class="normal"> moff</span><span class="symbol">,</span><span class="normal"> mpageaddr</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+
+<span class="normal">			</span><span class="function">fseek</span><span class="symbol">(</span><span class="normal">fimage</span><span class="symbol">,</span><span class="normal"> fstart </span><span class="symbol">+</span><span class="normal"> moff</span><span class="symbol">,</span><span class="normal"> SEEK_SET</span><span class="symbol">);</span>
+
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">fread</span><span class="symbol">((</span><span class="type">void</span><span class="symbol">*)</span><span class="normal">mpageaddr</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> mcopylen</span><span class="symbol">,</span><span class="normal"> fimage</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> mcopylen</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexecf: could not read from file."</span><span class="symbol">);</span>
+<span class="normal">				</span><span class="keyword">return</span><span class="normal"> L4_nilthread</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+
+<span class="normal">			</span><span class="function">IF_MEMORY_FreeSharedRegion</span><span class="symbol">(</span><span class="normal">pagerid</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">newthread</span><span class="symbol">,</span><span class="normal"> mstart </span><span class="symbol">+</span><span class="normal"> moff</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">mfpage</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">env</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">env</span><span class="symbol">.</span><span class="normal">_major </span><span class="symbol">!=</span><span class="normal"> CORBA_NO_EXCEPTION</span><span class="symbol">)</span>
+<span class="normal">			</span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexec: pager call FreeSharedRegion failed, code: %d"</span><span class="symbol">,</span><span class="normal"> </span><span class="function">CORBA_exception_id</span><span class="symbol">(&amp;</span><span class="normal">env</span><span class="symbol">));</span>
+<span class="normal">				</span><span class="keyword">return</span><span class="normal"> L4_nilthread</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+
+<span class="normal">			</span><span class="comment">// trying to work-around a bug in L4 which happens after numerous</span>
+<span class="normal">			</span><span class="comment">// mapping of different size on the same region</span>
+<span class="normal">			</span><span class="function">L4_Flush</span><span class="symbol">(</span><span class="function">L4_Fpage</span><span class="symbol">(</span><span class="normal">mpageaddr</span><span class="symbol">,</span><span class="normal"> mblock</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> L4_FullyAccessible</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">		</span><span class="comment">// the following .bss section is automaticly zeroed by the pager</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="function">fclose</span><span class="symbol">(</span><span class="normal">fimage</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="comment">// kick start task</span>
+
+<span class="normal">	</span><span class="usertype">L4_Word_t</span><span class="normal"> esp </span><span class="symbol">=</span><span class="normal"> </span><span class="function">makenewstack</span><span class="symbol">(</span><span class="normal">pagerid</span><span class="symbol">,</span><span class="normal"> newthread</span><span class="symbol">,</span><span class="normal"> argv</span><span class="symbol">,</span><span class="normal"> envp</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">esp </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0x00000000</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">panic</span><span class="symbol">(</span><span class="string">"elfexec: invalid stack frame"</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="function">IF_MEMORY_StartTask</span><span class="symbol">(</span><span class="normal">pagerid</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">newthread</span><span class="symbol">,</span><span class="normal"> ehdr</span><span class="symbol">.</span><span class="normal">e_entry</span><span class="symbol">,</span><span class="normal"> esp</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">env</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">env</span><span class="symbol">.</span><span class="normal">_major </span><span class="symbol">!=</span><span class="normal"> CORBA_NO_EXCEPTION</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexec: pager call StartTask failed, code: %d"</span><span class="symbol">,</span><span class="normal"> </span><span class="function">CORBA_exception_id</span><span class="symbol">(&amp;</span><span class="normal">env</span><span class="symbol">));</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> L4_nilthread</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> newthread</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="cbracket">}</span><span class="normal"> </span><span class="comment">// namespace SDIELFLoader</span>
+
+<span class="keyword">extern</span><span class="normal"> </span><span class="string">"C"</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">L4_ThreadId_t</span><span class="normal"> </span><span class="function">sdi_elfexec</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="type">void</span><span class="symbol">*</span><span class="normal"> data</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">size_t</span><span class="normal"> datalen</span><span class="symbol">,</span>
+<span class="normal">							  </span><span class="usertype">L4_ThreadId_t</span><span class="normal"> pager</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">L4_ThreadId_t</span><span class="normal"> newthreadid</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> SDIELFLoader</span><span class="symbol">::</span><span class="function">elfexec</span><span class="symbol">(</span><span class="normal">pager</span><span class="symbol">,</span><span class="normal"> newthreadid</span><span class="symbol">,</span><span class="normal"> data</span><span class="symbol">,</span><span class="normal"> datalen</span><span class="symbol">,</span><span class="normal"> NULL</span><span class="symbol">,</span><span class="normal"> NULL</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="usertype">L4_ThreadId_t</span><span class="normal"> </span><span class="function">sdi_elfexecve</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="type">void</span><span class="symbol">*</span><span class="normal"> data</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">size_t</span><span class="normal"> datalen</span><span class="symbol">,</span>
+<span class="normal">								</span><span class="usertype">L4_ThreadId_t</span><span class="normal"> pager</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">L4_ThreadId_t</span><span class="normal"> newthreadid</span><span class="symbol">,</span>
+<span class="normal">								</span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="keyword">const</span><span class="normal"> argv</span><span class="symbol">[],</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="keyword">const</span><span class="normal"> envp</span><span class="symbol">[])</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> SDIELFLoader</span><span class="symbol">::</span><span class="function">elfexec</span><span class="symbol">(</span><span class="normal">pager</span><span class="symbol">,</span><span class="normal"> newthreadid</span><span class="symbol">,</span><span class="normal"> data</span><span class="symbol">,</span><span class="normal"> datalen</span><span class="symbol">,</span><span class="normal"> argv</span><span class="symbol">,</span><span class="normal"> envp</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="usertype">L4_ThreadId_t</span><span class="normal"> </span><span class="function">sdi_elfexecf</span><span class="symbol">(</span><span class="usertype">L4_ThreadId_t</span><span class="normal"> pagerid</span><span class="symbol">,</span>
+<span class="normal">							   </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="symbol">*</span><span class="normal"> path</span><span class="symbol">,</span>
+<span class="normal">							   </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="keyword">const</span><span class="normal"> argv</span><span class="symbol">[],</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="keyword">const</span><span class="normal"> envp</span><span class="symbol">[])</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> SDIELFLoader</span><span class="symbol">::</span><span class="function">elfexecf</span><span class="symbol">(</span><span class="normal">pagerid</span><span class="symbol">,</span><span class="normal"> path</span><span class="symbol">,</span><span class="normal"> argv</span><span class="symbol">,</span><span class="normal"> environ</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="usertype">L4_ThreadId_t</span><span class="normal"> </span><span class="function">sdi_elfexecfv</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="symbol">*</span><span class="normal"> path</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="keyword">const</span><span class="normal"> argv</span><span class="symbol">[])</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> SDIELFLoader</span><span class="symbol">::</span><span class="function">elfexecf</span><span class="symbol">(</span><span class="function">L4_Pager</span><span class="symbol">(),</span><span class="normal"> path</span><span class="symbol">,</span><span class="normal"> argv</span><span class="symbol">,</span><span class="normal"> environ</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="usertype">L4_ThreadId_t</span><span class="normal"> </span><span class="function">sdi_elfexecfve</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="symbol">*</span><span class="normal"> path</span><span class="symbol">,</span>
+<span class="normal">								 </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="keyword">const</span><span class="normal"> argv</span><span class="symbol">[],</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="keyword">const</span><span class="normal"> envp</span><span class="symbol">[])</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> SDIELFLoader</span><span class="symbol">::</span><span class="function">elfexecf</span><span class="symbol">(</span><span class="function">L4_Pager</span><span class="symbol">(),</span><span class="normal"> path</span><span class="symbol">,</span><span class="normal"> argv</span><span class="symbol">,</span><span class="normal"> envp</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="type">bool</span><span class="normal"> </span><span class="function">sdi_waitfor</span><span class="symbol">(</span><span class="usertype">L4_ThreadId_t</span><span class="normal"> thread</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">L4_Word_t</span><span class="normal"> flags</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">L4_Word_t</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">retcode</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="usertype">CORBA_Environment</span><span class="normal"> </span><span class="function">env</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">idl4_default_environment</span><span class="symbol">);</span>
+
+<span class="normal">		</span><span class="type">bool</span><span class="normal"> r </span><span class="symbol">=</span><span class="normal"> </span><span class="function">IF_MEMORY_WaitFor</span><span class="symbol">(</span><span class="function">L4_Pager</span><span class="symbol">(),</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">thread</span><span class="symbol">,</span><span class="normal"> flags</span><span class="symbol">,</span><span class="normal"> retcode</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">env</span><span class="symbol">);</span>
+
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">env</span><span class="symbol">.</span><span class="normal">_major </span><span class="symbol">!=</span><span class="normal"> CORBA_NO_EXCEPTION</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">LogMessage</span><span class="symbol">(</span><span class="string">"elfexec: pager call WaitFor failed, code: %d"</span><span class="symbol">,</span><span class="normal"> </span><span class="function">CORBA_exception_id</span><span class="symbol">(&amp;</span><span class="normal">env</span><span class="symbol">));</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> r</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="type">bool</span><span class="normal"> </span><span class="function">sdi_waitforever</span><span class="symbol">(</span><span class="usertype">L4_ThreadId_t</span><span class="normal"> thread</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">L4_Word_t</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">retcode</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> </span><span class="function">sdi_waitfor</span><span class="symbol">(</span><span class="normal">thread</span><span class="symbol">,</span><span class="normal"> IF_MEMORY_WAIT_FOREVER</span><span class="symbol">,</span><span class="normal"> retcode</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="cbracket">}</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - harderr</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;TC: void harderr( int (*fptr)())</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- prototype in dos.h<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- harderr() establishes a hardware error handler for current<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;program, invoked wherever interrupt 0x24 occurs<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- function fptr is called when such an interrupt occurs<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- handler function will be called with the following<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;arguments= handler( int errval, int ax, int bp, int si)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;where errval is error code in DI register by MS-DOS, and<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ax, bp, si are values MS-DOS has in AX, BP, and SI regs<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- ax indicates if disk or other device error occurs; &nbsp;if ax is<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;not negative, then disk error, else device error. &nbsp;For disk<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;error, ax ANDed with 0x00ff will give bad drive number<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- bp and si together point to device driver header<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- hardresume() may be called with rescode to return<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;to MS-DOS, where rescode is<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2 - for abort<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1 - retry<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0 - ignore<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- <a href="">hardrtn</a>() may be called to return directly to the application<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- handler must return:<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0 - ignore<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1 - retry<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2 - abort<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- handler may issue DOS calls 1 through 0xC, but no others, and<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;no C standard I/O or UNIX I/O calls may be used<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- MS C uses _harderr()<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see &nbsp;<a href="c-hardresume.html">hardresume</a>() &nbsp;<a href="c-hardretn.html">hardretn</a>() &nbsp;<a href="int-int_24.html">INT 24</a><br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">harderr</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

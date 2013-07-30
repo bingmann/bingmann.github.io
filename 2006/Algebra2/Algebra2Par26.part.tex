@@ -1,0 +1,147 @@
+\section{Nakayama, Krull und Artin-Rees}
+
+\begin{DefBem}
+
+Sei $R$ ein Ring.
+\begin{enumerate}
+\item $$\mathcal{J}(R) \defeqr \bigcap_{\mathfrak{m}\text{ maximales Ideal in }R}\mathfrak{m}$$ heißt \emp{Jacobson-Radikal}\index{Jacobson-Radikal} von $R$.
+\item $\mathcal{J}(R)$ ist Radikalideal.
+\item \label{2.20c} Für jedes $a \in \mathcal{J}(R)$ ist $1-a$ eine Einheit in $R$.
+\end{enumerate}
+
+\end{DefBem}
+
+\begin{Bew}
+
+\begin{enumerate}
+  \stepcounter{enumi}
+\item Sei $x \in R, \; x^n \in \mathcal{J}(R)$; zu zeigen: $x \in \mathcal{J}(R)$.\\
+  Sei $\mathfrak{m}$ maximales Ideal von $R$, dann ist $x^n \in \mathfrak{m} \overset{\mathfrak{m} \text{ prim}}{\Rightarrow} x \in \mathfrak{m} \Rightarrow x \in \mathcal{J}(R)$
+\item Ist $1-a \notin R^{\times}$, so gibt es ein maximales Ideal $\mathfrak{m}$ mit $1-a \in \mathfrak{m}$,\\
+aber: $a$ ist auch $\in \mathfrak{m}$, also auch $1 = 1-a+a \in \mathfrak{m} \Rightarrow$ Widerspruch.
+\end{enumerate}
+  
+\end{Bew}
+
+\begin{nnBsp}
+  $\mathcal{J}(\mathbb{Z}) = 0, \quad \mathcal{J}(k[X]) = 0$
+
+  $R$ lokaler Ring $\Rightarrow \mathcal{J}(R) = \mathfrak{m}$ (es gibt nur ein maximales Ideal in $R$)
+\end{nnBsp}
+
+\begin{Satz}[Lemma von Nakayama]
+\label{Satz8}
+Sei $R$ ein Ring, $I \subseteq \mathcal{J}(R)$ ein Ideal, $M$ ein endlich erzeugbarer $R$-Modul, $N \subseteq M$ ein Untermodul.
+
+Dann gilt:
+$$\text{Ist }M = I \cdot M + N, \text{ so ist }N = M$$
+
+Speziell: Ist $M = I \cdot M$ $\Rightarrow$ $M=0$.
+\end{Satz}
+
+\begin{Bew}
+  Sei $M=I \cdot M + N$ $\Rightarrow$ $\FakRaum{M}{N} = \FakRaum{(I \cdot M)}{N} = I \cdot \FakRaum{M}{N}$, also ohne Einschränkung $N=0$.
+
+  Annahme: $M \not= 0$\\
+  Dann sei $x_1, \dots, x_n$ ein minimales Erzeugendensystem von $M$, also $M' \defeqr \langle x_2, \dots, x_n\rangle \subsetneq M$.
+  Nach Voraussetzung ist $M = I \cdot M$, also $x_1 \in I \cdot M \Rightarrow \exists a_1, \dots, a_n \in I$ mit $x_1 = \sum_{i=1}^n a_i x_i = a_1 x_1 + \underset{\in M'}{\underbrace{a_2 x_2 + \dots + a_n x_n}} \Rightarrow x_1\underset{\in R^{\times} \text{ \myref{2.20}{2.20c}}}{\underbrace{(1-a_1)}} \in M' \Rightarrow x_1 \in M'$. Widerspruch.
+\end{Bew}
+
+\begin{Folg}
+\label{2.21}
+  $R$, $I$, $M$ wie in \myref{Satz}{Satz8}.\\
+  Dann gilt für $x_1, \dots, x_n \in M$:
+  \[ x_1, \dots, x_n \text{ erzeugt } M \Leftrightarrow \bar{x}_1, \dots, \bar{x}_n \text{ erzeugen } \overline{M} = \FakRaum{M}{IM} \]
+\end{Folg}
+
+\begin{Bew}
+  ,,$\Rightarrow$``: klar.
+
+  ,,$\Leftarrow$``: Sei $N$ der von $x_1, \dots, x_n$ erzeugte Untermodul von $M$. Dann ist $M = N + I \cdot M \overset{\text{\myref{Satz}{Satz8}}}{\Rightarrow} M = N$.
+\end{Bew}
+
+\begin{nnBsp}
+  $R$ lokaler Ring mit maximalem Ideal $\mathfrak{m}$.
+  $M = \mathfrak{m}$, $I = \mathfrak{m}$.
+
+  Falls $\mathfrak{m}$ endlich erzeugt, d.h. falls $R$ noethersch:
+  $\mathfrak{m}^2 = \mathfrak{m}$ $\Rightarrow$ $\mathfrak{m} = 0$, also $R$ Körper.
+\end{nnBsp}
+
+\begin{Satz}[Durchschnittssatz von Krull]
+\label{Satz9}
+  Sei $R$ noethersch, $M$ endlich erzeugbarer $R$-Modul, $I \subseteq R$ Ideal.
+
+  Dann gilt für $$N \defeqr \bigcap_{n \geq 0} I^n M \quad : \quad I \cdot N = N$$
+\end{Satz}
+
+\begin{Folg}\label{2.22}
+  \begin{enumerate}
+    \item \label{2.22a} Ist in \myref{Satz}{Satz9} $I \subseteq \mathcal{J}(R)$, so ist $N = 0$.
+    \item Ist $R$ nullteilerfrei, so ist $\bigcap_{n \geq 0} I^n = 0$, falls $I \neq R$.
+  \end{enumerate}
+\end{Folg}
+
+\begin{Bew}
+  \begin{enumerate}
+    \item klar.
+    \item Sei $\mathfrak{m}$ ein maximales Ideal mit $I \subseteq \mathfrak{m}$.
+    $R_{\mathfrak{m}}$ die Lokalisierung von $R$ nach $\mathfrak{m}$.\\
+    $R_{\mathfrak{m}}$ ist noethersch, lokal, also $\mathcal{J}(R_{\mathfrak{m}}) = \mathfrak{m} R_{\mathfrak{m}}$.\\
+    $i: R \to R_{\mathfrak{m}}, \; a \mapsto \frac{a}{1}$ ist injektiv, da $R$ nullteilerfrei.
+
+    Dann ist $i(\bigcap_{n \geq 0} I^n) \subseteq \bigcap_{n \geq 0} i(I^n) \subseteq \bigcap_{n \geq 0}(\mathfrak{m} R_{\mathfrak{m}})^n \overset{\text{\ref{2.22a}}}{=} 0$.\\
+    Da $i$ injektiv ist, folgt $\bigcap_{n \geq 0} I^n = 0$.
+  \end{enumerate}
+\end{Bew}
+
+\begin{Prop}[Artin-Rees]
+\label{2.23}
+  Sei $R$ noethersch, $I \subseteq R$ Ideal, $M$ endlich erzeugbarer $R$-Modul, $N \subseteq M$ Untermodul.\\
+  Dann gibt es ein $n_0 \in \mathbb{N}$, sodass für alle $n \geq n_0$ gilt:
+  \[I^n M \cap N = I ^{n-n_0} (I^{n_0}M \cap N)\]
+\end{Prop}
+
+\begin{Bew}[\myref{Satz}{Satz9}]
+  Setze in \myref{Prop.}{2.23} (Artin-Rees) $N = \bigcap_{n > 0} I^n M$.
+  \begin{eqnarray*}
+    \text{Dann ist } N & = & \bigcap_{n \geq 0} I^n M = I^{n_0 +1} M \cap \bigcap_{n \geq 0} I^n M = I^{n_0 + 1}M \cap N \\
+                       & & \overset{\text{Artin-Rees}}{=} I(I^{n_0}M \cap N) = I ( I^{n_0}M \cap \bigcap_{n \geq 0} I^n M ) = I \cdot \bigcap_{n \geq 0} I^n M = I \cdot N
+  \end{eqnarray*}
+\end{Bew}
+
+\begin{Bew}[\myref{Prop.}{2.23}]
+  Führe Hilfsgrößen ein:\\
+  $R' \defeqr \bigoplus_{n \geq 0} I^n$ ist graduierter Ring, $R_0' = R$ ist noethersch, $I$ ist endlich erzeugt,\\
+  $\Rightarrow$ $R'$ ist noethersch (als endlich erzeugte $R$-Algebra),\\
+  $M' \defeqr \bigoplus_{n \geq 0} I^n M$ ist graduierter, endlich erzeugter $R'$-Modul,\\
+  $N' \defeqr \bigoplus_{n \geq 0} \underset{\defeql N'_n}{\underbrace{I^nM \cap N}}$ ist graduierter $R'$-Modul, Untermodul von $M'$, also auch endlich erzeugbar.
+  $N'$ werde erzeugt von den homogenen Elementen $x_1, \dots, x_r$ mit $x_i \in N'_{n_i}$.
+
+  Für $n \geq n_0 \defeqr \max \{n_1, \dots, n_r\}$ ist dann $N'_{n+1} = \{\sum_{i=1}^r a_i x_i: \; a_i \in R'_{n+1-n_i} = I^{n+1-n_i}\}$.\\
+  $I \cdot N'_n = I \cdot \{\sum_{i=1}^r a_i x_i: \; a_i \in R'_{n-n_i} = I^{n-n_i}\} = \{\sum_{i=1}^r \tilde{a_i} x_i: \; \tilde{a_i} \in I \cdot I^{n-n_i} = I^{n+1-n_i}\} = N'_{n+1}$.
+
+  Mit Induktion folgt die Behauptung.
+\end{Bew}
+
+\begin{nnBsp}
+  \begin{enumerate}
+    \item[1)] $R = \mathbb{Z}^2 = \mathbb{Z} \oplus \mathbb{Z}$ ist noethersch, aber nicht nullteilerfrei.
+
+      Sei $I$ das von $e_1 = (1,0)$ erzeugte Ideal, $I^2 = (e_1^2)= (e_1) = I$ ($e_1$ ist ,,idempotent``)\\
+      $e \in R$ heißt idempotent, wenn $e^2 = e$ ist. Dann ist $(e-1)e = 0$.\\
+      Frage: was ist $\mathbb{Z}^2$ lokalisiert nach $I$?\\
+      Antwort: $(\mathbb{Z} \oplus \mathbb{Z})_I = \mathbb{Q}$.
+
+    \item[2)] $R = \mathcal{C}^{\infty}(-1,1), \; I = \{f \in R: \; f(0)=0\}$. $R/I = \mathbb{C}$ (oder $\mathbb{R}$).\\
+      $I$ ist Hauptideal, erzeugt von $f(x) = x$.\\
+      $\bigcap I^n = \text{?}$ z.B. $f(x) = e^{-\frac{1}{x^2}} \in \bigcap I^n$.\\
+      $R$ ist nicht noethersch!
+
+    \item[3)] $R = k[X,Y], \; I = (X,Y), \; k$ algebraisch abgeschlossen.\\
+      $R' = R \oplus I \oplus I^2 \oplus \dots = \bigoplus_{n \geq 0} I^n = \FakRaum{R[u,v]}{(X v - Y u)}$.\\
+      Was sind die maximalen homogenen Ideale in $R'$, die nicht ganz $R'_+$ enthalten?\\
+      Typ 1: maximale Ideale in $R, \not= (X,Y): (X-a, Y-b)$ mit $(a,b) \not=(0,0)$\\
+      Typ 2: $(X,Y, \alpha u + \beta v), \; (\alpha, \beta) \not= (0,0)$
+  \end{enumerate}
+\end{nnBsp}

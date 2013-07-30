@@ -1,0 +1,1 @@
+var searchData=[["zero",["zero",["../structzero.html",1,""]]],["zone",["Zone",["../structstxxl_1_1DiskGeometry_1_1Zone.html",1,"stxxl::DiskGeometry"]]],["zonecmp",["ZoneCmp",["../structstxxl_1_1DiskGeometry_1_1ZoneCmp.html",1,"stxxl::DiskGeometry"]]]];

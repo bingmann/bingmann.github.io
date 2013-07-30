@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/eSAIS-DC3-LCP-0.5.0/stxxl/stream/test_intro1.cpp - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal8.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2012/">2012</a> / <a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory</a> / <a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/eSAIS-DC3-LCP-0.5.0/">eSAIS-DC3-LCP-0.5.0</a> / <a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/eSAIS-DC3-LCP-0.5.0/stxxl/">stxxl</a> / <a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/eSAIS-DC3-LCP-0.5.0/stxxl/stream/">stream</a> / <a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/eSAIS-DC3-LCP-0.5.0/stxxl/stream/test_intro1.cpp.html">test_intro1.cpp</a> (<a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/eSAIS-DC3-LCP-0.5.0/stxxl/stream/test_intro1.cpp">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">// This file contains the example snippets from the stream introduction.</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;stxxl/stream&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;stxxl/vector&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;stxxl/sorter&gt;</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;vector&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;limits.h&gt;</span>
+
+<span class="keyword">struct</span><span class="normal"> </span><span class="classname">counter_object</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">// This stream produces a sequence of integers.</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="type">int</span><span class="normal">         value_type</span><span class="symbol">;</span>
+
+<span class="keyword">private</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">// A class attribute to save the current value.</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal">                 m_current_value</span><span class="symbol">;</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">// A constructor to set the initial value to 1.</span>
+<span class="normal">    </span><span class="function">counter_object</span><span class="symbol">()</span>
+<span class="normal">        </span><span class="symbol">:</span><span class="normal"> </span><span class="function">m_current_value</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">// The retrieve operator returning the current value.</span>
+<span class="normal">    </span><span class="keyword">const</span><span class="normal"> value_type</span><span class="symbol">&amp;</span><span class="normal"> </span><span class="keyword">operator</span><span class="symbol">*</span><span class="normal"> </span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> m_current_value</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">// Increment operator advancing to the next integer.</span>
+<span class="normal">    counter_object</span><span class="symbol">&amp;</span><span class="normal"> </span><span class="keyword">operator</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="symbol">++</span><span class="normal">m_current_value</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">*</span><span class="keyword">this</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">// Empty indicator, which in this case can check the current value.</span>
+<span class="normal">    </span><span class="type">bool</span><span class="normal"> </span><span class="function">empty</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">m_current_value </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">1000</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">InputStream</span><span class="symbol">&gt;</span>
+<span class="keyword">struct</span><span class="normal"> </span><span class="classname">squaring_object</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">// This stream produces a sequence of integers.</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="type">int</span><span class="normal">         value_type</span><span class="symbol">;</span>
+
+<span class="keyword">private</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">// A reference to another stream of integers, which are our input.</span>
+<span class="normal">    InputStream</span><span class="symbol">&amp;</span><span class="normal">        m_input_stream</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">// A temporary value buffer to hold the current square in for retrieval.</span>
+<span class="normal">    </span><span class="usertype">value_type</span><span class="normal">          m_current_value</span><span class="symbol">;</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">// A constructor taking another stream of integers as input.</span>
+<span class="normal">    </span><span class="function">squaring_object</span><span class="symbol">(</span><span class="normal">InputStream</span><span class="symbol">&amp;</span><span class="normal"> input_stream</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="symbol">:</span><span class="normal"> </span><span class="function">m_input_stream</span><span class="symbol">(</span><span class="normal">input_stream</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">m_input_stream</span><span class="symbol">.</span><span class="function">empty</span><span class="symbol">())</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            m_current_value </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">m_input_stream</span><span class="symbol">;</span>
+<span class="normal">            m_current_value </span><span class="symbol">=</span><span class="normal"> m_current_value </span><span class="symbol">*</span><span class="normal"> m_current_value</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">// The retrieve operator returning the square of the input stream.</span>
+<span class="normal">    </span><span class="keyword">const</span><span class="normal"> value_type</span><span class="symbol">&amp;</span><span class="normal"> </span><span class="keyword">operator</span><span class="symbol">*</span><span class="normal"> </span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> m_current_value</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">// Increment operator: handled by incrementing the input stream.</span>
+<span class="normal">    squaring_object</span><span class="symbol">&amp;</span><span class="normal"> </span><span class="keyword">operator</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="symbol">++</span><span class="normal">m_input_stream</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">m_input_stream</span><span class="symbol">.</span><span class="function">empty</span><span class="symbol">())</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            m_current_value </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">m_input_stream</span><span class="symbol">;</span>
+<span class="normal">            m_current_value </span><span class="symbol">=</span><span class="normal"> m_current_value </span><span class="symbol">*</span><span class="normal"> m_current_value</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">*</span><span class="keyword">this</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">// Empty indicator: this stream is empty when the input stream is.</span>
+<span class="normal">    </span><span class="type">bool</span><span class="normal"> </span><span class="function">empty</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> m_input_stream</span><span class="symbol">.</span><span class="function">empty</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="comment">// define comparator class: compare right-most decimal and then absolute value</span>
+<span class="keyword">struct</span><span class="normal"> </span><span class="classname">CompareMod10</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">// comparison operator() returning true if (a &lt; b)</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="type">bool</span><span class="normal"> </span><span class="keyword">operator</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> a</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> b</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">a </span><span class="symbol">%</span><span class="normal"> </span><span class="number">10</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">b </span><span class="symbol">%</span><span class="normal"> </span><span class="number">10</span><span class="symbol">))</span>
+<span class="normal">            </span><span class="keyword">return</span><span class="normal"> a </span><span class="symbol">&lt;</span><span class="normal"> b</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="keyword">else</span>
+<span class="normal">            </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">a </span><span class="symbol">%</span><span class="normal"> </span><span class="number">10</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">b </span><span class="symbol">%</span><span class="normal"> </span><span class="number">10</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">// smallest possible integer value</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal"> </span><span class="function">min_value</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> INT_MIN</span><span class="symbol">;</span><span class="normal"> </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="comment">// largest possible integer value</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal"> </span><span class="function">max_value</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> INT_MAX</span><span class="symbol">;</span><span class="normal"> </span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="type">int</span><span class="normal"> </span><span class="function">main</span><span class="symbol">()</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="usertype">counter_object</span><span class="normal"> counter</span><span class="symbol">;</span>
+
+<span class="normal">        </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">counter</span><span class="symbol">.</span><span class="function">empty</span><span class="symbol">())</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            std</span><span class="symbol">::</span><span class="normal">cout </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">counter </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">" "</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="symbol">++</span><span class="normal">counter</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="normal">cout </span><span class="symbol">&lt;&lt;</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">endl</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal">    </span>
+<span class="normal">    </span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">counter_object</span><span class="normal"> cnt</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">cnt</span><span class="symbol">.</span><span class="function">empty</span><span class="symbol">();</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">cnt</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            std</span><span class="symbol">::</span><span class="normal">cout </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">cnt </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">" "</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="normal">cout </span><span class="symbol">&lt;&lt;</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">endl</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="usertype">counter_object</span><span class="normal"> counter</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="usertype">squaring_object&lt;counter_object&gt;</span><span class="normal"> </span><span class="function">squares</span><span class="symbol">(</span><span class="normal">counter</span><span class="symbol">);</span>
+
+<span class="normal">        </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">squares</span><span class="symbol">.</span><span class="function">empty</span><span class="symbol">())</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            std</span><span class="symbol">::</span><span class="normal">cout </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">squares </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">" "</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="symbol">++</span><span class="normal">squares</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="normal">cout </span><span class="symbol">&lt;&lt;</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">endl</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="usertype">vector&lt;int&gt;</span><span class="normal"> intvector</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="comment">// (fill intvector)</span>
+
+<span class="normal">        </span><span class="comment">// define stream class iterating over an integer vector</span>
+<span class="normal">        </span><span class="keyword">typedef</span><span class="normal"> stxxl</span><span class="symbol">::</span><span class="normal">stream</span><span class="symbol">::</span><span class="usertype">iterator2stream&lt; std::vector&lt;int&gt;::const_iterator &gt;</span><span class="normal"> intstream_type</span><span class="symbol">;</span>
+
+<span class="normal">        </span><span class="comment">// instantiate the stream object, iterate from begin to end of intvector.</span>
+<span class="normal">        </span><span class="usertype">intstream_type</span><span class="normal"> </span><span class="function">intstream</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">intvector</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">(),</span><span class="normal"> intvector</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">());</span>
+
+<span class="normal">        </span><span class="comment">// plug in squaring object after vector iterator stream.</span>
+<span class="normal">        </span><span class="usertype">squaring_object&lt;intstream_type&gt;</span><span class="normal"> </span><span class="function">squares</span><span class="symbol">(</span><span class="normal">intstream</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        stxxl</span><span class="symbol">::</span><span class="usertype">vector&lt;int&gt;</span><span class="normal"> intvector</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="comment">// (fill intvector)</span>
+
+<span class="normal">        </span><span class="comment">// define stream class iterating over an integer vector</span>
+<span class="normal">        </span><span class="keyword">typedef</span><span class="normal"> stxxl</span><span class="symbol">::</span><span class="normal">stream</span><span class="symbol">::</span><span class="usertype">vector_iterator2stream&lt; stxxl::vector&lt;int&gt;::const_iterator &gt;</span><span class="normal"> intstream_type</span><span class="symbol">;</span>
+
+<span class="normal">        </span><span class="comment">// instantiate the stream object, iterate from begin to end of intvector.</span>
+<span class="normal">        </span><span class="usertype">intstream_type</span><span class="normal"> </span><span class="function">intstream</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">intvector</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">(),</span><span class="normal"> intvector</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">());</span>
+
+<span class="normal">        </span><span class="comment">// plug in squaring object after vector iterator stream.</span>
+<span class="normal">        </span><span class="usertype">squaring_object&lt;intstream_type&gt;</span><span class="normal"> </span><span class="function">squares</span><span class="symbol">(</span><span class="normal">intstream</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="comment">// construct the squared counter stream</span>
+<span class="normal">        </span><span class="usertype">counter_object</span><span class="normal"> counter</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="usertype">squaring_object&lt;counter_object&gt;</span><span class="normal"> </span><span class="function">squares</span><span class="symbol">(</span><span class="normal">counter</span><span class="symbol">);</span>
+
+<span class="normal">        </span><span class="comment">// allocate vector of 100 integers</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="usertype">vector&lt;int&gt;</span><span class="normal"> </span><span class="function">intvector</span><span class="normal"> </span><span class="symbol">(</span><span class="number">100</span><span class="symbol">);</span>
+
+<span class="normal">        </span><span class="comment">// materialize 100 integers from stream and put into vector</span>
+<span class="normal">        stxxl</span><span class="symbol">::</span><span class="normal">stream</span><span class="symbol">::</span><span class="function">materialize</span><span class="symbol">(</span><span class="normal">squares</span><span class="symbol">,</span><span class="normal"> intvector</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">(),</span><span class="normal"> intvector</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">());</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="comment">// construct the squared counter stream</span>
+<span class="normal">        </span><span class="usertype">counter_object</span><span class="normal"> counter</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="usertype">squaring_object&lt;counter_object&gt;</span><span class="normal"> </span><span class="function">squares</span><span class="symbol">(</span><span class="normal">counter</span><span class="symbol">);</span>
+
+<span class="normal">        </span><span class="comment">// allocate STXXL vector of 100 integers</span>
+<span class="normal">        stxxl</span><span class="symbol">::</span><span class="usertype">vector&lt;int&gt;</span><span class="normal"> </span><span class="function">intvector</span><span class="normal"> </span><span class="symbol">(</span><span class="number">100</span><span class="symbol">);</span>
+
+<span class="normal">        </span><span class="comment">// materialize 100 integers from stream and put into STXXL vector</span>
+<span class="normal">        stxxl</span><span class="symbol">::</span><span class="normal">stream</span><span class="symbol">::</span><span class="function">materialize</span><span class="symbol">(</span><span class="normal">squares</span><span class="symbol">,</span><span class="normal"> intvector</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">(),</span><span class="normal"> intvector</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">());</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">int</span><span class="normal"> ram_use </span><span class="symbol">=</span><span class="normal"> </span><span class="number">10</span><span class="symbol">*</span><span class="number">1024</span><span class="symbol">*</span><span class="number">1024</span><span class="symbol">;</span><span class="normal">   </span><span class="comment">// amount of memory to use in runs creation</span>
+
+<span class="normal">        </span><span class="usertype">counter_object</span><span class="normal">  counter</span><span class="symbol">;</span><span class="normal">        </span><span class="comment">// the counter stream from first examples</span>
+
+<span class="normal">        </span><span class="comment">// define a runs sorter for the counter stream which order by CompareMod10 object.</span>
+<span class="normal">        </span><span class="keyword">typedef</span><span class="normal"> stxxl</span><span class="symbol">::</span><span class="normal">stream</span><span class="symbol">::</span><span class="usertype">runs_creator&lt;counter_object, CompareMod10&gt;</span><span class="normal"> rc_counter_type</span><span class="symbol">;</span>
+<span class="normal">        </span>
+<span class="normal">        </span><span class="comment">// instance of CompareMod10 comparator class</span>
+<span class="normal">        </span><span class="usertype">CompareMod10</span><span class="normal">    comparemod10</span><span class="symbol">;</span>
+
+<span class="normal">        </span><span class="comment">// instance of runs_creator which reads the counter stream.</span>
+<span class="normal">        </span><span class="usertype">rc_counter_type</span><span class="normal"> </span><span class="function">rc_counter</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">counter</span><span class="symbol">,</span><span class="normal"> comparemod10</span><span class="symbol">,</span><span class="normal"> ram_use</span><span class="symbol">);</span>
+
+<span class="normal">        </span><span class="comment">// define a runs merger for the sorted runs from rc_counter.</span>
+<span class="normal">        </span><span class="keyword">typedef</span><span class="normal"> stxxl</span><span class="symbol">::</span><span class="normal">stream</span><span class="symbol">::</span><span class="usertype">runs_merger&lt;rc_counter_type::sorted_runs_type, CompareMod10&gt;</span><span class="normal"> rm_counter_type</span><span class="symbol">;</span>
+
+<span class="normal">        </span><span class="comment">// instance of runs_merger which merges sorted runs from rc_counter.</span>
+<span class="normal">        </span><span class="usertype">rm_counter_type</span><span class="normal"> </span><span class="function">rm_counter</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">rc_counter</span><span class="symbol">.</span><span class="function">result</span><span class="symbol">(),</span><span class="normal"> comparemod10</span><span class="symbol">,</span><span class="normal"> ram_use</span><span class="symbol">);</span>
+
+<span class="normal">        </span><span class="comment">// read sorted stream: runs_merger also conforms to the stream interface.</span>
+<span class="normal">        </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">rm_counter</span><span class="symbol">.</span><span class="function">empty</span><span class="symbol">())</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            std</span><span class="symbol">::</span><span class="normal">cout </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">rm_counter </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">" "</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="symbol">++</span><span class="normal">rm_counter</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="normal">cout </span><span class="symbol">&lt;&lt;</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">endl</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal">   </span>
+
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">int</span><span class="normal"> ram_use </span><span class="symbol">=</span><span class="normal"> </span><span class="number">10</span><span class="symbol">*</span><span class="number">1024</span><span class="symbol">*</span><span class="number">1024</span><span class="symbol">;</span><span class="normal">   </span><span class="comment">// amount of memory to use in runs creation</span>
+
+<span class="normal">        </span><span class="comment">// define a runs sorter which accepts imperative push()s and orders by CompareMod10 object.</span>
+<span class="normal">        </span><span class="keyword">typedef</span><span class="normal"> stxxl</span><span class="symbol">::</span><span class="normal">stream</span><span class="symbol">::</span><span class="usertype">runs_creator&lt;stxxl::stream::use_push&lt;int&gt;, CompareMod10&gt;</span><span class="normal"> rc_counter_type</span><span class="symbol">;</span>
+<span class="normal">        </span>
+<span class="normal">        </span><span class="comment">// instance of CompareMod10 comparator class.</span>
+<span class="normal">        </span><span class="usertype">CompareMod10</span><span class="normal">    comparemod10</span><span class="symbol">;</span>
+
+<span class="normal">        </span><span class="comment">// instance of runs_creator which waits for input.</span>
+<span class="normal">        </span><span class="usertype">rc_counter_type</span><span class="normal"> </span><span class="function">rc_counter</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">comparemod10</span><span class="symbol">,</span><span class="normal"> ram_use</span><span class="symbol">);</span>
+
+<span class="normal">        </span><span class="comment">// write sequence of integers into runs</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;=</span><span class="normal"> </span><span class="number">1000</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">            rc_counter</span><span class="symbol">.</span><span class="function">push</span><span class="symbol">(</span><span class="normal">i</span><span class="symbol">);</span>
+
+<span class="normal">        </span><span class="comment">// define a runs merger for the sorted runs from rc_counter.</span>
+<span class="normal">        </span><span class="keyword">typedef</span><span class="normal"> stxxl</span><span class="symbol">::</span><span class="normal">stream</span><span class="symbol">::</span><span class="usertype">runs_merger&lt;rc_counter_type::sorted_runs_type, CompareMod10&gt;</span><span class="normal"> rm_counter_type</span><span class="symbol">;</span>
+
+<span class="normal">        </span><span class="comment">// instance of runs_merger which merges sorted runs from rc_counter.</span>
+<span class="normal">        </span><span class="usertype">rm_counter_type</span><span class="normal"> </span><span class="function">rm_counter</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">rc_counter</span><span class="symbol">.</span><span class="function">result</span><span class="symbol">(),</span><span class="normal"> comparemod10</span><span class="symbol">,</span><span class="normal"> ram_use</span><span class="symbol">);</span>
+
+<span class="normal">        </span><span class="comment">// read sorted stream: runs_merger also conforms to the stream interface.</span>
+<span class="normal">        </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">rm_counter</span><span class="symbol">.</span><span class="function">empty</span><span class="symbol">())</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            std</span><span class="symbol">::</span><span class="normal">cout </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">rm_counter </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">" "</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="symbol">++</span><span class="normal">rm_counter</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="normal">cout </span><span class="symbol">&lt;&lt;</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">endl</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal">   </span>
+
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">int</span><span class="normal"> ram_use </span><span class="symbol">=</span><span class="normal"> </span><span class="number">10</span><span class="symbol">*</span><span class="number">1024</span><span class="symbol">*</span><span class="number">1024</span><span class="symbol">;</span><span class="normal">   </span><span class="comment">// amount of memory to use in runs creation</span>
+
+<span class="normal">        </span><span class="comment">// define a runs sorter which accepts imperative push()s and orders by CompareMod10 object.</span>
+<span class="normal">        </span><span class="keyword">typedef</span><span class="normal"> stxxl</span><span class="symbol">::</span><span class="usertype">sorter&lt;int, CompareMod10&gt;</span><span class="normal"> sr_counter_type</span><span class="symbol">;</span>
+<span class="normal">        </span>
+<span class="normal">        </span><span class="comment">// instance of CompareMod10 comparator class.</span>
+<span class="normal">        </span><span class="usertype">CompareMod10</span><span class="normal">    comparemod10</span><span class="symbol">;</span>
+
+<span class="normal">        </span><span class="comment">// instance of sorter which waits for input.</span>
+<span class="normal">        </span><span class="usertype">sr_counter_type</span><span class="normal"> </span><span class="function">sr_counter</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">comparemod10</span><span class="symbol">,</span><span class="normal"> ram_use</span><span class="symbol">);</span>
+
+<span class="normal">        </span><span class="comment">// write sequence of integers into sorter, which creates sorted runs</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;=</span><span class="normal"> </span><span class="number">1000</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">            sr_counter</span><span class="symbol">.</span><span class="function">push</span><span class="symbol">(</span><span class="normal">i</span><span class="symbol">);</span>
+
+<span class="normal">        </span><span class="comment">// signal sorter that the input stream is finished and switch to output mode.</span>
+<span class="normal">        sr_counter</span><span class="symbol">.</span><span class="function">sort</span><span class="symbol">();</span>
+
+<span class="normal">        </span><span class="comment">// read sorted stream: sorter also conforms to the stream interface.</span>
+<span class="normal">        </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">sr_counter</span><span class="symbol">.</span><span class="function">empty</span><span class="symbol">())</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            std</span><span class="symbol">::</span><span class="normal">cout </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">sr_counter </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">" "</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="symbol">++</span><span class="normal">sr_counter</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="normal">cout </span><span class="symbol">&lt;&lt;</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">endl</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal">   </span>
+<span class="cbracket">}</span>
+
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - HelpPC format</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;HelpPC Text File Format</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;HelpPC in its standard form can handle 1800 indexed topics<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;and 16 independent help files. &nbsp;If you find you need a larger<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;capacity, please contact me at one of the addresses below.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Each file must have its own title which will show up in the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;main menu. &nbsp;Each topic following the file title (see below)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;will show up in the subtopic menu. &nbsp;Also note that HelpPC<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;will adjust the menu format based on the screen height and<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;the number of items in the main menu.<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;HelpPC text files are simple ASCII files that contain control<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;codes in column one. &nbsp;Each file must contain a title in the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;first line. &nbsp;The remainder of the file consists of keyed lines<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;and help text. &nbsp; Each line must end with a CR/LF pair (standard<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;DOS format) and shouldn't be longer than 70 characters. &nbsp;Tabs<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;position the text using 8 character tab positions. &nbsp;The following<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;is a list of keys and special characters:<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;'@' &nbsp;in column 1 indicates a file title which will appear in<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; the main topic menu. &nbsp;This must be the very first line<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; in the file and has a maximum length of 40 characters<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (excluding the '@').<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;':' &nbsp;in column 1 indicates a subtopic key. &nbsp;Multiple keys<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; separated by colons ':' can be entered on the same line.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Single spaces are allowed in a key, multiple spaces are<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; compressed to single.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;'%' &nbsp;in column 1 indicates to highlight the entire line<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;'^' &nbsp;in column 1 indicates to center and highlight the line<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;' ' &nbsp;(space) normal text<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;'~' &nbsp;Tilde, used to mark text as a subtopic link. &nbsp;Use two<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tilde characters to represent an actual tilde in the data.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; A word or phrase enclosed between tilde's will become a<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; subtopic link for the current topic.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;TAB &nbsp;start text in column 9<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;any other character in column 1 is invalid an will not display<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Use the BUILD command to index/reindex the default help text<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;files. &nbsp;To add your own files to the index use the command:<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;BUILD [fname [file2 ...]]</span><br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Limits of the HelpPC program</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Max items in main topic menu: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;16<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Max items in subtopic menu: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 512<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Max topics in index: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1800<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Max size of topic text: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 16384 bytes<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Max lines of text per topic: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;512<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Max topic key length: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;20<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Max file title length: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 40<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Max subtopic links: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 120 &nbsp; &nbsp; &nbsp; <br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;No limit on text file size<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Example help file:</span><br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;@This title appears in main menu<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;:key1:key2:key3<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;^This line will be displayed centered and highlighted<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;%This line will appear highlighted<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;These lines are normal text. &nbsp;All three topic keys will point to<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;this same database entry. &nbsp;The following phrase ~SUBTOPIC LINK~<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;is a link to another topic. &nbsp;The tilde characters will cause it<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;to be highlighted and selectable.<br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">HelpPC format</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

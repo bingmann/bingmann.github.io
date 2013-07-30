@@ -1,0 +1,103 @@
+\section{Tensoralgebra}
+
+\begin{Def}
+\label{1.14}
+Eine \emp{$R$-Algebra}\index{R-Algebra} ist ein (kommutativer) Ring (mit Eins) $R'$
+zusammen mit einem Ringhomomorphismus $\alpha: R\to R'$.
+Ist $\alpha$ injektiv, so hei\ss t $R'/R$ auch \emp{Ringerweiterung}\index{Ringerweiterung}.
+\end{Def}
+
+\begin{Bem}
+\label{1.15}
+Sei $R'$ eine $R$-Algebra.
+\begin{enumerate}
+\item Die Zuordnung $M\to M\otimes_R R'$ ist ein kovarianter rechtsexakter
+  Funktor $\otimes_R R': \underline{\text{$R$-Mod}} \to
+  \underline{\text{$R'$-Mod}}$; dabei wird $M \otimes_R R'$ zum $R'$-Modul
+  durch $b\cdot (x\otimes a)\defeqr x\otimes b\cdot a$.
+
+\item Sei $V: \underline{\text{$R'$-Mod}} \to \underline{\text{$R$-Mod}}$ der
+  ,,Vergiss-Funktor``, der jeden $R'$-Modul als $R$-Modul auffasst, mit der
+  Skalarmultiplikation $a\cdot x\defeqr\alpha(a)\cdot x$ für $a\in R, x\in
+  M$.
+
+  Dann ist $\otimes_R R'$ ,,links adjungiert`` zu $V$, d.h. für alle $R$-Moduln
+  $M$ und $R'$-Moduln $M'$ sind $\textrm{Hom}_R(M, V(M'))$ und
+  $\Hom_{R'}(M\otimes_R R', M')$ isomorph (als $R$-Moduln).
+\end{enumerate}
+\end{Bem}
+
+\begin{Bew}
+\item[(b)] Die Zuordnungen $$\begin{array}{rcl}
+    \textrm{Hom}_R(M, V(M')) & \to & \textrm{Hom}_{R'}(M\otimes_R R', M')\\
+                     \varphi & \mapsto & (x\otimes a\mapsto a\cdot \varphi(x))\\
+    (x\mapsto \psi(x\otimes 1))&\mapsfrom & \psi \\
+  \end{array}$$
+  sind zueinander invers.
+\end{Bew}
+
+\begin{nnBsp}
+  Sei $R'$ eine $R$-Algebra, $F$ freier Modul mit Basis $\{e_i:i\in I\}$. Dann ist $F\otimes_R R'$ ein freier
+  $R'$-Modul mit Basis $\{e_i\otimes 1:i\in I\}$.
+
+  \textbf{denn}: Sei $f:\{e_i\otimes 1: i\in I\} \to M$ Abbildung ($M$ beliebiger $R'$-Modul).
+  Dann gibt es genau eine $R$-lineare Abbildung $\varphi: F\to V(M)$ mit $\varphi(e_i)=f(e_i\otimes 1)$ (UAE für $F$).
+  Mit \ref{1.15} (b) folgt: dazu gehört eine eindeutige $R'$-lineare Abbildung
+  $\tilde\varphi: F\otimes_R R'\to M$ mit $\tilde\varphi(e_i\otimes 1)=\varphi(e_i)$.
+\end{nnBsp}
+
+\begin{Prop}
+  \label{1.16}
+  Seien $R', R''$ $R$-Algebren.
+  \begin{enumerate}
+  \item $R'\otimes_R R''$ wird zur $R$-Algebra durch $(a_1\otimes b_1)\cdot (a_2 \otimes b_2)\defeqr a_1a_2\otimes b_1 b_2$
+  \item $\sigma': R'\to R'\otimes_R R'', a\mapsto a\otimes 1$ und \\
+    $\sigma'': R''\to R'\otimes_R R'', b\mapsto 1\otimes b$
+    sind $R$-Algebrenhomomorphismen.
+  \item UAE: in der Kategorie der $R$-Algebren gilt:
+    \[
+    \begin{xy}
+      \xymatrix{
+        R' \ar[d]_{\sigma'} \ar[drr]^{\varphi'}    & & \\
+        R' \otimes_R R'' \ar[rr]^{\exists!\varphi} & & A \\
+        R'' \ar[u]^{\sigma''} \ar[urr]_{\varphi''} & &
+      }
+    \end{xy}
+    \]
+  \end{enumerate}
+
+  \begin{Bew}
+    Setze $\varphi(a \otimes b) = \varphi'(a) \cdot \varphi''(b)$.\\
+    $\varphi$ ist die lineare Abbildung, die von der bilinearen Abbildung $\tilde{\Phi} : R' \times R'' \rightarrow A$, $(a, b) \mapsto \varphi'(a) \cdot \varphi''(b)$ induziert wird.
+
+    Nachrechnen: $\varphi$ ist Ringhomomorphismus und eindeutig bestimmt.\\
+    Beobachte: $a \otimes b = (a \otimes 1)(1 \otimes b)$\\
+    also muss: $\varphi(a \otimes b) = \underbrace{(\varphi \circ \sigma')(a)}_{\varphi'(a)} \cdot \underbrace{(\varphi \circ \sigma'')(b)}_{\varphi''(b)}$.
+  \end{Bew}
+
+\end{Prop}
+
+\begin{nnBsp}
+$R'$ sei eine $R$-Algebra. Dann ist $R'[X] \cong R[X] \otimes_R R'$ (als $R'$-Algebren), denn:
+
+Zeige, dass $R[X] \otimes_R R'$ die UAE des Polynomrings $R'[X]$ erfüllt.
+
+Sei $A$ eine $R'$-Algebra und $a \in A$. Zu zeigen: $\exists!\, R'$-Algebrahomomorphismus $\varphi: R[X] \otimes_R R' \rightarrow A$ mit
+$\varphi(X \otimes 1 ) = a$. Ein solcher wird als $R$-Algebra-Homomorphismus induziert von $\varphi': R[X] \rightarrow A, X \mapsto a$
+und $\varphi'': R' \rightarrow A$ (der Strukturhomomorphismus $\alpha$ aus der Definition)\\
+Noch zu zeigen: $\varphi$ ist $R'$-linear (richtig, weil $\varphi''$ Ringhomomorphismus)
+\end{nnBsp}
+
+\begin{DefBem}
+  Sei $M$ ein $R$-Modul
+  \begin{enumerate}
+  \item[a)] $T^0(M) := R$, $ T^n(M) = M \otimes_R T^{n-1}(M), n \geq 1$
+  \item[b)] $T(M) := \bigoplus^{\infty}_{n = 0 } T^n(M)$ wird zur $R$-Algebra durch\\
+    $(x_1 \otimes \dots \otimes x_n) \cdot (y_1 \otimes \dots \otimes y_m) :=
+    x_1 \otimes \dots \otimes x_n \otimes y_1 \otimes \dots \otimes y_m \in T^{n + m}(M)$
+  \item[c)] $T(M)$ ist nicht kommutativ (außer im Trivialfall), denn $ x \otimes y \neq y \otimes x$
+  \item[d)] $T(M)$ erfüllt UAE: Ist $R'$ $R$-Algebra (nicht notwendig kommutativ) $\varphi: M \rightarrow R'$ $R$-linear, so $\exists !$ $R$-Algebra-Homomorphismus \\
+    $\tilde{\varphi}:T(M) \rightarrow R'$ mit $\tilde{\varphi}|_{\underbrace{T^1(M)}_{=M}}=\varphi$
+  \end{enumerate}
+\end{DefBem}
+

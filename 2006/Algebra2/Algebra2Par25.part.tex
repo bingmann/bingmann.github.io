@@ -1,0 +1,146 @@
+\section{Invarianten endlicher Gruppen}
+
+\begin{DefBem}
+\label{2.19}
+  Sei $k$ ein Körper, $n \ge 1$, $k[\mathfrak{X}] \defeqr k[X_1, \dots, X_n]$.
+
+  Sei $G \subseteq \mbox{Aut}(k[\mathfrak{X}])$ eine Untergruppe der $k$-Algebra-Automorphismen.
+  \begin{enumerate}
+    \item $k[\mathfrak{X}]^G \defeqr \{f \in k[\mathfrak{X}]: \sigma (f) = f \mbox{ für alle } \sigma
+          \in G\}$ heißt \emp{Invariantenring}\index{Invariantenring} von $k[\mathfrak{X}]$
+          bezüglich $G$.
+    \item $k[\mathfrak{X}]^G$ ist $k$-Algebra.
+    \item $G$ heißt \emp{linear}, wenn jedes $\sigma \in G$ graderhaltend ist. Dann
+          ist $\sigma|_{k[\mathfrak{X}]_1}$ ein $k$-Vektorraum-Automorphismus und $\sigma \mapsto
+          \sigma|_{k[\mathfrak{X}]_1}$ ist ein Gruppenhomomorphismus $G \to \text{GL}_n(k)$.
+  \end{enumerate}
+\end{DefBem}
+
+\begin{nnBsp}
+  \begin{enumerate}
+    \item[1.)] $n=2$, $G = \{id, \sigma\}$ mit $\sigma(X) = Y$, $\sigma(Y) = X
+               \Rightarrow k[X,Y]^G$ wird erzeugt von $X+Y$ und $X \cdot Y$.\\
+               $X^k+Y^k - (X + Y)^k = -X^{k-1} Y - ... - X Y^{k-1} = -X Y
+               (X^{k-2} + Y^{k-2}) - ...$
+    \item[2.)] $n=2$, $G = \{ id, \varphi\}$ mit $\varphi(X) = -X$, $\varphi(Y) =
+               -Y$ ($\mbox{char }k \not= 2$).\\
+               $k[X,Y]^G$ wird erzeugt von $X^2, Y^2, XY$.
+  \end{enumerate}
+\end{nnBsp}
+
+\begin{Satz}[Endliche Erzeugbarkeit des Invariantenrings]
+  Seien $k$, $G$, $k[\mathfrak{X}]$ wie in \myref{Def.}{2.19}, $G$ linear und endlich.
+  \begin{enumerate}
+    \item (Hilbert) $k[\mathfrak{X}]^G$ ist endlich erzeugbare $k$-Algebra
+    \item (E. Noether) Ist $m = |G|$, so wird $k[\mathfrak{X}]^G$ von Elementen vom Grad
+          $\le m$ erzeugt.
+  \end{enumerate}
+\end{Satz}
+
+\begin{Bew}
+  \begin{enumerate}
+    \item 
+      Sei $S \defeqr k[\mathfrak{X}]^G$ (graduierte Unteralgebra von $k[\mathfrak{X}]$).\\
+      $S_+ = \bigoplus_{i > 0} S_i$, $I \defeqr S_+ k[\mathfrak{X}]$ (Ideal in $k[\mathfrak{X}]$) 
+      $\Rightarrow I$ ist endlich erzeugt.\\
+      Seien $f_1, \dots, f_r \in S_+$ homogene Erzeuger von $I$, $S' \defeqr k[f_1, \dots, f_r] \subseteq S$
+
+      \textbf{Beh.:} $S=S'$\\
+      \textbf{Bew.:} Sei also $f = \sum_{i=0}^n \tilde{f}_i \in S$, $\tilde{f}_i
+      \in S_i$. Zeige mit Induktion: $S_d \subset S'$ für jedes $d \ge 0$.
+
+      $d = 0$: $S_0 = k = S'_0$
+
+      $d \geq 1$: Sei $f \in S_d \Rightarrow f \in S_+ \subseteq I$ $\Rightarrow$ $f =
+      \sum_{i=1}^r g_i f_i$ mit $g_i \in k[\mathfrak{X}]_{d- d_i}$, $d_i = \deg(f_i)$ $\Rightarrow$ $\deg(g_i) < d$\\
+      ,,Mittelung``: Die Abbildung $\varphi: k[\mathfrak{X}] \to S$, $f \mapsto
+      \frac{1}{|G|} \sum_{\sigma \in G} \sigma(f)$ ist lineare, graderhaltende
+      Projektion.\\
+      $\Rightarrow f = \varphi(f) = \sum_{i=1}^r \varphi(g_i) f_i$ mit
+      $\varphi(g_i) \in S$, $\deg(\varphi(g_i)) < d$\\
+      Also nach Induktionsvoraussetzung $\varphi(g_i) \in S' \Rightarrow f \in S'$\\
+      $\Rightarrow$ $k[f_1,\ldots,f_r] \cong k[\mathfrak{X}]^G$
+  \end{enumerate}
+\end{Bew}
+
+\begin{nnBsp}
+  $S_n$ operiert auf $k[X_1, \dots, X_n]$ durch $\sigma(X_i) \defeqr X_{\sigma(i)}$. $k[X_1, \dots, X_n]^{S_n}$ sind die symmetrischen Polynome.
+
+  \textbf{Beh.1:}\\
+  $k[X_1, \dots, X_n]^{S_n}$ wird (als $k$-Algebra) erzeugt von den ,,elementarsymmetrischen`` Polynomen:
+
+  $s_1 \defeqr X_1 + \dots + X_n$\\
+  $s_2 \defeqr X_1X_2 + X_1X_3 + \dots + X_{n-1}X_n = \sum_{1 \leq i < j \leq n} X_i X_j$\\
+  $s_3 \defeqr \sum_{1 \leq i < j < k \leq n} X_i X_j X_k$\\
+  $\vdots$\\
+  $s_n \defeqr X_1 \cdot \ldots \cdot X_n$
+
+  \textbf{Beh.2:} $k[X_1, \dots, X_n]^{S_n}$ wird erzeugt von den Potenzsummen\\
+  $f_1 = s_1 = \sum X_i$\\
+  $f_k = \sum_{i=1}^n X_i^k$, $k = 1, \dots, n$
+\end{nnBsp}
+
+\begin{nnBem}
+  $\varphi: k[\mathfrak{X}] \to k[\mathfrak{X}]^G$, $f \mapsto \frac{1}{|G|}\sum_{\sigma \in G} \sigma(f)$ ist $k$-lineare graderhaltende Projektion.
+\end{nnBem}
+
+\begin{Bew}
+  \begin{enumerate}
+    \item[(b)] Sei $\tilde{S}$ die von den $\varphi(X^{\nu})$, $|\nu| \le |G|$
+    erzeugte Unteralgebra von $k[\mathfrak{X}]^G$.
+    Dabei sei für $\nu = (\nu_1, \dots, \nu_n) \in \mathbb{N}^n: \; X^{\nu}
+    \defeqr X_1^{\nu_1} \cdot ... \cdot X_n^{\nu_n}$ und $|\nu| \defeqr \sum \nu_i$.
+
+    Zu zeigen: $\varphi(X^{\nu}) \in \tilde{S}$ für alle $\nu \in \mathbb{N}^n$.\\
+    Hilfsgröße: Für $d > 0$ sei $F_d \defeqr \sum_{\sigma \in
+      G}(\underset{\defeql Z_{\sigma}}{\underbrace{\sum_{i=1}^n
+        \sigma(X_i)Y_i}})^d \in k[X_1, \dots, X_n, Y_1, \dots, Y_n]$\\
+    $F_d = \sum_{\sigma \in G} Z_{\sigma}^d \overset{G=\{\sigma_1, \dots, \sigma_n
+      \},\\ |G| = m}{=} \sum_{i=1}^m Z_j$ mit $Z_j \defeqr Z_{\sigma_j}$.
+
+    Umformungen:
+    \begin{enumerate}
+    \item[(1)] $F_d = \sum_{\sigma \in G} \sum_{|\nu|=d} \gamma_{\nu}
+      \sigma(X^{\nu}) Y^{\nu}$ (mit $\gamma_{\nu} = \frac{d!}{\nu_1! \cdot ...
+        \cdot \nu_n! }$) $= \sum_{|\nu| = d} \gamma_{\nu}(\sum_{\sigma \in G}
+      \sigma(X^{\nu})Y^{\nu}) = \sum_{|\nu| = d} \gamma_{\nu} m \varphi(X^{\nu})
+      Y^{\nu}$.
+
+      Nach Beh.2 gibt es $a_\mu \in k$, $\mu \in \mathbb{N}^n$ mit $\sum_{i=1}^m
+      i \mu_i = d$
+    \item[(2)] $F_d = \sum_{\mu \in \mathbb{N}^m} a_{\mu} F_1^{\mu_1} \cdot \ldots \cdot F_m^{\mu_m} \overset{(1)}{=} \sum_{\mu \in \mathbb{N}} a_{\mu} \prod_{j=1}^m (\sum_{|\nu| = j} \gamma_{\nu} m \varphi (X^{\nu}) Y ^{\nu})^{\nu_j} \overset{\text{sortieren nach}}{\underset{\text{Potenzen von $Y$}}{=}} \sum_{\lambda \in \mathbb{N}^m} P_{\lambda}(X)Y^{\lambda}$ mit $P_{\lambda} \in \tilde{S}$.
+
+      Koeffizientenvergleich zwischen (1) und (2) ergibt:\\
+      $P_{\lambda}= \begin{cases} 0 &, |\lambda| \not= d\\ \gamma_{\lambda} m \varphi(X^{\lambda})&, |\lambda|=d \end{cases}$
+
+      $\Rightarrow \varphi(X^{\lambda}) \in \tilde{S}$ für alle $\lambda \in \mathbb{N}^m$
+    \end{enumerate}
+  \end{enumerate}
+\end{Bew}
+
+\begin{nnBsp}
+$n=2$, $G=\langle \sigma \rangle$, $\sigma(X) = Y$, $\sigma(Y) = -X \Rightarrow G \cong \mathbb{Z}/4\mathbb{Z}$\\
+Durchrechnen aller Monome mit Grad $\leq |G|$:
+
+{\footnotesize
+\begin{tabular}{|cccc|c|}
+  \hline
+  $f = id(f)$ & $\sigma(f)$ & $\sigma^2(f)$ & $\sigma^3(f)$ & $\sum_{\sigma \in G} \sigma(f) = 4 \varphi(f)$ \\
+  \hline
+  $X$ & $Y$ & $-X$ & $-Y$ & $0$ \\
+  $Y$ & $-X$ & $-Y$ & $X$ & $0$ \\
+  $X^2$ & $Y^2$ & $X^2$ & $Y^2$ & $2(X^2+Y^2)$ \\
+  $Y^2$ & $X^2$ & $Y^2$ & $X^2$ & $2(X^2+Y^2)$ \\
+  $XY$ & $-YX$ & $XY$ & $-YX$ & $0$ \\
+  $X^3$ & $Y^3$ & $-X^3$ & $-Y^3$ & $0$ \\
+  $Y^3$ & $-X^3$ & $-Y^3$ & $X^3$ & $0$ \\
+  $X^2Y$ & $-XY^2$ & $-X^2Y$ & $X Y^2$ & $0$ \\
+  $X Y^2$ & $X^2Y$ & $-XY^2$ & $-X^2Y$ & $0$ \\
+  $X^4$ & $Y^4$ & $X^4$ & $Y^4$ & $2(X^4+Y^4)$ \\
+  $XY^3$ & $-X^3Y$ & $XY^3$ & $-X^3Y$ & $2XY(Y^2-X^2)$ \\
+  $X^2Y^2$ & $X^2Y^2$ & $X^2Y^2$ & $X^2Y^2$ & $4(X^2Y^2)$ \\
+  \hline
+\end{tabular}}
+
+$\Rightarrow$ $k[X,Y]^G$ wird erzeugt von $I_1 = X^2+Y^2, \; I_2 = X^2Y^2, \; I_3 = XY(X^2-Y^2)$ (und $I_4 = X^4 + Y^4 = I_1^2-2I_2$). Zwischen $I_1,I_2,I_3$ besteht die Gleichung $I_3^2 = I_2(X^4+Y^4-2X^2Y^2)=I_1(I_1^2-4I_2)$
+\end{nnBsp}

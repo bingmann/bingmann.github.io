@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - int 21,4e</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;INT 21,4E - Find First Matching File</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AH = 4E<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;CX = attribute used during search &nbsp;(see <a href="table-file_attributes.html">FILE ATTRIBUTES</a>)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;DS:DX = pointer to ASCIIZ filespec, including wildcards<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;on return:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AX = error code if CF set &nbsp;(see <a href="table-DOS_error_codes.html">DOS ERROR CODE</a>)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;<a href="table-DTA.html">DTA</a> = data returned from call in the format:<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Offset Size &nbsp; &nbsp; &nbsp;Description</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;00 &nbsp; byte &nbsp; &nbsp;attribute of search (undocumented)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; byte &nbsp; &nbsp;drive letter used in search (DOS 3.1-4.x, undocumented)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;01 &nbsp; byte &nbsp; &nbsp;drive letter used in search (undocumented)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 11bytes &nbsp; search name used (DOS 3.1-4.x, undocumented)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;02 11bytes &nbsp; search name used (undocumented)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0C &nbsp; byte &nbsp; &nbsp;attribute of search (DOS 3.1-4.x, undocumented)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0D &nbsp; word &nbsp; &nbsp;directory entry number (0 based, undocumented)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0F &nbsp; word &nbsp; &nbsp;starting cluster number of current directory; zero<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; for root directory &nbsp;(DOS 3.2+, undocumented)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dword &nbsp; pointer to DTA (DOS 2.x-3.1, undocumented)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;11 &nbsp; word &nbsp; &nbsp;reserved<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;13 &nbsp; word &nbsp; &nbsp;starting cluster number of current directory; zero<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; for root directory &nbsp;(DOS 2.x+, undocumented)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;15 &nbsp; byte &nbsp; &nbsp;attribute of matching file<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;16 &nbsp; word &nbsp; &nbsp;file time &nbsp;(see <a href="table-file_attributes.html">FILE ATTRIBUTES</a>)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;18 &nbsp; word &nbsp; &nbsp;file date &nbsp;(see FILE ATTRIBUTES)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1A &nbsp; word &nbsp; &nbsp;file size<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1E 13bytes &nbsp; ASCIIZ filename and extension in the form NAME.EXT<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; with blanks stripped<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- returns information on first file matching specifications<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- use <a href="int-int_21_4f.html">INT 21,4F</a>&nbsp;to retrieve following file matches<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- DOS 2.x cannot find . and .. entries, while DOS 3.x can unless<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;they represent the root directory<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- character devices return a zero for size, time and date in DOS 2.x,<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;while DOS 3.0 returns a 40h attribute and current time and date.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- multiple calls to this function with a character device will<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;result in unpredictable results<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- normal files are always included along with files that match the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;requested attributes except when the LABEL attribute is requested.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;DOS 2.x returns all normal files when label is specified but 3.x<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;doesn't. &nbsp;It's up to the programmer to determine which actually<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;match the requested attributes.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- bit 8 of CX (file attributes) indicates Novell Netware shareable<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see &nbsp; INT 21,1A<br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">int 21,4e</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

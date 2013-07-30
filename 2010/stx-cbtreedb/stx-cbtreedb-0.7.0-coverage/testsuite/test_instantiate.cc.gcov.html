@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>LCOV - STX CBTreeDB Testsuite - testsuite/test_instantiate.cc</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+        <tr>
+          <td width="5%"></td>
+          <td width="10%" class="headerItem">Current view:</td>
+          <td width="35%" class="headerValue"><a href="../index.html">directory</a> - <a href="index.html">testsuite</a> - test_instantiate.cc (source / <a href="test_instantiate.cc.func.html">functions</a>)</td>
+          <td width="10%"></td>
+          <td width="10%" class="headerCovTableHead">Found</td>
+          <td width="10%" class="headerCovTableHead">Hit</td>
+          <td width="15%" class="headerCovTableHead">Coverage</td>
+          <td width="5%"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="headerItem">Test:</td>
+          <td class="headerValue">STX CBTreeDB Testsuite</td>
+          <td class="headerItem">Lines:</td>
+          <td class="headerCovTableEntry">5</td>
+          <td class="headerCovTableEntry">3</td>
+          <td class="headerCovTableEntryHi">60.0 %</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="headerItem">Date:</td>
+          <td class="headerValue">2010-04-14</td>
+          <td class="headerItem">Functions:</td>
+          <td class="headerCovTableEntry">8</td>
+          <td class="headerCovTableEntry">3</td>
+          <td class="headerCovTableEntryLo">37.5 %</td>
+        </tr>
+                <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td><pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                : // -*- mode: c++; fill-column: 79 -*-</a>
+<span class="lineNum">       2 </span>                : // $Id: test_instantiate.cc 6 2010-04-14 11:05:51Z tb $
+<span class="lineNum">       3 </span>                : 
+<span class="lineNum">       4 </span>                : /*
+<span class="lineNum">       5 </span>                :  * STX Constant B-Tree Database Template Classes v0.7.0
+<span class="lineNum">       6 </span>                :  * Copyright (C) 2010 Timo Bingmann
+<span class="lineNum">       7 </span>                :  *
+<span class="lineNum">       8 </span>                :  * This library is free software; you can redistribute it and/or modify it
+<span class="lineNum">       9 </span>                :  * under the terms of the GNU Lesser General Public License as published by the
+<span class="lineNum">      10 </span>                :  * Free Software Foundation; either version 2.1 of the License, or (at your
+<span class="lineNum">      11 </span>                :  * option) any later version.
+<span class="lineNum">      12 </span>                :  *
+<span class="lineNum">      13 </span>                :  * This library is distributed in the hope that it will be useful, but WITHOUT
+<span class="lineNum">      14 </span>                :  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+<span class="lineNum">      15 </span>                :  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
+<span class="lineNum">      16 </span>                :  * for more details.
+<span class="lineNum">      17 </span>                :  *
+<span class="lineNum">      18 </span>                :  * You should have received a copy of the GNU Lesser General Public License
+<span class="lineNum">      19 </span>                :  * along with this library; if not, write to the Free Software Foundation,
+<span class="lineNum">      20 </span>                :  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+<span class="lineNum">      21 </span>                :  */
+<span class="lineNum">      22 </span>                : 
+<span class="lineNum">      23 </span>                : /*
+<span class="lineNum">      24 </span>                :  * Force instantiation of different class configurations to test
+<span class="lineNum">      25 </span>                :  * compilation of all functions with different template
+<span class="lineNum">      26 </span>                :  * parameters. Also tests class with a struct as key_type.
+<span class="lineNum">      27 </span>                :  */
+<span class="lineNum">      28 </span>                : 
+<span class="lineNum">      29 </span>                : #define CBTREEDB_SELF_VERIFY
+<span class="lineNum">      30 </span>                : #include &quot;stx-cbtreedb.h&quot;
+<span class="lineNum">      31 </span>                : 
+<span class="lineNum">      32 </span>                : #include &lt;iostream&gt;
+<span class="lineNum">      33 </span>                : #include &lt;sstream&gt;
+<span class="lineNum">      34 </span>                : #include &lt;assert.h&gt;
+<span class="lineNum">      35 </span>                : 
+<span class="lineNum">      36 </span>                : // forced instantiations
+<span class="lineNum">      37 </span>                : 
+<span class="lineNum">      38 </span>                : template class stx::CBTreeDB&lt;&gt;;
+<span class="lineNum">      39 </span>                : 
+<span class="lineNum">      40 </span>                : template class stx::CBTreeDB&lt; uint32_t, std::greater&lt;uint32_t&gt; &gt;;
+<span class="lineNum">      41 </span>                : 
+<span class="lineNum">      42 </span>                : template class stx::CBTreeDB&lt; uint64_t, std::greater&lt;uint64_t&gt; &gt;;
+<span class="lineNum">      43 </span>                : 
+<span class="lineNum">      44 </span>                : struct key_struct
+<span class="lineNum">      45 </span>                : {
+<span class="lineNum">      46 </span>                :     uint8_t     i8;
+<span class="lineNum">      47 </span>                :     uint32_t    i32;
+<span class="lineNum">      48 </span>                : }       
+<span class="lineNum">      49 </span>                :     __attribute__((packed));
+<span class="lineNum">      50 </span>                : 
+<a name="51"><span class="lineNum">      51 </span>                : struct key_struct_less</a>
+<span class="lineNum">      52 </span>                : {
+<span class="lineNum">      53 </span><span class="lineNoCov">              0 :     inline bool operator()(const key_struct&amp; a, const key_struct&amp; b)</span>
+<span class="lineNum">      54 </span>                :     {
+<span class="lineNum">      55 </span><span class="lineNoCov">              0 :         return a.i8 &lt; b.i8;</span>
+<span class="lineNum">      56 </span>                :     }
+<span class="lineNum">      57 </span>                : };
+<span class="lineNum">      58 </span>                : 
+<a name="59"><span class="lineNum">      59 </span>                : template class stx::CBTreeDB&lt; key_struct, key_struct_less &gt;;</a>
+<span class="lineNum">      60 </span>                : 
+<span class="lineNum">      61 </span><span class="lineCov">              1 : int main()</span>
+<span class="lineNum">      62 </span>                : {
+<span class="lineNum">      63 </span>                :     // check some instance parameters
+<span class="lineNum">      64 </span>                :     {
+<span class="lineNum">      65 </span>                :         typedef stx::CBTreeDB&lt;&gt; cbtreedb;
+<span class="lineNum">      66 </span>                : 
+<span class="lineNum">      67 </span>                :         assert(cbtreedb::BTreePageSize == 1024);
+<span class="lineNum">      68 </span>                :         //assert(sizeof(cbtreedb::LeafNode) == 1024);
+<span class="lineNum">      69 </span>                :         assert(cbtreedb::LeafNodeNumKeys == 126);
+<span class="lineNum">      70 </span>                :         assert(cbtreedb::LeafNodeFiller == 0);
+<span class="lineNum">      71 </span>                :         assert(cbtreedb::InnerNodeNumKeys == 254);
+<span class="lineNum">      72 </span>                :         assert(cbtreedb::InnerNodeFiller == 0);
+<span class="lineNum">      73 </span>                :     }
+<span class="lineNum">      74 </span>                :     {
+<span class="lineNum">      75 </span>                :         typedef stx::CBTreeDB&lt;uint64_t&gt; cbtreedb;
+<span class="lineNum">      76 </span>                : 
+<span class="lineNum">      77 </span>                :         assert(cbtreedb::BTreePageSize == 1024);
+<span class="lineNum">      78 </span>                :         //assert(sizeof(cbtreedb::LeafNode) == 1024);
+<span class="lineNum">      79 </span>                :         assert(cbtreedb::LeafNodeNumKeys == 84);
+<span class="lineNum">      80 </span>                :         assert(cbtreedb::LeafNodeFiller == 0);
+<span class="lineNum">      81 </span>                :         assert(cbtreedb::InnerNodeNumKeys == 127);
+<span class="lineNum">      82 </span>                :         assert(cbtreedb::InnerNodeFiller == 0);
+<span class="lineNum">      83 </span>                :     }
+<span class="lineNum">      84 </span>                :     {
+<span class="lineNum">      85 </span>                :         typedef stx::CBTreeDB&lt;uint64_t, std::less&lt;uint64_t&gt;, 2048&gt; cbtreedb;
+<span class="lineNum">      86 </span>                : 
+<span class="lineNum">      87 </span>                :         assert(cbtreedb::BTreePageSize == 2048);
+<span class="lineNum">      88 </span>                :         //assert(sizeof(cbtreedb::LeafNode) == 2048);
+<span class="lineNum">      89 </span>                :         assert(cbtreedb::LeafNodeNumKeys == 169);
+<span class="lineNum">      90 </span>                :         assert(cbtreedb::LeafNodeFiller == 4);
+<span class="lineNum">      91 </span>                :         assert(cbtreedb::InnerNodeNumKeys == 255);
+<span class="lineNum">      92 </span>                :         assert(cbtreedb::InnerNodeFiller == 0);
+<span class="lineNum">      93 </span>                :     }
+<a name="94"><span class="lineNum">      94 </span>                : </a>
+<span class="lineNum">      95 </span><span class="lineCov">              1 :     return 0;</span>
+<span class="lineNum">      96 </span><span class="lineCov">              3 : }</span>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+  <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.7</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

@@ -1,0 +1,1 @@
+var searchData=[["average_5fspeed",["AVERAGE_SPEED",["../group__fileimpl.html#gae99c996e37627f2153faa5ae7ea7c50a",1,"simdisk_file.h"]]]];

@@ -1,0 +1,39 @@
+== Proposal for a virtual memory layout for SDI ==
+
+0x00000000 - 0x01ffffff	- 32m
+invalid range: segfault when accessed. catches number-as-pointer bugs
+
+0x02000000 - 0x0200ffff	- 64k
+KIP page - mapped by kernel (usual is only 4096 bytes)
+
+0x02010000 - 0x0202ffff	- 128k
+UTCB area - zero-filled anonymous mem
+hold up to 256 UTCB blocks (each 512 bytes)
+
+0x02030000 - 0x08408000	- ~100m
+invalid range: separation?
+
+0x08408000 - <prog-end> - variable
+.text segment loaded by elfexec
+
+<prog-end> - <heap-end>	- variable
+heap area - heap-end can be adjusted by brk() 
+zero-filled anonymous mem on access
+
+<head-end> - 0x90000000	- variable
+invalid range: segfault. use brk to increase heap.
+
+0x90000000 - 0x9fffffff	- 256m
+user area for incoming mappings - used as fpage receive window
+
+0xa0000000 - 0xb7ffffff - 384m
+pager managed: mappings for shared / grant / special pages come in here
+
+0xb8000000 - 0xbfffffff	- 128m
+stack(s). initial thread's stack begins at 0xbff7ffff and the elfexec puts
+the environment and program arguments on the initial stack.
+further user threads determine themselves where to start
+every page can be accessed and is filled with zero-initialized anonymous mem
+
+0xc0000000 - 0xffffffff	- 1g
+kernel memory - segfault on access

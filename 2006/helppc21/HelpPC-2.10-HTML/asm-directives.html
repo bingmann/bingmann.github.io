@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - directives</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Macro Assembler Directives</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Processor Code Generation Directives</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.186 &nbsp; &nbsp;enables assembly of 80186 instructions<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.286 &nbsp; &nbsp;enables assembly of non privileged 80286 instructions<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.286C &nbsp; same as .286<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.286P &nbsp; enables assembly of all 80286 instructions<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.287 &nbsp; &nbsp;enabled assembly of 80287 instructions<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.386 &nbsp; &nbsp;enabled assembly of non privileged 80386 instructions<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;If used before .MODEL segments are defined as 32bits.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Causes all segments to default to DWORD alignment.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.386P &nbsp; enabled assembly of all 80386 instructions (see .386)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.387 &nbsp; &nbsp;enabled assembly of 80387 instructions<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.8086 &nbsp; default, enables assembly of 8088/8086 instruction<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.8087 &nbsp; default, enables assembly of 8087 instructions<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;These directives must precede the segment they are to effect.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;they cannot occur within a segment.<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Memory Model Directives</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.CODE &nbsp;[name] &nbsp; starts code segment; must follow .MODEL directive<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.CONST &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;starts a constant data segment with name CONST;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;must follow .MODEL directive; placed in DGROUP<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.DATA &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; starts a near data segment for initialized data<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;with name _DATA; must follow .MODEL directive;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;placed in DGROUP<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.DATA? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;starts a near data segment for uninitialized<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;data with name _BSS; must follow .MODEL<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;directive; placed in DGROUP<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.FARDATA [name] not placed in any group<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.FARDATA? [name] not placed in any group<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.MODEL model &nbsp; &nbsp;defines memory model to be one of the following:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;SMALL, COMPACT, MEDIUM, LARGE or HUGE; &nbsp;must be<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;used prior to any other segment directive<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.STACK [size] &nbsp; indicates start of stack segment named 'STACK'<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;with size indicating number of bytes to reserve,<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;default is 1k; placed in DGROUP<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Segment Definition, Segment Ordering and Linkage Directives</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.ALPHA &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;orders segments alphabetically<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.SEQ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;orders segments sequentially (default)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ASSUME sreg:name [,sreg:name...] &nbsp; selects default segment<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;register to be used by the assembler, not the CPU,<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;for addressing all symbols in the segment or group.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Name must be associated with a SEGMENT or GROUP<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;or set to "NOTHING" to indicate no segment register<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;is to be associated.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;COMM def [,def...] &nbsp;defines variables that are both public and<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;external (communal). &nbsp;Can be used in and include<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;file to identify it to each source file without<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;declaring it in each model as extern. &nbsp;Actually<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;defines data once. &nbsp;Communal variables cannot be<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;initialized, and are not guaranteed to be allocated<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;contiguously since these are allocated by the linker.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;DOSSEG &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;orders segments the same as DOS. &nbsp;This is Microsoft<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;languages default order; causes paragph alignment<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;END [name] &nbsp; &nbsp; &nbsp;marks end of source module and sets program<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;start address (CS:IP) if 'name' is present<br />
+ &nbsp; name ENDP &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ends procedure 'name'<br />
+ &nbsp; name ENDS &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ends a segment or structure<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;EXTRN name:type [,name:type...] &nbsp;defines one or more external symbols<br />
+ &nbsp; name GROUP seg[,seg]<br />
+ &nbsp; name LABEL [NEAR|FAR|PROC] &nbsp;defines an entry point; &nbsp;If PROC is specified,<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;it's value depends on the current MODEL<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;NAME pgmName &nbsp; &nbsp;ignored since MASM 5.0; used to set module name<br />
+ &nbsp; name PROC [NEAR|FAR] defines procedure; NEAR/FAR has .MODEL default<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;PUBLIC name[,name...] &nbsp;makes symbol 'name' available to other modules<br />
+ &nbsp; name SEGMENT [align][combine][use]['class']<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;align &nbsp; = BYTE &nbsp;align on byte address (no alignment)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= WORD &nbsp;align on even address<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= DWORD align on DWORD address<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= PARA &nbsp;align on next 16 byte paragraph<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= PAGE &nbsp;align on next 256 byte boundary<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;combine = PUBLIC &nbsp;similar named segments are concatenated (CS)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= STACK &nbsp; similar named segments are concatenated (SS)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= COMMON &nbsp;similar named segment are overlapped<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= MEMORY &nbsp;similar names segments are concatenated<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= AT addr segment relative to absolute address<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= nothing segment is private and loaded independent<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;use &nbsp; &nbsp; = USE16 &nbsp; segments will be 16 bits (if .386)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= USE32 &nbsp; segments will be 32 bits (if .386)<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Data Allocation Directives</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ALIGN n &nbsp; &nbsp; &nbsp; &nbsp; aligns next variable or instruction on a boundary<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;that is a multiple of "n". &nbsp;This can speed memory<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;fetches on 16 and 32 bit CPU'S if aligned. &nbsp;New to<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a href="asm-masm_options.html">MASM</a> 5.0, previous versions used EVEN. &nbsp;Can result<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;in NOP's added to code.<br />
+ [name] DB init[,init...] &nbsp;define byte<br />
+ [name] DD init[,init...] &nbsp;define double word (DWORD, 4 bytes)<br />
+ [name] DF init[,init...] &nbsp;define far word (FWORD, 386, 6 bytes)<br />
+ [name] DQ init[,init...] &nbsp;define quad word (QWORD, 8 bytes)<br />
+ [name] DT init[,init...] &nbsp;define temp word (TBYTE, 10 bytes)<br />
+ [name] DW init[,init...] &nbsp;define word (WORD, 2 bytes)<br />
+ &nbsp;count DUP (init[,init...]) duplicate 'init' 'count' times; DUP can be<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;nested to 17 levels; DUP'ed initial values<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;of (?) don't result in data in the object file<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;but instead increment the next data addr<br />
+ &nbsp; name ENDS &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;end of structure or segment<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;EVEN &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;same as align 2; &nbsp;Aligns data on even boundary<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ORG expr &nbsp; &nbsp; &nbsp; &nbsp;sets location counter to 'expr'; &nbsp;If 'expr'<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;is '$' the code is ORG'ed at the current loc.<br />
+ &nbsp; name RECORD fld[,fld...] &nbsp;defines a byte or word variable<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;consisting of bit fields; &nbsp;fields have the format:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;fieldname:width[=expr]; &nbsp;the sum of all widths<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;must be &lt;= 0<br />
+ [name] STRUC &lt;[init[,init]]&gt; &nbsp;defines beginning of a structure; Values<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;between &lt;&gt; are initializers; &nbsp;The '&lt;&gt;' symbols<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;are required.<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Logical and Bit Oriented Directives</span><br />
+<br />
+ &nbsp;expr1 AND &nbsp;expr2 &nbsp; &nbsp; &nbsp;returns nonzero if any set bit matches<br />
+ &nbsp;expr1 EQ &nbsp; expr2 &nbsp; &nbsp; &nbsp;returns (-1) for true or (0) for false<br />
+ &nbsp;expr1 GE &nbsp; expr2 &nbsp; &nbsp; &nbsp;returns (-1) for true or (0) for false<br />
+ &nbsp;expr1 LE &nbsp; expr2 &nbsp; &nbsp; &nbsp;returns (-1) for true or (0) for false<br />
+ &nbsp;expr1 LT &nbsp; expr2 &nbsp; &nbsp; &nbsp;returns (-1) for true or (0) for false<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;MASK {fldname|record} &nbsp;returns bit mask for bits in record<br />
+ &nbsp;expr1 OR &nbsp; expr2 &nbsp; &nbsp; &nbsp;returns bitwise OR on expr1 and expr2<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;NOT &nbsp;expr &nbsp; &nbsp; &nbsp; returns 'expr' with all bits reversed<br />
+ &nbsp; expr SHL &nbsp;count &nbsp; &nbsp; &nbsp;returns expr shifted left count times<br />
+ &nbsp; expr SHR &nbsp;count &nbsp; &nbsp; &nbsp;returns expr shifted right count times<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;WIDTH {fldname|record} &nbsp;returns width of field in bit record<br />
+ &nbsp;expr1 XOR expr2 &nbsp; &nbsp; &nbsp; returns bitwise XOR on expr1 and expr2<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Other Operators and Directives</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;[] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;index operator, same as addition<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.MSFLOAT &nbsp; &nbsp; &nbsp; &nbsp;encode floats in Microsoft Real Format<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.TYPE &nbsp; expr &nbsp; &nbsp;returns byte defining mode and scope of expr<br />
+ &nbsp; name EQU &nbsp; &nbsp; expr &nbsp; &nbsp;assigns expression to name. surround text with &lt;&gt;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;HIGH &nbsp; &nbsp;expr &nbsp; &nbsp;returns high byte of 'expr'<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;INCLUDE filespec &nbsp;inserts code from 'filespec' into file<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;INCLUDELIB filespec &nbsp;stores link library info in .OBJ file<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;LENGTH &nbsp;var &nbsp; &nbsp; returns number of data objects in DUPed 'var'<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;LOW &nbsp; &nbsp; expr &nbsp; &nbsp;returns low byte of 'expr'<br />
+ &nbsp;expr1 MOD &nbsp; &nbsp; expr2 &nbsp; return remainder of expr1/expr2<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;OFFSET &nbsp;expr &nbsp; &nbsp;returns offset of expr; &nbsp; When .MODEL is used<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;the offset of a group relative segment refers<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;to the end of the segment<br />
+ &nbsp; type PTR &nbsp; &nbsp; expr &nbsp; &nbsp;forces 'expr' to 'type'<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;SEG &nbsp; &nbsp; expr &nbsp; &nbsp;returns segment of expression<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;SHORT &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; sets type of label to short, less than 128<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;bytes from start of next instruction<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;SIZE &nbsp; &nbsp;var &nbsp; &nbsp; returns # of bytes allocated by DUP directive<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;THIS &nbsp; &nbsp;type &nbsp; &nbsp;returns an operand of specified type whose<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;offset and segment values are equal to the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;current location<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;TYPE &nbsp; &nbsp;expr &nbsp; &nbsp;returns type of expression<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Program Listing and Documentation Directives</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.CREF &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; restores listing of cross reference symbols<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.LALL &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; include macro expansion in listings<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.LFCOND &nbsp; &nbsp; &nbsp; &nbsp; include false conditional blocks in listings<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.LIST &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; starts listing of statements<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.SALL &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; suppress listing of all macro expansions<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.SFCOND &nbsp; &nbsp; &nbsp; &nbsp; suppress false conditional blocks in listings<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.XALL &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; start listing of macro expansion<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.XCREF [name[,name...]] &nbsp;suppress symbols in cross reference<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.XLIST &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;suppress program listing<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;COMMENT delimiter [text]<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;PAGE &nbsp; [[len],wid] &nbsp; &nbsp; &nbsp;sets page length&amp;width or ejects if no parms<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;SUBTTL &nbsp;text &nbsp; &nbsp;defines program listing subtitle<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;TITLE &nbsp; text &nbsp; &nbsp;defines program listing title<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Condition Assembly Directives</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ELSE &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;else clause for conditional assembly block<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ENDIF &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; terminates a conditional assembly block<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;IFDEF &nbsp; name &nbsp; &nbsp;conditional assembly if name is defined<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Macro Definition Directives</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ENDM &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;terminates a macro block<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;EXITM &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; exit macro expansion immediately<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;IRP &nbsp;parm,&lt;arg[,arg...]&gt; parm in the statements enclosed by the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;IRP and ENDM will be repeated and replaced with the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;values of "arg" for each "arg" in the &lt;&gt;.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;IRPC parm,&lt;string&gt; &nbsp;parm in the statements enclosed by the IRPC<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;and ENDM will be repeated and replaced with the values<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;of each char in the "string" for each character<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;position in the string. &nbsp;"string" should be enclosed<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;in &lt;&gt; if it contains spaces or other separators.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;LOCAL name[,name...] &nbsp;defines scope symbol as local to a macro<br />
+ &nbsp; name MACRO [parm[,parm...]] &nbsp;defines a macro and it's parameters<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;PURGE name[,name] &nbsp;purges macros from memory<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;REPT &nbsp; &nbsp;expr &nbsp; &nbsp;repeats all statements through ENDM statement for<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;'expr' times<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;User Message Directives</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.ERR &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;generates and error<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.ERR1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; generates an error on PASS 1<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.ERR2 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; generates an error on PASS 2<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.ERRB &nbsp; &lt;arg&gt; &nbsp; generates an error if 'arg' is blank<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.ERRDEF name &nbsp; &nbsp;generates an error if 'name' is previously defined<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.ERRDIF[I] &lt;arg1&gt;,&lt;arg2&gt;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.ERRE &nbsp; expr &nbsp; &nbsp;generates and error is 'expr' is false<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;%OUT &nbsp; &nbsp;text &nbsp; &nbsp;displays 'text' to console<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Predefined Equates (available only if simplified segments are used)</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;@curseg &nbsp; &nbsp; &nbsp; &nbsp; contains the current segment<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;@filename &nbsp; &nbsp; &nbsp; current file name without extension<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;@code &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; contains the current code segment<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;@codesize &nbsp; &nbsp; &nbsp; 0 for small &amp; compact, 1 for large, medium &amp; huge<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;@datasize &nbsp; &nbsp; &nbsp; 0 for small &amp; medium, 1 for compact &amp; large, 2=huge<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;@const &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;contains segment of define by .CONST<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;@data &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; contains segment of define by .DATA<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;@data? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;contains segment of define by .DATA?<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;@fardata &nbsp; &nbsp; &nbsp; &nbsp;contains segment of define by .FARDATA<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;@fardata? &nbsp; &nbsp; &nbsp; contains segment of define by .FARDATA?<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;@stack &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;contains segment of define by .STACK<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Most of these are only available if the simplified segment system<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;is used. &nbsp;@curseg and @filename are available regardless.<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Radix Specifiers</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;.RADIX expr &nbsp; &nbsp; sets radix [2..16] for numbers (dec. default)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;B &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; binary data specifier<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Q &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; octal data specifier<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;O &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; octal data specifier<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;D &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; decimal data specifier<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;H &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; hexadecimal data specifier<br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">directives</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

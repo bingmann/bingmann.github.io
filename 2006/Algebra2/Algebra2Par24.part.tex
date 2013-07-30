@@ -1,0 +1,316 @@
+\section{Graduierte Ringe und Moduln}
+
+\begin{DefBem}
+\label{2.13}
+
+\begin{enumerate}
+
+\item Ein Ring $S$ zusammen mit einer Zerlegung $S=\bigoplus_{i\geq 0}S_i$
+in abelsche Gruppen $S_i$ heißt \emp{graduierter Ring}\index{Ring!graduierter}, wenn für alle $i, j\in \mathbb{N}$:
+$$S_i\cdot S_j\subseteq S_{i+j}$$
+
+\item Ist $S=\bigoplus_{i\geq 0} S_i$ graduierter Ring, so heißen die Elemente
+von $S_i$ \emp{homogen}\index{homogen!Elemente} vom Grad $i$.
+
+Für $f=\sum_{i=0}^{\infty} f_i$ heißen die $f_i$ die homogenen Komponenten von $f$.
+
+\item Ist $S=\bigoplus_{i\geq 0} S_i$ graduierter Ring, so ist $S_0$ Unterring mit $1\in S_0$.
+\end{enumerate}
+
+\end{DefBem}
+
+\begin{Bew}
+\begin{enumerate}
+\item[(c)] $S_0\cdot S_0\subseteq S_{0+0}=S_0$
+
+Sei $1=\sum_{i\geq 0}e_i$ mit $e_i\in S_i$. Sei $f\in S_n$ mit $n\geq 1, f\neq 0$.
+$\Rightarrow f=f\cdot 1 = \sum_{i\geq 0}fe_i$ mit $f\cdot e_i\in S_{n+i}$.
+Da $f$ nur auf eine Weise als Summe von homogenen Elementen geschrieben werden
+kann, ist $e_i=0$ für $i\geq 0$ und $e_0=1$.
+\end{enumerate}
+\end{Bew}
+
+\begin{DefBem}
+\label{2.14}
+Sei $S=\bigoplus_{i\geq 0} S_i$ graduierter Ring.
+\begin{enumerate}
+
+\item Ein Ideal $I\subseteq S$ heißt \emp{homogen}\index{homogen!Ideal}, wenn es von homogenen Elementen erzeugt wird.
+
+\item Ein Ideal $I\subseteq S$ ist genau dann homogen, wenn
+für jedes $f\in I$, $f=\sum_{i\geq 0} f_i$ ($f_i\in S_i$) gilt: $f_i\in I$.
+
+\item Sei $I\subseteq S$ homogenes Ideal, erzeugt von homogenen Elementen $(h_\nu)_{\nu\in J}$.
+Dann hat jedes homogene $f\in I$ eine Darstellung $f=\sum_{\nu}g_\nu h_\nu$ mit $g_\nu$ 
+homogen.
+
+\item Ist $I$ homogenes Ideal in $S$, so ist $\FakRaum{S}{I}$ graduierter Ring mit $\left(\FakRaum{S}{I}\right)_i = \FakRaum{S_i}{(I\cap S_i)}$
+
+\end{enumerate}
+\end{DefBem}
+
+\begin{Bew}
+\begin{enumerate}
+\item[(b)] ``$\Leftarrow$'': \checkmark\\
+``$\Rightarrow$'': Sei $(h_{\nu})_{\nu\in J}$ homogenes Erzeugendensystem von $I$,
+$f\in I$. Dann gibt es $g_\nu\in S$ mit $f=\sum_{\nu}g_\nu h_\nu$.
+Sei $g_\nu=\sum_{i\geq 0}g_{\nu,i}$ Zerlegung in homogene Komponenten.
+
+$\Rightarrow f=\sum_{\nu, i} g_{\nu,i}h_\nu
+\Rightarrow f_i=\sum_\nu g_{\nu,i-\textrm{deg} f_\nu}h_\nu$ 
+(mit $g_{\nu,j}=0$ für $j< 0$) $\Rightarrow f_i\in I$
+
+\item[(d)] $\varphi: S = \bigoplus_{i \geq 0}S_i\to \bigoplus_{i \geq 0} S_i/(I\cap S_i)$ ist
+surjektiver Ringhomomorphismus. $\textrm{Kern}(\varphi)$ wird erzeugt von $I\cap S_i$, $i\geq 0$.
+Da $I$ homogen, ist $\textrm{Kern}(\varphi)=I$. Aus dem Homomorphiesatz folgt dann:
+$S/I\cong \bigoplus_{i\geq 0}S_i/(I\cap S_i)$
+\end{enumerate}
+\end{Bew}
+
+\begin{nnBsp}
+\begin{enumerate}
+
+\item[(1)] $S=k[X,Y]$, $I=(Y-X^2)$ ist \emph{nicht} homogen.
+$S/I\cong k[X]$, $\bigoplus_i S_i/(I\cap S_i)=\bigoplus_i S_i=S$, da $I$ keine homogenen Elemente enthält.
+
+\item[(2)] $S_{+} \defeqr \bigoplus_{i> 0}S_i$ ist homogenes Ideal.\\
+Ist $S_0$ Körper, so ist $S_{+}$ das einzige maximale homogene Ideal.
+
+\item[(3)] $S=k[X,Y]$, $\textrm{deg}(X)=1$, $\textrm{deg}(Y)=2$. 
+Dann ist $I=(Y-X^2)$ homogenes Ideal!
+
+\end{enumerate}
+\end{nnBsp}
+
+\begin{DefBem} \label{2.15}
+Für einen graduierten Ring $S=\bigoplus_{i\geq 0} S_i$ sind äquivalent:
+\begin{enumerate}
+\item[(i)] $S$ noethersch.
+\item[(ii)] $S_0$ ist noethersch und $S_{+}$ endlich erzeugbares Ideal.
+\item[(iii)] $S_0$ ist noethersch und $S$ ist endlich erzeugbare $S_0$-Algebra.
+\end{enumerate}
+\end{DefBem}
+
+\begin{Bew}
+,,\textbf{(i) $\Rightarrow$ (ii)}``: $S_0\cong S/S_{+}$; $S_{+}$ endlich erzeugbar, da $S$ noethersch.
+$S_0$ also noethersch.
+
+,,\textbf{(iii) $\Rightarrow$ (i)}``: $S\cong \underbrace{S_0[X_1, \ldots, X_n]}_
+{\textrm{noethersch nach \myref{Satz}{Satz4}}}/I$ für ein $n\geq 0$
+und ein Ideal $I\subset S_0[X_1, \ldots, X_n]$. $S$ ist also noethersch.
+
+,,\textbf{(ii) $\Rightarrow$ (iii)}``: Sei $f_1, \ldots, f_r$ homogenes Erzeugersystem von $S_+$, 
+$S'\defeqr S_0[f_1, \ldots, f_r]\subset S$ die von den $f_i$ erzeugte
+$S_0$-Unteralgebra von $S$.
+
+\textbf{Beh.:} $S' = S$\\
+Zeige dazu: $S_i\subset S'$ für alle $i$.
+
+Beweis der Behauptung durch Induktion über $i$:
+
+$i=0$: \checkmark
+
+$i> 0$: $g\in S_i\stackrel{2.14(c)}{\Rightarrow}g=\sum_{\nu=1}^{r} g_{\nu}f_\nu$ mit
+$g_\nu\in S_{i-\textrm{deg}(f_\nu)}$\\
+$f_\nu\in S_{+} \Rightarrow \textrm{deg}(f_\nu)> 0 \Rightarrow i-\textrm{deg} f_\nu < i$
+$\overset{\text{I.V.}}{\Longrightarrow}$ $g_\nu\in S'$, also ist $g\in S'$
+
+\end{Bew}
+
+\begin{DefBem}
+\label{2.16} Sei $S=\bigoplus_{i\geq 0}S_i$ graduierter Ring.
+\begin{enumerate}
+
+\item Ein \emp{graduierter}\index{R-Modul!graduierter} $S$-Modul ist ein $S$-Modul $M$ zusammen mit
+einer Zerlegung $M=\bigoplus_{i\in\mathbb{Z}} M_i$ in abelsche Gruppen $M_i$,
+sodass für alle $i\in\mathbb{N}, j\in\mathbb{Z}$  gilt:
+$$S_i\cdot M_j\subseteq M_{i+j}$$
+
+\item Eine $S$-lineare Abbildung $\varphi:M\to M'$ zwischen graduierten $S$-Moduln
+heißt \emp{graderhaltend}\index{Abbildung!graderhaltende}, wenn $\varphi(M_i)\subseteq
+M_i'$ für alle $i\in \mathbb{Z}$
+
+\item Ein Ideal $I\subseteq S$ ist homogen $\Leftrightarrow I$ ist als $S$-Modul
+graduiert (mit der geerbten Graduierung)
+
+\item $\varphi: M \to M'$ vom Grad $d \Leftrightarrow \varphi(M_i) \subseteq
+      M_{i+d}$ für alle $i$.\\
+      Kern$(\varphi)$ ein graduierter Untermodul.
+      
+\item Ist $I \subseteq S$ homogenes Ideal, so ist $\varphi: S \to S/I =
+\bigoplus_{i \ge 0} S_i / (I \cap S_i)$ graderhaltend.\\
+Kern$(\varphi)$ ein graduierter Untermodul.
+
+\end{enumerate}
+\end{DefBem}
+
+\begin{nnBsp}
+Sei $M$ graduierter $S$-Modul (z.B.: $M=S$). Für $l \in \mathbb{Z}$ sei
+$M(l)$ der $S$-Modul $M$ mit der Graduierung $(M(l))_i\defeqr M_{l+i}$
+(insbes.: $(M(l))_0 = M_l$)
+
+$S_j(M(l))_i=S_j\cdot M_{l+i}\subseteq M_{j+l+i}=(M(l))_{i+j}$
+
+$M(l)$ heißt ($l$-facher) \emp{Twist}\index{Twist} von $M$.
+\end{nnBsp}
+
+\begin{Bew}
+  \begin{enumerate}
+    \item[(e)] Sei $\varphi: M \to M'$ lineare Abbildung von $S$-Moduln vom Grad
+    $d$. Sei $x \in \Kern(\varphi), x = \sum_{i \in \mathbb{Z}} x_i
+    \Rightarrow 0 = \varphi(x) = \sum_{i \in \mathbb{Z}} \underset{\in M'_{i +
+    d}}{\underbrace{\varphi(x_i)}}$ ist Zerlegung in homogene Komponenten
+    $\Rightarrow \varphi(x_i) = 0 \; \forall i \Rightarrow x_i \in \Kern(\varphi) \; \forall i \Rightarrow \Kern(\varphi)$ ist graduiert
+  \end{enumerate}
+\end{Bew}
+
+\begin{Beo}
+  Ist $\varphi: M \to M'$ vom Grad $d$, so ist $\varphi: M \to M'(d)$
+  graderhaltend. Dabei ist $M'(d) = M'$ als $S$-Modul, aber $(M'(d))_i = M_{d
+  +i}$. Genauso ist $\varphi: M(-d) \to M'$ graderhaltend.
+\end{Beo}
+
+\begin{nnBsp}
+  $M = S (=k[X_1, \dots, X_n]), f \in S$ homogen vom Grad $d \Rightarrow
+  \varphi_f: S \to S, g \mapsto f \cdot g$ ist linear vom Grad $d$.
+\end{nnBsp}
+
+\begin{Prop}
+  Sei $S = k[X_1, \dots, X_n], k$ ein Körper, $S = \bigoplus_{d = 0}^{\infty} S_d$.
+  $$\dim S_d^{(n)} = {n+d-1 \choose d} = \frac{1}{(n-1)!} \cdot (n+d-1) \cdots (d+1)$$
+  Das ist ein Polynom vom Grad $n-1$ in $d$ (mit Leitkoeffizient $\frac{1}{(n-1)!}$).
+\end{Prop}
+
+\begin{Bew}
+  Induktion über $n$:
+  \begin{description}
+    \item[$n=1$:] $S = k[X]$, $\dim S_d^{(1)} = {d \choose d} = 1$. \checkmark
+    \item[$n=2$:] $S = k[X_1,X_2]$, $\dim S_d^{(2)} = {d+1 \choose d} = d+1$. \checkmark
+    \item [$n>2$:] Induktion über $d$:
+      \begin{description}
+        \item[$d=0$:] $\dim S_0^{(n)} = {n-1 \choose 0} = 1$. \checkmark
+        \item[$d=1$:] $\dim S_1^{(n)} = {n \choose 1} = n$. \checkmark
+        \item[$d>1$:] $\dim S_d^{(n)}$ ist die Anzahl der Monome vom Grad $d$ in $X_1, \dots, X_n$.
+          
+          In $S_d^{(n)}$ gibt es $\dim S_d^{(n-1)}$ Monome in denen $X_n$ nicht
+          vorkommt und $\dim S_{d-1}^{(n)}$ Monome in denen $X_n$ vorkommt
+
+          $\overset{\text{I.V.}}{\Longrightarrow} \dim S_d^{(n)} = {n+d-2 \choose d} + {n+d-2
+            \choose d-1} = \frac{(n+d-2)!}{(d-1)! (n-2)!} (\frac{1}{d} + \frac{1}{n-1}) =
+          \frac{(n+d-2)!}{(d-1)! (n-2)!} \frac{n+d-1}{d(n-1)} = \frac{(n+d-1)!}{d!
+            (n-1)!} = {n+d-1 \choose d}$
+        \end{description}
+      \end{description}
+\end{Bew}
+
+\begin{Satz}[Hilbert-Polynom]
+\label{Satz6}
+  Sei $k$ ein Körper, $S=k[X_1, \dots, X_n], M$ ein endlich erzeugbarer
+  graduierter $S$-Modul.
+
+  Dann gibt es ein Polynom $P_M \in \mathbb{Q}[T]$ vom Grad $\le n -1 $ und ein
+  $d_0 \in \mathbb{N}$, sodass $P_M(d) = \dim_k M_d$ für alle $d \ge d_0$.
+
+  $P_M$ heißt das \emp{Hilbert-Polynom}\index{Hilbert!-Polynom} von $M$.
+\end{Satz}
+
+\begin{Bew}
+  Induktion über $n$:
+
+  $n=0$: $M$ ist endlich dimensionaler $k$-Vektorraum, also $M_d=0$ für alle $d
+  \gg 0, P_M = 0$ tut's.
+
+  $n\geq1$: Sei $\varphi: M \to M$ die $S$-lineare Abbildung $x \mapsto X_n x$,
+  $\varphi$ ist vom Grad $1$, Kern$(\varphi)$ ist also graduierter Untermodul,
+  ebenso ist Bild$(\varphi)$ graduierter Untermodul, also auch $M/X_n M$.
+
+  Dann ist \[ 0 \to \underset{=\Kern(\varphi)}{\underbrace{K}} \to M(-1) \overset{\varphi}{\to} M \to \FakRaum{M}{X_n M} \to 0 \]
+  exakte Sequenz von graderhaltenden Homomorphismen zwischen graduierten endlich
+  erzeugbaren $S$-Moduln.
+
+  Beachte: $M$ ist noetherscher Modul, da $S$ noethersch und $M$ endlich
+  erzeugbar, also ist $K$ auch endlich erzeugbar.
+
+  Alle $M_d, K_d,(M/X_n M)_d$ sind endlich dimensionale $k$-Vektorräume
+  $\Rightarrow$ für jedes $d \in \mathbb{Z}$ gilt: $\dim_k K_d -
+  \dim_k M(-1)_d + \dim_k M_d - \dim_k (M/X_n M)_d = 0$
+  bzw.
+  $$\dim_k M_d - \dim_k M_{d-1} = \dim_k (M/X_n M)_d - \dim_k K_d$$
+
+  \textbf{Beh.:} $M/X_n M$ und $K$ sind (in natürlicher Weise) $k[X_1, \dots, X_{n-1}]$-Moduln.
+
+  \textbf{Bew.:} klar für $M/X_n M$.\\
+  für $K$: Seien $y_1, \dots, y_r$ Erzeuger von $K$ als $S$-Modul. Sei $y =
+  \sum_{i = 1}^r f_i y_i \in K, f_i \in S$. Dann ist ohne Einschränkung $f_i
+  \in k[X_1, \dots, X_{n-1}]$, da $X_n \cdot y = 0$ für alle $i$.
+  \bigskip
+
+  Nach I.V. gibt es $\tilde{P} \in \mathbb{Q}[T]$ mit $\deg(\tilde{P})
+  \le n-2$ und $\tilde{P} = \dim_k (M/X_n M)_d - \dim_k K_d =
+  \dim_k M_d - \dim_k M_{d-1} \defeql H(d) - H(d-1)$.
+
+  Sei ${T \choose k} \defeqr \frac{1}{k!} T (T-1) \dots (T-k+1) \in
+  \mathbb{Q}[T], \deg{T \choose k} = k$.\\
+  Schreibe $\tilde{P} = \sum_{k = 0}^{n-1} c_k {T \choose k}$. Es gilt ${T
+  \choose k} - {T-1 \choose k-1} = {T \choose k+1}$. Setze $P_1(T) \defeqr
+  \sum_{k=0}^{n-2} c_k {T \choose k+1}, \deg(P_1) \le n-1$ und
+  $P_1(d)-P_1(d-1) = \tilde{P}(d)$. $P_M \defeqr P_1 +c$, sodass $P_M(d_0) = \dim_k M_{d_0}$.
+\end{Bew}
+
+\begin{Def}
+\label{2.18}
+Sei $S$ endlich erzeugte graduierte $k$-Algebra, $S_0 = k$, $M$ endlich
+erzeugbarer graduierter $S$-Modul. Dann heißt die formale Potenzreihe
+$$H_M(t) \defeqr \sum_{i=0}^{\infty} (\dim_k M_i) t^i$$
+\emp{Hilbert-Reihe}\index{Hilbert!-Reihe} zu $M$.
+\end{Def}
+
+\begin{nnBsp}
+  \begin{enumerate}
+    \item[1.)] $M = S = k[X] \Rightarrow \dim M_i = 1 \text{ für alle }i
+               \Rightarrow H_M(t) = \sum_{i=0}^{\infty}t^i = \frac{1}{1-t}$.
+    \item[2.)] $M = S = k[X_1, \dots, X_n]$
+
+               \textbf{Beh.:} $H_M(t) = \frac{1}{(1-t)^n}$\\
+               \textbf{Bew.:} $\frac{1}{(1-t)^n} = \left( \sum_{i=0}^{\infty}
+               t^i\right)^n = \sum_{i=0}^{\infty} c_i t^i$ mit $c_i =
+               \#$Partitionen von $i$ durch höchstens $n$ Summanden = Anzahl der
+               Monome vom Grad $i$ in $X_1, \dots, X_n$.
+    \item[3.)] $M = S = k[Y] (\cong k[X^d]), \deg Y = d > 0 \Rightarrow
+               H_M(t) = \sum_{i = 0}^{\infty} t^{d \cdot i} = \frac{1}{1-t^d}$\\
+               $\dim M_i = \begin{cases}1: & d \mid i\\ 0: & \text{sonst} \end{cases}$
+  \end{enumerate}
+\end{nnBsp}
+
+\begin{nnSatz}[$6'$]
+  Wie in \myref{Definition}{2.18} seien $S$ endlich erzeugbare graduierte $k$-Algebra, $M$ endlich erzeugbarer graduierter $S$-Modul.\\
+  $f_1, \dots, f_r$ homogene Erzeuger von $S$ als $k$-Algebra, $d_i \defeqr \deg f_i$.\\
+  Dann gibt es ein Polynom $F(t) \in \mathbb{Z}[t]$, sodass gilt:
+  $$H_M(t) = \frac{F(t)}{(1-t^{d_1}) \cdot (1-t^{d_2}) \cdot ... \cdot 
+  (1-t^{d_r})}$$
+\end{nnSatz}
+
+\begin{Bew}
+  Induktion über $r$:
+
+  $r=0$: $S = S_0 = k$ $\Rightarrow$ $\dim_k M_i = 0$ für $i \gg 0$
+  $\Rightarrow$ $F(t) \defeqr H_M(t)$ ist Polynom in $\mathbb{Z}[t]$.
+
+  $r>0$: Multiplikation mit $f_r$ gibt exakte Sequenz von graderhaltenden
+  $S$-Modul-Homomorphismen:
+  $$0 \to K \to M \overset{\cdot f_r}{\to} M(d_r) \to (M/f_r M)(d_r) \to 0$$
+  Wie in Beweis von \myref{Satz}{Satz6} sind $K$ und $Q \defeqr (M/f_r M)$ Moduln
+  über $S' \defeqr k[f_1, \dots, f_{r-1}] \subset S$ $\Rightarrow$ für jedes $i
+  \ge 0$ ist
+  $$ -\dim M_i + \dim M_{i + d_r} = \dim Q_{i+d_r} - \dim K_i$$
+  $$\Rightarrow \sum_{i=0}^{\infty} \dim M_{i+d_r} t^{i+d_r} - t^{d_r}
+  \sum_{i=0}^{\infty} \dim M_i t^i = \sum_{i=0}^{\infty} \dim
+  Q_{i+d_r} t^{i+d_r} - t^{d_r} \sum_{i=0}^{\infty} \dim K_i t^i$$
+  $$\Rightarrow H_M(t) - \sum_{i=0}^{d_r -1} \dim M_i t^i - t^{d_r} H_M(t)
+  = H_Q(t) - \sum_{i=0}^{d_r - 1} \dim Q_i t^i - t^{d_r} H_K(t)$$
+  $$(1 - t^{d_r})H_M(t) = H_Q(t) - t^{d_r} H_K(t) + \sum_{i=0}^{d_r-1} \dim M_i t^i - \sum_{i=0}^{d_r - 1} \dim Q_i t^i$$
+  Nach Induktionsvoraussetzung gibt es $F_1(t), F_2(t) \in \mathbb{Z}[t]$ mit
+  $$(1-t^{d_r})H_M(t)= \frac{F_1(t)}{\prod_{i=1}^{r-1}(1-t^{d_i})} - \frac{t^{d_r} F_2(t)}{\prod_{i=1}^{r-1}(1-t^{d_i})} +
+  \underbrace{\sum_{i=0}^{d_r-1} \dim M_i t^i - \sum_{i=0}^{d_r - 1} \dim Q_i t^i}_{=: G(t)}$$
+  $\Rightarrow$ Behauptung mit $F(t) = F_1(t) - t^{d_r}F_2(t) + G(t)\cdot \displaystyle\prod_{i=1}^{r-1}(1-t^{d_i})$
+\end{Bew}

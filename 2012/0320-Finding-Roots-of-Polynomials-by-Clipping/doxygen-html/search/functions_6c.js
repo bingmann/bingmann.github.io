@@ -1,0 +1,1 @@
+var searchData=[["ltxinterval",["ltxInterval",["../clipper_8cc.html#aad6fbaa429f1e9c7a8c6f037ba1f8f48",1,"clipper.cc"]]],["ltxnum",["ltxNum",["../clipper_8cc.html#a8b304208e23f8e20dea9bc02fd1556be",1,"ltxNum(std::string os):&#160;clipper.cc"],["../clipper_8cc.html#aa7dbd04bfdd152fa2205be6e0030b047",1,"ltxNum(Numeric n):&#160;clipper.cc"]]]];

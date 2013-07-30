@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2006/SDIOS06/sdios06/lib/jpeg/jccolor.c - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal8.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2006/">2006</a> / <a href="/2006/SDIOS06/">SDIOS06</a> / <a href="/2006/SDIOS06/sdios06/">sdios06</a> / <a href="/2006/SDIOS06/sdios06/lib/">lib</a> / <a href="/2006/SDIOS06/sdios06/lib/jpeg/">jpeg</a> / <a href="/2006/SDIOS06/sdios06/lib/jpeg/jccolor.c.html">jccolor.c</a> (<a href="/2006/SDIOS06/sdios06/lib/jpeg/jccolor.c">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">/*</span>
+<span class="comment"> * jccolor.c</span>
+<span class="comment"> *</span>
+<span class="comment"> * Copyright (C) 1991-1996, Thomas G. Lane.</span>
+<span class="comment"> * This file is part of the Independent JPEG Group's software.</span>
+<span class="comment"> * For conditions of distribution and use, see the accompanying README file.</span>
+<span class="comment"> *</span>
+<span class="comment"> * This file contains input colorspace conversion routines.</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#define</span><span class="normal"> JPEG_INTERNALS</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"jinclude.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"jpeglib.h"</span>
+
+
+<span class="comment">/* Private subobject */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">jpeg_color_converter</span><span class="normal"> pub</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* public fields */</span>
+
+<span class="normal">  </span><span class="comment">/* Private state for RGB-&gt;YCC conversion */</span>
+<span class="normal">  INT32 </span><span class="symbol">*</span><span class="normal"> rgb_ycc_tab</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* =&gt; table for RGB to YCbCr conversion */</span>
+<span class="cbracket">}</span><span class="normal"> my_color_converter</span><span class="symbol">;</span>
+
+<span class="keyword">typedef</span><span class="normal"> my_color_converter </span><span class="symbol">*</span><span class="normal"> my_cconvert_ptr</span><span class="symbol">;</span>
+
+
+<span class="comment">/**************** RGB -&gt; YCbCr conversion: most common case **************/</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * YCbCr is defined per CCIR 601-1, except that Cb and Cr are</span>
+<span class="comment"> * normalized to the range 0..MAXJSAMPLE rather than -0.5 .. 0.5.</span>
+<span class="comment"> * The conversion equations to be implemented are therefore</span>
+<span class="comment"> *	Y  =  0.29900 * R + 0.58700 * G + 0.11400 * B</span>
+<span class="comment"> *	Cb = -0.16874 * R - 0.33126 * G + 0.50000 * B  + CENTERJSAMPLE</span>
+<span class="comment"> *	Cr =  0.50000 * R - 0.41869 * G - 0.08131 * B  + CENTERJSAMPLE</span>
+<span class="comment"> * (These numbers are derived from TIFF 6.0 section 21, dated 3-June-92.)</span>
+<span class="comment"> * Note: older versions of the IJG code used a zero offset of MAXJSAMPLE/2,</span>
+<span class="comment"> * rather than CENTERJSAMPLE, for Cb and Cr.  This gave equal positive and</span>
+<span class="comment"> * negative swings for Cb/Cr, but meant that grayscale values (Cb=Cr=0)</span>
+<span class="comment"> * were not represented exactly.  Now we sacrifice exact representation of</span>
+<span class="comment"> * maximum red and maximum blue in order to get exact grayscales.</span>
+<span class="comment"> *</span>
+<span class="comment"> * To avoid floating-point arithmetic, we represent the fractional constants</span>
+<span class="comment"> * as integers scaled up by 2^16 (about 4 digits precision); we have to divide</span>
+<span class="comment"> * the products by 2^16, with appropriate rounding, to get the correct answer.</span>
+<span class="comment"> *</span>
+<span class="comment"> * For even more speed, we avoid doing any multiplications in the inner loop</span>
+<span class="comment"> * by precalculating the constants times R,G,B for all possible values.</span>
+<span class="comment"> * For 8-bit JSAMPLEs this is very reasonable (only 256 entries per table);</span>
+<span class="comment"> * for 12-bit samples it is still acceptable.  It's not very reasonable for</span>
+<span class="comment"> * 16-bit samples, but if you want lossless storage you shouldn't be changing</span>
+<span class="comment"> * colorspace anyway.</span>
+<span class="comment"> * The CENTERJSAMPLE offsets and the rounding fudge-factor of 0.5 are included</span>
+<span class="comment"> * in the tables to save adding them separately in the inner loop.</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#define</span><span class="normal"> SCALEBITS	</span><span class="number">16</span><span class="normal">	</span><span class="comment">/* speediest right-shift on some machines */</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">CBCR_OFFSET</span><span class="normal">	</span><span class="symbol">((</span><span class="normal">INT32</span><span class="symbol">)</span><span class="normal"> CENTERJSAMPLE </span><span class="symbol">&lt;&lt;</span><span class="normal"> SCALEBITS</span><span class="symbol">)</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">ONE_HALF</span><span class="normal">	</span><span class="symbol">((</span><span class="normal">INT32</span><span class="symbol">)</span><span class="normal"> </span><span class="number">1</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">SCALEBITS</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">))</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">FIX</span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">)</span><span class="normal">		</span><span class="symbol">((</span><span class="normal">INT32</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">x</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="symbol">(</span><span class="number">1L</span><span class="symbol">&lt;&lt;</span><span class="normal">SCALEBITS</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">0.5</span><span class="symbol">))</span>
+
+<span class="comment">/* We allocate one big table and divide it up into eight parts, instead of</span>
+<span class="comment"> * doing eight alloc_small requests.  This lets us use a single table base</span>
+<span class="comment"> * address, which can be held in a register in the inner loops on many</span>
+<span class="comment"> * machines (more than can hold all eight addresses, anyway).</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#define</span><span class="normal"> R_Y_OFF		</span><span class="number">0</span><span class="normal">			</span><span class="comment">/* offset to R =&gt; Y section */</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">G_Y_OFF</span><span class="normal">		</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">*(</span><span class="normal">MAXJSAMPLE</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">))</span><span class="normal">	</span><span class="comment">/* offset to G =&gt; Y section */</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">B_Y_OFF</span><span class="normal">		</span><span class="symbol">(</span><span class="number">2</span><span class="symbol">*(</span><span class="normal">MAXJSAMPLE</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">))</span><span class="normal">	</span><span class="comment">/* etc. */</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">R_CB_OFF</span><span class="normal">	</span><span class="symbol">(</span><span class="number">3</span><span class="symbol">*(</span><span class="normal">MAXJSAMPLE</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">))</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">G_CB_OFF</span><span class="normal">	</span><span class="symbol">(</span><span class="number">4</span><span class="symbol">*(</span><span class="normal">MAXJSAMPLE</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">))</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">B_CB_OFF</span><span class="normal">	</span><span class="symbol">(</span><span class="number">5</span><span class="symbol">*(</span><span class="normal">MAXJSAMPLE</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">))</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="usertype">R_CR_OFF</span><span class="normal">	B_CB_OFF		</span><span class="comment">/* B=&gt;Cb, R=&gt;Cr are the same */</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">G_CR_OFF</span><span class="normal">	</span><span class="symbol">(</span><span class="number">6</span><span class="symbol">*(</span><span class="normal">MAXJSAMPLE</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">))</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">B_CR_OFF</span><span class="normal">	</span><span class="symbol">(</span><span class="number">7</span><span class="symbol">*(</span><span class="normal">MAXJSAMPLE</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">))</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">TABLE_SIZE</span><span class="normal">	</span><span class="symbol">(</span><span class="number">8</span><span class="symbol">*(</span><span class="normal">MAXJSAMPLE</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">))</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Initialize for RGB-&gt;YCC colorspace conversion.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">rgb_ycc_start</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_cconvert_ptr</span><span class="normal"> cconvert </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_cconvert_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">cconvert</span><span class="symbol">;</span>
+<span class="normal">  INT32 </span><span class="symbol">*</span><span class="normal"> rgb_ycc_tab</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">INT32</span><span class="normal"> i</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Allocate and fill in the conversion tables. */</span>
+<span class="normal">  cconvert</span><span class="symbol">-&gt;</span><span class="normal">rgb_ycc_tab </span><span class="symbol">=</span><span class="normal"> rgb_ycc_tab </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">INT32 </span><span class="symbol">*)</span>
+<span class="normal">    </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">mem</span><span class="symbol">-&gt;</span><span class="normal">alloc_small</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> JPOOL_IMAGE</span><span class="symbol">,</span>
+<span class="normal">				</span><span class="symbol">(</span><span class="normal">TABLE_SIZE </span><span class="symbol">*</span><span class="normal"> </span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="normal">INT32</span><span class="symbol">)));</span>
+
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;=</span><span class="normal"> MAXJSAMPLE</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    rgb_ycc_tab</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">+</span><span class="normal">R_Y_OFF</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="function">FIX</span><span class="symbol">(</span><span class="number">0.29900</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> i</span><span class="symbol">;</span>
+<span class="normal">    rgb_ycc_tab</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">+</span><span class="normal">G_Y_OFF</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="function">FIX</span><span class="symbol">(</span><span class="number">0.58700</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> i</span><span class="symbol">;</span>
+<span class="normal">    rgb_ycc_tab</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">+</span><span class="normal">B_Y_OFF</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="function">FIX</span><span class="symbol">(</span><span class="number">0.11400</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> i     </span><span class="symbol">+</span><span class="normal"> ONE_HALF</span><span class="symbol">;</span>
+<span class="normal">    rgb_ycc_tab</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">+</span><span class="normal">R_CB_OFF</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(-</span><span class="function">FIX</span><span class="symbol">(</span><span class="number">0.16874</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> i</span><span class="symbol">;</span>
+<span class="normal">    rgb_ycc_tab</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">+</span><span class="normal">G_CB_OFF</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(-</span><span class="function">FIX</span><span class="symbol">(</span><span class="number">0.33126</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> i</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* We use a rounding fudge-factor of 0.5-epsilon for Cb and Cr.</span>
+<span class="comment">     * This ensures that the maximum output will round to MAXJSAMPLE</span>
+<span class="comment">     * not MAXJSAMPLE+1, and thus that we don't have to range-limit.</span>
+<span class="comment">     */</span>
+<span class="normal">    rgb_ycc_tab</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">+</span><span class="normal">B_CB_OFF</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="function">FIX</span><span class="symbol">(</span><span class="number">0.50000</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> i    </span><span class="symbol">+</span><span class="normal"> CBCR_OFFSET </span><span class="symbol">+</span><span class="normal"> ONE_HALF</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span>
+<span class="comment">/*  B=&gt;Cb and R=&gt;Cr tables are the same</span>
+<span class="comment">    rgb_ycc_tab[i+R_CR_OFF] = FIX(0.50000) * i    + CBCR_OFFSET + ONE_HALF-1;</span>
+<span class="comment">*/</span>
+<span class="normal">    rgb_ycc_tab</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">+</span><span class="normal">G_CR_OFF</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(-</span><span class="function">FIX</span><span class="symbol">(</span><span class="number">0.41869</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> i</span><span class="symbol">;</span>
+<span class="normal">    rgb_ycc_tab</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">+</span><span class="normal">B_CR_OFF</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(-</span><span class="function">FIX</span><span class="symbol">(</span><span class="number">0.08131</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> i</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Convert some rows of samples to the JPEG colorspace.</span>
+<span class="comment"> *</span>
+<span class="comment"> * Note that we change from the application's interleaved-pixel format</span>
+<span class="comment"> * to our internal noninterleaved, one-plane-per-component format.</span>
+<span class="comment"> * The input buffer is therefore three times as wide as the output buffer.</span>
+<span class="comment"> *</span>
+<span class="comment"> * A starting row offset is provided only for the output buffer.  The caller</span>
+<span class="comment"> * can easily adjust the passed input_buf value to accommodate any row</span>
+<span class="comment"> * offset required on that side.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">rgb_ycc_convert</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span>
+<span class="normal">		 </span><span class="usertype">JSAMPARRAY</span><span class="normal"> input_buf</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">JSAMPIMAGE</span><span class="normal"> output_buf</span><span class="symbol">,</span>
+<span class="normal">		 </span><span class="usertype">JDIMENSION</span><span class="normal"> output_row</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> num_rows</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_cconvert_ptr</span><span class="normal"> cconvert </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_cconvert_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">cconvert</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="type">int</span><span class="normal"> r</span><span class="symbol">,</span><span class="normal"> g</span><span class="symbol">,</span><span class="normal"> b</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> INT32 </span><span class="symbol">*</span><span class="normal"> ctab </span><span class="symbol">=</span><span class="normal"> cconvert</span><span class="symbol">-&gt;</span><span class="normal">rgb_ycc_tab</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JSAMPROW</span><span class="normal"> inptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JSAMPROW</span><span class="normal"> outptr0</span><span class="symbol">,</span><span class="normal"> outptr1</span><span class="symbol">,</span><span class="normal"> outptr2</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JDIMENSION</span><span class="normal"> col</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JDIMENSION</span><span class="normal"> num_cols </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_width</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(--</span><span class="normal">num_rows </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    inptr </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">input_buf</span><span class="symbol">++;</span>
+<span class="normal">    outptr0 </span><span class="symbol">=</span><span class="normal"> output_buf</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">][</span><span class="normal">output_row</span><span class="symbol">];</span>
+<span class="normal">    outptr1 </span><span class="symbol">=</span><span class="normal"> output_buf</span><span class="symbol">[</span><span class="number">1</span><span class="symbol">][</span><span class="normal">output_row</span><span class="symbol">];</span>
+<span class="normal">    outptr2 </span><span class="symbol">=</span><span class="normal"> output_buf</span><span class="symbol">[</span><span class="number">2</span><span class="symbol">][</span><span class="normal">output_row</span><span class="symbol">];</span>
+<span class="normal">    output_row</span><span class="symbol">++;</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">col </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> col </span><span class="symbol">&lt;</span><span class="normal"> num_cols</span><span class="symbol">;</span><span class="normal"> col</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      r </span><span class="symbol">=</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(</span><span class="normal">inptr</span><span class="symbol">[</span><span class="normal">RGB_RED</span><span class="symbol">]);</span>
+<span class="normal">      g </span><span class="symbol">=</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(</span><span class="normal">inptr</span><span class="symbol">[</span><span class="normal">RGB_GREEN</span><span class="symbol">]);</span>
+<span class="normal">      b </span><span class="symbol">=</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(</span><span class="normal">inptr</span><span class="symbol">[</span><span class="normal">RGB_BLUE</span><span class="symbol">]);</span>
+<span class="normal">      inptr </span><span class="symbol">+=</span><span class="normal"> RGB_PIXELSIZE</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="comment">/* If the inputs are 0..MAXJSAMPLE, the outputs of these equations</span>
+<span class="comment">       * must be too; we do not need an explicit range-limiting operation.</span>
+<span class="comment">       * Hence the value being shifted is never negative, and we don't</span>
+<span class="comment">       * need the general RIGHT_SHIFT macro.</span>
+<span class="comment">       */</span>
+<span class="normal">      </span><span class="comment">/* Y */</span>
+<span class="normal">      outptr0</span><span class="symbol">[</span><span class="normal">col</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="symbol">((</span><span class="normal">ctab</span><span class="symbol">[</span><span class="normal">r</span><span class="symbol">+</span><span class="normal">R_Y_OFF</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> ctab</span><span class="symbol">[</span><span class="normal">g</span><span class="symbol">+</span><span class="normal">G_Y_OFF</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> ctab</span><span class="symbol">[</span><span class="normal">b</span><span class="symbol">+</span><span class="normal">B_Y_OFF</span><span class="symbol">])</span>
+<span class="normal">		 </span><span class="symbol">&gt;&gt;</span><span class="normal"> SCALEBITS</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="comment">/* Cb */</span>
+<span class="normal">      outptr1</span><span class="symbol">[</span><span class="normal">col</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="symbol">((</span><span class="normal">ctab</span><span class="symbol">[</span><span class="normal">r</span><span class="symbol">+</span><span class="normal">R_CB_OFF</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> ctab</span><span class="symbol">[</span><span class="normal">g</span><span class="symbol">+</span><span class="normal">G_CB_OFF</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> ctab</span><span class="symbol">[</span><span class="normal">b</span><span class="symbol">+</span><span class="normal">B_CB_OFF</span><span class="symbol">])</span>
+<span class="normal">		 </span><span class="symbol">&gt;&gt;</span><span class="normal"> SCALEBITS</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="comment">/* Cr */</span>
+<span class="normal">      outptr2</span><span class="symbol">[</span><span class="normal">col</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="symbol">((</span><span class="normal">ctab</span><span class="symbol">[</span><span class="normal">r</span><span class="symbol">+</span><span class="normal">R_CR_OFF</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> ctab</span><span class="symbol">[</span><span class="normal">g</span><span class="symbol">+</span><span class="normal">G_CR_OFF</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> ctab</span><span class="symbol">[</span><span class="normal">b</span><span class="symbol">+</span><span class="normal">B_CR_OFF</span><span class="symbol">])</span>
+<span class="normal">		 </span><span class="symbol">&gt;&gt;</span><span class="normal"> SCALEBITS</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/**************** Cases other than RGB -&gt; YCbCr **************/</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Convert some rows of samples to the JPEG colorspace.</span>
+<span class="comment"> * This version handles RGB-&gt;grayscale conversion, which is the same</span>
+<span class="comment"> * as the RGB-&gt;Y portion of RGB-&gt;YCbCr.</span>
+<span class="comment"> * We assume rgb_ycc_start has been called (we only use the Y tables).</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">rgb_gray_convert</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span>
+<span class="normal">		  </span><span class="usertype">JSAMPARRAY</span><span class="normal"> input_buf</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">JSAMPIMAGE</span><span class="normal"> output_buf</span><span class="symbol">,</span>
+<span class="normal">		  </span><span class="usertype">JDIMENSION</span><span class="normal"> output_row</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> num_rows</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_cconvert_ptr</span><span class="normal"> cconvert </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_cconvert_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">cconvert</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="type">int</span><span class="normal"> r</span><span class="symbol">,</span><span class="normal"> g</span><span class="symbol">,</span><span class="normal"> b</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> INT32 </span><span class="symbol">*</span><span class="normal"> ctab </span><span class="symbol">=</span><span class="normal"> cconvert</span><span class="symbol">-&gt;</span><span class="normal">rgb_ycc_tab</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JSAMPROW</span><span class="normal"> inptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JSAMPROW</span><span class="normal"> outptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JDIMENSION</span><span class="normal"> col</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JDIMENSION</span><span class="normal"> num_cols </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_width</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(--</span><span class="normal">num_rows </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    inptr </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">input_buf</span><span class="symbol">++;</span>
+<span class="normal">    outptr </span><span class="symbol">=</span><span class="normal"> output_buf</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">][</span><span class="normal">output_row</span><span class="symbol">];</span>
+<span class="normal">    output_row</span><span class="symbol">++;</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">col </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> col </span><span class="symbol">&lt;</span><span class="normal"> num_cols</span><span class="symbol">;</span><span class="normal"> col</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      r </span><span class="symbol">=</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(</span><span class="normal">inptr</span><span class="symbol">[</span><span class="normal">RGB_RED</span><span class="symbol">]);</span>
+<span class="normal">      g </span><span class="symbol">=</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(</span><span class="normal">inptr</span><span class="symbol">[</span><span class="normal">RGB_GREEN</span><span class="symbol">]);</span>
+<span class="normal">      b </span><span class="symbol">=</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(</span><span class="normal">inptr</span><span class="symbol">[</span><span class="normal">RGB_BLUE</span><span class="symbol">]);</span>
+<span class="normal">      inptr </span><span class="symbol">+=</span><span class="normal"> RGB_PIXELSIZE</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="comment">/* Y */</span>
+<span class="normal">      outptr</span><span class="symbol">[</span><span class="normal">col</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="symbol">((</span><span class="normal">ctab</span><span class="symbol">[</span><span class="normal">r</span><span class="symbol">+</span><span class="normal">R_Y_OFF</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> ctab</span><span class="symbol">[</span><span class="normal">g</span><span class="symbol">+</span><span class="normal">G_Y_OFF</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> ctab</span><span class="symbol">[</span><span class="normal">b</span><span class="symbol">+</span><span class="normal">B_Y_OFF</span><span class="symbol">])</span>
+<span class="normal">		 </span><span class="symbol">&gt;&gt;</span><span class="normal"> SCALEBITS</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Convert some rows of samples to the JPEG colorspace.</span>
+<span class="comment"> * This version handles Adobe-style CMYK-&gt;YCCK conversion,</span>
+<span class="comment"> * where we convert R=1-C, G=1-M, and B=1-Y to YCbCr using the same</span>
+<span class="comment"> * conversion as above, while passing K (black) unchanged.</span>
+<span class="comment"> * We assume rgb_ycc_start has been called.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">cmyk_ycck_convert</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span>
+<span class="normal">		   </span><span class="usertype">JSAMPARRAY</span><span class="normal"> input_buf</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">JSAMPIMAGE</span><span class="normal"> output_buf</span><span class="symbol">,</span>
+<span class="normal">		   </span><span class="usertype">JDIMENSION</span><span class="normal"> output_row</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> num_rows</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_cconvert_ptr</span><span class="normal"> cconvert </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_cconvert_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">cconvert</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="type">int</span><span class="normal"> r</span><span class="symbol">,</span><span class="normal"> g</span><span class="symbol">,</span><span class="normal"> b</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> INT32 </span><span class="symbol">*</span><span class="normal"> ctab </span><span class="symbol">=</span><span class="normal"> cconvert</span><span class="symbol">-&gt;</span><span class="normal">rgb_ycc_tab</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JSAMPROW</span><span class="normal"> inptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JSAMPROW</span><span class="normal"> outptr0</span><span class="symbol">,</span><span class="normal"> outptr1</span><span class="symbol">,</span><span class="normal"> outptr2</span><span class="symbol">,</span><span class="normal"> outptr3</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JDIMENSION</span><span class="normal"> col</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JDIMENSION</span><span class="normal"> num_cols </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_width</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(--</span><span class="normal">num_rows </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    inptr </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">input_buf</span><span class="symbol">++;</span>
+<span class="normal">    outptr0 </span><span class="symbol">=</span><span class="normal"> output_buf</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">][</span><span class="normal">output_row</span><span class="symbol">];</span>
+<span class="normal">    outptr1 </span><span class="symbol">=</span><span class="normal"> output_buf</span><span class="symbol">[</span><span class="number">1</span><span class="symbol">][</span><span class="normal">output_row</span><span class="symbol">];</span>
+<span class="normal">    outptr2 </span><span class="symbol">=</span><span class="normal"> output_buf</span><span class="symbol">[</span><span class="number">2</span><span class="symbol">][</span><span class="normal">output_row</span><span class="symbol">];</span>
+<span class="normal">    outptr3 </span><span class="symbol">=</span><span class="normal"> output_buf</span><span class="symbol">[</span><span class="number">3</span><span class="symbol">][</span><span class="normal">output_row</span><span class="symbol">];</span>
+<span class="normal">    output_row</span><span class="symbol">++;</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">col </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> col </span><span class="symbol">&lt;</span><span class="normal"> num_cols</span><span class="symbol">;</span><span class="normal"> col</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      r </span><span class="symbol">=</span><span class="normal"> MAXJSAMPLE </span><span class="symbol">-</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(</span><span class="normal">inptr</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]);</span>
+<span class="normal">      g </span><span class="symbol">=</span><span class="normal"> MAXJSAMPLE </span><span class="symbol">-</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(</span><span class="normal">inptr</span><span class="symbol">[</span><span class="number">1</span><span class="symbol">]);</span>
+<span class="normal">      b </span><span class="symbol">=</span><span class="normal"> MAXJSAMPLE </span><span class="symbol">-</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(</span><span class="normal">inptr</span><span class="symbol">[</span><span class="number">2</span><span class="symbol">]);</span>
+<span class="normal">      </span><span class="comment">/* K passes through as-is */</span>
+<span class="normal">      outptr3</span><span class="symbol">[</span><span class="normal">col</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> inptr</span><span class="symbol">[</span><span class="number">3</span><span class="symbol">];</span><span class="normal">	</span><span class="comment">/* don't need GETJSAMPLE here */</span>
+<span class="normal">      inptr </span><span class="symbol">+=</span><span class="normal"> </span><span class="number">4</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="comment">/* If the inputs are 0..MAXJSAMPLE, the outputs of these equations</span>
+<span class="comment">       * must be too; we do not need an explicit range-limiting operation.</span>
+<span class="comment">       * Hence the value being shifted is never negative, and we don't</span>
+<span class="comment">       * need the general RIGHT_SHIFT macro.</span>
+<span class="comment">       */</span>
+<span class="normal">      </span><span class="comment">/* Y */</span>
+<span class="normal">      outptr0</span><span class="symbol">[</span><span class="normal">col</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="symbol">((</span><span class="normal">ctab</span><span class="symbol">[</span><span class="normal">r</span><span class="symbol">+</span><span class="normal">R_Y_OFF</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> ctab</span><span class="symbol">[</span><span class="normal">g</span><span class="symbol">+</span><span class="normal">G_Y_OFF</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> ctab</span><span class="symbol">[</span><span class="normal">b</span><span class="symbol">+</span><span class="normal">B_Y_OFF</span><span class="symbol">])</span>
+<span class="normal">		 </span><span class="symbol">&gt;&gt;</span><span class="normal"> SCALEBITS</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="comment">/* Cb */</span>
+<span class="normal">      outptr1</span><span class="symbol">[</span><span class="normal">col</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="symbol">((</span><span class="normal">ctab</span><span class="symbol">[</span><span class="normal">r</span><span class="symbol">+</span><span class="normal">R_CB_OFF</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> ctab</span><span class="symbol">[</span><span class="normal">g</span><span class="symbol">+</span><span class="normal">G_CB_OFF</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> ctab</span><span class="symbol">[</span><span class="normal">b</span><span class="symbol">+</span><span class="normal">B_CB_OFF</span><span class="symbol">])</span>
+<span class="normal">		 </span><span class="symbol">&gt;&gt;</span><span class="normal"> SCALEBITS</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="comment">/* Cr */</span>
+<span class="normal">      outptr2</span><span class="symbol">[</span><span class="normal">col</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="symbol">((</span><span class="normal">ctab</span><span class="symbol">[</span><span class="normal">r</span><span class="symbol">+</span><span class="normal">R_CR_OFF</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> ctab</span><span class="symbol">[</span><span class="normal">g</span><span class="symbol">+</span><span class="normal">G_CR_OFF</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> ctab</span><span class="symbol">[</span><span class="normal">b</span><span class="symbol">+</span><span class="normal">B_CR_OFF</span><span class="symbol">])</span>
+<span class="normal">		 </span><span class="symbol">&gt;&gt;</span><span class="normal"> SCALEBITS</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Convert some rows of samples to the JPEG colorspace.</span>
+<span class="comment"> * This version handles grayscale output with no conversion.</span>
+<span class="comment"> * The source can be either plain grayscale or YCbCr (since Y == gray).</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">grayscale_convert</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span>
+<span class="normal">		   </span><span class="usertype">JSAMPARRAY</span><span class="normal"> input_buf</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">JSAMPIMAGE</span><span class="normal"> output_buf</span><span class="symbol">,</span>
+<span class="normal">		   </span><span class="usertype">JDIMENSION</span><span class="normal"> output_row</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> num_rows</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JSAMPROW</span><span class="normal"> inptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JSAMPROW</span><span class="normal"> outptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JDIMENSION</span><span class="normal"> col</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JDIMENSION</span><span class="normal"> num_cols </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_width</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> instride </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">input_components</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(--</span><span class="normal">num_rows </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    inptr </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">input_buf</span><span class="symbol">++;</span>
+<span class="normal">    outptr </span><span class="symbol">=</span><span class="normal"> output_buf</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">][</span><span class="normal">output_row</span><span class="symbol">];</span>
+<span class="normal">    output_row</span><span class="symbol">++;</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">col </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> col </span><span class="symbol">&lt;</span><span class="normal"> num_cols</span><span class="symbol">;</span><span class="normal"> col</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      outptr</span><span class="symbol">[</span><span class="normal">col</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> inptr</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">];</span><span class="normal">	</span><span class="comment">/* don't need GETJSAMPLE() here */</span>
+<span class="normal">      inptr </span><span class="symbol">+=</span><span class="normal"> instride</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Convert some rows of samples to the JPEG colorspace.</span>
+<span class="comment"> * This version handles multi-component colorspaces without conversion.</span>
+<span class="comment"> * We assume input_components == num_components.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">null_convert</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span>
+<span class="normal">	      </span><span class="usertype">JSAMPARRAY</span><span class="normal"> input_buf</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">JSAMPIMAGE</span><span class="normal"> output_buf</span><span class="symbol">,</span>
+<span class="normal">	      </span><span class="usertype">JDIMENSION</span><span class="normal"> output_row</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> num_rows</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JSAMPROW</span><span class="normal"> inptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JSAMPROW</span><span class="normal"> outptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JDIMENSION</span><span class="normal"> col</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="type">int</span><span class="normal"> ci</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> nc </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JDIMENSION</span><span class="normal"> num_cols </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_width</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(--</span><span class="normal">num_rows </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">/* It seems fastest to make a separate pass for each component. */</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> ci </span><span class="symbol">&lt;</span><span class="normal"> nc</span><span class="symbol">;</span><span class="normal"> ci</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      inptr </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">input_buf</span><span class="symbol">;</span>
+<span class="normal">      outptr </span><span class="symbol">=</span><span class="normal"> output_buf</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">][</span><span class="normal">output_row</span><span class="symbol">];</span>
+<span class="normal">      </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">col </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> col </span><span class="symbol">&lt;</span><span class="normal"> num_cols</span><span class="symbol">;</span><span class="normal"> col</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	outptr</span><span class="symbol">[</span><span class="normal">col</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> inptr</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">];</span><span class="normal"> </span><span class="comment">/* don't need GETJSAMPLE() here */</span>
+<span class="normal">	inptr </span><span class="symbol">+=</span><span class="normal"> nc</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    input_buf</span><span class="symbol">++;</span>
+<span class="normal">    output_row</span><span class="symbol">++;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Empty method for start_pass.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">null_method</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="comment">/* no work needed */</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Module initialization routine for input colorspace conversion.</span>
+<span class="comment"> */</span>
+
+<span class="function">GLOBAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">jinit_color_converter</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_cconvert_ptr</span><span class="normal"> cconvert</span><span class="symbol">;</span>
+
+<span class="normal">  cconvert </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_cconvert_ptr</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">mem</span><span class="symbol">-&gt;</span><span class="normal">alloc_small</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> JPOOL_IMAGE</span><span class="symbol">,</span>
+<span class="normal">				</span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="normal">my_color_converter</span><span class="symbol">));</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">cconvert </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">jpeg_color_converter</span><span class="normal"> </span><span class="symbol">*)</span><span class="normal"> cconvert</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="comment">/* set start_pass to null method until we find out differently */</span>
+<span class="normal">  cconvert</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">start_pass </span><span class="symbol">=</span><span class="normal"> null_method</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Make sure input_components agrees with in_color_space */</span>
+<span class="normal">  </span><span class="keyword">switch</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">in_color_space</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">case</span><span class="normal"> JCS_GRAYSCALE</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">input_components </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_IN_COLORSPACE</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">break</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">case</span><span class="normal"> JCS_RGB</span><span class="symbol">:</span>
+<span class="preproc">#if</span><span class="normal"> RGB_PIXELSIZE </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">3</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">input_components </span><span class="symbol">!=</span><span class="normal"> RGB_PIXELSIZE</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_IN_COLORSPACE</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* else share code with YCbCr */</span>
+
+<span class="normal">  </span><span class="keyword">case</span><span class="normal"> JCS_YCbCr</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">input_components </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">3</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_IN_COLORSPACE</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">break</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">case</span><span class="normal"> JCS_CMYK</span><span class="symbol">:</span>
+<span class="normal">  </span><span class="keyword">case</span><span class="normal"> JCS_YCCK</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">input_components </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">4</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_IN_COLORSPACE</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">break</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">default</span><span class="symbol">:</span><span class="normal">			</span><span class="comment">/* JCS_UNKNOWN can be anything */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">input_components </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_IN_COLORSPACE</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="comment">/* Check num_components, set conversion method based on requested space */</span>
+<span class="normal">  </span><span class="keyword">switch</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">jpeg_color_space</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">case</span><span class="normal"> JCS_GRAYSCALE</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_J_COLORSPACE</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">in_color_space </span><span class="symbol">==</span><span class="normal"> JCS_GRAYSCALE</span><span class="symbol">)</span>
+<span class="normal">      cconvert</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">color_convert </span><span class="symbol">=</span><span class="normal"> grayscale_convert</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">in_color_space </span><span class="symbol">==</span><span class="normal"> JCS_RGB</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      cconvert</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">start_pass </span><span class="symbol">=</span><span class="normal"> rgb_ycc_start</span><span class="symbol">;</span>
+<span class="normal">      cconvert</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">color_convert </span><span class="symbol">=</span><span class="normal"> rgb_gray_convert</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">in_color_space </span><span class="symbol">==</span><span class="normal"> JCS_YCbCr</span><span class="symbol">)</span>
+<span class="normal">      cconvert</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">color_convert </span><span class="symbol">=</span><span class="normal"> grayscale_convert</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">else</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_CONVERSION_NOTIMPL</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">break</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">case</span><span class="normal"> JCS_RGB</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">3</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_J_COLORSPACE</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">in_color_space </span><span class="symbol">==</span><span class="normal"> JCS_RGB </span><span class="symbol">&amp;&amp;</span><span class="normal"> RGB_PIXELSIZE </span><span class="symbol">==</span><span class="normal"> </span><span class="number">3</span><span class="symbol">)</span>
+<span class="normal">      cconvert</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">color_convert </span><span class="symbol">=</span><span class="normal"> null_convert</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">else</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_CONVERSION_NOTIMPL</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">break</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">case</span><span class="normal"> JCS_YCbCr</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">3</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_J_COLORSPACE</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">in_color_space </span><span class="symbol">==</span><span class="normal"> JCS_RGB</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      cconvert</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">start_pass </span><span class="symbol">=</span><span class="normal"> rgb_ycc_start</span><span class="symbol">;</span>
+<span class="normal">      cconvert</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">color_convert </span><span class="symbol">=</span><span class="normal"> rgb_ycc_convert</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">in_color_space </span><span class="symbol">==</span><span class="normal"> JCS_YCbCr</span><span class="symbol">)</span>
+<span class="normal">      cconvert</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">color_convert </span><span class="symbol">=</span><span class="normal"> null_convert</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">else</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_CONVERSION_NOTIMPL</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">break</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">case</span><span class="normal"> JCS_CMYK</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">4</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_J_COLORSPACE</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">in_color_space </span><span class="symbol">==</span><span class="normal"> JCS_CMYK</span><span class="symbol">)</span>
+<span class="normal">      cconvert</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">color_convert </span><span class="symbol">=</span><span class="normal"> null_convert</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">else</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_CONVERSION_NOTIMPL</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">break</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">case</span><span class="normal"> JCS_YCCK</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">4</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_J_COLORSPACE</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">in_color_space </span><span class="symbol">==</span><span class="normal"> JCS_CMYK</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      cconvert</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">start_pass </span><span class="symbol">=</span><span class="normal"> rgb_ycc_start</span><span class="symbol">;</span>
+<span class="normal">      cconvert</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">color_convert </span><span class="symbol">=</span><span class="normal"> cmyk_ycck_convert</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">in_color_space </span><span class="symbol">==</span><span class="normal"> JCS_YCCK</span><span class="symbol">)</span>
+<span class="normal">      cconvert</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">color_convert </span><span class="symbol">=</span><span class="normal"> null_convert</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">else</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_CONVERSION_NOTIMPL</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">break</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">default</span><span class="symbol">:</span><span class="normal">			</span><span class="comment">/* allow null conversion of JCS_UNKNOWN */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">jpeg_color_space </span><span class="symbol">!=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">in_color_space </span><span class="symbol">||</span>
+<span class="normal">	cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components </span><span class="symbol">!=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">input_components</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_CONVERSION_NOTIMPL</span><span class="symbol">);</span>
+<span class="normal">    cconvert</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">color_convert </span><span class="symbol">=</span><span class="normal"> null_convert</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

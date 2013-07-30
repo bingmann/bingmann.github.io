@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - bioscom</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;TC: int bioscom( int cmd, char byte, int port )</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- prototype in bios.h<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- RS232 communications<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- cmd = 0 to set comm parms to value in byte<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1 to send char in byte out on RS232 line<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2 to receive char<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3 to return current port status<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- port = 0 for COM1<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1 for COM2<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2 for COM3<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3 for COM4<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- byte = bitwise OR of following bits<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0x02 = 7 data bits &nbsp; &nbsp;0x00 = 1 stop bit<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0x03 = 8 data bits &nbsp; &nbsp;0x04 = 2 stop bits<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0x00 == no parity;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0x08 == odd parity;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0x18 == even parity<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0x00 &nbsp; &nbsp; 110 bps &nbsp; &nbsp; &nbsp; 0x20 &nbsp; &nbsp; 150 bps<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0x40 &nbsp; &nbsp; 300 bps &nbsp; &nbsp; &nbsp; 0x60 &nbsp; &nbsp; 600 bps<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0x80 &nbsp; &nbsp; 1200 bps &nbsp; &nbsp; &nbsp;0xa0 &nbsp; &nbsp; 2400 bps<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0xc0 &nbsp; &nbsp; 4800 bps &nbsp; &nbsp; &nbsp;0xe0 &nbsp; &nbsp; 9600 bps<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- returns 16-bit integer, upper 8 bits are status &amp; lower 8 bits<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;depending on cmd sent<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;&#9474;7&#9474;6&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474; &nbsp;low byte (AL) &nbsp;modem status<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472; delta clear to send<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472; delta data set ready<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; trailing edge ring detector<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; delta receive line signal detect<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; clear to send<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; data set ready<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; ring indicator<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; receive line signal detect<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;&#9474;F&#9474;E&#9474;D&#9474;C&#9474;B&#9474;A&#9474;9&#9474;8&#9474; &nbsp;high byte (AH) &nbsp;line status<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472; data ready<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472; overrun error<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; parity error<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; framing error<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; break detect<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; transmit holding register empty<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; transmit shift register empty<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; time out<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- MS C uses <a href="">_bios_serialcomm</a>()<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see &nbsp;<a href="int-int_14.html">INT 14</a><br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">bioscom</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

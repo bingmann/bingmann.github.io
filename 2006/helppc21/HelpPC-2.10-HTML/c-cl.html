@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - cl</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Microsoft C Options (v6.0)</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;CL [options] [filenames] [libraries link-options]</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/AT &nbsp; &nbsp; &nbsp; Tiny Memory Model; combined code and data limited to 64K<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/AS &nbsp; &nbsp; &nbsp; Small Memory Model; code and data limited to 64K each<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/AM &nbsp; &nbsp; &nbsp; Medium Memory Model; data is limited to 64K<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/AC &nbsp; &nbsp; &nbsp; Compact Memory Model; code is limited to 64K<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/AL &nbsp; &nbsp; &nbsp; Large Memory Model; unlimited code and data but arrays<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;are limited to 64K<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/AH &nbsp; &nbsp; &nbsp; Huge Memory Model; unlimited code, data and array size<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Astring &nbsp;where string is compose of the following:<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Code Pointer Control</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;s &nbsp; &nbsp; all code pointers are near<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;l &nbsp; &nbsp; all code pointers are far<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Data Pointer Control</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;n &nbsp; &nbsp; all data pointers are near<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;f &nbsp; &nbsp; all data pointer are far<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;h &nbsp; &nbsp; all data pointers are huge<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Segment Setup Control</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;d &nbsp; &nbsp; stack segment (SS) defaults to data segment (DS)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;u &nbsp; &nbsp; stack segment (SS) is not equal to data segment (DS);<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;DS is loaded on function entry<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;w &nbsp; &nbsp; stack segment (SS) is not equal to data segment (DS);<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;DS is NOT loaded on function entry<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/B1[path] used to invoke the large version of the compiler C1L.EXE;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;normally used when the compiler runs out of heap space<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/B2 &nbsp; &nbsp; &nbsp; invokes large compiler version pass 2<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/B3 &nbsp; &nbsp; &nbsp; invokes large compiler version pass 3<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/C &nbsp; &nbsp; &nbsp; &nbsp;preserves file comments when preprocessing a file<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/c &nbsp; &nbsp; &nbsp; &nbsp;do not link, create .OBJ file only<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/D&lt;string&gt; defines string as a preprocessor constant. &nbsp;If string is<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;of the form "ID=xxx" then "ID" represents the value "xxx"<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;If no equals sign is present, "ID" has the value 0. &nbsp; If<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;an equals sign is present without a value, ID has the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;value 1.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/E &nbsp; &nbsp; &nbsp; &nbsp;output from preprocessor is written to stdout with<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;interspersed #line directives.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/EP &nbsp; &nbsp; &nbsp; output from preprocessor is written to stdout without,<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;adding #line directives.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/F&lt;size&gt; &nbsp;sets stack to &lt;size&gt; bytes. &nbsp;Size must be hexadecimal.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Fa[file] generate assembly listing. &nbsp;Filename defaults to source<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;file with .ASM extension.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Fb&lt;file&gt; creates bound executable. &nbsp;Should be used only with /Lp.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Fc[file] generates combined assembly/source listing. &nbsp; The filename<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;defaults to the source file name with the .COD extension.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Fe&lt;file&gt; creates the executable with specified name<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Fl[file] generates object code listing. &nbsp; Default file name is the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;source file name with a .COD extension.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Fm[file] generate a link MAP file. &nbsp;Default file name is the source<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;file name with the extension .MAP.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Fo&lt;file&gt; generate and object file using the name &lt;file&gt;.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/FPa &nbsp; &nbsp; &nbsp;generates floating point calls and selects the alternate<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;math library.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/FPc &nbsp; &nbsp; &nbsp;generates floating point calls and selects the emulation<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;library.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/FPc87 &nbsp; &nbsp;generates floating point calls and selects the 80x87<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;library.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/FPi &nbsp; &nbsp; &nbsp;generates inline 80x87 instructions and selects the 80x87<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;library. &nbsp;Default floating point option.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/FPi87 &nbsp; &nbsp;generates floating point calls and selects the 80x87<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;library.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Fr[file] generates a standard PWB Source Browser Database. &nbsp;The<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;default name is the source file with the .SBR extension.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/FR[file] generates a standard PWB Source Browser Database. &nbsp;The<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;default name is the source file with the .SBR extension.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Fs &nbsp; &nbsp; &nbsp; generate a source file listing with .LST extension.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Fx &nbsp; &nbsp; &nbsp; generate a cross reference listing with .CRF extension.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/G0 &nbsp; &nbsp; &nbsp; generate code using 8088/8086 instruction set<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/G1 &nbsp; &nbsp; &nbsp; generate code using 80188/80186 instruction set<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/G2 &nbsp; &nbsp; &nbsp; generate code using 80286 instruction set<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Gc &nbsp; &nbsp; &nbsp; generate code using FORTRAN/PASCAL calling and naming<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;conventions<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Gd &nbsp; &nbsp; &nbsp; generate code using standard C calling and naming<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;conventions (default)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Ge &nbsp; &nbsp; &nbsp; generate code using stack checking routines (default)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Gi &nbsp; &nbsp; &nbsp; incremental compile if used with /qc; only functions that<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;have changed are compiled; &nbsp;implies /Li option<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Gm &nbsp; &nbsp; &nbsp; strings are generated in the CONST segment<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Gr &nbsp; &nbsp; &nbsp; _fastcall functions are enabled. &nbsp; Parameters can be<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;passed via registers instead of on the stack<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Gs &nbsp; &nbsp; &nbsp; suppress generation of stack checking code<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Gt[num] &nbsp;places data items larger than "num" bytes into different<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;segments. The default value for "num is 256 bytes.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Gw &nbsp; &nbsp; &nbsp; generate Windows functions entry/exit code<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/GW &nbsp; &nbsp; &nbsp; generates more efficient Windows functions entry/exit<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;code. &nbsp;Use /Gw for callback routines.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/H&lt;num&gt; &nbsp; external name length restriction (default 31)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/HELP &nbsp; &nbsp; calls QuickHelp utility. &nbsp;/help is also valid.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/I&lt;path&gt; &nbsp;inserts &lt;path&gt; in front of current include search path<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/J &nbsp; &nbsp; &nbsp; &nbsp;all chars should be unsigned (default is signed)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Lc &nbsp; &nbsp; &nbsp; linker is to generate compatibility mode programs.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Li[num] &nbsp;incremental link using ILINK instead of LINK. &nbsp;Results<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;in larger EXE size.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Lp &nbsp; &nbsp; &nbsp; linker is to generate protected mode executable.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Lr &nbsp; &nbsp; &nbsp; linker is to create real mode executable.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/link &lt;info&gt; passes library names in &lt;info&gt; to LINK<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/MA&lt;opt&gt; &nbsp;passes &lt;opt&gt; to MASM if .ASM files found on command line<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/MD &nbsp; &nbsp; &nbsp; creates Dynamic Link Library for OS/2; &nbsp;The same as:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/ALw /FPi /G2 /DDLL /DMT. &nbsp; No library search record is defined<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/ML &nbsp; &nbsp; &nbsp; links the C run-time library as part of the Dynamic Link<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Library. &nbsp;The library search record is set to LLIBCDLL.LIB.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/MT &nbsp; &nbsp; &nbsp; enable multithread program support in OS/2<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/ND&lt;dseg&gt; set data segment name to &lt;dseg&gt;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/NM&lt;name&gt; set module name to &lt;name&gt;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/nologo &nbsp; suppress sign-on banner display<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/NT&lt;name&gt; set code segment name to &lt;name&gt;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/O[opts] &nbsp;where "opts" is a string containing the following:<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;a &nbsp; relax alias checking<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;c &nbsp; enable block level local common expressions<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;d &nbsp; disable all optimizations<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;e &nbsp; enable global register optimization<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;g &nbsp; enable global optimizations and global common<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;expressions<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;i &nbsp; enable generation of intrinsic functions<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;l &nbsp; enable loop optimization<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;n &nbsp; disable unsafe loop optimization (default)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;p &nbsp; improve consistency in floating-point calculations<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;r &nbsp; disable inline returns from functions<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;s &nbsp; optimize for size<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;t &nbsp; optimize for speed (default)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;w &nbsp; assume no aliasing except across function calls<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;x &nbsp; maximize optimization (/Ocegilt/Gs)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;z &nbsp; enable maximum loop and global-register allocation<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;optimization<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/P &nbsp; &nbsp; &nbsp; &nbsp; preprocess source generating .I intermediate file<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/qc &nbsp; &nbsp; &nbsp; &nbsp;quick compile option. &nbsp;Incompatible with the following<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; options: /Fa /Fc /Fl /FPa /FPc /FPc87 /Fs /Gm /H /Ow /Zc<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Sl&lt;wid&gt; &nbsp; set listing file line width to &lt;wid&gt; (79-132, default 79)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Sp&lt;len&gt; &nbsp; set page length &nbsp;(15-255, default 63)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Ss&lt;stitle&gt; set source listing subtitle<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/St&lt;title&gt; set source listing title<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Ta&lt;file&gt; &nbsp;&lt;file&gt; is to be treated as an assembler source file<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; regardless of the file extension<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Tc&lt;file&gt; &nbsp;&lt;file&gt; is to be treated as an C source file regardless<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; of the file extension<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/u &nbsp; &nbsp; &nbsp; &nbsp; undefines all predefined indentifiers<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/U&lt;id&gt; &nbsp; &nbsp; undefines &lt;id&gt; predefined indentifier<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/V&lt;ver&gt; &nbsp; &nbsp;version string &lt;ver&gt; is copied to the .OBJ file<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/w &nbsp; &nbsp; &nbsp; &nbsp; suppress compiler warnings (same as /W0)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/W0 &nbsp; &nbsp; &nbsp; &nbsp;suppress compiler warnings<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/W&lt;n&gt; &nbsp; &nbsp; &nbsp;warning level (1..4) 1=fewer, 4=more warnings (default 1)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/WX &nbsp; &nbsp; &nbsp; &nbsp;all warnings should be treated as fatal<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/X &nbsp; &nbsp; &nbsp; &nbsp; ignore standard places in include path search<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Za &nbsp; &nbsp; &nbsp; &nbsp;disables Microsoft language extensions insuring ANSI<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; code compatibility<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Zc &nbsp; &nbsp; &nbsp; &nbsp;pascal functions are to be case insensitive<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Zd &nbsp; &nbsp; &nbsp; &nbsp;generate line number information for debuggers<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Ze &nbsp; &nbsp; &nbsp; &nbsp;enable Microsoft C language extensions<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Zg &nbsp; &nbsp; &nbsp; &nbsp;generate function prototypes and display via stdout<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; without compiling.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Zi &nbsp; &nbsp; &nbsp; &nbsp;generate symbolic debugging information<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Zl &nbsp; &nbsp; &nbsp; &nbsp;suppress library search record generation<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Zp1 &nbsp; &nbsp; &nbsp; structures are not to be packed (Turbo C default)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Zp2 &nbsp; &nbsp; &nbsp; pack structure on word boundaries<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Zp4 &nbsp; &nbsp; &nbsp; pack structure on dword boundary<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Zr &nbsp; &nbsp; &nbsp; &nbsp;generate code to check null pointers and out of range<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; far pointers<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;/Zs&lt;file&gt; &nbsp;perform syntax check only<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Environment Variables</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;CL &nbsp; &nbsp; &nbsp; &nbsp; default input files and command line options<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;INCLUDE &nbsp; &nbsp;paths to search for include files (separated by ";")<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;LIB &nbsp; &nbsp; &nbsp; &nbsp;paths to search for library files (separated by ";")<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;LINK &nbsp; &nbsp; &nbsp; command line options for link<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;TMP &nbsp; &nbsp; &nbsp; &nbsp;path where temporary files are created<br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">cl</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

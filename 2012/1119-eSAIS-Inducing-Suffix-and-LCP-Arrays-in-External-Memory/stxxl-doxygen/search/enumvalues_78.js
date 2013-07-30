@@ -1,0 +1,1 @@
+var searchData=[["x",["X",["../structstxxl_1_1priority__queue__local_1_1compute__N.html#a9f64447dfb56d7de5be78d1fe54a69afade7006da3594091ef633552bb51945ee",1,"stxxl::priority_queue_local::compute_N::X()"],["../classstxxl_1_1PRIORITY__QUEUE__GENERATOR.html#a6c752f21ae6154632bd67d44cb161f52a28b16f5b7fc763f137d5a18a49ddb119",1,"stxxl::PRIORITY_QUEUE_GENERATOR::X()"]]]];

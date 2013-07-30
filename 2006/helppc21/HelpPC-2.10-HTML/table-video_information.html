@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - video information</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Video Information Tables</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;BIOS Data Area Fields</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp;Address &nbsp; Size &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Description</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;40:49 &nbsp; byte &nbsp; &nbsp;Current video mode &nbsp;(see <a href="int-int_10_0.html">VIDEO MODE</a>)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;40:4A &nbsp; word &nbsp; &nbsp;Number of screen columns<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;40:4C &nbsp; word &nbsp; &nbsp;Size of video regen buffer in bytes<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;40:4E &nbsp; word &nbsp; &nbsp;Starting address in video regen buffer (offset)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;40:50 &nbsp;8 words &nbsp;Cursor position of pages 1-8, high order<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;byte=row, low order byte=column<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;40:60 &nbsp; byte &nbsp; &nbsp;Ending (bottom) scan line for cursor<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;40:61 &nbsp; byte &nbsp; &nbsp;Starting (top) scan line for cursor<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;40:62 &nbsp; byte &nbsp; &nbsp;Active display page number<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;40:63 &nbsp; word &nbsp; &nbsp;Base port address for active <a href="hw-6845.html">6845</a>&nbsp;CRT controller<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3B4h = mono, 3D4h = color<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;40:65 &nbsp; byte &nbsp; &nbsp;6845 CRT mode control register value (port 3x8h)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;EGA/VGA values emulate those of the MDA/CGA<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;40:66 &nbsp; byte &nbsp; &nbsp;CGA current color palette setting (port 3d9h)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;EGA and VGA values emulate the CGA<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;40:84 &nbsp; byte &nbsp; &nbsp;Rows on the screen (less 1, EGA+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;40:85 &nbsp; word &nbsp; &nbsp;Point height of character matrix (EGA+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;40:87 &nbsp; byte &nbsp; &nbsp;Video mode options (EGA+)<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9474;7&#9474;6&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474; Video mode options (EGA+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472; 1=alphanumeric cursor emulation enabled<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472; 1=video subsystem attached to monochrome<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472; reserved<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472; 1=video subsystem is inactive<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; reserved<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9492;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; video RAM &nbsp;00-64K &nbsp;10-192K &nbsp;01-128K &nbsp;11-256K<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; video mode number passed to <a href="int-int_10.html">INT 10</a>, function 0<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;40:88 &nbsp; byte &nbsp; &nbsp;EGA feature bit switches, emulated on VGA<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9474;7&#9474;6&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474; EGA feature bit switches (EGA+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472; EGA SW1 config (1=off)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472; EGA SW2 config (1=off)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472; EGA SW3 config (1=off)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472; EGA SW4 config (1=off)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; Input FEAT0 (ISR0 bit 5) after output on FCR0<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; Input FEAT0 (ISR0 bit 6) after output on FCR0<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; Input FEAT1 (ISR0 bit 5) after output on FCR1<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; Input FEAT1 (ISR0 bit 6) after output on FCR1<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;40:89 &nbsp; byte &nbsp; &nbsp;Video display data area (MCGA and VGA)<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9474;7&#9474;6&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474; Video display data area (MCGA and VGA)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472; 1=VGA is active<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472; 1=gray scale is enabled<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472; 1=using monochrome monitor<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472; 1=default palette loading is disabled<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; see table below<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; reserved<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; &nbsp;1=display switching enabled<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; alphanumeric scan lines (see table below)<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Bit7 &nbsp; Bit4 &nbsp; &nbsp; Scan Line information</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0 &nbsp; &nbsp; &nbsp;0 &nbsp; &nbsp; &nbsp; 350 line mode<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0 &nbsp; &nbsp; &nbsp;1 &nbsp; &nbsp; &nbsp; 400 line mode<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1 &nbsp; &nbsp; &nbsp;0 &nbsp; &nbsp; &nbsp; 200 line mode<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1 &nbsp; &nbsp; &nbsp;1 &nbsp; &nbsp; &nbsp; reserved<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;40:8A &nbsp; byte &nbsp; &nbsp;Display Combination Code (DCC) table index (EGA+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;40:A8 &nbsp;dword &nbsp; &nbsp;BIOS Video Save/Override Pointer Table address<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;EGA / VGA Related Tables</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Video Save/Override Pointer Table (pointer at 40:A8):</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;00 &nbsp;dword &nbsp;Video Parameter Table pointer<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;04 &nbsp;dword &nbsp;Dynamic Parameter Save Area pointer (EGA, VGA)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;08 &nbsp;dword &nbsp;Alphanumeric Character Set Override pointer<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0C &nbsp;dword &nbsp;Graphics Character Set Override pointer<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;10 &nbsp;dword &nbsp;Secondary Save Pointer Table pointer (VGA)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;14 &nbsp;dword &nbsp;reserved, set to 0000:0000<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;18 &nbsp;dword &nbsp;reserved, set to 0000:0000<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Video Parameter Table</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;00 &nbsp; byte &nbsp; &nbsp;number of displayed character columns<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;01 &nbsp; byte &nbsp; &nbsp;number of displayed screen rows minus 1<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;02 &nbsp; byte &nbsp; &nbsp;character matrix height in points<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;03 &nbsp; word &nbsp; &nbsp;video buffer size in bytes<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;05 &nbsp; dword &nbsp; contents of sequencer registers 1-4<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;09 &nbsp; byte &nbsp; &nbsp;misc. output register values<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0A &nbsp;25bytes &nbsp;contents of CRTC registers 0-18h<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;23 &nbsp;20bytes &nbsp;contents of attribute controller regs 0-13h<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;37 &nbsp;9 bytes &nbsp;contents of graphics controller regs 0-8<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Dynamic Parameter Save Area</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;00 &nbsp;16bytes &nbsp; contents of graphics controller pallette regs<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;10 &nbsp; &nbsp;byte &nbsp; &nbsp;contents of graphics controller overscan reg<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;11 &nbsp;239bytes &nbsp;reserved<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Alphanumeric Character Set Override</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;00 &nbsp; byte &nbsp; &nbsp;length of each character definition in bytes<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;01 &nbsp; byte &nbsp; &nbsp;character generator RAM bank<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;02 &nbsp; word &nbsp; &nbsp;count of characters defined<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;04 &nbsp; word &nbsp; &nbsp;first character code in table<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;06 &nbsp; dword &nbsp; pointer to character font definition table<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0A &nbsp; byte &nbsp; &nbsp;number of character rows displayed<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0B &nbsp; nbytes &nbsp;array of applicable video modes<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0B+n byte &nbsp; &nbsp;FFh end of mode list marker<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Graphics Character Set Override</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;00 &nbsp; byte &nbsp; &nbsp;count of displayed character rows<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;01 &nbsp; word &nbsp; &nbsp;length of each character definition in bytes<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;03 &nbsp; dword &nbsp; pointer to character font definition table<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;07 &nbsp; nbytes &nbsp;array of applicable video modes<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;07+n byte &nbsp; &nbsp;FFh end of mode list marker<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Secondary Save Pointer Table</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;00 &nbsp;word &nbsp; length of table in bytes<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;02 &nbsp;dword &nbsp;pointer to display combination code table<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;06 &nbsp;dword &nbsp;pointer to secondary alphanumeric char set override<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0A &nbsp;dword &nbsp;pointer to user palette profile table &nbsp;(VGA)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0E &nbsp;dword &nbsp;reserved<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;12 &nbsp;dword &nbsp;reserved<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;16 &nbsp;dword &nbsp;reserved<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Display Combination Code Table</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;00 &nbsp; byte &nbsp; number of table entries<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;01 &nbsp; byte &nbsp; DCC table version number<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;02 &nbsp; byte &nbsp; maximum display type code<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;03 &nbsp; byte &nbsp; reserved<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;04 &nbsp;n words array valid display combinations:<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0,0 entry &nbsp;0 &nbsp;no display<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0,1 entry &nbsp;1 &nbsp;MDPA<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0,2 entry &nbsp;2 &nbsp;CGA<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;2,1 entry &nbsp;3 &nbsp;MDPA + CGA<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0,4 entry &nbsp;4 &nbsp;EGA<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;4,1 entry &nbsp;5 &nbsp;EGA + MDPA<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0,5 entry &nbsp;6 &nbsp;MEGA<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;2,5 entry &nbsp;7 &nbsp;MEGA + CGA<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0,6 entry &nbsp;8 &nbsp;PGC<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1,6 entry &nbsp;9 &nbsp;PGC + MDPA<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;5,6 entry 10 &nbsp;PGC + MEGA<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0,8 entry 11 &nbsp;CVGA<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1,8 entry 12 &nbsp;CVGA + MDPA<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0,7 entry 13 &nbsp;MVGA<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;2,7 entry 14 &nbsp;MVGA + CGA<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;2,6 entry 15 &nbsp;MVGA + PGC<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Secondary Alpha Mode Auxillary Character Generator Table</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;00 &nbsp; byte &nbsp; &nbsp;bytes per character<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;01 &nbsp; byte &nbsp; &nbsp;block to load<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;02 &nbsp; byte &nbsp; &nbsp;reserved<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;03 &nbsp; dword &nbsp; font table pointer<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;07 &nbsp; nbytes &nbsp;array of mode values for this font<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;07+n byte &nbsp; &nbsp;FFh end of mode list marker<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Palette Profile Table (VGA only)</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;00 &nbsp; byte &nbsp; &nbsp;1 - enable underlining in all alphanumeric modes<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0 - enable underlining in monochrome alpha modes<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;-1 - disable underlining in all alpha modes<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;01 &nbsp; byte &nbsp; reserved<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;02 &nbsp; word &nbsp; reserved<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;04 &nbsp; word &nbsp; count of attribute controller regs in table<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;06 &nbsp; word &nbsp; first attribute controller register number<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;08 &nbsp; dword &nbsp;pointer to attribute controller reg table<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0C &nbsp; word &nbsp; count of video DAC color registers in table<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0E &nbsp; word &nbsp; first video DAC color register number<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;10 &nbsp; dword &nbsp;video DAC color register table pointer<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;14 &nbsp; nbytes array of applicable video modes for this font<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;14+n byte &nbsp; FFh end of video mode list marker<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see also <a href="table-BIOS_Data_Area.html">BIOS Data Area</a><br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see <a href="int-int_10_1b.html">INT 10,1B</a>&nbsp;for Dynamic Video State Table and Video Static<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Functionality Table<br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">video information</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

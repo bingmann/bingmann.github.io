@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2006/SDIOS06/sdios06/lib/jpeg/jdmainct.c - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal6.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2006/">2006</a> / <a href="/2006/SDIOS06/">SDIOS06</a> / <a href="/2006/SDIOS06/sdios06/">sdios06</a> / <a href="/2006/SDIOS06/sdios06/lib/">lib</a> / <a href="/2006/SDIOS06/sdios06/lib/jpeg/">jpeg</a> / <a href="/2006/SDIOS06/sdios06/lib/jpeg/jdmainct.c.html">jdmainct.c</a> (<a href="/2006/SDIOS06/sdios06/lib/jpeg/jdmainct.c">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">/*</span>
+<span class="comment"> * jdmainct.c</span>
+<span class="comment"> *</span>
+<span class="comment"> * Copyright (C) 1994-1996, Thomas G. Lane.</span>
+<span class="comment"> * This file is part of the Independent JPEG Group's software.</span>
+<span class="comment"> * For conditions of distribution and use, see the accompanying README file.</span>
+<span class="comment"> *</span>
+<span class="comment"> * This file contains the main buffer controller for decompression.</span>
+<span class="comment"> * The main buffer lies between the JPEG decompressor proper and the</span>
+<span class="comment"> * post-processor; it holds downsampled data in the JPEG colorspace.</span>
+<span class="comment"> *</span>
+<span class="comment"> * Note that this code is bypassed in raw-data mode, since the application</span>
+<span class="comment"> * supplies the equivalent of the main buffer in that case.</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#define</span><span class="normal"> JPEG_INTERNALS</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"jinclude.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"jpeglib.h"</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * In the current system design, the main buffer need never be a full-image</span>
+<span class="comment"> * buffer; any full-height buffers will be found inside the coefficient or</span>
+<span class="comment"> * postprocessing controllers.  Nonetheless, the main controller is not</span>
+<span class="comment"> * trivial.  Its responsibility is to provide context rows for upsampling/</span>
+<span class="comment"> * rescaling, and doing this in an efficient fashion is a bit tricky.</span>
+<span class="comment"> *</span>
+<span class="comment"> * Postprocessor input data is counted in "row groups".  A row group</span>
+<span class="comment"> * is defined to be (v_samp_factor * DCT_scaled_size / min_DCT_scaled_size)</span>
+<span class="comment"> * sample rows of each component.  (We require DCT_scaled_size values to be</span>
+<span class="comment"> * chosen such that these numbers are integers.  In practice DCT_scaled_size</span>
+<span class="comment"> * values will likely be powers of two, so we actually have the stronger</span>
+<span class="comment"> * condition that DCT_scaled_size / min_DCT_scaled_size is an integer.)</span>
+<span class="comment"> * Upsampling will typically produce max_v_samp_factor pixel rows from each</span>
+<span class="comment"> * row group (times any additional scale factor that the upsampler is</span>
+<span class="comment"> * applying).</span>
+<span class="comment"> *</span>
+<span class="comment"> * The coefficient controller will deliver data to us one iMCU row at a time;</span>
+<span class="comment"> * each iMCU row contains v_samp_factor * DCT_scaled_size sample rows, or</span>
+<span class="comment"> * exactly min_DCT_scaled_size row groups.  (This amount of data corresponds</span>
+<span class="comment"> * to one row of MCUs when the image is fully interleaved.)  Note that the</span>
+<span class="comment"> * number of sample rows varies across components, but the number of row</span>
+<span class="comment"> * groups does not.  Some garbage sample rows may be included in the last iMCU</span>
+<span class="comment"> * row at the bottom of the image.</span>
+<span class="comment"> *</span>
+<span class="comment"> * Depending on the vertical scaling algorithm used, the upsampler may need</span>
+<span class="comment"> * access to the sample row(s) above and below its current input row group.</span>
+<span class="comment"> * The upsampler is required to set need_context_rows TRUE at global selection</span>
+<span class="comment"> * time if so.  When need_context_rows is FALSE, this controller can simply</span>
+<span class="comment"> * obtain one iMCU row at a time from the coefficient controller and dole it</span>
+<span class="comment"> * out as row groups to the postprocessor.</span>
+<span class="comment"> *</span>
+<span class="comment"> * When need_context_rows is TRUE, this controller guarantees that the buffer</span>
+<span class="comment"> * passed to postprocessing contains at least one row group's worth of samples</span>
+<span class="comment"> * above and below the row group(s) being processed.  Note that the context</span>
+<span class="comment"> * rows "above" the first passed row group appear at negative row offsets in</span>
+<span class="comment"> * the passed buffer.  At the top and bottom of the image, the required</span>
+<span class="comment"> * context rows are manufactured by duplicating the first or last real sample</span>
+<span class="comment"> * row; this avoids having special cases in the upsampling inner loops.</span>
+<span class="comment"> *</span>
+<span class="comment"> * The amount of context is fixed at one row group just because that's a</span>
+<span class="comment"> * convenient number for this controller to work with.  The existing</span>
+<span class="comment"> * upsamplers really only need one sample row of context.  An upsampler</span>
+<span class="comment"> * supporting arbitrary output rescaling might wish for more than one row</span>
+<span class="comment"> * group of context when shrinking the image; tough, we don't handle that.</span>
+<span class="comment"> * (This is justified by the assumption that downsizing will be handled mostly</span>
+<span class="comment"> * by adjusting the DCT_scaled_size values, so that the actual scale factor at</span>
+<span class="comment"> * the upsample step needn't be much less than one.)</span>
+<span class="comment"> *</span>
+<span class="comment"> * To provide the desired context, we have to retain the last two row groups</span>
+<span class="comment"> * of one iMCU row while reading in the next iMCU row.  (The last row group</span>
+<span class="comment"> * can't be processed until we have another row group for its below-context,</span>
+<span class="comment"> * and so we have to save the next-to-last group too for its above-context.)</span>
+<span class="comment"> * We could do this most simply by copying data around in our buffer, but</span>
+<span class="comment"> * that'd be very slow.  We can avoid copying any data by creating a rather</span>
+<span class="comment"> * strange pointer structure.  Here's how it works.  We allocate a workspace</span>
+<span class="comment"> * consisting of M+2 row groups (where M = min_DCT_scaled_size is the number</span>
+<span class="comment"> * of row groups per iMCU row).  We create two sets of redundant pointers to</span>
+<span class="comment"> * the workspace.  Labeling the physical row groups 0 to M+1, the synthesized</span>
+<span class="comment"> * pointer lists look like this:</span>
+<span class="comment"> *                   M+1                          M-1</span>
+<span class="comment"> * master pointer --&gt; 0         master pointer --&gt; 0</span>
+<span class="comment"> *                    1                            1</span>
+<span class="comment"> *                   ...                          ...</span>
+<span class="comment"> *                   M-3                          M-3</span>
+<span class="comment"> *                   M-2                           M</span>
+<span class="comment"> *                   M-1                          M+1</span>
+<span class="comment"> *                    M                           M-2</span>
+<span class="comment"> *                   M+1                          M-1</span>
+<span class="comment"> *                    0                            0</span>
+<span class="comment"> * We read alternate iMCU rows using each master pointer; thus the last two</span>
+<span class="comment"> * row groups of the previous iMCU row remain un-overwritten in the workspace.</span>
+<span class="comment"> * The pointer lists are set up so that the required context rows appear to</span>
+<span class="comment"> * be adjacent to the proper places when we pass the pointer lists to the</span>
+<span class="comment"> * upsampler.</span>
+<span class="comment"> *</span>
+<span class="comment"> * The above pictures describe the normal state of the pointer lists.</span>
+<span class="comment"> * At top and bottom of the image, we diddle the pointer lists to duplicate</span>
+<span class="comment"> * the first or last sample row as necessary (this is cheaper than copying</span>
+<span class="comment"> * sample rows around).</span>
+<span class="comment"> *</span>
+<span class="comment"> * This scheme breaks down if M &lt; 2, ie, min_DCT_scaled_size is 1.  In that</span>
+<span class="comment"> * situation each iMCU row provides only one row group so the buffering logic</span>
+<span class="comment"> * must be different (eg, we must read two iMCU rows before we can emit the</span>
+<span class="comment"> * first row group).  For now, we simply do not support providing context</span>
+<span class="comment"> * rows when min_DCT_scaled_size is 1.  That combination seems unlikely to</span>
+<span class="comment"> * be worth providing --- if someone wants a 1/8th-size preview, they probably</span>
+<span class="comment"> * want it quick and dirty, so a context-free upsampler is sufficient.</span>
+<span class="comment"> */</span>
+
+
+<span class="comment">/* Private buffer controller object */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">jpeg_d_main_controller</span><span class="normal"> pub</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* public fields */</span>
+
+<span class="normal">  </span><span class="comment">/* Pointer to allocated workspace (M or M+2 row groups). */</span>
+<span class="normal">  </span><span class="usertype">JSAMPARRAY</span><span class="normal"> buffer</span><span class="symbol">[</span><span class="normal">MAX_COMPONENTS</span><span class="symbol">];</span>
+
+<span class="normal">  </span><span class="usertype">boolean</span><span class="normal"> buffer_full</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* Have we gotten an iMCU row from decoder? */</span>
+<span class="normal">  </span><span class="usertype">JDIMENSION</span><span class="normal"> rowgroup_ctr</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* counts row groups output to postprocessor */</span>
+
+<span class="normal">  </span><span class="comment">/* Remaining fields are only used in the context case. */</span>
+
+<span class="normal">  </span><span class="comment">/* These are the master pointers to the funny-order pointer lists. */</span>
+<span class="normal">  </span><span class="usertype">JSAMPIMAGE</span><span class="normal"> xbuffer</span><span class="symbol">[</span><span class="number">2</span><span class="symbol">];</span><span class="normal">	</span><span class="comment">/* pointers to weird pointer lists */</span>
+
+<span class="normal">  </span><span class="type">int</span><span class="normal"> whichptr</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* indicates which pointer set is now in use */</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> context_state</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* process_data state machine status */</span>
+<span class="normal">  </span><span class="usertype">JDIMENSION</span><span class="normal"> rowgroups_avail</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* row groups available to postprocessor */</span>
+<span class="normal">  </span><span class="usertype">JDIMENSION</span><span class="normal"> iMCU_row_ctr</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* counts iMCU rows to detect image top/bot */</span>
+<span class="cbracket">}</span><span class="normal"> my_main_controller</span><span class="symbol">;</span>
+
+<span class="keyword">typedef</span><span class="normal"> my_main_controller </span><span class="symbol">*</span><span class="normal"> my_main_ptr</span><span class="symbol">;</span>
+
+<span class="comment">/* context_state values: */</span>
+<span class="preproc">#define</span><span class="normal"> CTX_PREPARE_FOR_IMCU	</span><span class="number">0</span><span class="normal">	</span><span class="comment">/* need to prepare for MCU row */</span>
+<span class="preproc">#define</span><span class="normal"> CTX_PROCESS_IMCU	</span><span class="number">1</span><span class="normal">	</span><span class="comment">/* feeding iMCU to postprocessor */</span>
+<span class="preproc">#define</span><span class="normal"> CTX_POSTPONED_ROW	</span><span class="number">2</span><span class="normal">	</span><span class="comment">/* feeding postponed row group */</span>
+
+
+<span class="comment">/* Forward declarations */</span>
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span><span class="normal"> process_data_simple_main</span>
+<span class="normal">	</span><span class="function">JPP</span><span class="symbol">((</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">JSAMPARRAY</span><span class="normal"> output_buf</span><span class="symbol">,</span>
+<span class="normal">	     </span><span class="usertype">JDIMENSION</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">out_row_ctr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">JDIMENSION</span><span class="normal"> out_rows_avail</span><span class="symbol">));</span>
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span><span class="normal"> process_data_context_main</span>
+<span class="normal">	</span><span class="function">JPP</span><span class="symbol">((</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">JSAMPARRAY</span><span class="normal"> output_buf</span><span class="symbol">,</span>
+<span class="normal">	     </span><span class="usertype">JDIMENSION</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">out_row_ctr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">JDIMENSION</span><span class="normal"> out_rows_avail</span><span class="symbol">));</span>
+<span class="preproc">#ifdef</span><span class="normal"> QUANT_2PASS_SUPPORTED</span>
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span><span class="normal"> process_data_crank_post</span>
+<span class="normal">	</span><span class="function">JPP</span><span class="symbol">((</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">JSAMPARRAY</span><span class="normal"> output_buf</span><span class="symbol">,</span>
+<span class="normal">	     </span><span class="usertype">JDIMENSION</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">out_row_ctr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">JDIMENSION</span><span class="normal"> out_rows_avail</span><span class="symbol">));</span>
+<span class="preproc">#endif</span>
+
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">alloc_funny_pointers</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="comment">/* Allocate space for the funny pointer lists.</span>
+<span class="comment"> * This is done only once, not once per pass.</span>
+<span class="comment"> */</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_main_ptr</span><span class="normal"> main </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_main_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">main</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> ci</span><span class="symbol">,</span><span class="normal"> rgroup</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> M </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">min_DCT_scaled_size</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">jpeg_component_info</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">compptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JSAMPARRAY</span><span class="normal"> xbuf</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Get top-level space for component array pointers.</span>
+<span class="comment">   * We alloc both arrays with one call to save a few cycles.</span>
+<span class="comment">   */</span>
+<span class="normal">  main</span><span class="symbol">-&gt;</span><span class="normal">xbuffer</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPIMAGE</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">mem</span><span class="symbol">-&gt;</span><span class="normal">alloc_small</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> JPOOL_IMAGE</span><span class="symbol">,</span>
+<span class="normal">				cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components </span><span class="symbol">*</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="normal">JSAMPARRAY</span><span class="symbol">));</span>
+<span class="normal">  main</span><span class="symbol">-&gt;</span><span class="normal">xbuffer</span><span class="symbol">[</span><span class="number">1</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> main</span><span class="symbol">-&gt;</span><span class="normal">xbuffer</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> compptr </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">comp_info</span><span class="symbol">;</span><span class="normal"> ci </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components</span><span class="symbol">;</span>
+<span class="normal">       ci</span><span class="symbol">++,</span><span class="normal"> compptr</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    rgroup </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">compptr</span><span class="symbol">-&gt;</span><span class="normal">v_samp_factor </span><span class="symbol">*</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">DCT_scaled_size</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">/</span>
+<span class="normal">      cinfo</span><span class="symbol">-&gt;</span><span class="normal">min_DCT_scaled_size</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* height of a row group of component */</span>
+<span class="normal">    </span><span class="comment">/* Get space for pointer lists --- M+4 row groups in each list.</span>
+<span class="comment">     * We alloc both pointer lists with one call to save a few cycles.</span>
+<span class="comment">     */</span>
+<span class="normal">    xbuf </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPARRAY</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">mem</span><span class="symbol">-&gt;</span><span class="normal">alloc_small</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> JPOOL_IMAGE</span><span class="symbol">,</span>
+<span class="normal">				  </span><span class="number">2</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">rgroup </span><span class="symbol">*</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">M </span><span class="symbol">+</span><span class="normal"> </span><span class="number">4</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="normal">JSAMPROW</span><span class="symbol">));</span>
+<span class="normal">    xbuf </span><span class="symbol">+=</span><span class="normal"> rgroup</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* want one row group at negative offsets */</span>
+<span class="normal">    main</span><span class="symbol">-&gt;</span><span class="normal">xbuffer</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">][</span><span class="normal">ci</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> xbuf</span><span class="symbol">;</span>
+<span class="normal">    xbuf </span><span class="symbol">+=</span><span class="normal"> rgroup </span><span class="symbol">*</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">M </span><span class="symbol">+</span><span class="normal"> </span><span class="number">4</span><span class="symbol">);</span>
+<span class="normal">    main</span><span class="symbol">-&gt;</span><span class="normal">xbuffer</span><span class="symbol">[</span><span class="number">1</span><span class="symbol">][</span><span class="normal">ci</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> xbuf</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">make_funny_pointers</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="comment">/* Create the funny pointer lists discussed in the comments above.</span>
+<span class="comment"> * The actual workspace is already allocated (in main-&gt;buffer),</span>
+<span class="comment"> * and the space for the pointer lists is allocated too.</span>
+<span class="comment"> * This routine just fills in the curiously ordered lists.</span>
+<span class="comment"> * This will be repeated at the beginning of each pass.</span>
+<span class="comment"> */</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_main_ptr</span><span class="normal"> main </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_main_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">main</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> ci</span><span class="symbol">,</span><span class="normal"> i</span><span class="symbol">,</span><span class="normal"> rgroup</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> M </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">min_DCT_scaled_size</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">jpeg_component_info</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">compptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JSAMPARRAY</span><span class="normal"> buf</span><span class="symbol">,</span><span class="normal"> xbuf0</span><span class="symbol">,</span><span class="normal"> xbuf1</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> compptr </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">comp_info</span><span class="symbol">;</span><span class="normal"> ci </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components</span><span class="symbol">;</span>
+<span class="normal">       ci</span><span class="symbol">++,</span><span class="normal"> compptr</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    rgroup </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">compptr</span><span class="symbol">-&gt;</span><span class="normal">v_samp_factor </span><span class="symbol">*</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">DCT_scaled_size</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">/</span>
+<span class="normal">      cinfo</span><span class="symbol">-&gt;</span><span class="normal">min_DCT_scaled_size</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* height of a row group of component */</span>
+<span class="normal">    xbuf0 </span><span class="symbol">=</span><span class="normal"> main</span><span class="symbol">-&gt;</span><span class="normal">xbuffer</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">][</span><span class="normal">ci</span><span class="symbol">];</span>
+<span class="normal">    xbuf1 </span><span class="symbol">=</span><span class="normal"> main</span><span class="symbol">-&gt;</span><span class="normal">xbuffer</span><span class="symbol">[</span><span class="number">1</span><span class="symbol">][</span><span class="normal">ci</span><span class="symbol">];</span>
+<span class="normal">    </span><span class="comment">/* First copy the workspace pointers as-is */</span>
+<span class="normal">    buf </span><span class="symbol">=</span><span class="normal"> main</span><span class="symbol">-&gt;</span><span class="normal">buffer</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">];</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> rgroup </span><span class="symbol">*</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">M </span><span class="symbol">+</span><span class="normal"> </span><span class="number">2</span><span class="symbol">);</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      xbuf0</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> xbuf1</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> buf</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="comment">/* In the second list, put the last four row groups in swapped order */</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> rgroup </span><span class="symbol">*</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      xbuf1</span><span class="symbol">[</span><span class="normal">rgroup</span><span class="symbol">*(</span><span class="normal">M</span><span class="symbol">-</span><span class="number">2</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> buf</span><span class="symbol">[</span><span class="normal">rgroup</span><span class="symbol">*</span><span class="normal">M </span><span class="symbol">+</span><span class="normal"> i</span><span class="symbol">];</span>
+<span class="normal">      xbuf1</span><span class="symbol">[</span><span class="normal">rgroup</span><span class="symbol">*</span><span class="normal">M </span><span class="symbol">+</span><span class="normal"> i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> buf</span><span class="symbol">[</span><span class="normal">rgroup</span><span class="symbol">*(</span><span class="normal">M</span><span class="symbol">-</span><span class="number">2</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> i</span><span class="symbol">];</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="comment">/* The wraparound pointers at top and bottom will be filled later</span>
+<span class="comment">     * (see set_wraparound_pointers, below).  Initially we want the "above"</span>
+<span class="comment">     * pointers to duplicate the first actual data line.  This only needs</span>
+<span class="comment">     * to happen in xbuffer[0].</span>
+<span class="comment">     */</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> rgroup</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      xbuf0</span><span class="symbol">[</span><span class="normal">i </span><span class="symbol">-</span><span class="normal"> rgroup</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> xbuf0</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">];</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">set_wraparound_pointers</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="comment">/* Set up the "wraparound" pointers at top and bottom of the pointer lists.</span>
+<span class="comment"> * This changes the pointer list state from top-of-image to the normal state.</span>
+<span class="comment"> */</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_main_ptr</span><span class="normal"> main </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_main_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">main</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> ci</span><span class="symbol">,</span><span class="normal"> i</span><span class="symbol">,</span><span class="normal"> rgroup</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> M </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">min_DCT_scaled_size</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">jpeg_component_info</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">compptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JSAMPARRAY</span><span class="normal"> xbuf0</span><span class="symbol">,</span><span class="normal"> xbuf1</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> compptr </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">comp_info</span><span class="symbol">;</span><span class="normal"> ci </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components</span><span class="symbol">;</span>
+<span class="normal">       ci</span><span class="symbol">++,</span><span class="normal"> compptr</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    rgroup </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">compptr</span><span class="symbol">-&gt;</span><span class="normal">v_samp_factor </span><span class="symbol">*</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">DCT_scaled_size</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">/</span>
+<span class="normal">      cinfo</span><span class="symbol">-&gt;</span><span class="normal">min_DCT_scaled_size</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* height of a row group of component */</span>
+<span class="normal">    xbuf0 </span><span class="symbol">=</span><span class="normal"> main</span><span class="symbol">-&gt;</span><span class="normal">xbuffer</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">][</span><span class="normal">ci</span><span class="symbol">];</span>
+<span class="normal">    xbuf1 </span><span class="symbol">=</span><span class="normal"> main</span><span class="symbol">-&gt;</span><span class="normal">xbuffer</span><span class="symbol">[</span><span class="number">1</span><span class="symbol">][</span><span class="normal">ci</span><span class="symbol">];</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> rgroup</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      xbuf0</span><span class="symbol">[</span><span class="normal">i </span><span class="symbol">-</span><span class="normal"> rgroup</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> xbuf0</span><span class="symbol">[</span><span class="normal">rgroup</span><span class="symbol">*(</span><span class="normal">M</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> i</span><span class="symbol">];</span>
+<span class="normal">      xbuf1</span><span class="symbol">[</span><span class="normal">i </span><span class="symbol">-</span><span class="normal"> rgroup</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> xbuf1</span><span class="symbol">[</span><span class="normal">rgroup</span><span class="symbol">*(</span><span class="normal">M</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> i</span><span class="symbol">];</span>
+<span class="normal">      xbuf0</span><span class="symbol">[</span><span class="normal">rgroup</span><span class="symbol">*(</span><span class="normal">M</span><span class="symbol">+</span><span class="number">2</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> xbuf0</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span>
+<span class="normal">      xbuf1</span><span class="symbol">[</span><span class="normal">rgroup</span><span class="symbol">*(</span><span class="normal">M</span><span class="symbol">+</span><span class="number">2</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> xbuf1</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">set_bottom_pointers</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="comment">/* Change the pointer lists to duplicate the last sample row at the bottom</span>
+<span class="comment"> * of the image.  whichptr indicates which xbuffer holds the final iMCU row.</span>
+<span class="comment"> * Also sets rowgroups_avail to indicate number of nondummy row groups in row.</span>
+<span class="comment"> */</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_main_ptr</span><span class="normal"> main </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_main_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">main</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> ci</span><span class="symbol">,</span><span class="normal"> i</span><span class="symbol">,</span><span class="normal"> rgroup</span><span class="symbol">,</span><span class="normal"> iMCUheight</span><span class="symbol">,</span><span class="normal"> rows_left</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">jpeg_component_info</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">compptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JSAMPARRAY</span><span class="normal"> xbuf</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> compptr </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">comp_info</span><span class="symbol">;</span><span class="normal"> ci </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components</span><span class="symbol">;</span>
+<span class="normal">       ci</span><span class="symbol">++,</span><span class="normal"> compptr</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">/* Count sample rows in one iMCU row and in one row group */</span>
+<span class="normal">    iMCUheight </span><span class="symbol">=</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">v_samp_factor </span><span class="symbol">*</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">DCT_scaled_size</span><span class="symbol">;</span>
+<span class="normal">    rgroup </span><span class="symbol">=</span><span class="normal"> iMCUheight </span><span class="symbol">/</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">min_DCT_scaled_size</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* Count nondummy sample rows remaining for this component */</span>
+<span class="normal">    rows_left </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">compptr</span><span class="symbol">-&gt;</span><span class="normal">downsampled_height </span><span class="symbol">%</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span><span class="normal"> iMCUheight</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">rows_left </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> rows_left </span><span class="symbol">=</span><span class="normal"> iMCUheight</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* Count nondummy row groups.  Should get same answer for each component,</span>
+<span class="comment">     * so we need only do it once.</span>
+<span class="comment">     */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      main</span><span class="symbol">-&gt;</span><span class="normal">rowgroups_avail </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">rows_left</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">/</span><span class="normal"> rgroup </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="comment">/* Duplicate the last real sample row rgroup*2 times; this pads out the</span>
+<span class="comment">     * last partial rowgroup and ensures at least one full rowgroup of context.</span>
+<span class="comment">     */</span>
+<span class="normal">    xbuf </span><span class="symbol">=</span><span class="normal"> main</span><span class="symbol">-&gt;</span><span class="normal">xbuffer</span><span class="symbol">[</span><span class="normal">main</span><span class="symbol">-&gt;</span><span class="normal">whichptr</span><span class="symbol">][</span><span class="normal">ci</span><span class="symbol">];</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> rgroup </span><span class="symbol">*</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      xbuf</span><span class="symbol">[</span><span class="normal">rows_left </span><span class="symbol">+</span><span class="normal"> i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> xbuf</span><span class="symbol">[</span><span class="normal">rows_left</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">];</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Initialize for a processing pass.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">start_pass_main</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">J_BUF_MODE</span><span class="normal"> pass_mode</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_main_ptr</span><span class="normal"> main </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_main_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">main</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">switch</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">pass_mode</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">case</span><span class="normal"> JBUF_PASS_THRU</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">upsample</span><span class="symbol">-&gt;</span><span class="normal">need_context_rows</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      main</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">process_data </span><span class="symbol">=</span><span class="normal"> process_data_context_main</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="function">make_funny_pointers</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span><span class="normal"> </span><span class="comment">/* Create the xbuffer[] lists */</span>
+<span class="normal">      main</span><span class="symbol">-&gt;</span><span class="normal">whichptr </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* Read first iMCU row into xbuffer[0] */</span>
+<span class="normal">      main</span><span class="symbol">-&gt;</span><span class="normal">context_state </span><span class="symbol">=</span><span class="normal"> CTX_PREPARE_FOR_IMCU</span><span class="symbol">;</span>
+<span class="normal">      main</span><span class="symbol">-&gt;</span><span class="normal">iMCU_row_ctr </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="comment">/* Simple case with no context needed */</span>
+<span class="normal">      main</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">process_data </span><span class="symbol">=</span><span class="normal"> process_data_simple_main</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    main</span><span class="symbol">-&gt;</span><span class="normal">buffer_full </span><span class="symbol">=</span><span class="normal"> FALSE</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* Mark buffer empty */</span>
+<span class="normal">    main</span><span class="symbol">-&gt;</span><span class="normal">rowgroup_ctr </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="preproc">#ifdef</span><span class="normal"> QUANT_2PASS_SUPPORTED</span>
+<span class="normal">  </span><span class="keyword">case</span><span class="normal"> JBUF_CRANK_DEST</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">/* For last pass of 2-pass quantization, just crank the postprocessor */</span>
+<span class="normal">    main</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">process_data </span><span class="symbol">=</span><span class="normal"> process_data_crank_post</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="preproc">#endif</span>
+<span class="label">  default:</span>
+<span class="normal">    </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_BUFFER_MODE</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Process some data.</span>
+<span class="comment"> * This handles the simple case where no context is required.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">process_data_simple_main</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span>
+<span class="normal">			  </span><span class="usertype">JSAMPARRAY</span><span class="normal"> output_buf</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">JDIMENSION</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">out_row_ctr</span><span class="symbol">,</span>
+<span class="normal">			  </span><span class="usertype">JDIMENSION</span><span class="normal"> out_rows_avail</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_main_ptr</span><span class="normal"> main </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_main_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">main</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JDIMENSION</span><span class="normal"> rowgroups_avail</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Read input data if we haven't filled the main buffer yet */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal"> main</span><span class="symbol">-&gt;</span><span class="normal">buffer_full</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">coef</span><span class="symbol">-&gt;</span><span class="normal">decompress_data</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> main</span><span class="symbol">-&gt;</span><span class="normal">buffer</span><span class="symbol">))</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* suspension forced, can do nothing more */</span>
+<span class="normal">    main</span><span class="symbol">-&gt;</span><span class="normal">buffer_full </span><span class="symbol">=</span><span class="normal"> TRUE</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* OK, we have an iMCU row to work with */</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="comment">/* There are always min_DCT_scaled_size row groups in an iMCU row. */</span>
+<span class="normal">  rowgroups_avail </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">min_DCT_scaled_size</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="comment">/* Note: at the bottom of the image, we may pass extra garbage row groups</span>
+<span class="comment">   * to the postprocessor.  The postprocessor has to check for bottom</span>
+<span class="comment">   * of image anyway (at row resolution), so no point in us doing it too.</span>
+<span class="comment">   */</span>
+
+<span class="normal">  </span><span class="comment">/* Feed the postprocessor */</span>
+<span class="normal">  </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">post</span><span class="symbol">-&gt;</span><span class="normal">post_process_data</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> main</span><span class="symbol">-&gt;</span><span class="normal">buffer</span><span class="symbol">,</span>
+<span class="normal">				     </span><span class="symbol">&amp;</span><span class="normal">main</span><span class="symbol">-&gt;</span><span class="normal">rowgroup_ctr</span><span class="symbol">,</span><span class="normal"> rowgroups_avail</span><span class="symbol">,</span>
+<span class="normal">				     output_buf</span><span class="symbol">,</span><span class="normal"> out_row_ctr</span><span class="symbol">,</span><span class="normal"> out_rows_avail</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* Has postprocessor consumed all the data yet? If so, mark buffer empty */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">main</span><span class="symbol">-&gt;</span><span class="normal">rowgroup_ctr </span><span class="symbol">&gt;=</span><span class="normal"> rowgroups_avail</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    main</span><span class="symbol">-&gt;</span><span class="normal">buffer_full </span><span class="symbol">=</span><span class="normal"> FALSE</span><span class="symbol">;</span>
+<span class="normal">    main</span><span class="symbol">-&gt;</span><span class="normal">rowgroup_ctr </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Process some data.</span>
+<span class="comment"> * This handles the case where context rows must be provided.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">process_data_context_main</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span>
+<span class="normal">			   </span><span class="usertype">JSAMPARRAY</span><span class="normal"> output_buf</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">JDIMENSION</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">out_row_ctr</span><span class="symbol">,</span>
+<span class="normal">			   </span><span class="usertype">JDIMENSION</span><span class="normal"> out_rows_avail</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_main_ptr</span><span class="normal"> main </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_main_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">main</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Read input data if we haven't filled the main buffer yet */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal"> main</span><span class="symbol">-&gt;</span><span class="normal">buffer_full</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">coef</span><span class="symbol">-&gt;</span><span class="normal">decompress_data</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span>
+<span class="normal">					   main</span><span class="symbol">-&gt;</span><span class="normal">xbuffer</span><span class="symbol">[</span><span class="normal">main</span><span class="symbol">-&gt;</span><span class="normal">whichptr</span><span class="symbol">]))</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* suspension forced, can do nothing more */</span>
+<span class="normal">    main</span><span class="symbol">-&gt;</span><span class="normal">buffer_full </span><span class="symbol">=</span><span class="normal"> TRUE</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* OK, we have an iMCU row to work with */</span>
+<span class="normal">    main</span><span class="symbol">-&gt;</span><span class="normal">iMCU_row_ctr</span><span class="symbol">++;</span><span class="normal">	</span><span class="comment">/* count rows received */</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="comment">/* Postprocessor typically will not swallow all the input data it is handed</span>
+<span class="comment">   * in one call (due to filling the output buffer first).  Must be prepared</span>
+<span class="comment">   * to exit and restart.  This switch lets us keep track of how far we got.</span>
+<span class="comment">   * Note that each case falls through to the next on successful completion.</span>
+<span class="comment">   */</span>
+<span class="normal">  </span><span class="keyword">switch</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">main</span><span class="symbol">-&gt;</span><span class="normal">context_state</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">case</span><span class="normal"> CTX_POSTPONED_ROW</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">/* Call postprocessor using previously set pointers for postponed row */</span>
+<span class="normal">    </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">post</span><span class="symbol">-&gt;</span><span class="normal">post_process_data</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> main</span><span class="symbol">-&gt;</span><span class="normal">xbuffer</span><span class="symbol">[</span><span class="normal">main</span><span class="symbol">-&gt;</span><span class="normal">whichptr</span><span class="symbol">],</span>
+<span class="normal">			</span><span class="symbol">&amp;</span><span class="normal">main</span><span class="symbol">-&gt;</span><span class="normal">rowgroup_ctr</span><span class="symbol">,</span><span class="normal"> main</span><span class="symbol">-&gt;</span><span class="normal">rowgroups_avail</span><span class="symbol">,</span>
+<span class="normal">			output_buf</span><span class="symbol">,</span><span class="normal"> out_row_ctr</span><span class="symbol">,</span><span class="normal"> out_rows_avail</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">main</span><span class="symbol">-&gt;</span><span class="normal">rowgroup_ctr </span><span class="symbol">&lt;</span><span class="normal"> main</span><span class="symbol">-&gt;</span><span class="normal">rowgroups_avail</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* Need to suspend */</span>
+<span class="normal">    main</span><span class="symbol">-&gt;</span><span class="normal">context_state </span><span class="symbol">=</span><span class="normal"> CTX_PREPARE_FOR_IMCU</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">out_row_ctr </span><span class="symbol">&gt;=</span><span class="normal"> out_rows_avail</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* Postprocessor exactly filled output buf */</span>
+<span class="normal">    </span><span class="comment">/*FALLTHROUGH*/</span>
+<span class="normal">  </span><span class="keyword">case</span><span class="normal"> CTX_PREPARE_FOR_IMCU</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">/* Prepare to process first M-1 row groups of this iMCU row */</span>
+<span class="normal">    main</span><span class="symbol">-&gt;</span><span class="normal">rowgroup_ctr </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">    main</span><span class="symbol">-&gt;</span><span class="normal">rowgroups_avail </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">min_DCT_scaled_size </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="comment">/* Check for bottom of image: if so, tweak pointers to "duplicate"</span>
+<span class="comment">     * the last sample row, and adjust rowgroups_avail to ignore padding rows.</span>
+<span class="comment">     */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">main</span><span class="symbol">-&gt;</span><span class="normal">iMCU_row_ctr </span><span class="symbol">==</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">total_iMCU_rows</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">set_bottom_pointers</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">    main</span><span class="symbol">-&gt;</span><span class="normal">context_state </span><span class="symbol">=</span><span class="normal"> CTX_PROCESS_IMCU</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/*FALLTHROUGH*/</span>
+<span class="normal">  </span><span class="keyword">case</span><span class="normal"> CTX_PROCESS_IMCU</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">/* Call postprocessor using previously set pointers */</span>
+<span class="normal">    </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">post</span><span class="symbol">-&gt;</span><span class="normal">post_process_data</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> main</span><span class="symbol">-&gt;</span><span class="normal">xbuffer</span><span class="symbol">[</span><span class="normal">main</span><span class="symbol">-&gt;</span><span class="normal">whichptr</span><span class="symbol">],</span>
+<span class="normal">			</span><span class="symbol">&amp;</span><span class="normal">main</span><span class="symbol">-&gt;</span><span class="normal">rowgroup_ctr</span><span class="symbol">,</span><span class="normal"> main</span><span class="symbol">-&gt;</span><span class="normal">rowgroups_avail</span><span class="symbol">,</span>
+<span class="normal">			output_buf</span><span class="symbol">,</span><span class="normal"> out_row_ctr</span><span class="symbol">,</span><span class="normal"> out_rows_avail</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">main</span><span class="symbol">-&gt;</span><span class="normal">rowgroup_ctr </span><span class="symbol">&lt;</span><span class="normal"> main</span><span class="symbol">-&gt;</span><span class="normal">rowgroups_avail</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* Need to suspend */</span>
+<span class="normal">    </span><span class="comment">/* After the first iMCU, change wraparound pointers to normal state */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">main</span><span class="symbol">-&gt;</span><span class="normal">iMCU_row_ctr </span><span class="symbol">==</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">set_wraparound_pointers</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="comment">/* Prepare to load new iMCU row using other xbuffer list */</span>
+<span class="normal">    main</span><span class="symbol">-&gt;</span><span class="normal">whichptr </span><span class="symbol">^=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* 0=&gt;1 or 1=&gt;0 */</span>
+<span class="normal">    main</span><span class="symbol">-&gt;</span><span class="normal">buffer_full </span><span class="symbol">=</span><span class="normal"> FALSE</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* Still need to process last row group of this iMCU row, */</span>
+<span class="normal">    </span><span class="comment">/* which is saved at index M+1 of the other xbuffer */</span>
+<span class="normal">    main</span><span class="symbol">-&gt;</span><span class="normal">rowgroup_ctr </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">min_DCT_scaled_size </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">    main</span><span class="symbol">-&gt;</span><span class="normal">rowgroups_avail </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">min_DCT_scaled_size </span><span class="symbol">+</span><span class="normal"> </span><span class="number">2</span><span class="symbol">);</span>
+<span class="normal">    main</span><span class="symbol">-&gt;</span><span class="normal">context_state </span><span class="symbol">=</span><span class="normal"> CTX_POSTPONED_ROW</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Process some data.</span>
+<span class="comment"> * Final pass of two-pass quantization: just call the postprocessor.</span>
+<span class="comment"> * Source data will be the postprocessor controller's internal buffer.</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> QUANT_2PASS_SUPPORTED</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">process_data_crank_post</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span>
+<span class="normal">			 </span><span class="usertype">JSAMPARRAY</span><span class="normal"> output_buf</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">JDIMENSION</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">out_row_ctr</span><span class="symbol">,</span>
+<span class="normal">			 </span><span class="usertype">JDIMENSION</span><span class="normal"> out_rows_avail</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">post</span><span class="symbol">-&gt;</span><span class="normal">post_process_data</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPIMAGE</span><span class="symbol">)</span><span class="normal"> NULL</span><span class="symbol">,</span>
+<span class="normal">				     </span><span class="symbol">(</span><span class="normal">JDIMENSION </span><span class="symbol">*)</span><span class="normal"> NULL</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span>
+<span class="normal">				     output_buf</span><span class="symbol">,</span><span class="normal"> out_row_ctr</span><span class="symbol">,</span><span class="normal"> out_rows_avail</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* QUANT_2PASS_SUPPORTED */</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Initialize main buffer controller.</span>
+<span class="comment"> */</span>
+
+<span class="function">GLOBAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">jinit_d_main_controller</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">boolean</span><span class="normal"> need_full_buffer</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_main_ptr</span><span class="normal"> main</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> ci</span><span class="symbol">,</span><span class="normal"> rgroup</span><span class="symbol">,</span><span class="normal"> ngroups</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">jpeg_component_info</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">compptr</span><span class="symbol">;</span>
+
+<span class="normal">  main </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_main_ptr</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">mem</span><span class="symbol">-&gt;</span><span class="normal">alloc_small</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> JPOOL_IMAGE</span><span class="symbol">,</span>
+<span class="normal">				</span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="normal">my_main_controller</span><span class="symbol">));</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">main </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">jpeg_d_main_controller</span><span class="normal"> </span><span class="symbol">*)</span><span class="normal"> main</span><span class="symbol">;</span>
+<span class="normal">  main</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">start_pass </span><span class="symbol">=</span><span class="normal"> start_pass_main</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">need_full_buffer</span><span class="symbol">)</span><span class="normal">		</span><span class="comment">/* shouldn't happen */</span>
+<span class="normal">    </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_BUFFER_MODE</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* Allocate the workspace.</span>
+<span class="comment">   * ngroups is the number of row groups we need.</span>
+<span class="comment">   */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">upsample</span><span class="symbol">-&gt;</span><span class="normal">need_context_rows</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">min_DCT_scaled_size </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">2</span><span class="symbol">)</span><span class="normal"> </span><span class="comment">/* unsupported, see comments above */</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_NOTIMPL</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">alloc_funny_pointers</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span><span class="normal"> </span><span class="comment">/* Alloc space for xbuffer[] lists */</span>
+<span class="normal">    ngroups </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">min_DCT_scaled_size </span><span class="symbol">+</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    ngroups </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">min_DCT_scaled_size</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> compptr </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">comp_info</span><span class="symbol">;</span><span class="normal"> ci </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components</span><span class="symbol">;</span>
+<span class="normal">       ci</span><span class="symbol">++,</span><span class="normal"> compptr</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    rgroup </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">compptr</span><span class="symbol">-&gt;</span><span class="normal">v_samp_factor </span><span class="symbol">*</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">DCT_scaled_size</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">/</span>
+<span class="normal">      cinfo</span><span class="symbol">-&gt;</span><span class="normal">min_DCT_scaled_size</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* height of a row group of component */</span>
+<span class="normal">    main</span><span class="symbol">-&gt;</span><span class="normal">buffer</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">mem</span><span class="symbol">-&gt;</span><span class="normal">alloc_sarray</span><span class="symbol">)</span>
+<span class="normal">			</span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> JPOOL_IMAGE</span><span class="symbol">,</span>
+<span class="normal">			 compptr</span><span class="symbol">-&gt;</span><span class="normal">width_in_blocks </span><span class="symbol">*</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">DCT_scaled_size</span><span class="symbol">,</span>
+<span class="normal">			 </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">rgroup </span><span class="symbol">*</span><span class="normal"> ngroups</span><span class="symbol">));</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

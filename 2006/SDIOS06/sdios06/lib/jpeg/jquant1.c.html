@@ -1,0 +1,857 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2006/SDIOS06/sdios06/lib/jpeg/jquant1.c - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal8.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2006/">2006</a> / <a href="/2006/SDIOS06/">SDIOS06</a> / <a href="/2006/SDIOS06/sdios06/">sdios06</a> / <a href="/2006/SDIOS06/sdios06/lib/">lib</a> / <a href="/2006/SDIOS06/sdios06/lib/jpeg/">jpeg</a> / <a href="/2006/SDIOS06/sdios06/lib/jpeg/jquant1.c.html">jquant1.c</a> (<a href="/2006/SDIOS06/sdios06/lib/jpeg/jquant1.c">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">/*</span>
+<span class="comment"> * jquant1.c</span>
+<span class="comment"> *</span>
+<span class="comment"> * Copyright (C) 1991-1996, Thomas G. Lane.</span>
+<span class="comment"> * This file is part of the Independent JPEG Group's software.</span>
+<span class="comment"> * For conditions of distribution and use, see the accompanying README file.</span>
+<span class="comment"> *</span>
+<span class="comment"> * This file contains 1-pass color quantization (color mapping) routines.</span>
+<span class="comment"> * These routines provide mapping to a fixed color map using equally spaced</span>
+<span class="comment"> * color values.  Optional Floyd-Steinberg or ordered dithering is available.</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#define</span><span class="normal"> JPEG_INTERNALS</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"jinclude.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"jpeglib.h"</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> QUANT_1PASS_SUPPORTED</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * The main purpose of 1-pass quantization is to provide a fast, if not very</span>
+<span class="comment"> * high quality, colormapped output capability.  A 2-pass quantizer usually</span>
+<span class="comment"> * gives better visual quality; however, for quantized grayscale output this</span>
+<span class="comment"> * quantizer is perfectly adequate.  Dithering is highly recommended with this</span>
+<span class="comment"> * quantizer, though you can turn it off if you really want to.</span>
+<span class="comment"> *</span>
+<span class="comment"> * In 1-pass quantization the colormap must be chosen in advance of seeing the</span>
+<span class="comment"> * image.  We use a map consisting of all combinations of Ncolors[i] color</span>
+<span class="comment"> * values for the i'th component.  The Ncolors[] values are chosen so that</span>
+<span class="comment"> * their product, the total number of colors, is no more than that requested.</span>
+<span class="comment"> * (In most cases, the product will be somewhat less.)</span>
+<span class="comment"> *</span>
+<span class="comment"> * Since the colormap is orthogonal, the representative value for each color</span>
+<span class="comment"> * component can be determined without considering the other components;</span>
+<span class="comment"> * then these indexes can be combined into a colormap index by a standard</span>
+<span class="comment"> * N-dimensional-array-subscript calculation.  Most of the arithmetic involved</span>
+<span class="comment"> * can be precalculated and stored in the lookup table colorindex[].</span>
+<span class="comment"> * colorindex[i][j] maps pixel value j in component i to the nearest</span>
+<span class="comment"> * representative value (grid plane) for that component; this index is</span>
+<span class="comment"> * multiplied by the array stride for component i, so that the</span>
+<span class="comment"> * index of the colormap entry closest to a given pixel value is just</span>
+<span class="comment"> *    sum( colorindex[component-number][pixel-component-value] )</span>
+<span class="comment"> * Aside from being fast, this scheme allows for variable spacing between</span>
+<span class="comment"> * representative values with no additional lookup cost.</span>
+<span class="comment"> *</span>
+<span class="comment"> * If gamma correction has been applied in color conversion, it might be wise</span>
+<span class="comment"> * to adjust the color grid spacing so that the representative colors are</span>
+<span class="comment"> * equidistant in linear space.  At this writing, gamma correction is not</span>
+<span class="comment"> * implemented by jdcolor, so nothing is done here.</span>
+<span class="comment"> */</span>
+
+
+<span class="comment">/* Declarations for ordered dithering.</span>
+<span class="comment"> *</span>
+<span class="comment"> * We use a standard 16x16 ordered dither array.  The basic concept of ordered</span>
+<span class="comment"> * dithering is described in many references, for instance Dale Schumacher's</span>
+<span class="comment"> * chapter II.2 of Graphics Gems II (James Arvo, ed. Academic Press, 1991).</span>
+<span class="comment"> * In place of Schumacher's comparisons against a "threshold" value, we add a</span>
+<span class="comment"> * "dither" value to the input pixel and then round the result to the nearest</span>
+<span class="comment"> * output value.  The dither value is equivalent to (0.5 - threshold) times</span>
+<span class="comment"> * the distance between output values.  For ordered dithering, we assume that</span>
+<span class="comment"> * the output colors are equally spaced; if not, results will probably be</span>
+<span class="comment"> * worse, since the dither may be too much or too little at a given point.</span>
+<span class="comment"> *</span>
+<span class="comment"> * The normal calculation would be to form pixel value + dither, range-limit</span>
+<span class="comment"> * this to 0..MAXJSAMPLE, and then index into the colorindex table as usual.</span>
+<span class="comment"> * We can skip the separate range-limiting step by extending the colorindex</span>
+<span class="comment"> * table in both directions.</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#define</span><span class="normal"> ODITHER_SIZE  </span><span class="number">16</span><span class="normal">	</span><span class="comment">/* dimension of dither matrix */</span>
+<span class="comment">/* NB: if ODITHER_SIZE is not a power of 2, ODITHER_MASK uses will break */</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">ODITHER_CELLS</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ODITHER_SIZE</span><span class="symbol">*</span><span class="normal">ODITHER_SIZE</span><span class="symbol">)</span><span class="normal">	</span><span class="comment">/* # cells in matrix */</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">ODITHER_MASK</span><span class="normal">  </span><span class="symbol">(</span><span class="normal">ODITHER_SIZE</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="comment">/* mask for wrapping around counters */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="type">int</span><span class="normal"> ODITHER_MATRIX</span><span class="symbol">[</span><span class="normal">ODITHER_SIZE</span><span class="symbol">][</span><span class="normal">ODITHER_SIZE</span><span class="symbol">];</span>
+<span class="keyword">typedef</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">ODITHER_MATRIX_PTR</span><span class="symbol">)[</span><span class="normal">ODITHER_SIZE</span><span class="symbol">];</span>
+
+<span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">UINT8</span><span class="normal"> base_dither_matrix</span><span class="symbol">[</span><span class="normal">ODITHER_SIZE</span><span class="symbol">][</span><span class="normal">ODITHER_SIZE</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">  </span><span class="comment">/* Bayer's order-4 dither array.  Generated by the code given in</span>
+<span class="comment">   * Stephen Hawley's article "Ordered Dithering" in Graphics Gems I.</span>
+<span class="comment">   * The values in this array must range from 0 to ODITHER_CELLS-1.</span>
+<span class="comment">   */</span>
+<span class="normal">  </span><span class="cbracket">{</span><span class="normal">   </span><span class="number">0</span><span class="symbol">,</span><span class="number">192</span><span class="symbol">,</span><span class="normal"> </span><span class="number">48</span><span class="symbol">,</span><span class="number">240</span><span class="symbol">,</span><span class="normal"> </span><span class="number">12</span><span class="symbol">,</span><span class="number">204</span><span class="symbol">,</span><span class="normal"> </span><span class="number">60</span><span class="symbol">,</span><span class="number">252</span><span class="symbol">,</span><span class="normal">  </span><span class="number">3</span><span class="symbol">,</span><span class="number">195</span><span class="symbol">,</span><span class="normal"> </span><span class="number">51</span><span class="symbol">,</span><span class="number">243</span><span class="symbol">,</span><span class="normal"> </span><span class="number">15</span><span class="symbol">,</span><span class="number">207</span><span class="symbol">,</span><span class="normal"> </span><span class="number">63</span><span class="symbol">,</span><span class="number">255</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">,</span>
+<span class="normal">  </span><span class="cbracket">{</span><span class="normal"> </span><span class="number">128</span><span class="symbol">,</span><span class="normal"> </span><span class="number">64</span><span class="symbol">,</span><span class="number">176</span><span class="symbol">,</span><span class="number">112</span><span class="symbol">,</span><span class="number">140</span><span class="symbol">,</span><span class="normal"> </span><span class="number">76</span><span class="symbol">,</span><span class="number">188</span><span class="symbol">,</span><span class="number">124</span><span class="symbol">,</span><span class="number">131</span><span class="symbol">,</span><span class="normal"> </span><span class="number">67</span><span class="symbol">,</span><span class="number">179</span><span class="symbol">,</span><span class="number">115</span><span class="symbol">,</span><span class="number">143</span><span class="symbol">,</span><span class="normal"> </span><span class="number">79</span><span class="symbol">,</span><span class="number">191</span><span class="symbol">,</span><span class="number">127</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">,</span>
+<span class="normal">  </span><span class="cbracket">{</span><span class="normal">  </span><span class="number">32</span><span class="symbol">,</span><span class="number">224</span><span class="symbol">,</span><span class="normal"> </span><span class="number">16</span><span class="symbol">,</span><span class="number">208</span><span class="symbol">,</span><span class="normal"> </span><span class="number">44</span><span class="symbol">,</span><span class="number">236</span><span class="symbol">,</span><span class="normal"> </span><span class="number">28</span><span class="symbol">,</span><span class="number">220</span><span class="symbol">,</span><span class="normal"> </span><span class="number">35</span><span class="symbol">,</span><span class="number">227</span><span class="symbol">,</span><span class="normal"> </span><span class="number">19</span><span class="symbol">,</span><span class="number">211</span><span class="symbol">,</span><span class="normal"> </span><span class="number">47</span><span class="symbol">,</span><span class="number">239</span><span class="symbol">,</span><span class="normal"> </span><span class="number">31</span><span class="symbol">,</span><span class="number">223</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">,</span>
+<span class="normal">  </span><span class="cbracket">{</span><span class="normal"> </span><span class="number">160</span><span class="symbol">,</span><span class="normal"> </span><span class="number">96</span><span class="symbol">,</span><span class="number">144</span><span class="symbol">,</span><span class="normal"> </span><span class="number">80</span><span class="symbol">,</span><span class="number">172</span><span class="symbol">,</span><span class="number">108</span><span class="symbol">,</span><span class="number">156</span><span class="symbol">,</span><span class="normal"> </span><span class="number">92</span><span class="symbol">,</span><span class="number">163</span><span class="symbol">,</span><span class="normal"> </span><span class="number">99</span><span class="symbol">,</span><span class="number">147</span><span class="symbol">,</span><span class="normal"> </span><span class="number">83</span><span class="symbol">,</span><span class="number">175</span><span class="symbol">,</span><span class="number">111</span><span class="symbol">,</span><span class="number">159</span><span class="symbol">,</span><span class="normal"> </span><span class="number">95</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">,</span>
+<span class="normal">  </span><span class="cbracket">{</span><span class="normal">   </span><span class="number">8</span><span class="symbol">,</span><span class="number">200</span><span class="symbol">,</span><span class="normal"> </span><span class="number">56</span><span class="symbol">,</span><span class="number">248</span><span class="symbol">,</span><span class="normal">  </span><span class="number">4</span><span class="symbol">,</span><span class="number">196</span><span class="symbol">,</span><span class="normal"> </span><span class="number">52</span><span class="symbol">,</span><span class="number">244</span><span class="symbol">,</span><span class="normal"> </span><span class="number">11</span><span class="symbol">,</span><span class="number">203</span><span class="symbol">,</span><span class="normal"> </span><span class="number">59</span><span class="symbol">,</span><span class="number">251</span><span class="symbol">,</span><span class="normal">  </span><span class="number">7</span><span class="symbol">,</span><span class="number">199</span><span class="symbol">,</span><span class="normal"> </span><span class="number">55</span><span class="symbol">,</span><span class="number">247</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">,</span>
+<span class="normal">  </span><span class="cbracket">{</span><span class="normal"> </span><span class="number">136</span><span class="symbol">,</span><span class="normal"> </span><span class="number">72</span><span class="symbol">,</span><span class="number">184</span><span class="symbol">,</span><span class="number">120</span><span class="symbol">,</span><span class="number">132</span><span class="symbol">,</span><span class="normal"> </span><span class="number">68</span><span class="symbol">,</span><span class="number">180</span><span class="symbol">,</span><span class="number">116</span><span class="symbol">,</span><span class="number">139</span><span class="symbol">,</span><span class="normal"> </span><span class="number">75</span><span class="symbol">,</span><span class="number">187</span><span class="symbol">,</span><span class="number">123</span><span class="symbol">,</span><span class="number">135</span><span class="symbol">,</span><span class="normal"> </span><span class="number">71</span><span class="symbol">,</span><span class="number">183</span><span class="symbol">,</span><span class="number">119</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">,</span>
+<span class="normal">  </span><span class="cbracket">{</span><span class="normal">  </span><span class="number">40</span><span class="symbol">,</span><span class="number">232</span><span class="symbol">,</span><span class="normal"> </span><span class="number">24</span><span class="symbol">,</span><span class="number">216</span><span class="symbol">,</span><span class="normal"> </span><span class="number">36</span><span class="symbol">,</span><span class="number">228</span><span class="symbol">,</span><span class="normal"> </span><span class="number">20</span><span class="symbol">,</span><span class="number">212</span><span class="symbol">,</span><span class="normal"> </span><span class="number">43</span><span class="symbol">,</span><span class="number">235</span><span class="symbol">,</span><span class="normal"> </span><span class="number">27</span><span class="symbol">,</span><span class="number">219</span><span class="symbol">,</span><span class="normal"> </span><span class="number">39</span><span class="symbol">,</span><span class="number">231</span><span class="symbol">,</span><span class="normal"> </span><span class="number">23</span><span class="symbol">,</span><span class="number">215</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">,</span>
+<span class="normal">  </span><span class="cbracket">{</span><span class="normal"> </span><span class="number">168</span><span class="symbol">,</span><span class="number">104</span><span class="symbol">,</span><span class="number">152</span><span class="symbol">,</span><span class="normal"> </span><span class="number">88</span><span class="symbol">,</span><span class="number">164</span><span class="symbol">,</span><span class="number">100</span><span class="symbol">,</span><span class="number">148</span><span class="symbol">,</span><span class="normal"> </span><span class="number">84</span><span class="symbol">,</span><span class="number">171</span><span class="symbol">,</span><span class="number">107</span><span class="symbol">,</span><span class="number">155</span><span class="symbol">,</span><span class="normal"> </span><span class="number">91</span><span class="symbol">,</span><span class="number">167</span><span class="symbol">,</span><span class="number">103</span><span class="symbol">,</span><span class="number">151</span><span class="symbol">,</span><span class="normal"> </span><span class="number">87</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">,</span>
+<span class="normal">  </span><span class="cbracket">{</span><span class="normal">   </span><span class="number">2</span><span class="symbol">,</span><span class="number">194</span><span class="symbol">,</span><span class="normal"> </span><span class="number">50</span><span class="symbol">,</span><span class="number">242</span><span class="symbol">,</span><span class="normal"> </span><span class="number">14</span><span class="symbol">,</span><span class="number">206</span><span class="symbol">,</span><span class="normal"> </span><span class="number">62</span><span class="symbol">,</span><span class="number">254</span><span class="symbol">,</span><span class="normal">  </span><span class="number">1</span><span class="symbol">,</span><span class="number">193</span><span class="symbol">,</span><span class="normal"> </span><span class="number">49</span><span class="symbol">,</span><span class="number">241</span><span class="symbol">,</span><span class="normal"> </span><span class="number">13</span><span class="symbol">,</span><span class="number">205</span><span class="symbol">,</span><span class="normal"> </span><span class="number">61</span><span class="symbol">,</span><span class="number">253</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">,</span>
+<span class="normal">  </span><span class="cbracket">{</span><span class="normal"> </span><span class="number">130</span><span class="symbol">,</span><span class="normal"> </span><span class="number">66</span><span class="symbol">,</span><span class="number">178</span><span class="symbol">,</span><span class="number">114</span><span class="symbol">,</span><span class="number">142</span><span class="symbol">,</span><span class="normal"> </span><span class="number">78</span><span class="symbol">,</span><span class="number">190</span><span class="symbol">,</span><span class="number">126</span><span class="symbol">,</span><span class="number">129</span><span class="symbol">,</span><span class="normal"> </span><span class="number">65</span><span class="symbol">,</span><span class="number">177</span><span class="symbol">,</span><span class="number">113</span><span class="symbol">,</span><span class="number">141</span><span class="symbol">,</span><span class="normal"> </span><span class="number">77</span><span class="symbol">,</span><span class="number">189</span><span class="symbol">,</span><span class="number">125</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">,</span>
+<span class="normal">  </span><span class="cbracket">{</span><span class="normal">  </span><span class="number">34</span><span class="symbol">,</span><span class="number">226</span><span class="symbol">,</span><span class="normal"> </span><span class="number">18</span><span class="symbol">,</span><span class="number">210</span><span class="symbol">,</span><span class="normal"> </span><span class="number">46</span><span class="symbol">,</span><span class="number">238</span><span class="symbol">,</span><span class="normal"> </span><span class="number">30</span><span class="symbol">,</span><span class="number">222</span><span class="symbol">,</span><span class="normal"> </span><span class="number">33</span><span class="symbol">,</span><span class="number">225</span><span class="symbol">,</span><span class="normal"> </span><span class="number">17</span><span class="symbol">,</span><span class="number">209</span><span class="symbol">,</span><span class="normal"> </span><span class="number">45</span><span class="symbol">,</span><span class="number">237</span><span class="symbol">,</span><span class="normal"> </span><span class="number">29</span><span class="symbol">,</span><span class="number">221</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">,</span>
+<span class="normal">  </span><span class="cbracket">{</span><span class="normal"> </span><span class="number">162</span><span class="symbol">,</span><span class="normal"> </span><span class="number">98</span><span class="symbol">,</span><span class="number">146</span><span class="symbol">,</span><span class="normal"> </span><span class="number">82</span><span class="symbol">,</span><span class="number">174</span><span class="symbol">,</span><span class="number">110</span><span class="symbol">,</span><span class="number">158</span><span class="symbol">,</span><span class="normal"> </span><span class="number">94</span><span class="symbol">,</span><span class="number">161</span><span class="symbol">,</span><span class="normal"> </span><span class="number">97</span><span class="symbol">,</span><span class="number">145</span><span class="symbol">,</span><span class="normal"> </span><span class="number">81</span><span class="symbol">,</span><span class="number">173</span><span class="symbol">,</span><span class="number">109</span><span class="symbol">,</span><span class="number">157</span><span class="symbol">,</span><span class="normal"> </span><span class="number">93</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">,</span>
+<span class="normal">  </span><span class="cbracket">{</span><span class="normal">  </span><span class="number">10</span><span class="symbol">,</span><span class="number">202</span><span class="symbol">,</span><span class="normal"> </span><span class="number">58</span><span class="symbol">,</span><span class="number">250</span><span class="symbol">,</span><span class="normal">  </span><span class="number">6</span><span class="symbol">,</span><span class="number">198</span><span class="symbol">,</span><span class="normal"> </span><span class="number">54</span><span class="symbol">,</span><span class="number">246</span><span class="symbol">,</span><span class="normal">  </span><span class="number">9</span><span class="symbol">,</span><span class="number">201</span><span class="symbol">,</span><span class="normal"> </span><span class="number">57</span><span class="symbol">,</span><span class="number">249</span><span class="symbol">,</span><span class="normal">  </span><span class="number">5</span><span class="symbol">,</span><span class="number">197</span><span class="symbol">,</span><span class="normal"> </span><span class="number">53</span><span class="symbol">,</span><span class="number">245</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">,</span>
+<span class="normal">  </span><span class="cbracket">{</span><span class="normal"> </span><span class="number">138</span><span class="symbol">,</span><span class="normal"> </span><span class="number">74</span><span class="symbol">,</span><span class="number">186</span><span class="symbol">,</span><span class="number">122</span><span class="symbol">,</span><span class="number">134</span><span class="symbol">,</span><span class="normal"> </span><span class="number">70</span><span class="symbol">,</span><span class="number">182</span><span class="symbol">,</span><span class="number">118</span><span class="symbol">,</span><span class="number">137</span><span class="symbol">,</span><span class="normal"> </span><span class="number">73</span><span class="symbol">,</span><span class="number">185</span><span class="symbol">,</span><span class="number">121</span><span class="symbol">,</span><span class="number">133</span><span class="symbol">,</span><span class="normal"> </span><span class="number">69</span><span class="symbol">,</span><span class="number">181</span><span class="symbol">,</span><span class="number">117</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">,</span>
+<span class="normal">  </span><span class="cbracket">{</span><span class="normal">  </span><span class="number">42</span><span class="symbol">,</span><span class="number">234</span><span class="symbol">,</span><span class="normal"> </span><span class="number">26</span><span class="symbol">,</span><span class="number">218</span><span class="symbol">,</span><span class="normal"> </span><span class="number">38</span><span class="symbol">,</span><span class="number">230</span><span class="symbol">,</span><span class="normal"> </span><span class="number">22</span><span class="symbol">,</span><span class="number">214</span><span class="symbol">,</span><span class="normal"> </span><span class="number">41</span><span class="symbol">,</span><span class="number">233</span><span class="symbol">,</span><span class="normal"> </span><span class="number">25</span><span class="symbol">,</span><span class="number">217</span><span class="symbol">,</span><span class="normal"> </span><span class="number">37</span><span class="symbol">,</span><span class="number">229</span><span class="symbol">,</span><span class="normal"> </span><span class="number">21</span><span class="symbol">,</span><span class="number">213</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">,</span>
+<span class="normal">  </span><span class="cbracket">{</span><span class="normal"> </span><span class="number">170</span><span class="symbol">,</span><span class="number">106</span><span class="symbol">,</span><span class="number">154</span><span class="symbol">,</span><span class="normal"> </span><span class="number">90</span><span class="symbol">,</span><span class="number">166</span><span class="symbol">,</span><span class="number">102</span><span class="symbol">,</span><span class="number">150</span><span class="symbol">,</span><span class="normal"> </span><span class="number">86</span><span class="symbol">,</span><span class="number">169</span><span class="symbol">,</span><span class="number">105</span><span class="symbol">,</span><span class="number">153</span><span class="symbol">,</span><span class="normal"> </span><span class="number">89</span><span class="symbol">,</span><span class="number">165</span><span class="symbol">,</span><span class="number">101</span><span class="symbol">,</span><span class="number">149</span><span class="symbol">,</span><span class="normal"> </span><span class="number">85</span><span class="normal"> </span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+
+<span class="comment">/* Declarations for Floyd-Steinberg dithering.</span>
+<span class="comment"> *</span>
+<span class="comment"> * Errors are accumulated into the array fserrors[], at a resolution of</span>
+<span class="comment"> * 1/16th of a pixel count.  The error at a given pixel is propagated</span>
+<span class="comment"> * to its not-yet-processed neighbors using the standard F-S fractions,</span>
+<span class="comment"> *		...	(here)	7/16</span>
+<span class="comment"> *		3/16	5/16	1/16</span>
+<span class="comment"> * We work left-to-right on even rows, right-to-left on odd rows.</span>
+<span class="comment"> *</span>
+<span class="comment"> * We can get away with a single array (holding one row's worth of errors)</span>
+<span class="comment"> * by using it to store the current row's errors at pixel columns not yet</span>
+<span class="comment"> * processed, but the next row's errors at columns already processed.  We</span>
+<span class="comment"> * need only a few extra variables to hold the errors immediately around the</span>
+<span class="comment"> * current column.  (If we are lucky, those variables are in registers, but</span>
+<span class="comment"> * even if not, they're probably cheaper to access than array elements are.)</span>
+<span class="comment"> *</span>
+<span class="comment"> * The fserrors[] array is indexed [component#][position].</span>
+<span class="comment"> * We provide (#columns + 2) entries per component; the extra entry at each</span>
+<span class="comment"> * end saves us from special-casing the first and last pixels.</span>
+<span class="comment"> *</span>
+<span class="comment"> * Note: on a wide image, we might not have enough room in a PC's near data</span>
+<span class="comment"> * segment to hold the error array; so it is allocated with alloc_large.</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#if</span><span class="normal"> BITS_IN_JSAMPLE </span><span class="symbol">==</span><span class="normal"> </span><span class="number">8</span>
+<span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">INT16</span><span class="normal"> FSERROR</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* 16 bits should be enough */</span>
+<span class="keyword">typedef</span><span class="normal"> </span><span class="type">int</span><span class="normal"> LOCFSERROR</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* use 'int' for calculation temps */</span>
+<span class="preproc">#else</span>
+<span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">INT32</span><span class="normal"> FSERROR</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* may need more than 16 bits */</span>
+<span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">INT32</span><span class="normal"> LOCFSERROR</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* be sure calculation temps are big enough */</span>
+<span class="preproc">#endif</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">FSERROR</span><span class="normal"> </span><span class="usertype">FAR</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">FSERRPTR</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* pointer to error array (in FAR storage!) */</span>
+
+
+<span class="comment">/* Private subobject */</span>
+
+<span class="preproc">#define</span><span class="normal"> MAX_Q_COMPS </span><span class="number">4</span><span class="normal">		</span><span class="comment">/* max components I can handle */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">jpeg_color_quantizer</span><span class="normal"> pub</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* public fields */</span>
+
+<span class="normal">  </span><span class="comment">/* Initially allocated colormap is saved here */</span>
+<span class="normal">  </span><span class="usertype">JSAMPARRAY</span><span class="normal"> sv_colormap</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* The color map as a 2-D pixel array */</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> sv_actual</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* number of entries in use */</span>
+
+<span class="normal">  </span><span class="usertype">JSAMPARRAY</span><span class="normal"> colorindex</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* Precomputed mapping for speed */</span>
+<span class="normal">  </span><span class="comment">/* colorindex[i][j] = index of color closest to pixel value j in component i,</span>
+<span class="comment">   * premultiplied as described above.  Since colormap indexes must fit into</span>
+<span class="comment">   * JSAMPLEs, the entries of this array will too.</span>
+<span class="comment">   */</span>
+<span class="normal">  </span><span class="usertype">boolean</span><span class="normal"> is_padded</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* is the colorindex padded for odither? */</span>
+
+<span class="normal">  </span><span class="type">int</span><span class="normal"> Ncolors</span><span class="symbol">[</span><span class="normal">MAX_Q_COMPS</span><span class="symbol">];</span><span class="normal">	</span><span class="comment">/* # of values alloced to each component */</span>
+
+<span class="normal">  </span><span class="comment">/* Variables for ordered dithering */</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> row_index</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* cur row's vertical index in dither matrix */</span>
+<span class="normal">  </span><span class="usertype">ODITHER_MATRIX_PTR</span><span class="normal"> odither</span><span class="symbol">[</span><span class="normal">MAX_Q_COMPS</span><span class="symbol">];</span><span class="normal"> </span><span class="comment">/* one dither array per component */</span>
+
+<span class="normal">  </span><span class="comment">/* Variables for Floyd-Steinberg dithering */</span>
+<span class="normal">  </span><span class="usertype">FSERRPTR</span><span class="normal"> fserrors</span><span class="symbol">[</span><span class="normal">MAX_Q_COMPS</span><span class="symbol">];</span><span class="normal"> </span><span class="comment">/* accumulated errors */</span>
+<span class="normal">  </span><span class="usertype">boolean</span><span class="normal"> on_odd_row</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* flag to remember which row we are on */</span>
+<span class="cbracket">}</span><span class="normal"> my_cquantizer</span><span class="symbol">;</span>
+
+<span class="keyword">typedef</span><span class="normal"> my_cquantizer </span><span class="symbol">*</span><span class="normal"> my_cquantize_ptr</span><span class="symbol">;</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Policy-making subroutines for create_colormap and create_colorindex.</span>
+<span class="comment"> * These routines determine the colormap to be used.  The rest of the module</span>
+<span class="comment"> * only assumes that the colormap is orthogonal.</span>
+<span class="comment"> *</span>
+<span class="comment"> *  * select_ncolors decides how to divvy up the available colors</span>
+<span class="comment"> *    among the components.</span>
+<span class="comment"> *  * output_value defines the set of representative values for a component.</span>
+<span class="comment"> *  * largest_input_value defines the mapping from input values to</span>
+<span class="comment"> *    representative values for a component.</span>
+<span class="comment"> * Note that the latter two routines may impose different policies for</span>
+<span class="comment"> * different components, though this is not currently done.</span>
+<span class="comment"> */</span>
+
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span>
+<span class="function">select_ncolors</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> Ncolors</span><span class="symbol">[])</span>
+<span class="comment">/* Determine allocation of desired colors to components, */</span>
+<span class="comment">/* and fill in Ncolors[] array to indicate choice. */</span>
+<span class="comment">/* Return value is total number of colors (product of Ncolors[] values). */</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> nc </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">out_color_components</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* number of color components */</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> max_colors </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">desired_number_of_colors</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> total_colors</span><span class="symbol">,</span><span class="normal"> iroot</span><span class="symbol">,</span><span class="normal"> i</span><span class="symbol">,</span><span class="normal"> j</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">boolean</span><span class="normal"> changed</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">long</span><span class="normal"> temp</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">int</span><span class="normal"> RGB_order</span><span class="symbol">[</span><span class="number">3</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> RGB_GREEN</span><span class="symbol">,</span><span class="normal"> RGB_RED</span><span class="symbol">,</span><span class="normal"> RGB_BLUE </span><span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* We can allocate at least the nc'th root of max_colors per component. */</span>
+<span class="normal">  </span><span class="comment">/* Compute floor(nc'th root of max_colors). */</span>
+<span class="normal">  iroot </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">do</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    iroot</span><span class="symbol">++;</span>
+<span class="normal">    temp </span><span class="symbol">=</span><span class="normal"> iroot</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* set temp = iroot ** nc */</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> nc</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span>
+<span class="normal">      temp </span><span class="symbol">*=</span><span class="normal"> iroot</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">temp </span><span class="symbol">&lt;=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> max_colors</span><span class="symbol">);</span><span class="normal"> </span><span class="comment">/* repeat till iroot exceeds root */</span>
+<span class="normal">  iroot</span><span class="symbol">--;</span><span class="normal">			</span><span class="comment">/* now iroot = floor(root) */</span>
+
+<span class="normal">  </span><span class="comment">/* Must have at least 2 color values per component */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">iroot </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">2</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">ERREXIT1</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_QUANT_FEW_COLORS</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> temp</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* Initialize to iroot color values for each component */</span>
+<span class="normal">  total_colors </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> nc</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    Ncolors</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> iroot</span><span class="symbol">;</span>
+<span class="normal">    total_colors </span><span class="symbol">*=</span><span class="normal"> iroot</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="comment">/* We may be able to increment the count for one or more components without</span>
+<span class="comment">   * exceeding max_colors, though we know not all can be incremented.</span>
+<span class="comment">   * Sometimes, the first component can be incremented more than once!</span>
+<span class="comment">   * (Example: for 16 colors, we start at 2*2*2, go to 3*2*2, then 4*2*2.)</span>
+<span class="comment">   * In RGB colorspace, try to increment G first, then R, then B.</span>
+<span class="comment">   */</span>
+<span class="normal">  </span><span class="keyword">do</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    changed </span><span class="symbol">=</span><span class="normal"> FALSE</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> nc</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      j </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">out_color_space </span><span class="symbol">==</span><span class="normal"> JCS_RGB </span><span class="symbol">?</span><span class="normal"> RGB_order</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> i</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="comment">/* calculate new total_colors if Ncolors[j] is incremented */</span>
+<span class="normal">      temp </span><span class="symbol">=</span><span class="normal"> total_colors </span><span class="symbol">/</span><span class="normal"> Ncolors</span><span class="symbol">[</span><span class="normal">j</span><span class="symbol">];</span>
+<span class="normal">      temp </span><span class="symbol">*=</span><span class="normal"> Ncolors</span><span class="symbol">[</span><span class="normal">j</span><span class="symbol">]+</span><span class="number">1</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* done in long arith to avoid oflo */</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">temp </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> max_colors</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="keyword">break</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* won't fit, done with this pass */</span>
+<span class="normal">      Ncolors</span><span class="symbol">[</span><span class="normal">j</span><span class="symbol">]++;</span><span class="normal">		</span><span class="comment">/* OK, apply the increment */</span>
+<span class="normal">      total_colors </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> temp</span><span class="symbol">;</span>
+<span class="normal">      changed </span><span class="symbol">=</span><span class="normal"> TRUE</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">changed</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="keyword">return</span><span class="normal"> total_colors</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span>
+<span class="function">output_value</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> ci</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> j</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> maxj</span><span class="symbol">)</span>
+<span class="comment">/* Return j'th output value, where j will range from 0 to maxj */</span>
+<span class="comment">/* The output values must fall in 0..MAXJSAMPLE in increasing order */</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="comment">/* We always provide values 0 and MAXJSAMPLE for each component;</span>
+<span class="comment">   * any additional values are equally spaced between these limits.</span>
+<span class="comment">   * (Forcing the upper and lower values to the limits ensures that</span>
+<span class="comment">   * dithering can't produce a color outside the selected gamut.)</span>
+<span class="comment">   */</span>
+<span class="normal">  </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(((</span><span class="normal">INT32</span><span class="symbol">)</span><span class="normal"> j </span><span class="symbol">*</span><span class="normal"> MAXJSAMPLE </span><span class="symbol">+</span><span class="normal"> maxj</span><span class="symbol">/</span><span class="number">2</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">/</span><span class="normal"> maxj</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span>
+<span class="function">largest_input_value</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> ci</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> j</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> maxj</span><span class="symbol">)</span>
+<span class="comment">/* Return largest input value that should map to j'th output value */</span>
+<span class="comment">/* Must have largest(j=0) &gt;= 0, and largest(j=maxj) &gt;= MAXJSAMPLE */</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="comment">/* Breakpoints are halfway between values returned by output_value */</span>
+<span class="normal">  </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(((</span><span class="normal">INT32</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="number">2</span><span class="symbol">*</span><span class="normal">j </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> MAXJSAMPLE </span><span class="symbol">+</span><span class="normal"> maxj</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">/</span><span class="normal"> </span><span class="symbol">(</span><span class="number">2</span><span class="symbol">*</span><span class="normal">maxj</span><span class="symbol">));</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Create the colormap.</span>
+<span class="comment"> */</span>
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">create_colormap</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_cquantize_ptr</span><span class="normal"> cquantize </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_cquantize_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">cquantize</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JSAMPARRAY</span><span class="normal"> colormap</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* Created colormap */</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> total_colors</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* Number of distinct output colors */</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> i</span><span class="symbol">,</span><span class="normal">j</span><span class="symbol">,</span><span class="normal">k</span><span class="symbol">,</span><span class="normal"> nci</span><span class="symbol">,</span><span class="normal"> blksize</span><span class="symbol">,</span><span class="normal"> blkdist</span><span class="symbol">,</span><span class="normal"> ptr</span><span class="symbol">,</span><span class="normal"> val</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Select number of colors for each component */</span>
+<span class="normal">  total_colors </span><span class="symbol">=</span><span class="normal"> </span><span class="function">select_ncolors</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">Ncolors</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* Report selected color counts */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">out_color_components </span><span class="symbol">==</span><span class="normal"> </span><span class="number">3</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">TRACEMS4</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> JTRC_QUANT_3_NCOLORS</span><span class="symbol">,</span>
+<span class="normal">	     total_colors</span><span class="symbol">,</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">Ncolors</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">],</span>
+<span class="normal">	     cquantize</span><span class="symbol">-&gt;</span><span class="normal">Ncolors</span><span class="symbol">[</span><span class="number">1</span><span class="symbol">],</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">Ncolors</span><span class="symbol">[</span><span class="number">2</span><span class="symbol">]);</span>
+<span class="normal">  </span><span class="keyword">else</span>
+<span class="normal">    </span><span class="function">TRACEMS1</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> JTRC_QUANT_NCOLORS</span><span class="symbol">,</span><span class="normal"> total_colors</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* Allocate and fill in the colormap. */</span>
+<span class="normal">  </span><span class="comment">/* The colors are ordered in the map in standard row-major order, */</span>
+<span class="normal">  </span><span class="comment">/* i.e. rightmost (highest-indexed) color changes most rapidly. */</span>
+
+<span class="normal">  colormap </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">mem</span><span class="symbol">-&gt;</span><span class="normal">alloc_sarray</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> JPOOL_IMAGE</span><span class="symbol">,</span>
+<span class="normal">     </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span><span class="normal"> total_colors</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">out_color_components</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* blksize is number of adjacent repeated entries for a component */</span>
+<span class="normal">  </span><span class="comment">/* blkdist is distance between groups of identical entries for a component */</span>
+<span class="normal">  blkdist </span><span class="symbol">=</span><span class="normal"> total_colors</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">out_color_components</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">/* fill in colormap entries for i'th color component */</span>
+<span class="normal">    nci </span><span class="symbol">=</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">Ncolors</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span><span class="normal"> </span><span class="comment">/* # of distinct values for this color */</span>
+<span class="normal">    blksize </span><span class="symbol">=</span><span class="normal"> blkdist </span><span class="symbol">/</span><span class="normal"> nci</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">j </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> j </span><span class="symbol">&lt;</span><span class="normal"> nci</span><span class="symbol">;</span><span class="normal"> j</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="comment">/* Compute j'th output value (out of nci) for component */</span>
+<span class="normal">      val </span><span class="symbol">=</span><span class="normal"> </span><span class="function">output_value</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> i</span><span class="symbol">,</span><span class="normal"> j</span><span class="symbol">,</span><span class="normal"> nci</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="comment">/* Fill in all colormap entries that have this value of this component */</span>
+<span class="normal">      </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ptr </span><span class="symbol">=</span><span class="normal"> j </span><span class="symbol">*</span><span class="normal"> blksize</span><span class="symbol">;</span><span class="normal"> ptr </span><span class="symbol">&lt;</span><span class="normal"> total_colors</span><span class="symbol">;</span><span class="normal"> ptr </span><span class="symbol">+=</span><span class="normal"> blkdist</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="comment">/* fill in blksize entries beginning at ptr */</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">k </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> k </span><span class="symbol">&lt;</span><span class="normal"> blksize</span><span class="symbol">;</span><span class="normal"> k</span><span class="symbol">++)</span>
+<span class="normal">	  colormap</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">][</span><span class="normal">ptr</span><span class="symbol">+</span><span class="normal">k</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">)</span><span class="normal"> val</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    blkdist </span><span class="symbol">=</span><span class="normal"> blksize</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* blksize of this color is blkdist of next */</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="comment">/* Save the colormap in private storage,</span>
+<span class="comment">   * where it will survive color quantization mode changes.</span>
+<span class="comment">   */</span>
+<span class="normal">  cquantize</span><span class="symbol">-&gt;</span><span class="normal">sv_colormap </span><span class="symbol">=</span><span class="normal"> colormap</span><span class="symbol">;</span>
+<span class="normal">  cquantize</span><span class="symbol">-&gt;</span><span class="normal">sv_actual </span><span class="symbol">=</span><span class="normal"> total_colors</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Create the color index table.</span>
+<span class="comment"> */</span>
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">create_colorindex</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_cquantize_ptr</span><span class="normal"> cquantize </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_cquantize_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">cquantize</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JSAMPROW</span><span class="normal"> indexptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> i</span><span class="symbol">,</span><span class="normal">j</span><span class="symbol">,</span><span class="normal">k</span><span class="symbol">,</span><span class="normal"> nci</span><span class="symbol">,</span><span class="normal"> blksize</span><span class="symbol">,</span><span class="normal"> val</span><span class="symbol">,</span><span class="normal"> pad</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* For ordered dither, we pad the color index tables by MAXJSAMPLE in</span>
+<span class="comment">   * each direction (input index values can be -MAXJSAMPLE .. 2*MAXJSAMPLE).</span>
+<span class="comment">   * This is not necessary in the other dithering modes.  However, we</span>
+<span class="comment">   * flag whether it was done in case user changes dithering mode.</span>
+<span class="comment">   */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">dither_mode </span><span class="symbol">==</span><span class="normal"> JDITHER_ORDERED</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    pad </span><span class="symbol">=</span><span class="normal"> MAXJSAMPLE</span><span class="symbol">*</span><span class="number">2</span><span class="symbol">;</span>
+<span class="normal">    cquantize</span><span class="symbol">-&gt;</span><span class="normal">is_padded </span><span class="symbol">=</span><span class="normal"> TRUE</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    pad </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">    cquantize</span><span class="symbol">-&gt;</span><span class="normal">is_padded </span><span class="symbol">=</span><span class="normal"> FALSE</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  cquantize</span><span class="symbol">-&gt;</span><span class="normal">colorindex </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">mem</span><span class="symbol">-&gt;</span><span class="normal">alloc_sarray</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> JPOOL_IMAGE</span><span class="symbol">,</span>
+<span class="normal">     </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">MAXJSAMPLE</span><span class="symbol">+</span><span class="number">1</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> pad</span><span class="symbol">),</span>
+<span class="normal">     </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">out_color_components</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* blksize is number of adjacent repeated entries for a component */</span>
+<span class="normal">  blksize </span><span class="symbol">=</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">sv_actual</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">out_color_components</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">/* fill in colorindex entries for i'th color component */</span>
+<span class="normal">    nci </span><span class="symbol">=</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">Ncolors</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span><span class="normal"> </span><span class="comment">/* # of distinct values for this color */</span>
+<span class="normal">    blksize </span><span class="symbol">=</span><span class="normal"> blksize </span><span class="symbol">/</span><span class="normal"> nci</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/* adjust colorindex pointers to provide padding at negative indexes. */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">pad</span><span class="symbol">)</span>
+<span class="normal">      cquantize</span><span class="symbol">-&gt;</span><span class="normal">colorindex</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">+=</span><span class="normal"> MAXJSAMPLE</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/* in loop, val = index of current output value, */</span>
+<span class="normal">    </span><span class="comment">/* and k = largest j that maps to current val */</span>
+<span class="normal">    indexptr </span><span class="symbol">=</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">colorindex</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span>
+<span class="normal">    val </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">    k </span><span class="symbol">=</span><span class="normal"> </span><span class="function">largest_input_value</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> i</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> nci</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">j </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> j </span><span class="symbol">&lt;=</span><span class="normal"> MAXJSAMPLE</span><span class="symbol">;</span><span class="normal"> j</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">j </span><span class="symbol">&gt;</span><span class="normal"> k</span><span class="symbol">)</span><span class="normal">		</span><span class="comment">/* advance val if past boundary */</span>
+<span class="normal">	k </span><span class="symbol">=</span><span class="normal"> </span><span class="function">largest_input_value</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> i</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">val</span><span class="symbol">,</span><span class="normal"> nci</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="comment">/* premultiply so that no multiplication needed in main processing */</span>
+<span class="normal">      indexptr</span><span class="symbol">[</span><span class="normal">j</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">val </span><span class="symbol">*</span><span class="normal"> blksize</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="comment">/* Pad at both ends if necessary */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">pad</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">j </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal"> j </span><span class="symbol">&lt;=</span><span class="normal"> MAXJSAMPLE</span><span class="symbol">;</span><span class="normal"> j</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	indexptr</span><span class="symbol">[-</span><span class="normal">j</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> indexptr</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">];</span>
+<span class="normal">	indexptr</span><span class="symbol">[</span><span class="normal">MAXJSAMPLE</span><span class="symbol">+</span><span class="normal">j</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> indexptr</span><span class="symbol">[</span><span class="normal">MAXJSAMPLE</span><span class="symbol">];</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Create an ordered-dither array for a component having ncolors</span>
+<span class="comment"> * distinct output values.</span>
+<span class="comment"> */</span>
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="normal">ODITHER_MATRIX_PTR</span><span class="symbol">)</span>
+<span class="function">make_odither_array</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> ncolors</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">ODITHER_MATRIX_PTR</span><span class="normal"> odither</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> j</span><span class="symbol">,</span><span class="normal">k</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">INT32</span><span class="normal"> num</span><span class="symbol">,</span><span class="normal">den</span><span class="symbol">;</span>
+
+<span class="normal">  odither </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ODITHER_MATRIX_PTR</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">mem</span><span class="symbol">-&gt;</span><span class="normal">alloc_small</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> JPOOL_IMAGE</span><span class="symbol">,</span>
+<span class="normal">				</span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="normal">ODITHER_MATRIX</span><span class="symbol">));</span>
+<span class="normal">  </span><span class="comment">/* The inter-value distance for this color is MAXJSAMPLE/(ncolors-1).</span>
+<span class="comment">   * Hence the dither value for the matrix cell with fill order f</span>
+<span class="comment">   * (f=0..N-1) should be (N-1-2*f)/(2*N) * MAXJSAMPLE/(ncolors-1).</span>
+<span class="comment">   * On 16-bit-int machine, be careful to avoid overflow.</span>
+<span class="comment">   */</span>
+<span class="normal">  den </span><span class="symbol">=</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> ODITHER_CELLS </span><span class="symbol">*</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">INT32</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ncolors </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">));</span>
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">j </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> j </span><span class="symbol">&lt;</span><span class="normal"> ODITHER_SIZE</span><span class="symbol">;</span><span class="normal"> j</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">k </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> k </span><span class="symbol">&lt;</span><span class="normal"> ODITHER_SIZE</span><span class="symbol">;</span><span class="normal"> k</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      num </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">INT32</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ODITHER_CELLS</span><span class="symbol">-</span><span class="number">1</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> </span><span class="number">2</span><span class="symbol">*((</span><span class="type">int</span><span class="symbol">)</span><span class="normal">base_dither_matrix</span><span class="symbol">[</span><span class="normal">j</span><span class="symbol">][</span><span class="normal">k</span><span class="symbol">])))</span>
+<span class="normal">	    </span><span class="symbol">*</span><span class="normal"> MAXJSAMPLE</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="comment">/* Ensure round towards zero despite C's lack of consistency</span>
+<span class="comment">       * about rounding negative values in integer division...</span>
+<span class="comment">       */</span>
+<span class="normal">      odither</span><span class="symbol">[</span><span class="normal">j</span><span class="symbol">][</span><span class="normal">k</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">num</span><span class="symbol">&lt;</span><span class="number">0</span><span class="normal"> </span><span class="symbol">?</span><span class="normal"> </span><span class="symbol">-((-</span><span class="normal">num</span><span class="symbol">)/</span><span class="normal">den</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> num</span><span class="symbol">/</span><span class="normal">den</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="keyword">return</span><span class="normal"> odither</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Create the ordered-dither tables.</span>
+<span class="comment"> * Components having the same number of representative colors may </span>
+<span class="comment"> * share a dither table.</span>
+<span class="comment"> */</span>
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">create_odither_tables</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_cquantize_ptr</span><span class="normal"> cquantize </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_cquantize_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">cquantize</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">ODITHER_MATRIX_PTR</span><span class="normal"> odither</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> i</span><span class="symbol">,</span><span class="normal"> j</span><span class="symbol">,</span><span class="normal"> nci</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">out_color_components</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    nci </span><span class="symbol">=</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">Ncolors</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span><span class="normal"> </span><span class="comment">/* # of distinct values for this color */</span>
+<span class="normal">    odither </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* search for matching prior component */</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">j </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> j </span><span class="symbol">&lt;</span><span class="normal"> i</span><span class="symbol">;</span><span class="normal"> j</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">nci </span><span class="symbol">==</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">Ncolors</span><span class="symbol">[</span><span class="normal">j</span><span class="symbol">])</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	odither </span><span class="symbol">=</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">odither</span><span class="symbol">[</span><span class="normal">j</span><span class="symbol">];</span>
+<span class="normal">	</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">odither </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal">	</span><span class="comment">/* need a new table? */</span>
+<span class="normal">      odither </span><span class="symbol">=</span><span class="normal"> </span><span class="function">make_odither_array</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> nci</span><span class="symbol">);</span>
+<span class="normal">    cquantize</span><span class="symbol">-&gt;</span><span class="normal">odither</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> odither</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Map some rows of pixels to the output colormapped representation.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">color_quantize</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">JSAMPARRAY</span><span class="normal"> input_buf</span><span class="symbol">,</span>
+<span class="normal">		</span><span class="usertype">JSAMPARRAY</span><span class="normal"> output_buf</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> num_rows</span><span class="symbol">)</span>
+<span class="comment">/* General case, no dithering */</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_cquantize_ptr</span><span class="normal"> cquantize </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_cquantize_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">cquantize</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JSAMPARRAY</span><span class="normal"> colorindex </span><span class="symbol">=</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">colorindex</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="type">int</span><span class="normal"> pixcode</span><span class="symbol">,</span><span class="normal"> ci</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JSAMPROW</span><span class="normal"> ptrin</span><span class="symbol">,</span><span class="normal"> ptrout</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> row</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JDIMENSION</span><span class="normal"> col</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JDIMENSION</span><span class="normal"> width </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">output_width</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="type">int</span><span class="normal"> nc </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">out_color_components</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">row </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> row </span><span class="symbol">&lt;</span><span class="normal"> num_rows</span><span class="symbol">;</span><span class="normal"> row</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    ptrin </span><span class="symbol">=</span><span class="normal"> input_buf</span><span class="symbol">[</span><span class="normal">row</span><span class="symbol">];</span>
+<span class="normal">    ptrout </span><span class="symbol">=</span><span class="normal"> output_buf</span><span class="symbol">[</span><span class="normal">row</span><span class="symbol">];</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">col </span><span class="symbol">=</span><span class="normal"> width</span><span class="symbol">;</span><span class="normal"> col </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> col</span><span class="symbol">--)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      pixcode </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> ci </span><span class="symbol">&lt;</span><span class="normal"> nc</span><span class="symbol">;</span><span class="normal"> ci</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	pixcode </span><span class="symbol">+=</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(</span><span class="normal">colorindex</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">][</span><span class="function">GETJSAMPLE</span><span class="symbol">(*</span><span class="normal">ptrin</span><span class="symbol">++)]);</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">ptrout</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">)</span><span class="normal"> pixcode</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">color_quantize3</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">JSAMPARRAY</span><span class="normal"> input_buf</span><span class="symbol">,</span>
+<span class="normal">		 </span><span class="usertype">JSAMPARRAY</span><span class="normal"> output_buf</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> num_rows</span><span class="symbol">)</span>
+<span class="comment">/* Fast path for out_color_components==3, no dithering */</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_cquantize_ptr</span><span class="normal"> cquantize </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_cquantize_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">cquantize</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="type">int</span><span class="normal"> pixcode</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JSAMPROW</span><span class="normal"> ptrin</span><span class="symbol">,</span><span class="normal"> ptrout</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JSAMPROW</span><span class="normal"> colorindex0 </span><span class="symbol">=</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">colorindex</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">];</span>
+<span class="normal">  </span><span class="usertype">JSAMPROW</span><span class="normal"> colorindex1 </span><span class="symbol">=</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">colorindex</span><span class="symbol">[</span><span class="number">1</span><span class="symbol">];</span>
+<span class="normal">  </span><span class="usertype">JSAMPROW</span><span class="normal"> colorindex2 </span><span class="symbol">=</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">colorindex</span><span class="symbol">[</span><span class="number">2</span><span class="symbol">];</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> row</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JDIMENSION</span><span class="normal"> col</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JDIMENSION</span><span class="normal"> width </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">output_width</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">row </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> row </span><span class="symbol">&lt;</span><span class="normal"> num_rows</span><span class="symbol">;</span><span class="normal"> row</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    ptrin </span><span class="symbol">=</span><span class="normal"> input_buf</span><span class="symbol">[</span><span class="normal">row</span><span class="symbol">];</span>
+<span class="normal">    ptrout </span><span class="symbol">=</span><span class="normal"> output_buf</span><span class="symbol">[</span><span class="normal">row</span><span class="symbol">];</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">col </span><span class="symbol">=</span><span class="normal"> width</span><span class="symbol">;</span><span class="normal"> col </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> col</span><span class="symbol">--)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      pixcode  </span><span class="symbol">=</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(</span><span class="normal">colorindex0</span><span class="symbol">[</span><span class="function">GETJSAMPLE</span><span class="symbol">(*</span><span class="normal">ptrin</span><span class="symbol">++)]);</span>
+<span class="normal">      pixcode </span><span class="symbol">+=</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(</span><span class="normal">colorindex1</span><span class="symbol">[</span><span class="function">GETJSAMPLE</span><span class="symbol">(*</span><span class="normal">ptrin</span><span class="symbol">++)]);</span>
+<span class="normal">      pixcode </span><span class="symbol">+=</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(</span><span class="normal">colorindex2</span><span class="symbol">[</span><span class="function">GETJSAMPLE</span><span class="symbol">(*</span><span class="normal">ptrin</span><span class="symbol">++)]);</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">ptrout</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">)</span><span class="normal"> pixcode</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">quantize_ord_dither</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">JSAMPARRAY</span><span class="normal"> input_buf</span><span class="symbol">,</span>
+<span class="normal">		     </span><span class="usertype">JSAMPARRAY</span><span class="normal"> output_buf</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> num_rows</span><span class="symbol">)</span>
+<span class="comment">/* General case, with ordered dithering */</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_cquantize_ptr</span><span class="normal"> cquantize </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_cquantize_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">cquantize</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JSAMPROW</span><span class="normal"> input_ptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JSAMPROW</span><span class="normal"> output_ptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JSAMPROW</span><span class="normal"> colorindex_ci</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> dither</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* points to active row of dither matrix */</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> row_index</span><span class="symbol">,</span><span class="normal"> col_index</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* current indexes into dither matrix */</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> nc </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">out_color_components</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> ci</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> row</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JDIMENSION</span><span class="normal"> col</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JDIMENSION</span><span class="normal"> width </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">output_width</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">row </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> row </span><span class="symbol">&lt;</span><span class="normal"> num_rows</span><span class="symbol">;</span><span class="normal"> row</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">/* Initialize output values to 0 so can process components separately */</span>
+<span class="normal">    </span><span class="function">jzero_far</span><span class="symbol">((</span><span class="type">void</span><span class="normal"> FAR </span><span class="symbol">*)</span><span class="normal"> output_buf</span><span class="symbol">[</span><span class="normal">row</span><span class="symbol">],</span>
+<span class="normal">	      </span><span class="symbol">(</span><span class="normal">size_t</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">width </span><span class="symbol">*</span><span class="normal"> </span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">)));</span>
+<span class="normal">    row_index </span><span class="symbol">=</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">row_index</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> ci </span><span class="symbol">&lt;</span><span class="normal"> nc</span><span class="symbol">;</span><span class="normal"> ci</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      input_ptr </span><span class="symbol">=</span><span class="normal"> input_buf</span><span class="symbol">[</span><span class="normal">row</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> ci</span><span class="symbol">;</span>
+<span class="normal">      output_ptr </span><span class="symbol">=</span><span class="normal"> output_buf</span><span class="symbol">[</span><span class="normal">row</span><span class="symbol">];</span>
+<span class="normal">      colorindex_ci </span><span class="symbol">=</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">colorindex</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">];</span>
+<span class="normal">      dither </span><span class="symbol">=</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">odither</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">][</span><span class="normal">row_index</span><span class="symbol">];</span>
+<span class="normal">      col_index </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="normal">      </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">col </span><span class="symbol">=</span><span class="normal"> width</span><span class="symbol">;</span><span class="normal"> col </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> col</span><span class="symbol">--)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="comment">/* Form pixel value + dither, range-limit to 0..MAXJSAMPLE,</span>
+<span class="comment">	 * select output value, accumulate into output code for this pixel.</span>
+<span class="comment">	 * Range-limiting need not be done explicitly, as we have extended</span>
+<span class="comment">	 * the colorindex table to produce the right answers for out-of-range</span>
+<span class="comment">	 * inputs.  The maximum dither is +- MAXJSAMPLE; this sets the</span>
+<span class="comment">	 * required amount of padding.</span>
+<span class="comment">	 */</span>
+<span class="normal">	</span><span class="symbol">*</span><span class="normal">output_ptr </span><span class="symbol">+=</span><span class="normal"> colorindex_ci</span><span class="symbol">[</span><span class="function">GETJSAMPLE</span><span class="symbol">(*</span><span class="normal">input_ptr</span><span class="symbol">)+</span><span class="normal">dither</span><span class="symbol">[</span><span class="normal">col_index</span><span class="symbol">]];</span>
+<span class="normal">	input_ptr </span><span class="symbol">+=</span><span class="normal"> nc</span><span class="symbol">;</span>
+<span class="normal">	output_ptr</span><span class="symbol">++;</span>
+<span class="normal">	col_index </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">col_index </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal"> ODITHER_MASK</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="comment">/* Advance row index for next row */</span>
+<span class="normal">    row_index </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">row_index </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal"> ODITHER_MASK</span><span class="symbol">;</span>
+<span class="normal">    cquantize</span><span class="symbol">-&gt;</span><span class="normal">row_index </span><span class="symbol">=</span><span class="normal"> row_index</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">quantize3_ord_dither</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">JSAMPARRAY</span><span class="normal"> input_buf</span><span class="symbol">,</span>
+<span class="normal">		      </span><span class="usertype">JSAMPARRAY</span><span class="normal"> output_buf</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> num_rows</span><span class="symbol">)</span>
+<span class="comment">/* Fast path for out_color_components==3, with ordered dithering */</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_cquantize_ptr</span><span class="normal"> cquantize </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_cquantize_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">cquantize</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="type">int</span><span class="normal"> pixcode</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JSAMPROW</span><span class="normal"> input_ptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JSAMPROW</span><span class="normal"> output_ptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JSAMPROW</span><span class="normal"> colorindex0 </span><span class="symbol">=</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">colorindex</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">];</span>
+<span class="normal">  </span><span class="usertype">JSAMPROW</span><span class="normal"> colorindex1 </span><span class="symbol">=</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">colorindex</span><span class="symbol">[</span><span class="number">1</span><span class="symbol">];</span>
+<span class="normal">  </span><span class="usertype">JSAMPROW</span><span class="normal"> colorindex2 </span><span class="symbol">=</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">colorindex</span><span class="symbol">[</span><span class="number">2</span><span class="symbol">];</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> dither0</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* points to active row of dither matrix */</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> dither1</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> dither2</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> row_index</span><span class="symbol">,</span><span class="normal"> col_index</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* current indexes into dither matrix */</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> row</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JDIMENSION</span><span class="normal"> col</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JDIMENSION</span><span class="normal"> width </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">output_width</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">row </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> row </span><span class="symbol">&lt;</span><span class="normal"> num_rows</span><span class="symbol">;</span><span class="normal"> row</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    row_index </span><span class="symbol">=</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">row_index</span><span class="symbol">;</span>
+<span class="normal">    input_ptr </span><span class="symbol">=</span><span class="normal"> input_buf</span><span class="symbol">[</span><span class="normal">row</span><span class="symbol">];</span>
+<span class="normal">    output_ptr </span><span class="symbol">=</span><span class="normal"> output_buf</span><span class="symbol">[</span><span class="normal">row</span><span class="symbol">];</span>
+<span class="normal">    dither0 </span><span class="symbol">=</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">odither</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">][</span><span class="normal">row_index</span><span class="symbol">];</span>
+<span class="normal">    dither1 </span><span class="symbol">=</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">odither</span><span class="symbol">[</span><span class="number">1</span><span class="symbol">][</span><span class="normal">row_index</span><span class="symbol">];</span>
+<span class="normal">    dither2 </span><span class="symbol">=</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">odither</span><span class="symbol">[</span><span class="number">2</span><span class="symbol">][</span><span class="normal">row_index</span><span class="symbol">];</span>
+<span class="normal">    col_index </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">col </span><span class="symbol">=</span><span class="normal"> width</span><span class="symbol">;</span><span class="normal"> col </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> col</span><span class="symbol">--)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      pixcode  </span><span class="symbol">=</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(</span><span class="normal">colorindex0</span><span class="symbol">[</span><span class="function">GETJSAMPLE</span><span class="symbol">(*</span><span class="normal">input_ptr</span><span class="symbol">++)</span><span class="normal"> </span><span class="symbol">+</span>
+<span class="normal">					dither0</span><span class="symbol">[</span><span class="normal">col_index</span><span class="symbol">]]);</span>
+<span class="normal">      pixcode </span><span class="symbol">+=</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(</span><span class="normal">colorindex1</span><span class="symbol">[</span><span class="function">GETJSAMPLE</span><span class="symbol">(*</span><span class="normal">input_ptr</span><span class="symbol">++)</span><span class="normal"> </span><span class="symbol">+</span>
+<span class="normal">					dither1</span><span class="symbol">[</span><span class="normal">col_index</span><span class="symbol">]]);</span>
+<span class="normal">      pixcode </span><span class="symbol">+=</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(</span><span class="normal">colorindex2</span><span class="symbol">[</span><span class="function">GETJSAMPLE</span><span class="symbol">(*</span><span class="normal">input_ptr</span><span class="symbol">++)</span><span class="normal"> </span><span class="symbol">+</span>
+<span class="normal">					dither2</span><span class="symbol">[</span><span class="normal">col_index</span><span class="symbol">]]);</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">output_ptr</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">)</span><span class="normal"> pixcode</span><span class="symbol">;</span>
+<span class="normal">      col_index </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">col_index </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal"> ODITHER_MASK</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    row_index </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">row_index </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal"> ODITHER_MASK</span><span class="symbol">;</span>
+<span class="normal">    cquantize</span><span class="symbol">-&gt;</span><span class="normal">row_index </span><span class="symbol">=</span><span class="normal"> row_index</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">quantize_fs_dither</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">JSAMPARRAY</span><span class="normal"> input_buf</span><span class="symbol">,</span>
+<span class="normal">		    </span><span class="usertype">JSAMPARRAY</span><span class="normal"> output_buf</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> num_rows</span><span class="symbol">)</span>
+<span class="comment">/* General case, with Floyd-Steinberg dithering */</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_cquantize_ptr</span><span class="normal"> cquantize </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_cquantize_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">cquantize</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">LOCFSERROR</span><span class="normal"> cur</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* current error or pixel value */</span>
+<span class="normal">  </span><span class="usertype">LOCFSERROR</span><span class="normal"> belowerr</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* error for pixel below cur */</span>
+<span class="normal">  </span><span class="usertype">LOCFSERROR</span><span class="normal"> bpreverr</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* error for below/prev col */</span>
+<span class="normal">  </span><span class="usertype">LOCFSERROR</span><span class="normal"> bnexterr</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* error for below/next col */</span>
+<span class="normal">  </span><span class="usertype">LOCFSERROR</span><span class="normal"> delta</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">FSERRPTR</span><span class="normal"> errorptr</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* =&gt; fserrors[] at column before current */</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JSAMPROW</span><span class="normal"> input_ptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JSAMPROW</span><span class="normal"> output_ptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JSAMPROW</span><span class="normal"> colorindex_ci</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JSAMPROW</span><span class="normal"> colormap_ci</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> pixcode</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> nc </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">out_color_components</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> dir</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* 1 for left-to-right, -1 for right-to-left */</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> dirnc</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* dir * nc */</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> ci</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> row</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JDIMENSION</span><span class="normal"> col</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JDIMENSION</span><span class="normal"> width </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">output_width</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JSAMPLE</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">range_limit </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">sample_range_limit</span><span class="symbol">;</span>
+<span class="normal">  SHIFT_TEMPS</span>
+
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">row </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> row </span><span class="symbol">&lt;</span><span class="normal"> num_rows</span><span class="symbol">;</span><span class="normal"> row</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">/* Initialize output values to 0 so can process components separately */</span>
+<span class="normal">    </span><span class="function">jzero_far</span><span class="symbol">((</span><span class="type">void</span><span class="normal"> FAR </span><span class="symbol">*)</span><span class="normal"> output_buf</span><span class="symbol">[</span><span class="normal">row</span><span class="symbol">],</span>
+<span class="normal">	      </span><span class="symbol">(</span><span class="normal">size_t</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">width </span><span class="symbol">*</span><span class="normal"> </span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">)));</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> ci </span><span class="symbol">&lt;</span><span class="normal"> nc</span><span class="symbol">;</span><span class="normal"> ci</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      input_ptr </span><span class="symbol">=</span><span class="normal"> input_buf</span><span class="symbol">[</span><span class="normal">row</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> ci</span><span class="symbol">;</span>
+<span class="normal">      output_ptr </span><span class="symbol">=</span><span class="normal"> output_buf</span><span class="symbol">[</span><span class="normal">row</span><span class="symbol">];</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cquantize</span><span class="symbol">-&gt;</span><span class="normal">on_odd_row</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="comment">/* work right to left in this row */</span>
+<span class="normal">	input_ptr </span><span class="symbol">+=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">width</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> nc</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* so point to rightmost pixel */</span>
+<span class="normal">	output_ptr </span><span class="symbol">+=</span><span class="normal"> width</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">	dir </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">	dirnc </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">-</span><span class="normal">nc</span><span class="symbol">;</span>
+<span class="normal">	errorptr </span><span class="symbol">=</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">fserrors</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">width</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">);</span><span class="normal"> </span><span class="comment">/* =&gt; entry after last column */</span>
+<span class="normal">      </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="comment">/* work left to right in this row */</span>
+<span class="normal">	dir </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">	dirnc </span><span class="symbol">=</span><span class="normal"> nc</span><span class="symbol">;</span>
+<span class="normal">	errorptr </span><span class="symbol">=</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">fserrors</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">];</span><span class="normal"> </span><span class="comment">/* =&gt; entry before first column */</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">      colorindex_ci </span><span class="symbol">=</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">colorindex</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">];</span>
+<span class="normal">      colormap_ci </span><span class="symbol">=</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">sv_colormap</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">];</span>
+<span class="normal">      </span><span class="comment">/* Preset error values: no error propagated to first pixel from left */</span>
+<span class="normal">      cur </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="comment">/* and no error propagated to row below yet */</span>
+<span class="normal">      belowerr </span><span class="symbol">=</span><span class="normal"> bpreverr </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="normal">      </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">col </span><span class="symbol">=</span><span class="normal"> width</span><span class="symbol">;</span><span class="normal"> col </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> col</span><span class="symbol">--)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="comment">/* cur holds the error propagated from the previous pixel on the</span>
+<span class="comment">	 * current line.  Add the error propagated from the previous line</span>
+<span class="comment">	 * to form the complete error correction term for this pixel, and</span>
+<span class="comment">	 * round the error term (which is expressed * 16) to an integer.</span>
+<span class="comment">	 * RIGHT_SHIFT rounds towards minus infinity, so adding 8 is correct</span>
+<span class="comment">	 * for either sign of the error value.</span>
+<span class="comment">	 * Note: errorptr points to *previous* column's array entry.</span>
+<span class="comment">	 */</span>
+<span class="normal">	cur </span><span class="symbol">=</span><span class="normal"> </span><span class="function">RIGHT_SHIFT</span><span class="symbol">(</span><span class="normal">cur </span><span class="symbol">+</span><span class="normal"> errorptr</span><span class="symbol">[</span><span class="normal">dir</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">8</span><span class="symbol">,</span><span class="normal"> </span><span class="number">4</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="comment">/* Form pixel value + error, and range-limit to 0..MAXJSAMPLE.</span>
+<span class="comment">	 * The maximum error is +- MAXJSAMPLE; this sets the required size</span>
+<span class="comment">	 * of the range_limit array.</span>
+<span class="comment">	 */</span>
+<span class="normal">	cur </span><span class="symbol">+=</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(*</span><span class="normal">input_ptr</span><span class="symbol">);</span>
+<span class="normal">	cur </span><span class="symbol">=</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(</span><span class="normal">range_limit</span><span class="symbol">[</span><span class="normal">cur</span><span class="symbol">]);</span>
+<span class="normal">	</span><span class="comment">/* Select output value, accumulate into output code for this pixel */</span>
+<span class="normal">	pixcode </span><span class="symbol">=</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(</span><span class="normal">colorindex_ci</span><span class="symbol">[</span><span class="normal">cur</span><span class="symbol">]);</span>
+<span class="normal">	</span><span class="symbol">*</span><span class="normal">output_ptr </span><span class="symbol">+=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">)</span><span class="normal"> pixcode</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="comment">/* Compute actual representation error at this pixel */</span>
+<span class="normal">	</span><span class="comment">/* Note: we can do this even though we don't have the final */</span>
+<span class="normal">	</span><span class="comment">/* pixel code, because the colormap is orthogonal. */</span>
+<span class="normal">	cur </span><span class="symbol">-=</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(</span><span class="normal">colormap_ci</span><span class="symbol">[</span><span class="normal">pixcode</span><span class="symbol">]);</span>
+<span class="normal">	</span><span class="comment">/* Compute error fractions to be propagated to adjacent pixels.</span>
+<span class="comment">	 * Add these into the running sums, and simultaneously shift the</span>
+<span class="comment">	 * next-line error sums left by 1 column.</span>
+<span class="comment">	 */</span>
+<span class="normal">	bnexterr </span><span class="symbol">=</span><span class="normal"> cur</span><span class="symbol">;</span>
+<span class="normal">	delta </span><span class="symbol">=</span><span class="normal"> cur </span><span class="symbol">*</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span>
+<span class="normal">	cur </span><span class="symbol">+=</span><span class="normal"> delta</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* form error * 3 */</span>
+<span class="normal">	errorptr</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">FSERROR</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">bpreverr </span><span class="symbol">+</span><span class="normal"> cur</span><span class="symbol">);</span>
+<span class="normal">	cur </span><span class="symbol">+=</span><span class="normal"> delta</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* form error * 5 */</span>
+<span class="normal">	bpreverr </span><span class="symbol">=</span><span class="normal"> belowerr </span><span class="symbol">+</span><span class="normal"> cur</span><span class="symbol">;</span>
+<span class="normal">	belowerr </span><span class="symbol">=</span><span class="normal"> bnexterr</span><span class="symbol">;</span>
+<span class="normal">	cur </span><span class="symbol">+=</span><span class="normal"> delta</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* form error * 7 */</span>
+<span class="normal">	</span><span class="comment">/* At this point cur contains the 7/16 error value to be propagated</span>
+<span class="comment">	 * to the next pixel on the current line, and all the errors for the</span>
+<span class="comment">	 * next line have been shifted over. We are therefore ready to move on.</span>
+<span class="comment">	 */</span>
+<span class="normal">	input_ptr </span><span class="symbol">+=</span><span class="normal"> dirnc</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* advance input ptr to next column */</span>
+<span class="normal">	output_ptr </span><span class="symbol">+=</span><span class="normal"> dir</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* advance output ptr to next column */</span>
+<span class="normal">	errorptr </span><span class="symbol">+=</span><span class="normal"> dir</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* advance errorptr to current column */</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="comment">/* Post-loop cleanup: we must unload the final error value into the</span>
+<span class="comment">       * final fserrors[] entry.  Note we need not unload belowerr because</span>
+<span class="comment">       * it is for the dummy column before or after the actual array.</span>
+<span class="comment">       */</span>
+<span class="normal">      errorptr</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">FSERROR</span><span class="symbol">)</span><span class="normal"> bpreverr</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* unload prev err into array */</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    cquantize</span><span class="symbol">-&gt;</span><span class="normal">on_odd_row </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cquantize</span><span class="symbol">-&gt;</span><span class="normal">on_odd_row </span><span class="symbol">?</span><span class="normal"> FALSE </span><span class="symbol">:</span><span class="normal"> TRUE</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Allocate workspace for Floyd-Steinberg errors.</span>
+<span class="comment"> */</span>
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">alloc_fs_workspace</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_cquantize_ptr</span><span class="normal"> cquantize </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_cquantize_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">cquantize</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">size_t</span><span class="normal"> arraysize</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> i</span><span class="symbol">;</span>
+
+<span class="normal">  arraysize </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">size_t</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">output_width </span><span class="symbol">+</span><span class="normal"> </span><span class="number">2</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="normal">FSERROR</span><span class="symbol">));</span>
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">out_color_components</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    cquantize</span><span class="symbol">-&gt;</span><span class="normal">fserrors</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">FSERRPTR</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">mem</span><span class="symbol">-&gt;</span><span class="normal">alloc_large</span><span class="symbol">)((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> JPOOL_IMAGE</span><span class="symbol">,</span><span class="normal"> arraysize</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Initialize for one-pass color quantization.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">start_pass_1_quant</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">boolean</span><span class="normal"> is_pre_scan</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_cquantize_ptr</span><span class="normal"> cquantize </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_cquantize_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">cquantize</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">size_t</span><span class="normal"> arraysize</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> i</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Install my colormap. */</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">colormap </span><span class="symbol">=</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">sv_colormap</span><span class="symbol">;</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">actual_number_of_colors </span><span class="symbol">=</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">sv_actual</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Initialize for desired dithering mode. */</span>
+<span class="normal">  </span><span class="keyword">switch</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">dither_mode</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">case</span><span class="normal"> JDITHER_NONE</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">out_color_components </span><span class="symbol">==</span><span class="normal"> </span><span class="number">3</span><span class="symbol">)</span>
+<span class="normal">      cquantize</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">color_quantize </span><span class="symbol">=</span><span class="normal"> color_quantize3</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">else</span>
+<span class="normal">      cquantize</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">color_quantize </span><span class="symbol">=</span><span class="normal"> color_quantize</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">case</span><span class="normal"> JDITHER_ORDERED</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">out_color_components </span><span class="symbol">==</span><span class="normal"> </span><span class="number">3</span><span class="symbol">)</span>
+<span class="normal">      cquantize</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">color_quantize </span><span class="symbol">=</span><span class="normal"> quantize3_ord_dither</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">else</span>
+<span class="normal">      cquantize</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">color_quantize </span><span class="symbol">=</span><span class="normal"> quantize_ord_dither</span><span class="symbol">;</span>
+<span class="normal">    cquantize</span><span class="symbol">-&gt;</span><span class="normal">row_index </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* initialize state for ordered dither */</span>
+<span class="normal">    </span><span class="comment">/* If user changed to ordered dither from another mode,</span>
+<span class="comment">     * we must recreate the color index table with padding.</span>
+<span class="comment">     * This will cost extra space, but probably isn't very likely.</span>
+<span class="comment">     */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">is_padded</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">create_colorindex</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="comment">/* Create ordered-dither tables if we didn't already. */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cquantize</span><span class="symbol">-&gt;</span><span class="normal">odither</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">create_odither_tables</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">case</span><span class="normal"> JDITHER_FS</span><span class="symbol">:</span>
+<span class="normal">    cquantize</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">color_quantize </span><span class="symbol">=</span><span class="normal"> quantize_fs_dither</span><span class="symbol">;</span>
+<span class="normal">    cquantize</span><span class="symbol">-&gt;</span><span class="normal">on_odd_row </span><span class="symbol">=</span><span class="normal"> FALSE</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* initialize state for F-S dither */</span>
+<span class="normal">    </span><span class="comment">/* Allocate Floyd-Steinberg workspace if didn't already. */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cquantize</span><span class="symbol">-&gt;</span><span class="normal">fserrors</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">alloc_fs_workspace</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="comment">/* Initialize the propagated errors to zero. */</span>
+<span class="normal">    arraysize </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">size_t</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">output_width </span><span class="symbol">+</span><span class="normal"> </span><span class="number">2</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="normal">FSERROR</span><span class="symbol">));</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">out_color_components</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span>
+<span class="normal">      </span><span class="function">jzero_far</span><span class="symbol">((</span><span class="type">void</span><span class="normal"> FAR </span><span class="symbol">*)</span><span class="normal"> cquantize</span><span class="symbol">-&gt;</span><span class="normal">fserrors</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">],</span><span class="normal"> arraysize</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="label">  default:</span>
+<span class="normal">    </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_NOT_COMPILED</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Finish up at the end of the pass.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">finish_pass_1_quant</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="comment">/* no work in 1-pass case */</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Switch to a new external colormap between output passes.</span>
+<span class="comment"> * Shouldn't get to this module!</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">new_color_map_1_quant</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_MODE_CHANGE</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Module initialization routine for 1-pass color quantization.</span>
+<span class="comment"> */</span>
+
+<span class="function">GLOBAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">jinit_1pass_quantizer</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_cquantize_ptr</span><span class="normal"> cquantize</span><span class="symbol">;</span>
+
+<span class="normal">  cquantize </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_cquantize_ptr</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">mem</span><span class="symbol">-&gt;</span><span class="normal">alloc_small</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> JPOOL_IMAGE</span><span class="symbol">,</span>
+<span class="normal">				</span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="normal">my_cquantizer</span><span class="symbol">));</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">cquantize </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">jpeg_color_quantizer</span><span class="normal"> </span><span class="symbol">*)</span><span class="normal"> cquantize</span><span class="symbol">;</span>
+<span class="normal">  cquantize</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">start_pass </span><span class="symbol">=</span><span class="normal"> start_pass_1_quant</span><span class="symbol">;</span>
+<span class="normal">  cquantize</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">finish_pass </span><span class="symbol">=</span><span class="normal"> finish_pass_1_quant</span><span class="symbol">;</span>
+<span class="normal">  cquantize</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">new_color_map </span><span class="symbol">=</span><span class="normal"> new_color_map_1_quant</span><span class="symbol">;</span>
+<span class="normal">  cquantize</span><span class="symbol">-&gt;</span><span class="normal">fserrors</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* Flag FS workspace not allocated */</span>
+<span class="normal">  cquantize</span><span class="symbol">-&gt;</span><span class="normal">odither</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* Also flag odither arrays not allocated */</span>
+
+<span class="normal">  </span><span class="comment">/* Make sure my internal arrays won't overflow */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">out_color_components </span><span class="symbol">&gt;</span><span class="normal"> MAX_Q_COMPS</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">ERREXIT1</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_QUANT_COMPONENTS</span><span class="symbol">,</span><span class="normal"> MAX_Q_COMPS</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="comment">/* Make sure colormap indexes can be represented by JSAMPLEs */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">desired_number_of_colors </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">MAXJSAMPLE</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">))</span>
+<span class="normal">    </span><span class="function">ERREXIT1</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_QUANT_MANY_COLORS</span><span class="symbol">,</span><span class="normal"> MAXJSAMPLE</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* Create the colormap and color index table. */</span>
+<span class="normal">  </span><span class="function">create_colormap</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function">create_colorindex</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* Allocate Floyd-Steinberg workspace now if requested.</span>
+<span class="comment">   * We do this now since it is FAR storage and may affect the memory</span>
+<span class="comment">   * manager's space calculations.  If the user changes to FS dither</span>
+<span class="comment">   * mode in a later pass, we will allocate the space then, and will</span>
+<span class="comment">   * possibly overrun the max_memory_to_use setting.</span>
+<span class="comment">   */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">dither_mode </span><span class="symbol">==</span><span class="normal"> JDITHER_FS</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">alloc_fs_workspace</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* QUANT_1PASS_SUPPORTED */</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

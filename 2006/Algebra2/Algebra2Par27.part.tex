@@ -1,0 +1,263 @@
+\section{Krull-Dimension}
+
+\begin{Def}
+\label{2.24}
+Sei $R$ ein Ring. 
+\begin{enumerate}
+
+\item Eine Folge $\mathfrak{p}_0, \mathfrak{p}_1, \dots ,\mathfrak{p}_n$
+von Primidealen in $R$ heißt \emp{Primidealkette}\index{Primidealkette} zu $\mathfrak{p}=\mathfrak{p_n}$
+der Länge $n$, wenn $\mathfrak{p}_{i-1}\subsetneq \mathfrak{p}_i$ für $i=1,\ldots, n$.
+
+\item Für ein Primideal $\mathfrak{p}\subset R$ heißt
+$$ h(\mathfrak{p}) \defeqr \sup\{n\in\mathbb{N}: \text{es gibt Primidealkette der Länge}\ n \text{ zu } \mathfrak{p}\} $$
+
+die \emp{Höhe}\index{Primidealkette!Höhe} von $\mathfrak{p}$.
+
+\item $\dim\ R\defeqr\sup\{h(\mathfrak{p}) : \mathfrak{p} \text{ Primideal in } R\}$
+heißt \emp{Krull-Dimension}\index{Krull-Dimension} von $R$.
+
+\end{enumerate}
+\end{Def}
+
+
+\begin{nnBsp}
+\begin{enumerate}
+\item $R=k$ Körper: $\dim\ k=0$
+\item $R=\mathbb{Z}$: $\dim\ \mathbb{Z}=1$
+\item $R=k[X]$: $\dim\ k[X] =1$
+\item $R=k[X,Y]$: $\dim\ k[X,Y] =2$\\
+$\geq 2$ ist klar, da $(0)\subsetneq(X)\subsetneq(X,Y)$. Aber warum $=2$?
+\end{enumerate}
+\end{nnBsp}
+
+\begin{Bem}
+\label{2.25}
+Sei $R$ ein nullteilerfreier Ring. Dann gilt: 
+\begin{enumerate}
+\item Sind $p$, $q$ Primelemente, $p\neq 0\neq q$ mit $(p)\subseteq (q)$, so ist $(p)=(q)$.
+\item Ist $R$ Hauptidealring, so ist $R$ Körper oder $\dim(R)=1$
+\end{enumerate}
+\end{Bem}
+\begin{Bew}
+\begin{enumerate}
+
+\item $(p)\subseteq (q)\Rightarrow p\in(q)$, d.h. $p=q\cdot r$ für ein $r\in R$.\\
+Da $R$ nullteilerfrei, ist $p$ irreduzibel, also $r\in R^{\times}\Rightarrow (p)=(q)$
+
+\item $\dim R\leq 1$ nach (a). Sei $R$ kein Körper, also gibt es ein $p\in R$
+($p\neq 0$) mit $p\notin R^{\times}$.\\
+Da $R$ nullteilerfrei, ist $(0)$ Primideal; $p$ ist in einem maximalen Ideal $\mathfrak{m}$ enthalten ($\mathfrak{m}=(q)$)
+$\Rightarrow (0)\subsetneq \mathfrak{m}$ ist Kette der Länge 1
+$\Rightarrow \dim(R)\geq 1 \Rightarrow \dim(R)=1$
+
+\end{enumerate}
+\end{Bew}
+
+\begin{Satz}
+\label{Satz10}
+Sei $S/R$ eine ganze Ringerweiterung. Dann gilt:
+\begin{enumerate}
+
+\item Zu jedem Primideal $\mathfrak{p}$ in $R$ gibt es ein Primideal $\mathfrak{P}$ in $S$
+mit $\mathfrak{P}\cap R=\mathfrak{p}$
+
+\item Zu jeder Primidealkette $\mathfrak{p}_0\subsetneq \mathfrak{p}_1\subsetneq \cdots
+\mathfrak{p}_n$ in $R$ gibt es eine Primidealkette 
+$\mathfrak{P}_0\subsetneq \mathfrak{P}_1\subsetneq \cdots \mathfrak{P}_n$ in $S$
+mit $\mathfrak{P}_i\cap R=\mathfrak{p}_i$ ($i=0,\ldots, n$)
+
+\item \label{Satz10c}$\dim\ R= \dim\ S$
+
+\end{enumerate}
+\end{Satz}
+
+\begin{Bew}
+\begin{enumerate}
+\item \textbf{Beh. 1: } $\mathfrak{p}\cdot S \cap R =\mathfrak{p}$
+
+Dann sei $N\defeqr R \setminus \mathfrak{p}$ und $\mathcal{P}\defeqr
+\{I\subseteq S\ \text{Ideal}: I \cap N = \emptyset,\; \mathfrak{p}\cdot S \subseteq I\}$
+
+Nach Beh. 1 ist $\mathcal{P}\neq \emptyset$. Nach Zorn gibt es ein maximales Element
+$\mathfrak{P}$ in $\mathcal{P}$. Die Aussage folgt also aus Beh 2.:
+
+\textbf{Beh. 2: } $\mathfrak{P}$ ist Primideal.\\
+\textbf{Bew. 2: } Seien $b_1, b_2\in S \setminus \mathfrak{P}$ mit $b_1\cdot b_2\in \mathfrak{P}$.
+Dann sind $\mathfrak{P}+(b_1)$ und $\mathfrak{P}+(b_2)$ nicht in $\mathcal{P}$. Es gibt
+also $s_i\in S$ und $p_i\in \mathfrak{P}$ ($i=1,2$) mit $p_i+s_i\cdot b_i\in N$.
+$\Rightarrow (p_1+s_1b_1)(p_2+s_2b_2)\in N\cap \mathfrak{P}=\emptyset$. Widerspruch.
+
+\textbf{Bew. 1: } Sei $b\in \mathfrak{p}\cdot S\cap R$, $b=p_1t_1+\ldots+b_k t_k$ mit 
+$p_i\in \mathfrak{p}, t_i\in S$. Da $S$ ganz ist über $R$, ist 
+$S'\defeqr R[t_1, \ldots, t_k]\subseteq S$ endlich erzeugbarer $R$-Modul.
+
+Seien $s_1,\ldots, s_n$ $R$-Modul Erzeuger von $S'$. Für jedes $i$ hat $b\cdot s_i$ eine
+Darstellung $b\cdot s_i=\sum_{k=1}^{n}a_{ik}s_k$ mit $a_{ik}\in \mathfrak{p}$
+(weil $b\in \mathfrak{p}\cdot S'$).
+
+Es folgt: $b$ ist Nullstelle eines Polynoms vom Grad $n$ mit Koeffizienten in $\mathfrak{p}$:\\
+$b^n+ \underbrace{\textstyle \sum_{i=0}^{n-1}\alpha_i b^i=0}_{\in \mathfrak{p}}, \alpha_i\in \mathfrak{p}$
+
+Nach Voraussetzung ist $b\in R$: $b^n\in \mathfrak{p}$ $\Rightarrow$ $b\in \mathfrak{p}$
+$\Rightarrow$ $\mathfrak{p}\cdot S \cap R\subseteq \mathfrak{p}$.
+
+\item Induktion über $n$: $n=0$ ist (a). $n\geq 1$:
+
+Nach Induktionsvoraussetzung gibt es eine Kette
+$\mathfrak{P}_0\subsetneq\ldots\subsetneq\mathfrak{P}_{n-1}$
+in $S$ mit $\mathfrak{P}_i\cap R=\mathfrak{p}_i$ ($i=0,\ldots, n-1$).
+
+Sei $S'\defeqr \FakRaum{S}{\mathfrak{P}_{n-1}}$, $R' \defeqr \FakRaum{R}{\mathfrak{p}_{n-1}}$. Dann 
+ist $S'/R'$ ganze Ringerweiterung.\\
+Nach (a) gibt es in $S'$ ein Primideal $\mathfrak{P}_{n}'$
+mit $\mathfrak{P}_n'\cap R'=\mathfrak{p}_n'\defeqr \FakRaum{\mathfrak{p}_n}{\mathfrak{p}_{n-1}}$.\\
+Dann gilt für $\mathfrak{P}_n\defeqr \mbox{pr}^{-1}(\mathfrak{P}_n')$ ($\mbox{pr} : S\to S'$ kanonische Projektion):\\
+$\mathfrak{P}_n \cap R=\mathfrak{p}_n$ und $\mathfrak{P_n}\neq\mathfrak{P}_{n-1}$.
+
+\item Aus (b) folgt: $\dim\ S\geq\dim\ R$. Es bleibt zu
+zeigen: $\dim\ S \leq \dim\ R$.
+
+Sei $\mathfrak{P}_0\subsetneq \ldots \subsetneq \mathfrak{P}_n$ Kette in $S$, 
+$\mathfrak{p}_i\defeqr \mathfrak{P}_i\cap R$, $i=0,\ldots,n$.\\
+klar: $\mathfrak{p}_i$ ist Primideal in $R$, $\mathfrak{p}_{i-1}\subseteq \mathfrak{p}_i$.
+Noch zu zeigen: $\mathfrak{p}_{i-1}\neq \mathfrak{p}_i$ für alle $i$.\\
+Gehe über zu $\FakRaum{R}{\mathfrak{p}_{i-1}}$ und $\FakRaum{S}{\mathfrak{P}_{i-1}}$, also ohne Einschränkung $\mathfrak{p}_{i-1}=(0)$ und $\mathfrak{P}_{i-1}=(0)$.
+
+\textbf{Annahme}: $\mathfrak{p}_i=(0)$
+
+Sei $b\in \mathfrak{P}_{i} \setminus \{0\}$. $b$ ist ganz über $R$: $b^n+a_{n-1}b^{n-1}+\cdots+a_1b+a_0=0$.\\
+Sei $n$ der minimale Grad einer solchen Gleichung.\\
+Es ist $a_0=-b(b^{n-1}+a_{n-1}b^{n-2}+\cdots+a_1)\in R\cap \mathfrak{P}_i=\mathfrak{p}_i=(0)$.\\
+$\Rightarrow 0=-b(b^{n-1}+a_{n-1}b^{n-2}+\cdots+a_1)$\\
+Da $S$ nullteilerfrei ist, muss gelten: $b^{n-1}+a_{n-1}b^{n-2}+\cdots+a_1=0$.\\
+Widerspruch zur Wahl von $n$.
+
+\end{enumerate}
+\end{Bew}
+
+\begin{Folg}
+\label{2.26}
+Sei $S/R$ ganze Ringerweiterung, $\mathfrak{p}$ bzw. $\mathfrak{P}$ Primideale in $R$ bzw. $S$.
+Ist $\mathfrak{p}=\mathfrak{P}\cap R$, so gilt:
+$$\mathfrak{p} \text{ maximal} \Longleftrightarrow \mathfrak{P} \text{ maximal}$$
+\end{Folg}
+
+\begin{Bew}
+,,$\Rightarrow$``: Sei $\mathfrak{P}'$ maximales Ideal in $S$ mit 
+$\mathfrak{P}\subseteq \mathfrak P'$. Dann ist $\mathfrak{P}'\cap R=\mathfrak{p}$ weil
+$\mathfrak{p}$ maximal $\Rightarrow$ $\mathfrak{P'}=\mathfrak{P}$. Nach dem Beweis
+von Teil (c) des Satzes.
+
+,,$\Leftarrow$``: Sei $\mathfrak{p}'$ maximales Ideal mit $\mathfrak{p}\subseteq \mathfrak{p'}$.
+Nach (b) gibt es ein Primideal $\mathfrak{P}'$ in $S$ mit $\mathfrak{P}'\cap R=\mathfrak{p}'$
+und $\mathfrak{P}\subseteq \mathfrak{P}'$ $\underset{\mathfrak{P}\text{ maximal}}{\Longrightarrow}$ $\mathfrak{P'}=\mathfrak{P}$ $\Rightarrow$ $\mathfrak{p}'=\mathfrak{p}$.
+
+\end{Bew}
+
+\begin{Satz}
+\label{11}
+Sei $k$ Körper, $A$ endlich erzeugbare $k$-Algebra.
+\begin{enumerate}
+\item In $A$ gibt es algebraisch unabhängige Elemente $x_1, \ldots, x_d$ (für ein
+$d \geq 0$), sodass $A$ ganz ist über $k[x_1, \ldots, x_d]$. [isomorph zum 
+$k[X_1,\ldots,X_d]$, da algebraisch unabhängig; Als Modul endlich erzeugbar,
+da als Algebra endlich erzeugbar.]
+\item Ist $I\subseteq A$ ein echtes Ideal, so können in a) die $x_i$ so
+gewählt werden, dass $I\cap k[x_1, \ldots, x_d]=(x_{\delta+1},\ldots,x_d)$ für ein
+$\delta \leq d$.
+\item $\dim\ k[x_1, \ldots, x_d]=d$ ($\Rightarrow \dim\ A = d$)
+\end{enumerate}
+\end{Satz}
+
+\begin{Bew}
+\begin{enumerate}
+\item[(c)] ,,$\geq$``: klar.
+
+,,$\leq$``: Sei $0\subsetneq \mathfrak{p}_1\subsetneq \cdots\subsetneq \mathfrak{p}_m$ Primidealkette
+in $A$. Ohne Einschränkung (\myref{Satz}{Satz10}) sei $A=k[x_1,\ldots, x_n]$.\\
+Nach (b) existiert eine Einbettung $B\defeqr k[y_1,\ldots,y_d]\hookrightarrow A$ mit
+$\mathfrak{p}_1\cap k[y_1,\ldots, y_d] = (y_{\delta+1},\ldots, y_d)$.
+
+\textbf{Beh.:} $\delta\leq d-1$ (d.h. $\mathfrak{p}_1\cap k[y_1,\ldots,y_d]\neq \{0\}$)\\
+Denn: Sonst $A$ ganz über $B$ $\Rightarrow$ $\mathfrak{p}_1=0$ (Satz 10, Beweis Teil (c)).\\
+Sei nun $A_1\defeqr \FakRaum{A}{\mathfrak{p}_1}, B_1 \defeqr \FakRaum{B}{(\mathfrak{p}_1\cap B)}
+\cong k[y_1,\ldots, y_\delta]$. $A_1$ ist ganz über $B_1$, also ist nach Satz 10 (c)
+$\dim\ A_1=\dim\ B_1\overset{\text{I.V.}}{=}\delta$
+
+Weiter ist $0 = \FakRaum{\mathfrak{p}_1}{\mathfrak{p}_1} \subsetneq \FakRaum{\mathfrak{p}_2}{\mathfrak{p}_1}
+\subsetneq \cdots \subsetneq \FakRaum{\mathfrak{p}_m}{\mathfrak{p}_1}$ Primidealkette in $A_1$.\\
+$\Rightarrow$ $m-1\leq \delta \leq d-1$ $\Rightarrow$ $m\leq d$
+
+\item[(a)] Sei $A=k[a_1,\ldots, a_n]$ (endliches Erzeugendensystem)\\
+Induktion über $n$: 
+
+$n=1$: $A=k[a]$; ist $a$ transzendent, so ist $A\cong k[X]$. Sonst: $A\cong \FakRaum{k[X]}{(f)}$
+für ein irreduzibles $f\in k[X]$, also endliche Körpererweiterung von $k$.
+
+$n> 1$: Sind $a_1,\ldots, a_n$ algebraisch unabhängig, so ist $A\cong k[X_1,\ldots, X_n]$.
+Andernfalls gibt es $F\in k[X_1, \ldots, X_n]$ mit $F(a_1, \ldots, a_n)=0$.
+
+\textbf{1. Fall}: $F=X_n^m+\sum_{i=0}^{m-1} g_i X_n^i$ für ein $m\geq 1$ und $g_i\in k[X_1,\ldots, X_{n-1}]$.
+
+Aus $F(a_1, \ldots, a_n)=0$ folgt $a_n$ ganz über $k[a_1, \ldots, a_{n-1}]\defeql A'$.
+Nach Induktionsvoraussetzung existieren algebraisch unabhängige Elemente $x_1,\ldots, x_d$ in
+$k[a_1,\ldots, a_{n-1}]$, sodass $A'$ ganz über $k[x_1,\ldots,x_d]$. $A$ ist also ganz
+über $k[x_1, \ldots, x_d]$, da $A=A'[a_n]$.
+
+\textbf{2. Fall}: $F$ beliebig, $F=\sum_{i=0}^{m}F_i$ homogen vom Grad $i$. 
+
+Ersetze $a_i$ durch $b_i\defeqr a_i-\lambda_i a_n$ ($i=1,\ldots, n-1$, $\lambda_i\in k$
+,,geeignet``). Dann sind $b_1,\ldots, b_{n-1},a_n$ auch $k$-Algebra-Erzeuger von $A$.
+Das Monom $a_1^{\nu_1}\cdots a_n^{\nu_n}$ geht über in 
+%
+$$a_n^{\nu_n}\prod_{i=1}^{n-1}(b_i+\lambda_i a_n)^{\nu_i}
+=a_n^{\nu_n}\prod_{i=1}^{m} \lambda_i^{\nu_i} a_n^{\nu_i}+
+\text{Terme niedriger Ordnung in}\ a_n$$
+%
+$\Rightarrow$ $F_m(a_1,\ldots, a_n)=F_m(\lambda_1,\ldots,\lambda_{n-1},1) \cdot a_n^m +
+\text{Terme niedriger Ordnung in } a_n$\\
+$\Rightarrow$ $F(a_1,\ldots, a_n)=F(\lambda_1,\ldots,\lambda_{n-1},1) \cdot a_n^m +
+\text{Terme niedriger Ordnung in } a_n$
+
+Ist $F_m(\lambda_1,\ldots, \lambda_{n-1},1)\neq 0$, so weiter wie in Fall 1.\\
+Ist $k$ unendlich, so kann man immer $\lambda_1,\ldots,\lambda_n$ finden, sodass
+$F_m(\lambda_1,\ldots,\lambda_{n-1},1)\neq 0$. \\
+Ist $k$ endlich, so hilft es, $a_i$ durch $b_i=a_i-a_n^{\mu_i}$ zu ersetzen.
+
+\item[(b)] Ohne Einschränkung sei $A=k[x_1,\ldots,x_d]$ (betrachte $I'=I\cap k[x_1,\ldots,x_d]$).
+
+\textbf{1. Fall}: $I=(f)$ Hauptideal, $f\neq 0$.
+
+Setze $y_d\defeqr f$, $y_i=x_i-\lambda_ix_d$ für geeignete $\lambda_i\in k$.\\
+Dann ist $f-y_d=0$ normiertes Polynom in $x_d$ über $k[y_1,\ldots,y_d]$ (vgl. (a))
+
+\textbf{Beh.}: $I\cap k[y_1,\ldots, y_d]=(y_d)$
+
+Denn: Sei $g\in I\cap k[y_1,\ldots, y_d]$, d.h. $g=h\cdot f $ für ein $h\in k[x_1,\ldots,x_d]$.
+$h$ ist ganz über $k[y_2,\ldots, y_d]$
+$\Rightarrow$ $h^m+b_{m-1}h^{m-1}+\cdots+b_1h+b_0=0$
+($m\geq 1$, $b_i\in h[y_1,\ldots, y_d]$) $\Rightarrow$ $g^m+\underbrace{b_{m-1}fg^{m-1}+\cdots+
+b_1f^{m-1}g+b_0f^m}_{=y_d\cdot\ldots}=0$
+
+$y_d$ teilt also $g^m$, d.h. $g^m\in (y_d)\stackrel{\text{prim}}{\Rightarrow} g\in (y_d)$
+
+\textbf{2. Fall}: Sei $I$ beliebig. Induktion über $d$:
+
+$d=1$:	$A = k[X]$ $\Rightarrow$ jedes Ideal ist Hauptideal.
+
+$d>1$: Sei $f \in I$, $f \neq 0$.\\
+Dann gibt es nach Fall 1 eine Einbettung $k[y_1, \ldots y_d] \hookrightarrow A$ mit $f = y_d$.\\
+$I' := I \cap k[y_1, \ldots y_{d-1}]$
+
+Nach Induktionsvoraussetzung gibt es Einbettung $k[z_1, \ldots z_{d-1}] \hookrightarrow k[y_1, \ldots y_{d-1}]$ mit $I' \cap k[z_1, \ldots z_{d-1}] \subset (z_{\delta+1}, \ldots z_{d-1})$ für ein $\delta \leq d-1$.
+
+$\Rightarrow$ $I \cap k[z_1, \ldots z_{d-1}, z_d] = (z_{\delta+1}, \ldots z_{d-1}, y_d)$
+
+Folgerung: Für jede endlich erzeugte nullteilerfreie $k$-Algebra $A$ über einem Körper $k$ gilt:
+$$\text{trdeg}(\text{Quot}(A)) = \dim A$$
+
+Dabei ist $\text{trdeg}(A)$ (der \emp{Transzendenzgrad}\index{Transzendenzgrad} von $K$ über $k$) die Maximalzahl über $k$ algebraisch unabhängiger Elemente in $K$.
+
+\end{enumerate}
+\end{Bew}

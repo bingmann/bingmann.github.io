@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2006/SDIOS06/sdios06/lib/jpeg/jdmaster.c - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal6.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2006/">2006</a> / <a href="/2006/SDIOS06/">SDIOS06</a> / <a href="/2006/SDIOS06/sdios06/">sdios06</a> / <a href="/2006/SDIOS06/sdios06/lib/">lib</a> / <a href="/2006/SDIOS06/sdios06/lib/jpeg/">jpeg</a> / <a href="/2006/SDIOS06/sdios06/lib/jpeg/jdmaster.c.html">jdmaster.c</a> (<a href="/2006/SDIOS06/sdios06/lib/jpeg/jdmaster.c">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">/*</span>
+<span class="comment"> * jdmaster.c</span>
+<span class="comment"> *</span>
+<span class="comment"> * Copyright (C) 1991-1997, Thomas G. Lane.</span>
+<span class="comment"> * This file is part of the Independent JPEG Group's software.</span>
+<span class="comment"> * For conditions of distribution and use, see the accompanying README file.</span>
+<span class="comment"> *</span>
+<span class="comment"> * This file contains master control logic for the JPEG decompressor.</span>
+<span class="comment"> * These routines are concerned with selecting the modules to be executed</span>
+<span class="comment"> * and with determining the number of passes and the work to be done in each</span>
+<span class="comment"> * pass.</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#define</span><span class="normal"> JPEG_INTERNALS</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"jinclude.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"jpeglib.h"</span>
+
+
+<span class="comment">/* Private state */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">jpeg_decomp_master</span><span class="normal"> pub</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* public fields */</span>
+
+<span class="normal">  </span><span class="type">int</span><span class="normal"> pass_number</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* # of passes completed */</span>
+
+<span class="normal">  </span><span class="usertype">boolean</span><span class="normal"> using_merged_upsample</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* TRUE if using merged upsample/cconvert */</span>
+
+<span class="normal">  </span><span class="comment">/* Saved references to initialized quantizer modules,</span>
+<span class="comment">   * in case we need to switch modes.</span>
+<span class="comment">   */</span>
+<span class="normal">  </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">jpeg_color_quantizer</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> quantizer_1pass</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">jpeg_color_quantizer</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> quantizer_2pass</span><span class="symbol">;</span>
+<span class="cbracket">}</span><span class="normal"> my_decomp_master</span><span class="symbol">;</span>
+
+<span class="keyword">typedef</span><span class="normal"> my_decomp_master </span><span class="symbol">*</span><span class="normal"> my_master_ptr</span><span class="symbol">;</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Determine whether merged upsample/color conversion should be used.</span>
+<span class="comment"> * CRUCIAL: this must match the actual capabilities of jdmerge.c!</span>
+<span class="comment"> */</span>
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="normal">boolean</span><span class="symbol">)</span>
+<span class="function">use_merged_upsample</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="preproc">#ifdef</span><span class="normal"> UPSAMPLE_MERGING_SUPPORTED</span>
+<span class="normal">  </span><span class="comment">/* Merging is the equivalent of plain box-filter upsampling */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">do_fancy_upsampling </span><span class="symbol">||</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">CCIR601_sampling</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> FALSE</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="comment">/* jdmerge.c only supports YCC=&gt;RGB color conversion */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">jpeg_color_space </span><span class="symbol">!=</span><span class="normal"> JCS_YCbCr </span><span class="symbol">||</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">3</span><span class="normal"> </span><span class="symbol">||</span>
+<span class="normal">      cinfo</span><span class="symbol">-&gt;</span><span class="normal">out_color_space </span><span class="symbol">!=</span><span class="normal"> JCS_RGB </span><span class="symbol">||</span>
+<span class="normal">      cinfo</span><span class="symbol">-&gt;</span><span class="normal">out_color_components </span><span class="symbol">!=</span><span class="normal"> RGB_PIXELSIZE</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> FALSE</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="comment">/* and it only handles 2h1v or 2h2v sampling ratios */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">comp_info</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">].</span><span class="normal">h_samp_factor </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">||</span>
+<span class="normal">      cinfo</span><span class="symbol">-&gt;</span><span class="normal">comp_info</span><span class="symbol">[</span><span class="number">1</span><span class="symbol">].</span><span class="normal">h_samp_factor </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">1</span><span class="normal"> </span><span class="symbol">||</span>
+<span class="normal">      cinfo</span><span class="symbol">-&gt;</span><span class="normal">comp_info</span><span class="symbol">[</span><span class="number">2</span><span class="symbol">].</span><span class="normal">h_samp_factor </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">1</span><span class="normal"> </span><span class="symbol">||</span>
+<span class="normal">      cinfo</span><span class="symbol">-&gt;</span><span class="normal">comp_info</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">].</span><span class="normal">v_samp_factor </span><span class="symbol">&gt;</span><span class="normal">  </span><span class="number">2</span><span class="normal"> </span><span class="symbol">||</span>
+<span class="normal">      cinfo</span><span class="symbol">-&gt;</span><span class="normal">comp_info</span><span class="symbol">[</span><span class="number">1</span><span class="symbol">].</span><span class="normal">v_samp_factor </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">1</span><span class="normal"> </span><span class="symbol">||</span>
+<span class="normal">      cinfo</span><span class="symbol">-&gt;</span><span class="normal">comp_info</span><span class="symbol">[</span><span class="number">2</span><span class="symbol">].</span><span class="normal">v_samp_factor </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> FALSE</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="comment">/* furthermore, it doesn't work if we've scaled the IDCTs differently */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">comp_info</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">].</span><span class="normal">DCT_scaled_size </span><span class="symbol">!=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">min_DCT_scaled_size </span><span class="symbol">||</span>
+<span class="normal">      cinfo</span><span class="symbol">-&gt;</span><span class="normal">comp_info</span><span class="symbol">[</span><span class="number">1</span><span class="symbol">].</span><span class="normal">DCT_scaled_size </span><span class="symbol">!=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">min_DCT_scaled_size </span><span class="symbol">||</span>
+<span class="normal">      cinfo</span><span class="symbol">-&gt;</span><span class="normal">comp_info</span><span class="symbol">[</span><span class="number">2</span><span class="symbol">].</span><span class="normal">DCT_scaled_size </span><span class="symbol">!=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">min_DCT_scaled_size</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> FALSE</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="comment">/* ??? also need to test for upsample-time rescaling, when &amp; if supported */</span>
+<span class="normal">  </span><span class="keyword">return</span><span class="normal"> TRUE</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* by golly, it'll work... */</span>
+<span class="preproc">#else</span>
+<span class="normal">  </span><span class="keyword">return</span><span class="normal"> FALSE</span><span class="symbol">;</span>
+<span class="preproc">#endif</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Compute output image dimensions and related values.</span>
+<span class="comment"> * NOTE: this is exported for possible use by application.</span>
+<span class="comment"> * Hence it mustn't do anything that can't be done twice.</span>
+<span class="comment"> * Also note that it may be called before the master module is initialized!</span>
+<span class="comment"> */</span>
+
+<span class="function">GLOBAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">jpeg_calc_output_dimensions</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="comment">/* Do computations that are needed before master selection phase */</span>
+<span class="cbracket">{</span>
+<span class="preproc">#ifdef</span><span class="normal"> IDCT_SCALING_SUPPORTED</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> ci</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">jpeg_component_info</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">compptr</span><span class="symbol">;</span>
+<span class="preproc">#endif</span>
+
+<span class="normal">  </span><span class="comment">/* Prevent application from calling me at wrong times */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">global_state </span><span class="symbol">!=</span><span class="normal"> DSTATE_READY</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">ERREXIT1</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_STATE</span><span class="symbol">,</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">global_state</span><span class="symbol">);</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> IDCT_SCALING_SUPPORTED</span>
+
+<span class="normal">  </span><span class="comment">/* Compute actual output image dimensions and DCT scaling choices. */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">scale_num </span><span class="symbol">*</span><span class="normal"> </span><span class="number">8</span><span class="normal"> </span><span class="symbol">&lt;=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">scale_denom</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">/* Provide 1/8 scaling */</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">output_width </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">jdiv_round_up</span><span class="symbol">((</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_width</span><span class="symbol">,</span><span class="normal"> </span><span class="number">8L</span><span class="symbol">);</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">output_height </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">jdiv_round_up</span><span class="symbol">((</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_height</span><span class="symbol">,</span><span class="normal"> </span><span class="number">8L</span><span class="symbol">);</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">min_DCT_scaled_size </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">scale_num </span><span class="symbol">*</span><span class="normal"> </span><span class="number">4</span><span class="normal"> </span><span class="symbol">&lt;=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">scale_denom</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">/* Provide 1/4 scaling */</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">output_width </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">jdiv_round_up</span><span class="symbol">((</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_width</span><span class="symbol">,</span><span class="normal"> </span><span class="number">4L</span><span class="symbol">);</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">output_height </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">jdiv_round_up</span><span class="symbol">((</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_height</span><span class="symbol">,</span><span class="normal"> </span><span class="number">4L</span><span class="symbol">);</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">min_DCT_scaled_size </span><span class="symbol">=</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">scale_num </span><span class="symbol">*</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">&lt;=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">scale_denom</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">/* Provide 1/2 scaling */</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">output_width </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">jdiv_round_up</span><span class="symbol">((</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_width</span><span class="symbol">,</span><span class="normal"> </span><span class="number">2L</span><span class="symbol">);</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">output_height </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">jdiv_round_up</span><span class="symbol">((</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_height</span><span class="symbol">,</span><span class="normal"> </span><span class="number">2L</span><span class="symbol">);</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">min_DCT_scaled_size </span><span class="symbol">=</span><span class="normal"> </span><span class="number">4</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">/* Provide 1/1 scaling */</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">output_width </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_width</span><span class="symbol">;</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">output_height </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_height</span><span class="symbol">;</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">min_DCT_scaled_size </span><span class="symbol">=</span><span class="normal"> DCTSIZE</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="comment">/* In selecting the actual DCT scaling for each component, we try to</span>
+<span class="comment">   * scale up the chroma components via IDCT scaling rather than upsampling.</span>
+<span class="comment">   * This saves time if the upsampler gets to use 1:1 scaling.</span>
+<span class="comment">   * Note this code assumes that the supported DCT scalings are powers of 2.</span>
+<span class="comment">   */</span>
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> compptr </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">comp_info</span><span class="symbol">;</span><span class="normal"> ci </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components</span><span class="symbol">;</span>
+<span class="normal">       ci</span><span class="symbol">++,</span><span class="normal"> compptr</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal"> ssize </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">min_DCT_scaled_size</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ssize </span><span class="symbol">&lt;</span><span class="normal"> DCTSIZE </span><span class="symbol">&amp;&amp;</span>
+<span class="normal">	   </span><span class="symbol">(</span><span class="normal">compptr</span><span class="symbol">-&gt;</span><span class="normal">h_samp_factor </span><span class="symbol">*</span><span class="normal"> ssize </span><span class="symbol">*</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">&lt;=</span>
+<span class="normal">	    cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_h_samp_factor </span><span class="symbol">*</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">min_DCT_scaled_size</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span>
+<span class="normal">	   </span><span class="symbol">(</span><span class="normal">compptr</span><span class="symbol">-&gt;</span><span class="normal">v_samp_factor </span><span class="symbol">*</span><span class="normal"> ssize </span><span class="symbol">*</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">&lt;=</span>
+<span class="normal">	    cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_v_samp_factor </span><span class="symbol">*</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">min_DCT_scaled_size</span><span class="symbol">))</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      ssize </span><span class="symbol">=</span><span class="normal"> ssize </span><span class="symbol">*</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    compptr</span><span class="symbol">-&gt;</span><span class="normal">DCT_scaled_size </span><span class="symbol">=</span><span class="normal"> ssize</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="comment">/* Recompute downsampled dimensions of components;</span>
+<span class="comment">   * application needs to know these if using raw downsampled data.</span>
+<span class="comment">   */</span>
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> compptr </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">comp_info</span><span class="symbol">;</span><span class="normal"> ci </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components</span><span class="symbol">;</span>
+<span class="normal">       ci</span><span class="symbol">++,</span><span class="normal"> compptr</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">/* Size in samples, after IDCT scaling */</span>
+<span class="normal">    compptr</span><span class="symbol">-&gt;</span><span class="normal">downsampled_width </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">jdiv_round_up</span><span class="symbol">((</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_width </span><span class="symbol">*</span>
+<span class="normal">		    </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">compptr</span><span class="symbol">-&gt;</span><span class="normal">h_samp_factor </span><span class="symbol">*</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">DCT_scaled_size</span><span class="symbol">),</span>
+<span class="normal">		    </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_h_samp_factor </span><span class="symbol">*</span><span class="normal"> DCTSIZE</span><span class="symbol">));</span>
+<span class="normal">    compptr</span><span class="symbol">-&gt;</span><span class="normal">downsampled_height </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">jdiv_round_up</span><span class="symbol">((</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_height </span><span class="symbol">*</span>
+<span class="normal">		    </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">compptr</span><span class="symbol">-&gt;</span><span class="normal">v_samp_factor </span><span class="symbol">*</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">DCT_scaled_size</span><span class="symbol">),</span>
+<span class="normal">		    </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_v_samp_factor </span><span class="symbol">*</span><span class="normal"> DCTSIZE</span><span class="symbol">));</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="preproc">#else</span><span class="normal"> </span><span class="comment">/* !IDCT_SCALING_SUPPORTED */</span>
+
+<span class="normal">  </span><span class="comment">/* Hardwire it to "no scaling" */</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">output_width </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_width</span><span class="symbol">;</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">output_height </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_height</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="comment">/* jdinput.c has already initialized DCT_scaled_size to DCTSIZE,</span>
+<span class="comment">   * and has computed unscaled downsampled_width and downsampled_height.</span>
+<span class="comment">   */</span>
+
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* IDCT_SCALING_SUPPORTED */</span>
+
+<span class="normal">  </span><span class="comment">/* Report number of components in selected colorspace. */</span>
+<span class="normal">  </span><span class="comment">/* Probably this should be in the color conversion module... */</span>
+<span class="normal">  </span><span class="keyword">switch</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">out_color_space</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">case</span><span class="normal"> JCS_GRAYSCALE</span><span class="symbol">:</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">out_color_components </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">case</span><span class="normal"> JCS_RGB</span><span class="symbol">:</span>
+<span class="preproc">#if</span><span class="normal"> RGB_PIXELSIZE </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">3</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">out_color_components </span><span class="symbol">=</span><span class="normal"> RGB_PIXELSIZE</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* else share code with YCbCr */</span>
+<span class="normal">  </span><span class="keyword">case</span><span class="normal"> JCS_YCbCr</span><span class="symbol">:</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">out_color_components </span><span class="symbol">=</span><span class="normal"> </span><span class="number">3</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">case</span><span class="normal"> JCS_CMYK</span><span class="symbol">:</span>
+<span class="normal">  </span><span class="keyword">case</span><span class="normal"> JCS_YCCK</span><span class="symbol">:</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">out_color_components </span><span class="symbol">=</span><span class="normal"> </span><span class="number">4</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">default</span><span class="symbol">:</span><span class="normal">			</span><span class="comment">/* else must be same colorspace as in file */</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">out_color_components </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">output_components </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">quantize_colors </span><span class="symbol">?</span><span class="normal"> </span><span class="number">1</span><span class="normal"> </span><span class="symbol">:</span>
+<span class="normal">			      cinfo</span><span class="symbol">-&gt;</span><span class="normal">out_color_components</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* See if upsampler will want to emit more than one row at a time */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">use_merged_upsample</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">))</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">rec_outbuf_height </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_v_samp_factor</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">else</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">rec_outbuf_height </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Several decompression processes need to range-limit values to the range</span>
+<span class="comment"> * 0..MAXJSAMPLE; the input value may fall somewhat outside this range</span>
+<span class="comment"> * due to noise introduced by quantization, roundoff error, etc.  These</span>
+<span class="comment"> * processes are inner loops and need to be as fast as possible.  On most</span>
+<span class="comment"> * machines, particularly CPUs with pipelines or instruction prefetch,</span>
+<span class="comment"> * a (subscript-check-less) C table lookup</span>
+<span class="comment"> *		x = sample_range_limit[x];</span>
+<span class="comment"> * is faster than explicit tests</span>
+<span class="comment"> *		if (x &lt; 0)  x = 0;</span>
+<span class="comment"> *		else if (x &gt; MAXJSAMPLE)  x = MAXJSAMPLE;</span>
+<span class="comment"> * These processes all use a common table prepared by the routine below.</span>
+<span class="comment"> *</span>
+<span class="comment"> * For most steps we can mathematically guarantee that the initial value</span>
+<span class="comment"> * of x is within MAXJSAMPLE+1 of the legal range, so a table running from</span>
+<span class="comment"> * -(MAXJSAMPLE+1) to 2*MAXJSAMPLE+1 is sufficient.  But for the initial</span>
+<span class="comment"> * limiting step (just after the IDCT), a wildly out-of-range value is </span>
+<span class="comment"> * possible if the input data is corrupt.  To avoid any chance of indexing</span>
+<span class="comment"> * off the end of memory and getting a bad-pointer trap, we perform the</span>
+<span class="comment"> * post-IDCT limiting thus:</span>
+<span class="comment"> *		x = range_limit[x &amp; MASK];</span>
+<span class="comment"> * where MASK is 2 bits wider than legal sample data, ie 10 bits for 8-bit</span>
+<span class="comment"> * samples.  Under normal circumstances this is more than enough range and</span>
+<span class="comment"> * a correct output will be generated; with bogus input data the mask will</span>
+<span class="comment"> * cause wraparound, and we will safely generate a bogus-but-in-range output.</span>
+<span class="comment"> * For the post-IDCT step, we want to convert the data from signed to unsigned</span>
+<span class="comment"> * representation by adding CENTERJSAMPLE at the same time that we limit it.</span>
+<span class="comment"> * So the post-IDCT limiting table ends up looking like this:</span>
+<span class="comment"> *   CENTERJSAMPLE,CENTERJSAMPLE+1,...,MAXJSAMPLE,</span>
+<span class="comment"> *   MAXJSAMPLE (repeat 2*(MAXJSAMPLE+1)-CENTERJSAMPLE times),</span>
+<span class="comment"> *   0          (repeat 2*(MAXJSAMPLE+1)-CENTERJSAMPLE times),</span>
+<span class="comment"> *   0,1,...,CENTERJSAMPLE-1</span>
+<span class="comment"> * Negative inputs select values from the upper half of the table after</span>
+<span class="comment"> * masking.</span>
+<span class="comment"> *</span>
+<span class="comment"> * We can save some space by overlapping the start of the post-IDCT table</span>
+<span class="comment"> * with the simpler range limiting table.  The post-IDCT table begins at</span>
+<span class="comment"> * sample_range_limit + CENTERJSAMPLE.</span>
+<span class="comment"> *</span>
+<span class="comment"> * Note that the table is allocated in near data space on PCs; it's small</span>
+<span class="comment"> * enough and used often enough to justify this.</span>
+<span class="comment"> */</span>
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">prepare_range_limit_table</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="comment">/* Allocate and fill in the sample_range_limit table */</span>
+<span class="cbracket">{</span>
+<span class="normal">  JSAMPLE </span><span class="symbol">*</span><span class="normal"> table</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> i</span><span class="symbol">;</span>
+
+<span class="normal">  table </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPLE </span><span class="symbol">*)</span>
+<span class="normal">    </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">mem</span><span class="symbol">-&gt;</span><span class="normal">alloc_small</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> JPOOL_IMAGE</span><span class="symbol">,</span>
+<span class="normal">		</span><span class="symbol">(</span><span class="number">5</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">MAXJSAMPLE</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> CENTERJSAMPLE</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">));</span>
+<span class="normal">  table </span><span class="symbol">+=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">MAXJSAMPLE</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">);</span><span class="normal">	</span><span class="comment">/* allow negative subscripts of simple table */</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">sample_range_limit </span><span class="symbol">=</span><span class="normal"> table</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="comment">/* First segment of "simple" table: limit[x] = 0 for x &lt; 0 */</span>
+<span class="normal">  </span><span class="function">MEMZERO</span><span class="symbol">(</span><span class="normal">table </span><span class="symbol">-</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">MAXJSAMPLE</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">),</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">MAXJSAMPLE</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">));</span>
+<span class="normal">  </span><span class="comment">/* Main part of "simple" table: limit[x] = x */</span>
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;=</span><span class="normal"> MAXJSAMPLE</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span>
+<span class="normal">    table</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">)</span><span class="normal"> i</span><span class="symbol">;</span>
+<span class="normal">  table </span><span class="symbol">+=</span><span class="normal"> CENTERJSAMPLE</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* Point to where post-IDCT table starts */</span>
+<span class="normal">  </span><span class="comment">/* End of simple table, rest of first half of post-IDCT table */</span>
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> CENTERJSAMPLE</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">2</span><span class="symbol">*(</span><span class="normal">MAXJSAMPLE</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">);</span><span class="normal"> i</span><span class="symbol">++)</span>
+<span class="normal">    table</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> MAXJSAMPLE</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="comment">/* Second half of post-IDCT table */</span>
+<span class="normal">  </span><span class="function">MEMZERO</span><span class="symbol">(</span><span class="normal">table </span><span class="symbol">+</span><span class="normal"> </span><span class="symbol">(</span><span class="number">2</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">MAXJSAMPLE</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">)),</span>
+<span class="normal">	  </span><span class="symbol">(</span><span class="number">2</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">MAXJSAMPLE</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> CENTERJSAMPLE</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">));</span>
+<span class="normal">  </span><span class="function">MEMCOPY</span><span class="symbol">(</span><span class="normal">table </span><span class="symbol">+</span><span class="normal"> </span><span class="symbol">(</span><span class="number">4</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">MAXJSAMPLE</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> CENTERJSAMPLE</span><span class="symbol">),</span>
+<span class="normal">	  cinfo</span><span class="symbol">-&gt;</span><span class="normal">sample_range_limit</span><span class="symbol">,</span><span class="normal"> CENTERJSAMPLE </span><span class="symbol">*</span><span class="normal"> </span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">));</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Master selection of decompression modules.</span>
+<span class="comment"> * This is done once at jpeg_start_decompress time.  We determine</span>
+<span class="comment"> * which modules will be used and give them appropriate initialization calls.</span>
+<span class="comment"> * We also initialize the decompressor input side to begin consuming data.</span>
+<span class="comment"> *</span>
+<span class="comment"> * Since jpeg_read_header has finished, we know what is in the SOF</span>
+<span class="comment"> * and (first) SOS markers.  We also have all the application parameter</span>
+<span class="comment"> * settings.</span>
+<span class="comment"> */</span>
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">master_selection</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_master_ptr</span><span class="normal"> master </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_master_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">master</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">boolean</span><span class="normal"> use_c_buffer</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">long</span><span class="normal"> samplesperrow</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JDIMENSION</span><span class="normal"> jd_samplesperrow</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Initialize dimensions and other stuff */</span>
+<span class="normal">  </span><span class="function">jpeg_calc_output_dimensions</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function">prepare_range_limit_table</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* Width of an output scanline must be representable as JDIMENSION. */</span>
+<span class="normal">  samplesperrow </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">output_width </span><span class="symbol">*</span><span class="normal"> </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">out_color_components</span><span class="symbol">;</span>
+<span class="normal">  jd_samplesperrow </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span><span class="normal"> samplesperrow</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> jd_samplesperrow </span><span class="symbol">!=</span><span class="normal"> samplesperrow</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_WIDTH_OVERFLOW</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* Initialize my private state */</span>
+<span class="normal">  master</span><span class="symbol">-&gt;</span><span class="normal">pass_number </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">  master</span><span class="symbol">-&gt;</span><span class="normal">using_merged_upsample </span><span class="symbol">=</span><span class="normal"> </span><span class="function">use_merged_upsample</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* Color quantizer selection */</span>
+<span class="normal">  master</span><span class="symbol">-&gt;</span><span class="normal">quantizer_1pass </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">  master</span><span class="symbol">-&gt;</span><span class="normal">quantizer_2pass </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="comment">/* No mode changes if not using buffered-image mode. */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">quantize_colors </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">!</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">buffered_image</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">enable_1pass_quant </span><span class="symbol">=</span><span class="normal"> FALSE</span><span class="symbol">;</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">enable_external_quant </span><span class="symbol">=</span><span class="normal"> FALSE</span><span class="symbol">;</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">enable_2pass_quant </span><span class="symbol">=</span><span class="normal"> FALSE</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">quantize_colors</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">raw_data_out</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_NOTIMPL</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="comment">/* 2-pass quantizer only works in 3-component color space. */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">out_color_components </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">3</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      cinfo</span><span class="symbol">-&gt;</span><span class="normal">enable_1pass_quant </span><span class="symbol">=</span><span class="normal"> TRUE</span><span class="symbol">;</span>
+<span class="normal">      cinfo</span><span class="symbol">-&gt;</span><span class="normal">enable_external_quant </span><span class="symbol">=</span><span class="normal"> FALSE</span><span class="symbol">;</span>
+<span class="normal">      cinfo</span><span class="symbol">-&gt;</span><span class="normal">enable_2pass_quant </span><span class="symbol">=</span><span class="normal"> FALSE</span><span class="symbol">;</span>
+<span class="normal">      cinfo</span><span class="symbol">-&gt;</span><span class="normal">colormap </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">colormap </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      cinfo</span><span class="symbol">-&gt;</span><span class="normal">enable_external_quant </span><span class="symbol">=</span><span class="normal"> TRUE</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">two_pass_quantize</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      cinfo</span><span class="symbol">-&gt;</span><span class="normal">enable_2pass_quant </span><span class="symbol">=</span><span class="normal"> TRUE</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      cinfo</span><span class="symbol">-&gt;</span><span class="normal">enable_1pass_quant </span><span class="symbol">=</span><span class="normal"> TRUE</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">enable_1pass_quant</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="preproc">#ifdef</span><span class="normal"> QUANT_1PASS_SUPPORTED</span>
+<span class="normal">      </span><span class="function">jinit_1pass_quantizer</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">      master</span><span class="symbol">-&gt;</span><span class="normal">quantizer_1pass </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">cquantize</span><span class="symbol">;</span>
+<span class="preproc">#else</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_NOT_COMPILED</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/* We use the 2-pass code to map to external colormaps. */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">enable_2pass_quant </span><span class="symbol">||</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">enable_external_quant</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="preproc">#ifdef</span><span class="normal"> QUANT_2PASS_SUPPORTED</span>
+<span class="normal">      </span><span class="function">jinit_2pass_quantizer</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">      master</span><span class="symbol">-&gt;</span><span class="normal">quantizer_2pass </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">cquantize</span><span class="symbol">;</span>
+<span class="preproc">#else</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_NOT_COMPILED</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="comment">/* If both quantizers are initialized, the 2-pass one is left active;</span>
+<span class="comment">     * this is necessary for starting with quantization to an external map.</span>
+<span class="comment">     */</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="comment">/* Post-processing: in particular, color conversion first */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">raw_data_out</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">master</span><span class="symbol">-&gt;</span><span class="normal">using_merged_upsample</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="preproc">#ifdef</span><span class="normal"> UPSAMPLE_MERGING_SUPPORTED</span>
+<span class="normal">      </span><span class="function">jinit_merged_upsampler</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span><span class="normal"> </span><span class="comment">/* does color conversion too */</span>
+<span class="preproc">#else</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_NOT_COMPILED</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">jinit_color_deconverter</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="function">jinit_upsampler</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="function">jinit_d_post_controller</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">enable_2pass_quant</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="comment">/* Inverse DCT */</span>
+<span class="normal">  </span><span class="function">jinit_inverse_dct</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="comment">/* Entropy decoding: either Huffman or arithmetic coding. */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">arith_code</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_ARITH_NOTIMPL</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">progressive_mode</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="preproc">#ifdef</span><span class="normal"> D_PROGRESSIVE_SUPPORTED</span>
+<span class="normal">      </span><span class="function">jinit_phuff_decoder</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="preproc">#else</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_NOT_COMPILED</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span>
+<span class="normal">      </span><span class="function">jinit_huff_decoder</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="comment">/* Initialize principal buffer controllers. */</span>
+<span class="normal">  use_c_buffer </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">inputctl</span><span class="symbol">-&gt;</span><span class="normal">has_multiple_scans </span><span class="symbol">||</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">buffered_image</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="function">jinit_d_coef_controller</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> use_c_buffer</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">raw_data_out</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">jinit_d_main_controller</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> FALSE </span><span class="comment">/* never need full buffer here */</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* We can now tell the memory manager to allocate virtual arrays. */</span>
+<span class="normal">  </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">mem</span><span class="symbol">-&gt;</span><span class="normal">realize_virt_arrays</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* Initialize input side of decompressor to consume first scan. */</span>
+<span class="normal">  </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">inputctl</span><span class="symbol">-&gt;</span><span class="normal">start_input_pass</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> D_MULTISCAN_FILES_SUPPORTED</span>
+<span class="normal">  </span><span class="comment">/* If jpeg_start_decompress will read the whole file, initialize</span>
+<span class="comment">   * progress monitoring appropriately.  The input step is counted</span>
+<span class="comment">   * as one pass.</span>
+<span class="comment">   */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">progress </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">buffered_image </span><span class="symbol">&amp;&amp;</span>
+<span class="normal">      cinfo</span><span class="symbol">-&gt;</span><span class="normal">inputctl</span><span class="symbol">-&gt;</span><span class="normal">has_multiple_scans</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal"> nscans</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* Estimate number of scans to set pass_limit. */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">progressive_mode</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="comment">/* Arbitrarily estimate 2 interleaved DC scans + 3 AC scans/component. */</span>
+<span class="normal">      nscans </span><span class="symbol">=</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">3</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="comment">/* For a nonprogressive multiscan file, estimate 1 scan per component. */</span>
+<span class="normal">      nscans </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">progress</span><span class="symbol">-&gt;</span><span class="normal">pass_counter </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0L</span><span class="symbol">;</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">progress</span><span class="symbol">-&gt;</span><span class="normal">pass_limit </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">total_iMCU_rows </span><span class="symbol">*</span><span class="normal"> nscans</span><span class="symbol">;</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">progress</span><span class="symbol">-&gt;</span><span class="normal">completed_passes </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">progress</span><span class="symbol">-&gt;</span><span class="normal">total_passes </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">enable_2pass_quant </span><span class="symbol">?</span><span class="normal"> </span><span class="number">3</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> </span><span class="number">2</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="comment">/* Count the input pass as done */</span>
+<span class="normal">    master</span><span class="symbol">-&gt;</span><span class="normal">pass_number</span><span class="symbol">++;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* D_MULTISCAN_FILES_SUPPORTED */</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Per-pass setup.</span>
+<span class="comment"> * This is called at the beginning of each output pass.  We determine which</span>
+<span class="comment"> * modules will be active during this pass and give them appropriate</span>
+<span class="comment"> * start_pass calls.  We also set is_dummy_pass to indicate whether this</span>
+<span class="comment"> * is a "real" output pass or a dummy pass for color quantization.</span>
+<span class="comment"> * (In the latter case, jdapistd.c will crank the pass to completion.)</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">prepare_for_output_pass</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_master_ptr</span><span class="normal"> master </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_master_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">master</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">master</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">is_dummy_pass</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="preproc">#ifdef</span><span class="normal"> QUANT_2PASS_SUPPORTED</span>
+<span class="normal">    </span><span class="comment">/* Final pass of 2-pass quantization */</span>
+<span class="normal">    master</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">is_dummy_pass </span><span class="symbol">=</span><span class="normal"> FALSE</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">cquantize</span><span class="symbol">-&gt;</span><span class="normal">start_pass</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> FALSE</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">post</span><span class="symbol">-&gt;</span><span class="normal">start_pass</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JBUF_CRANK_DEST</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">main</span><span class="symbol">-&gt;</span><span class="normal">start_pass</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JBUF_CRANK_DEST</span><span class="symbol">);</span>
+<span class="preproc">#else</span>
+<span class="normal">    </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_NOT_COMPILED</span><span class="symbol">);</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* QUANT_2PASS_SUPPORTED */</span>
+<span class="normal">  </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">quantize_colors </span><span class="symbol">&amp;&amp;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">colormap </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="comment">/* Select new quantization method */</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">two_pass_quantize </span><span class="symbol">&amp;&amp;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">enable_2pass_quant</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	cinfo</span><span class="symbol">-&gt;</span><span class="normal">cquantize </span><span class="symbol">=</span><span class="normal"> master</span><span class="symbol">-&gt;</span><span class="normal">quantizer_2pass</span><span class="symbol">;</span>
+<span class="normal">	master</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">is_dummy_pass </span><span class="symbol">=</span><span class="normal"> TRUE</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">enable_1pass_quant</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	cinfo</span><span class="symbol">-&gt;</span><span class="normal">cquantize </span><span class="symbol">=</span><span class="normal"> master</span><span class="symbol">-&gt;</span><span class="normal">quantizer_1pass</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_MODE_CHANGE</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">idct</span><span class="symbol">-&gt;</span><span class="normal">start_pass</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">coef</span><span class="symbol">-&gt;</span><span class="normal">start_output_pass</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">raw_data_out</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal"> master</span><span class="symbol">-&gt;</span><span class="normal">using_merged_upsample</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">cconvert</span><span class="symbol">-&gt;</span><span class="normal">start_pass</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">upsample</span><span class="symbol">-&gt;</span><span class="normal">start_pass</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">quantize_colors</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">cquantize</span><span class="symbol">-&gt;</span><span class="normal">start_pass</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> master</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">is_dummy_pass</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">post</span><span class="symbol">-&gt;</span><span class="normal">start_pass</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span>
+<span class="normal">	    </span><span class="symbol">(</span><span class="normal">master</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">is_dummy_pass </span><span class="symbol">?</span><span class="normal"> JBUF_SAVE_AND_PASS </span><span class="symbol">:</span><span class="normal"> JBUF_PASS_THRU</span><span class="symbol">));</span>
+<span class="normal">      </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">main</span><span class="symbol">-&gt;</span><span class="normal">start_pass</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JBUF_PASS_THRU</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="comment">/* Set up progress monitor's pass info if present */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">progress </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">progress</span><span class="symbol">-&gt;</span><span class="normal">completed_passes </span><span class="symbol">=</span><span class="normal"> master</span><span class="symbol">-&gt;</span><span class="normal">pass_number</span><span class="symbol">;</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">progress</span><span class="symbol">-&gt;</span><span class="normal">total_passes </span><span class="symbol">=</span><span class="normal"> master</span><span class="symbol">-&gt;</span><span class="normal">pass_number </span><span class="symbol">+</span>
+<span class="normal">				    </span><span class="symbol">(</span><span class="normal">master</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">is_dummy_pass </span><span class="symbol">?</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="comment">/* In buffered-image mode, we assume one more output pass if EOI not</span>
+<span class="comment">     * yet reached, but no more passes if EOI has been reached.</span>
+<span class="comment">     */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">buffered_image </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">inputctl</span><span class="symbol">-&gt;</span><span class="normal">eoi_reached</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      cinfo</span><span class="symbol">-&gt;</span><span class="normal">progress</span><span class="symbol">-&gt;</span><span class="normal">total_passes </span><span class="symbol">+=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">enable_2pass_quant </span><span class="symbol">?</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Finish up at end of an output pass.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">finish_output_pass</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_master_ptr</span><span class="normal"> master </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_master_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">master</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">quantize_colors</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">cquantize</span><span class="symbol">-&gt;</span><span class="normal">finish_pass</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">  master</span><span class="symbol">-&gt;</span><span class="normal">pass_number</span><span class="symbol">++;</span>
+<span class="cbracket">}</span>
+
+
+<span class="preproc">#ifdef</span><span class="normal"> D_MULTISCAN_FILES_SUPPORTED</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Switch to a new external colormap between output passes.</span>
+<span class="comment"> */</span>
+
+<span class="function">GLOBAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">jpeg_new_colormap</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_master_ptr</span><span class="normal"> master </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_master_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">master</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Prevent application from calling me at wrong times */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">global_state </span><span class="symbol">!=</span><span class="normal"> DSTATE_BUFIMAGE</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">ERREXIT1</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_STATE</span><span class="symbol">,</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">global_state</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">quantize_colors </span><span class="symbol">&amp;&amp;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">enable_external_quant </span><span class="symbol">&amp;&amp;</span>
+<span class="normal">      cinfo</span><span class="symbol">-&gt;</span><span class="normal">colormap </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">/* Select 2-pass quantizer for external colormap use */</span>
+<span class="normal">    cinfo</span><span class="symbol">-&gt;</span><span class="normal">cquantize </span><span class="symbol">=</span><span class="normal"> master</span><span class="symbol">-&gt;</span><span class="normal">quantizer_2pass</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* Notify quantizer of colormap change */</span>
+<span class="normal">    </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">cquantize</span><span class="symbol">-&gt;</span><span class="normal">new_color_map</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">    master</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">is_dummy_pass </span><span class="symbol">=</span><span class="normal"> FALSE</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* just in case */</span>
+<span class="normal">  </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span>
+<span class="normal">    </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_MODE_CHANGE</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* D_MULTISCAN_FILES_SUPPORTED */</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Initialize master decompression control and select active modules.</span>
+<span class="comment"> * This is performed at the start of jpeg_start_decompress.</span>
+<span class="comment"> */</span>
+
+<span class="function">GLOBAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">jinit_master_decompress</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_master_ptr</span><span class="normal"> master</span><span class="symbol">;</span>
+
+<span class="normal">  master </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_master_ptr</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">mem</span><span class="symbol">-&gt;</span><span class="normal">alloc_small</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> JPOOL_IMAGE</span><span class="symbol">,</span>
+<span class="normal">				  </span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="normal">my_decomp_master</span><span class="symbol">));</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">master </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">jpeg_decomp_master</span><span class="normal"> </span><span class="symbol">*)</span><span class="normal"> master</span><span class="symbol">;</span>
+<span class="normal">  master</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">prepare_for_output_pass </span><span class="symbol">=</span><span class="normal"> prepare_for_output_pass</span><span class="symbol">;</span>
+<span class="normal">  master</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">finish_output_pass </span><span class="symbol">=</span><span class="normal"> finish_output_pass</span><span class="symbol">;</span>
+
+<span class="normal">  master</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">is_dummy_pass </span><span class="symbol">=</span><span class="normal"> FALSE</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="function">master_selection</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

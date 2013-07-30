@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - _harderr</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;MSC: void _hardresume( int result )</span><br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;MSC: void _hardretn( int error )</span><br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;MSC: void _harderr( void (far *handler)() )</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- prototype in dos.h<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- result = return value from handler<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- error = number of error<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- _harderr() registers a user critical error handler with it's<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;own error handler which is to be called during a critical error<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- handler = new <a href="int-int_24.html">INT 24</a>&nbsp;handler with the format:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;handler(unsigned deverr,unsigned errcode,unsigned far *devhdr)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;where: deverr = device error code (AX value DOS passes to INT 24)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; errcode = error code (DI value DOS passes to <a href="int-int_21.html">INT 21</a>)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; devhdr = pointer to device header on which error occurred<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- handler must return via one of three methods:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;simple return &nbsp;returns to DOS error handler<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_hardresume() &nbsp;returns to DOS error handler<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_hardretn() &nbsp;returns to the application<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- hardresume() returns one of the following:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_HARDERR_ABORT &nbsp;DOS should abort the process via <a href="int-int_23.html">INT 23</a><br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_HARDERR_FAIL &nbsp; DOS should fail the call (DOS 3.x+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_HARDERR_IGNORE DOS should ignore the error<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_HARDERR_RETRY &nbsp;DOS should retry the operation<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- due to the complexity of these functions consult the vendor<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;documentation for more specific details<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- Turbo C uses &nbsp;<a href="c-hardretn.html">hardretn</a>(), <a href="c-harderr.html">harderr</a>() and <a href="c-hardresume.html">hardresume</a>()<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see &nbsp; <a href="int-int_24.html">INT 24</a><br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">_harderr</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

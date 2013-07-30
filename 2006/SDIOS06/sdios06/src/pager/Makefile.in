@@ -1,0 +1,23 @@
+##
+## $Id: Makefile.in 155 2006-07-24 20:21:28Z sdi2 $
+##
+
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
+top_builddir = @top_builddir@
+
+include $(top_srcdir)/Mk/l4.base.mk
+
+SRCS =	pager.cc
+
+IDLS =	pager.idl
+
+pager.cc: BuddySystem.h PageFreeList.h PageMappingList.h \
+		SlabAllocator.h RangeClassifier.h \
+        pager-impl.h pager-files.h pager-server.h pager-template.cc \
+
+pager.idl: $(top_builddir)/if/ifmemory.idl
+
+CXXFLAGS += -fno-use-cxa-atexit
+
+include $(top_srcdir)/Mk/l4.obj.mk

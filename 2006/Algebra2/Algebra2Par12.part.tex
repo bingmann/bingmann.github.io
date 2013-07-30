@@ -1,0 +1,167 @@
+\section{Tensorprodukt}
+
+\begin{Def}
+  Seien $M, N, P$ $R$-Moduln.
+
+  \begin{enumerate}
+    \item Eine Abbildung $\Phi: M \times N \to P$ heißt
+          \emp{$R$-bilinear}\index{R-bilinear}, wenn für jedes $x_0 \in M$ und
+          jedes $y_0 \in N$ die Abbildungen 
+          \[\Phi_{x_0}: N \to P, y \mapsto \Phi(x_0,y)\]
+          \[\Phi_{y_0}: M \to P, x \mapsto \Phi(x,y_0)\] $R$-linear sind.
+    \item Ein \emp{Tensorprodukt}\index{Tensorprodukt} von $M$ und $N$ (über $R$)
+          ist ein $R$-Modul $T$ zusammen mit einer bilinearen Abbildung $\tau: M
+          \times N \to T$, sodass\\
+          (UAE) Für jede bilineare Abbildung $\Phi: M \times N \to P$ gibt es
+          genau eine lineare Abbildung $\varphi: T \to P$ mit $\Phi = \varphi \circ
+          \tau$
+          \[
+            \begin{xy}
+              \xymatrix{
+                M \times N \ar[rr]^{\tau} \ar[rd]_{\Phi}  &     &  T \ar@{-->}[dl]^{\exists!\varphi}  \\
+                                                          &  P  &
+              }
+            \end{xy}
+          \]
+          ($\tau$ ist die ,,universelle`` bilineare Abbildung)
+  \end{enumerate}
+\end{Def}
+
+\begin{nnBsp}
+  \begin{enumerate}
+    \item[1.)] $M, N$ freie $R$-Moduln mit Basis $\{e_i, i \in I\}$ bzw. $\{f_j, j
+               \in J\}$. Dann ist $M \otimes N$ freier $R$-Modul mit Basis
+               $\{e_i f_j, i \in I, j \in J\}$ ein Tensorprodukt mit
+               $\tau(e_i,f_j) = e_i f_j$.
+
+               Denn: Sei $\Phi: M \times N \to P$ bilinear. Setze
+               $\varphi(e_i \cdot f_j) \defeqr \Phi(e_i,f_j$), das bestimmt eindeutig
+               $\varphi: M \otimes N \to P$ ($R$-linear) mit $\Phi(e_i,f_j) =
+               \varphi(\tau(e_i,f_j))$ für alle $i,j$.
+
+               Sind $I, J$ endlich, so ist rg$(M \otimes N) = \mbox{rg}(M) \cdot
+               \mbox{rg}(N)$, dagegen ist rg$(M \times N) = \mbox{rg}(M) +
+               \mbox{rg}(N)$. $\tau$ ist also höchstens in Trivialfällen
+               surjektiv. $\tau$ ist nicht injektiv: $\tau(x,0) = \tau(x,0 \cdot
+               y) = 0 \cdot \tau(x,y) = 0$ (da linear im 2. Argument), genauso
+               $\tau(0,y) = 0$. Bild$(\tau)$ ist kein Untermodul, aber $\langle
+               \Bild(\tau) \rangle = M \otimes N$.
+
+    \item[2.)] $0$ ist ein Tensorprodukt der $\mathbb{Z}$-Moduln
+               $\mathbb{Z}/2\mathbb{Z}$ und $\mathbb{Z}/3\mathbb{Z}$.
+
+               Denn: jede bilineare Abbildung $\Phi: \mathbb{Z}/2\mathbb{Z}
+               \times \mathbb{Z}/3\mathbb{Z} \to P$ ist die Nullabbildung.
+               $\Phi(\bar{1},\bar{1}) = \Phi(3 \cdot \bar{1},\bar{1}) = 3 \cdot
+               \Phi(\bar{1},\bar{1}) = \Phi(\bar{1},3 \cdot \bar{1}) =
+               \Phi(\bar{1},\bar{0})= 0$, genauso $\Phi(\bar{1},-\bar{1}) = 0$.
+  \end{enumerate}
+\end{nnBsp}
+
+\begin{Satz}[Tensorprodukt]
+  Zu je zwei $R$-Moduln $M,N$ gibt es ein Tensorprodukt. Dieses ist eindeutig
+  bestimmt bis auf eindeutigen Isomorphismus.
+\end{Satz}
+
+\begin{anBew}
+  Sei F der freie $R$-Modul mit Basis $M \times N$.
+  Sei $Q$ Untermodul, der erzeugt wird von den \[(x + x',y) - (x,y) - (x',y),
+  (\alpha x,y) - \alpha (x,y)\] \[(x,y + y') - (x,y) - (x,y'),
+  (x,\alpha y) - \alpha (x,y)\] für alle $x,x' \in M,\; y,y' \in N,\;\alpha \in
+  R$
+
+  Setze $T \defeqr F/Q$, $\tau: M \times N \to T, (x,y) \mapsto [(x,y)]
+  \mbox{ mod } Q$. $\tau$ ist bilinear nach Konstruktion.
+  Ist $\Phi: M \times N \to P$ bilinear, so setze $\tilde{\varphi}((x,y))
+  \defeqr \Phi(x,y)$, $\tilde{\varphi}: F \to P$ ist linear. $Q \subseteq
+  \Kern(\tilde{\varphi})$, weil $\Phi$ bilinear $\overset{\text{Hom.-Satz}}{\Rightarrow}
+  \tilde{\varphi}$ induziert $\varphi: T \to P$ mit $\Phi = \varphi \circ \tau$.
+
+  Noch zu zeigen: Eindeutigkeit\\
+  Seien $(T, \tau)$, $(T', \tau')$ Tensorprodukte von $M$ und $N$. Dann gibt es eine $R$-lineare 
+  Abbildung $\varphi: T \rightarrow T'$ mit $\tau'= \varphi \circ \tau$
+  \[\begin{xy}
+      \xymatrix{
+                                                  & T \ar@/_/[dd]_{\varphi} \\
+        M \times N \ar[ur]^{\tau} \ar[dr]_{\tau'} &                     \\
+                                                  & T' \ar@/_/[uu]_{\psi}
+      }
+    \end{xy}\]
+  und $\psi: T' \rightarrow T$ mit $\tau = \psi \circ\tau'$
+
+  Behauptung: $\psi \circ \varphi = id_T$ und $\varphi \circ \psi = id_{T'}$. Dazu:
+  \[\begin{xy}
+      \xymatrix{
+                                                 & T \ar@/_/[dd]_{id}
+                                                 \ar@/^/[dd]^{\psi \circ \varphi} \\
+        M \times N \ar[ur]^{\tau} \ar[dr]_{\tau} &                     \\
+                                                 & T
+      }
+    \end{xy}\]
+  ist kommutativ, d. h.\\
+  $(\psi \circ \varphi ) \circ \tau = \psi \circ ( \varphi \circ \tau) = \psi \circ \tau' = \tau$
+  mit $id: T \rightarrow T$ ist das Diagramm auch kommutativ. Wegen der Eindeutigkeit in der 
+  Definition des Tensorprodukts muss gelten: $\psi \circ \varphi = id_T$
+  ($\varphi \circ \psi = id_{T'}$ analog)
+\end{anBew}
+
+\begin{Bem}
+  Für alle $R$-Moduln $M, N, M_1, M_2, M_3$ gilt:
+  \begin{enumerate}
+  	\item $M \otimes_R R \cong M$
+  	\item $M \otimes_R N \cong N \otimes_R M$
+  	\item $(M_1 \otimes_R M_2) \otimes_R M_3 \cong M_1 \otimes_R (M_2 \otimes_R M_3)$
+  \end{enumerate}
+\end{Bem}
+\begin{Bew}
+  \begin{enumerate}
+    \item[a)] Zeige: $M$ ist Tensorprodukt der $R$-Moduln $M$ und $R$.\\
+	  $\tau: M \times R \rightarrow M$, $(x,a) \rightarrow a \cdot x$ ist bilinear (wegen 
+	  Moduleigenschaften). Sei $\Phi: M \times R \rightarrow P$ bilinear\\
+	  Gesucht: $\varphi: M \rightarrow P$ linear mit $\Phi = \varphi \circ \tau$, d. h. 
+	  $\Phi(x,a) = \varphi(a \cdot x)$\\
+	  Setze $\varphi(x) := \Phi(x,1)$. $\varphi$ ist $R$-linear, da $\Phi( \cdot, 1)$ linear
+	  ist, $\Phi(x,a) = a\Phi(x,1) = a\varphi(x) = \varphi(a \cdot x ) = \varphi(\tau(x,a))$\\
+	  $\varphi$ ist eindeutig: es muss gelten: $\varphi(\tau(x,1)) = \Phi(x,1) =: \varphi(x)$, 
+	  damit ist $\varphi$ eindeutig bestimmt (wegen $\varphi \circ \tau = \Phi$).
+    \item[b)] $M \times N \cong N \times M$
+    \item[c)] Finde lineare Abbildung: $(M_1 \otimes_R M_2) \otimes_R M_3 \rightarrow M_1 \otimes_R (M_2 \otimes_R M_3)$
+	  \begin{enumerate}
+	    \item[ 1. ] Für festes $z \in M_3$ sei $\Phi_z: M_1 \times M_2 \rightarrow M_1 \otimes_R (M_2 \otimes_R M_3)$,\\
+		  $(x,y) \rightarrow x \otimes (y \otimes z) := \tau ( y,z )$\\
+		  $\Phi_z$ bilinear: klar\\
+		  $\Phi_z$ induziert eine lineare Abbildung: $\varphi_z: M_1 \otimes_R M_2 \rightarrow M_1 \otimes_R (M_2 \otimes_R M_3)$\\
+		  Weiter ist $\Psi: ( M_1 \otimes_R M_2 ) \times M_3 \rightarrow M_1 \otimes_R (M_2 \otimes_R M_3)$,
+		  $(w,z) \rightarrow \varphi_z (w)$\\
+		  bilinear: linear in $w$, weil $\varphi_z$ linear; linear in $z$ weil $\Phi_z$ bilinear.\\
+		  Induziert also lineare Abbildung $\psi: (M_1 \otimes_R M_2) \otimes_R M_3 \rightarrow M_1 \otimes_R (M_2 \otimes_R M_3)$
+	    \item[2.] Umkehrabbildung genauso!
+	  \end{enumerate}
+  \end{enumerate}
+\end{Bew}
+
+\begin{Prop}
+  Sei $M$ ein $R$-Modul, $I \subseteq R$ ein Ideal. Dann ist $I \cdot M = 
+  \{ a \cdot x \in M: x \in M, a \in I \}$ Untermodul von $M$ und es gilt: \\
+  $$\FakRaum{M}{I \cdot M} \cong M \otimes_R \FakRaum{R}{I}$$
+\end{Prop}
+
+\begin{Bew}
+  Sei $\tilde{\varphi}: M \rightarrow M \otimes_R R/I$, 
+  $ x \rightarrow x \otimes \overline{1}$\\
+  $\tilde{\varphi}$  ist $R$-linear.\\
+  $I \cdot M \subseteq \Kern(\tilde{\varphi}): \forall a \in I, x \in M$ ist
+  $\tilde{\varphi}(ax) = ax \otimes \overline 1 = x \otimes \underbrace{ a \cdot \overline{1} }_{\overline a} = 0$\\
+  $\tilde{\varphi}$ induziert also lineare Abbildung\\
+  $\varphi: M/({I \cdot M}) \rightarrow M \otimes_R R/I$
+
+  Umgekehrt: $\Psi: M \times R/I \rightarrow M /({I \cdot M})$, $(x, \overline a) \rightarrow \overline{ax}$
+
+  $\Psi$ ist wohldefiniert: ist $\overline b = \overline a$, so ist $\overline{b \cdot x} - \overline{a \cdot x} =
+  \overline{ \underbrace {( \underbrace{b-a}_{\in I}) \cdot x}_{ \in I \cdot M}} =0$
+
+  $\Psi$ ist bilinear, induziert also $\psi: M \otimes_R R/I \rightarrow M/({I \cdot M})$ (linear). Es ist 
+  $(\psi \circ \varphi)(\overline x )= \psi(x \otimes \overline 1 ) = \overline{1x} = \overline x$ und
+  $(\varphi \circ \psi)(x \otimes \overline a ) = \varphi(\overline{a \cdot x }) = ax \otimes \overline 1 =
+  x \otimes a\cdot \overline 1 = x \otimes \overline a$
+\end{Bew}

@@ -1,0 +1,104 @@
+//
+// $Id$
+// 
+// Description: Interface for memory server / pager
+// Author: Timo
+//
+
+#include <types.idl>
+
+[uuid(IF_MEMORY_ID)]
+interface IF_MEMORY
+{
+	/// talks the kernel's page fault IPC protocol
+	[kernelmsg(idl4::pagefault)]
+	void	pagefault(in long address,
+					  in long ip,
+					  in long privileges,
+					  out fpage page);
+
+	// *** Exception
+
+	exception out_of_memory {};
+	exception unknown_task {};
+	exception generic {};
+
+	// *** Generic Function
+
+	/// request an anonymous memory area of the given size, which will be
+	/// placed into page via a grant-mapping and the pager releases control of
+	/// the page. the caller need not be managed by the pager.
+	void	GetPageGrant(in L4_Word_t size,
+						 out fpage page)
+		raises(out_of_memory);
+
+	/// request a special (bios, bootloader, architecture specific) memory page
+	/// (address and size encoded in the fpage) and return it into the
+	/// page. the caller need not be managed by the pager.
+	void	GetSpecialPhysicalPage(in L4_Fpage_t phyaddr,
+								   out fpage page);
+
+	// *** Task Creation
+
+	/// create a new paged task - creates an address space and initializes new
+	/// management structures. if thread == L4_nilthread then a new thread id
+	/// is chosen.
+	void	CreateTask(inout L4_ThreadId_t thread)
+		raises(generic);
+
+	/// request an fpage, which is shared with the destination task at the
+	/// given address. the shared area must be a valid continuos fpage region,
+	/// but it may not yet exist in the destination task and will be mapped
+	/// there on-demand. this function is primarily used to fill a new memory
+	/// space. if the caller is managed by the pager, then page can be
+	/// L4_Nilpage or L4_CompleteAddress in which case the pager decides where
+	/// to put the page.
+	void	GetSharedRegion(in L4_ThreadId_t destthread,
+							in L4_Word_t destaddress,
+							in L4_Word_t pagesize,
+							out fpage page)
+		raises(out_of_memory);
+
+	/// return the fpage to the destination task's memory area
+	void	FreeSharedRegion(in L4_ThreadId_t destthread,
+							 in L4_Word_t destaddress,
+							 in L4_Fpage_t page);
+
+	/// sends the kick-start IPC to the thread, sp is currently initialized by crt0.
+	void	StartTask(in L4_ThreadId_t thread,
+					  in L4_Word_t ip,
+					  in L4_Word_t sp)
+		raises(generic);
+
+	/// kill the address space and return all pages allocated by the task to
+	/// the free pool.
+	void	KillTask(in L4_ThreadId_t thread)
+		raises(unknown_task);
+
+	/// kill the caller's address space and notify waiting threads.
+	void	KillMe(in L4_Word_t retcode)
+		raises(unknown_task);
+
+	/// wait for a pid to complete: returns true if the thread has finished and
+	/// sets the retcode. if (flags & WAIT_FOREVER) the call block until the
+	/// process ends.
+	boolean	WaitFor(in L4_ThreadId_t thread, in L4_Word_t flags,
+					out L4_Word_t retcode)
+		raises(unknown_task);
+
+	const L4_Word_t WAIT_FOREVER = 1;
+
+	// *** Task Memory Layout
+
+	/// request anonymous memory of the given size. if available the page will
+	/// be placed "somewhere" into the caller's address space. the caller must
+	/// managed by the pager. the return type is not (idl4_)"fpage".
+	void	GetPageAny(in L4_Word_t size,
+					   out L4_Fpage_t page)
+		raises(out_of_memory);
+
+	/// enlarge the calling task's valid heap area up to endheap. anonymous
+	/// memory is allocated on demand.
+	void	brk(in L4_Word_t endheap)
+		raises(unknown_task);
+};

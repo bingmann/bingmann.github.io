@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - int 21,32</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;INT 21,32 - Get Pointer to Drive Parameter Table (Undocumented)</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AH = 32h<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;DL = drive (0=default, 1=A:, 2=B:, 3=C:, ...)<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;on return:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AL = &nbsp;FF if the drive number in DL was invalid<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;DS:BX = address of drive parameter table (<a href="table-drive_parameter_tbl.html">DPT</a>)<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- available since DOS 2.0<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- used by DOS commands CHKDSK and RECOVER<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- forces a media check, which clears byte DS:[BX+17h] or DS:[BX+18h]<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;in the Drive Parameter Table<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- actually accesses the disk, causing a critical error if a disk<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;error occurs<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- can be used to determine if a drive is SUBST'ed by comparing<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;DS:[BX+1] and DS:[BX] for a match. &nbsp;If not equal, then the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;drive is possibly SUBST'ed (though not guaranteed, this may also<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;indicate a Bernoulli box)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- can be used to determine if a drive is a RAM disk; if the disk is<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;NOT removable and (DS:[BX+1] == 0), then the disk is a RAM disk<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(see <a href="int-int_21_44_0.html">IOCTL,0</a>&nbsp;bit number 0Bh to determine if the disk is removable)<br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">int 21,32</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+//
+// File:  if/types.idl
+//
+// Description: Basic IDL types for SDI
+//
+
+
+#ifndef _sdi_if_types_h__
+#define _sdi_if_types_h__
+
+import "libc/stdint.h";
+
+/* some IDL datatypes we might need */
+
+typedef L4_Word_t interfaceid_t;
+typedef string<256> logmessage_t;
+typedef L4_Word_t objectid_t;
+typedef sequence<char> buffer_t;
+// idl4 crashs when parsing stddef.h :-/ so we define our own size_t here
+typedef unsigned long idlsize_t;
+
+/* IDL interface consts */
+
+// IF ID 0 is reserved
+const interfaceid_t IF_LOGGING_ID 		= 1;
+const interfaceid_t IF_LOCATOR_ID 		= 2;
+const interfaceid_t IF_BLOCKDEV_ID		= 3;
+const interfaceid_t IF_FILE_ID	  		= 4;
+const interfaceid_t IF_DIRECTORY_ID		= 5;
+const interfaceid_t IF_ENUMERABLE_ID	= 6;
+const interfaceid_t IF_NAMING_ID		= 7;
+const interfaceid_t IF_TASK_ID			= 8;
+const interfaceid_t IF_SYSCALL_ID		= 9;
+const interfaceid_t IF_MEMORY_ID		= 10;
+const interfaceid_t IF_FILEDIRECTORY_ID	= 11;
+
+const interfaceid_t IF_PCI_ID	  		= 15;
+const interfaceid_t IF_FRAMEBUFFER_ID	= 16;
+
+const interfaceid_t MAX_INTERFACEID 	= 20;
+
+/* Exceptions */
+
+exception type_conflict {};
+exception not_supported {};
+exception no_such_device {};
+exception invalid_parameter {};
+exception not_found {};
+exception already_registered {};
+exception invalid_objectid {};
+
+#endif /* _sdi_if_types_h__ */

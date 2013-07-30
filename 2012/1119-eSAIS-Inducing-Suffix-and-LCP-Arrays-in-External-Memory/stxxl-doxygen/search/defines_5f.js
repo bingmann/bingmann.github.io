@@ -1,0 +1,1 @@
+var searchData=[["_5fstxxl_5fstring",["_STXXL_STRING",["../error__handling_8h.html#ae133c38ad1a8147ec4d79609f212b4e7",1,"error_handling.h"]]]];

@@ -1,0 +1,5306 @@
+\documentclass[a4paper,12pt,german]{report}
+% $Id: Algebra1.tex 36 2006-04-12 20:31:20Z zgium $
+
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+
+% most pretty font
+\usepackage{lmodern}
+
+% deutsche buchstaben
+\usepackage[german]{babel}
+\usepackage{umlaut}
+
+% ntheorem für die Defintionen usw.
+\usepackage[thref,hyperref]{ntheorem}
+
+% viele ams packages
+\usepackage{amsmath, amsfonts, amssymb}
+\usepackage{mathtools}
+\usepackage{stmaryrd}
+
+% für die kommutativen diagramme
+\usepackage[curve]{xypic}
+
+% für unser xlongequal
+\usepackage{extarrows}
+
+% für font von Primidealen
+\usepackage{eufrak}
+
+% zum durchstreichen von wegfallenden Summanden usw.
+\usepackage{cancel}
+
+% diagramme mit umfliessendem text
+\usepackage{floatflt}
+
+% schmaler rand
+\usepackage{geometry}
+\geometry{verbose,a4paper,tmargin=2cm,lmargin=2cm,rmargin=2cm}
+
+\setlength\parskip{\smallskipamount}
+\setlength\parindent{0pt}
+
+% Vokabelliste erzeugen
+\usepackage{index}
+\newindex{default}{idx}{ind}{Vokabeln}
+
+% pdflatex
+\usepackage[colorlinks,backref,pagebackref]{hyperref}
+
+% für diagramme in pictex format von xfig erzeugt.
+% muss nach hyperref kommen.
+\usepackage{etex}
+\usepackage{xcolor, pictex}
+
+% pdf infos
+\definecolor{rltblue}{rgb}{0,0,0.75}
+\hypersetup{
+  pdftitle={Algebra I von Prof. Herrlich},
+  pdfauthor={Timo Bingmann},
+  pdfsubject={Algebra I},
+  pdfkeywords={Algebra II Herrlich A1},
+  pdfpagemode={UseOutlines},
+  bookmarksopen=true,
+  bookmarksnumbered=true,
+  urlcolor=rltblue,
+  linkcolor=rltblue
+}
+
+% Umgebungen für Satz,Def,Def+Bem,Bem,Prop,Folgerung und Beweis
+
+% trickreich war es nach den Def+Bem gleich mit einer enumerate weiter zu
+% machen, und dazwischen ein linebreak hin zu kriegen.
+
+\newtheoremstyle{mybreak}%
+  {\smallskip\item[\rlap{\vbox{\hbox{\hskip\labelsep \normalfont\bfseries
+       	##1\ ##2}\hbox{\strut\vspace{2pt}}}}]}%
+  {\smallskip\item[\rlap{\vbox{\hbox{\hskip\labelsep \normalfont\bfseries
+	##1\ ##2\ (##3)}\hbox{\strut\vspace{2pt}}}}]}
+
+\theoremstyle{mybreak}
+\theorembodyfont{}
+
+% Sätze haben eine eigene Nummerierung.
+\newtheorem{satz}{Satz}
+
+\newtheorem{defin}{Definition}[chapter]
+\newtheorem{bem}[defin]{Bemerkung}
+\newtheorem{defbem}[defin]{Definition und Bemerkung}
+\newtheorem{prop}[defin]{Proposition}
+\newtheorem{propdef}[defin]{Proposition und Definition}
+\newtheorem{defprop}[defin]{Definition und Proposition}
+\newtheorem{folg}[defin]{Folgerung}
+\newtheorem{beisp}[defin]{Beispiele}
+
+% Beweisumgebung
+\theoremclass{Proof}
+\theoremstyle{nonumberplain}
+\theoremheaderfont{\normalfont\itshape}
+\newtheorem{proof}{Beweis}
+
+% einige Kürzel
+\newcommand{\emp}[1]{\textbf{\emph{#1}}}
+
+\newcommand{\widebar}[1]{\overline{#1}}
+\newcommand{\field}[1]{\mathbb{#1}}
+\newcommand{\F}{\field{F}}
+\newcommand{\N}{\field{N}}
+\newcommand{\Z}{\field{Z}}
+\newcommand{\Q}{\field{Q}}
+\newcommand{\R}{\field{R}}
+\newcommand{\C}{\field{C}}
+\newcommand{\eps}{\varepsilon}
+
+\newcommand{\gdw}{$\Longleftrightarrow$\hspace{0.4em}}
+\newcommand{\dann}{$\Longrightarrow$\hspace{0.5em}}
+
+\DeclareMathOperator{\Abb}{Abb}
+\DeclareMathOperator{\Bild}{Bild}
+\DeclareMathOperator{\Kern}{Kern}
+\DeclareMathOperator{\Perm}{Perm}
+\DeclareMathOperator{\Mor}{Mor}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\Char}{char}
+\DeclareMathOperator{\ggT}{ggT}
+\DeclareMathOperator{\kgV}{kgV}
+\DeclareMathOperator{\Grad}{Grad}
+
+\DeclareMathOperator{\Ob}{Ob}
+
+\DeclareMathOperator{\Quot}{Quot}
+
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Spur}{Spur}
+
+\newcommand{\QuotRaum}[2]{
+  \raisebox{0.7ex}{\ensuremath{#1}}
+  \ensuremath{\mkern-3mu}\big/\ensuremath{\mkern-3mu}
+  \raisebox{-0.6ex}{\ensuremath{#2}}} 
+
+%opening
+\title{Algebra I - Wintersemester 2005/2006\\Prof. Dr. F. Herrlich}
+\author{Timo Bingmann}
+
+\begin{document}
+\maketitle
+
+\pdfbookmark[1]{Inhaltsverzeichnis}{contents}
+\setlength\parskip{0.7pt}
+\tableofcontents
+
+% Liste der benannten Saetze
+\section*{Benannte Sätze}
+\pdfbookmark[1]{Benannte Sätze}{contents}
+\setlength\parskip{\smallskipamount}
+
+\theoremlisttype{optname}
+\listtheorems{satz,defbem,defin,bem,prop,propdef,defprop,folg}
+
+% Vorlesung 1 - 24.10.2005
+\newpage
+\section*{Einleitung}
+
+Algebra beschäftigt sich mit Lösen von Gleichungen:
+
+\begin{itemize}
+
+\item Polynomiale Gleichungen: $f(x) = 0$ für $f \in K[x]$. \\
+also
+$
+\begin{array}{c}
+f_1(x_1, \ldots x_n) = 0 \\
+\vdots \\
+f_r(x_1, \ldots x_n) = 0
+\end{array}
+$
+
+\item Quadratische Gleichungen: $x^2 + px + q = 0$ \\
+$\Longrightarrow x = -\dfrac{p}{2} \pm \sqrt{\dfrac{p^2}{4} - q}$
+
+\item Gleichungen 3. Grades: $f(x) = x^3 + ax + b = 0$ \\
+$\Longrightarrow x = \sqrt[3]{-\dfrac{b}{2} + \sqrt{ \left(\dfrac{b}{2}\right)^2 + \left(\dfrac{a}{3}\right)^3}} + \sqrt[3]{-\dfrac{b}{2} - \sqrt{ \left(\dfrac{b}{2}\right)^2 + \left(\dfrac{a}{3}\right)^3}}$
+
+\item Gleichungen 4. Grades: lassen sich auf Gleichungen 3. Grades zurückführen.
+
+\item Lagrange ($\sim$1780) : Nutze Symmetrie.
+
+Beispiel: $f(x) = x^3 + ax + b$ habe die Lösungen $x_1$, $x_2$, $x_3$.
+
+Sei $\xi$ dritte Einheitswurzel:
+$$(x_1 + \xi x_2 + \xi^2 x_3)^3$$
+ist invariant unter zyklischer Vertauschung von $x_1$, $x_2$, $x_3$.
+Es genügt also einer quadratischen Gleichung.
+
+\item Galois (1830): allgemeine Lösungstheorie
+
+\end{itemize}
+
+\chapter{Gruppen}
+
+\section{Grundlegende Definitionen}
+
+\begin{defin}
+Sei $M$ eine Menge.
+
+\begin{enumerate}
+
+\item[a)] Eine \emp{Verknüpfung} \index{Verknüpfung} auf $M$ ist eine Abbildung $\cdot : M \times M \rightarrow M$
+
+\item[b)] Eine Menge $M$ zusammen mit einer Verknüpfung $\cdot$ heißt \emp{Magma}. \index{Magma}
+
+\item[c)] Eine Verknüpfung $\cdot : M \times M \rightarrow M$ heißt \emp{assoziativ}, \index{assoziativ} wenn
+\begin{align*}
+(x \cdot y) \cdot z = x \cdot (y \cdot z) && \forall x,y,z \in M
+\end{align*}
+
+\item[d)] Eine \emp{Halbgruppe} \index{Halbgruppe} ist ein assoziatives Magma.
+
+\item[e)] $e \in M$ heißt \emp{neutrales Element} \index{Element!neutrales} für die Verknüpfung $\cdot$, wenn für alle $x \in M$ gilt:
+$$x \cdot e = e \cdot x = e$$
+
+\item[f)] Eine Halbgruppe mit neutralem Element heißt \emp{Monoid}. \index{Monoid}
+
+\item[g)] Eine \emp{Gruppe} \index{Gruppe} ist ein Monoid $(G,\cdot)$, in dem es zu jedem $x \in G$ ein $x' \in G$ gibt, so dass
+$$x \cdot x' = x' \cdot x = e$$
+$x'$ heißt \emp{zu $x$ inverses Element}. \index{Element!inverses}
+
+\end{enumerate}
+
+\end{defin}
+
+\begin{bem}
+Sei $(M,\cdot)$ ein Magma.
+
+\begin{enumerate}
+
+\item[a)] In $M$ gibt es höchstens ein neutrales Element
+\begin{proof}
+Sind $e_1, e_2$ neutrale Elemente, so ist
+$$e_1 \xlongequal{\text{$e_2$ neutral}} e_1 \cdot e_2 \xlongequal{\text{$e_1$ neutral}} e_2$$
+\end{proof}
+
+\item[b)] Ist $M$ Monoid, so gibt es zu $x \in M$ höchstens ein inverses Element.
+\begin{proof}
+Sind $x'$, $x''$ zu $x$ invers, so ist
+$$x' = (x'' \cdot x) \cdot x' = x' \cdot (x \cdot x') = x''$$
+\end{proof}
+
+\end{enumerate}
+
+\end{bem}
+
+\newcommand{\magmabisgruppe}{$\left\{
+\begin{array}{c}
+\text{Magma} \\
+\text{Halbgruppe} \\
+\text{Monoid} \\
+\text{Gruppe}
+\end{array}
+\right\}
+$}
+
+\begin{defbem}
+\hspace{4cm}Sei $(M,\cdot)$ ein(e) \magmabisgruppe
+
+\begin{enumerate}
+\item[a)] $U \subseteq M$ heißt Unter-\magmabisgruppe, wenn
+$U \cdot U \subseteq U$  (Verknüpfung bleibt auf $U$)\\
+und $(U,\cdot)$ selbst \magmabisgruppe ist.
+\end{enumerate}
+
+\item[b)] $U \subseteq M$ Unterhalbgruppe \gdw $U \cdot U \subseteq U$.
+\begin{proof}
+Klar.
+\end{proof}
+
+\item[c)] $U \subseteq M$ Untermonoid \gdw $U \cdot U \subseteq U$ und $e \in U$.
+\begin{proof}
+Klar.
+\end{proof}
+
+\item[d)]  (\emp{Untergruppenkriterium}) \index{Untergruppenkriterium}\\
+$G \subseteq M$ Untergruppe \gdw $U \neq \emptyset$ und für alle $x,y \in U$ gilt $x \cdot y^{-1} \in G$
+\begin{proof}
+,,$\Longrightarrow$`` Klar. ,,$\Longleftarrow$``:\\
+Sei $x \in U$ $\Longrightarrow$ $e = x \cdot x^{-1} \in U$\\
+\dann mit $x$ ist auch $x^{-1}$ in U.\\
+\dann mit $x,y$ ist auch $x \cdot y = x \cdot (y^{-1})^{-1} \in U$ .
+\end{proof}
+
+\end{defbem}
+
+\begin{bem}
+Sei $(M,\cdot)$ Monoid, dann ist
+$$M^{\times} = \left\{ x \in M : \text{ es gibt inverses Element $x^{-1}$ zu $x$ in $M$} \right\}$$
+eine Gruppe.
+
+\begin{proof}
+$e \in M^{\times}$, da $e \cdot e = e$, also $M^{\times} \neq \emptyset$.
+
+Sind $x,y \in M^{\times}$, so ist $x \cdot y \in M$,\\
+da $x \cdot y \cdot (y^{-1} \cdot x^{-1}) = e$ \dann $\cdot$ ist Verknüpfung auf $M^{\times}$.\\
+\dann $(M^{\times},\cdot)$ ist Gruppe.
+\end{proof}
+\end{bem}
+
+\begin{defbem}
+Seien $(M,\cdot)$, $(M',\ast)$ {\scriptsize\magmabisgruppe}
+
+\begin{enumerate}
+\item[a)] Eine Abbildung $f: M \rightarrow M$ heißt \index{Homomorphismus} \emp{Homomorphismus}, wenn für alle $x,y \in M$ gilt:
+$$\begin{array}{ccc}
+f(x,y) = f(x) \ast f(y) & & \text{ (i)}
+\end{array}$$
+
+Hat $M$ ein neutrales Element, so muss außerdem gelten:
+$$\begin{array}{ccc}
+f(e) = e' & & \text{ (ii)}
+\end{array}$$
+
+\item[b)] Ist $f: G \rightarrow G'$ Abbildung von Gruppen, die (i) erfüllt, so ist $f$ Homomorphismus ( (ii) ist bereits erfüllt)
+\begin{proof}
+$f(e) = f(e \cdot e) = f(e) \ast f(e)$ \dann (Multipliziere mit $f(e)^{-1}$ aus $G'$) \dann $e' = f(e)$.
+\end{proof}
+
+\item[c)] Ein Homomorphismus $f: M \rightarrow M'$ heißt \index{Isomorphismus} \emp{Isomorphismus}, wenn es einen Homomorphismus $g: M' \rightarrow M$ gibt mit $f \cdot g = id_M$
+
+\item[d)] Jeder bijektive Homomorphismus ist ein Isomorphismus.
+
+\begin{proof}
+Sei $f: M \rightarrow M'$ bijektiver Homomorphismus\\
+und $g: M' \rightarrow M$ die Umkehrabbildung.
+
+Zu zeigen: g ist Homomorphismus.
+
+Seien $x,y \in M'$\\
+Schreibe $x = f(\tilde{x}), y = f(\tilde{y})$ für passende $\tilde{x}, \tilde{y} \in M$.\\
+\dann $g(x \ast y) = g(f(\tilde{x}) \ast f(\tilde{y})) = g(f(x \cdot y)) = x \cdot y$.
+\end{proof}
+
+\item[e)] Die Komposition von Homomorphismen ist wieder ein Homomorphismus.
+
+\end{enumerate}
+
+\end{defbem}
+
+% Vorlesung 2 - 28.10.2005
+
+\newcommand{\monoidbisgruppe}{$\left\{
+\begin{array}{c}
+\text{Monoid} \\
+\text{Gruppe}
+\end{array}
+\right\}
+$}
+
+\begin{defbem}
+Sei $f: M \rightarrow M'$ Homomorphismus von \magmabisgruppe
+
+\begin{enumerate}
+\item[a)] $\Bild(f) := \left\{ f(x) : x \in M \right\} \subseteq M'$\\
+ist ein Unter-\magmabisgruppe.
+
+\begin{proof}
+Sind $x,x' \in M$, so ist $f(x) \ast f(x') \xlongequal{\text{f Hom}} f(x \cdot x') \in \Bild(f)$
+
+Sind $M,M'$ Monoide: $f(e) = e' \in \Bild(f)$
+
+Sind $M,M'$ Gruppen: $f(x)^{-1} = f(x^{-1}) \in \Bild(f)$, denn
+$f(x) \ast f(x^{-1}) = f(x \cdot x^{-1}) = f(e) = e'$.
+\end{proof}
+
+\item[b)] Sind $M,M'$ \monoidbisgruppe, so ist\\
+$$\Kern(f) := \left\{ x \in M : f(x) = e' \right\}$$
+Unter-\monoidbisgruppe von $M$.
+
+\begin{proof}
+Seien $x,y \in \Kern(f)$ \dann $f(x \cdot y) = f(x) \ast f(y) = e' \ast e' = e'$ \dann $x \cdot y \in \Kern(f)$
+
+Sind $M,M'$ Monoide: $e \in \Kern(f)$.
+
+Sind $M,M'$ Gruppen: $f(x^{-1}) = f(x)^{-1} = (e')^{-1} = e'$ \dann $x^{-1} \in \Kern(f)$.
+
+\end{proof}
+
+\item[c)] Sind $G, G'$ Gruppen, so ist $f$ genau dann injektiv, wenn $\Kern(f) = \{e\}$
+
+\end{enumerate}
+
+\end{defbem}
+
+\section{Beispiele und Konstruktionen}
+
+\begin{enumerate}
+
+\item[(1)]
+Sei $M$ eine Menge, $M^M := \left\{ f : M \rightarrow M \text{ Abbildung} \right\}$ ist mit der Verknüpfung $\cdot$ ein Monoid.
+
+$$\left(M^M\right)^\times = \left\{ f : M \rightarrow M \text{ bijektive Abbildung} \right\} =: \Perm(M) = S_m$$
+
+Insbesondere $M = \{1, \ldots n\}$ : $S_{\{1, \ldots n\}} =: S_n$
+
+Ist $(M,\cdot)$ ein {\scriptsize\magmabisgruppe}, so ist $\End(M) := \{ f \in M^M : f \text{ Homomorphismus} \}$ ein Untermonoid von $M^M$ und
+$$\Aut(M) := \Perm(M) \cap \End(M)$$
+Untergruppe von $\Perm(M)$.
+
+\item[(2a)]
+
+Sei $X$ Menge, $(M,\cdot)$ ein {\scriptsize\magmabisgruppe}, dann ist
+$M^X = \{ f : X \rightarrow M \text{ Abbildung} \}$ mit der Verknüpfung $(f \cdot g)(x) := f(x) \cdot g(x)$ ein {\scriptsize\magmabisgruppe}.
+
+Assoziativ: Nein!.
+
+Neutrales Element: Gibt es $E: X \rightarrow M$  mit $(E \cdot f)(x) = f(x) \forall x \in X$ ?\\
+Ja!: $E(x) = e \forall x \in X$
+
+Inverse Abbildung zu $f : X \rightarrow G$: $f^{-1}(x) = (f(x))^{-1}$
+
+\item[(2b)]
+
+Ist $(M,\cdot)$ Halbgruppe und $(H,+)$ kommutative Halbgruppe,\\
+dann ist $\Hom(M,H) = \{ f \in H^M : f \text{ Homomorphismus} \}$ eine kommutative Unterhalbgruppe von $H^M$.
+
+Denn sind $f,g : M \rightarrow H$ homomorph, so ist für alle $x,y \in M$:
+$$(f+g)(x \cdot y) = f(x \cdot y) + g(x \cdot y) = f(x) + f(y) + g(x) + g(y) = (f+g)(x) + (f+g)(y)$$
+
+\item [(3)]
+
+Sei $I$ eine Indexmenge. Für jedes $i \in I$ sei $(M_i, \cdot)$ ein {\scriptsize\magmabisgruppe}.
+
+\begin{enumerate}
+\item[a)]
+$\displaystyle\prod_{i \in I}M_i$ ist mit komponentenweiser Verknüpfung ein {\scriptsize\magmabisgruppe}.
+
+\item[b)]
+Sind $M_i$ Monoide,\\
+so ist $\displaystyle\bigoplus_{i \in I}M_i = \left\{ (x_i)_{i \in I} \in \prod_{i \in I}M_i : x_i = e_i \text{ für fast alle $i$}\right\}$ ein Monoid.
+
+\end{enumerate}
+
+\begin{defbem}
+
+\begin{enumerate}
+\item[a)]
+$\prod M$ heißt \index{direktes Produkt} \emp{direktes Produkt}.\\
+$\bigoplus M$ heißt \index{direkte Summe} \emp{direkte Summe}.\\
+
+\item[b)] ist $I$ endlich, so ist $\displaystyle\prod M \cong \bigoplus M$.
+
+\item[c)] Sei $M$ ein {\scriptsize\magmabisgruppe} und für jedes $i \in I$, $g_i : M \rightarrow M_i$ Homomorphismus, dann gibt es genau einen Homomorphismus $\displaystyle G : M \rightarrow \prod_{i \in I}{M_i}$, so dass $g_i = pr_i \circ G$, wobei $\displaystyle pr_i : \prod_{j \in I}{M_j} \rightarrow M_i$ Projektion.
+
+\begin{center}
+\leavevmode
+\xymatrix{
+& \displaystyle\prod_{j \in I}{M_j} \ar[dr]_{\displaystyle pr_i} \\
+M \ar@{-->}[ur]_{\displaystyle \exists!G} \ar[rr]_{\displaystyle g_i} & & M_i }
+\end{center}
+
+\begin{proof}
+Setze $G(m) := (m_j)_{j \in I}$ mit $m_j = g_j(m)$ für  $m \in M$:\\
+$G$ ist Homomorphismus. $\surd$\\
+$G$ ist eindeutig, da $pr_i(G(m)) = g_i(m)$ sein muss.
+\end{proof}
+
+\item[d)] Ist $(M,+)$ ein kommutativer Monoid, und für jedes $i \in I$, $f_i : M_i \rightarrow M$ ein Homomorphismus, so gibt es genau einen Homomorphismus $\displaystyle F : \bigoplus_{j \in I}{M_j} \rightarrow M$, so dass für jedes $i \in I$: $f_i = F \circ \nu_i$,\\
+wobei $\displaystyle \nu_i : M_i \rightarrow \bigoplus_{j \in I}{M_j}$, $m \mapsto (m_j)_{j \in I}$, wobei $m_j = \begin{cases}
+m & j=i \\
+e_j & j \neq i
+\end{cases}$
+
+\begin{center}
+\leavevmode
+\xymatrix{
+& \displaystyle\bigoplus_{j \in I}{M_j} \ar@{-->}[dr]_{\displaystyle \exists!F} \\
+M_i \ar[ur]_{\displaystyle \nu_i} \ar[rr]_{\displaystyle f_i} & & M }
+\end{center}
+
+\begin{proof}
+Setze $F((m_j)_{j \in I}) = \sum_{j \in I} f_j(m_j)$
+
+( Betrachte $F( (0, \ldots 0, m_i, 0, \ldots 0) ) = f_i(m_i)$ )
+\end{proof}
+
+\end{enumerate}
+\end{defbem}
+
+\item[(4)]
+Sei $S$ eine Menge (,,Alphabet``).
+
+$\displaystyle F^a(S) := \bigcup_{n=1}^{\infty}{S^n}$ ist Halbgruppe mit der Verknüpfung ,,Nebeneinanderschreiben`` = ,,Konkatenation``: $(x_1, \ldots, x_n) \cdot (y_1, \ldots, y_m) := (x_1, \ldots, x_n, y_1, \ldots, y_m)$
+
+$F^a(S)$ heißt ,,Worthalbgruppe`` über S.
+
+Variation: $S^0$ = ,,leeres Wort``.
+
+\begin{bem}
+Ist $(H,\cdot)$ eine Halbgruppe, $f : S^1 \rightarrow H$ eine Abbildung, so gibt es genau einen Homomorphismus $F : F^a(S) \rightarrow H$ mit $F|_{S^1} = f$.
+
+\begin{proof}
+Setze $F((x_1, \ldots, x_n)) = F((x_1)(x_2) \ldots (x_n)) = F(x_1) \cdot F(x_2) \cdot \ldots \cdot F(x_n) = f(x_1) \cdot f(x_2) \cdot \ldots \cdot f(x_n)$
+\end{proof}
+\end{bem}
+
+\item[(5)]
+Sei $(M,\cdot)$ ein Monoid. Für $x \in M$ ist $\varphi_x : \N \rightarrow M$, $n \mapsto x^n$ ein Homomorphismus.
+
+Ist $G$ Gruppe, $x \in G$, so ist $\varphi_x : \Z \rightarrow G$, $n \mapsto x^n$ ein Gruppenhomomorphismus.
+
+\begin{defbem}
+Sei $G$ Gruppe.
+\begin{enumerate}
+\item[a)] $\langle x \rangle := \Bild(\varphi_x)$ heißt die von $x$ erzeugt \index{Untergruppe!zyklisch} \emp{zyklische Untergruppe}.
+\item[b)] $|\langle x \rangle|$ heißt die \index{Ordnung} \emp{Ordnung} von $x$.
+\item[c)] $|G|$ heißt Ordnung von $G$. (falls $|G|$ endlich).
+\end{enumerate}
+\end{defbem}
+
+% Vorlesung 3 - 31.10.2005
+
+\item[(6)]
+Sei $G$ Gruppe.
+Für $g \in G$ sei $\tau_g : G \rightarrow G$, $x \mapsto g \cdot x$ (,,\emp{Linksmultiplikation}``) \index{Linksmultiplikation}\\
+$\tau_g(e) = g$ \dann kein Gruppenhomomorphismus außer $\tau_e = id$
+
+\begin{bem}[Satz von Cayley]
+Für jede Gruppe $G$ ist die Abbildung
+$$\tau : G \rightarrow \Perm(G), g \mapsto \tau_g$$
+ein injektiver Gruppenhomomorphismus (Einbettung)
+
+\begin{proof}
+\begin{enumerate}
+\item[(i)] $\tau_g \in \Perm(G)$ : $\tau_g$ ist bijektiv mit Umkehrabbildung $\tau_{g^{-1}}$
+\item[(ii)] $\tau$ ist Gruppenhomomorphismus, denn $\tau(g_1 \cdot g_2)(x) = (g_1 \cdot g_2)x = g_1(g_2 \cdot x) = \tau_{g_1}(\tau_{g_1}(x)) = (\tau_{g_1} \cdot \tau_{g_2})(x) \forall x \in G$
+
+\item[(iii)] $\Kern(\tau) = \{e\}$, denn ist $\tau_g = id_G$, so ist $\tau_g(x) = g \cdot x = x \forall x \in G$ \dann $g = e$
+\end{enumerate}
+\end{proof}
+\end{bem}
+
+\item[(7)]
+\begin{defbem}
+Sei $G$ Gruppe mit $g \in G$
+
+\begin{enumerate}
+\item[a)]
+Die Abbildung $c_g : G \rightarrow G$, $x \mapsto g \cdot x \cdot g^{-1}$ heißt \emp{Konjugation} \index{Konjugation} mit g.\\
+$c_g$ ist ein Automorphismus.
+\begin{proof}
+$c_g$ ist Homomorphismus: $c_g(x_1 \cdot x_2) = g(x_1 \cdot x_2)g^{-1} = g(x_1(g^{-1}g)x_2)g^{-1} = (gx_1g^{-1})(gx_2g^{-1}) = c_g(x_1) \cdot c_g(x_2)$\\
+\dann $c_g$ ist bijektiv. Die Umkehrabbildung ist $c_{g^{-1}}$
+\end{proof}
+
+\item[b)]
+Die Abbildung $c : G \rightarrow \Aut(G)$, $g \mapsto c_g$ ist ein Gruppenhomomorphismus.
+
+\begin{proof}
+$c(g_1 \cdot g_2)(x) = (g_1 g_2) \cdot x \cdot (g_1 g_2)^{-1} = (g_1 g_2) \cdot x \cdot (g_2^{-1} g_1^{-1}) = c_{g_1}(c_{g_2}(x)) = (c_{g_1} \cdot c_{g_2})(x) \forall x \in G$
+\end{proof}
+
+\item[c)]
+$Z(G) := \Kern(c)$ heißt \emp{Zentrum} \index{Zentrum} von $G$.\\
+auch ist $Z(G) = \{ g \in G : gx = xg \forall x \in G \}$ ,,kommutative Elemente``.
+
+\item[d)]
+Die Elemente von $\Bild(c) =: \Aut_i(G)$ heißen \emp{innere Automorphismen} \index{Automorphismen!innere} von $G$.
+
+\item[e)]
+Eine Untergruppe $N \subseteq G$ heißt \emp{Normalteiler} \index{Normalteiler} von $G$, wenn $c_g(N) \subseteq N \forall g \in G$\\
+äquivalent: $gxg^{-1} \in N \forall g \in G \forall x \in N$
+
+\item[f)]
+
+Ist $f : G \rightarrow G'$ ein Gruppenhomomorphismus, dann ist $\Kern(f)$ Normalteiler von $G$.
+
+\begin{proof}
+Sei $x \in \Kern(f)$, $g \in G$. Dann ist $f(gxg^{-1}) = f(g) \cdot f(x) \cdot f(g^{-1}) = f(g) \cdot f(g^{-1}) = e'$
+\end{proof}
+
+\item[g)]
+
+$\Aut_i(G)$ ist Normalteiler in $\Aut(G)$.
+
+\begin{proof}
+Sei $\varphi \in \Aut(G), g \in G$\\
+Zu zeigen: $\varphi c_g \varphi^{-1} \in \Aut_i(G)$\\
+Es ist $(\varphi \cdot c_g \cdot \varphi^{-1})(x) = \varphi(c_g(\varphi^{-1}(x))) 
+= \varphi(g \cdot \varphi^{-1}(x) \cdot g^{-1}) = \varphi(g) \cdot \varphi(\varphi^{-1}(x)) \cdot \varphi(g^{-1}) 
+= \varphi(g) \cdot x \cdot \varphi(g)^{-1} = c_{\varphi(g)}(x) \forall x \in G$.\\
+\dann $\varphi \circ c_g \circ \varphi^{-1} = c_{\varphi(g)} \in \Aut_i(G)$
+\end{proof}
+
+\end{enumerate}
+\end{defbem}
+
+\item[(8)]
+
+\begin{defbem}
+Sei $G$ Gruppe, $H \subseteq G$ Untergruppe.
+
+\begin{enumerate}
+\item[a)] Für jedes $g \in G$ heißt $g \cdot H = \{ g \cdot h : h \in H \} = \tau_g(H)$ \emp{Linksnebenklassen} \index{Linksnebenklassen} von G bezüglich H.\\
+und\\
+$H \cdot g = \{ g \cdot h : h \in H \}$ \emp{Rechtsnebenklassen}. \index{Rechtsnebenklassen}
+
+\item[b)] Für $g_1, g_2 \in G$ gilt:\\
+$(g_1 \cdot H) \cap (g_2 \cdot H) \neq \emptyset$ \gdw $g_1 H = g_2 H$
+
+\begin{proof}
+,,$\subseteq$``
+Sei $y = g_1 h_1 = g_2 h_2 \in g_1 H \cap g_2 H$ mit $h_1, h_2 \in H$.\\
+\dann $g_1 = g_2 h_2 h_1^{-1} \in g_2 H$ \dann $g_1 H \subseteq g_2 H$\\
+genauso $g_2 H \subseteq g_1 H$
+\end{proof}
+
+\item[c)]
+$H$ ist genau dann Normalteiler, wenn $gH = Hg$ für alle $g \in G$.
+
+\begin{proof}
+$gH = Hg$ \gdw $H = gHg^{-1}$
+\end{proof}
+
+\item[d)]
+Alle Nebenklassen von $G$ bzgl. $H$ sind gleich mächtig. ($\exists$ Bijektion)
+
+\begin{proof}
+$\tau_g : H \rightarrow g \cdot H$, $h \mapsto g \cdot h$ ist bijektiv.
+\end{proof}
+
+\item[e)]
+Die Anzahl der Linksnebenklassen bzgl $H$ ist gleich der Anzahl der Rechtsnebenklassen. Sie heißt \index{Index} \emp{Index} $[G:H]$ von $H$ in $G$.
+
+\begin{proof}
+Die Zuordnung $\{\text{Linksnebenklassen}\} \rightarrow \{\text{Rechtsnebenklassen}\}$,
+$g \cdot H \mapsto H \cdot g^{-1}$ ist bijektiv und wohldefiniert:
+
+wohldef: ist $g_1 H = g_2 H$, also $g_2 = g_1 h$ für ein $h \in H$,\\
+\dann $H g_2^{-1} = H(g_1 h)^{-1} = H \cdot h^{-1} \cdot g^{-1} = H g_1^{-1}$
+\end{proof}
+
+\item[f)] (Satz von Lagrange) \addtheoremline*{satz}{Satz von Lagrange}\\
+Ist $G$ endlich, so ist $[G:H] = \dfrac{|G|}{|H|}$
+
+\begin{proof}
+$G$ ist disjunkte Vereinigung der $[G:H]$ Linksnebenklassen bzgl $H$. Diese haben alle $|H|$ Elemente.
+\end{proof}
+
+\end{enumerate}
+
+\end{defbem}
+
+\end{enumerate}
+
+\section{Quotientenbildung}
+
+\begin{defbem}
+Sei $f : M \rightarrow M'$ eine Abbildung von Mengen.
+
+\begin{enumerate}
+\item[a)]
+Die Relation $\sim_f$ auf $M$, $x \sim_f y \Leftrightarrow f(x) = f(y)$ ist eine Äquivalenzrelation.
+
+\item[b)]
+Für $x \in M$ sie $\bar{x} = \{ y \in M : y \sim_f x \}$.\\
+Es ist $\bar{x} = f^{-1}(\{f(x)\})$\\
+$\overline{M} := \QuotRaum{M}{\sim_f} := \{\bar{x} : x \in M \}$
+
+\item[c)]
+Ist $f : (M,\cdot) \rightarrow (M', \ast)$ ein Homomorphismus, so wird durch
+$\bar{x} \cdot \bar{y} = \overline{x \cdot y}$ eine Verknüpfung auf $\overline{M}$ definiert.
+
+\begin{proof}
+Zu zeigen ist: $\cdot$ ist wohldefiniert.\\
+Sei also $x' \in \bar{x}, y' \in \bar{y}$, zu zeigen: $\overline{x' \cdot y'} = \overline{x \cdot y}$\\
+Also $f(x' \cdot y') = f(x \cdot y)$ \gdw $\overline{x' y'} = \overline{xy}$\\
+Also $x' \in \bar{x}, y' \in \bar{y}$ \gdw $f(x') = f(x), f(y') = f(y)$
+
+Es ist $f(x' \cdot y') = f(x') \ast f(y') = f(x) \ast f(y) = f(x \cdot y)$.
+\end{proof}
+
+\item[d)]
+Ist $(M,\cdot)$ {\scriptsize\magmabisgruppe}, so auch $(\widebar{M}, \cdot)$.
+
+\end{enumerate}
+
+\end{defbem}
+
+\begin{defbem}
+Sei $f : G \rightarrow G'$ Gruppenhomomorphismus.
+
+\begin{enumerate}
+\item[a)]
+$\widebar{G} = \QuotRaum{G}{\sim_f}$ ist die Menge der Linksnebenklassen bzgl $\Kern(f)$.
+
+\item[b)]
+$\widebar{G} =: \QuotRaum{G}{\Kern(f)}$ heißt \emp{Faktorgruppe} \index{Faktorgruppe} von $G$ bzgl. $\Kern(f)$.
+
+\begin{proof}
+Seien $x,y \in G$, dann gilt:\\
+$\bar{x} = \bar{y}$ \gdw $f(x) = f(y)$ \gdw $f(x) \cdot f(y^{-1}) = e'$
+\gdw $f(x \cdot y^{-1}) = e'$ \gdw $xy^{-1} \in \Kern(f)$ \gdw $y = (xy^{-1})^{-1}x \in \Kern(f) \cdot x$
+\gdw $x^{-1}y \in \Kern(f)$ \gdw $y = x \cdot (x^{-1}y) \in x \Kern(f)$
+\gdw $y \cdot \Kern(f) = x \cdot \Kern(f)$
+\end{proof}
+
+\end{enumerate}
+
+\end{defbem}
+
+% Vorlesung 4 - 4.11.2005 - Horst Hammer
+
+\begin{defbem}
+Sei $G$ Gruppe, $N \subseteq G$ Normalteiler. Dann gibt es eine Gruppe $\widebar{G}$ und einen surjektiven Gruppenhomomorphismus $f : G \rightarrow \widebar{G}$ mit $N = \Kern(f)$.
+
+Folgerung: Nach 1.14 ist dann $\widebar{G} \cong \QuotRaum{G}{\Kern(f)} =: \QuotRaum{G}{N}$. Man kann also nach jedem Normalteiler eine Faktorgruppe bilden.
+
+\begin{proof}
+Sei $\widebar{G} := \{ x \cdot N : x \in G \} ( \subset \mathcal{P}(G))$\\
+Für $x,y \in G$ setze $(x \cdot N)(y \cdot N) = (x \cdot y \cdot N)$
+
+Behauptung: $(\widebar{G},\cdot)$ ist Gruppe.\\
+(i) Die Verknüpfung ist wohldefiniert. (Unabhängig des Repräsentanten der Nebenklasse):\\
+Seien $x,x',y,y' \in G$ mit $x N = x' N$, $y N = y' N$.\\
+Dann gibt es $n,m \in N$: $x' = xn$, $y' = ym$.\\
+\dann $x'y' = xnym$, da N Normalteiler gibt es es $n' \in N$ mit $ny = yn'$, also \\
+\dann $x'y' = xyn'm$ \dann $x'y'N = xyN$
+
+(ii) alle übrigen Eigenschaften ,,vererben`` sich schon von $G$ auf $\widebar{G}$.\\
+$f : G \rightarrow \widebar{G}$, $x \mapsto xN$ ist surjektiver Gruppenhomomorphismus mit $\Kern(f) = N$.
+\end{proof}
+
+\end{defbem}
+
+\begin{satz}[Homomorphiesatz]
+\begin{enumerate}
+\item[a)] \index{Homomorphiesatz}
+Sei $f : M \rightarrow M'$ Homomorphismus von {\scriptsize\magmabisgruppe},\\
+$\widebar{M} := \QuotRaum{M}{\sim_f}$ heißt der Quotientenraum, \\
+$p : M \rightarrow \widebar{M}, x \mapsto \bar{x}$ die Restklassenabbildung.
+
+\begin{enumerate}
+\item[(i)] p ist surjektiver Homomorphismus.
+
+\item[(ii)] Es gibt genau einen ($\exists!$) Homomorphismus $\bar{f} : \widebar{M} \rightarrow M'$ mit $f = \bar{f} \circ p$
+
+\item[(iii)] $\bar{f}$ ist injektiv. Ist $f$ surjektiv \dann $\bar{f}$ bijektiv.
+
+\begin{center}
+\leavevmode
+\xymatrix{
+M \ar[dr]_{\displaystyle p} \ar[rr]_{\displaystyle f} & & M' \\
+& \displaystyle\widebar{M} \ar@{-->}[ur]_{\displaystyle \bar{f}} }
+\end{center}
+% kriege hier kein = in die mitte hinein
+
+\end{enumerate}
+
+\item[b)] (\emp{Universelle Abbildungseigenschaft der Faktorgruppe})
+\addtheoremline*{satz}{Universelle Abbildungseigenschaft der Faktorgruppe}\\
+Sei $G$ Gruppe, $N \subseteq G$ Normalteiler.\\
+Dann gibt es zu jedem Gruppenhomomorphismus $f : G \rightarrow G'$ mit $N \subseteq \Kern(f)$\\
+genau einen Gruppenhomomorphismus $\bar{f} : \QuotRaum{G}{N} \rightarrow G'$ mit $f = \bar{f} \circ p$
+
+\end{enumerate}
+
+\begin{proof}
+\begin{enumerate}
+\item[a)]
+\begin{enumerate}
+\item[i)] $\surd$
+
+\item[ii)] Setze $\bar{f}(\bar{x}) := f(x)$. Dies ist die einzige Möglichkeit!\\
+\dann $\bar{f}$ ist eindeutig (wenn es existiert)
+
+$\bar{f}$ ist wohldefiniert: Ist $y \in \bar{x}$, also $y \sim_f x$ \dann $f(y) = f(x)$
+\dann $\bar{f}(\bar{y}) = f(y) = f(x) = \bar{f}(\bar{x})$.
+
+$\bar{f}$ ist Homomorphismus: $\bar{f}(\bar{x} \cdot \bar{y}) = f(x \cdot y) = f(x) \cdot f(y) = \bar{f}(\bar{x}) \cdot \bar{f}(\bar{y})$
+
+\item[iii)] $\surd$ (aus nicht-injektiven wird eine Restklasse)
+\end{enumerate}
+
+\item[b)]
+Setze $\bar{f}(x N) := f(x)$ Das ist eindeutig wie in a).
+
+$\bar{f}$ wohldefiniert: Sei $y \in G$ mit $y \cdot N = x \cdot N$.\\
+\dann $y = x \cdot n$ für ein $n \in N \subseteq \Kern(f)$\\
+\dann $f(y) = f(x \cdot n) = f(x) \cdot f(n) = f(x)$ \dann $\bar{f}$ ist Homomorphismus.
+
+\end{enumerate}
+\end{proof}
+\end{satz}
+
+\section{Zyklische Gruppen}
+
+\begin{defbem}
+Sei $G$ Gruppe, $A \subseteq G$ Teilmenge.
+
+\begin{enumerate}
+\item[a)] $\displaystyle \langle A \rangle := \bigcap_{\substack{H \subseteq G \text{ Untergruppe}\\ A \subseteq H}} H$
+heißt die von $A$ erzeugte Untergruppe von $G$.
+
+\item[b)] $G$ heißt \index{zyklisch} \emp{zyklisch}, wenn es ein $g \in G$ gibt mit $G = \langle g \rangle$
+
+\item[c)] Für $g \in G$ ist $\langle g \rangle = \{ g^n : n \in \Z \}$
+
+\item[d)] Jede zyklische Gruppe ist isomorph zu $\Z$ oder zu $\QuotRaum{\Z}{n\Z}$ für genau ein $n \in \N \setminus \{0\}$
+
+\item[e)] Jede Untergruppe einer zyklischen Untergruppe ist zyklisch.
+
+\item[f)] Für $g \in G$ heißt $\ord(g) := |\langle g \rangle|$ die \index{Ordnung} \emp{Ordnung} von $g$ in $G$.
+
+Es ist $\ord(g) = \begin{cases}
+\min \{ n \in \N \setminus \{0\} : g^n = e \} & \text{sonst} \\
+\infty & g^n \neq e \forall n \in \N \setminus \{0\}
+\end{cases}$
+
+\item[g)] Ist $G$ endlich, so ist für alle $g \in G$: $\ord(g)$ ein Teiler der Gruppenordnung 
+\end{enumerate}
+
+\begin{proof}
+\begin{enumerate}
+\item[a)]
+Zu zeigen: $\displaystyle \langle A \rangle := \bigcap_{\substack{H \subseteq G \text{ Untergruppe}\\ A \subseteq H}} H$ ist Untergruppe von $G$.
+
+\begin{enumerate}
+\item [(i)]
+$e \in H \forall H \subseteq G$, da H Untergruppe \dann $e \in \langle A \rangle$ \dann $\langle A \rangle \neq \emptyset$.
+
+\item [(ii)]
+Seien $x,y \in \langle A \rangle$, $H$ Untergruppe von $G$ mit $A \subseteq H$.\\
+\dann $x,y \in H$. \dann $x y^{-1} \in H$ \dann $x y^{-1} \in \langle A \rangle$
+\end{enumerate}
+
+\item[c)]
+,,$\supseteq$`` $\surd$\\
+,,$\subseteq$``: Nach 1.9 ist $\{ g^n : n \in \Z \} = \Bild(\varphi_g)$ Untergruppe von $G$ (Eines der Untergruppen im Schnitt \dann Schnitt kann nicht größer als eines der Elemente sein).
+
+\item[d)]
+Sei $G = \langle g \rangle$, $\varphi_g : \Z \rightarrow G, n \mapsto g^n$ (siehe 1.9)
+
+$\varphi_g$ ist surjektiver Gruppenhomomorphismus.\\
+Nach Satz 1 ist $G \cong \QuotRaum{\Z}{\Kern(\varphi_g)}$.
+
+Da jede Untergruppe von $\Z$ von der Form $H = n \cdot \Z$ für $n \in \N_0$ \dann Behauptung.
+
+\item[e)]
+Sei $G = \langle g \rangle$ zyklisch, $H \subseteq G$ Untergruppe,\\
+$n := \min\{ k \in \N \setminus \{0\} : g^k \in H \}$
+
+Dann ist $\langle g^n \rangle \subseteq H$\\
+Wäre $k \in H \setminus \langle g^n \rangle$, also $k = g^m$ mit $m \notin n\Z$\\
+\dann $d := \ggT(m,n) < n$\\
+Nach Euklid gibt es $a,b \in \Z$ mit $a \cdot m + b \cdot n = d$\\
+\dann $g^d = (g^m)^a \cdot (g^n)^b \in H$\\
+Widerspruch zu $n$ minimal mit $g^n \in H$
+
+\item[g)]
+Folgt aus dem Satz von Lagrange (1.12 f)
+\end{enumerate}
+\end{proof}
+\end{defbem}
+
+\begin{defbem}
+\begin{enumerate}
+\item[a)]
+Die Abbildung $\varphi : \N \setminus \{0\} \rightarrow \N, n \mapsto \varphi(n)$ mit\\
+$\varphi(n) := | \{ k \in \N : 1 \leq k \leq n : \ggT(k,n) = 1 \} |$\\
+heißt \emp{Eulersche $\varphi$-Funktion}. \index{Eulersche $\varphi$-Funktion}
+
+\item[b)]
+Ist $G$ zyklische Gruppe der Ordnung $n$, so gilt für jeden Teiler $d$ von $n$:\\
+$| \{ x \in G : \ord(x) = d \} | = \varphi(d)$
+
+\item[c)]
+Für jedes $n \in \N \setminus \{0\}$ gilt:
+$\displaystyle n = \sum_{d \mid n}{\varphi(d)}$
+
+\end{enumerate}
+\begin{proof}
+\begin{enumerate}
+\item[b)]
+Sei $G = \langle g \rangle$. Für $x = g^k \in G$ ist $\ord(x) = \dfrac{n}{\ggT(k,n)}$.\\
+Also ist $\ord(x) = d$ \gdw $ggT(k,n) = \dfrac{n}{d}$
+
+Es ist $| \{ k \in \N : 1 \leq k \leq n : \ggT(k,n) = \dfrac{n}{d} \} | \\
+= | \{ l \in \N : 1 \leq l \leq d : \ggT(l,d) = 1 \} |$
+
+denn: $k \mapsto \dfrac{k}{\frac{n}{d}}$
+
+\item[c)]
+$\displaystyle n = |G| = \sum_{d \mid n}{|\{ x \in G : \ord(x) = d \}|} = \sum_{d \mid n}{\varphi(d)}$
+
+\end{enumerate}
+\end{proof}
+\end{defbem}
+
+\paragraph{Beispiele}
+
+\begin{enumerate}
+\item[1)]
+$\displaystyle \left\{ e^{\frac{2 \pi i k}{n}} : n \in \N \setminus \{0\}, 0 \leq k \leq n\right\}$ ist zyklische Untergruppe von $(\mathbb{C},\cdot)$ der Ordnung $n$.\\
+(die $n$-te Einheitswurzeln)
+
+\item[2)]
+Sei $V = \{ id, \tau, \sigma_1, \sigma_2 \}$ mit\\
+$\tau$ = Drehung um 180 Grad im $\R^2$ :
+$\bigl(\begin{smallmatrix}-1 & 0 \\ 0 & -1\end{smallmatrix}\bigr)$\\
+$\sigma_1$ = Spiegelung an der x-Achse :
+$\bigl(\begin{smallmatrix}1 & 0 \\ 0 & -1\end{smallmatrix}\bigr)$\\
+$\sigma_2$ = Spiegelung an der y-Achse :
+$\bigl(\begin{smallmatrix}-1 & 0 \\ 0 & 1\end{smallmatrix}\bigr)$
+
+$V$ ist abelsche Gruppe, aber nicht zyklisch. V heißt \emp{Kleinsche Vierergruppe}. \index{Kleinsche Vierergruppe}
+
+$$V \cong \QuotRaum{\Z}{2\Z} \oplus \QuotRaum{\Z}{2\Z}$$
+
+\item[3)]
+$$\QuotRaum{\Z}{2\Z} \oplus \QuotRaum{\Z}{3\Z} \cong \QuotRaum{\Z}{6\Z}$$
+
+$$\{1,\sigma\} \oplus \{1,\tau,\tau^2\} \cong \{1,a,a^2,a^3,a^4,a^5\}$$
+
+mit $a \mapsto (\sigma,\tau)$
+
+\end{enumerate}
+
+% Vorlesung 5 - 07.11.2005
+
+\section{Abelsche Gruppen}
+
+\begin{defbem}
+
+Sei $(A,+)$ eine abelsche Gruppe, $X \subseteq A$.
+
+\begin{enumerate}
+\item[a)]
+$A$ heißt \emp{freie abelsche Gruppe} \index{freie abelsche Gruppe} mit \emp{Basis} $X$, wenn jedes $a \in A$ eine eindeutige Darstellung $\displaystyle a = \sum_{x \in X} n_x \cdot x$ hat mit $n_x \in \Z$ und $n_x \neq 0$ nur für endliche viele $x \in X$.
+
+Ist in dieser Situation $|X| = n$, so heißt $n$ der \emp{Rang} \index{Rang} von $A$. $A$ ist isomorph zu $\displaystyle \Z^X := \bigoplus_{x \in X} \Z$
+
+\item[b)]
+Universelle Abbildungseigenschaft der freien abelschen Gruppen.
+
+Zu jeder abelschen Gruppe $A$ und jeder Abbildung $f : X \rightarrow A$ gibt es genau einen Homomorphismus $\varphi : \Z^X \rightarrow A$ mit $\varphi(x) = f(x) \forall x \in X$.
+
+\end{enumerate}
+
+\begin{proof}
+\begin{enumerate}
+\item[a)]
+$A \rightarrow \Z^X$, $\sum n_x x \mapsto (n_x)_{x \in X}$ ist Isomorphismus.
+
+\item[b)]
+Setze $\displaystyle \varphi(\sum_{x \in X} n_x x) := \sum_{x \in X} n_x f(x)$. (,,bleibt nichts anderes übrig``).
+\end{enumerate}
+\end{proof}
+
+\end{defbem}
+
+\paragraph{Wichtigstes Beispiel}
+$X$ endliche Menge, $X = \{x_1, \ldots x_n\}$.\\
+Dann ist $\Z^X \cong \Z^n$
+
+$\Z^n$ ist ,,so was ähnliches`` wie ein Vektorraum: heißt \emp{freier Modul}. \index{freier Modul}\\
+Insbesondere lassen sich die Gruppenhomomorphismen $\Z^n \rightarrow \Z^m$ durch eine $n$-$m$-Matrix mit Einträgen in $\Z$ beschreiben.
+
+\begin{satz}[Elementarteilersatz]
+
+Sei $H$ eine Untergruppe von $\Z^n$ ($n \in \N \setminus \{0\}$).
+
+Dann gibt es eine Basis $\{x_1, \ldots x_n\}$ von $\Z^n$, ein $r \in \N$ mit $0 \leq r \leq n$ und $a_1, \ldots a_r \in \N \setminus \{0\}$ mit $a_i \mid a_{i+1}$ für $i = 1, \ldots r-1$, so dass $a_1 x_1, \ldots a_r x_r$ eine Basis von $H$ ist.
+
+Insbesondere ist $H$ ebenfalls eine freie abelsche Gruppe.
+
+\begin{proof}
+1. Schritt: Behauptung: $H$ ist endlich erzeugt.
+
+Induktion über n:
+
+$n = 1$: $\surd$ ($\Z^1$ jede Untergruppe ist $n\Z$ für ein n).
+
+$n > 1$: Sei $e_1, \ldots e_x$ Basis von $\Z^n$, $\pi: \Z^n \rightarrow \Z$, $\sum_{i=1}^{n} a_i e_i \mapsto a_n$. (,,Projektion auf letzte Komponente``).
+
+1. Fall: $\pi(H) = \{0\}$ \dann $H \subseteq \Z^{n-1}$ \dann $H$ endlich erzeugt.
+
+2. Fall: $\pi(H) = l \cdot \Z$ für ein $l \in \N \setminus \{0\}$. (Bild von einem Gruppenhomomorphismus ist Gruppe)\\
+Sei $y \in H$ mit $\pi(y) = l$
+
+Behauptung: $H \cong \langle y \rangle \oplus (H \cap \Kern(\pi))$
+
+Dann folgt die Behauptung von Schritt 1, da $\Kern(\pi) \cong \Z^{n-1}$, dann ist $H \cap \Kern(\pi)$ Untergruppe von $\Z^{n-1}$, also endlich erzeugt nach Induktionshypothese. \dann $H$ endlich erzeugt.
+
+Beweis der Behauptung:\\
+$\langle y \rangle \cap (H \cap \Kern(\pi)) = \{0\}$ nach Definition von $y$. \dann Summe ist direkt.\\
+Sei $z \in H$ mit $\pi(z) = k \cdot l$ für ein $k \in \Z$ \dann $z - k \cdot y \in H \cap \Kern(\pi)$ \dann Behauptung.
+
+2. Schritt: Sei $y_1, \ldots y_r$ ein Erzeugendensystem von $H$. Nach Schritt 1 kann $r \leq n$ erreicht werden.
+
+Schreibe $y_j = \sum_{i=1}^{n} a_{ij} e_i$. Dann ist $A := (a_{ij}) \in \Z^{n \times r}$ eine Darstellungsmatrix der Abbildung $H \hookrightarrow \Z^n$ bezüglich der Basen $\{y_1, \ldots y_r\}$ von $H$ und $\{e_1, \ldots e_n\}$ von $\Z^n$.
+
+Zeilen- und Spaltenumformungen entsprechen Basiswechseln in $H$ bzw. $\Z^n$.\\
+Vorsicht: dabei dürfen nur \emp{ganzzahlige} Basiswechselmatrizen benutzt werden, deren inverse Matrix ebenfalls ganzzahlige Einträge hat!
+
+Ziel: Bringe $A$ durch elementare Zeilen- und Spaltenumformungen auf Diagonalgestalt:
+$$\widetilde{A} := \left(
+\begin{array}{ccc}
+a_1 & & 0 \\
+ & \ddots & \\
+0   & & a_r
+\end{array}\right)
+$$
+mit $a_i \in \Z$ und $a_i \mid a_{i+1} \forall i = 1 \ldots r-1$
+
+3. Schritt: Das geht! Ganzzahliger Gauß-Algorithmus:
+
+\begin{enumerate}
+\item[i)]
+Suche den betragsmäßig kleinsten Matrixeintrag $\neq 0$ und bringe den nach $a_{11}$. Dazu brauche ich höchstens eine Zeilen- und eine Spaltenvertauschung.
+
+\item[ii)]
+Stelle fest ob alle $a_{i1}$ ($i = 2 \ldots n$) durch $a_{11}$ teilbar sind.
+
+Falls nicht, teile $a_{i1}$ mit Rest durch $a_{11}$:\\
+$a_{i1} = q \cdot a_{11} + r$ mit $0 < r < |a_{11}|$\\
+Dann ziehe von der $i$-ten Zeile das $q$-fache der ersten ab. Die neue $i$-te Zeile beginnt jetzt mit $\widetilde{a}_{i1} = r$. Zurück zu i).
+
+\item[iii)]
+Sind schließlich alle $a_{i1}$ durch $a_{11}$ teilbar, so wird die erste Spalte zu $\scriptstyle\left(\begin{array}{c} a_{11} \\ 0 \\ \vdots \\ 0 \end{array}\right)$ gemacht, indem man von der $i$-ten Zeile das $\dfrac{a_{i1}}{a_{11}}$-fache der ersten Zeile abzieht.
+
+\item[iv)]
+Genauso wird die 1. Zeile zu $\left(\begin{array}{cccc}a_{11} & 0 & \cdots & 0\end{array}\right)$
+
+\item[v)]
+Gibt es jetzt noch einen Matrixeintrag $a_{ij}$ ($i,j \geq 2$), der nicht durch $a_{11}$ teilbar ist, schreibe $a_{ij} = q \cdot a_{11} + r$ mit $0 < r < |a_{11}|$. Ziehe von der $i$-ten Zeile das $q$-fache der ersten ab.
+
+Die neue $i$-te Zeile lautet dann
+$\left(\begin{array}{cccccc} -q a_{11} & a_{i2} & \cdots & a_{ij} & \cdots & a_{ir}\end{array}\right)$
+(da $a_{i1} = 0, a_{ik} = 0$ für $1 < k < r$).
+
+Addiert man nun zur $j$-ten Spalte die erste, so ist das neue Element $\widetilde{a}_{ij} = a_{ij} - q a_{11} = r$.
+
+Zurück zu (i)
+
+\item[vi)]
+Nach endlich vielen Schritten, erhalte Matrix
+$\left(\begin{array}{cc}
+a_{11} & \begin{array}{ccc}0 & \cdots & 0\end{array} \\
+\begin{array}{c}0 \\ \vdots \\ 0\end{array} & A'
+\end{array}\right)$,
+in der alle Einträge von $A'$ durch $a_{11}$ teilbar sind.
+
+Wende nun (i)-(vi) auf $A'$ an.
+\end{enumerate}
+\end{proof}
+\end{satz}
+
+\paragraph{Ergänzung}
+\begin{enumerate}
+\item[1)]
+In der Situation von Satz 2 heißen die $a_{ii}$, $i = 1, \ldots r$, \emp{Elementarteiler} \index{Elementarteiler} von $H$.
+
+\item[2)]
+Ist $A = \left(\begin{array}{ccc}h_1 & \cdots & h_r\end{array}\right) \in \Z^{n \times r}$, so erzeugen die Spalten $h_1, \ldots h_r$ eine Untergruppe von $\Z^n$. $A$ ist die Darstellungsmatrix der Einbettung $H \hookrightarrow \Z^n$. Die Elementarteiler von $H$ heißen auch Elementarteiler von $A$.
+
+\end{enumerate}
+
+\begin{satz}[Struktursatz für endlich erzeugte abelsche Gruppen]
+Jede endlich erzeugbare abelsche Gruppe $A$ ist isomorph zu einer direkten Summe von zyklischen Gruppen.
+
+genauer: Es gibt $r,m \in \N$ und $a_1, \ldots a_m \in \N$, $a_i \geq 2 \forall i=1 \ldots m$ und $a_i \mid a_{i+1}$ für $i = 1 \ldots m-1$, so dass gilt
+$\displaystyle A \cong \Z^r  \oplus \bigoplus_{i=1}^{m}{\QuotRaum{\Z}{a_i \Z}}$,
+$r,m$ und die $a_i$ sind durch $A$ eindeutig bestimmt.
+
+\begin{proof}
+Sei $x_1, \ldots x_n$ ein Erzeugendensystem von $A$. Nach 1.18 gibt es einen surjektiven Gruppenhomomorphismus $\varphi : \Z^n \rightarrow A$ mit $\varphi(x_i) = x_i$ ($i=1 \ldots n$). Nach dem Homomorphiesatz ist dann $A \cong \QuotRaum{\Z^n}{\Kern(\varphi)}$
+
+Nach Satz 2 gibt es $m \in \N$, $m \leq n$, eine Basis $z_1, \ldots z_n$ von $\Z^n$ und Elementarteiler $a_1, \ldots a_n$ mit $a_i \mid a_{i+1}$, $i = 1 \ldots m-1$, so dass $a_1 z_1, \ldots a_m z_m$ Basis vom $\Kern(\varphi)$ ist.
+
+Dann ist $\displaystyle A \cong \QuotRaum{\Z^n}{\Kern(\varphi)}
+\cong \QuotRaum{(\bigoplus_{i=1}^{n}{z_i \cdot \Z})}{(\bigoplus_{i=1}^{m}{z_i \cdot \Z})}
+\cong \QuotRaum{(\bigoplus_{i=1}^{m}{z_i \cdot \Z})}{a_i z_i \Z} \oplus \bigoplus_{i=m+1}^{n}{z_i \Z}\\
+\cong \bigoplus_{i=1}^{m}{\QuotRaum{\Z}{a_i \Z}} \oplus \Z^{n-m}$
+
+% Naechste Vorlesung?
+
+Dabei sind $r,m$ und die $a_i$ eindeutig bestimmt. $r$ ist die maximale Anzahl linear unabhängiger Elemente in $A$.
+
+Sei also $\displaystyle T := \bigoplus_{i=1}^{m}{\QuotRaum{\Z}{a_i \Z}} \cong \bigoplus_{j=1}^{m'}{\QuotRaum{\Z}{b_j \Z}} =: T'$
+
+Zu zeigen: $m' = m$ und $a_i = b_i$ $\forall i = 1 \ldots m$ mit $b_j \mid b_{j+1}$ für $j = 1 \ldots m-1$
+
+Behauptung: Für jedes $x \in T$ ist $\ord(x)$ Teiler von $a_m$:\\
+Genauso: Für jedes $y \in T'$ ist $\ord(y)$ Teiler von $b_m$.
+
+T enthält ein Element von Ordnung $a_m$, nämlich $(\bar{0}, \ldots \bar{0}, \bar{1}) \in T$.\\
+\dann $T'$ enthält auch ein Element von Ordnung $a_m$ \dann $a_m \mid b_{m'}$
+
+Umgekehrt: $b_{m'}$ teilt $a_m$ \dann $a_m = b_{m'}$
+
+Sei $\displaystyle \widetilde{T} := \QuotRaum{T}{(\QuotRaum{\Z}{a_m \Z})} \cong \bigoplus_{i=1}^{m-1}{\QuotRaum{\Z}{a_i \Z}}$, und da $\displaystyle \widetilde{T} = \QuotRaum{T}{(\QuotRaum{\Z}{b_m \Z})} \cong \bigoplus_{j=1}^{m-1}{\QuotRaum{\Z}{b_h \Z}}$
+
+Induktion über m: Eindeutigkeit gilt für $\widetilde{T}$ \dann Satz.
+
+Beweis der Behauptung:
+
+Sei $x = (x_1, x_2, \ldots x_m) \in T$ mit $x_i \in \QuotRaum{\Z}{a_i \Z}$
+
+\dann $a_m x = (a_m x_1, \ldots a_m x_m) = (0, \ldots 0)$ weil $a_i$ Teiler von $a_m$ ist.
+
+\dann $\ord(x)$ ist Teiler von $a_m$.
+
+\end{proof}
+\end{satz}
+
+\begin{defbem}
+Verloren gegangen?
+\end{defbem}
+
+\section{Freie Gruppen}
+
+\begin{defbem}
+Sei $F$ eine Gruppe und $X \subseteq F$
+
+\begin{enumerate}
+\item[a)]
+$F$ heißt \emp{freie Gruppe mit Basis $X$}, wenn jedes $y \in F$ eine eindeutige Darstellung\\
+$y = x_1^{\varepsilon_1} \ldots x_n^{\varepsilon_n}$ hat, in der 
+
+\begin{itemize}
+\item $n \geq 0$ ($n=0$ ist das ,,leere Wort``, es ist das neutrale Element in $F$).
+
+\item $x_i \in X$ für $i = 1 \ldots n$
+
+\item $\varepsilon_i \in \{+1,-1\}$
+
+\item $x_{i+1}^{\varepsilon_{i+1}} \neq x_{i}^{-\varepsilon_i}$  für $i = 1 \ldots n-1$
+\end{itemize}
+
+\item[b)]
+Ist $F$ frei mit Basis $X$, so gilt für jedes $x \in X$: $x^{-1} \notin X$ und $\ord(x) = \infty$.
+
+\item[c)]
+$\Z$ ist frei mit Basis $\{1\}$ (oder $\{-1\}$)
+
+\item[d)]
+Ist $F$ frei mit Basis $X$ und $|X| \geq 2$, so ist $F$ nicht abelsch.
+
+\begin{proof}
+Seien $x_1,x_2 \in X, x_1 \neq x_2$ \dann $x_1 x_2 x_1^{-1} x_2^{-1} \neq e$ ,,Kommutator`` \dann $x_1 x_2 \neq x_2 x_1$
+\end{proof}
+
+\end{enumerate}
+\end{defbem}
+
+\begin{satz}
+\begin{enumerate}
+\item[a)]
+Zu jeder Menge $X$ gibt es eine freie Gruppe $F(X)$ mit Basis $X$.
+
+\item[b)]
+Zu jeder Gruppe $G$ und jeder Abbildung $f : X \rightarrow G$ gibt es genau einen Gruppenhomomorphismus $\varphi : F(X) \rightarrow G$ mit $\varphi(x) = f(x)$ für alle $x \in X$.
+
+\item[c)]
+Jede Gruppe ist Faktorgruppe einer freien Gruppe.
+
+\item[d)]
+$F(X) \cong F(Y)$ \gdw $|X| = |Y|$ (\gdw $X \cong Y$)
+\end{enumerate}
+
+\begin{proof}
+\begin{enumerate}
+\item[a)]
+Sei $X^{\pm} = X \times \{\pm 1\}$ und $i : X^\pm \rightarrow X^\pm$ die Abbildung $i(x,\varepsilon) = (x,-\varepsilon)$. $i$ ist bijektiv und $i^2 = id$.
+
+Schreibweise: $(x,1) =: x$ und $(x,-1) =: x^{-1}$. \dann $i(x) = x^{-1}$ und $i(x^{-1}) = x$
+
+% ich habe hier die , in den (x_1 .. ) weggelassen, da es eigentlich Konkatenationsprodukte sind und keine Tupel
+Ein Element $y = (x_1 \ldots x_n) \in F^{a}(X^\pm)$ (freie Worthalbgruppe) heißt reduziert, wenn $x_{\nu + 1} \neq i(x_\nu)$ für $\nu = 1 \ldots n-1$
+
+Sei $F(X)$ die Menge der reduzierten Wörter in $F^a(X^\pm)$
+
+Definition: Zwei Wörter in $F^a(X^\pm)$ heißen \emp{äquivalent}, wenn sie durch endliches Einfügen oder Streichen von Wörter der Form $(x,i(x))$, $x \in X^\pm$ auseinander hervorgehen.
+
+Beispiel: $x_1 \sim x_1 x_2 x_2^{-1} \sim x_1 x_2 x_3^{-1} x_3 x_2^{-1}$.
+
+Behauptung: In jeder Äquivalenzklasse gibt es genau ein reduziertes Wort.
+
+Dann definiere Produkt auf $F(X)$:\\
+$(x_1 \ldots x_n) \ast (y_1 \ldots y_n)$ sei \emph{das} reduzierte Wort in der Äquivalenzklasse von $(x_1 \ldots x_n y_1 \ldots y_n)$.
+
+Dieses Produkt ist assoziativ: Für $x,y,z \in F(X)$ ist $(x \ast y) \ast z$ das eindeutig bestimmte reduzierte Wort in der Klassen von $(x_1 \ldots x_n y_1 \ldots y_n z_1 \ldots z_n)$. Das gleiche gilt für $x \ast (y \ast z)$.
+
+Neutrales Element: $e = ()$.
+
+Inverse Element zu $(x_1 \ldots x_n)$ ist $(i(x_1) \ldots i(x_n))$
+
+\dann $F(X)$ ist Gruppe.
+
+$F(X)$ ist freie Gruppe mit Basis $X$ nach Konstruktion.
+
+Beweis der Behauptung: In jeder Klasse gibt es ein reduziertes Wort.
+
+Eindeutigkeit: Seien $x,y$ reduziert und äquivalent. Dann gibt es ein Wort $w$, aus dem sowohl $x$ als auch $y$ durch Streichen hervorgeht.
+
+Zu zeigen also: Jede Reihenfolge von Streichen in $w$ führt zum selben reduzierten Wort.
+
+Induktion über die Länge $l(w)$
+
+I.A.: $l(w) = 0 \surd$, $l(w) = 1 \surd$.
+
+I.S.: Sei $l(w) \geq 2$: 
+\begin{itemize}
+\item Ist $w$ reduziert, so ....
+
+\item Enthält $w$ genau ein Paar $(x_\nu, i(x_\nu))$, so muss das als erstes gestrichen werden.\\
+Es entsteht $w'$ mit $l(w') = l(w) - 2$ $\xRightarrow{\text{I. Vor}}$ Behauptung.
+
+\item Enthält $w$ Paare $(x_\nu,i(x_\nu))$ und $(x_\mu, i(x_\mu))$, so gibt es 2 Fälle: 
+
+$(x_\nu, i(x_\nu), x_\nu)$ dann führen beide Streichungen zum selben Wort. Ohne Einschränkung sei $\mu > \nu$
+
+\begin{enumerate}
+\item[Fall] $\mu = \nu + 1$: $(x_\nu, i(x_\nu), x_\nu)$\\
+dann führen beide Streichungen zum selben Wort.
+
+\item[Fall] $\mu \geq \nu + 2$: Streiche beide Paare, erhalte $w'$ mit $l(w'') = l(w) - 4$ \dann Behauptung.
+
+\end{enumerate}
+\end{itemize}
+
+\item[b)]
+$\varphi(x_1 \ldots x_n) := \widetilde{f}(x_1) \cdot \widetilde{f}(x_2) \cdots \widetilde{f}(x_n)$\\
+mit $\widetilde{f}(x_i) = \begin{cases} f(x_i) & x_i \in X \\ f(x_i^{-1})^{-1} & x_i \in X^{-} := \{(x,-1) \in X^\pm\}\end{cases}$
+
+(Existenz und Eindeutigkeit gezeigt)
+
+\item[c)]
+Sei $S \subseteq G$ ein Erzeugendensystem. (d.h. die einzige Untergruppe $H$ von $G$ mit $S \subseteq H$ ist $G$ selbst)
+
+Sei $F(S)$ die freie Gruppe mit Basis $S$, $f : S \rightarrow G$ die Identität und $\varphi : F(S) \rightarrow G$ der Homomorphismus aus b).
+
+$\varphi$ ist surjektiv, weil $\varphi(F(S))$ Untergruppe ist, die $S$ enthält.
+
+Also ist nach Homomorphiesatz $G \cong \QuotRaum{F(S)}{\Kern(\varphi)}$
+
+\item[d)]
+,,$\Leftarrow$``: Sei $f : X \rightarrow Y$ bijektive Abbildung.
+
+Dazu gibt es Gruppenhomomorphismen $\varphi_f : F(X) \rightarrow F(Y)$ und $\varphi_{f^{-1}} : F(X) \rightarrow F(Y)$.
+
+Wegen b):\\
+$(\varphi_f \circ \varphi_{f^{-1}})|_Y = id_Y$ und $(\varphi_{f^{-1}} \circ \varphi_f)|_X = id_X$ und $id_{F(Y)}|_Y = id_Y$\\
+$\xRightarrow{\text{Eindeutigkeit in b)}}$ $\varphi_f \circ \varphi_{f^{-1}} = id_{F(Y)}$
+
+genauso: $\varphi_{f^{-1}} \circ \varphi_f = id_{F(X)}$
+
+(Erklärung: Es gibt hier 2 Abbildungen $F \rightarrow F$: $(\varphi_f \circ \varphi_{f^{-1}})$ und $id_{F(Y)}$. Diese werden beide durch $f$ induziert, sind also gleich)
+
+,,$\Rightarrow$``: Sei $|X| \neq |Y|$
+
+Die Anzahl der Gruppenhomomorphismen von $F(X)$ in $\QuotRaum{\Z}{2\Z}$ ist gleich der Anzahl der Abbildungen von $X$ nach $\QuotRaum{\Z}{2\Z}$ (wegen b).
+
+Diese ist $\displaystyle |(\QuotRaum{\Z}{2\Z})^X| = 2^{|X|} \neq 2^{|Y|}$
+
+\end{enumerate}
+\end{proof}
+\end{satz}
+
+\section{Kategorien und Funktoren}
+
+\begin{defin}
+Eine \emp{Kategorie} $\mathcal{C}$ \index{Kategorie} besteht aus einer Klasse $\Ob \mathcal{C}$ von \emp{Objekten} und für je zwei $A,B \in \Ob \mathcal{C}$ aus einer Menge $\Mor_\mathcal{C}(A,B)$ von \emp{Morphismen} \index{Morphismen} von $A$ nach $B$, für die folgende Eigenschaften erfüllt sind:
+
+\begin{enumerate}
+\item[(i)]
+Für jedes $A \in \Ob \mathcal{C}$ ein Element $id_A \in \Mor_\mathcal{C}(A,A)$
+
+\item[(ii)]
+Für je 3 Objekte $A,B,C$ gibt es eine Abbildung:\\
+$\begin{array}{crclcc}
+\circ : & \Mor(B,C) & \times & \Mor(A,B) & \rightarrow & \Mor(A,C)\\
+        & (g        & ,      & h)        & \mapsto     & g \circ f
+\end{array}$    
+
+mit
+$\begin{array}{ccc}
+g \circ id_A = g & \text{für alle} & g \in \Mor(A,B)\\
+id_B \circ g = g & \text{für alle} & g \in \Mor(A,B)\\
+(h \circ g) \circ f = h \circ (g \circ f) & \text{für alle} & f,g,h ...
+\end{array}$
+\end{enumerate}
+
+\end{defin}
+
+\paragraph{Beispiele}
+\begin{enumerate}
+\item Mengen mit Abbildungen
+\item Mengen mit bijektiven Abbildungen (gibt viele leere $\Mor(A,B)$)
+\item K-Vektorraum mit K-linearen Abbildungen
+\item Halbgruppen mit Homomorphismen
+\item Monoide mit Homomorphismen
+\item Magma mit Homomorphismen
+\item Gruppen mit Homomorphismen
+\item abelsche Gruppen mit Homomorphismen
+\item topologische Räume mit stetigen Abbildungen
+\end{enumerate}
+
+\begin{defin}
+Seien $\mathcal{A}$ und $\mathcal{B}$ Kategorien.
+
+\begin{enumerate}
+\item[a)]
+Ein (\emp{kovarianter}) \emp{Funktor} \index{Funktor} \index{Funktor!kovarianter} $F: \mathcal{A} \rightarrow \mathcal{B}$ \\
+besteht aus einer Abbildung $$F: \Ob(\mathcal{A}) \rightarrow \Ob(\mathcal{B})$$
+sowie für je 2 Objekte $X,Y \in \Ob(\mathcal{A})$ aus einer Abbildung
+$$F: \Mor_\mathcal{A}(X,Y) \rightarrow \Mor_\mathcal{B}(F(X),F(Y))$$
+so dass gilt:
+\begin{enumerate}
+\item[(i)]
+$F(id_X) = id_{F(X)}$ für alle $X \in \Ob(\mathcal{A})$
+
+\item[(ii)]
+$F(g \circ f) = F(g) \circ F(f)$ für alle $f \in \Mor_\mathcal{A}(X,Y)$, $g \in \Mor_\mathcal{A}(Y,Z)$
+\end{enumerate}
+
+\item[b)]
+Ein \emp{kontravarianter Funktor} \index{Funktor!kontravarianter} $F : \mathcal{A} \rightarrow \mathcal{B}$
+$$F : \Mor_\mathcal{A}(X,Y) \rightarrow \Mor_\mathcal{B}(F(Y),F(X))$$
+und
+$$F(g \circ f) = F(f) \circ F(g)$$
+
+Verdeutlichung:
+$$\begin{array}{ccccc}
+X    & \xrightarrow{f}   & Y    & \xrightarrow{g}   & Z\\
+F(X) & \xleftarrow{F(f)} & F(Y) & \xleftarrow{F(g)} & F(Z)
+\end{array}$$
+
+\end{enumerate}
+\end{defin}
+
+\paragraph{Beispiele}
+\begin{enumerate}
+\item
+$\begin{array}{ccc}
+\text{Gruppen} & \rightarrow & \text{Mengen}\\
+(G,\cdot) & \mapsto & G
+\end{array}$
+genannt: ,,Vergiss-Funktor``
+
+\item
+$\mathcal{P} : \text{Menge} \rightarrow \text{Menge}$, $X \mapsto \mathcal{P}(X)$ (Potenzmenge).
+
+Für $f : X \rightarrow Y$ sei
+$\begin{array}{cccc}
+\mathcal{P}(f) : & \mathcal{P}(X) & \rightarrow & \mathcal{P}(Y)\\
+                 & \mathcal{U} & \mapsto & f(\mathcal{U})
+\end{array}$
+
+\item
+Sei $\mathcal{C}$ Kategorie, $X$ ein Objekt in $\mathcal{C}$
+
+Definiere Funktoren $\mathcal{C} \rightarrow \text{Mengen}$ durch
+$$\begin{array}{cccc}
+\Hom(X,\cdot) : & Y \mapsto & \Mor_\mathcal{C}(X,Y) & \text{kovariant} \\
+\Hom(\cdot,X) : & Y \mapsto & \Mor_\mathcal{C}(Y,X) & \text{kontravariant}
+\end{array}$$
+
+Für $f : Y \rightarrow Z$ ist $\Hom(X,\cdot)(f) : \Mor(X,Y) \rightarrow \Mor(X,Z)$ gegeben durch $g \mapsto f \circ g$\\
+und $\Hom(\cdot,X)(f) : \Mor(Z,X) \rightarrow \Mor(Y,X)$, $g \mapsto g \circ f$.
+
+\item
+Sei $X$ Menge.
+
+$\begin{array}{cccl}
+F_X : & \text{Gruppen} & \rightarrow & \text{Menge} \\
+      & G              & \mapsto     & \Abb(X,G) = \Mor_\text{Mengen}(X,G)
+\end{array}$
+
+Für jedes $f: X \rightarrow G$ gibt es $\varphi: F(X) \rightarrow G$ (Satz 4)\\
+also Bijektion $\alpha_G : F_X(G) \rightarrow \Hom_\text{Gruppen}(F(X),G)$
+
+(,,Vertragen sich mit den jeweiligen Gruppenhomomorphismen``.)
+
+$\varphi: G \rightarrow G'$ Homomorphismus.
+
+\end{enumerate}
+
+\section{Gruppenaktionen und die Sätze von Sylow}
+
+\begin{defbem}
+Sei $G$ eine Gruppe, $X$ eine Menge.
+
+\begin{enumerate}
+\item[a)]
+Eine \emp{Aktion} \index{Aktion} (Wirkung) von $G$ auf $X$ ist ein Gruppenhomomorphismus $\rho : G \rightarrow \Perm(X)$.\\
+$G$ \emp{operiert} \index{operiert} auf $X$.
+
+\item[b)]
+Die Aktionen von $G$ auf $X$ entsprechen bijektiv den Abbildungen
+$$\cdot : G \times X \rightarrow X, (g,x) \mapsto g \cdot x$$
+für die gilt: $\begin{array}{ccl}
+\text{(i)}  & e \cdot x = x 	& \forall x \in X \\
+\text{(ii)} & (g_1 g_2) x = g_1 (g_2 x) & \forall g_1,g_2 \in G, x \in X
+\end{array}$
+
+\begin{proof}
+$g \cdot x = \rho(g)(x)$ gibt die gewünschte Bijektion.
+\end{proof}
+
+\paragraph{Beispiele}
+\begin{enumerate}
+\item[1)]
+$G \times G \rightarrow G$, $(g_1, g_2) \mapsto g_1 \cdot g_2$ (,,Linksmultiplikation``)
+
+\item[2)]
+$G \times G \rightarrow G$, $(g,h) \mapsto g \cdot h \cdot g^{-1}$ (,,Konjugation``) [$\rho(g) = c_g$]
+
+\item[3)]
+$S_n$ operiert auf $X^n$ ($X$ eine Menge) durch Vertauschen der Komponenten.\\
+$\sigma(x_1, \ldots x_n) = (x_{\sigma(1)}, \ldots x_{\sigma(n)})$
+
+\end{enumerate}
+
+\item[c)]
+Eine Aktion $\rho : G \rightarrow \Perm(X)$ heißt \emp{effektiv} \index{Funktor!effektiv} (oder  \index{Funktor!treu}\emp{treu}), wenn $\Kern(\rho) = \{e\}$.
+
+Allgemein heißt $\Kern(\rho)$ \emp{Ineffektivitätskern} \index{Ineffektivitätskern} der Aktion.
+
+\paragraph{Beispiele}
+\begin{enumerate}
+\item[1)] ist effektiv.
+\item[2)] Der Ineffektivitätskern ist das Zentrum $Z(G)$
+\item[3)] auch effektiv, wenn $|X| \geq 2$
+\end{enumerate}
+
+\item[d)]
+Für $x \in X$ heißt $G \cdot x = \{ g x : g \in G \}$ die \emp{Bahn} \index{Bahn} von $x$ unter $G$.
+
+\item[e)]
+$X$ ist disjunkte Vereinigung von $G$-Bahnen.
+
+\begin{proof}
+Ist $y \in G \cdot x$, so ist $G \cdot y = G \cdot x$,\\
+denn $\begin{array}{c} y = g x \\ g^{-1} y = x\end{array}$ \dann
+$\begin{array}{ccc} h \cdot x = h \cdot g \cdot x & \in G \cdot x & \forall h \in G\\
+h g^{-1} y = h x & & \end{array}$
+\end{proof}
+
+\item[f)]
+Für $x \in X$ heißt $G_x = \{ g \in G : g \cdot x = x \}$ die \emp{Fixgruppe} \index{Fixgruppe} von $x$ unter $G$ (oder \emp{Stabilisator} \index{Stabilisator} oder \emp{Isotropiegruppe} \index{Isotropiegruppe})
+
+\item[g)]
+Für $x \in X$ und $g \in G$ ist
+$$G_{gx} = g \cdot G_x \cdot g^{-1}$$
+
+\begin{proof}
+Für $h \in G$ gilt:\\
+$h \in G_{gx}$ \gdw $h \cdot (g \cdot x) = g \cdot x$ \gdw $g^{-1} h g x = x$ \gdw $g^{-1} h h \in G_x$
+\end{proof}
+
+\end{enumerate}
+\end{defbem}
+
+\begin{prop}[Bahnbilanz]
+Sei $X$ endliche Menge, $G$ Gruppe, die auf $X$ operiert.\\
+Sei $x_1, \ldots x_r$ ein Vertretersystem der $G$-Bahnen in $X$. (d.h. aus jeder $G$-Bahn genau ein Element.)
+
+Dann gilt:
+$$|X| = \sum_{i=1}^{r} [G : G_{x_i}]$$
+
+\begin{proof}
+Nach 1.23 e) ist $\displaystyle |X| = \sum_{i=1}^{r} |G \cdot x_i|$
+
+Zu zeigen also: $|G \cdot x_i| = [G : G_{x_i}]$
+
+Behauptung: $\alpha_i : \{ \text{Nebenklassen bzgl. $G_{\nu_i}$} \} \rightarrow G_{x_i}$, $g \cdot G_{x_i} \mapsto g \cdot x_i$\\
+ist bijektive Abbildung, denn $\alpha_i$ ist wohldefiniert:
+
+Ist $h = g \cdot g_1 \in g \cdot G_{x_i}$, so ist $h \cdot x_i = (g \cdot g_1) x_i = g \cdot x_i$
+offensichtlich injektiv und surjektiv.
+\end{proof}
+
+\end{prop}
+
+\begin{satz}[Sätze von Sylow]
+Sei $G$ eine endliche Gruppe, $|G| = n$, $p$ eine Primzahl.\\
+Sei $n = p^k \cdot m$ mit $k \geq 0$ und $\ggT(m,p) = 1$
+
+Dann gilt:
+\begin{enumerate}
+\item[a)]
+$G$ enthält eine Untergruppe $S$ der Ordnung $p^k$.
+
+Jede solche Untergruppe heißt $p$-Sylowgruppe von $G$.
+
+\item[b)]
+je zwei $p$-Sylowgruppen sind konjugiert.
+
+\item[c)]
+Die Anzahl $s_p$ der $p$-Sylowgruppen in $G$ erfüllt:
+$s_p \mid m$ und $s_p \equiv 1 \mod{p}$
+
+\end{enumerate}
+
+\begin{proof}
+\begin{enumerate}
+\item[a)]
+
+$k = 0 \surd$
+
+Sei also $k \geq 1$:
+
+a) Sei $\displaystyle \mathcal{M} = \{ M \subseteq G : |M| = p^k \} \subset \mathcal{P}(G)$
+
+Es ist $\displaystyle |M| = \binom{n}{p^k} = \binom{p^k \cdot m}{p^k}$
+
+Behauptung 1: $p \nmid |\mathcal{M}|$
+
+$G$ operiert auf $\mathcal{M}$ durch Linksmultiplikation $g \cdot M = \{g \cdot x : x \in M\} \in \mathcal{M}$\\
+\dann $|\mathcal{M}|$ ist Summe von Bahnlängen.
+
+Wegen Behauptung 1 gibt es eine Bahn $G \cdot M_0$ mit $p \nmid |G \cdot M_0|$
+
+$\xRightarrow{\text{1.24}}$ $|G \cdot M_0| = [G \cdot G_{M_0}] = \dfrac{|G|}{|G_{M_0}|}$
+
+\dann $p^k$ teilt $|G_{M_0}|$
+
+Andererseits ist $|G_{M_0}| \leq p^k = |M_0|$, denn für $x \in M_0$ ist $g \mapsto g \cdot x$
+injektive Abbildung $G_{n_0} \rightarrow M_0$
+
+\dann $|G_{M_0}| = p^k$, d.h. $G_{M_0}$ ist $p$-Sylowgruppe.
+
+Beweis von Behauptung 1:
+
+$\displaystyle \binom{p^k \cdot m}{p^k} = \prod_{i=0}^{p^k-1}{\dfrac{p^k \cdot m - i}{p^k -i}}$,\\
+schreibe jedes $i$ in der Form $p^{\nu_i} \cdot m_i$ und $p \nmid m_i$ ($0 \leq \nu_i < k$)
+
+\dann $\dfrac{p^k \cdot m - i}{p^k - i} = \dfrac{m \cdot p^{k \cdot \nu_i} - m_i}{p^{k \cdot \nu_i} - m_i}$
+
+\dann weder Zähler noch Nenner ist durch $p$ teilbar.
+
+\dann Behauptung
+
+\item[b)]
+Sei $S \subset G$ $p$-Sylowgruppe
+$$\mathcal{S} := \{ S' \subset G : S' = g S g^{-1} \text{ für ein } g \in G \}$$
+
+Behauptung 2: $p \nmid |\mathcal{S}|$
+
+Beweis 2:
+
+$G$ operiert auch auf $\mathcal{S}$ durch Konjugation. Diese Aktion ist transitiv, d.h. es gibt nur eine Bahn.
+
+Die Fixgruppe von $S'$ unter dieser Aktion ist 
+$$N_{S'} := \{ g \in G : g S' g^{-1} = S' \}$$
+
+$N_{S'}$ heißt der \emp{Normalisator} \index{Normalisator} von $S'$ in $G$. ($S'$ ist Normalteiler in $N_{S'}$ und maximal mit dieser Eigenschaft.)
+
+\dann $|\mathcal{S}| = [G:N_S] = \dfrac{|G|}{|N_S|} = \dfrac{p^k \cdot m}{|N_S|}$
+
+$S$ ist Untergruppe von $N_S$ \dann $p^k \mid |N_S|$ \dann $|\mathcal{S}|$ ist Teiler von $m$.
+
+Sei $\widetilde{S}$ eine $p$-Sylowgruppe in $G$.
+
+Zu zeigen: $\widetilde{S} \in \mathcal{S}$
+
+$\widetilde{S}$ operiert auf $\mathcal{S}$ (da $\widetilde{S} \subset G$)
+
+Sei $S_1, \ldots S_r$ ein Vertretersystem der Bahnen.\\
+\dann $\displaystyle |\mathcal{S}| = \sum_{i=1}^{r}{[\widetilde{S} : \widetilde{S}_{S_i}]} = \sum_{i=1}^{r}{\dfrac{p^k}{|\widetilde{S}_{S_i}|}}$
+
+Aus Behauptung 2 folgt: es gibt ein $i$ mit $|\widetilde{S}_{S_i}| = p^k$ \dann $\widetilde{S} = \widetilde{S}_{S_i}$.
+
+Dann ist $\widetilde{S} \subset N_{S_i}$
+
+Behauptung 3: Dann ist $\widetilde{S} \subseteq S_i$ (also $\widetilde{S} = S_i$, da beide $p^k$ Elemente haben.)
+
+Beweis 3: $S_i$ ist Normalteiler in $N_{S_i}$, $\widetilde{S}$ ist Untergruppe in $N_{S_i}$.
+
+\dann $\widetilde{S} \cdot S_i$ ist Untergruppe von $N_{S_i}$ (ü 4 A 1)
+
+Wäre $\widetilde{S} \nsubseteq S_i$, dann wäre $\widetilde{S} \cdot S_i \supsetneq S_i$
+also $|\widetilde{S} \cdot S_i| = p^k \cdot d$ mit $d > 1$ (und $p \nmid d$)
+
+$\xRightarrow{\text{ü 4 A 1}} \QuotRaum{\widetilde{S} S_i}{S_i} \cong \QuotRaum{\widetilde{S}}{(\widetilde{S} \cap S_i)}$
+
+\dann ($\displaystyle p^k \cdot d =$) $|\widetilde{S} \cdot S_i| = \dfrac{|S_i| \cdot |\widetilde{S}|}{|\widetilde{S} \cap S_i|} = 
+\dfrac{p^2k}{|\widetilde{S} \cap S_i|} = p^l$ für ein $l$. Widerspruch.
+
+\item[c)]
+$s_p = |\mathcal{S}|$ \dann $s_p \mid m$
+
+und $\displaystyle |\mathcal{S}| = \sum_{i=1}^{r}{[\widetilde{S} : \widetilde{S}_{S_i}]}$
+
+da $[\widetilde{S} : \widetilde{S}_{S_i}] = 1$ \gdw $\widetilde{S} = \widetilde{S}_{S_i}$ $\xLeftrightarrow{\text{Beh 3}}$ $\widetilde{S} = S_i$, also genau \underline{einmal}.
+
+Alle anderen Summanden sind durch $p$ teilbar.
+
+\end{enumerate}
+\end{proof}
+
+\end{satz}
+
+\begin{folg}
+Ist $G$ eine endliche Gruppe und $p$ Primzahl, die $|G|$ teilt, so enthält $G$ ein Element von Ordnung $p$.
+
+\begin{proof}
+Sei $|G| = p^k \cdot m$ mit $p \nmid m$, $k \geq 1$.
+
+$S \subseteq G$ eine $p$-Sylowgruppe und $x \in S$, $x \neq e$
+
+$\xRightarrow{\text{Lagrange}}$ $\ord(x)$ ist Teiler von $|S| = p^k$
+
+\dann $\ord(X) = p^d$ für ein d mit $1 \leq d \leq k$.
+
+\dann $x^{p^{d-1}}$ hat Ordnung $p$.
+
+\end{proof}
+\end{folg}
+
+\paragraph{Beispiel}
+$G = A_5$ hat 60 Elemente, z.B. $\left(\begin{array}{ccccc}1 & 2 & 3 & 4 & 5\end{array}\right)$ hat Ordnung 5.
+
+konjugiert dazu $\left(\begin{array}{ccccc}1 & 3 & 2 & 4 & 5\end{array}\right)$. $\xrightarrow{\text{(c)}}$ 6 Gruppen mit 5 Elementen.
+
+% Vorlesung am 21.11.2005
+
+\section{Kompositionsreihen}
+
+\paragraph{Vorüberlegungen}
+$G$ Gruppe, $N \trianglelefteq G$ Normalteiler, $\QuotRaum{G}{N}$ die Faktorgruppe.
+
+Frage: Lässt sich $G$ aus $N$ und $\QuotRaum{G}{N}$ rekonstruieren?
+
+Schreibweise: $1 \rightarrow N \rightarrow G \rightarrow \QuotRaum{G}{N} \rightarrow 1$ ist exakt
+
+\begin{defin}
+Sei 
+$$
+\ldots \rightarrow G_{i-1} \xrightarrow{\alpha_{i-1}} G_i \xrightarrow{\alpha_{i}} G_{i+1} \rightarrow \ldots
+$$
+eine Sequenz von Gruppen und Gruppenhomomorphismen.
+
+Sie heißt \emp{exakt} \index{Sequenz!exakte} an der Stelle $i$, wenn der $\Kern(\alpha_i) = \Bild(\alpha_{i-1})$ ist.
+
+\end{defin}
+
+\paragraph{Beispiele}
+$$\begin{array}{ccccccccc}
+0 & \rightarrow & \QuotRaum{\Z}{2\Z} & \rightarrow & \QuotRaum{\Z}{4\Z} & \rightarrow & \QuotRaum{\Z}{2\Z} & \rightarrow & 0 \\
+\\
+0 & \rightarrow & \QuotRaum{\Z}{2\Z} & \rightarrow & \QuotRaum{\Z}{2\Z} \bigoplus \QuotRaum{\Z}{2\Z} & \rightarrow & \QuotRaum{\Z}{2\Z} & \rightarrow & 0
+\end{array}$$
+sind exakt.
+
+Die Aufgabe, Gruppen zu klassifizieren, zerlegt sich damit in 2 Teilaufgaben:
+\begin{enumerate}
+\item[1)] Gegeben $N$ und $\QuotRaum{G}{N}$, welche Möglichkeiten gibt es für $G$?
+\item[2)] Welche ,,unzerlegbaren`` Gruppen gibt es?
+\end{enumerate}
+
+\begin{defin}
+Sei $G$ eine Gruppe
+
+\begin{enumerate}
+\item[a)] $G$ heißt \emp{einfach}, \index{einfach} wenn $G$ nur die trivialen Normalteiler $G$ und $\{e\}$ besitzt.
+
+\item[b)] Eine Reihe der Form
+$G = G_0 \triangleright G_1 \triangleright G_2 \triangleright \cdots \triangleright G_n = \{e\}$ (für ein $n \in \N$)
+
+heißt \emp{Normalreihe}, \index{Normalreihe} wenn $G_{i+1}$ Normalteiler in $G_i$ ist (für $i = 0 \ldots n-1$) und $G_{i+1} \neq G_i$.
+
+\item[c)]
+Eine Normalreihe heißt \emp{Kompositionsreihe}, \index{Kompositionsreihe} wenn sie sich nicht verfeinern lässt, d.h. wenn $\QuotRaum{G_i}{G_{i+1}}$ einfach ist für $i = 0 \ldots n-1$.
+
+\end{enumerate}
+
+\end{defin}
+
+\begin{bem}
+\item[a)] $\QuotRaum{\Z}{m\Z}$ ist einfach \gdw $m$ ist Primzahl.
+
+\item[b)] $\Z$ besitzt keine Kompositionsreihe.
+
+\item[c)] Eine abelsche Gruppe $G$ ist einfach \gdw $G \cong \QuotRaum{\Z}{p\Z}$ für eine Primzahl $p$.
+
+\item[d)] Jede endliche Gruppe besitzt eine Kompositionsreihe
+
+\item[e)] $G$ endlich mit einer Normalreihe wie in Def 1.27, so gilt
+$$|G| = \prod_{i=0}^{n-1}{\left| \dfrac{G_i}{G_{i-1}} \right|}$$
+
+\end{bem}
+
+\begin{prop}
+Für $n \neq 4$ ist $A_n$ einfach.
+
+$|A_4| = 12$. $A_4$ enthält 8 Dreizyklen und 3 Doppelzweier.
+
+$A_4$ ist auch die Symmetriegruppe des Tetraeders!
+
+\begin{proof}
+Behauptung 1: Jedes $\sigma \in A_n$ ist als Produkt von 3-Zyklen darstellbar.
+
+\newcommand{\hsp}{\hspace{1ex}}
+
+denn: $\begin{array}{ccl}
+(1 \hsp 2)(2 \hsp 3) & = & (1 \hsp 2 \hsp 3) \\
+(1 \hsp 2)(3 \hsp 4) & = & (1 \hsp 2 \hsp 3) (2 \hsp 3 \hsp 4)
+\end{array}$
+
+Behauptung 2: Je zwei 3-Zyklen in $A_n$ sind konjugiert in $A_n$
+
+denn: Zu zeigen: $(i \hsp j \hsp k)$ ist zu $(1 \hsp 2 \hsp 3)$ konjugiert.
+1. Fall: $(i \hsp j \hsp k) = (1 \hsp 3 \hsp 2)$
+Sei $\tilde{p} = (2 \hsp 3) = \tilde{p}^{-1}$ \dann $\tilde{p}^{-1} (1 \hsp 3 \hsp 2) \tilde{p} = (1 \hsp 2 \hsp 3)$
+
+aber $\tilde{p} \notin A_n$
+
+Rettung: $p = (2 \hsp 3)(4 \hsp 5)$ \dann $p^{-1} (1 \hsp 3 \hsp 2) p = (1 \hsp 2 \hsp 3)$
+
+% Vorlesung 25.11.2005
+
+Behauptung 3: Enthält $N$ einen ,,Doppelzweier``, so ist $N = A_n$ ($N$ Normalteiler in $A_n$)
+
+denn: Sei $\sigma = (1 \hsp 2)(3 \hsp 4) \in N, \tau = (1 \hsp 2)(3 \hsp 5)$\\
+Dann ist $\sigma (\tau \sigma \tau^{-1}) = (1)(2)(3 \hsp 4 \hsp 5) \in N$
+
+Behauptung 4: $N$ enthält einen 3-Zyklus oder einen Doppelzweier.
+
+Beweis 4: Genügt zu zeigen: $N$ enthält ein $\sigma \neq id$ mit $\sigma(i) \neq i$ für höchstens 4 verschiedene $i \in \{1, \ldots n\}$.
+
+Für jedes $\sigma \in A_n$ sei $k_\sigma := |\left\{ i \in \{1, \ldots n\} : \sigma(i) \neq i \right\}|$
+
+Sei $\sigma \in N \setminus \{ id \}$ mit minimal $k_\sigma$.
+
+Annahme: $k_\sigma \geq 5$: 
+
+1. Fall: $\sigma$ enthält einen Zyklus der Länge $\geq 3$.
+
+Ohne Einschränkung sei $\sigma(1) = 2$, $\sigma(2) = 3$, $\sigma(4) \neq 4$, $\sigma(5) \neq 5$.
+
+Sei $\alpha := \sigma^{-1} (3 \hsp 4 \hsp 5) \sigma (3 \hsp 5 \hsp 4)$
+
+Für alle $i$ mit $\sigma(i) = i$ ist $\alpha(i) = i$ \dann $k_\alpha \leq k_\sigma$
+
+Außerdem ist $\alpha(1) = 1$ \dann $k_\alpha < k_\sigma$. Widerspruch!
+
+2. Fall: $\sigma$ ist Produkt von disjunkten Transpositionen (mindestens 4).
+
+Ohne Einschränkung sei $\sigma = (1 \hsp 2)(3 \hsp 4)(5 \hsp 6)(7 \hsp 8) \widetilde{\sigma}$\\
+mit $\widetilde{\sigma} \in A_n$, $\widetilde{\sigma}(i) = i$ für $i = 1, \ldots 8$.
+
+$\alpha = \sigma^{-1} (3 \hsp 4 \hsp 5) \sigma (3 \hsp 5 \hsp 4)$ erfüllt $\alpha(i) = i$ falls $\sigma(i) = i$, und $\alpha(1) = 1$
+
+\dann $k_\alpha < k_\sigma$ \dann Widerspruch.
+
+\end{proof}
+
+\end{prop}
+
+\begin{satz}[Satz von Jordan-Hölder]
+
+Sei $G$ eine Gruppe,
+
+$$\begin{array}{cc}
+G = & G_0 \triangleright G_1 \triangleright G_2 \triangleright \cdots \triangleright G_m = \{1\}\\
+    & H_0 \triangleright H_1 \triangleright H_2 \triangleright \cdots \triangleright H_l = \{1\}
+\end{array}$$
+
+Kompositionsreihe für $G$.
+
+Dann ist $m = l$ und es gibt eine Permutation $\sigma \in S_m$ mit
+$$\QuotRaum{G_i}{G_{i+1}} \cong \QuotRaum{H_{\sigma(i)}}{H_{\sigma(i)+1}}$$
+mit $i = 0, \ldots m-1$
+
+\begin{proof}
+Induktion über $m$:
+
+\begin{description}
+\item[$m = 1$] Dann ist $G$ einfach, also auch $l = 1$.
+
+\item[$m > 1$] Sei $\widebar{G} = \QuotRaum{G}{G_1}$, $\pi : G \rightarrow \widebar{G}$ die Restklassenabbildung.
+\dann $\widebar{H_i} = \pi(H_i)$ ist Normalteiler in $\widebar{H_{i-1}}$
+(sei $\pi(h_i) = \widebar{h_i} \in \widebar{H_i}$, $\pi(g) = \widebar{g} \in \widebar{H_{i-1}}$ \dann
+$\widebar{g} \widebar{h_i} \widebar{g}^{-1} = \pi(g h_i g^{-1}) \in \widebar{H_i}$)
+
+Nach Voraussetzung ist $\widebar{G}$ einfach \dann $\exists j \in \{0, \ldots l-1 \}$ mit 
+$$\widebar{H_0} = \cdots = \widebar{H_j} = \widebar{G}, \widebar{H_{j+1}} = \cdots \widebar{H_l} = \{1\}$$
+
+Sei $C_i := H_i \cap G_1$
+
+Behauptung 1: $G_1 = C_0 \triangleright C_1 \triangleright \cdots \triangleright C_j \triangleright C_{j+2} \triangleright \cdots \triangleright C_l = \{1\}$ ist Kompositionsreihe für $G_1$.
+
+Dann: $G_1 \triangleright G_2 \triangleright \cdots \triangleright G_m = \{1\}$ ist auch Kompositionsreihe.
+
+$\xRightarrow{\text{Ind. Vor.}}$ $m-1 = l-1$ und es gibt $\sigma : \{1, \ldots m\} \rightarrow \{0, \ldots j, j+2, \ldots l\}$ bijektiv mit
+
+$\QuotRaum{C_{i-1}}{C_i} \cong \QuotRaum{G_{\sigma(i)-1}}{G_{\sigma(i)}}$
+für $i \neq j+1$
+und
+$\QuotRaum{C_j}{C_{j+2}} \cong \QuotRaum{G_\sigma(j)}{G_{\sigma(j)+1}}$.
+
+Behauptung 2: 
+\begin{enumerate}
+\item[a)] $C_j = C_{j+1}$
+
+\item[b)] $\QuotRaum{C_{i-1}}{C_i} \cong \QuotRaum{H_{i-1}}{H_i}$ für $i \neq j+1$
+
+\item[c)] $\QuotRaum{H_j}{H_{j+1}} \cong \QuotRaum{G}{G_1} = \widebar{G}$
+\end{enumerate}
+
+Behauptung 1 folgt aus Behauptung 2:
+
+$C_i$ ist Normalteiler in $C_{i-1}$: $x \in C_i = H_i \cap G_1$, $y \in H_{i-1} \cap G_1$ \dann $y x y^{-1} \in H_i \cap G_1$ für $i = 1, \ldots l$.
+
+$C_{j+2}$ ist Normalteiler in $C_j$ wegen 2a).
+
+$\QuotRaum{C_{i-1}}{C_i}$ ist wegen 2b) einfach und $\neq \{1\}$ ($i \neq j+1$)
+
+\begin{proof}[Beweis von Behauptung 2]
+\begin{enumerate}
+\item[a)]
+$\widebar{H_{j+1}} = \{1\}$ d.h. $H_{j+1} \subseteq G_1$ \dann $C_{j+1} = H_{j+1}$
+
+$C_j = H_j \cap G_1$ ist Normalteiler in $H_j$ (weil $G_1$ Normalteiler in $H_j$)
+
+Da $\widebar{H_j} \neq \{1\}$, ist $C_j \neq H_j$\\
+\dann $H_{j+1} \trianglelefteq C_j \ntrianglelefteq J_{j+1}$\\
+% hier gehoert ein Dreieck nicht-gleich hin, habe ich nicht gefunden.
+$\xRightarrow{\QuotRaum{H_i}{H_k} \text{ einfach}}$ $C_j = H_{j+1} = C_{j+1}$
+
+\item[b)]
+Für $i > j+1$ ist $\widebar{H_i} = \{1\}$, also $H_i \subset G_i$, und damit $C_i = H_i$
+
+Für $i \leq j$ ist $\widebar{H_i} = \widebar{G} = \QuotRaum{G}{G_1}$\\
+\dann $H_i H_1 = G_1 H_i = G$
+
+$\QuotRaum{C_{i-1}}{C_i} = \QuotRaum{C_{i-1}}{H_i \cap C_{i-1}} \cong \QuotRaum{C_{i-1}}{H_i}$
+
+Zu zeigen also: $C_{i-1} H_i = H_{i-1}$
+
+denn: ,,$\subseteq$`` $\surd$\\
+,,$\supseteq$``: Da $G_1 H_i = G$ ist, gibt es zu $x \in H_{i-1}$ ein $h \in H_i$ und ein $g \in G_1$ mit $x = g h$\\
+\dann $g = x \cdot h^{-1} \in H_{i-1} \cap G_1 = C_{i-1}$
+
+\item[c)]
+$H_{j+1} \leq G_1$ ($\leq$: ist Untergruppe)
+
+\dann $\QuotRaum{H_j}{H_{j+1}} = \QuotRaum{H_i}{C_{j+1}} \xlongequal{\text{a)}} \QuotRaum{H_j}{C_j}
+\cong \QuotRaum{H_j}{H_j \cap G_1} = \QuotRaum{H_j G_1}{G_1} = \QuotRaum{G}{G_1}$
+
+\end{enumerate}
+\end{proof}
+
+\end{description}
+
+\end{proof}
+
+\end{satz}
+
+\begin{defbem}
+
+\begin{enumerate}
+
+\item[a)] Eine Gruppe $G$ heißt \emp{auflösbar}, \index{Gruppe!auflösbar} wenn sie eine Normalreihe mit abelschen Faktorgruppen besitzt.
+
+\item[b)] Eine endliche Gruppe ist genau dann auflösbar, wenn die Faktoren in ihrer Kompositionsreihe zyklisch von Primzahlordnung ist.
+
+\item[c)] Sei $1 \rightarrow G' \rightarrow G \rightarrow G'' \rightarrow 1$ kurze exakte Sequenz von Gruppen.
+
+Dann gilt: $G$ ist auflösbar \gdw $G'$ und $G''$ auflösbar sind.
+
+\end{enumerate}
+\end{defbem}
+
+% Vorlesung vom 28.11.2005
+
+\chapter{Ringe}
+
+\section{Grundlegende Definitionen und Eigenschaften}
+
+\begin{defbem}
+\begin{enumerate}
+\item[a)] Ein \emp{Ring} \index{Ring} ist eine Menge $R$ mit Verknüpfungen $+$ und $\cdot$, so dass gilt:
+
+\begin{enumerate}
+\item[(i)] $(R,+)$ ist kommutative Gruppe.
+
+\item[(ii)] $(R,\cdot)$ ist Halbgrupppe.
+
+\item[(iii)] die Distributivgesetze gelten:
+$$\begin{array}{rl}
+\begin{array}{rcl}
+x \cdot (y + z) & = & x y + x z\\
+(x + y) \cdot z & = & x z + y z
+\end{array} & \text{für alle } x,y,z \in R
+\end{array}$$
+\end{enumerate}
+
+\item[b)]
+$R$ heißt \emp{Ring mit Eins} \index{Ring!mit Eins}, wenn $(R,\cdot)$ Monoid ist.
+
+\item[c)]
+$R$ heißt \emp{kommutativer Ring}, \index{Ring!kommutativ} wenn $(R,\cdot)$ kommutativ ist.
+
+\item[d)]
+$R$ heißt \emp{Schiefkörper}, \index{Schiefkörper} wenn $R^\times = R \setminus \{0\}$, d.h. wenn jedes $x \in R \setminus \{0\}$ invertierbar ist bzgl $\cdot$.
+
+\item[e)]
+Ein kommutativer Schiefkörper heißt \emp{Körper}. \index{Körper}
+
+\paragraph{Beispiele}
+
+[ Ring ohne Eins: $(\Z,+,\cdot')$ mit $\cdot'$ nur auf $\QuotRaum{\Z}{7\Z}$ ]
+
+$H := \{ a + b i + c j + d k : a,b,c,d \in \R \}$
+
+mit komponentenweiser Addition und folgender Multiplikation : $i^2 = -1 = j^2 = k^2$, $i j = k = -j i$.
+
+(z.B ist dann $i k = i i j = -j$, $k j = i j j = -i$, etc.)
+
+Es gilt: $H$ ist Schiefkörper (Hamilton-Quaterionen):
+\begin{multline*}
+(a + bi + cj + dk) \cdot (a - bi - cj - dk) \\
+= a^2 - abi - acj - adk + bia + b^2 - bicj - bidk \\
+ + cja - cjbi + c^2 - cjdk + dka - dkbi - bkcj + d^2 \\
+= a^2 + b^2 + c^2 + d^2
+\end{multline*}
+
+\dann $\dfrac{1}{a + bi + cj + dh} = \frac{a}{a^2+b^2+c^2+d^2} - \frac{b}{a^2+b^2+c^2+d^2} i - \frac{c}{a^2+b^2+c^2+d^2} j - \frac{d}{a^2+b^2+c^2+d^2} k$,\\
+falls nicht $a = b = c = d = 0$.
+
+\item[f)]
+In jedem Ring gilt:
+$$\begin{array}{rl}
+\begin{array}{ccccc}
+x \cdot 0 & = & 0            & = & 0 \cdot x\\
+x(-y)     & = & -(x \cdot y) & = & (-x)y\\
+(-x)\cdot(-y) & = & x \cdot y
+\end{array}
+& \text{für alle } x,y \in R
+\end{array}$$
+
+\begin{proof}
+\begin{itemize}
+\item
+$x \cdot 0 = x \cdot (0 + 0) = x \cdot 0 + x \cdot 0$ $\xRightarrow{- (x \cdot 0) \text{ auf beiden Seiten}}$ $0 = x \cdot 0$
+
+genauso für $0 \cdot x$
+
+\item
+$x \cdot (-y) + x \cdot y = x \cdot (-y +y) = x \cdot 0 = 0.$
+
+\item
+$ (-x)(-y) = -( (-x) \cdot y) = -( -(x \cdot y)) = x \cdot y$
+\end{itemize}
+\end{proof}
+
+\item[g)]
+Ist $R$ ein Ring mit Eins und $R \neq \{0\}$, so ist $0 \neq 1$ in $R$.
+
+\begin{proof}
+Wäre $0 = 1$, so gilt für jedes $x \in R$: $x = x \cdot 1 = x \cdot 0 = 0$, also doch $R = \{0\}$.
+\end{proof}
+
+\end{enumerate}
+\end{defbem}
+
+\begin{defin}
+Sei $(R,+,\cdot)$ Ring.
+
+\begin{enumerate}
+\item[a)] $R' \subseteq R$ heißt \emp{Unterring}, \index{Unterring} wenn $(R',+,\cdot)$ Ring ist. Umgekehrt heißt $R$ dann \emp{Erweiterungsring} \index{Erweiterungsring} von $R'$.
+
+\item[b)] $I \subseteq R$ heißt (Zweiseitiges-)\emp{Ideal}, \index{Ideal} wenn $(I,+)$ Untergruppe von $(R,+)$ ist und $r \cdot x \in I$ und $x \cdot r \in I$ für alle $x \in I$, $r \in R$.
+
+\item[c)] $x \in R$ heißt Links- (bzw. Rechts-) \emp{Nullteiler}, \index{Nullteiler} wenn es $y \in R \setminus \{0\}$ gibt mit $x \cdot y = 0$ (bzw. $y \cdot x = 0$).
+
+\item[d)] $R$ heißt \emp{nullteilerfrei}, \index{nullteilerfrei} wenn $0$ der einzige Nullteiler in $R$ ist.
+
+(d.h. wenn aus $x \cdot y = 0$ folgt $x = 0$ oder $y = 0$.)
+
+\item[e)] $R$ heißt \emp{Integritätsbereich} \index{Integritätsbereich} (integral [domain]), wenn er nullteilerfrei, kommutativ ist und eine Eins besitzt.
+\end{enumerate}
+\end{defin}
+
+\begin{defbem}
+\begin{enumerate}
+\item[a)] Eine Abbildung $\varphi: R \rightarrow R'$ ($R,R'$ Ringe) heißt \emp{Ringhomomorphismus}, \index{Ringhomomorphismus}\\
+wenn $\varphi : (R,+) \rightarrow (R',+)$ Gruppenhomomorphismus,\\
+und $\varphi : (R,\cdot) \rightarrow (R',\cdot)$ Halbgruppenhomomorphismus ist.
+
+\item[b)] Sind $R,R'$ Ringe mit Eins, so heißt der Ringhomomorphismus $\varphi : R \rightarrow R'$ ein \emp{Homomorphismus von Ringen mit Eins} \index{Homomorphismus von Ringen mit Eins}, wenn
+$$\varphi(1_R) = 1_{R'}$$
+
+\item[c)] Die Ringe bilden mit Ringhomomorphismen eine Kategorie.
+
+\item[d)] Die Ringe mit Eins bilden mit Homomorphismen von Ringen mit Eins ebenfalls eine Kategorie (eine echte Unterkategorie der Ringe).
+
+\item[e)] $(R,+,\cdot) \mapsto (R,+)$ ist kovarianter Funktor $\underline{\text{Ringe}} \rightarrow \underline{\text{AbGruppen}}$
+
+oder
+
+$(R,+,\cdot) \mapsto (R^\times,\cdot)$ ist kovarianter Funktor $\underline{\text{Ringe mit Eins}} \rightarrow \underline{\text{Gruppen}}$.
+\end{enumerate}
+\end{defbem}
+
+\begin{bem}
+Sei $\varphi: R \rightarrow R'$ Ringhomomorphismus. Dann gilt:
+
+\begin{enumerate}
+\item[a)] $\Bild(\varphi)$ ist Unterring von $R'$.
+
+\item[b)] $\Kern(\varphi)$ ist Ideal in $R$. ($\Kern(\varphi) = \varphi^{-1}(0)$).
+
+\begin{proof}
+Sei $x \in \Kern(\varphi)$, $r \in R$ \dann $\varphi(r \cdot x) = \varphi(r) \varphi(x) = \varphi(r) \cdot 0 = 0$ \dann $r \cdot x \in \Kern(\varphi)$.
+\end{proof}
+
+\item[c)] Ist $R$ Schiefkörper und $\varphi$ Homomorphismus von Ringen mit Eins, dann ist $\varphi$ injektiv (oder $R' = \{0\}$).
+
+\begin{proof}
+Sei $x \in R \setminus \{0\}$ \dann $\varphi(x) \cdot \varphi(x^{-1}) = \varphi(1_R) = 1_{R'} \neq 0$ (wenn $R' \neq \{0\}$).
+
+\dann $\varphi(x) \neq 0$ \dann $\Kern(\varphi) = \{0\}$ \dann $\varphi$ injektiv.
+\end{proof}
+\end{enumerate}
+
+\end{bem}
+
+\begin{defbem}
+Sei $R$ Ring mit Eins.
+
+\begin{enumerate}
+\item[a)] $\varphi_R : \Z \rightarrow R$,
+$n \mapsto \begin{cases}
+n \cdot 1 = 1 + \cdots + 1 & n \geq 0\\
+-((-n) \cdot 1)            & n < 0
+\end{cases}$\\
+ist Homomorphismus von Ringen mit Eins.
+
+\item[b)] Ist $\Kern(\varphi_R) = n \cdot \Z$ ($n \geq 0$), so heißt $n$ die \emp{Charakteristik} \index{Charakteristik} von $R$. $n = \Char(R)$.
+
+\item[c)] Ist $R$ nullteilerfrei, so ist $\Char(R) = 0$ oder $\Char(R) = p$ für eine Primzahl $p$.
+
+\item[d)] $\Bild(\varphi_R) \cong \QuotRaum{\Z}{n\Z}$
+
+Ist $K$ (Schief-)Körper der Charakteristik $p > 0$, so ist $\Bild(\varphi_K) \cong \QuotRaum{\Z}{p\Z} =: \mathbb{F}_p$ der kleinste Teilkörper von $K$.
+
+Er heißt \emp{Primkörper}. \index{Primkörper}
+
+Ist $\Char(K) = 0$, so ist der kleinste Teilkörper $K$ isomorph zu $\mathbb{Q}$.
+\end{enumerate}
+\end{defbem}
+
+% Vorlesung vom 2.12.2005
+
+\paragraph{Beispiel}
+
+$R$ Ring $R^{n \times n}$ = Ring der $(n \times n)$ Matrizen mit Einträgen in $R$.
+
+Für $n \geq 2$ ist $R^{n \times n}$ nicht kommutativ und nicht nullteilerfrei.
+
+Die Eins in $R^{n \times n}$ ist die Einheitsmatrix
+$\left(\begin{array}{ccc}
+1_R &        & 0\\
+    & \ddots &  \\
+0   &        & 1_R
+\end{array}\right)$, vorausgesetzt $R$ hat eine Eins.
+
+Die Einheiten in $R^{n \times n}$ sind die invertierbaren Matrizen:
+$$\left(R^{n \times n}\right)^{\times} = GL_n(R) = \left\{ A \in R^{n \times n} : \det A \in R^\times \right\}$$
+
+Zur Definition von $\det A$ muss $R$ kommutativ sein.
+
+$SL_n(R) := \left\{ A \in GL_n(R) : \det A = 1 \right\}$ ist Untergruppe von $GL_n(R)$ und Normalteiler:
+
+$\det(B A B^{-1}) = \det(B) \det(A) \det(B)^{-1} = \det(A)$
+
+$\QuotRaum{GL_n(R)}{SL_n(R)} \cong R^\times$ (Isomorphismus: $A \cdot R_n(R) \mapsto \det(A)$)
+
+\begin{defbem}
+\begin{enumerate}
+\item[a)] Sei $R$ ein Ring, $a \in R$. Dann ist $(a) := a \cdot R = \{ a \cdot r : r \in R \}$ ein Rechtsideal in $R$.
+
+Es ist $a \in (a)$, falls $R$ eine Eins hat.
+
+\item[b)] Ein (Rechts-)Ideal $I$ in $R$ heißt \emp{Hauptideal}, \index{Hauptideal} wenn es ein $a \in R$ gibt mit $I = (a)$.
+
+\item[c)] Ein kommutativer Ring mit Eins heißt \emp{Hauptidealring}, \index{Hauptidealring} wenn jedes Ideal in $R$ ein Hauptideal ist.
+
+\paragraph{Beispiel}
+Sei $I \subset \Z$ Ideal, $a \in I$ mit $|a| \leq |b| \forall b \in I \setminus \{0\}$.
+
+Behauptung: $I = (a)$
+
+Denn: ,,$\supseteq$`` $\surd$\\
+und ,,$\subseteq$`` sei $b \in I$, teile $b$ durch $a$: $b = q a + r$ mit $r < |a|$ \dann $r = b - q \cdot a \in I$ \dann $r = 0$.
+
+\item[d)]
+
+Sei $R$ kommutativer Ring mit Eins, $R \neq \{0\}$.
+
+Dann gilt:
+$$R \text{ ist Körper} \Leftrightarrow (0) \text{ und } R \text{ sind die einzigen Ideale in } R$$
+
+\begin{proof}
+,,$\Rightarrow$`` Sei $I \subseteq R$ Ideal, $a \in I \setminus \{0\}$.
+\dann es gibt $a^{-1} \in R$ \dann $a a^{-1} \in I$ \dann $I = R$ ($x \in R$ \dann $x \cdot 1 = x$)
+
+,,$\Leftarrow$`` Sei $a \subset R \setminus \{0\}$ \dann $(a) = R$ \dann $\exists b \in R$ mit $a \cdot b = 1$
+\end{proof}
+
+\end{enumerate}
+\end{defbem}
+
+\begin{defbem}
+Sei $R$ Ring, $I_1, I_2$ Ideale in $R$.
+
+Dann gilt:
+
+\begin{enumerate}
+\item[a)] $I_1 \cap I_2$ ist Ideal.
+
+$I_1 + I_2 = \{ a+b : a \in I_1, b \in I_2 \}$ ist Ideal.
+
+$I_1 \cdot I_2 = \displaystyle \left\{ \sum_{i=1}^{< \infty}{a_i \cdot b_i} : a_i \in I_1, b_i \in I_2 \right\}$ ist Ideal.
+
+\item[b)] $I_1 \cdot I_2 \subseteq I_1 \cap I_2$ (aber i.A. $\neq$!)
+
+\item[c)] Ein beliebiger Durchschnitt von Idealen ist Ideal.
+
+\item[c)] Sei $R$ kommutativ mit Eins, $X \subseteq R$
+$$(X) = \bigcap_{\substack{I \subseteq R \text{ Ideal} \\ X \subseteq I}} I
+= \left\{ \sum_{\text{endlich}} r_i x_i : r_i \in R, x_i \in X \right\}$$
+heißt das von $X$ erzeugte Ideal.
+
+\item[e)] $I_1 + I_2 = (I_1 \cup I_2)$\\
+$I_1 \cdot I_2 = (\{ a \cdot b : a \in I_1, b \in I_2 \})$
+
+\end{enumerate}
+\end{defbem}
+
+\section{Polynomringe}
+
+\begin{defbem}
+Sei $R$ ein kommutativer Ring mit Eins, $R \neq \{0\}$
+
+\begin{enumerate}
+\item[a)] Ein \emp{Polynom} \index{Polynom} über $R$ ist eine Folge
+$$f = (a_0, a_1, \ldots) \text{ mit } a_i \in R \text{ und } a_i = 0 \text{ für fast alle $i$}$$
+
+symbolische Schreibweise: $\displaystyle f = \sum_{n=0}^{n}{a_i X^i}$ (n so groß, dass $a_i = 0$ für $i > n$)
+
+\item[b)] $R[X] = \left\{ f = (a_0, a_1, \ldots) : f \text{ Polynom über $R$ } \right\}$
+ist kommutativer Ring mit Eins mit den Verknüpfungen
+
+$(a_0, a_1, \ldots) + (b_0, b_1, \ldots) = (a_0 + b_0, a_1 + a_2, \ldots)$\\
+$(a_0, a_1, \ldots) \cdot (b_0, b_1, \ldots) = (c_0, c_1, \ldots)$
+mit $\displaystyle c_i = \sum_{k=0}^{i}{a_k b_{i-k}}$
+
+\item[c)] $R \rightarrow R[X]$, $a \mapsto (a,0, \ldots)$ ist injektiver Ringhomomorphismus.
+
+\item[d)] Für $n \leq 2$ heißt $R[X_1, \ldots, X_n] = \left(R[X_1, \ldots, X_{n-1}]\right)[X_n]$ \emp{Polynomring in $n$ Variablen} \index{Polynomring!in $n$ Variablen} über $R$.
+
+\end{enumerate}
+\end{defbem}
+
+\begin{prop}
+Sei $R$ kommutativer Ring mit Eins.
+
+\begin{enumerate}
+\item[a)] Zu jedem $x \in R$ gibt es genau einen Ringhomomorphismus\\
+$\varphi_x : R[X] \rightarrow R$ mit $\varphi_x|_R = id_R$ und $\varphi_x(X) = x$.
+
+Es ist $\varphi_x(a_0, a_1, \ldots) = \displaystyle \sum_{i \geq 0}{a_x x^i}$
+
+\begin{proof}
+Ist b) für $R' = R$ und $\alpha = id_R$
+\end{proof}
+
+\item[b)] Zu jedem Homomorphismus von Ringen mit Eins: $\alpha: R \rightarrow R'$ und jedem $y \in R'$ gibt es genau einen Ringhomomorphismus $\varphi_y : R[X] \rightarrow R'$ mit $\varphi_y|_R = \alpha$ und $\varphi_y(X) = y$.
+
+\begin{proof}
+$\varphi_y(a_0, a_1, \ldots) := \displaystyle \sum_{i \geq 0}{\alpha(a_i) y^i}$
+
+ist die einzig mögliche Definition eines Ringhomomorphismus, weil\\
+$(a_0, a_1, \ldots) = \sum_{i=0}^{n}{a_i X^i}$
+
+und da $\varphi_y(a_0, a_1, \ldots) = \varphi_y( \sum_{i=0}^{n}{a_i X^i} )
+= \sum_{i=0}^{n}{ \varphi_y(a_i) \varphi_y(X)^i }$ sein muss.
+
+\end{proof}
+
+\end{enumerate}
+\end{prop}
+
+\begin{folg}
+
+Die Zuordnung $R \mapsto R[X]$ ist ein kovarianter Funktor \underline{Ringe mit Eins} $\rightarrow$ \underline{Ringe mit Eins}.
+
+% todo: gross alpha? evtl deutsches a.
+\begin{proof}
+Ist $\alpha: R \rightarrow R'$ Ringhomomorphismus, so sei $a: R[X] \rightarrow R'[X]$ der Homomorphismus, der durch $\alpha: R \rightarrow R' \xhookrightarrow{\text{2.8.c)}} R'[X]$ und $X \mapsto X$ bestimmt ist.
+\end{proof}
+\end{folg}
+
+\begin{defbem}
+\begin{enumerate}
+\item[a)] Für $f = (a_0, a_1, \ldots) \in R[X]$. $f \neq 0$ sei $\Grad(f) := \max\{ i : a_i \neq 0 \} = \deg(f)$
+
+\item[b)] Für $f,g$ ist $\Grad(f + g) \leq \max(\Grad(f), \Grad(g))$ 
+
+\item[c)] Für $f,g$ ist $\Grad(f \cdot g) \leq \Grad(f) + \Grad(g)$ und $=$ falls $R$ nullteilerfrei.
+
+\end{enumerate}
+\end{defbem}
+
+\begin{folg}
+Ist $R$ Integritätsbreich, so ist $R[X]$ auch Integritätsbereich und $R[X]^\times = R^\times$.
+
+\end{folg}
+
+% Vorlesung 5.12.2005 - Horst Hammer
+
+\begin{defbem}
+Sei $R$ kommutativer Ring mit Eins, $(H,\cdot)$ Halbgruppe.
+
+\begin{enumerate}
+\item[a)]
+$R[H] := \{ (a_k)_{k\in H}, a_k \neq 0 \text{ nur für endlich viele } h \in H \}$ ist mit den Verknüpfungen
+
+$(a_k) + (b_k) = (a_k + b_k)$ und $(a_k) \cdot (b_k) = (c_k)$ mit
+$\displaystyle c_k = \sum_{h_1 \cdot h_2 = h}{a_{h_1} b_{h_2}}$ ein Ring.
+ 
+$R[H]$ heißt \emp{Halbgruppenring} \index{Halbgruppenring} zu $H$ über $R$.
+
+Schreibe auch $\displaystyle \sum_{h \in H}{a_h \cdot h}$ für $(a_k)$.
+
+\item[b)]
+$R\left[(\N,+)\right] \cong R[X]$\\
+$R\left[(\N^n,+)\right] \cong R[X_1, \ldots, X_n]$
+
+\item[c)]
+$R[H]$ $\left\{\begin{array}{c}\text{kommutativ}\\\text{hat Eins}\end{array}\right\}$ \gdw
+$H$ $\left\{\begin{array}{c}\text{kommutativ}\\\text{hat Eins}\end{array}\right\}$.
+
+\item[d)]
+$(H,\cdot) \rightarrow (R[H],\cdot)$, $h \mapsto 1_R \cdot h$ ist injektiver Halbgrupppenhomomorphismus.
+
+\item[e)]
+Ist $(H,\cdot)$ Monoid, so ist $R \rightarrow R[H]$, $r \mapsto r \cdot 1_H$ injektiver Ringhomomorphismus.
+
+\end{enumerate}
+\end{defbem}
+
+\begin{satz}[Universelle Eigenschaft des Monoidrings]
+
+Sei $R$ kommutativer Ring mit Eins, $(H,\cdot)$ Monoid. Dann gibt es zu jedem $\varphi : R \rightarrow R'$ Homomorphismus von Ringen mit Eins und jeden Monoidhomomorphismus $\sigma : H \rightarrow (R',\cdot)$ genau einen Ringhomomorphismus $\Phi : R[H] \rightarrow R'$ mit $\Phi|_R = \varphi$ und $\Phi|_H = \sigma$.
+
+Dabei werden $R$ und $H$ wie in 2.13 d) bzw. e) in $R[H]$ eingebettet.
+
+\begin{proof}
+Es muss gelten: $\displaystyle \Phi(\sum_{h \in H}{ a_h \cdot h }) := \sum_{h \in H}{ \varphi(a_h) \cdot \sigma(h) }$
+
+Das zeigt die Eindeutigkeit, taugt aber auch als Definition von $\Phi$, was die Existenz zeigt.
+\end{proof}
+\end{satz}
+
+\begin{defbem}
+\begin{enumerate}
+\item[a)]
+
+$R \llbracket X \rrbracket := \{ (a_i)_{i \in \N} : a_i \in R \}$
+
+ist mit $+$ und $\cdot$ wie bei Polynomring ein kommutativer Ring mit Eins.
+
+$R \llbracket X \rrbracket$ heißt \emp{Ring der (formalen) Potenzreihen} \index{Potenzreihen} über $R$.
+
+Schreibweise: $\displaystyle f = \sum_{i=0}^{\infty}{a_i x^i}$ für $f = (a_i)_{i \in N}$.
+
+\item[b)]
+Sei $0 \neq f = \sum_{i=0}^{\infty} a_i x^i \in R \llbracket X \rrbracket$.
+
+Dann heißt $o(f) := \min \{ i \in \N : a_i \neq 0 \}$ der \emp{Untergrad} \index{Untergrad} von $f$.
+
+Es gilt für alle $f,g \in R \llbracket X \rrbracket \setminus \{0\}$:
+
+$o(f+g) \leq \min(o(f) + o(g))$ und $o(f \cdot g) \leq o(f) + o(g)$
+
+\item[c)]
+Ist $R$ Integritätsbreich, so ist $o(f \cdot g) = o(f) + o(g)$ $\forall f,g \in R \llbracket X \rrbracket \setminus \{0\}$.
+
+und es gilt: $\displaystyle R \llbracket X \rrbracket^\times = \left\{ f = \sum_{i=0}^{\infty}{ a_i x^i } \in R \llbracket x \rrbracket : a_0 \in R^\times \right\}$
+
+\item[d)]
+Ist $R = K$ Körper, so ist $\displaystyle m := K \llbracket X \rrbracket \setminus K \llbracket X \rrbracket^\times 
+= \left\{ \sum_{i=0}^{\infty}{ a_i x^i } : a_0 = 0 \right\}$ Ideal in $K \llbracket X \rrbracket$.
+
+\end{enumerate}
+
+\begin{proof}
+\begin{enumerate}
+\item[] a), b), d) $\surd$
+
+\item[c)]
+,,$\subseteq$`` Sei $f = \sum{ a_i x^i } \in R \llbracket X \rrbracket^\times$, dann gibt es $g = \sum b_i x^i \in R \llbracket X \rrbracket^\times$ mit\\
+$1 = f \cdot g = a_0 b_0 + (a_1 b_0 + a_0 b_1) x + \cdots$.
+
+\dann $a_0 b_0 = 1$ \dann $a_0 \in R^\times$.
+
+,,$\supseteq$`` Definiere $g = \sum b_i x^i$ rekursiv durch
+
+$b_0 = a_0^{-1}$, $\displaystyle b_i := a_0^{-1} \cdot \sum_{k=0}^{i} a_k b_{i-k} (-1)^k?$ für $i \geq 1$.
+
+Dann ist $f \cdot g = 1$. Bsp ist $b_1 = - a_0^{-1} (a_1 \cdot b_0)$.
+\end{enumerate}
+\end{proof}
+\end{defbem}
+
+\section{Quotienten}
+
+Sei $R$ kommutativer Ring mit Eins.
+
+\begin{defbem}
+\begin{enumerate}
+\item[a)] Sei $I$ Ideal in $R$.
+
+Durch die Verknüpfung $\overline{x} \cdot \overline{y} = \overline{x \cdot y}$ wird die Faktorgruppe
+$\QuotRaum{(R,+)}{(I,+)}$ zu einem kommutativen Ring mit Eins.
+
+$\QuotRaum{R}{I}$ heißt \emp{Faktorring} \index{Faktorring} oder \emp{Quotientenring} \index{Quotientenring} von $R$ in $I$.
+
+\item[b)] Die Restklassenabbildung $\pi : R \rightarrow \QuotRaum{R}{I}$, $x \mapsto \overline{x}$ ist surjektiver Ringhomomorphismus\\
+mit $\Kern(\pi) = I$.
+
+\item[c)] (Universelle Abbildungseigenschaft des Faktorings)
+
+Sei $\varphi: R \rightarrow R'$ ein Ringhomomorphismus. Dann gibt es zu jedem Ideal $I \subseteq R$ mit $I \subseteq \Kern(\varphi)$ einen eindeutig bestimmten Ringhomomorphismus\\
+$$\overline{\varphi} : \QuotRaum{R}{I} \rightarrow R' \text{ mit } \varphi = \overline{\varphi} \circ \pi$$
+
+so dass
+
+\begin{center}\leavevmode
+\xymatrix{
+R \ar[dr]_{\displaystyle \pi} \ar[rr]_{\displaystyle \varphi} & & R' \\
+& \displaystyle\QuotRaum{R}{I} \ar[ur]_{\displaystyle \exists! \overline{\varphi}} }
+\end{center}
+
+kommutiert.
+
+\item[d)] (Homomorphiesatz für Ringe)
+\addtheoremline*{satz}{Homomorphiesatz für Ringe}
+
+Ist $\varphi: R \rightarrow R'$ surjektiver Ringhomomorphismus, dann ist $R' \cong \QuotRaum{R}{\Kern(\varphi)}$
+
+\end{enumerate}
+
+\begin{proof}
+\begin{enumerate}
+\item[a)] Wohldefiniertheit des Produkts: Seien $x', y' \in R$ mit $\overline{x'} = \overline{x}$, $\overline{y'} = \overline{y}$. Dann gibt es $a,b \in I$ mit $x' = x + a$, $y' = y + b$.
+
+\dann $x' \cdot y' = (x + a) \cdot (y + b) = xy + \underbrace{ay}_{\in I} + \underbrace{xb}_{\in I} + \underbrace{ab}_{\in I}$
+
+\dann $\overline{x'} \cdot \overline{y'} = \overline{x} \cdot \overline{y}$
+
+Restlichen Eigenschaften vererben sich dann von $R$.
+
+\item[b)] $\pi$ ist surjektiver Gruppenhomomorphismus mit $\Kern(\pi) = I$ nach Satz 1a).
+
+$\pi(x y) = \pi(x) \cdot \pi(y)$ nach Definition der Verknüpfung.
+
+\item[c)] Nach Satz 1b) gibt es eindeutigen bestimmten Gruppenhomomorphismus $\overline{\varphi} : \QuotRaum{R}{I} \rightarrow R'$ mit $\varphi = \overline\varphi \circ \pi$.
+
+Zeige also: $\overline\varphi$ ist Ringhomomorphismus.
+
+Für $x,y \in R$ ist $\overline\varphi(\overline{x} \cdot \overline{y}) = \varphi(x \cdot y) = \varphi(x) \cdot \varphi(y) = \overline\varphi(\overline{x}) \cdot \overline\varphi(\overline{y})$.
+
+\item[d)] Folgt aus c) und Satz 1a).
+
+\end{enumerate}
+\end{proof}
+\end{defbem}
+
+\begin{defbem}
+\begin{enumerate}
+\item[a)] Ein Ideal $I \subsetneqq R$ heißt \emp{maximal}, \index{Ideal!maximal} wenn es kein Ideal $I'$ in $R$ gibt mit $I \subsetneqq I' \subsetneqq R$.
+
+\item[b)] Ein Ideal $I \subsetneqq R$ heißt \emp{Primideal}, \index{Primideal}\index{Ideal!prim} wenn für $x,y \in R$ mit $x \cdot y \in I$ gilt: $x \in I$ oder $y \in I$.
+
+\paragraph{Beispiele}
+\begin{enumerate}
+\item[1)] $p$ Primzahl \gdw $p \cdot \Z$ ist Primideal in $\Z$, sogar maximal.
+
+\item[2)] $(x)$ ist Primideal in $R \llbracket X \rrbracket$ \gdw $R$ ist Körper.
+\end{enumerate}
+
+\item[c)]
+$R$ ist nullteilerfrei \gdw $(0)$ ist Primideal.
+
+\item[d)]
+Jedes maximale Ideal $I$ ist Primideal.
+\end{enumerate}
+
+\begin{proof}
+\begin{enumerate}
+\item[c)] $R$ ist nicht nullteilerfrei \gdw $\exists a,b \in R \setminus \{0\}$ : $a \cdot b = 0$ \gdw $(0)$ kein Primideal.
+
+\item[d)] Seien $x,y \in R$ mit $x \cdot y \in I$ und $x \notin I$. Dann ist $(x) + I \supsetneqq I$.
+
+$\xRightarrow{I \text{ maximal}} (x) + I = R$
+
+\dann $1 \in (x) + I$, d.h. es gibt $r \in R$, $a \in I$ mit $1 = r \cdot x + a$.
+
+\dann $y = \underbrace{r x y}_{\in I} + \underbrace{a y}_{\in I} \in I$
+
+\dann $I$ ist Primideal.
+
+\end{enumerate}
+\end{proof}
+\end{defbem}
+
+\begin{defbem}
+Sei $I \subsetneqq R$ ein Ideal. Dann gilt:
+
+\begin{enumerate}
+\item[a)] $I$ ist Primideal \gdw $\QuotRaum{R}{I}$ ist nullteilerfrei.
+
+\item[b)] $I$ ist maximales Ideal \gdw $\QuotRaum{R}{I}$ ist Körper.
+
+\end{enumerate}
+
+\begin{proof}
+\begin{enumerate}
+\item[a)] $\QuotRaum{R}{I}$ ist nicht nullteilerfrei
+
+\gdw $\exists \overline{x} \neq 0 \neq \overline{y} \in \QuotRaum{R}{I}$ mit $\overline{x} \cdot \overline{y} = \overline{0} = \overline{x \cdot y}$.
+
+\gdw $x \cdot y \in I$, $x,y \notin I$.
+
+\dann $I$ kein Primideal.
+
+\item[b)]
+Nach 2.6 d) ist $\QuotRaum{R}{I}$ genau dann Körper, wenn $(0)$ und $\QuotRaum{R}{I}$ die einzigen Ideale in $\QuotRaum{R}{I}$ sind. Nach Blatt 7, A 3 entsprechen die Ideale in $\QuotRaum{R}{I}$ bijektiv den Idealen in $R$, die $I$ enthalten.
+\end{enumerate}
+\end{proof}
+\end{defbem}
+
+% Vorlesung vom 9.12.2005
+
+\paragraph{Beispiel}
+
+Sei $C = \{ (a_n)_{n \in \N} : (a_n)_n \text{ Cauchy-Folge}, a_n \in \Q \}$\\
+(d.h. für $k \in \N \exists n \in \N : |a_i - a_j| < \frac{1}{k}$ für $i,j \geq n$.)
+
+$C$ ist Ring mit komponentenweiser $+$ und $\cdot$ (vornehm $C \subset \prod_{n \in \N} \Q$)
+
+$N := \{ (a_n) \in C : (a_n) \text{ Nullfolge} \}$ (d.h. für $k \in \N \exists n \in \N : |a_i| < \frac{1}{k} \forall i \geq n$)
+
+$N$ ist Ideal in $C$. $\surd$ ($\text{NF} + \text{NF} \in C$, $\text{NF} \cdot \text{CF} \in N$)
+
+Behauptung: $\QuotRaum{C}{N}$ ist Körper (bzw. $N$ ist maximal)
+
+Beweis: Sei $a = (a_n)_{n \in \N} \in C \setminus N$. Zu zeigen: $1 \in N + (a) = \langle N \cup \{a\} \rangle$ (ist 1 im Ideal, spannt es ganz $C$ auf).
+
+$(a_n) \notin N$ \dann $a_n = 0$ nur für endlich viele $n$, d.h. $a \neq 0$ für $i > n$.
+
+$b_n := \begin{cases}0 & i < n_0\\\frac{1}{a_i} & i \geq n_0\end{cases}$ und $b := (b_n) \in C$.
+
+$a \cdot b =: (c_n)$, $c_n = \begin{cases}0 & n < n_0\\1 & n \geq n_0\end{cases}$
+
+\dann $1 - ab = (d_n)$, $d_n = \begin{cases}1 & n < n_0\\0 & n \geq n_0\end{cases}$ \dann $d_n \in N$.
+
+\dann $1 = (d_n) + ba \in N + (a)$ \dann $N$ ist maximal.
+
+$\QuotRaum{C}{N} = \R$!
+
+\begin{satz}[Chinesischer Restesatz]
+
+Sei $R$ kommutativer Ring mit Eins, $I_1, \ldots, I_n$ Ideale in $R$ mit $I_\nu + I_\mu = R$
+für alle $\nu \neq \mu$ (dann heißen $I_\nu$ und $I_\mu$ relativ prim oder koprim).
+Für $\nu = 1, \ldots, n$ sei $p_\nu : R \rightarrow \QuotRaum{R}{I_\nu}$ die Restklassenabbildung. Dann gilt:
+
+\begin{enumerate}
+
+\item[a)] $\varphi : R \rightarrow \QuotRaum{R}{I_1} \times \cdots \times \QuotRaum{R}{I_n}$ ist surjektiv. $x \mapsto (p_1(x), \ldots, p_n(x))$
+
+\item[b)] $\QuotRaum{R}{I_1} \times \cdots \times \QuotRaum{R}{I_n} \cong \QuotRaum{R}{\bigcap_{\nu=1}^{n}{I_\nu}}$ (klar nach Homomorphiesatz $\displaystyle\Kern(\varphi) = \bigcap_{\nu=1}^{n}{I_\nu}$)
+
+\item[c)] (Simultane Kongruenzen)
+
+Für paarweise teilerfremde ganze Zahlen $m_1, \ldots, m_n$ und beliebige $r_1, \ldots, r_n \in \Z$ gibt es $x \in \Z$ mit $x \equiv r_\nu \mod{m_\nu}$ für $\nu = 1, \ldots, n$ (Spezialfall für $R = \Z$ von a)).
+
+\end{enumerate}
+
+\begin{proof}
+Genügt zu zeigen: $(0, \ldots, 0, 1, 0, \ldots, 0) \in \Bild(\varphi)$ für jedes $\nu$, d.h. es gibt $e_\nu \in R$, $(v = 1, \ldots n)$ mit $e_\nu \in I_\nu$ für $\mu \neq \nu$ und $1 - e_\nu =: a_\nu \in I_\nu$
+(denn für $x = ( \widebar{r_1}, \ldots, \widebar{r_n} ) \in \QuotRaum{R}{I_1} \times \cdots \times \QuotRaum{R}{I_n}$ sei $e := \displaystyle \sum_{\nu = 1}^{n}{r_\nu e_\nu}$ mit $r_\nu \in p_\nu^{-1}(r_\nu)$ \dann $\displaystyle \varphi(e) = \sum_{\nu = 1}^{n}{p_\nu (r_\nu e_\nu)} = x$)
+
+Nach Voraussetzung gibt es für jedes $\mu \neq \nu$ $a_\mu \in I_\nu$, $b_\mu \in I_\nu$ mit $a_\mu + b_\mu = 1$\\
+\dann $\displaystyle 1 = \prod_{\substack{\mu-1\\ \mu \neq \nu}}^{n}{(a_\mu + b_\mu)} = \underbrace{\prod_{\substack{\mu-1\\ \mu \neq \nu}}^n b_\mu}_{\displaystyle \in \bigcap_{\substack{\mu = 1\\ \mu \neq \nu}}^{n}{I_\mu}} + \underbrace{a_\nu}_{\displaystyle\in I_\nu}$
+
+\dann $1 = e_\nu - a_\nu$ wie gewünscht.
+
+\end{proof}
+\end{satz}
+
+\section{Teilbarkeit}
+
+Sei $R$ kommutativer Ring mit Eins.
+
+\begin{defbem}
+Seien $a,b \in R$, $a \neq 0$.
+
+\begin{enumerate}
+\item[a)]
+a \emp{teilt} b \index{teilt} (Schreibweise $a \mid b$) $:\Longleftrightarrow$ $b \in (a)$ (\gdw $\exists x \in R : b = a \cdot x$)
+
+\item[b)]
+$d \in R$ heißt \emp{größter gemeinsamer Teiler} \index{ggT} von $a$ und $b$ ($\ggT(a,b)$), wenn gilt:
+\begin{enumerate}
+\item[(i)] $d \mid a$ und $d \mid b$ (bzw. $a \in (d)$ und $b \in (d)$)
+\item[(ii)] ist $d' \in R$ auch Teiler von $a$ und $b$, so gilt $d' \mid d$, $d \in (d')$.
+\end{enumerate}
+
+\item[c)]
+Ist $d \in R$ ein $\ggT$ von $a$ und $b$ und $e \in R^\times$, so ist auch $e \cdot d$ ein $\ggT$. Ist $R$ nullteilerfrei und sind $d,d'$ beide $\ggT$ und $a$ und $b$, so gibt es $e \in R^\times$ mit $d' = e \cdot d$.
+
+\begin{proof}
+Nach Definition gibt es $x,y \in R$ mit $d' = x \cdot d$ und $d = y \cdot d'$ \dann $d' = x y d'$ \dann $d' (1 - xy) = 0$ $\xRightarrow{\substack{R \text{ nullteilerfrei}\\ d \neq 0}}$ $1 = x y$, d.h. $x,y \in R^\times$.
+\end{proof}
+
+\end{enumerate}
+
+\end{defbem}
+
+\begin{defbem}
+\begin{enumerate}
+\item[a)]
+Ein Integritätsbereich $R$ heißt \index{euklidisch} \emp{euklidisch}, wenn es eine Abbildung\\
+$\delta : R \setminus \{0\} \rightarrow \N$ mit folgender Eigenschaft gibt:
+
+zu $f,g \in R$, $g \neq 0$ gibt es $q,r \in R$ mit $f = q \cdot g + r$ mit $r = 0$ oder $\delta(r) < \delta(g)$.
+
+\item[b)]
+Sei $R$ euklidisch, $a,b \in R \setminus \{0\}$. Dann gilt:
+\begin{enumerate}
+\item[(i)] in $R$ gibt es einen $\ggT$ von $a$ und $b$.
+\item[(ii)] $d \in (a,b)$ (d.h. $\exists x,y \in R$ mit $d = x \cdot a + y \cdot b$)
+\item[(iii)] $(d) = (a,b)$
+\end{enumerate}
+
+\item[c)]
+Jeder euklidische Ring ist ein Hauptidealring.
+
+\paragraph{Beispiel}
+$\Z$ mit $\delta(a) = |a|$
+
+$K[X]$ mit $\delta(f) = \Grad(f)$
+
+\end{enumerate}
+
+\begin{proof}
+\begin{enumerate}
+\item[b)]
+Ohne Einschränkung sei $\delta(a) \geq \delta(b)$. Nach Voraussetzung gibt es $q_1, r_1 \in R$ mit $a = q_1 \cdot b + r$, $\delta(r_1) < \delta(b)$ oder $r_1 = 0$.
+
+Ist $r_1 = 0$, so ist $a \in (b) = (a,b)$ und $\ggT(a,b) = b$.
+
+Sonst gibt es $q_2, r_2 \in R$ mit $b = q_2 r_1 + r_2$ und $r_2 = 0$ oder $\delta(r_2) < \delta(r_1)$.
+
+\begin{tabular}{@{}ll}
+usw... \dann & $r_i = q_{i+2} r_{i+1} + r_{i+2}$\\
+	     & $r_{n-2} = q_n r_{n-1}$ (da $\delta(r_{i+2}) < \delta(r_{i+1})$)
+\end{tabular}
+
+Behauptung: $d := r_{n-1}$ ist $\ggT$ von $a$ und $b$.
+
+denn: $d \mid r_{n-2}$, vorletzte Zeile $r_{n-3} = q_{n-1} r_{n-2} + r_{n-1}$.
+\dann $d \mid r_{n-3}$.
+
+Induktion: $d \mid r_i$ für alle $i$ \dann $d \mid b$ \dann $d \mid a$.
+
+Umgekehrt: Sei $d'$ Teiler von $a$ und $b$ \dann $d' \mid r_1$ $\xRightarrow{\text{I.V.}}$ $d' \mid r_i$ für alle $i$ \dann $d' \mid d$.
+
+\begin{tabular}{@{}lll}
+Noch zu zeigen: & (ii) & $d \in (a,b)$ \\
+                &      & Nach Konstruktion ist $r_{i+2} \in (r_i, r_{i+1}) \subset \cdots \subset (a,b)$ $\forall i$.\\
+                & (iii) & $(d) = (a,b)$\\
+& & ,,$\subseteq$``: ist (ii)\\
+& & ,,$\supseteq$``: $a \in (d)$, $b \in (d)$ nach Definition.\\
+\end{tabular}
+
+\item[c)]
+Sei $I \subset R$ Ideal, $I \neq \{0\}$.
+
+Wähle $a \in I$ mit $\delta(a)$ minimal. Dann gilt für jedes $b \in I$:
+
+$b = q a + r$ mit $r \in I$ und $\delta(r) < \delta(a)$. Widerspruch!
+
+\dann $r = 0$ \dann $I = (a)$.
+
+\end{enumerate}
+\end{proof}
+\end{defbem}
+
+% Vorlesung vom 12.12.2005
+
+\begin{defbem}
+Sei $R$ kommutativer Ring mit Eins.
+
+\begin{enumerate}
+\item[a)]
+$x,y \in R$ heißen assoziiert, wenn es $e \in R^\times$ gibt mit $y = x \cdot e$.
+
+,,assoziiert`` ist eine Äquivalenzrelation.
+
+\item[b)]
+$x \in R \setminus R^\times$ heißt \emp{irreduzibel}, \index{irreduzibel} wenn aus $x = y_1 y_2$ mit $y_1, y_2 \in R$ folgt $y_1 \in R^\times$ oder $y_2 \in R^\times$.
+
+\item[c)]
+$x \in R \setminus R^\times$ heißt \emp{prim} \index{prim} (oder \index{Primelement}\emp{Primelement}),
+wenn $(x)$ ein Primideal ist.
+
+d.h. aus $x \mid y_1 y_2$ folgt $x \mid y_1$ oder $x \mid y_2$.
+
+\item[d)]
+Sind $x,y \in R \setminus R^\times$ assoziiert, so ist $x$ genau dann irreduzibel (bzw. prim), wenn $y$ irreduzibel (prim) ist.
+
+\item[e)]
+Ist $R$ nullteilerfrei, so ist jedes Primelement $\neq 0$ irreduzibel.
+
+\begin{proof}
+Sei $(x)$ Primideal und $x = y_1 \cdot y_2$, $y_1, y_2 \in R$
+
+\dann Ohne Einschränkung sei $y_1 \in (x)$, d.h. $y_1 = x \cdot a$ für ein $a \in R$.
+
+\dann $x = x \cdot a \cdot y_2$
+
+\dann $x (1 - a y_2) = 0$ $\xRightarrow{R \text{ nullteilerfrei}, x \neq 0}$ $a y_2 = 1$.
+
+\end{proof}
+
+\paragraph{Beispiel}
+
+$2 \cdot 3 = 6 = (1 + \sqrt{-5})(1 - \sqrt{-5})$
+
+Kleinster Ring in dem wir rechnen:\\
+$R = \Z[\sqrt{-5}] = \{ a + b \sqrt{-5} : a,b \in \Z \} \subset \field{C}$\\
+$(a + b \sqrt{-5}) (c + d \sqrt{-5}) = a c - 5 b d + (a d + b c) \sqrt{-5}$.
+
+In $R$ ist $2$ kein Primelement: weder $1 + \sqrt{-5}$ noch $1 - \sqrt{-5}$ ist durch $2$ teilbar.
+
+Aber: $2$ ist irreduzibel!\\
+denn: Sei $2 = (a + b \sqrt{-5})(c + d \sqrt{-5})$
+
+\dann $4 = |2|^2 = (a + b \sqrt{-5}) (a - b \sqrt{-5}) (c + d \sqrt{-5}) (c - d \sqrt{-5})$\\
+$ = (a^2 + 5 b^2) (c^2 + 5 d^2) = a^2 c^2 + 5 P$ mit $P > 0$
+
+\dann $P = 0$. \dann $b = d = 0$ \dann $a^2 = 1$, $c^2 = 4$.
+
+\end{enumerate}
+\end{defbem}
+
+\begin{defbem}
+Sei $R$ ein Integritätsbereich.
+
+\begin{enumerate}
+\item[a)]
+Folgende Eigenschaften sind äquivalent:
+\begin{enumerate}
+\item[(i)] jedes $x \in R \setminus \{0\}$ lässt sich eindeutig als Produkt von Primelementen schreiben.
+
+\item[(ii)] jedes $x \in R \setminus \{0\}$ lässt sich irgendwie als Produkt von Primelementen schreiben.
+
+\item[(iii)] jedes $x \in R \setminus \{0\}$ lässt sich eindeutig als Produkt von irreduzibelen Elementen schreiben.
+\end{enumerate}
+
+\item[b)]
+Sind die 3 Eigenschaften aus a) für $R$ erfüllt, so heißt $R$ \emp{faktorieller Ring} \index{Ring!faktorieller} (oder ZPE-Ring, engl. UFD).
+
+\end{enumerate}
+
+Dabei ist in a): ,,eindeutig`` gemeint bis auf Reihenfolge und Multiplikation mit Einheiten.
+
+Präziser: Sei $\mathcal{P}$ ein Vertretersystem der Primelemente ($\neq 0$) bzgl. ,,assoziiert``.
+
+Dann heißt (i) $\forall x \in R \setminus \{0\} \exists! e \in R^\times$ 
+und für jedes $p \in \mathcal{P}$ ein $\nu_p(x) \geq 0$:
+$\displaystyle x = e \cdot \prod_{p \in \mathcal{P}}{p^{\nu_p(x)}}$
+
+(beachte $\nu_p(x) \neq 0$ nur für endlich viele $p$).
+
+\begin{proof}
+(i) \dann (ii) $\surd$. (ii) \dann (iii):
+
+Sei $x \neq 0$, $x = e \cdot p_1 \cdot \ldots \cdot p_r$, $p_i \in \mathcal{P}$, $e \in R^\times$
+
+Sei weiter $x = q_1 \cdot \ldots \cdot q_s$ mit irreduzibelen Elementen $q_j$.
+
+Es ist $x \in (p_1)$ \dann $\exists j$ mit $q_j \in (p_1)$.
+
+Ohne Einschränkung sei $j = 1$. d.h. $q_1 = \varepsilon_1 p_1$ mit $\varepsilon_1 \in R^\times$ (da $q_1$ irreduzibel).
+
+\dann $\varepsilon_1 \cdot q_2 \cdot \ldots \cdot q_s = e \cdot p_2 \cdot \ldots \cdot p_r$.
+
+Mit Induktion über $r$ folgt die Behauptung.
+
+(iii) \dann (i): Noch zu zeigen: Jedes irreduzibles Element in $R$ ist prim.
+
+Sei $p \in R \setminus R^\times$ irreduzibel, $x,y \in R$ mit $x \cdot y \in (p)$, also $x \cdot y = p \cdot a$ für ein $a \in R$.
+
+Schreibe $x = q_1 \cdot \ldots \cdot q_m$, $y = s_1 \cdot \ldots \cdot s_n$, $a = p_1 \cdot \ldots \cdot p_l$
+mit irreduzibelen Elementen $q_i, s_j, p_k$.
+
+\dann $x \cdot y = q_1 \cdot \ldots \cdot q_m s_1 \cdot \ldots \cdot s_n = p \cdot a = p \cdot p_1 \cdot \ldots \cdot p_l$
+
+$\xRightarrow{\text{Eindeutigkeit}}$ $p \in \{q_1, \ldots q_m, s_1, \ldots s_n \}$ (bis auf Einheiten).
+
+\dann $x \in (p)$ oder $y \in (p)$.
+\end{proof}
+
+\end{defbem}
+
+\begin{bem}
+Ist $R$ faktorieller Ring, so gibt es zu allen $a,b \in R \setminus \{0\}$ einen $\ggT(a,b)$
+
+\begin{proof}
+Sei $\mathcal{P}$ wie in 2.21 Vertretersystem der Primelemente.
+
+$a = e_i \displaystyle\prod_{p \in \mathcal{P}}{ p^{\nu_p(a)}}$, $b = e_i \displaystyle\prod_{p \in \mathcal{P}}{ p^{\nu_p(b)}}$
+\dann $d := \displaystyle\prod_{p \in \mathcal{P}}{ p^{\nu_p(d)}}$ mit $\nu_p(d) = \min(\nu_p(a), \nu_p(b))$
+
+ist $\ggT(a,b)$.
+\end{proof}
+\end{bem}
+
+\begin{satz}
+Jeder nullteilerfreie Hauptidealring ist faktoriell.
+
+\begin{proof}
+1. Schritt: Jedes $x \in R \setminus \{0\}$ lässt sich als Produkt von irreduzibelen Elementen schreiben.
+
+2. Schritt: Jedes irreduzible $x \in R \setminus \{0\}$ erzeugt ein maximales Ideal.
+
+Mit 2.21a (ii) folgt dann die Behauptung.
+
+Beweis 2:
+
+Sei $p \in R \setminus \{0\}$ irreduzibel, $I$ Ideal in $R$ mit $(p) \subseteq I \subsetneqq R$.
+
+Nach Voraussetzung gibt es $a \in R$ mit $I = (a)$, $a \notin R^\times$, da $I \neq P$.
+
+Da $p \in (p) \subseteq I = (a)$, gibt es $\varepsilon \in R$ mit $p = a \cdot \varepsilon$
+
+$\xRightarrow{p \text{ irreduzibel}}$ $\varepsilon \in R^\times$ \dann $(p) = (a) = I$.
+
+Beweis 1:
+
+$x \in R \setminus \{0\}$ heiße Störenfried, wenn $x$ nicht als Produkt von irreduzibelen Elementen darstellbar ist.
+
+Sei $x$ Störenfried. Dann ist $x \notin R^\times$ und $x$ nicht irreduzibel, also $x = x_1 \cdot y_2$ mit $x_1 y_1 \notin R^\times$.
+
+Ohne Einschränkung ist $x_1$ Störenfried (sonst ist $x$ doch Produkt von irreduzibelen)
+
+Also $x_1 = x_2 \cdot y_2$, $x_2 y_2 \notin R^\times$. Ohne Einschränkung $x_2$ Störenfried.
+
+Induktiv erhalten wir $x, x_1, x_2, \ldots$ alles Störenfriede,
+mit $(x) \subsetneqq (x_1) \subsetneqq (x_2) \subsetneqq \cdots \subsetneqq (x_i) \subsetneqq (x_{i+1})$
+
+Sei nun $I = \bigcup_{i \geq 1} (x_i)$. $I$ ist Ideal. $\surd$.
+
+\dann es gibt $a \in R$ mit $I = (a)$ \dann $\exists i$ mit $a \in (x_i)$ \dann $x_j \in (x_i)$ für alles $j \geq i$. Widerspruch.
+
+\end{proof}
+\end{satz}
+
+% Vorlesung vom 16.12.2005
+
+\section{Brüche}
+
+Ziel: Verallgemeinerung der Konstruktion von $\Q$ aus $\Z$:
+
+$$\Q = \QuotRaum{\left\{ \dfrac{m}{n} : m,n \in \Z, n \neq 0 \right\}}{\sim}$$
+
+wobei $\frac{m}{n} \sim \frac{m'}{m'} :\Leftrightarrow m n' = m' n$.
+
+\begin{defbem}
+Sei $R$ kommutativer Ring mit Eins.
+
+$S \subset (R,\cdot)$ ein Untermonoid.
+
+\begin{enumerate}
+\item[a)]
+$S^{-1} R = R_S := \QuotRaum{(R \times S)}{\sim}$ mit der Äquivalenzrelation
+
+$$(a_1, s_1) \sim (a_2, s_2) :\Leftrightarrow \exists t \in S : t(a_2 s_1 - a_1 s_2) = 0$$
+
+heißt \emp{Ring der Brüche} \index{Ring!Brüche} von $R$ mit Nennern in $S$ (oder \emp{Lokalisierung} \index{Lokalisierung} von $R$ nach $S$).
+
+Schreibweise: $\frac{a}{s}$ sei die Äquivalenzklasse von $(a,s)$.
+
+\begin{proof}
+$\sim$ ist Äquivalenzrelation.
+
+reflexiv: $\surd$. symmetrisch: $\surd$.
+
+transitiv:\\
+(1) $a_2 s_1 = a_1 s_2$\\
+(2) $a_3 s_2 = a_2 s_3$
+
+\dann $a_3 s_2 s_1 \xlongequal{(2)} a_2 s_3 s_1 \xlongequal{(1)} a_1 s_3 s_2$
+\dann $s_2 (a_3 s_1 - a_1 s_3) = 0$
+
+$\xRightarrow{\substack{\text{\underline{falls} $R$ nullteilerfrei}\\\text{und } 0 \notin S}} a_3 s_1 = a_1 s_3$. 
+
+(mit der neuen Definition mit $\exists t$...)
+
+\begin{tabular}{@{}lll}
+Sei & (1) $t(a_2 s_1 - a_1 s_2) = 0$\\
+    & (2) $t'(a_2 s_3 - a_3 s_2) = 0$ & mit $t,t' \in S$:
+\end{tabular}
+
+$\begin{array}{lrll}
+\Rightarrow & & t \cdot t' s_2 (a_3 s_1 - a_1 s_3) \\
+            & = & t (t' a_3 s_2 s_1 - t' a_1 s_3 s_2) \\
+            & \xlongequal{(2)} & t (t' a_2 s_3 s_1 - t' a_1 s_3 s_2) \\
+            & = & t' s_3 t (s_2 s_1 - a_1 s_2) & \xlongequal{(1)} = 0
+\end{array}$
+
+\end{proof}
+
+\item[b)] 
+Mit $\dfrac{a_1}{s_1} \cdot \dfrac{a_2}{s_2} := \dfrac{a_1 \cdot a_2}{s_1 \cdot s_2}$ und $\dfrac{a_1}{s_1} + \dfrac{a_2}{s_2} := \dfrac{a_1 s_2 + a_2 s_1}{s_1 s_2}$
+
+ist $R_S$ ein kommutativer Ring mit Eins.
+
+\begin{proof}
+$\cdot$ wohldefiniert: Sei $\dfrac{a_1'}{s_1'} = \dfrac{a_1}{s_1}$
+
+\dann $\exists t \in S : t(a_1' s_1 - a_1 s_1') = 0$
+
+\dann $t \cdot (a_1' a_2 s_1 s_2 - a_1 a_2 s_2 s_1') = $\\
+$(t a_1 s_1' a_2 s_2 - t a_1 a_2 s_2 s_1') = 0$.
+
+$+$ wohldefiniert: Sei $\dfrac{a_1'}{s_1'} = \dfrac{a_1}{s_1}$
+
+\dann $t (s_1' s_2 (a_1 s_2 + a_2 s_1) - s_1 s_2 (a_1' s_2 + a_2 s_1'))$\\
+$= t s_2 (a_1 s_2 s_1' + \cancel{a_2 s_1 s_1'} - a_1' s_1 s_2 - \cancel{a_2 s_1 s_1'})$\\
+$= 0$
+
+Rest wie in $\Q$.
+
+\end{proof}
+\end{enumerate}
+
+\end{defbem}
+
+\begin{beisp}
+\begin{enumerate}
+\item[a)]
+Sei $R$ nullteilerfrei, $S = R \setminus \{0\}$
+
+Dann ist $\Quot(R) = R_S$ ein Körper, er heißt der \emp{Quotientenkörper} \index{Quotientenkörper} von $R$.
+
+denn: $\left(\dfrac{a}{b}\right)^{-1} = \dfrac{b}{a}$ für ($a \neq 0$)
+
+z.B. $R = K[X_1, \ldots, X_n]$, $K$ ein Körper.
+
+\dann $\Quot(R) = K(X_1, \ldots, X_n)$ Körper der rationalen Funktionen in $n$ Variablen.
+
+$R = \Z[X]$ \dann $\Quot(R)$ = ...?
+
+\item[b)]
+$x \in R \setminus \{0\}$, $S = \{ x^n : n \geq 0 \}$
+
+$R_S =: R_X = \{ \dfrac{a}{x^n} : x \in R, n \geq 0 \}$
+
+z.B. $R = \Z$, $x = 2$, \dann $R_S = \Z[\frac{1}{2}] = \left\{ \dfrac{m}{2^n} : m \in \Z, n \in \N \right\}$
+
+\item[c)]
+Sei $\mathfrak{p} \subset R$ Primideal, $S = R - \mathfrak{p}$ ist Monoid.
+
+$R_S =: R_\mathfrak{p}$ heißt Lokalisierung von $R$ nach $\mathfrak{p}$
+
+z.B. $R = \Z$, $\mathfrak{p} = (2)$.
+
+\dann $\Z_{(2)} = \{\frac{m}{n} : m \in \Z, n \text{ ungerade} \}$
+
+a) ist Spezialfall $\mathfrak{p} = (0)$
+
+$\mathfrak{p} R_\mathfrak{p} = \{ \frac{x}{y} : x \in \mathfrak{p}, y \in R \setminus \mathfrak{p} \}$ ist maximales Ideal in $R_\mathfrak{p}$ und zwar das einzige.
+
+denn: Sei $\frac{z}{y} \in R_\mathfrak{p} \setminus \mathfrak{p} R_\mathfrak{p}$, d.h. $z \in R \setminus \mathfrak{p}$, $y \in R \setminus \mathfrak{p}$.
+
+\dann $\frac{z}{y} \in R_\mathfrak{p}$ \dann $\frac{y}{z} \in (R_\mathfrak{p})^\times$
+
+typisches Beispiel: $R = \R[X]$ (oder $R = \mathcal{C}^0([-1,1])$)
+
+$\mathfrak{p} = \{ f \in R : f(0) = 0 \}$ ist Primideal in $R$.
+
+$R_\mathfrak{p}  = \{ \frac{f}{g} : f,g \in R, g(0) \neq 0 \}$
+
+\item[d)]
+Ist $0 \in S$, so ist $R_S = \{0\}$.
+
+\end{enumerate}
+
+\end{beisp}
+
+\begin{bem}
+Sei $R$ kommutativer Ring mit Eins. $S \subset (R,\cdot)$ Monoid.
+
+\begin{enumerate}
+\item[a)] Die Abbildung $i_S : R \rightarrow R_S$, $a \mapsto \frac{a}{1}$ ist ein Ringhomomorphismus.
+
+\item[b)] $i_S$ ist injektiv, falls $S$ keinen Nullteiler von $R$ enthält und $0 \notin S$.
+
+\begin{proof}
+$\frac{a}{1} = 0 (= \frac{0}{1})$ in $R_S$ \dann $\exists s \in S$ mit $s(a \cdot 1 - 0 \cdot 1) = 0$
+\end{proof}
+
+\item[c)] $i_S(S) \subset (R_S)^\times$
+
+\begin{proof}
+$(\frac{s}{1})^{-1} = \frac{1}{s}$
+\end{proof}
+
+\item[d)]
+Universelle Abbildungseigenschaft:
+
+Zu jedem Homomorphismus $\varphi : R \rightarrow R'$ von Ringen mit Eins mit $\varphi(S) \subset (R')^\times$ gibt es genau einen Homomorphismus $\widetilde{\varphi} : R_S \rightarrow S'$ mit $\varphi = \widetilde{\varphi} \circ i_S$ so dass
+
+\begin{center}
+\leavevmode
+\xymatrix{
+R \ar[dr]_{\displaystyle i_S} \ar[rr]_{\displaystyle \varphi} & & R' \\
+& R_S \ar@{-->}[ur]_{\displaystyle \exists \widetilde\varphi} }
+\end{center}
+
+kommutiert.
+
+\begin{proof}
+$\widetilde\varphi(\frac{a}{s}) = \widetilde\varphi(a \cdot \frac{1}{s}) = \widetilde\varphi(\frac{a}{1} \cdot (\frac{s}{1})^{-1}) = \varphi(a) \cdot \varphi(s)^{-1}$
+\end{proof}
+
+\end{enumerate}
+\end{bem}
+
+\section{Teilbarkeit im Polynomring}
+
+Sei $R$ faktorieller Ring. $\mathcal{P}$ Vertretersystem der Primelemente in $R$.
+
+Jedes $a$ besitzt eine eindeutige Darstellung $\displaystyle a = e \prod_{p \in \mathcal{P}} p^{\nu_p(a)}$
+mit $e \in R^\times$, $\nu_p(a) \in \N$.
+
+\begin{defin}
+Für $f \in R[X]$, $\displaystyle f = \sum_{i=0}^{n} a_i X^i$ und $p \in \mathcal{P}$ sei $\nu_p(f) = \min\{ \nu_p(a_i) : i=0, \ldots, n \}$
+
+$f$ heißt \index{primitiv} \emp{primitiv}, wenn $\nu_p(f) = 0$ für alle $p \in \mathcal{P}$.
+\end{defin}
+
+\begin{satz}[Irreduzibilitätskriterium von Eisenstein]
+Sei $R$ faktoriell, $\displaystyle f = \sum_{i=0}^n a_i X^i \in R[X]$ primitiv mit $a_n \neq 0$.
+
+Sei $p \in \mathcal{P}$ mit $p \nmid a_n$, $p \mid a_i$ für $i = 0, \ldots, n-1$ und 
+$p^2 \nmid a_0$
+
+Damit ist $f$ irreduzibel.
+
+\begin{proof}
+Sei $f = g \cdot h$ mit $\displaystyle g = \sum_{i=0}^r b_i X^i$, $\displaystyle h = \sum_{i=0}^s c_i X^i$ mit $b_r \neq 0 \neq c_s$.
+
+\dann $n = r + s$, $a_n = b_r c_s$, $a_0 = b_0 c_0$ \dann $p \nmid b_r$, $p \nmid c_s$ und $p \mid b_0$, $p \mid c_0$.
+
+Sei $t$ maximal mit $p \mid b_i$ für $i = 0, \ldots, t$.
+
+Dann ist $0 \leq t \leq r-1$ und $\underbrace{a_{t+1}}_{\notin (p)} = \underbrace{b_{t+1}}_{\notin (p)} \cdot c_0 + \underbrace{\sum_{i=0}^t b_i c_{t+1-i}}_{\in (p)}$
+
+\dann $t + 1 = n$ \dann $r = n$ \dann $s = 0$.
+
+\end{proof}
+\end{satz}
+
+% Vorlesung ... (ich war hier nicht ganz in der VL)
+
+\begin{beisp}
+$f(x) = x^{p-1} + x^{p-2} + \cdots + x + 1$
+mit $p \in \Z[x]$ Primzahl.
+
+Behauptung: $f$ ist irreduzibel.
+
+Beobachtung: $f(x) = \dfrac{x^p - 1}{x - 1}$
+
+Trick: $g(x) := f(x + 1)$ ist genau dann irreduzibel, wenn $f(x)$ irreduzibel ist.
+
+\begin{floatingfigure}[r]{5cm}
+\input{pics/2.6-1.pictex}
+\end{floatingfigure}
+
+$g(x) = \dfrac{(x+1)^p - 1}{x} = \displaystyle\sum_{k=1}^p \binom{p}{k} x^{k-1}$
+
+wobei $\binom{p}{p} = 1 = a_{p-1}$, $a_0 = \binom{p}{1} = p$.\\
+noch zu überlegen: $\binom{p}{k}$ ist durch $p$ teilbar für $p=2, \ldots, p-1$.
+
+Bekannt ist $\binom{p}{k} = \dfrac{p!}{k!(p-k)!}$ \dann durch $p$ teilbar.
+
+Mit Eisenstein folgt die Behauptung.
+
+Beispiel: $f = x^2 -4 \in \Z[x]$
+
+mit $p = 2$: $\bar{f} = x^2 - 1 = (x-1)^2$\\
+$p = 5$: $\bar{f} = x^2$\\
+$p = 3$: $\bar{f} = x^2 + 1 \in \field{F}_3[X]$ ist irreduzibel.
+
+[macht das Sinn?]
+\end{beisp}
+
+\begin{prop}
+Sei $R$ faktorieller Ring, $p \in R$ Primelement.
+
+\begin{enumerate}
+\item[a)] $\widebar{R}[X] = \QuotRaum{R[X]}{p R[X]}$ wobei $\widebar{R} = \QuotRaum{R}{(p)}$
+
+\item[b)] Sei $f \in R[X]$ primitiv, $p \nmid a_n$, ($f = \sum_{i=0}^{n}{a_i X^i}, a_n \neq 0$)
+
+Ist $\widebar{f} \in \widebar{R}[X]$ irreduzibel, so ist $f$ irreduzibel in $R[X]$.
+
+\end{enumerate}
+
+\begin{proof}
+\begin{enumerate}
+\item[a)]
+$R \rightarrow \widebar{R}$ induziert den Homomorphismus $\varphi: R[X] \rightarrow \widebar{R}[X]$.
+
+$\Kern(\varphi) = \{ f \in \sum_{i=0}^{n}{a_i X^i} : p \mid a_i \text{ für } i = 0, \ldots, n \} = p R[X]$
+
+Mit dem Homomorphiesatz folgt die Behauptung.
+
+\item[b)]
+Sei $f = g \cdot h$ \dann $\widebar{f} = \widebar{g} \cdot \widebar{h}$, schreibe $h = \displaystyle\sum_{i=0}^{s}{c_i X^i}$.
+
+Also ohne Einschränkung $\widebar{h} \in \displaystyle \left(\widebar{R}[X]\right)^\times = \widebar{R}^\times$ 
+
+\dann $p \mid c_i$ für $i = 1, \ldots, s$
+
+Wäre $s \geq 1$, so wäre $c_s$ durch $p$ teilbar, also auch $b_r c_s = a_n$. Widerspruch.
+
+\end{enumerate}
+
+\end{proof}
+\end{prop}
+
+\begin{satz}[Satz von Gauß]
+Ist $R$ faktorieller Ring, so ist $R[X]$ faktoriell.
+
+\begin{proof}
+
+Sei $K := \Quot(R)$.
+
+Dann ist $K[X]$ faktoriell (weil Hauptidealring), $R[X] \subseteq K[X]$ Unterring.
+
+Sei $0 \neq f \in R[X]$ lässt sich als Produkt von Primelemente in $K[X]$ schreiben.
+
+Zu zeigen also: die Faktoren liegen in $R[X]$ und sind dort prim.
+
+Vorarbeit:
+\begin{bem}
+Für jedes Primideal $p \in R$ und alle $f,g \in K[X]$ gilt:
+$\nu_p(f \cdot g) = \nu_p(f) + \nu_p(g)$.
+
+Dabei wähle System $\mathcal{P}$ von Vertretern der Primelemente,
+
+zerlege $x \in R$ als $x = e \displaystyle\prod_{p \in \mathcal{P}}{p^{\nu_p(x)}}$,
+
+und betrachte $\nu_p(x \cdot y) = \nu_p(x) \cdot \nu_p(y)$.
+
+für $f = \displaystyle\sum_{i=0}^{n}{a_i X^i}$ ist $\nu_p(f) = \displaystyle\min_{i=0}^{n}{ \nu_p(a_i) }$
+
+für $x = \dfrac{a}{b} \in K$ sei $\nu_p(x) = \nu_p(a) - \nu_p(b) \in \Z$.
+
+\begin{proof}
+1. Schritt: $\Grad(f) = 0$, d.h. $f = a_o \in K$, $g = \sum_{i=0}^{n}{b_i X^i}$
+
+\dann $f \cdot g = \sum_{i=0}^{n}{a_0 b_i X^i}$.
+
+$\displaystyle \nu_p(f \cdot g) = \min_{i=0}^{n}{ \nu_p(a_0 b_i) } = \min_{i=0}^{n}( \nu_p(a_0) + \nu_p(b_i) ) = \nu_p(a_0) + \min_{i=0}^{n} \nu_p(b_i) = \nu_p(f) + \nu_p(g)$
+
+2. Schritt: Wir dürfen annehmen: $f,g \in R[X]$ primitiv.
+
+denn: Wähle $a \in R$ mit $a \cdot f \in R[X]$ (,,Hauptnenner``).
+
+Sei $d$ in ggT der Koeffizienten von $a \cdot f = \frac{a}{d} \cdot f \in R[X]$ ist primitiv.
+
+Seien also $a \cdot f$ und $b \cdot g$ primitiv. ($a,b \in R \setminus \{0\}$ geeignet).
+
+Es gilt dann $\nu_p(af \cdot bg) = \nu_p(a \cdot b) + \nu_p(f \cdot g) = \nu_p(a) + \nu_p(f) + \nu_p(b) + \nu_p(g) = \nu_p(a f) + \nu_p(b g)$
+
+und daraus folgt: $\nu_p(f \cdot g) = \nu_p(g) + \nu_p(g)$.
+
+3. Schritt: Für primitive $f,g \in R[X]$ gilt: $\nu_p(f \cdot g) = \nu_p(f) + \nu_p(g)$
+
+Sei $p \in \mathcal{P}, \QuotRaum{\widebar{R}}{(p)}$ \dann $\bar{f} \neq 0 \neq g$ in $\widebar{R}[X]$ \dann $\bar{f} \cdot \bar{g} \neq 0$, da $R[X]$ nullteilerfrei, also $\nu_p(f \cdot g) = 0$.
+
+$f,g$ primitiv \dann $\nu_p(f) = \nu_p(g) = 0$.
+
+\end{proof}
+\end{bem}
+
+% Vorlesung vom 23.12.2005 - der Uebergang ist nicht klar
+Weiter mit dem Beweis des Satzes von Gauß:
+
+Stand der Dinge:
+
+$\mathcal{P}$ Vertretersystem der Primelemente in $R$.
+
+$a \in R \setminus \{0\}$ \dann $a = e \prod_{p \in \mathcal{P}} p^{\nu_p(a)}$
+
+$x = \frac{a}{b} \in K = \Quot(R)$ \dann $\nu_p(x) = \nu_p(a) - \nu_p(b)$.
+
+$f = \sum_{i=0}^n{a_i X^i} \in K[X]$ \dann $\nu_p(f) = \min\{ \nu_p(a_i), i = 0, \ldots n \}$.
+
+$f \in R[X]$ primitiv \gdw $\nu_p(f) = 0$ für alle $p \in \mathcal{P}$.
+
+Es gilt: $\nu_p(f \cdot g) = \nu_p(f) + \nu_p(g)$ für alle $f,g \in K[X]$.
+
+Sei $\widetilde{\mathcal{P}}$ Vertretersystem der Primelemente in $K[X]$.
+
+Alle $f_i \in \widetilde{\mathcal{P}}$ seien in $P[X]$ und primitiv.
+
+Sei nun $f \in R[X]$, $f \neq 0$.
+
+Schreibe $f = c \cdot f_1 \cdots f_n$, $f_i \in \widetilde{\mathcal{P}}$ (mit $c \in K^\times$)
+
+Beobachte: $c \in R$, denn für $p \in \widetilde{\mathcal{P}}$ ist $0 \leq \nu_p(f) = \nu_p(c) + \sum_{i=0}^n \nu_p(f_i) = \nu_p(c)$ \dann $c \in R$.
+
+Schreibe als $c = e \cdot p_1 \cdots p_m$ mit $e \in R^\times$ und $p_i \in \mathcal{P}$.
+
+Noch zu zeigen:\\
+1) $p_i \in R[X]$ ist prim.\\
+2) $f_i$ ist prim in $R[X]$.
+
+Beweis 1)
+
+Zeige $\QuotRaum{R[X]}{(p_i)}$ ist nullteilerfrei.
+
+Da $\QuotRaum{R[X]}{(p_i)} = \QuotRaum{R[X]}{p_i R[X]} \cong \underbrace{\QuotRaum{R}{p_i R}}_{\text{nullteilerfrei}}[X]$
+
+\dann Behauptung.
+
+Beweis 2)
+
+Seien $g,h \in R[X]$ mit $g \cdot h \in f_i R[X] = (f_i)$
+
+Da $f_i$ Primelement in $K[X]$ ist, muss (z.B.) $g$ in $f_i K[X]$ liegen.
+
+d.h. $g = f_i \tilde{g}$ für ein $\tilde{g} \in K[X]$.
+
+Für jedes $p \in \mathcal{P}$ ist dann\\
+$0 \leq \nu_p(g) = \underbrace{\nu_p(f_i)}_{=0} + \nu_p(\tilde{g}) = \nu_p(\tilde{g})$
+
+\dann $\tilde{g} \in R[X]$ \dann $f_i$ ist prim in $R[X]$.
+
+\end{proof}
+\end{satz}
+
+\section{Moduln}
+
+Sei $R$ kommutativer Ring mit Eins.
+
+\begin{defbem}
+\begin{enumerate}
+\item[a)]
+Eine abelsche Gruppe $(M,+)$ zusammen mit einer Abbildung $\cdot : R \times M \rightarrow M$ heißt \index{Modul} \emp{$R$-Modul}, wenn gilt:
+
+\begin{enumerate}
+\item[(i)]   $a (x + y) = ax + ay$
+\item[(ii)]  $(a + b) x = ax + bx$
+\item[(iii)] $(a \cdot b) x = a \cdot (bx)$
+\item[(iv)]  $1 \cdot x = x$
+\end{enumerate}
+für alle $x,y \in M$, $a,b \in R$.
+
+\paragraph{Beispiele}
+\begin{enumerate}
+\item[1)] $R$ ist $R$-Modul (mit $\cdot$ als Ringmultiplikation)
+\item[2)] Ist $R$ ein Körper, so ist $R$-Modul = $R$-Vektorraum.
+\item[3)]
+$R = \Z$, $M = \QuotRaum{\Z}{2 \Z} = \{\bar{0},\bar{1}\}$
+ist $\Z$-Modul durch $n \cdot \bar{0} = \bar{0}$, $n \cdot \bar{1} = n$.
+
+jede abelsche Gruppe $A$ ist $\Z$-Modul durch $n \cdot x = \underbrace{x + \cdots + x}_\text{$n$-mal}$ für $n \in \N$, $x \in A$.
+
+\item[4)] Jedes Ideal in $R$ ist $R$-Modul.
+\end{enumerate}
+
+\item[b)]
+Eine Abbildung $\varphi: M \rightarrow M'$ von $R$-Moduln heißt \emp{$R$-Modulhomomorphismus} \index{Modulhomomorphismus} (oder $R$-linear),
+
+wenn $\varphi$ Gruppenhomomorphismus ist und für alle $x \in M$, $a \in R$ gilt: $\varphi(a x) = a \cdot \varphi(x)$.
+
+\item[c)]
+$\Hom_R(M,M') := \{ \varphi: M \rightarrow M' : \varphi \text{ $R$-linear} \}$
+
+ist $R$-Modul durch $(\varphi_1 + \varphi_2)(x) = \varphi_1(x) + \varphi_2(x)$ und $(a \varphi)(x) = a \varphi(x)$ für alle $\varphi_1, \varphi_2 \in \Hom_R(M,M'), a \in R$.
+
+\item[d)]
+Die $R$-Moduln bilden mit den $R$-linearen Abbildungen eine Kategorie: \underline{$R$-Mod}.
+
+\item[e)]
+Die Kategorien \underline{$\Z$-Mod} und \underline{AbGruppen} sind isomorph.
+
+\begin{proof}
+$\varphi(n \cdot x) = \varphi(x + \cdots + x) = \varphi(x) + \cdots + \varphi(x) = n \cdot \varphi(x)$ für $\varphi : A \rightarrow A'$ Gruppenhomomorphismus, $x \in A$, $n \in \N$.
+
+\dann Jeder Gruppenhomomorphismus von abelschen Gruppen ist $\Z$-linear.
+\end{proof}
+
+\end{enumerate}
+\end{defbem}
+
+\begin{defbem}
+Sei $M$ ein $R$-Modul.
+
+\begin{enumerate}
+\item[a)] Eine Untergruppe $U$ von $(M,+)$ heißt $R$-Untermodul von $M$, wenn
+$R \cdot U \subseteq U$ ist. (d.h. $U$ ist selbst $R$-Modul)
+
+\item[b)]
+Ist $\varphi : M \rightarrow M'$ $R$-linear, so sind $\Kern(\varphi)$ und $\Bild(\varphi)$ Untermoduln von $M$ bzw. $M'$.
+
+(denn: $\varphi(x) = 0$ \dann $\varphi(ax) = 0$ $\forall a \in R, x \in M$ und $a \cdot \varphi(x) = \varphi(a \cdot x)$ $\forall a \in R, x \in M$.)
+
+\item[c)]
+Sei $U \subseteq M$ Untermonoid. Dann wird $\QuotRaum{M}{U}$ zu $R$-Modul durch $a \cdot \widebar{x} = \widebar{a \cdot x}$.
+
+(denn: ist $x' \in \widebar{x}$, also $x - x' \in U$, so ist $a \cdot x' = a \cdot x = a (x' - x) \in U$.)
+
+Die Restklassenabbildung $p : M \rightarrow \QuotRaum{M}{U}$, $x \mapsto \widebar{x}$ ist $R$-linear.
+
+(denn: $p(a \cdot x) = \widebar{a \cdot x} = a \widebar{x} = a \cdot p(x)$.)
+
+\end{enumerate}
+\end{defbem}
+
+\begin{defbem}
+Sei $M$ ein $R$-Modul.
+
+\begin{enumerate}
+\item[a)] Für $X \subseteq M$ heißt
+$\displaystyle \langle X \rangle = \bigcap_{\substack{U \text{ Untermodul von } M\\X \subseteq U}} U$ der von $X$ erzeugt Untermodul.
+
+\item[b)]
+$\displaystyle \langle X \rangle = \left\{ \sum_{i=0}^n{a_i x^i} : a_i \in R, x \in X, n \in \N \right\}$
+
+\item[c)]
+$B \subseteq M$ heißt \index{linear unabhängig} \emp{linear unabhängig}, wenn
+$$0 = \sum_{i=0}^n{a_i b_i} \text{ mit } a_i \in R, b_i \in B, n \in \N$$
+nur möglich ist mit $a_i = 0$ für alle $i$.
+
+\item[d)]
+$B \subseteq M$ heißt \index{Basis} \emp{Basis}, wenn jedes $x \in M$ eindeutig als Linearkombination
+$$x = \sum_{i=0}^n{a_i b_i} (a_i \in R, a_i \in B, n \in \N)$$
+darstellbar ist.
+
+äquivalent: $B$ linear unabhängig und $\langle B \rangle = M$.
+
+\item[e)]
+$M$ heißt \index{Modul!freier} \emp{freier} $R$-Modul, wenn $M$ eine Basis besitzt.
+
+\end{enumerate}
+
+\paragraph{Beispiel}
+
+\begin{enumerate}
+\item[1)]
+$R$ ist freier $R$-Modul mit Basis 1. (oder eine andere Einheit)
+
+\item[2)] Für jedes $n \in \N$ ist $R^n = R \oplus R \oplus \cdots \oplus R$ freier $R$-Modul mit Basis $e_1, \ldots e_n$ mit $e_i = (0, \ldots \underbrace{1}_{i\text{-te Stelle}}, \ldots 0)$.
+
+\item[3)] Ist $I \subseteq R$ Ideal, so ist $M := \QuotRaum{R}{I} = \langle \{\bar{1}\} \rangle$.
+
+Für $I \neq \{0\}$ ist $\QuotRaum{R}{I}$ \underline{nicht frei}!
+
+denn: sei $\bar{x} \in M$, $a \in I \setminus \{0\}$\\
+\dann $a \cdot \bar{x} = \widebar{a \cdot x} = \bar{0}$\\
+\dann in $M$ gibt es kein linear unabhängiges Element.
+
+\end{enumerate}
+
+\end{defbem}
+
+% Erste Vorlesung im Jahr 2006: 9.1.
+
+\chapter{Algebraische Körpererweiterungen}
+
+\section{Grundbegriffe}
+
+\begin{defin}
+Sei $L$ ein Körper, $K \subseteq L$ Teilkörper.
+
+\begin{enumerate}
+\item[a)] Dann heißt $L$ \emp{Körpererweiterung} \index{Körpererweiterung} von $K$.
+
+Schreibweise: $L/K$ Körpererweiterung.
+
+\item[b)]
+$[L:K] := dim_K L$ heißt \index{Körpererweiterung!Grad} \emp{Grad} von $L$ über $K$.
+
+\item[c)]
+$L/K$ heißt \index{Körpererweiterung!endlich} \emp{endlich}, wenn $[L:K] < \infty$.
+
+\item[d)]
+$\alpha \in L$ heißt \emp{algebraisch} \index{algebraisch} über $K$, wenn es ein $0 \neq f \in K[X]$ gibt mit $f(\alpha) = 0$.
+
+\item[e)]
+$\alpha \in L$ heißt \emp{transzendent} \index{transzendent} über $K$, wenn $\alpha$ nicht algebraisch ist.
+
+\item[f)]
+$L/K$ heißt \index{Körpererweiterung!algebraische} \emp{algebraische Körpererweiterung}, wenn jedes $\alpha \in L$ algebraisch über $K$ ist.
+
+\end{enumerate}
+\end{defin}
+
+\paragraph{Beispiele}
+
+\begin{enumerate}
+
+\item[1)]
+Für $a \in \Q$ und $n \geq 2$ ist $\sqrt[n]{a}$ algebraisch über $\Q$,\\
+da Nullstelle von $x^n - a$.
+
+Summe und Produkt von solchen Wurzeln sind auch algebraisch über $\Q$.
+
+z.B. $\sqrt{2} + \sqrt{3}$ ist Nullstelle von $(x^2 - 5)^2 - 24 = x^4 - 10 x^2 + 1$.
+
+\item[2)]
+Sei $L = K(X) = \Quot(K[X])$.
+
+Dann ist $X$ transzendent über $K$.
+
+Das gleiche gilt für jedes $f \in K(X) \setminus K$.
+
+\item[3)]
+In $\R$ gibt es sehr viele über $\Q$ transzendente Elemente. $\Q$ ist abzählbar, also auch $\Q[X]$, jedes $f \in \Q[X]$ hat endlich viele Nullstellen \dann es gibt nur abzählbar viele Elemente in $\R$, die algebraisch über $\Q$ sind.\\
+\dann $\R$ ist nicht abzählbar.
+
+\end{enumerate}
+
+\begin{defbem}
+Sei $L/K$ Körpererweiterung, $\alpha \in L$.
+
+$\varphi_\alpha : K[X] \rightarrow L$, $f \mapsto f(\alpha)$ Einsetzungshomomorphismus.
+
+\begin{enumerate}
+\item[a)]
+$\Kern(\varphi_\alpha)$ ist Primideal in $K[X]$.
+
+\begin{proof}
+$\Kern(\varphi_\alpha)$ ist Ideal, da $\varphi_\alpha$ Homomorphismus.
+
+Seien $f,g \in K[X]$ mit $f,g \in \Kern(\varphi_\alpha)$ \dann $(f \cdot g)(\alpha) = 0 = f(\alpha) \cdot g(\alpha)$ \dann $f(\alpha) = 0$ oder $g(\alpha) = 0$.
+\end{proof}
+
+\item[b)]
+$\alpha$ algebraisch \gdw $\Kern(\varphi_\alpha) \neq \{0\}$.
+
+\item[c)]
+Ist $\alpha$ algebraisch über $K$, so gibt es ein eindeutig bestimmtes irreduzibeles Polynom $f_\alpha \in K[X]$ mit $f_\alpha(\alpha) = 0$ und $\Kern(\varphi_\alpha) = (f_\alpha)$.
+
+$f_\alpha$ heißt \emp{Minimalpolynom} \index{Minimalpolynom} von $\alpha$.
+
+\begin{proof}
+$K[X]$ ist Hauptidealring \dann $\widetilde{f}_\alpha$ mit $\Kern(\varphi_\alpha) = (\widetilde{f}_\alpha)$ wegen a) ist $\widetilde{f}_\alpha$ irreduzibel, eindeutig bis auf eine Einheit in $K[X]$, also ein Element aus $K^\times$.\\
+\dann $\exists! \lambda \in K^\times$, so dass $\lambda \widetilde{f}_\alpha = f_\alpha$ normiert ist.
+\end{proof}
+
+\item[d)]
+$\displaystyle K[\alpha] := \Bild(\varphi_\alpha) = \left\{ f(\alpha) : f \in K[X] \right\} \subset L$
+ist der kleinste Unterring von $L$, der $K$ und $\alpha$ enthält.
+
+\item[e)]
+$\alpha$ ist transzendent \gdw $K[\alpha] \cong K[X]$.
+
+\begin{proof}
+Folgt aus b)
+\end{proof}
+
+\item[f)]
+Ist $\alpha$ algebraisch über $K$, so ist $K[\alpha]$ ein Körper und $[K[\alpha]:K] = \deg(f_\alpha)$.
+
+\begin{proof}
+Nach Homomorphiesatz ist $K[\alpha] \cong \QuotRaum{K[X]}{\Kern(\varphi_x)}$.
+
+$\Kern(\varphi_x)$ ist maximales Ideal, da Primideal $\neq (0)$ in $K[X]$ (siehe Beweis Satz 9, Behauptung 2),\\
+\dann $K[\alpha]$ ist Körper.
+
+$f_\alpha(\alpha) = 0$, also $\alpha^n + c_{n-1} \alpha^{n-1} + \cdots + c_1 \alpha + c_0 = 0$\\
+mit $c_i \in K$, $c_0 \neq 0$ ($f_\alpha$ irreduzibel.)\\
+\dann $\alpha(\alpha^{n-1} + \cdots + c_1) = -c_0$.
+
+Genauso: $1, \alpha, \alpha^2, \alpha^{n-1}$ ist $K$-Basis von $K[\alpha]$.
+
+\end{proof}
+
+\end{enumerate}
+\end{defbem}
+
+\begin{defin}
+Sei $L/K$ Körpererweiterung.
+
+\begin{enumerate}
+\item[a)]
+Für $A \subset L$ sei $K(A)$ der kleinste Teilkörper von $L$, der $A$ und $K$ umfasst.\\
+$K(A)$ heißt der \emp{von $A$ erzeugte Teilkörper} \index{Teilkörper!erzeugte} von $L$.
+
+Es ist $K(A) = \left\{ \dfrac{f(\alpha_1, \ldots, \alpha_n)}{g(\alpha_1, \ldots, \alpha_n)} : n \geq 1, \alpha_i \in A, f,g \in K[X_1, \ldots X_n], g \neq 0 \right\}$.
+
+\item[b)]
+$L/K$ heißt \index{Körpererweiterung!einfach} \emp{einfach}, wenn es $\alpha \in L$ gibt mit $L = K(\alpha)$.
+
+\item[c)]
+$L/K$ heißt \index{Körpererweiterung!endlich erzeugt} \emp{endlich erzeugt}, wenn es eine endliche Menge $\{ \alpha_1, \ldots \alpha_n \} \subset L$ gibt mit $L = K(\alpha_1, \ldots \alpha_n)$.
+
+\end{enumerate}
+
+\end{defin}
+
+\begin{defbem}
+Für eine Körpererweiterung $L/K$ sind äquivalent:
+\begin{enumerate}
+\item[(i)] $L/K$ ist endlich.
+\item[(ii)] $L/K$ ist endlich erzeugt und algebraisch.
+\item[(iii)] $L$ wird von endlich vielen über $K$ algebraischen Elementen erzeugt.
+\end{enumerate}
+
+\begin{proof}
+(i) \dann (ii)
+
+Sei $[L:K] = n$, $\alpha \in L$ \dann $1,\alpha,\alpha^2,\ldots,\alpha^n$ sind $K$-linear abhängig\\
+\dann $\exists c_i \in K$ nicht alle 0 mit $\displaystyle \sum_{i=0}^n c_i \alpha^i = 0$.
+
+\dann $f(\alpha) = 0$ für $f = \displaystyle\sum_{i=0}^n c_i X^i \in K[X]$.
+
+(ii) \dann (iii) $\surd$
+
+(iii) \dann (i): Induktion über die Anzahl $n$ der Erzeuger:
+
+$n = 1$: DefBem 3.2 f).
+
+$n > 1$: auch DefBem 3.2 f).
+\end{proof}
+\end{defbem}
+
+\begin{bem}
+Seien $K \subset L \subset M$ Körper.
+
+\begin{enumerate}
+\item[a)] Seien $M/L$ und $L/K$ algebraisch, so auch $M/K$.
+
+\item[b)] Seien $M/L$ und $L/K$ endlich, so auch $M/K$ und es gilt: $[M:K] = [M:L] \cdot [L:K]$.
+\end{enumerate}
+
+\begin{proof}
+\begin{enumerate}
+\item[a)]
+% Aus der Vorlesung 13.1 doch irgendwie macht er keinen Sinn hier?
+Sei $\alpha \in M$, $f_\alpha = \sum_{i=0}^n c_i X^i \in L[X]$ mit $f_\alpha(\alpha) = 0$.
+
+Dann ist $\alpha$ algebraisch über $K(c_0, \ldots, c_n) =: L' \subset L$
+
+$L'$ endlich erzeugt über $K$ $\xRightarrow{\text{3.4}}$ $L'/K$ endlich.
+
+Außerdem ist $L'(\alpha)/L'$ endlich $\xRightarrow{(a)}$ $K'(\alpha)/K$ endlich\\
+\dann $\alpha$ algebraisch über $K'$.
+
+\item[b)]
+
+Sei $b_1, \ldots b_m$ $K$-Basis von $L$ und $e_1, \ldots e_n$ $L$-Basis von $M$.
+
+\dann $B = \{ e_i b_j : i=1, \ldots n, j = 1, \ldots m \}$ ist $K$-Basis von $M$.
+
+denn: $B$ erzeugt $M$: Sei $\alpha \in M$, $\alpha = \sum_{i=1}^n \lambda_i e_i$ mit $\lambda_i \in L$.
+
+$\lambda_i = \sum_{j=1}^n \mu_{ij} b_j$. einsetzen \dann Behauptung.
+
+$B$ linear unabhängig:
+
+Ist $\sum \mu_{ij} e_i b_j = 0$, so ist für jedes feste $i$: $\sum_{j=1}^n \mu_{ij} b_j = 0$, da die $e_i$ über $L$ linear unabhängig sind.
+
+Da die $b_j$ linear unabhängig sind, sind die $\mu_{ij} = 0$.
+
+\end{enumerate}
+\end{proof}
+\end{bem}
+
+% Vorlesung vom 13.1.2006
+
+\paragraph{Beispiele}
+
+$\cos(\frac{2 \pi}{n})$ ist für jedes $n \in \Z \setminus \{0\}$ algebraisch über $\Q$.
+
+denn: $\cos(\frac{2 \pi}{n}) = \Re(e^\frac{2 \pi i}{n}) = \frac{1}{2}(e^\frac{2 \pi i}{n} + \overline{ e^\frac{2 \pi i}{n} } ) = \frac{1}{2}(e^\frac{2 \pi i}{n} + e^{-\frac{2 \pi i}{n}} )$
+
+$e^\frac{2 \pi i}{n}$ ist Nullstelle von $(x^n - 1)$, also algebraisch über $\Q$.
+
+\dann $K = \Q(e^\frac{2 \pi i}{n})$ ist endliche Körpererweiterung von $\Q$.
+
+$\cos(\frac{2 \pi}{n}) \in K$ $\xRightarrow{\text{3.4 (i) \dann (ii)}}$ $\cos(\frac{2 \pi}{n})$ algebraisch.
+
+$\Q \subset \Q(\cos(\frac{2 \pi}{n})) \subsetneqq K$ ($n \geq 3$)
+
+Notation: $L/K$ Körpererweiterung, $\alpha \in L$\\
+$K[\alpha] = \Bild(\varphi_\alpha) = \cdots$
+
+$K(\alpha) = \Quot(K[\alpha]) = K[\alpha]$ falls $\alpha$ algebraisch.
+
+\section{Algebraischer Abschluss}
+
+\begin{propdef}[Kronecker]
+
+Sei $K$ ein Körper, $f \in K[X]$.
+
+\begin{enumerate}
+\item[a)]
+Es gibt eine endliche Körpererweiterung $L/K$, so dass $f$ in $L$ eine Nullstelle hat.
+
+\begin{proof}
+Ohne Einschränkung sei $f$ irreduzibel.
+
+Setze $L := \QuotRaum{K[X]}{(f)}$
+
+$L$ ist Körper, da $(f)$ maximales Ideal.
+
+$\alpha = \overline{X} = $ Klasse von $X$ in $L$ ist Nullstelle von $f$.
+\end{proof}
+
+\item[b)]
+Es gibt eine endliche Körpererweiterung $L/K$, so dass $f$ über $L$ in Linearfaktoren zerfällt.
+
+\begin{proof}
+Induktion über $n = \deg(f)$: $n = 1$ $\surd$.
+
+$n > 1$: $L_1$ wie in $a)$. Dann ist $f(X) = (X - \alpha) \cdot f_1(X)$ in $L_1[X]$.
+
+$\deg(f_1) = n - 1 < n$. Also gibt es $L_2 / L_1$, so dass $f_1(X) = \prod_{i=0}^{n-1} (X - \alpha_i)$ mit $\alpha_i \in L_2$.
+
+Dabei ist $L_2 / L_1$ endlich, $L_1 / K$ endlich, also $L_2 / K$ endlich.
+\end{proof}
+
+\item[c)]
+$L/K$ heißt \emp{Zerfällungskörper} \index{Zerfällungskörper} von $f$, wenn $f$ über $L$ in Linearfaktoren zerfällt und $L$ über $K$ von den Nullstellen von $f$ erzeugt wird.
+
+\item[d)]
+Für jedes $f \in K[X]$ gibt es einen Zerfällungskörper $Z(f)$.
+
+\item[e)]
+Ist $f$ irreduzibel, $n = \deg(f)$, so ist $[Z(f) : L] \leq n!$.
+
+\begin{proof}
+
+In a) ist $[L:K] = n = \deg(f)$ und $f = (X - \alpha) f_1$ mit $\deg(f_1) = n-1$. Mit Induktion folgt die Behauptung.
+
+\end{proof}
+
+\end{enumerate}
+\end{propdef}
+
+\paragraph{Beispiele}
+
+\begin{enumerate}
+\item[1)]
+
+$f \in K[X]$ irreduzibel von Grad 2.
+
+Dann ist $L = \QuotRaum{K[X]}{(f)}$ der Zerfällungskörper von $f$.
+
+$f(X) = (X - \alpha)(X - \beta)$ $\alpha,\beta \in L$.
+
+Ist $f(X) = X^2 + p X + q$, so ist $\alpha + \beta = -p$.
+
+\item[2)]
+$f(X) = X^3 - 2 \in \Q[X]$.
+
+Sei $\alpha = \sqrt[3]{2} \in \R$ Nullstelle von $f$.
+
+In $\Q(\alpha)$ liegt keine weitere Nullstelle von $f$, da $\Q(\alpha) \subset \R$.
+
+$X^3 - 2 = (X - \alpha)\underbrace{ (X^2 + \alpha X + \alpha^2) }_{\text{irreduzibel über $\Q(\alpha)$}}$
+
+\dann $[Z(f) : \Q] = 6$.
+
+\item[3)]
+$K = \Q$, $p$ Primzahl.
+
+$f(X) = X^p - 1 = (X-1)\underbrace{(X^{p-1} + X^{p-2} + \cdots + X + 1)}_{f_1}$
+
+$f_1$ ist irreduzibel (Eisenstein!).
+
+$L = \QuotRaum{Q[X]}{(f_1)} =: \Q(\zeta_p)$
+
+\dann $\Q(\zeta_p) = Z(f)$.
+
+\end{enumerate}
+
+\begin{defbem}
+Sei $K$ ein Körper.
+
+\begin{enumerate}
+\item[a)]
+$K$ heißt \index{algebraisch abgeschlossen} \emp{algebraisch abgeschlossen}, wenn jedes nicht-konstante $f \in K[X]$ in $K$ eine Nullstelle hat.
+
+\item[b)]
+Die folgenden Aussagen sind äquivalent:
+\begin{enumerate}
+\item[(i)]
+$K$ algebraisch abgeschlossen.
+
+\item[(ii)]
+jedes $f \in K[X]$ zerfällt über $K$ in Linearfaktoren.
+
+\item[(iii)]
+$K$ besitzt keine echte algebraische Körpererweiterung.
+
+\end{enumerate}
+
+\begin{proof}
+(i) \dann (iii):
+
+Angenommen, $L/K$ algebraisch, $\alpha \in L/K$, dann sei $f_\alpha \in K[X]$ das Minimalpolynom von $\alpha$: $f_\alpha$ ist irreduzibel und hat nach Voraussetzung eine Nullstelle in $K$.
+
+\dann $\deg(f) = 1$ Widerspruch!
+
+(iii) \dann (ii):
+$Z(f) = K$.
+
+\end{proof}
+\end{enumerate}
+\end{defbem}
+
+\begin{satz}
+Zu jedem Körper $K$ gibt es eine algebraische Körpererweiterung $\overline{K}/K$, so dass $\overline{K}$ algebraisch abgeschlossen ist.
+
+$\overline{K}$ heißt \emp{algebraischer Abschluss} \index{algebraischer Abschluss} von $K$.
+
+\begin{proof}
+
+Hauptschritt:
+
+Es gibt algebraische Körpererweiterung $K'/K$, so dass jedes nicht-konstante $f \in K[X]$ in $K'$ eine Nullstelle hat.
+
+Dann sei $K'' = (K')'$ und weiter $K^i = (K^{i-1})'$ für $i \geq 3$.
+
+$\displaystyle L := \bigcup_{i \geq 1} K^i$
+
+Es gilt:
+\begin{enumerate}
+\item[i)]
+$L$ ist Körper:
+
+$a + b \in L$ für $a \in K^i$, $b \in K^j$, ist OE $i \leq j$. Also auch $a \in K^j$.
+
+\item[ii)]
+$L$ ist algebraisch über $K$.
+
+jedes $\alpha \in L$ liegt in einem $K'$,
+
+$K'$ ist algebraisch über $K$.
+
+\item[iii)]
+$L$ ist algebraisch abgeschlossen.
+
+denn:
+
+Sei $f \in L[X]$, $f = \sum_{i=0}^n c_i X^i$ $c_i \in L$
+
+Also gibt es $j$ mit $c_i \in K^j$ für $i = 0, \ldots n$.
+
+\dann $f$ hat Nullstelle in $(K^j)' = K^{j+1} \subset L$.
+
+% Vorlesung am 16.1.2006
+
+{\scriptsize Neue Vorlesung, darum gibt's hier Überschneidungen.}
+
+\emph{Hauptschritt im Beweis}
+
+Es gibt algebraische Körpererweiterung $K'/K$, so dass jedes $f \in K[X]$ eine Nullstelle in $K'$ hat.
+
+\emph{Beweis}
+
+Für jedes $f \in K[X] \setminus K$ Sei $x_f$ ein Symbol.
+
+$\mathfrak{X} := \{ x_f : f \in K[X] \setminus K \}$
+
+$R := K[\mathfrak{X}]$
+
+$I$ sei das von allen $f(x_f)$ in $R$ erzeugte Ideal.
+
+Sei $m \subset R$ ein maximales Ideal mit $I \subseteq m$.
+
+$K' := \QuotRaum{R}{m}$
+
+$K'$ ist Körper, $K'/K$ ist algebraisch.\\
+denn: $K'$ wird über $K$ erzeugt von den $x_f \in \mathfrak{X}$ und $f(x_f) = 0$ in $K'$, weil $f(x_f) \in I \subseteq m$.
+
+$f$ hat in $K'$ die Nullstellen (Klassen von) $x_f$.
+
+Noch zu zeigen:
+\begin{enumerate}
+\item[1.] $I \neq R$
+\item[2.] Es gibt maximales Ideal $m$ mit $I \subseteq m$.
+\end{enumerate}
+
+Beweis 1:\\
+Angenommen $I = R$, also $1 \in I$.
+
+Dann gibt es $n \geq 1$, $f_1, \ldots f_n \in K[X] - f$ und $g_1, \ldots g_n \in R$ mit $1 = \sum_{i=1}^n g_i f_i(x_{f_i})$
+
+Sei $L/K$ Körpererweiterung, in der jedes $f_i$, $i=1, \ldots n$ Nullstelle $\alpha_i$ hat (z.B. der Zerfällungskörper von $f_1, \ldots f_n$).
+
+Zu Beweis von 2.:
+
+\paragraph{Proposition}
+
+Sei $R$ kommuntativer Ring mit 1, $I \subset R$ echtes Ideal.
+
+Dann gibt es ein maximales Ideal $m$ in $R$ mit $I \subseteq m$.
+
+\paragraph{Lemma von Zorn}
+
+Sei $M \neq \emptyset$ geordnet.
+
+Hat jede total geordnete Teilmenge von $M$ eine obere Schranke, so hat $M$ ein maximales Element.
+
+d.h. ein $x \in M$, so dass aus $y \in M, x \leq y$ folgt $x = y$.
+
+\bigskip\medskip
+
+Zurück zum Beweis von 2.
+
+Sei $M$ die Menge der echten Ideale in $R$, die $I$ enthalten.
+
+$I \subseteq M$, also $M \neq \emptyset$.
+
+Sei $N \subseteq M$ total geordnete Teilmenge.
+
+\emph{Behauptung}: $\widetilde{J} := \bigcup_{J \in N} J$ ist Element von $M$ (und \emph{dann} auch die Schranke für $N$).
+
+\emph{denn}: $I \subseteq \widetilde{J}$ $\surd$.
+
+$\widetilde{J}$ Ideal: $x_1, x_2 \in \widetilde{J}$ \dann $x_1 \in J_1, x_2 \in J_2$ : Ohne Einschränkung $J_2 \subseteq J_1$ \dann $x_2 \in J_1$ \dann $x_1 + x_2 \in J_1 \subset J$.
+
+genauso: $r \cdot x_1 \in J_1$ für $r \in R$.
+
+$1 \notin \widetilde{J}$, da sonst $1 \in J$ für ein $J \in N$.
+
+\end{enumerate}
+\end{proof}
+\end{satz}
+
+\section{Fortsetzung von Körperhomomorphismen}
+
+\begin{prop}
+Sei $L = K(\alpha)$, $K$ Körper (also einfache Körpererweiterung)
+
+Sei $\alpha$ algebraisch über $K$, $f = f_\alpha \in K[X]$ das Minimalpolynom.
+
+Sei $K'$ Körper und $\sigma : K \rightarrow K'$ ein Körperhomomorphismus.
+
+Sei $f^\sigma$ das Bild von $f$ in $K'[X]$ unter dem Homomorphismus\\
+$K[X] \rightarrow K'[X]$, $\sum a_i X^i \mapsto \sum \sigma(a_i) X^i$
+
+\medskip
+Dann gilt:
+\begin{enumerate}
+
+\item[a)] Zu jeder Nullstelle $\beta$ von $f^\sigma$ in $K'$ gibt es genau einen Körperhomomorphismus $\widetilde{\sigma} : L \rightarrow K'$ mit $\widetilde\sigma(\alpha) = \beta$ und $\widetilde\sigma|_K = \sigma$.
+
+\item[b)] Ist $\widetilde\sigma : L \rightarrow K'$ Fortsetzung von $\sigma$ (d.h. $\widetilde\sigma|_K = \sigma$), so ist $\widetilde\sigma(\alpha)$ Nullstelle von $f^\sigma$.
+
+\end{enumerate}
+
+\begin{proof}
+\begin{enumerate}
+\item[b)] $f^\sigma(\widetilde\sigma(\alpha)) = f^{\widetilde\sigma}(\widetilde\sigma(\alpha)) = \widetilde\sigma(f(\alpha)) = 0$
+
+\item[a)] Eindeutigkeit: $\widetilde\sigma$ ist auf den Erzeugern von $L$ festgelegt.
+
+Existenz: $\varphi : K[X] \rightarrow K'$, $X \mapsto \beta$.
+
+\dann $\varphi(f) = f^\sigma(\beta) = 0$, $g = \sum a_i X^i \mapsto \sum \sigma(a_i) \beta^i = g^\sigma(\beta)$
+
+$\xRightarrow{\text{HomSatz}}$ $\varphi$ induziert $\widetilde\sigma : \QuotRaum{K[X]}{(f)} \rightarrow K'$ mit $L = \QuotRaum{K[X]}{(f)}$.
+
+\end{enumerate}
+\end{proof}
+\end{prop}
+
+\begin{folg}
+Sei $f \in K[X] \setminus K$. Dann ist der Zerfällungskörper $Z(f)$ bis auf Isomorphie eindeutig.
+
+\begin{proof}
+Seien $L,L'$ Zerfällungskörper, $L = K(\alpha_1, \ldots, \alpha_n)$, $\alpha_i$ Nullstelle von $f$.
+
+Sei weiter $\beta_1 \in L'$ Nullstelle von $f$.
+
+Nach 3.8 gibt es ein $\sigma : K(\alpha_1) \rightarrow L'$ mit $\sigma|_K = id_K$ und $\sigma(\alpha_1) = \beta_1$ und $\tau : K(\beta_1) \rightarrow L$ mit $\tau(\beta_1) = \alpha_1$, $\tau(K) = id_K$.
+
+So ist $\tau \circ \sigma = id_{K(\alpha_1)}$, $\sigma \circ \tau = id_{K(\beta_1)}$ \dann $K(\alpha_1) \cong K(\beta_1)$.
+
+Mit Induktion über $n$ folgt die Behauptung.
+
+\end{proof}
+\end{folg}
+
+\begin{bem}
+
+Sei $L/K$ algebraische Körpererweiterung, $\overline{K}$ ein algebraische abgeschlossener Körper, $\sigma : K \rightarrow K'$ ein Homomorphismus. Dann gibt es eine Fortsetzung $\widetilde\sigma : L \rightarrow \overline{K}$.
+
+\begin{proof}
+Ist $L/K'$ endlich, so folgt die Aussage aus 3.8.
+
+Für den allgemeinen Fall sei:
+
+$M := \{ (L',\tau) : L'/K \text{ Körpererweiterung, } L' \subseteq L, \tau : L' \rightarrow \overline{K} \text{ Fortsetzung von } \sigma \}$.
+
+$M \neq \emptyset$: $(K,\sigma) \in M$.
+
+$M$ ist geordnet durch: $(L_1,\tau_1) \leq (L_2,\tau_2)$ :\gdw $L_1 \subseteq L_2$ und $\tau_2$ Fortsetzung von $\tau_1$.
+
+Sei $N \subset M$ total geordnet: $\displaystyle L^\sim := \bigcup_{ (L',\tau) \in N } L'$.
+
+$L^\sim$ ist Körper, $L^\sim \subseteq L$, $\widetilde\tau : L^\sim \rightarrow \overline{K}$, $\widetilde\tau(x) = \tau(x)$, falls $x \in L'$ und $(L',\tau) \in N$.
+
+wohldefiniert: ist $x \in L''$, so ist ohne Einschränkung $(L',\tau) \leq (L'',\tau'')$ und damit $\tau''(x) = \tau(x)$.
+
+\dann $(L^\sim,\widetilde\tau)$ ist obere Schranke.
+
+$\xRightarrow{\text{Zorn}}$ $M$ hat maximales Element $(L^\sim,\widetilde\tau)$.
+
+Zu zeigen: $L^\sim = L$.
+
+Sonst sei $\alpha \in L \setminus L^\sim$ und $\sigma'$ Fortsetzung von $\widetilde\sigma$ auf $L^\sim(\alpha)$ (nach 3.8)\\
+\dann $(L^\sim(\alpha), \sigma') \in M$ und $(L^\sim, \sigma) \lneqq (L^\sim, \widetilde\sigma)$. Widerspruch!
+
+\end{proof}
+\end{bem}
+
+% Vorlesung am 20.1.2006
+
+\begin{folg}
+Für jeden Körper $k$ ist der algebraische Abschluss $\overline{k}$ bis auf Isomorphie eindeutig bestimmt.
+
+\begin{proof}
+Seien $\overline{k}$ und $c$ algebraische Abschlüsse von $k$. Also $k \subset \overline{k}$, $k \subset c$.
+
+Nach Prop 3.10 gibt es einen Körperhomomorphismus $\sigma: \overline{k} \rightarrow c$, der $id_K$ fortsetzt. Dann ist $\sigma(\overline{k})$ auch algebraisch abgeschlossen:\\ ist $f \in \sigma(\overline{k})[X]$
+
+\dann $f^{\sigma^{-1}} \in \overline{k}[X]$.
+
+Sei $f = \sum a_i X^i$,\\
+$f^{\sigma^{-1}} = \sum \sigma^{-1}(a_i) X^i$ hat Nullstelle $\alpha \in \overline{k}$ \dann $\sigma(\alpha)$ ist Nullstelle von $f$.
+
+$\sum \sigma^{-1}(a_i) \alpha^i = 0$.
+
+\dann $0 = \sigma(\sum \sigma^{-1}(a_i) \alpha^i) = \sum a_i \sigma(\alpha)^i$
+
+$c$ ist algebraisch abgeschlossen über $K$, also erst recht über $\sigma(\overline{k})$ $\xRightarrow{\text{3.7}}$ $\sigma(\overline{k}) = c$.
+
+\end{proof}
+\end{folg}
+
+\begin{defbem}
+
+Seien $L/K$, $L'/K$ Körpererweiterungen von $K$.
+
+\begin{enumerate}
+\item[a)]
+$$\Hom_K(L,L') = \{ \sigma : L \rightarrow L' \text{ Körperhomomorphismus}, \sigma|_K = id_K \}$$
+$$\Aut_K(L) = \Aut(L/K) = \Hom_K(L,L)$$
+
+\item[b)]
+Ist $L/K$ endlich, $\overline{K}$ algebraischer Abschluss von $K$, so ist
+$$|\Hom_K(L,\overline{K})| \leq [L:K]$$
+
+\begin{proof}
+Sei $L = K(\alpha_1, \ldots, \alpha_n)$, $\alpha_i$ algebraisch über $K$.
+
+Induktion über $n$:
+
+$n = 1$: Sei $f \in K[X]$ das Minimalpolynom von $\alpha_1$
+
+Für jedes $\sigma \in \Hom_K(L,\overline{K})$ ist $\sigma(\alpha)$ Nullstelle von $f^\sigma \in \overline{K}[X]$. 
+
+Durch $\sigma|_K = id_K$ und $\sigma(\alpha)$ ist $\sigma$ eindeutig bestimmt.
+
+\dann $|\Hom_K(L,\overline{K})| = | \text{Nullstellen von } f^\sigma | \leq \deg(f^\sigma) = [L:K]$
+
+\medskip$n > 1$: Sei $L_1 = K(\alpha_1, \ldots \alpha_{n-1})$, $f \in L_1[X]$ das Minimalpolynom von $\alpha_n$ über $L_1$:
+
+Für $\sigma \in \Hom_K(L,\overline{K})$ ist $\sigma(\alpha)$ Nullstelle von $f^\sigma \in \overline{K}[X]$ mit $\sigma_1 = \sigma|_{L_1}$.
+
+\dann $|\Hom_K(L,\overline{K}) | \leq |\Hom_K(L_1,\overline{K})| \cdot \deg(f) \leq [L_1 : K] \cdot [L : L_1] \xlongequal{\text{3.5 b)}} [L : K]$
+
+\end{proof}
+
+\end{enumerate}
+
+\end{defbem}
+
+\section{Separable Körpererweiterungen}
+
+\begin{defbem}
+Sei $L/K$ algebraische Körpererweiterung, $\overline{K}$ algebraischer Abschluss von $K$.
+
+\begin{enumerate}
+\item[a)]
+$f \in K[X] \setminus K$ heißt \index{separabel} \emp{separabel}, wenn $f$ in $\overline{K}$ keine vielfache Nullstellen hat.
+
+(also $\deg(f)$ verschiedene Nullstellen)
+
+\item[b)]
+$\alpha \in L$ heißt \index{separabel} \emp{separabel},  wenn das Minimalpolynom von $\alpha$ über $K$ separabel ist.
+
+\item[c)]
+$L/K$ heißt \index{separabel} \emp{separabel}, wenn jedes $\alpha \in L$ separabel ist.
+
+\item[d)]
+$f \in K[X] \setminus K$ ist genau dann separable, wenn $\ggT(f,f') = 1$.
+
+Dabei ist für $f = \sum_{i=0}^n a_i X^i$ , $f' = \sum_{i=0}^n i a_i X^{i-1}$
+
+\item[e)]
+Ist $f \in K[X]$ irreduzibel, so ist $f$ separabel genau dann, wenn $f' \neq 0$ ist.
+\end{enumerate}
+
+\begin{proof}
+\begin{enumerate}
+\item[d)]
+
+Sei $\displaystyle f(X) = \prod_{i=1}^n (X - \alpha_i)$, $\alpha_i \in \overline{K}$.
+
+\dann $\displaystyle f'(X) = \sum_{i=1}^n \prod_{i \neq j} (X - \alpha_i)$
+
+Nach Definition ist $f$ separabel \gdw $\alpha_i \neq \alpha_j$ für $i \neq j$.
+
+Behauptung: $\alpha_1 = \alpha_i$ für ein $i \geq 2$ \gdw $(X - \alpha_1) \mid f'$ (teilt)
+
+Aus der Behauptung folgt: $f$ separabel \gdw $f$ und $f'$ teilerfremd in $\overline{K}[X]$.
+
+Ist das so, dann ist $\ggT(f,f') = 1$ (teilerfremd in $K[X]$).
+
+\medskip
+Ist umgekehrt $\ggT(f,f') = 1$, so gibt es $g,h \in K[X]$ mit $1 = g \cdot f + h \cdot f'$
+
+Das stimmt dann auch in $\overline{K}[X]$, also sind $f$ und $f'$ auch in $\overline{K}[X]$ teilerfremd.
+
+\medskip
+Beweis der Behauptung: $(X - \alpha_i)$ teilt $\prod_{j \neq i} (X - \alpha_j)$ falls $i \neq 1$.
+
+Also gilt: $X - \alpha_i$ teilt $f'$ \gdw $X - \alpha_1$ Teiler von $\prod_{j \neq 1}(X - \alpha_j)$ \gdw $\alpha_1 = \alpha_j$, für ein $j \neq 1$.
+
+\item[e)]
+Ist $f' = 0$, so ist $\ggT(f,f') = f \neq 1$.
+
+Ist $f' \neq 0$, so ist $\deg(f') < \deg(f)$
+
+Ist $f$ irreduzibel und $\alpha \in \overline{K}$ Nullstelle von $f$, so ist $f$ das Minimalpolynom von $\alpha$ $\xRightarrow{f' \neq 0}$ $\alpha$ nicht Nullstelle von $f'$.
+
+\dann $\ggT(f,f') = 1$.
+
+\end{enumerate}
+\end{proof}
+\end{defbem}
+
+\begin{folg}
+Ist $\Char(K) = 0$, so ist jede algebraische Körpererweiterung von $K$ separabel.
+
+\end{folg}
+
+\begin{beisp}
+Sei $p$ Primzahl, $K = \F_p(t) = \Quot(\F_p[t])$
+
+Sei $f(X) = X^p - t \in K[X]$.
+
+$f'(X) = p X^{p-1} = 0$, $t \in \F_p[t]$ ist Primelement.
+
+$\xRightarrow{\text{Eisenstein}}$ $f$ irreduzibel in $(\F_p[t])[X]$.
+
+$\xRightarrow{\text{Folg 2.28}}$ $f$ irreduzibel in $K[X]$.
+
+$f(X) = X^p -a \in \F_p[X]$ \dann $f' = 0$
+
+Frage: Ist $f$ irreduzibel? Nein!
+
+Denn $f$ hat Nullstelle in $\F_p$, d.h. es gibt ein $b \in \F_p$ mit $b^p = a$,
+
+denn $\varphi: \F_p \rightarrow \F_p, b \mapsto b^p$ ist Körperhomomorphismus!!!
+
+denn: $(a+b)^p = a^p + b^p$ ! (siehe $\sum_{k=0}^p \binom{p}{k} a^k b^{p-k}$)
+
+Definition: $\varphi$ heißt \index{Forbenius-Automorphismus} \emp{Frobenius}-Automorphismus.
+
+\end{beisp}
+
+\begin{bem}
+Sei $\Char(K) = p > 0$, $f \in K[X]$ irreduzibel.
+
+\begin{enumerate}
+\item[a)]
+Es gibt ein separabeles irreduzibeles Polynom $g \in K[X]$, so dass
+$$f(X) = g(X^{p^r})$$ für ein $r \geq 0$.
+
+\item[b)]
+Jede Nullstelle von $f$ in $\overline{K}$ hat Vielfachheit $p^r$.
+\end{enumerate}
+
+\begin{proof}
+Sei $f$ nicht separabel.
+
+$f = \sum a_i X^i$, $f' = i a_i X^{i-1} = 0$
+
+\dann $i a_i = 0$ für $i = 1, \ldots n$.
+
+\dann $a_i = 0$ falls $i$ nicht durch $p$ teilbar.
+
+\dann $f$ ist Polynom in $X^p$, d.h. $f = g_1(X^p)$
+
+Mit Induktion folgt die Behauptung.
+\end{proof}
+
+\end{bem}
+
+% Vorlesung am 23.1.2006
+
+\begin{satz}
+
+Sei $L / K$ endliche Körpererweiterung, $\overline{K}$ algebraischer Abschluss von $L$.
+
+\begin{enumerate}
+\item[a)] $[L : K]_S := | \Hom_K(L,\overline{K}) |$ heißt \emp{Separabilitätsgrad} \index{Separabilitätsgrad} von $L$ über $K$.
+
+\item[b)] Ist $L'$ Zwischenkörper von $L/K$, so ist
+$$[L:K]_S = [L:L']_S \cdot [L':K]_S$$
+
+\item[c)]
+$L/K$ ist separabel \gdw $[L:K] = [L:K]_S$.
+
+\item[d)]
+Ist $\Char(K) = p > 0$, so gibt es ein $r \in \N$ mit 
+$$[L:K] = p^r \cdot [L:K]_S$$
+
+\end{enumerate}
+
+\begin{proof}
+\begin{enumerate}
+\item[b)]
+Sei $\Hom_K(L',\overline{K}) = \{ \sigma_1, \ldots \sigma_n \}$, $\Hom_{L'}(L,\overline{K}) = \{ \tau_1, \ldots \tau_m \}$.
+
+Sei $\overline\sigma_i : \overline{K} \rightarrow \overline{K}$ Fortsetzung von $\sigma_i$, $i = 1,\ldots n$.	
+
+Dann ist $\overline\sigma_i \in \Aut_K(\overline{K})$
+
+\emph{Behauptung}
+
+1) $Hom_K(L,\overline{K}) = \{ \overline\sigma_i \circ \tau_j : i=1, \ldots n, j=1,\ldots m \}$
+
+2) $\overline\sigma_i \circ \tau_j = \overline\sigma_{i'} \circ \tau_{j'}$ \gdw $i=i'$ und $j=j'$.
+
+Aus 1) und 2) folgt b).
+
+\medskip \emph{Beweis 1)}
+
+,,$\supseteq$`` $\surd$. 
+
+,,$\subseteq$``: Sei $\sigma \in \Hom_K(L,\overline{K})$
+
+Dann gibt es ein $i$ mit $\sigma|_{L'} = \sigma_i$.\\
+\dann $\overline\sigma_i^{-1} \circ \sigma = id_{L'}$ \dann $\exists j$ mit $\overline\sigma_i^{-1} \circ \sigma = \tau_j$ \dann $\sigma = \overline\sigma_i \circ \tau_j$.
+
+\medskip \emph{Beweis 2)}
+
+Sei $\overline\sigma_i \circ \tau_j = \overline\sigma_{i'} \circ \tau_{j'}$
+
+\dann $\underbrace{\overline\sigma_i|_{L'}}_{=\sigma_i} = \underbrace{\overline\sigma_{i'}|_{L'}}_{=\sigma_{i'}}$ \dann $i = i'$ \dann $\tau_j = \tau_{j'}$ \dann $j = j'$.
+
+\item[c)]
+,,\dann`` Sei $L = K(\alpha_1, \ldots \alpha_n)$ separabel, endlich und $\alpha_i$ algebraisch.
+
+Induktion über n:
+
+$n=1$: $L = K(\alpha)$, $f = f_\alpha \in K[X]$ das Minimalpolynom von $\alpha$ über $K$.
+
+\dann $[L:K]_S \xlongequal{\text{3.12}} | \{ \text{Nullstellen von $f$ in $\overline{K}$} \} | = \deg(f) = [L:K]$
+
+$n>1$: $L_1 := K(\alpha_1, \ldots \alpha_{n-1})$, $f \in L_1[X]$ das Minimalpolynom von $\alpha_n$.
+
+Zu jedem $\sigma_1 \in \Hom_K(L_1, \overline{K})$ und jeder Nullstelle von $f$ in $\overline{K}$ gibt es genau eine Fortsetzung $\overline\sigma_1 : L \rightarrow \overline{K}$.
+
+$\xRightarrow{f \text{ separabel}}$ $[L:K]_S = | \Hom_K(L,\overline{K}) | = (\deg f) \cdot | \Hom_K(L_1, \overline{K}) |$\\
+$= [L:L_1] \cdot [L_1 : K]_S \xlongequal{\text{I.V.}} [L:L_1] \cdot [L_1:K] = [L:K]$
+
+,,$\Leftarrow$`` Ist $\Char(K) = 0$, so ist $L/K$ separabel.
+
+Sei also $\Char(K) = p > 0$ und $\alpha \in L$, $f \in K[X]$ das Minimalpolynom von $\alpha$.
+
+Nach 3.16 gibt es $r \geq 0$ und separabeles irreduzibeles $g \in K[X]$ mit $f(X) = f(X^{p^r})$
+
+\dann $[K(\alpha):K]_S = | \{ \text{Nullstellen von $f$ in $\overline{K}$} \} | $\\
+$= | \{ \text{Nullstelle von $g$ in $\overline{K}$} \} | \xlongequal{g \text{ separabel}} \deg(g)$
+
+\dann $[K(\alpha):K] = \deg(f) = p^r \deg(g) = p^r [K(\alpha):K]_S$
+
+\dann $[L:K] = [L:K(\alpha)] \cdot [K(\alpha):K] \geq [L:K(\alpha)]_S \cdot p^r [K(\alpha):K]_S = [L:K]_S \cdot p^r$. 
+
+\dann $p^r = 1$ \dann $g = f$ \dann $\alpha$ separabel.
+
+\item[d)] Folgt aus der Gleichung ein paar Zeilen hierdrüber.
+
+\end{enumerate}
+\end{proof}
+\end{satz}
+
+\begin{satz}[Satz vom primitiven Element]
+Jede endliche separable Körpererweiterung $L/K$ ist einfach.
+
+\begin{proof}
+Ist $K$ endlich, so folgt aus Paragraph 5, dass $L^\times$ zyklische Gruppe ist.\\
+Ist $L^\times = \langle \alpha \rangle$, so ist $L = K[\alpha]$.
+
+Sei also $K$ unendlich, $L = K(\alpha_1, \ldots \alpha_r)$. Ohne Einschränkung $r=2$, also $L = K(\alpha,\beta)$.
+
+Sei $\overline{K}$ algebraischer Abschluss von $L$, $[L:K] = n$
+
+Sei $\Hom_L(L,\overline{K}) = \{ \sigma_1, \ldots \sigma_n \}$ (Satz 13 c)
+
+Sei $\displaystyle g(X) = \prod_{1 \leq i < j \leq n} ( \sigma_i(\alpha) - \sigma_j(\alpha) - ( \sigma_i(\beta) - \sigma_j(\beta) ) \cdot X ) \in K[X]$.
+
+$g \neq 0$, denn aus $\sigma_i(\alpha) = \sigma_j(\alpha)$ und $\sigma_i(\beta) = \sigma_j(\beta)$ folgt $\sigma_i = \sigma_j$.
+
+Da $K$ unendlich ist, gibt es $\lambda \in K$ mit $g(\lambda) \neq 0$.
+
+\emph{Behauptung} $\gamma := \alpha + \lambda \beta \in L$ erzeugt $L$ über $K$.
+
+\emph{denn}: Sei $f \in K[X]$ das Minimalpolynom von $\gamma$ über $K$.
+
+Für jedes $i$ ist $f(\sigma_i(\gamma)) \xlongequal{\sigma_i|_K = id_K} \sigma_i(f(\gamma)) = 0$.
+
+Angenommen $\sigma_i(\gamma) = \sigma_j(\gamma)$ für ein $i \neq j$.\\
+Dann wäre $\sigma_i(\alpha) + \sigma_i(\beta) \lambda - (\sigma_j(\alpha) + \sigma_j(\beta) \lambda) = 0$.
+
+\dann $g(\lambda) = 0$ Widerspruch! \dann $f$ hat mindestens $n$ Nullstellen.
+
+\dann $\deg(f) = [K(\gamma):K] \geq n = [L:K]$
+
+Da $\gamma \in L$ folgt $K(\gamma) = L$.
+
+\end{proof}
+\end{satz}
+
+\section{Endliche Körper}
+
+\begin{prop}
+
+Ist $K$ ein Körper, so ist jede endliche Untergruppe von $(K^\times,\cdot)$ zyklisch.
+
+\begin{proof}
+Sei $K \subseteq K^\times$ endliche Untergruppe, $a \in G$ ein Element maximaler Ordnung.
+
+Sei $n = \ord(a)$, $G_n := \{ b \in G : \ord(b) \mid n \}$
+
+\emph{Behauptung}: $G_n = \langle a \rangle$
+
+\emph{denn}: jedes $b \in G_n$ ist Nullstelle von $X^n - 1$.
+
+Diese sind $1, a, a^2, \ldots a^{n-1}$ \dann $|G_n| = |\langle a \rangle| = n$.
+
+Nach Satz 3 ist $G \cong \bigoplus_{i=1}^r \QuotRaum{\Z}{a_i \Z}$ mit $a_i \mid a_{i+1}$.
+
+\dann Für jedes $b \in G$ ist $\ord(b)$ Teiler von $a_r$.
+
+\end{proof}
+\end{prop}
+
+\begin{satz}
+Sei $p$ Primzahl, $n \geq 1$, $q = p^n$
+
+Sei $\F_q$ der Zerfällungskörper von $X^q - X \in \F_p[X]$.
+
+Dann gilt:
+\begin{enumerate}
+\item[a)] $\F_q$ hat $q$ Elemente.
+\item[b)] Zu jedem endlichen Körper $K$ gibt es ein $q = p^n$ mit $K \cong \F_q$.
+\end{enumerate}
+
+\begin{proof}
+\begin{enumerate}
+\item[a)]
+$f(X) = X^q - X$ ist separabel, da $f'(X) = -1$ \dann $\ggT(f,f') = 1$.
+
+\dann $f$ hat $q$ verschiedene Nullstellen in $\F_q$
+
+\dann $|\F_q| \geq q$.
+
+Umgekehrt: jedes $a \in \F_q$ ist Nullstelle von $f$,
+
+\emph{denn}: $\F_q$ wird erzeugt von den Nullstellen von $f$. Sind $a$,$b$ Nullstellen von $f$, so ist $a^q = a$, $b^q = b$, also auch $(a b)^q = a b$, $(a+b)^q = a^q + b^q = a + b$.
+
+\item[b)]
+$K^\times$ ist Gruppe (mit $\cdot$) der Ordnung $q - 1$.
+
+\dann Für jedes $a \in K$ gilt $a^q = a$.
+
+\dann Jedes $a \in K$ ist Nullstelle von $X^q - X$.
+
+\dann $K$ enthält den Zerfällungskörper von $X^q - X$.
+
+\dann $K$ enthält $\F_q$ (bis auf Isomorphie)
+
+\dann $K \cong \F_q$ (da $|K| = |\F_q| = q$)
+
+\end{enumerate}
+\end{proof}
+
+\end{satz}
+
+\begin{folg}
+
+Jede algebraische Erweiterung eines endlichen Körpers ist separabel.
+
+\begin{proof}
+$\QuotRaum{\F_q}{\F_p}$ ist separabel, da $X^q - X$ separabeles Polynom ist. Ist $K$ endlich, also $K = \F_q$, $L/K$ algebraisch, $\alpha \in L$, so ist $K(\alpha)/K$ endlich, also separabel (da $K(\alpha) = \F_{q^r}$ für ein $q \geq 1$).
+
+\end{proof}
+\end{folg}
+
+\paragraph{Definition}
+Ein Körper $K$ heißt \emp{vollkommen} \index{Körper!vollkommen} \index{Körper!perfekt} (perfekt), wenn jede algebraische Körpererweiterung $L/K$ separabel ist.
+
+\section{Konstruktion mit Zirkel und Lineal}
+
+Anregungen:
+
+\begin{tabular}{cc}
+Dreiteilung eines Winkels? & Was lässt sich mit zwei Startpunkten konstruieren? \\
+\input{pics/3.6-1.pictex} & \input{pics/3.6-2.pictex} \\
+\end{tabular}
+
+\paragraph{Aufgabe} der Konstruktion mit Zirkel und Linear
+
+Sei $M \subset \C = \R^2$, z.B. $M = \{ 0, 1 \}$ Startpunkte.
+
+Was können wir in einem Schritt konstruieren?\\
+$\mathcal{L}(M) := \{ L \subset \R^2 \text{ Gerade} : | L \cap M | \geq 2 \} \cup \{ K_{|z_1 - z_2|}(z_3) : z_1,z_2,z_3 \in M \}$\\
+wobei $K_r(z) = \{ y \in \C : |z - y| = r \}$ 
+
+Also ergibt das die neue Menge\\
+$K_1(M) := \{ z \in \C : \text{$z$ liegt auf 2 verschiedenen Linien in $\mathcal{L}(M)$} \}$
+
+$K_n(M) = K_1(K_{n-1}(M))$ für $n \geq 2$.
+
+Beobachtung: $K \subseteq K_1(M)$, falls $|M| \geq 2$
+
+also: $\displaystyle K(M) = \bigcup_{n=1}^\infty K_n(M)$
+
+\emph{Ab jetzt}: $0,1 \in M$, $M$ symmetrisch zur $x$-Achse. (d.h. für $z \in M$ ist auf $\bar{z} \in M$)
+
+\begin{bem}
+Für jedes $z \in K_1(M)$ ist $[\Q(M)(z) : \Q(M)] \leq 2$.
+
+\begin{proof}
+
+Vorüberlegung: Für $z \in M$ ist $\Re(z) = \frac{1}{2}(z + \bar{z}) \in \Q(M)$ und $\Im(z) = \frac{1}{2}(z - \bar{z})$.
+\input{pics/3.6-3.pictex}
+
+\begin{enumerate}
+
+\item[(i)] $z$ ist Schnittpunkt zweier Geraden in $\mathcal{L}(M)$
+
+\dann $z$ ist Lösung zweier linearer Gleichungen:
+$z_1 + \lambda z_2 = z_1' + \mu z_2'$ mit $\lambda,\mu \in \R$.
+
+\item[(ii)] $z$ ist Schnittpunkt einer Gerade und eines Kreises: $\leadsto$ quadratische Gleichung mit Koeffizienten in $\Q(M)$.
+
+\item[(iii)] $z$ ist Schnittpunkt der Kreise $K_{r_1}(m_1)$ und $K_{r_2}(m_2)$ mit Mittelpunkten $m_1, m_2 \in M$.
+
+Radius: $r_1 = | z_1 - z_1' |$, $r_2 = | z_2 - z_2' |$ also $r_1^2 = (z_1 - z_1')\overline{(z_1 - z_1')} \in \Q(M)$.
+
+Dann ist $|z - m_1|^2 = r_1^2$\\
+\dann $z\overline{z} - (z \overline{m_1} + \overline{z} m_1) = r_1^2 - m_1 \overline{m_1}$ (1)\\
+und $z\overline{z} - (z \overline{m_2} + \overline{z} m_2) = r_2^2 - m_2 \overline{m_2}$
+
+\dann $2 \Re[z (\overline{m_1} - \overline{m_2})] = r_1^2 - r_2^2 - (m_1 \overline{m_1} - m_2 \overline{m_2})$
+
+Das ist eine lineare Gleichung, die $\Re(z)$ und $\Im(z)$ enthält. Einsetzen in (1) gibt eine quadratische Gleichung für $\Re(z)$ mit Koeffizienten in $\Q(M)$.
+
+\end{enumerate}
+\end{proof}
+\end{bem}
+
+\begin{satz}
+\begin{enumerate}
+\item[a)]
+$K(M)$ ist algebraische Körpererweiterung von $\Q(M)$.
+
+\item[b)]
+Sei $L/\Q(M)$ endliche Körpererweiterung. Gibt es $n \geq 0$\\
+und Körper $\Q(M) = L_0 \subset L_1 \subset \cdots \subset L_n = L$ mit $[L_i : L_{i-1}] = 2$ für $i = 1, \ldots n$,\\
+dann ist $L \subseteq K(M)$.
+\end{enumerate}
+
+\begin{proof}
+\begin{enumerate}
+\item[a)] Seien $a,b \in K(M)$. Zu zeigen ist $a+b, -a, a \cdot b, \frac{1}{a}$ in $K(M)$.
+
+\begin{tabular}{ll}
+\fbox{$a+b$} & \fbox{$-a$} \\
+\input{pics/3.6-4.pictex} & \input{pics/3.6-5.pictex}
+\end{tabular}
+
+\begin{tabular}{lp{4cm}}
+\fbox{$a \cdot b$} Zunächst: $a,b \in \R$. Sei $b \in K(M) \setminus \R$: \\
+\input{pics/3.6-6.pictex} & Der Strahlensatz:$\frac{1}{a} = \frac{b}{x}$. Also $x = a \cdot b$.
+\end{tabular}
+
+Winkel addieren. $\surd$. \dann $a \cdot b$ allgemein. $\surd$.
+
+\fbox{$\frac{1}{a}$} Ohne Einschränkung $a \in \R$:
+
+\input{pics/3.6-7.pictex}
+
+\item[b)]
+Wurzelziehen: Sei $a \in \R$:
+
+\input{pics/3.6-8.pictex}
+
+Nach dem Höhensatz ist dann: $b^2 = |-a| \cdot 1 = a$
+
+\end{enumerate}
+\end{proof}
+\end{satz}
+
+% Vorlesung am 30.1.2006
+
+\chapter{Galois-Theorie}
+
+\section{Der Hauptsatz}
+
+\begin{defprop}
+Sei $L/K$ algebraische Körpererweiterung.
+\begin{enumerate}
+\item[a)] $L/K$ heißt \index{normal} \emp{normal}, wenn es eine Familie $\mathcal{F} \subset K[X]$ gibt, so dass $L$ Zerfällungskörper von $\mathcal{F}$ ist.
+
+\item[b)] Ist $L/K$ normal, so ist $\Hom_K(L,\overline{K}) = \Aut_K(L)$.\\
+(wobei $\overline{K}$ algebraischer Abschluss von $L$ sei.)
+
+\begin{proof}
+,,$\supseteq$`` gilt immer.
+
+,,$\subseteq$`` Sei $L = Z(\mathcal{F})$, $f \in \mathcal{F}$, $\alpha \in L$ Nullstelle von $f$.\\
+\dann Für jedes $\sigma \in \Hom_K(L,\overline{K})$ ist $\sigma(\alpha)$ auch Nullstelle von $f$:
+
+Sei $f(X) = \displaystyle\sum_{i=0}^n a_i X^i$ \dann $0 = \sigma(f(\alpha))$\\
+$\displaystyle = \sum_{i=0}^n \underbrace{\sigma(a_i)}_{=a_i\text{, da } a_i \in K} \sigma(\alpha)^i = f(\sigma(\alpha))$.
+
+\dann $\sigma(\alpha) \in L$.
+
+$L$ wird von den Nullstellen der $f \in \mathcal{F}$ erzeugt.\\
+\dann $\sigma(L) \subseteq L$.
+
+\end{proof}
+
+\item[c)]
+$L/K$ heißt \emp{galoissch} \index{galoissch} \index{Galois-Erweiterung} (Galois-Erweiterung), wenn $L/K$ normal und separabel ist.
+
+\item[d)]
+Ist $L/K$ galoissch, so heißt $\Gal(L/K) := \Aut_K(L)$ die \emp{Galoisgruppe} \index{Galoisgruppe} von $L/K$.
+
+\item[e)]
+Eine endliche Erweiterung $L/K$ ist genau dann galoissch, wenn
+$$|\Aut_K(L)| = [L:K]$$
+
+\begin{proof}
+,,$\Rightarrow$`` Aus b) folgt\\
+$|\Aut_K(L)| = |\Hom_K(L,\overline{K})| \xlongequal{\text{Def.}} [L:K]_S \xlongequal{\text{sep. und Satz 13}} [L:K]$. $(\ast)$
+
+,,$\Leftarrow$`` Es gilt stets: $|\Aut_K(L)| \leq [L:K]_S \leq [L:K]$
+
+Aus $|\Aut_K(L)| = [L:K]$ folgt also $[L:K]_S = [L:K]$ \dann $L/K$ separabel.
+
+$\xRightarrow{\text{Satz 14}}$ $L = K(\alpha)$ für ein $\alpha \in L$, sei $f \in K[X]$ das Minimalpolynom von $\alpha$.
+
+Sei $\beta \in \overline{K}$ Nullstelle von $f$.
+
+Nach 3.8 gibt es $\sigma \in \Hom_K(L,\overline{K})$ mit $\sigma(\alpha) = \beta$.
+
+Wegen $(\ast)$ ist $\sigma \in \Aut_K(L)$ \dann $\beta \in L$.
+
+\dann $L$ ist Zerfällungskörper von $f$.
+\end{proof}
+
+\item[f)]
+Ist $L/K$ galoissch und $E$ ein Zwischenkörper, so ist $L/E$ galoissch und $\Gal(L/E) \subseteq \Gal(L/K)$. 
+
+\begin{proof}
+$L/E$ normal, da Zerfällungskörper von $\mathcal{F} \subset K[X] \subset E[X]$\\
+$L/E$ separabel, da $L/K$ separabel.
+\end{proof}
+
+\item[g)]
+Ist in f) zusätzlich auch $E/K$ galoissch, so ist
+$$\begin{array}{ccccccccc}
+  &             &           &             &           & \beta \\
+1 & \rightarrow & \Gal(L/E) & \rightarrow & \Gal(L/K) & \rightarrow & \Gal(E/K) & \rightarrow & 1 \\
+  &             &           &             & \sigma & \mapsto & \sigma|_E
+\end{array}$$
+exakt.
+
+[ also $\Gal(E/K) = \QuotRaum{\Gal(L/K)}{\Gal(L/E)}$ ]
+
+\begin{proof}
+Für $\sigma \in \Gal(L/K) = \Aut_K(L)$ ist $\sigma|_E : E \rightarrow L$,\\
+also $\sigma \in \Hom_K(E,L) \subseteq \Hom_K(E,\overline{K}) = \Aut_K(E)$, da $E/K$ galoissch.
+
+\dann $\beta$ ist wohldefiniert.
+
+\emph{$\beta$ surjektiv}: Sei $\sigma \in \Gal(E/K)$
+
+Nach 3.10 lässt sich $\sigma$ fortsetzen zu $\widetilde{\sigma} : L \rightarrow \overline{K}$, $\widetilde{\sigma} \in \Hom_K(L,\overline{K}) = \Aut_K(L) = \Gal(L/K)$\\
+und $\beta(\widetilde\sigma) = \widetilde\sigma|_E = \sigma$.
+
+$\Kern(\beta) = \{ \sigma \in \Gal(L/K) : \sigma|_E = id_E \} = \Aut_E(L) = \Gal(L/E)$
+\end{proof}
+
+\end{enumerate}
+\end{defprop}
+
+\begin{satz}[Hauptsatz der Galoistheorie]
+Sei $L/K$ endliche Galois-Erweiterung.
+
+\item[a)]
+Die Zuordnung
+$$\begin{array}{ccc}
+\{ \text{Zwischenkörper von $L/K$} \} & \begin{array}{c}\Psi \\ \longleftarrow \\ \longrightarrow \\ \Phi\end{array} & \{ \text{Untergruppen von $\Gal(L/K)$ } \}\\
+ E                       & \mapsto & \Gal(L/E)\\
+L^H := \{ \alpha \in L : \sigma(\alpha) = \alpha \forall \sigma \in H \} & \mapsfrom & H\\
+\end{array}$$
+sind bijektiv und zueinander invers.
+
+\item[b)]
+Ein Zwischenkörper $E$ von $L/K$ ist genau dann galoissch über $K$, wenn $\Gal(L/E)$ Normalteiler in $\Gal(L/K)$ ist.
+
+\begin{proof}
+\begin{enumerate}
+\item[a)]
+
+$L^H$ ist Zwischenkörper (liegt daran, dass $\sigma \in \Aut$ Körperhomomorphismus ist). $\surd$.
+
+,,\underline{$\Psi \circ \Phi = id$}``: Sei $H \subseteq \Gal(L/K)$ Untergruppe.
+
+Zu zeigen: $\Gal(L/L^H) = H$.
+
+,,$\supseteq$`` Nach Definition von $L^H$.
+
+,,$\subseteq$`` Nach 4.1 e) ist $|\Gal(L,L^H)| = [L:L^H]$
+
+Genügt also zu zeigen: $[L:L^H] \leq |H|$.
+
+Sei $\alpha \in L$ primitives Element von $L/L^H$ also $L = L^H(\alpha)$.
+
+Sei $f := \prod_{\sigma \in H} (X - \sigma(\alpha)) \in L[X]$
+
+dann ist $\deg(f) = |H|$.
+
+Für jedes $\tau \in H$ ist $f^\tau = f$ (mit $\sigma$ durchläuft auch $\tau \cdot \sigma$ alle Elemente von $H$)
+
+\dann $f \in L^J[X]$ \dann Das Minimalpolynom $g$ von $\alpha$ über $L^H$ ist Teiler von $f$.
+
+\dann $[L:L^H] = \deg(g) \leq \deg(f) = |H|$.
+
+,,\underline{$\Phi \circ \Psi = id$}``: Sei $E$ Zwischenkörper, $H := \Gal(L/E)$.
+
+Zu zeigen: $E = L^H$.
+
+,,$\subseteq$`` Folgt aus der Definition der Symbole.
+
+,,$\supseteq$`` Da $L^H/E$ separabel ist, genügt es zu zeigen: $[L^H:E]_S = 1$.
+
+Sei $\sigma \in \Hom_E(L^H,\overline{K})$, Fortsetzung $\widetilde\sigma \in \Hom_E(L,\overline{K}) = \Aut_E(L) = \Gal(L,E) = H$.
+
+\dann $\sigma = \widetilde\sigma_{L^H} = id_{L^H}$
+
+\item[b)]
+,,$\Rightarrow$`` siehe 4.1 g)
+
+,,$\Leftarrow$`` Sei $H := \Gal(L/E)$ Normalteiler in $\Gal(L/K)$
+
+Wegen 4.1 e) genügt es zu zeigen:
+
+Für jedes $\sigma \in \Hom_K(E,\overline{K})$ ist $\sigma(E) \subseteq E$.
+
+Sei also $\sigma \in \Hom_K(E,\overline{K})$, Fortsetzung $\widetilde\sigma \in \Hom_K(L,\overline{K}) = \Gal(L,K)$.
+
+Sei nun $\alpha \in E, \tau \in H$.
+
+Dann ist $\tau(\sigma(\alpha)) = (\tau \circ \widetilde\sigma)(\alpha) = (\widetilde\sigma \circ \tau')(\alpha)$ mit $\widetilde\sigma^{-1} \circ \tau \circ \widetilde\sigma =: \tau^{-1} \in H$ nach Voraussetzung.
+
+$= \widetilde\sigma(\alpha) = \sigma(\alpha)$
+
+\dann $\sigma(\alpha) \in L^H \xlongequal{\text{a)}} E$.
+\end{enumerate}
+\end{proof}
+
+\end{satz}
+
+% Vorlesung vom 3.2.2006
+
+\begin{folg}
+Sei $L/K$ endliche Galoiserweiterung
+
+Dann gilt für Zwischenkörper $E,E'$ bzw. Untergruppen $H,H'$ von $\Gal(L/K)$
+
+\begin{enumerate}
+\item[a)] $E \subseteq E'$ \gdw $\Gal(L/E) \supseteq \Gal(L/E')$
+
+\item[b)] $\Gal(L/(E \cap E')) = \langle \Gal(L/E), \Gal(L/E') \rangle$
+
+\end{enumerate}
+
+\begin{proof}
+Im Tutorium?
+\end{proof}
+\end{folg}
+
+\begin{folg}
+Zu jeder endlichen separabelen Körpererweiterung gibt es nur endlich viele Zwischenkörper.
+
+\begin{proof}
+Ist $L/K$ endliche Galoiserweiterung, so entsprechen die Zwischenkörper bijektiv den Untergruppen der endlichen Gruppen $\Gal(L/K)$.
+
+Im Allgemeinen ist $L = K(\alpha)$ (Satz 14), sei also $f$ das Minimalpolynom von $\alpha$ über $K$.
+
+$f$ ist separabel, da $L/K$ separabel ist.
+
+Sei $\widetilde{L}$ der Zerfällungskörper von $f$ über $K$\\
+\dann $\widetilde{L}/K$ ist galoissch, $K \subseteq L \subseteq \widetilde{L}$ \dann $L/K$ hat nur endlich viele Zwischenkörper.
+
+[$\widetilde{L}$ sogar minimale galoissche Erweiterung]
+
+\end{proof}
+\end{folg}
+
+\begin{prop}
+Sei $L$ ein Körper, $G \subset \Aut(L)$ eine endliche Untergruppe.
+
+$K := L^G = \{ \alpha \in L : \sigma(\alpha) = \alpha \text{ für alle } \sigma \in G \}$
+
+Dann ist $L/K$ Galoiserweiterung und $\Gal(L/K) = G$.
+
+\begin{proof}
+$K$ ist Körper: $\surd$
+
+$L/K$ ist algebraisch und separabel.
+
+Sei $\alpha \in L$: $\{ \sigma(\alpha) : \sigma \in G \} = G \cdot \alpha$ ist endlich.
+
+Sei $G \cdot \alpha = \{ \sigma_1(\alpha), \ldots, \sigma_r(\alpha) \}$ mit $\sigma_i(\alpha) \neq \sigma_j(\alpha)$ für $i \neq j$ und $\sigma_1 = id_L$
+
+Dabei ist $r$ ein Teiler von $n = |G|$
+
+Sei $f_\alpha(X) = \prod_{i=1}^r (X - \sigma_i(\alpha)) \in L[X]$
+
+Zu zeigen: $f_\alpha \in K[X]$
+
+denn: Für $\sigma \in G$ ist $f_\alpha^\sigma(X) = \prod_{i=1}^r (X - \sigma \sigma_i(\alpha))$
+
+\dann $f_\alpha = f_\alpha^\sigma$ \dann $f_\alpha \in K[X]$
+
+\dann $\alpha$ algebraisch, $\alpha$ separabel (da $f_\alpha$ separabeles Polynom),
+
+$(\ast)$ $[K(\alpha) : K] \leq n$.
+
+\begin{itemize}
+\item $L/K$ normal: Der Zerfällungskörper von $f_\alpha$ ist in $L$ enthalten.
+
+\dann $L$ ist Zerfällungskörper der Familie $\{ f_\alpha : \alpha \in L \}$
+
+\item $L/K$ ist endlich. Sei $(\alpha_i)_{i \in I}$ Erzeugendensystem von $L/K$
+
+Für jede endliche Teilmenge $I_0 \subseteq I$ ist $K(\{ \alpha_i : i \in I_0 \})$ endlich über $K$,\\
+also $K(\{ \alpha_i : i \in I_0 \}) = K(\alpha_0)$ für ein $\alpha_0 \in L$.
+
+$\xRightarrow{(\ast)}$ $[K(\{ \alpha_i : i \in I_0 \}) : K ] \leq n$.
+
+Sei $I_1 \subseteq I$ endlich, so dass $K(\{ \alpha_i : i \in I_1 \})$ maximal unter den $K(\{ \alpha_j : j \in J \})$ für $J \subseteq I$ endlich.
+
+Annahme: $K_1 \neq L$
+
+Dann gibt es $i \in I$ und $\alpha_i \notin K_1$\\
+\dann $K_1(\alpha_i) \supsetneqq K_1$, trotzdem endlich.\\
+im Widerspruch zur Wahl von $K_1$.
+
+\dann $L/K$ endlich, genauer: $[L:K] \leq n$ wegen $(\ast)$
+
+\item $\Gal(L/K) = G$ ,,$\supseteq$`` nach Definition.
+
+Nach 4.1 e) ist $n = |G| \leq |\Gal(L/K)| = [L:K] \leq n$.
+
+\end{itemize}
+
+\end{proof}
+\end{prop}
+
+\section{Die Galoisgruppe einer Gleichung}
+
+\begin{defbem}
+Sei $K$ ein Körper, $f \in K[X]$ ein separabeles Polynom.
+
+\begin{enumerate}
+\item[a)] Sei $L = K(f)$ Zerfällungskörper von $f$ über $K$.
+
+Dann heißt $\Gal(f) := \Gal(L/K)$ \emp{Galoisgruppe von $f$}. \index{Galoisgruppe!einer Funktion}
+
+\item[b)] Ist $n = \deg(f)$, so gibt es injektiven Gruppenhomomorphismus $\Gal(f) \hookrightarrow S_n$\\
+(durch Permutation der Nullstellen von $f$)
+
+\item[c)] Ist $L/K$ separable Körpererweiterung vom Grad $n$, so ist $\Aut_K(L)$ isomorph zu einer Untergruppe von $S_n$.
+
+\begin{proof}
+Sei $L = K(\alpha)$, $f \in K[X]$ Minimalpolynom von $\alpha$, $\alpha = \alpha_1, \ldots, \alpha_d$ die Nullstellen von $f$ in $L$.
+
+\dann jedes $\sigma \in \Aut_K(L)$ permutiert $\alpha_1, \ldots, \alpha_d$.
+
+\end{proof}
+\end{enumerate}
+\end{defbem}
+
+\begin{beisp}
+
+Die Galoisgruppe von $f(x) = x^5 - 4 x - 2 \in \Q[x]$ ist $S_5$.
+
+\begin{proof}
+\begin{itemize}
+\item $f$ ist irreduzibel: Eisenstein für $p = 2$.
+
+\item $f$ hat 3 reelle und 2 zueinander konjugierte komplexe Nullstellen:
+
+$f(-\infty) = -\infty$, $f(0) = 2$, $f(1) = -1$, $f(\infty) = \infty$
+
+\dann $f$ hat mindestens 3 reelle Nullstellen
+
+$f'(x) = 5 x^4 - 4 = 5 (x^2 - \frac{2}{\sqrt{5}}) (x^2 + \frac{2}{\sqrt{5}})$ hat 2 reelle Nullstellen
+
+\dann $f$ hat genau 3 reelle Nullstellen.
+
+Ist $\alpha \in \C$ Nullstelle von $f$, so ist $f(\overline{\alpha}) = \overline{f(\alpha)} = 0$.
+
+\item $G = \Gal(f)$ enthält die komplexe Konjugation $\tau$.
+
+$\tau$ operiert als Transposition: 2 Nullstellen werden vertauscht, 3 bleiben fix.
+
+\item $G$ enthält ein Element der Ordnung 5. Ist $\alpha$ Nullstelle von $f$, so ist $[\Q(\alpha):\Q] = 5$ und $\Q(\alpha) \subseteq L(f)$
+
+$\xRightarrow{\text{Satz 17}}$ 5 teilt $|G|$
+
+$\xRightarrow{\text{Sylow}}$ Behauptung.
+
+\item $G$ enthält also einen $5$-Zyklus und eine Transposition $\xRightarrow{(!)}$ $G = S_5$.
+
+\end{itemize}
+
+\end{proof}
+\end{beisp}
+
+\begin{bem}[Allgemeine Gleichungen $n$-ten Grades]
+
+Sei $k$ ein Körper, $L = k(T_1, \ldots, T_n) = \Quot(k[T_1, \ldots T_n])$
+
+\begin{enumerate}
+\item[a)] $S_n$ operiert auf $L$ durch $\sigma(T_i) = T_{\sigma(i)}$
+
+\item[b)] Sei $K := L^{S_n}$. $L/K$ ist Galoiserweiterung (nach Prop 4.4) von Grad $n$.
+
+\item[c)] $L$ ist (über $K$) Zerfällungskörper von
+$$f(X) = \prod_{i=1}^n (X - T_i) \in K[X]$$
+
+\item[d)]
+$\Gal(f) = S_n$
+
+\item[e)]
+$\displaystyle f(X) = \sum_{\nu=0}^n (-1)^\nu s_\nu(T_1, \ldots T_n) X^{n - \nu}$
+
+mit $\displaystyle s_\nu(T_1, \ldots T_n) = \sum_{1 \ldots i_1 < \cdots < i_\nu \leq n} T_{i_1} \cdots T_{i_\nu}$
+
+z.B: $s_1(T_1, \ldots T_n) = T_1 + \cdots + T_n$, $s_2 = T_1 T_2 + T_1 T_3 + \cdots$, $s_n = T_1 \cdot \cdots \cdot T_n$
+
+\item[f)] $K = K(s_1, \ldots s_n)$
+
+\end{enumerate}
+\end{bem}
+
+% Vorlesung vom 6.2.2006
+
+\section{Einheitswurzeln}
+
+\begin{defbem}
+Sei $K$ ein Körper, $\overline{K}$ algebraischer Abschluss. $n \in \N$ teilerfremd zu $\Char(K)$.
+
+\begin{enumerate}
+\item[a)]
+Die Nullstellen von $X^n - 1$ in $\overline{K}$ heißen \emp{$n$-te Einheitswurzeln}. \index{Einheitswurzeln}
+
+\item[b)] $\mu_n(\overline{K}) = \{ \zeta \in \overline{K} : \zeta^n = 1 \}$ ist zyklische Untergruppe von $\overline{K}^\times$ von Ordnung $n$.
+
+\begin{proof}
+$\mu_n(\overline{K})$ Untergruppe $\surd$, also zyklisch nach 3.17
+
+$f(X) = X^n - 1$ ist separabel, da $f'(X) = n X^{n-1}$ (Prop 3.13)
+\end{proof}
+
+\item[c)] Eine $n$-te Einheitswurzel $\zeta$ heißt \index{Einheitswurzel!primitiv} \emp{primitiv}, wenn $\langle \zeta \rangle = \mu_n(\overline{K})$.
+
+\end{enumerate}
+\end{defbem}
+
+\begin{satz}[Einheitswurzeln]
+Voraussetzungen wie in 4.8. ($n \geq 2$)
+
+\begin{enumerate}
+\item[a)]
+Die Anzahl der primitiven $n$-ten Einheitswurzeln in $\overline{K}$ ist\\
+$\varphi(n) = \left| \left( \QuotRaum{\Z}{n\Z} \right)^\times \right| = | \{ m \in \{1 \ldots n\} : \ggT(m,n) = 1 \} |$ 
+
+($n \mapsto \varphi(n)$ ist die \index{Eulersche $\varphi$-Funktion} \emp{Eulersche $\varphi$-Funktion})
+
+\begin{proof}
+Ist $\zeta$ primitive $n$-te Einheitswurzel, so ist $\mu_n(\overline{K}) = \{ 1, \zeta, \zeta^2, \ldots, \zeta^{n-1} \}$
+
+$\zeta^k$ erzeugt $\mu_n(\overline{K})$ \gdw $\ggT(n,k) = 1$
+\end{proof}
+
+\item[b)]
+Ist $n = p_1^{\nu_1} \cdots p_r^{\nu_r}$ (Primfaktorzerlegung),
+
+so ist $\varphi(n) = \prod_{i=1}^r p_i^{\nu_i-1}(p_1 - 1)$
+
+\begin{proof}
+$\QuotRaum{\Z}{n\Z} = \QuotRaum{\Z}{p_1^{\nu_1}\Z} \oplus \cdots \oplus \QuotRaum{\Z}{p_r^{\nu_r}\Z}$ (Satz 8)
+
+\dann $\left(\QuotRaum{\Z}{n\Z}\right)^\times = \left(\QuotRaum{\Z}{p_1^{\nu_1}\Z}\right)^\times \oplus \cdots \oplus \left(\QuotRaum{\Z}{p_r^{\nu_r}\Z}\right)^\times$
+
+$\left| \left( \QuotRaum{\Z}{p_\nu\Z} \right)^\times \right| = p^\nu - p^{\nu-1} = p^{\nu-1} (p - 1)$
+\end{proof}
+
+\item[c)] Sind $\zeta_1, \ldots, \zeta_{\varphi(n)}$ die primitiven Einheitswurzeln, so heißt
+$$\Phi_n(X) = \prod_{i=1}^{\varphi(n)} (X - \zeta_i) \in \overline{K}[X]$$
+das $n$-te \emp{Kreisteilungspolynom}. \index{Kreisteilungspolynom}
+
+\item[d)] $\displaystyle X^n - 1 = \prod_{d \mid n} \Phi_d(X)$
+
+\begin{proof}
+$\displaystyle X^n - 1 = \prod_{\zeta \in \nu_n} (X - \zeta) = \prod_{d \mid n} \prod_{\substack{\zeta \in \mu_n\\ \ord(\zeta) = d}} (X - \zeta) = \prod_{d \mid n} \Phi_d(X)$
+
+\end{proof}
+
+\item[e)] Sei $\zeta$ primitive $n$-te Einheitswurzel. Dann ist $K(\zeta) / K$ Galoiserweiterung.
+
+\begin{proof}
+$K(\zeta)$ ist Zerfällungskörper von $X^n - 1$ über $K$, also normal.
+
+$X^n - 1$ ist separabel, siehe Beweis 4.8 b)
+\end{proof}
+
+\item[f)] $\chi_n : \Gal(K(\zeta)/K) \rightarrow \left( \QuotRaum{\Z}{n\Z} \right)^\times$, $\sigma \mapsto \chi_x(\sigma)$
+
+ist injektiver Gruppenhomomorphismus, wobei $\sigma(\zeta) = \zeta^{\chi_n(\sigma)}$.
+
+($\chi_n$ heißt \index{zyklotonischer Charakter} \emp{zyklotonischer Charakter})
+
+\begin{proof}
+$\chi_n(\sigma) \in \left( \QuotRaum{\Z}{n\Z} \right)^\times$, da $\sigma(\zeta)$ primitive Einheitswurzel sein muss.
+
+$\chi_n$ ist Gruppenhomomorphismus. $\sigma_1, \sigma_2 \in \Gal(K(\zeta)/K)$\\
+\dann $\sigma_1(\sigma_2(\zeta)) = \sigma_1(\zeta^{\chi_n(\sigma_1)}) = (\sigma_1(\zeta))^{\chi_n(\sigma_1)} = \zeta^{\chi_n(\sigma_1) \chi_n(\sigma_2)}$
+
+$\chi_n$ ist injektiv.\\
+$\chi_n(\sigma) = 1$ \dann $\sigma(\zeta) = \zeta$ \dann $\sigma = id$.
+\end{proof}
+
+\item[g)]
+$\Phi_n \in K[X]$, genauer: $\Phi_n(X) \in \begin{cases} \Z[X] \text{ primitiv} & \Char(K) = 0\\ \F_p[X] & \Char(K) = p\end{cases}$
+
+\begin{proof}
+Induktion über $n$:
+
+$n = 1$: $\surd$, $n = 2$: $\surd$.
+
+$n > 2$:\\
+\begin{tabular}[l]{cccc}
+& $\underbrace{X^n - 1}$ & $\xlongequal{\text{d)}} \Phi_n(X) \cdot$ & $\underbrace{\prod_{\substack{d \mid n\\ d < n}} \Phi_d(X)}$\\
+$\Char(K) = p$: & $\in \F_p[x]$ & & $\in \F_p[x] \text{ nach I.V.}$\\
+& \multicolumn{3}{l}{\dann $\Phi_n(X) \in \F_p[x]$ mit Euklidischem Algorithmus.}\\
+$\Char(K) = 0$: & $\in \Z[x]$ & & $\in \Z[x]$ primitiv.\\
+& \multicolumn{3}{l}{$\xRightarrow{\text{Satz von Gauß}} \Phi_n(X) \in \Z[X]$ primitiv}
+\end{tabular}
+
+\end{proof}
+
+\item[h)]
+Ist $K = \Q$, so ist $\Phi_n$ irreduzibel und $\chi_n$ ein Isomorphismus.
+
+$\Q(\zeta)$ heißt $n$-te \emp{Kreisteilungskörper}. \index{Kreisteilungskörper}
+
+\begin{proof}
+Genügt zu zeigen: $\Phi_n$ irreduzibel (dann folgt $\chi_n$ isomorph  aus e) und f))
+
+Sei $f \in \Q[x]$ das Minimalpolynom von $\zeta$. $f \in \Z[x]$ wegen g).
+
+\emph{Behauptung}: $f(\zeta^p) = 0$ für jede Primzahl $p$ mit $p \nmid n$.
+
+Dann ist auch $f(\zeta^m) = 0$ für jedes $m$ mit $\ggT(m,n) = 1$\\
+\dann $f(\zeta_i) = 0$ für jede primitive Einheitswurzel $\zeta_i$\\
+\dann $\Phi_n \mid f$ \dann $\Phi_n = f$.
+
+\emph{Beweis der Behauptung}: Sei $X^n - 1 = f \cdot h$.
+
+Wäre $f(\zeta^p) \neq 0$ \dann $h(\zeta^p) = 0$\\
+d.h. $\zeta$ ist Nullstelle von $h(X^p)$ \dann $h(X^p)$ ist Vielfaches von $f$\\
+\dann $\exists g \in \Z[X]$ mit $h(X^p) = f \cdot g$ $\xRightarrow{\text{mod $p$}}$ $\overline{f} \cdot \overline{g} = \overline{h}^p$ in $\F_p[X]$.
+
+\dann $\overline{f}$ und $\overline{h}$ haben gemeinsame Nullstellen in $\overline{\F_p}$\\
+\dann $X^n - \overline{1} = \overline{f} \cdot \overline{h}$ hat doppelte Nullstelle. Widerspruch zu $X^n - 1$ separabel.
+
+\end{proof}
+
+\end{enumerate}
+\end{satz}
+
+\parbox{\textwidth}{%
+\begin{minipage}[l]{0.6\textwidth}
+\paragraph{Beispiele}
+$\Phi_2(x) = x+1$
+
+$\Phi_p(x) = x^{p-1} + x^{p-2} + \cdots + x + 1$
+
+$\Phi_4(x) = \dfrac{x^4 - 1}{\Phi_2 \cdot \Phi_1} = \dfrac{x^4 - 1}{x^2 - 1} = x^2 + 1$
+
+$\Phi_6(x) = \dfrac{x^6 - 1}{\Phi_3 \cdot \Phi_2 \cdot \Phi_1} = \cdots = x^2 - x + 1$
+
+$\Phi_8(x) = x^4 - 1$
+
+Für $n < 105$ sind alle Koeffizienten von $\Phi_n$ 0, 1 oder -1.
+\end{minipage}
+\hspace{3mm}
+\begin{minipage}[r]{0.4\textwidth}
+\input{pics/4.3-1.pictex}
+\end{minipage}
+}
+
+
+\begin{folg}
+Das regelmäßige $n$-Eck ist genau dann mit Zirkel und Lineal konstruierbar, wenn $\varphi(n)$ eine Potenz von 2 ist.
+
+\begin{proof}
+Zu zeigen: $\zeta_n$ (primitive Einheitswurzel) $\in K(\{0,1\})$ \gdw $\varphi(n) = 2^l$ für ein $l>1$.
+
+\gdw $\underbrace{[\Q(\zeta_n) : \Q]}_{=\varphi(n)} = 2^l$ und es gibt Kette $\Q \subset L_1 \subset \cdots \subset L_l = \Q(\zeta_n)$ mit $[L_i:L_{i-1}] = 2$
+
+,,$\Longleftarrow$`` Woher kommt die Kette?
+
+$\Gal(\Q(\zeta_n)/\Q)$ ist abelsch von Ordnung $2^l$
+
+Dazu gehört eine Kompositionsreihe mit Faktoren $\QuotRaum{\Z}{2\Z}$.
+\end{proof}
+
+\end{folg}
+
+% Vorlesung am 10.2.2006
+
+\section{Norm, Spur und Charaktere}
+
+\begin{defbem}
+Sei $G$ ein Gruppe, $K$ ein Körper.
+
+\begin{enumerate}
+\item[a)] Ein \emp{Charakter} \index{Charakter} von $G$ (mit Werten in $K$) ist ein Gruppenhomomorphismus $\chi : G \rightarrow K^\times$.
+
+\item[b)] $X_K(G) = \{ \chi : G \rightarrow K^\times : \chi \text{ Charakter } \} = \Hom(G,K^\times)$ heißt \emp{Charaktergruppe} \index{Charaktergruppe} von $G$ (mit Werten in $K$).
+
+\item[c)] (Lineare Unabhängigkeit der Charaktere, E. Artin)
+
+$X_K(G)$ ist linear unabhängige Teilmenge des $K$-Vektorraums $\Abb(G,K)$.
+
+\begin{proof}
+Angenommen $X_K(G)$ ist linear abhängig, dann sei $n > 0$ minimal, so dass es in $X_K(G)$ $n$ paarweise verschiedene linear unabhängige Elemente gibt: es gebe also $\chi_1, \ldots \chi_n \in X_K(G)$, $\lambda_1, \ldots \lambda_n \in K^\times$ mit $\sum_{i=1}^n \lambda_i \chi_i = 0$.
+
+Dazu muss $n \geq 2$ sein.
+
+Sei $g \in G$ mit $\chi_1(g) \neq \chi_2(g)$. Dann gilt für alle $h \in G$.
+
+$\displaystyle 0 = \sum_{i=1}^n \lambda_i \chi_i (g h) = \sum_{i=1}^n \underbrace{ \lambda_i \chi_i (g) }_{ = \mu_i \in K^\times } \chi_i(h) = \sum_{i=1}^n \mu_i \chi_i(h)$ \dann $\displaystyle \sum_{i=1}^n \mu_i \chi_i = 0$
+
+Sei $\nu_i = \mu_i - \lambda_i \chi_1(g)$, $i = 1, \ldots n$.
+
+Dann ist $\sum_{i=1}^n \nu_i \chi_i = 0$,\\
+$\nu_1 = \lambda_1 \chi_1(g) - \lambda_1 \chi_1(g) = 0$,\\
+$\nu_2 = \lambda_2 \chi_2(g) - \lambda_2 \chi_1(g) = \lambda_2(\chi_2(g) - \chi_1(g)) \neq 0$.
+
+Widerspruch zur Minimalität von $n$.
+\end{proof}
+
+\end{enumerate}
+\end{defbem}
+
+\begin{defbem}
+Sei $L/K$ endliche Körpererweiterung.
+
+$q := \dfrac{[L:K]}{[L:K]_S} (= p^r, p = \Char(K))$, $n := [L:K]_S$
+
+$\Hom_K(L,\overline{K}) = \{ \sigma_1, \ldots \sigma_n \}$
+
+\begin{enumerate}
+\item[a)]
+Für $\alpha \in L$ heißt $\displaystyle \tr_{L/K}(\alpha) := q \cdot \sum_{i=1}^n \sigma_i(\alpha) \in \overline{K}$ die \emp{Spur} \index{Spur} von $\alpha$ (über $K$).
+
+\item[b)]
+$\tr_{L/K}(\alpha) \in K$ für alle $\alpha \in K$.
+
+\begin{proof}
+Ohne Einschränkung sei $L/K$ separabel.
+
+Ist $L/K$ normal, also galoissch, so ist\\
+$\Hom_K(L,\overline{K}) = \Gal(L/K) =: G$\\
+und $\tr_{L/K}(\alpha) \in L^G = K$ {\scriptsize[Die Spur ist invariant unter $\sigma \in \Gal(L/K)$, dann Hauptsatz]}
+
+Andernfalls sei $\widetilde{L}$ normale Erweiterung von $L$ mit $L \subset \widetilde{L}$.
+
+Für $\tau \in \Hom_K(\widetilde{L},\overline{K}) = \Gal(\widetilde{L}/K)$ und jedes $i = 1, \ldots n$ ist $\tau \circ \sigma_i \in \Hom_K(L,\overline{K})$ (da $\sigma_i(L) \subseteq \widetilde{K}$)
+
+\dann $\tr_{L/K}(\alpha) \in \widetilde{L}^{\Gal(\widetilde{L}/K)} = K$.
+\end{proof}
+
+\item[c)]
+$\tr_{L/K}$ ist $K$-linear.
+
+\item[d)]
+Für $\alpha \in L$ heißt $\displaystyle N_{L/K}(\alpha) := \left( \prod_{i=1}^n \sigma_i(\alpha) \right)^q$ die \emp{Norm} \index{Norm} von $\alpha$ (über $K$).
+
+\item[e)]
+$N_{L/K}(\alpha) \in K$
+
+\begin{proof}
+Ist $L/K$ separabel, so argumentiere wie in b), sonst siehe Bosch.
+\end{proof}
+
+\item[f)]
+$N_{L/K} : L^\times \rightarrow K^\times$ ist Gruppenhomomorphismus.
+
+\end{enumerate}
+\end{defbem}
+
+\begin{bem}
+Sei $L/K$ endliche Körpererweiterung.
+
+Für $\alpha \in L$ sei $m_\alpha : L \rightarrow L$, $x \mapsto \alpha x$.
+
+$m_\alpha$ ist $K$-linear und es gilt: $\tr_{L/K}(\alpha) = \Spur(m_\alpha)$, $N_{L/K}(\alpha) = \det(m_\alpha)$.
+
+\begin{proof}
+Ist $L/K$ separabel, so sei $L = K(\alpha)$
+
+Dann ist $1, \alpha, \alpha^2, \ldots, \alpha^{n-1}$ eine $K$-Basis von $L$, $[L:K] = n$.
+
+Weiter sei $f(X) = X^n + c_{n-1} X^{n-1} + \cdots + c_1 X + c_0 \in K[X]$ das Minimalpolynom von $\alpha$ über $K$.
+
+Dann ist die Abbildungsmatrix von $m_\alpha$ bzgl. der Basis $1, \ldots, \alpha^{n-1}$:
+$$\left(\begin{array}{cccccc}
+0      & 0 & \cdots & \cdots & 0      & -c_0\\
+1      & 0 &        &        & \vdots & -c_1\\
+\vdots & 1 & 0      &        & \vdots & \vdots \\
+\vdots & \vdots & 1 & \ddots\\
+\vdots & \vdots & \vdots & \ddots & 0 \\
+0      & 0 & 0 & \cdots & 1 & -c_{n-1}
+\end{array}\right)$$
+
+\dann $\Spur(m_\alpha) = -c_{n-1}$, $\det(m_\alpha) = (-1)^n c_0$
+
+In $\overline{K}[X]$ zerfällt $f$ in Linearfaktoren:
+$\displaystyle f = \prod_{i=1}^n (X - \sigma_i(\alpha))$
+
+\dann $\displaystyle  c_{n-1} = \sum_{i=1}^n \sigma_i(\alpha), c_0 = (-1)^n \prod_{i=1}^n \sigma_i(\alpha)$
+
+Ist $L \neq K(\alpha)$, so sei $b_1, \ldots b_m$ eine $K(\alpha)$-Basis von $L$.
+
+Dann ist $B = \{ b_i \alpha^j : i = 1, \ldots m, j = 0, \ldots n-1 \}$ eine $K$-Basis von $L$.
+
+Dann ist die Darstellungsmatrix von $m_\alpha$ bzgl B:
+$$\left(\begin{array}{cccc}
+D      & 0 & \cdots & 0\\
+0      & D &        & \vdots \\
+\vdots &   & \ddots & 0 \\
+0      & 0 &        & D
+\end{array}\right)$$
+
+\dann $\Spur(m_\alpha) = m \cdot (-c_{n-1})$, $det(m_\alpha) = ( (-1)^n c_0 )^m$
+
+Für jedes $\sigma_i \in \Hom_K(L,\overline{K})$ ist $\sigma_i(\alpha)$ Nullstelle von $f$.
+
+Jede Nullstelle von $f$ wird dabei gleich oft angenommen, nämlich $m = [L:K(\alpha)]$-mal.
+
+\dann $\tr_{L/K}(\alpha) = m \cdot \tr_{K(\alpha)/K}(\alpha) = m \cdot (-c_{n-1})$\\
+und $N_{L/K}(\alpha) = ( N_{K(\alpha)/K}(\alpha) )^m = ( (-1)^n c_0 )^m$.
+
+\end{proof}
+\end{bem}
+
+\begin{satz}[Hilbert 90]
+Sei $L/K$ zyklische Galois-Erweiterung (d.h. $\Gal(L/K) = \langle \sigma \rangle$ für ein $\sigma$)
+
+\begin{enumerate}
+\item[a)]
+Ist $\beta \in L$ mit $N_{L/K}(\beta) = 1$, so gibt es ein $\alpha \in L^\times$ mit
+$$\beta = \frac{\alpha}{\sigma(\alpha)}$$
+
+\begin{proof}
+$n := [L/K]$
+
+Nach 4.10 c) sind die Charaktere $id,\sigma, \ldots, \sigma^{n-1} : L^\times \rightarrow L^\times$ linear unabhängig über $L$.
+
+Also ist $f = id + \beta \cdot \sigma + \beta \cdot \sigma(\beta) \sigma^2 + \cdots + \beta \sigma(\beta) \cdots \sigma^{n-2}(\beta) \sigma^{n-1}$
+
+\dann $\exists \gamma \in L$ mit $\alpha := f(\gamma) \neq 0$. Dies eingesetzt:
+
+$\beta \sigma(\alpha) = \beta \sigma(\gamma) + \beta \sigma(\beta) \sigma^2(\gamma) + \cdots + \underbrace{\beta \sigma(\beta) \cdots \sigma^{n-1}(\beta)}_{N_{L/K}(\beta) = 1} \underbrace{\sigma^n(\gamma)}_{\gamma}$
+
+\end{proof}
+
+% Vorlesung am 13.2.2006
+
+\item[b)]
+Sei $L/K$ zyklische Galoiserweiterung, $\sigma \in \Gal(L/K)$ ein Erzeuger. $n := [L:K]$
+
+Zu $\beta \in L$ mit $\tr_{L/K}(\beta) = 0$ gibt es $\alpha \in L$ mit
+$$\beta = \alpha - \sigma(\alpha)$$
+
+\begin{proof}
+Sei $\gamma \in L$ mit $\tr_{L/K}(\gamma) \neq 0$ und\\
+$\alpha := \frac{1}{\tr_{L/K}(\alpha)} \cdot [ \beta \sigma(\gamma) + (\beta + \sigma(\beta)) \sigma^2(\gamma) + \cdots + (\beta + \sigma(\beta) + \cdots + \sigma^{n-2}(\beta)) \sigma^{n-1}(\gamma)]$
+
+\dann $\sigma(\alpha) = \frac{1}{\tr_{L/K}(\gamma)} \cdot [ \sigma(\beta) \sigma^2(\gamma) + (\sigma(\beta) + \sigma^2(\beta)) \sigma^3(\gamma) + \cdots + (\sigma(\beta) + \cdots + \sigma^{n-1}(\beta)) \sigma^n(\gamma)]$
+\dann $(\alpha - \sigma(\alpha)) \cdot \tr_{L/K}(\gamma) = \beta \sigma(\gamma) + \beta \sigma^2(\gamma) + \cdots + \beta \sigma^{n-1}(\gamma) - \underbrace{(\sigma(\beta) + \cdots + \sigma^{n-1}(\beta))}_{-\beta} \gamma$
+
+$= \beta \tr_{L/K}(\gamma)$
+
+\end{proof}
+
+\end{enumerate}
+\end{satz}
+
+\begin{folg}
+Voraussetzungen wie in Satz 19
+
+\begin{enumerate}
+\item[a)]
+Ist $\Char(K)$ kein Teiler von $n := [L:K]$ und enthält $K$ eine primitive $n$-te Einheitswurzel $\zeta$, so gibt es ein primitives Element $\alpha \in L$, so dass das Minimalpolynom von $\alpha$ über $K$:
+$$X^n - \gamma$$
+ist für ein $\gamma \in K$. (,,\emp{Kummer-Erweiterung}``)\index{Kummer-Erweiterung}
+
+\item[b)]
+Ist $\Char(K) = [L:K] = p$, so gibt es ein primitives Element $\alpha \in L$ mit Minimalpolynom
+$$X^p - X - \gamma$$
+für ein $\gamma \in K$. (,,\emp{Artin-Schreier-Erweiterung}``)\index{Artin-Schreier-Erweiterung}
+
+\end{enumerate}
+
+\begin{proof}
+\begin{enumerate}
+\item[a)]
+Es ist $N_{L/K}(\zeta) = \zeta^n - 1 = N_{L/K}(\zeta^{-1})$
+
+$\xRightarrow{\text{Satz 19a}}$ es gibt $\alpha \in L$ mit $\sigma(\alpha) = \zeta \alpha$
+
+\dann $\sigma^i(\alpha) = \zeta^i \alpha$, $i = 0, \ldots n-1$
+
+\dann Das Minimalpolynom von $\alpha$ über $K$ hat $n$ verschiedene Nullstellen.
+
+\dann $L = K(\alpha)$
+
+Außerdem ist $\sigma(\alpha^n) = \sigma(\alpha)^n = \alpha^n$
+
+\dann $\gamma := \alpha^n \in K$
+
+\dann Das Minimalpolynom von $\alpha$ ist $X^n - \gamma$.
+
+\item[b)]
+$\tr_{L/K}(1) = 1 + \cdots + 1 = p = 0$
+
+$\xRightarrow{\text{Satz 19b}}$ es gibt $\alpha \in L$ mit $\sigma(\alpha) = \alpha + 1$
+
+\dann $\sigma^i(\alpha) = \alpha + i$, $i = 0, \ldots n-1$
+
+\dann $K(\alpha) = L$\\
+$\sigma(\alpha^p - \alpha) = \sigma(\alpha)^p - \sigma(\alpha) = \alpha^p + 1 - (\alpha + 1) = \alpha^p + \alpha$.
+
+\dann $\alpha^p - \alpha =: \gamma \in K$ und $X^p - X - \gamma$ ist Minimalpolynom von $\alpha$.
+
+\end{enumerate}
+\end{proof}
+
+\end{folg}
+
+\begin{prop}
+Sei $L/K$ einfache Körpererweiterung $L = K(\alpha)$
+
+\begin{enumerate}
+\item[a)] Ist $\alpha$ Nullstelle eines Polynoms $X^n - \gamma$ für ein $\gamma \in K$ und enthält $K$ eine primitive $n$-te Einheitswurzel $\zeta$, so ist $L/K$ galoissch, $\Gal(L/K)$ zyklisch, $d := [L:K]$ ist Teiler von $n$, $\alpha^d \in K$, $X^d - \alpha^d$ ist Minimalpolynom von $\alpha$.
+
+\item[b)] Ist $\Char(K) = p > 0$ und $\alpha \in L/K$ Nullstelle eines Polynoms $X^p - X - \gamma$ für ein $\gamma \in K$, so ist $L/K$ galoissch und $\Gal(L/K) \cong \QuotRaum{\Z}{p\Z}$.
+\end{enumerate}
+
+\begin{proof}
+\begin{enumerate}
+\item[a)]
+Die Nullstellen von $X^n - \gamma$ sind $\alpha, \zeta \alpha, \ldots, \zeta^{n-1} \alpha$.
+
+\dann $L$ ist Zerfällungskörper von $X^n - \gamma$, also normal und separabel, also galoissch.
+
+Für $\sigma \in \Gal(L/K)$ ist $\sigma(\alpha) = \zeta^{\nu(\sigma)} \alpha$ für ein $\nu(\sigma) \in \QuotRaum{\Z}{n\Z}$
+
+$\sigma \mapsto \nu(\sigma)$ ist injektiver Gruppenhomomorphismus $\Gal(L/K) \rightarrow \QuotRaum{\Z}{n\Z}$
+
+\dann $\Gal(L/K)$ ist zyklisch, da Untergruppe von $\QuotRaum{\Z}{n\Z}$
+
+\dann $d = [L:K]$ teilt $n$.
+
+Für $\sigma \in \Gal(L/K)$ ist $\sigma(\alpha^d) = ( \zeta^{\nu(\sigma)} )^d \cdot \alpha^d = \alpha^d$
+
+$X^d - \alpha^d$ ist Minimalpolynom, da $L = K(\alpha)$ und $[K(\alpha):K] = d$
+
+\item[b)]
+Für $i \in \F_p$ ist $(\alpha + i)^p - (\alpha + i) - \gamma = \alpha^p + \underbrace{i^p}_{= i} - \alpha - i - \gamma = 0$.
+
+\dann $X^p - X - \gamma$ hat $p$ verschiedene Nullstellen in $L$.
+
+\dann $L$ ist Zerfällungskörper von $X^p - X - \gamma$ und $L/K$ ist separabel.
+
+Außerdem folgt: $\Gal(L/K) = \QuotRaum{\Z}{p\Z}$
+
+\end{enumerate}
+\end{proof}
+
+\end{prop}
+
+\section{Auflösung von Gleichungen durch Radikale}
+
+\begin{defin}
+Sei $K$ ein Körper
+
+\begin{enumerate}
+\item[a)]
+Eine einfache Körpererweiterung $L = K(\alpha)$ heißt \emp{elementare} (oder \emp{einfache}) \emp{Radikalerweiterung}, \index{Radikalerweiterung!elementare} \index{Radikalerweiterung!einfache} wenn entweder
+\begin{enumerate}
+\item[(i)] $\alpha$ ist eine Einheitswurzel.
+
+\item[(ii)] $\alpha$ ist Nullstelle von $X^n - \gamma$ für ein $\gamma \in K$ und $\Char(K) \nmid n$.
+
+\item[(iii)] $\alpha$ ist Nullstelle von $X^p - X - \gamma$ für ein $\gamma \in K$ und $\Char(K) = p$.
+\end{enumerate}
+
+\item[b)] Eine endliche Körpererweiterung $L/K$ heißt \emp{Radikalerweiterung}, \index{Radikalerweiterung} wenn es eine Körpererweiterung $L'/L$ gibt und eine Kette $K = L_0 \subset L_1 \subset \cdots \subset L_n = L'$ von Zwischenkörpern, so dass $L_{i+1}/L_i$ elementare Radikalerweiterung ist für $i = 0, \ldots, n-1$.
+
+\item[c)] Ist $f \in K[X]$ separabel, nicht konstant, so heißt die Gleichung $f(X) = 0$ \emp{durch Radikale auflösbar}, \index{durch Radikale auflösbar} wenn der Zerfällungskörper von $f$ eine Radikalerweiterung ist.
+
+\end{enumerate}
+
+\end{defin}
+
+\paragraph{Beispiel}
+$K = \Q$, $f(X) = X^3 - 3 X + 1$
+
+Behauptung: Ist $\alpha$ Nullstelle von $f$, so ist $\Q(\alpha)$ Zerfällungskörper von $f$, hat also Grad 3 über $\Q$. $\Q(\alpha)/\Q$ ist keine Radikalerweiterung!
+
+Die Nullstellen von $f$ sind $\alpha_1 = e^\frac{2 \pi i}{9} + e^\frac{16 \pi i}{9}$, $\alpha_2 = e^\frac{8 \pi i}{9} + e^\frac{10 \pi i}{9}$, $\alpha_3 = e^\frac{14 \pi i}{9} + e^\frac{4 \pi i}{9}$.
+
+Es ist $\alpha_i^2 = e^\frac{4 \pi i}{9} + e^\frac{14 \pi i}{9} + 2 = \alpha_3 + 2$ \dann $\alpha_3 \in \Q(\alpha_1)$
+
+\dann $\alpha_2 = - \alpha_1 - \alpha_3 \in \Q(\alpha_1)$.
+
+\begin{satz}
+Sei $K$ ein Körper, $f \in K[X]$ separabel, nicht konstant.
+
+\begin{enumerate}
+\item[a)] Die Gleichung $f(X) = 0$ ist genau dann durch Radikale auflösbar, wenn ihre Galoisgruppe $G$ auflösbar ist.
+
+(d.h. $G$ hat Normalreihe, $G = G_0 \supset G_1 \supset \cdots \supset G_n = \{e\}$ mit $\QuotRaum{G_i}{G_{i+1}}$ abelsch.)
+
+\paragraph{Beispiel}
+$X^5 - 4 X + 2$ hat Galoisgruppe $S_5$\\
+und ist deshalb nicht durch Radikale auflösbar,\\
+denn $S_5 \subset A_5 \subset \{e\}$ ist Kompositionsreihe.
+
+Nach Jordan-Hölder tritt $A_5$ in jeder Kompositionsreihe für $S_5$ als Faktorgruppe auf.
+
+\item[b)]
+Eine endliche Körpererweiterung $L/K$ ist genau dann Radikalerweiterung, wenn es eine endliche Galoiserweiterung $L'/K$ gibt mit $L \subseteq L'$, so dass $\Gal(L'/K)$ auflösbare Gruppe ist.
+
+\end{enumerate}
+
+% letzte Vorlesung am 17.2.2006
+
+\begin{proof}
+,,$\Longrightarrow$`` Sei $K = L_0 \subset L_1 \subset \cdots \subset L_m$ Kette wie in der Definition mit $L \subset L_m$.
+
+\emph{Induktion über $m$}
+
+$m=1$: Ist $L_1/K$ vom Typ (i), so ist $L_1 = K(\zeta)$ für eine primitive $n$-te Einheitswurzel $\zeta$ und $\Gal(K(\zeta)/K) \subseteq \left( \QuotRaum{\Z}{n\Z} \right)^\times$, also auflösbar.
+
+Ist $L_1/K$ vom Typ (iii), so ist $L_1/K$ galoissch und $\Gal(L_1/K) = \QuotRaum{\Z}{p\Z}$.
+
+Sei $L_1/K$ vom Typ (ii):\\
+Enthält $K$ eine primitive $n$-te Einheitswurzel, so ist $K(\alpha)/K$ galoissch und $\Gal(K(\alpha)/K) \cong \QuotRaum{\Z}{n\Z}$.
+
+Andernfalls sei $F = K(\zeta)$ der Zerfällungskörper von $X^n - 1$ über $K$ und $L_1' = F(\alpha) = L_1(\zeta) = F L_1$ das ,,Kompositum`` von $F$ und $L_1$.
+
+$L_1'$ ist galoissch über $K$ (Zerfällungskörper von $X^n - \gamma$ über $K$) und es gibt exakte Sequenz:
+$$ 1 \rightarrow \underbrace{\Gal(L_1'/F)}_{\text{zyklisch}} \rightarrow \Gal(L_1'/K) \rightarrow \underbrace{\Gal(F/K)}_{\text{abelsch}} \rightarrow 1$$
+\dann $\Gal(L_1'/K)$ auflösbar.
+
+$n>1$: Eine endliche Körpererweiterung $L/K$ heiße \emp{auflösbar}, wenn es eine endliche Erweiterung $L'/L$ gibt, so dass $L'/K$ galoissch ist und $\Gal(L'/K)$ auflösbar.
+
+Nach I.V. ist $L_{m-1}/K$ auflösbar.
+
+Außerdem ist $L_m/L_{m-1}$ auflösbar
+
+Zu zeigen also: Sind $K \subset L \subset M$ Körpererweiterungen (Umbenannt: $L$ war $L_{m-1}$, $M$ war $L_m$) und $L/K$ auflösbar, $M/L$ auflösbar, so ist $M/K$ auflösbar.
+
+Seien dazu $L'/L$ und $M'/M$ Erweiterungen wie in der Definition:
+\begin{center}
+\leavevmode
+\xymatrix{
+             & \ar@{-}[d] \ar@{-}[dl]_{\text{galoissch}} L' & & \ar@{-}[ll] \ar@{-}[d] L' M' \\
+M \ar@{-}[r] & L \ar@{-}[r] \ar@{-}@/_/[rr]_{\text{galoissch}} & M \ar@{-}[r] & M'
+}
+\end{center}
+
+\emph{Behauptung}: L'M'/L' ist galoissch und $\Gal(L'M'/L')$ ist auflösbar.
+
+\emph{denn}: Nach Voraussetzung ist $M'/L$ galoissch, also Zerfällungskörper eines Polynoms $f \in L[X]$.\\
+\dann $M'L'$ ist Zerfällungskörper von $f \in L'[X]$ über $L'$.
+
+Außerdem: $\Gal(L'M'/L') \rightarrow \Gal(M'/L)$, $\sigma \mapsto \sigma|_{M'}$ !$\in \Gal(M'/L)$
+
+ist wohldefiniert und injektiv: ist $\sigma|_{M'} = id_{M'}$, so ist $\sigma = id_{L'M}$, da $\sigma_{L'} = id_{L'}$ nach Voraussetzung.
+
+Also ohne Einschränkung $L = L'$, $L'M' = M$.
+
+Ist $M/K$ galoissch, so ist $\Gal(M/K)$ auflösbar, da dann
+$$1 \rightarrow \underbrace{\Gal(M/L)}_\text{auflösbar} \rightarrow \Gal(M/K) \rightarrow \underbrace{\Gal(L/K)}_\text{auflösbar} \rightarrow 1$$
+exakt ist.
+
+Andernfalls sei $\widetilde{M}/M$ minimale Erweiterung, so dass $\widetilde{M}/K$ galoissch ist.
+
+$\widetilde{M}$ wird über $K$ erzeugt von den $\sigma(M)$, $\sigma \in \Hom_K(M,\overline{K})$ ($\overline{K}$ fest gewählter algebraischer Abschluss von $K$)
+
+Für jedes $\sigma \in \Hom_K(M,\overline{K})$ ist $\sigma(M)$ Galoiserweiterung von $\sigma(L) = L$.
+
+Dann ist $\displaystyle \Gal(\widetilde{M}/L) \rightarrow \prod_{\sigma \in \Hom_K(M,\overline{K})} \Gal(\sigma(M),L)$, $\tau \mapsto (\tau|_{\sigma(M)})_\sigma$
+injektiver Gruppenhomomorphismus.
+
+Für jedes $\sigma \in \Hom_K(M,\overline{K})$ ist $\Gal(\sigma(M)/L) \cong \Gal(M,L)$ also auflösbar. \dann $\prod_\sigma \Gal(\sigma(M)/L)$ ist auflösbar (!)
+
+\dann $\Gal(\widetilde{M}/L)$ auflösbar (als Untergruppe einer auflösbaren Gruppe)
+
+\dann $\Gal(\widetilde{M}/K)$ ist auflösbar wegen
+$$1 \rightarrow \Gal(\widetilde{M}/L) \rightarrow \Gal(\widetilde{M}/K) \rightarrow \Gal(L/K) \rightarrow 1$$
+exakt.
+
+\emph{Beweis}: ,,$\Longleftarrow$``
+
+$G := \Gal(L'/K)$ sei auflösbar, $G = G_0 \supset G_1 \supset \cdots \supset G_m = \{1\}$ Normalreihe so dass $G_{i+1}$ Normalteiler in $G_i$ und $\QuotRaum{G_i}{G_{i+1}} \cong \QuotRaum{\Z}{p_i\Z}$ mit Primzahlen $p_i$, $i = 0 \ldots m-1$
+
+Dazu gehört eine Kette von Zwischenkörpern $K = K_0 \subset K_1 \subset \cdots \subset K_m = L$, in der $\QuotRaum{K_i}{K_{i-1}}$ Galoiserweiterung ist mit $\Gal(K_i/K_{i-1}) \cong \QuotRaum{\Z}{p_i \Z}$
+
+Ist $p_i = \Char(K)$, so ist $K_i/K_{i-1}$ Artin-Schreier-Erweiterung (d.h. Typ (iii))
+
+Ist $p_1 \neq \Char(K)$, so ist $K_i/K_{i-1}$ vom Typ (ii), (Folgerung zu Satz 19) falls $K_{i-1}$ eine primitive $n$-te Einheitswurzel $\zeta$ enthält.
+
+Sei also $\displaystyle d := \prod_{\substack{p \text{ prim}\\p \mid |G|}} p$ und $F$ der Zerfällungskörper von $X^d -1$ über $K$.\\
+\dann $F/K$ ist Erweiterung vom Typ (i).
+
+Sei $\widetilde{L} := F L'$ \dann $\widetilde{L}/F$ ist Galoiserweiterung (wie bei dem Diagramm zu $L'M'$)\\
+und $\Gal(\widetilde{L}/F) \subset \Gal(L'/K)$, also auflösbar.
+
+Beginne von vorne mit $\widetilde{L}$ und $F$ statt $L'$ und $K$.
+
+Erhalte Kette $K \subset F \subset F_1 \subset \cdots \subset F_r = \widetilde{L}$ von Zwischenkörpern mit $\QuotRaum{F_i}{F_{i-1}}$ Galoiserweiterung, $\Gal(F_i/F_{i-1}) \cong \QuotRaum{\Z}{p_i\Z}$ und $F_i/F_{i-1}$ ist \emp{elementare Radikalerweiterung}.
+
+\end{proof}
+\end{satz}
+
+\printindex[default][\phantomsection\addcontentsline{toc}{chapter}{Vokabeln}]
+
+\end{document}

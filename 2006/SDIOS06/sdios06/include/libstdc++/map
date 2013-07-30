@@ -1,0 +1,77 @@
+#ifndef MAP_
+#define MAP_
+
+#include "helpers/redblacktree.h"
+#include "utility"
+
+namespace std
+{
+
+	template<typename KeyType, typename ValueType>
+	class map
+	{
+	public:
+		class TreeValueType : public pair<KeyType, ValueType>
+		{
+		public:			
+			bool operator<(const KeyType& key) const
+			{
+				return this->first < key;
+			}
+			
+			bool operator<(const TreeValueType& other) const
+			{
+				return this->first < other.first;
+			}			
+			
+			bool operator==(const KeyType& key) const
+			{
+				return this->first == key;
+			}
+			
+			TreeValueType(const KeyType& key, const ValueType& val)
+				: pair<KeyType, ValueType>(key, val)
+			{
+			}
+		};
+		
+		typedef private_stuff::RedBlackTree<KeyType, TreeValueType> Tree;
+		typedef typename Tree::iterator iterator;
+		typedef size_t size_type;
+	
+		ValueType& operator[] (const KeyType& key)
+		{
+			iterator i = tree.find(key);
+			if(i == end()) {
+				i = tree.insert(key, TreeValueType(key, ValueType()));
+			}
+			
+			return i->second;	
+		}
+
+		iterator find(const KeyType& key)
+		{
+			return tree.find(key);
+		}
+		
+		iterator begin()
+		{
+			return tree.begin();
+		}
+		
+		iterator end()
+		{
+			return tree.end();
+		}
+		
+		size_type size() const
+		{
+			return tree.size;
+		}
+	
+	private:
+		Tree tree;
+	};
+}
+
+#endif /*MAP_*/

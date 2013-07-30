@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - Memory Control Block</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; MCB - DOS Memory Control Block Format</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; Offset Size &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Description</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;00 &nbsp; byte &nbsp; &nbsp; &nbsp; 'M' 4Dh &nbsp;member of a MCB chain, (not last)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;'Z' 5Ah &nbsp;indicates last entry in MCB chain<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;other values cause "Memory Allocation Failure" on exit<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;01 &nbsp; word &nbsp; &nbsp; &nbsp; <a href="table-Program_Segment_Prefix.html">PSP</a>&nbsp;segment address of MCB owner (Process Id)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;possible values:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0 = free<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;8 = Allocated by DOS before first user pgm loaded<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;other = Process Id/PSP segment address of owner<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;03 &nbsp; word &nbsp; &nbsp; &nbsp; number of paras related to this MCB (excluding MCB)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;05 11bytes &nbsp; &nbsp; &nbsp;reserved<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;08 &nbsp;8bytes &nbsp; &nbsp; &nbsp;ASCII program name, NULL terminated if less than max<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;length (DOS 4.x+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;10 &nbsp;nbytes &nbsp; &nbsp; &nbsp;first byte of actual allocated memory block<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- to find the first MCB in the chain, use &nbsp;<a href="int-int_21_52.html">INT 21,52</a><br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- DOS 3.1+ the first memory block contains the DOS data segment<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ie., installable drivers, buffers, etc<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- DOS 4.x the first memory block is divided into subsegments,<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;with their own memory control blocks; offset 0000h is the first<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- the 'M' and 'Z' are said to represent Mark Zbikowski<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- the MCB chain is often referred to as a linked list, but<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;technically isn't<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;DOS 4.x Initial Data Segment Subsegment Control Blocks:</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; Offset Size &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Description</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp;00 &nbsp; byte &nbsp; &nbsp; &nbsp; subsegment type<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;'D' &nbsp;device driver<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;'E' &nbsp;device driver appendage<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;'I' &nbsp;Installable File System driver<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;'F' &nbsp;FILES= control block storage area (for FILES&gt;5)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;'X' &nbsp;FCBS= control block storage area, if present<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;'C' &nbsp;BUFFERS EMS workspace area if BUFFERS /X is used<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;'B' &nbsp;BUFFERS= storage area<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;'L' &nbsp;LASTDRIVE= current directory structure array<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;'S' &nbsp;STACKS= code/data area, if present (see below)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;01 &nbsp; word &nbsp; &nbsp; &nbsp; paragraph of subsegment start<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;03 &nbsp; word &nbsp; &nbsp; &nbsp; subsegment size in paragraphs<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;05 &nbsp;3bytes &nbsp; &nbsp; &nbsp;unused<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;08 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;types "D" and "I", filename of driver loaded driver<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see &nbsp;<a href="int-int_21_48.html">INT 21,48</a> &nbsp;<a href="int-int_21_49.html">INT 21,49</a> &nbsp;<a href="int-int_21_4a.html">INT 21,4A</a><br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">Memory Control Block</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

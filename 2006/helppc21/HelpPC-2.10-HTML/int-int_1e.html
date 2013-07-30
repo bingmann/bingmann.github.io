@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - int 1e</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;INT 1E - Disk Initialization Parameter Table Vector</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- not an interrupt, but a far pointer to the diskette base table<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- this table contains initialization parameters for the disk<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;controller used during formatting, reading, and writing to a disk<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Disk Initialization Parameter Table Vector Definition:</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Offset &nbsp; &nbsp; Description</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;00 &nbsp;&#9474;7&#9474;6&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474; &nbsp;Disk Controller Mode byte 1<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472; &nbsp;head step rate in milliseconds (0-F)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; &nbsp;head unload time in milliseconds (0-F)<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;01 &nbsp;&#9474;7&#9474;6&#9474;5&#9474;4&#9474;3&#9474;2&#9474;1&#9474;0&#9474; &nbsp;Disk Controller Mode byte 2<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9474; &#9492;&#9472;&#9472;&#9472;&#9472; DMA flag (0 = use DMA)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9492;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472; (head load time/2)-1 in milliseconds<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;02 &nbsp;clock ticks until motor off<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;03 &nbsp;FM or MFM Mode: &nbsp;Log2 (Bytes per Sector/128)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FM=Frequency Modulation used on single-density disks<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;MFM=Modified Frequency Modulation used on double-sided disks<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;04 &nbsp;last sector on track<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;05 &nbsp;gap length in bytes:<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Bytes Per &nbsp; Sectors &nbsp; &nbsp; Write &nbsp; &nbsp;Format<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;MFM &nbsp; &nbsp; Sector &nbsp; &nbsp;Per Track &nbsp; &nbsp; Gap &nbsp; &nbsp; &nbsp; Gap<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1 &nbsp; &nbsp; &nbsp; &nbsp;256 &nbsp; &nbsp; &nbsp; &nbsp; 18 &nbsp; &nbsp; &nbsp; &nbsp;0Ah &nbsp; &nbsp; &nbsp; 0Ch<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1 &nbsp; &nbsp; &nbsp; &nbsp;256 &nbsp; &nbsp; &nbsp; &nbsp; 16 &nbsp; &nbsp; &nbsp; &nbsp;20h &nbsp; &nbsp; &nbsp; 32h<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2 &nbsp; &nbsp; &nbsp; &nbsp;512 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;8 &nbsp; &nbsp; &nbsp; &nbsp;2Ah &nbsp; &nbsp; &nbsp; 50h<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2 &nbsp; &nbsp; &nbsp; &nbsp;512 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;9 &nbsp; &nbsp; &nbsp; &nbsp;1Bh &nbsp; &nbsp; &nbsp; 6Ch<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3 &nbsp; &nbsp; &nbsp; 1024 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4 &nbsp; &nbsp; &nbsp; &nbsp;80h &nbsp; &nbsp; &nbsp; F0h<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4 &nbsp; &nbsp; &nbsp; 2048 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2 &nbsp; &nbsp; &nbsp; &nbsp;C8h &nbsp; &nbsp; &nbsp; FFh<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5 &nbsp; &nbsp; &nbsp; 4096 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1 &nbsp; &nbsp; &nbsp; &nbsp;C8h &nbsp; &nbsp; &nbsp; FFh<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;06 &nbsp;disk data length<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;80h for 128 bytes/sector<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FFh otherwise<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;07 &nbsp;gap length when formatting<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;08 &nbsp;data pattern used during formatting<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;09 &nbsp;floppy head bounce delay (in milliseconds)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0A &nbsp;floppy motor start delay (in 0.125 second intervals)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0B &nbsp;floppy motor stop delay (in 0.25 second intervals)<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see <a href="int-int_13_18.html">INT 13,18</a><br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">int 1e</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

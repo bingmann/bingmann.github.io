@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2006/SDIOS06/sdios06/lib/io/print.cc - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal6.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2006/">2006</a> / <a href="/2006/SDIOS06/">SDIOS06</a> / <a href="/2006/SDIOS06/sdios06/">sdios06</a> / <a href="/2006/SDIOS06/sdios06/lib/">lib</a> / <a href="/2006/SDIOS06/sdios06/lib/io/">io</a> / <a href="/2006/SDIOS06/sdios06/lib/io/print.cc.html">print.cc</a> (<a href="/2006/SDIOS06/sdios06/lib/io/print.cc">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">/*********************************************************************</span>
+<span class="comment"> *                </span>
+<span class="comment"> * Copyright (C) 2001-2004  Karlsruhe University</span>
+<span class="comment"> *                </span>
+<span class="comment"> * File path:     print.cc</span>
+<span class="comment"> * Description:   fully featured printf</span>
+<span class="comment"> *                </span>
+<span class="comment"> * Redistribution and use in source and binary forms, with or without</span>
+<span class="comment"> * modification, are permitted provided that the following conditions</span>
+<span class="comment"> * are met:</span>
+<span class="comment"> * 1. Redistributions of source code must retain the above copyright</span>
+<span class="comment"> *    notice, this list of conditions and the following disclaimer.</span>
+<span class="comment"> * 2. Redistributions in binary form must reproduce the above copyright</span>
+<span class="comment"> *    notice, this list of conditions and the following disclaimer in the</span>
+<span class="comment"> *    documentation and/or other materials provided with the distribution.</span>
+<span class="comment"> * </span>
+<span class="comment"> * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND</span>
+<span class="comment"> * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE</span>
+<span class="comment"> * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE</span>
+<span class="comment"> * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE</span>
+<span class="comment"> * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL</span>
+<span class="comment"> * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS</span>
+<span class="comment"> * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)</span>
+<span class="comment"> * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT</span>
+<span class="comment"> * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY</span>
+<span class="comment"> * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF</span>
+<span class="comment"> * SUCH DAMAGE.</span>
+<span class="comment"> *                </span>
+<span class="comment"> * $Id: print.cc,v 1.11.4.4 2004/11/23 14:29:53 skoglund Exp $</span>
+<span class="comment"> *                </span>
+<span class="comment"> ********************************************************************/</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;l4/types.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;stdarg.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;l4io.h&gt;</span>
+
+<span class="preproc">#ifndef</span><span class="normal"> NULL</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">NULL</span><span class="normal"> </span><span class="symbol">((</span><span class="type">void</span><span class="normal"> </span><span class="symbol">*)</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="preproc">#endif</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Make __l4_ prefixes for regular output functions, and create weak</span>
+<span class="comment"> * symbols that aliases these functions. </span>
+<span class="comment"> */</span>
+
+<span class="keyword">extern</span><span class="normal"> </span><span class="string">"C"</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="function">__l4_printf</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">fmt</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">...);</span>
+<span class="keyword">extern</span><span class="normal"> </span><span class="string">"C"</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="function">l4_printf</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">fmt</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">...)</span>
+<span class="normal">    </span><span class="function">__attribute__</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">weak</span><span class="symbol">,</span><span class="normal"> </span><span class="function">alias</span><span class="normal"> </span><span class="symbol">(</span><span class="string">"__l4_printf"</span><span class="symbol">)));</span>
+<span class="keyword">extern</span><span class="normal"> </span><span class="string">"C"</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="function">__l4_vprintf</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">fmt</span><span class="symbol">,</span><span class="normal"> va_list</span><span class="symbol">);</span><span class="normal">    </span>
+<span class="keyword">extern</span><span class="normal"> </span><span class="string">"C"</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="function">l4_vprintf</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">fmt</span><span class="symbol">,</span><span class="normal"> va_list</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">__attribute__</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">weak</span><span class="symbol">,</span><span class="normal"> </span><span class="function">alias</span><span class="normal"> </span><span class="symbol">(</span><span class="string">"__l4_vprintf"</span><span class="symbol">)));</span><span class="normal">    </span>
+<span class="keyword">extern</span><span class="normal"> </span><span class="string">"C"</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="function">__l4_snprintf</span><span class="normal"> </span><span class="symbol">(</span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">L4_Size_t</span><span class="normal"> size</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">fmt</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">...);</span>
+<span class="keyword">extern</span><span class="normal"> </span><span class="string">"C"</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="function">l4_snprintf</span><span class="normal"> </span><span class="symbol">(</span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">L4_Size_t</span><span class="normal"> size</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">fmt</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">...)</span>
+<span class="normal">    </span><span class="function">__attribute__</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">weak</span><span class="symbol">,</span><span class="normal"> </span><span class="function">alias</span><span class="normal"> </span><span class="symbol">(</span><span class="string">"__l4_snprintf"</span><span class="symbol">)));</span>
+<span class="keyword">extern</span><span class="normal"> </span><span class="string">"C"</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="function">__l4_vsnprintf</span><span class="normal"> </span><span class="symbol">(</span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">L4_Size_t</span><span class="normal"> size</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">fmt</span><span class="symbol">,</span><span class="normal"> va_list</span><span class="symbol">);</span>
+<span class="keyword">extern</span><span class="normal"> </span><span class="string">"C"</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="function">l4_vsnprintf</span><span class="normal"> </span><span class="symbol">(</span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">L4_Size_t</span><span class="normal"> size</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">fmt</span><span class="symbol">,</span><span class="normal"> va_list</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">__attribute__</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">weak</span><span class="symbol">,</span><span class="normal"> </span><span class="function">alias</span><span class="normal"> </span><span class="symbol">(</span><span class="string">"__l4_vsnprintf"</span><span class="symbol">)));</span>
+<span class="keyword">extern</span><span class="normal"> </span><span class="string">"C"</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="function">__l4_puts</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> str</span><span class="symbol">);</span>
+<span class="keyword">extern</span><span class="normal"> </span><span class="string">"C"</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="function">l4_puts</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> str</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">__attribute__</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">weak</span><span class="symbol">,</span><span class="normal"> </span><span class="function">alias</span><span class="normal"> </span><span class="symbol">(</span><span class="string">"__l4_puts"</span><span class="symbol">)));</span>
+
+<span class="keyword">static</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="function">strlen</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> s</span><span class="symbol">);</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">print_string</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> s</span><span class="symbol">);</span>
+
+<span class="type">int</span><span class="normal"> </span><span class="function">__l4_puts</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> str</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">print_string</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">l4_putchar</span><span class="normal"> </span><span class="symbol">(</span><span class="string">'</span><span class="specialchar">\n</span><span class="string">'</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">strlen</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Function strlen (s)</span>
+<span class="comment"> *</span>
+<span class="comment"> *    Return the length of string `s', not including the terminating</span>
+<span class="comment"> *    `\0' character.</span>
+<span class="comment"> *</span>
+<span class="comment"> */</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="function">strlen</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> s</span><span class="symbol">)</span>
+<span class="cbracket">{</span><span class="normal">	</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal"> n</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> n </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">s</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> </span><span class="string">'</span><span class="specialchar">\0</span><span class="string">'</span><span class="symbol">;</span><span class="normal"> n</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">	</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> n</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Function print_string (s)</span>
+<span class="comment"> *</span>
+<span class="comment"> *    Print string `s' to terminal (or some kind of output).</span>
+<span class="comment"> *</span>
+<span class="comment"> */</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">print_string</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> s</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">while</span><span class="symbol">(*</span><span class="normal">s</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="function">l4_putchar</span><span class="symbol">(*</span><span class="normal">s</span><span class="symbol">++);</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Function vsnprintf (str, size, fmt, ap)</span>
+<span class="comment"> *</span>
+<span class="comment"> *    Formated output conversion according to format string `fmt' and</span>
+<span class="comment"> *    argument list `ap'.  The formated string is stored in `out'.  If</span>
+<span class="comment"> *    the formated string is longer tha `outsize' characters, the</span>
+<span class="comment"> *    string is truncated.</span>
+<span class="comment"> *</span>
+<span class="comment"> *    The format conversion works as in printf(3), except for the</span>
+<span class="comment"> *    conversions; e, E, g, and G which are not supported.</span>
+<span class="comment"> *</span>
+<span class="comment"> */</span>
+<span class="type">int</span><span class="normal"> </span><span class="function">__l4_vsnprintf</span><span class="symbol">(</span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">L4_Size_t</span><span class="normal"> size</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">fmt</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">va_list</span><span class="normal"> ap</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="type">char</span><span class="normal"> convert</span><span class="symbol">[</span><span class="number">64</span><span class="symbol">];</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal"> f_left</span><span class="symbol">,</span><span class="normal"> f_sign</span><span class="symbol">,</span><span class="normal"> f_space</span><span class="symbol">,</span><span class="normal"> f_zero</span><span class="symbol">,</span><span class="normal"> f_alternate</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal"> f_long</span><span class="symbol">,</span><span class="normal"> f_short</span><span class="symbol">,</span><span class="normal"> f_ldouble</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal"> width</span><span class="symbol">,</span><span class="normal"> precision</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal"> i</span><span class="symbol">,</span><span class="normal"> c</span><span class="symbol">,</span><span class="normal"> base</span><span class="symbol">,</span><span class="normal"> sign</span><span class="symbol">,</span><span class="normal"> signch</span><span class="symbol">,</span><span class="normal"> numdigits</span><span class="symbol">,</span><span class="normal"> numpr </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> someflag</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">long</span><span class="normal"> uval</span><span class="symbol">,</span><span class="normal"> uval2</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">digits</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">string</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">p </span><span class="symbol">=</span><span class="normal"> str</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">L4_ThreadId_t</span><span class="normal"> tid</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">PUTCH</span><span class="symbol">(</span><span class="normal">ch</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">do</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal">			</span><span class="symbol">\</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> size</span><span class="symbol">--</span><span class="normal"> </span><span class="symbol">&lt;=</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal">		</span><span class="symbol">\</span>
+<span class="normal">	    </span><span class="keyword">goto</span><span class="normal"> Done</span><span class="symbol">;</span><span class="normal">			</span><span class="symbol">\</span>
+<span class="normal">	</span><span class="symbol">*</span><span class="normal">p</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ch</span><span class="symbol">);</span><span class="normal">			</span><span class="symbol">\</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">)</span>
+
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">PUTSTR</span><span class="symbol">(</span><span class="normal">st</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">do</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal">			</span><span class="symbol">\</span>
+<span class="normal">	</span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">s </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">st</span><span class="symbol">);</span><span class="normal">			</span><span class="symbol">\</span>
+<span class="normal">	</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">s </span><span class="symbol">!=</span><span class="normal"> </span><span class="string">'</span><span class="specialchar">\0</span><span class="string">'</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal">		</span><span class="symbol">\</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> size</span><span class="symbol">--</span><span class="normal"> </span><span class="symbol">&lt;=</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal">	</span><span class="symbol">\</span>
+<span class="normal">		</span><span class="keyword">goto</span><span class="normal"> Done</span><span class="symbol">;</span><span class="normal">		</span><span class="symbol">\</span>
+<span class="normal">	    </span><span class="symbol">*</span><span class="normal">p</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">s</span><span class="symbol">++;</span><span class="normal">		</span><span class="symbol">\</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal">				</span><span class="symbol">\</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">)</span>
+
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">PUTDEC</span><span class="symbol">(</span><span class="normal">num</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">do</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal">					</span><span class="symbol">\</span>
+<span class="normal">	uval </span><span class="symbol">=</span><span class="normal"> num</span><span class="symbol">;</span><span class="normal">						</span><span class="symbol">\</span>
+<span class="normal">	numdigits </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal">						</span><span class="symbol">\</span>
+<span class="normal">	</span><span class="keyword">do</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal">							</span><span class="symbol">\</span>
+<span class="normal">	    convert</span><span class="symbol">[</span><span class="normal"> numdigits</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> digits</span><span class="symbol">[</span><span class="normal"> uval </span><span class="symbol">%</span><span class="normal"> </span><span class="number">10</span><span class="normal"> </span><span class="symbol">];</span><span class="normal">	</span><span class="symbol">\</span>
+<span class="normal">	    uval </span><span class="symbol">/=</span><span class="normal"> </span><span class="number">10</span><span class="symbol">;</span><span class="normal">						</span><span class="symbol">\</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> uval </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">);</span><span class="normal">					</span><span class="symbol">\</span>
+<span class="normal">	</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> numdigits </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal">					</span><span class="symbol">\</span>
+<span class="normal">	    </span><span class="function">PUTCH</span><span class="symbol">(</span><span class="normal"> convert</span><span class="symbol">[--</span><span class="normal">numdigits</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">);</span><span class="normal">			</span><span class="symbol">\</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">)</span>
+
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">LEFTPAD</span><span class="symbol">(</span><span class="normal">num</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">do</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal">				</span><span class="symbol">\</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> cnt </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">num</span><span class="symbol">);</span><span class="normal">				</span><span class="symbol">\</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">!</span><span class="normal"> f_left </span><span class="symbol">&amp;&amp;</span><span class="normal"> cnt </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal">			</span><span class="symbol">\</span>
+<span class="normal">	    </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> cnt</span><span class="symbol">--</span><span class="normal"> </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal">				</span><span class="symbol">\</span>
+<span class="normal">		</span><span class="function">PUTCH</span><span class="symbol">(</span><span class="normal"> f_zero </span><span class="symbol">?</span><span class="normal"> </span><span class="string">'0'</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> </span><span class="string">' '</span><span class="normal"> </span><span class="symbol">);</span><span class="normal">		</span><span class="symbol">\</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">)</span>
+
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">RIGHTPAD</span><span class="symbol">(</span><span class="normal">num</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">do</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal">				</span><span class="symbol">\</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> cnt </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">num</span><span class="symbol">);</span><span class="normal">				</span><span class="symbol">\</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> f_left </span><span class="symbol">&amp;&amp;</span><span class="normal"> cnt </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal">			</span><span class="symbol">\</span>
+<span class="normal">	    </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> cnt</span><span class="symbol">--</span><span class="normal"> </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal">				</span><span class="symbol">\</span>
+<span class="normal">		</span><span class="function">PUTCH</span><span class="symbol">(</span><span class="normal"> </span><span class="string">' '</span><span class="normal"> </span><span class="symbol">);</span><span class="normal">				</span><span class="symbol">\</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">)</span>
+
+<span class="normal">    </span><span class="comment">/*</span>
+<span class="comment">     * Make room for null-termination.</span>
+<span class="comment">     */</span>
+<span class="normal">    size</span><span class="symbol">--;</span>
+
+<span class="normal">    </span><span class="comment">/*</span>
+<span class="comment">     * Sanity check on fmt string.</span>
+<span class="comment">     */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> fmt </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="function">PUTSTR</span><span class="symbol">(</span><span class="normal"> </span><span class="string">"(null fmt string)"</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">goto</span><span class="normal"> Done</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> size </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="comment">/*</span>
+<span class="comment">	 * Copy characters until we encounter '%'.</span>
+<span class="comment">	 */</span>
+<span class="normal">	</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">c </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">fmt</span><span class="symbol">++)</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> </span><span class="string">'%'</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> size</span><span class="symbol">--</span><span class="normal"> </span><span class="symbol">&lt;=</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> c </span><span class="symbol">==</span><span class="normal"> </span><span class="string">'</span><span class="specialchar">\0</span><span class="string">'</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">		</span><span class="keyword">goto</span><span class="normal"> Done</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="symbol">*</span><span class="normal">p</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> c</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	f_left </span><span class="symbol">=</span><span class="normal"> f_sign </span><span class="symbol">=</span><span class="normal"> f_space </span><span class="symbol">=</span><span class="normal"> f_zero </span><span class="symbol">=</span><span class="normal"> f_alternate </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	someflag </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">/*</span>
+<span class="comment">	 * Parse flags.</span>
+<span class="comment">	 */</span>
+<span class="normal">	</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> someflag </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">switch</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">fmt </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">case</span><span class="normal"> </span><span class="string">'-'</span><span class="symbol">:</span><span class="normal"> f_left </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal">	fmt</span><span class="symbol">++;</span><span class="normal"> </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="keyword">case</span><span class="normal"> </span><span class="string">'+'</span><span class="symbol">:</span><span class="normal"> f_sign </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal">	fmt</span><span class="symbol">++;</span><span class="normal"> </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="keyword">case</span><span class="normal"> </span><span class="string">' '</span><span class="symbol">:</span><span class="normal"> f_space </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal">	fmt</span><span class="symbol">++;</span><span class="normal"> </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="keyword">case</span><span class="normal"> </span><span class="string">'0'</span><span class="symbol">:</span><span class="normal"> f_zero </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal">	fmt</span><span class="symbol">++;</span><span class="normal"> </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="keyword">case</span><span class="normal"> </span><span class="string">'#'</span><span class="symbol">:</span><span class="normal"> f_alternate </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal">	fmt</span><span class="symbol">++;</span><span class="normal"> </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="keyword">default</span><span class="symbol">:</span><span class="normal">  someflag </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal">            </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="comment">/*</span>
+<span class="comment">	 * Parse field width.</span>
+<span class="comment">	 */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">c </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">fmt</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="string">'*'</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	    width </span><span class="symbol">=</span><span class="normal"> </span><span class="function">va_arg</span><span class="symbol">(</span><span class="normal"> ap</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">	    fmt</span><span class="symbol">++;</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> c </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="string">'0'</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> c </span><span class="symbol">&lt;=</span><span class="normal"> </span><span class="string">'9'</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	    width </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">c </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">fmt</span><span class="symbol">++)</span><span class="normal"> </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="string">'0'</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> c </span><span class="symbol">&lt;=</span><span class="normal"> </span><span class="string">'9'</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		width </span><span class="symbol">*=</span><span class="normal"> </span><span class="number">10</span><span class="symbol">;</span>
+<span class="normal">		width </span><span class="symbol">+=</span><span class="normal"> c </span><span class="symbol">-</span><span class="normal"> </span><span class="string">'0'</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+<span class="normal">	    fmt</span><span class="symbol">--;</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	    width </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="comment">/*</span>
+<span class="comment">	 * Parse precision.</span>
+<span class="comment">	 */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">fmt </span><span class="symbol">==</span><span class="normal"> </span><span class="string">'.'</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">c </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*++</span><span class="normal">fmt</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="string">'*'</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		precision </span><span class="symbol">=</span><span class="normal"> </span><span class="function">va_arg</span><span class="symbol">(</span><span class="normal"> ap</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">		fmt</span><span class="symbol">++;</span>
+<span class="normal">	    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> c </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="string">'0'</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> c </span><span class="symbol">&lt;=</span><span class="normal"> </span><span class="string">'9'</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		precision </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">c </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">fmt</span><span class="symbol">++)</span><span class="normal"> </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="string">'0'</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> c </span><span class="symbol">&lt;=</span><span class="normal"> </span><span class="string">'9'</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		    precision </span><span class="symbol">*=</span><span class="normal"> </span><span class="number">10</span><span class="symbol">;</span>
+<span class="normal">		    precision </span><span class="symbol">+=</span><span class="normal"> c </span><span class="symbol">-</span><span class="normal"> </span><span class="string">'0'</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		fmt</span><span class="symbol">--;</span>
+<span class="normal">	    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		precision </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	    precision </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	f_long </span><span class="symbol">=</span><span class="normal"> f_short </span><span class="symbol">=</span><span class="normal"> f_ldouble </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">/*</span>
+<span class="comment">	 * Parse length modifier.</span>
+<span class="comment">	 */</span>
+<span class="normal">	</span><span class="keyword">switch</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">fmt </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">case</span><span class="normal"> </span><span class="string">'h'</span><span class="symbol">:</span><span class="normal"> f_short </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal">		fmt</span><span class="symbol">++;</span><span class="normal"> </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">case</span><span class="normal"> </span><span class="string">'l'</span><span class="symbol">:</span><span class="normal"> f_long </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal">		fmt</span><span class="symbol">++;</span><span class="normal"> </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">case</span><span class="normal"> </span><span class="string">'L'</span><span class="symbol">:</span><span class="normal"> f_ldouble </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal">	fmt</span><span class="symbol">++;</span><span class="normal"> </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	sign </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">/*</span>
+<span class="comment">	 * Parse format conversion.</span>
+<span class="comment">	 */</span>
+<span class="normal">	</span><span class="keyword">switch</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> c </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">fmt</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+
+<span class="normal">	</span><span class="keyword">case</span><span class="normal"> </span><span class="string">'b'</span><span class="symbol">:</span>
+<span class="normal">	    uval </span><span class="symbol">=</span><span class="normal"> f_long </span><span class="symbol">?</span><span class="normal"> </span><span class="function">va_arg</span><span class="symbol">(</span><span class="normal"> ap</span><span class="symbol">,</span><span class="normal"> </span><span class="type">long</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> </span><span class="function">va_arg</span><span class="symbol">(</span><span class="normal"> ap</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">	    base </span><span class="symbol">=</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span>
+<span class="normal">	    digits </span><span class="symbol">=</span><span class="normal"> </span><span class="string">"01"</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="keyword">goto</span><span class="normal"> Print_unsigned</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">case</span><span class="normal"> </span><span class="string">'o'</span><span class="symbol">:</span>
+<span class="normal">	    uval </span><span class="symbol">=</span><span class="normal"> f_long </span><span class="symbol">?</span><span class="normal"> </span><span class="function">va_arg</span><span class="symbol">(</span><span class="normal"> ap</span><span class="symbol">,</span><span class="normal"> </span><span class="type">long</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> </span><span class="function">va_arg</span><span class="symbol">(</span><span class="normal"> ap</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">	    base </span><span class="symbol">=</span><span class="normal"> </span><span class="number">8</span><span class="symbol">;</span>
+<span class="normal">	    digits </span><span class="symbol">=</span><span class="normal"> </span><span class="string">"012345678"</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="keyword">goto</span><span class="normal"> Print_unsigned</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">case</span><span class="normal"> </span><span class="string">'p'</span><span class="symbol">:</span>
+<span class="normal">	    precision </span><span class="symbol">=</span><span class="normal"> width </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="normal"> </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span>
+<span class="normal">	    f_alternate </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">sizeof</span><span class="normal"> </span><span class="symbol">(</span><span class="type">void</span><span class="normal"> </span><span class="symbol">*)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="normal"> </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">))</span>
+<span class="normal">		f_long </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">case</span><span class="normal"> </span><span class="string">'x'</span><span class="symbol">:</span>
+<span class="normal">	    uval </span><span class="symbol">=</span><span class="normal"> f_long </span><span class="symbol">?</span><span class="normal"> </span><span class="function">va_arg</span><span class="symbol">(</span><span class="normal"> ap</span><span class="symbol">,</span><span class="normal"> </span><span class="type">long</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> </span><span class="function">va_arg</span><span class="symbol">(</span><span class="normal"> ap</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">	    base </span><span class="symbol">=</span><span class="normal"> </span><span class="number">16</span><span class="symbol">;</span>
+<span class="normal">	    digits </span><span class="symbol">=</span><span class="normal"> </span><span class="string">"0123456789abcdef"</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="keyword">goto</span><span class="normal"> Print_unsigned</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">case</span><span class="normal"> </span><span class="string">'X'</span><span class="symbol">:</span>
+<span class="normal">	    uval </span><span class="symbol">=</span><span class="normal"> f_long </span><span class="symbol">?</span><span class="normal"> </span><span class="function">va_arg</span><span class="symbol">(</span><span class="normal"> ap</span><span class="symbol">,</span><span class="normal"> </span><span class="type">long</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> </span><span class="function">va_arg</span><span class="symbol">(</span><span class="normal"> ap</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">	    base </span><span class="symbol">=</span><span class="normal"> </span><span class="number">16</span><span class="symbol">;</span>
+<span class="normal">	    digits </span><span class="symbol">=</span><span class="normal"> </span><span class="string">"0123456789ABCDEF"</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="keyword">goto</span><span class="normal"> Print_unsigned</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">case</span><span class="normal"> </span><span class="string">'d'</span><span class="symbol">:</span>
+<span class="normal">	</span><span class="keyword">case</span><span class="normal"> </span><span class="string">'i'</span><span class="symbol">:</span>
+<span class="normal">	    uval </span><span class="symbol">=</span><span class="normal"> f_long </span><span class="symbol">?</span><span class="normal"> </span><span class="function">va_arg</span><span class="symbol">(</span><span class="normal"> ap</span><span class="symbol">,</span><span class="normal"> </span><span class="type">long</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> </span><span class="function">va_arg</span><span class="symbol">(</span><span class="normal"> ap</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">	    base </span><span class="symbol">=</span><span class="normal"> </span><span class="number">10</span><span class="symbol">;</span>
+<span class="normal">	    digits </span><span class="symbol">=</span><span class="normal"> </span><span class="string">"0123456789"</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="keyword">goto</span><span class="normal"> Print_signed</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">case</span><span class="normal"> </span><span class="string">'u'</span><span class="symbol">:</span>
+<span class="normal">	    uval </span><span class="symbol">=</span><span class="normal"> f_long </span><span class="symbol">?</span><span class="normal"> </span><span class="function">va_arg</span><span class="symbol">(</span><span class="normal"> ap</span><span class="symbol">,</span><span class="normal"> </span><span class="type">long</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> </span><span class="function">va_arg</span><span class="symbol">(</span><span class="normal"> ap</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">	    base </span><span class="symbol">=</span><span class="normal"> </span><span class="number">10</span><span class="symbol">;</span>
+<span class="normal">	    digits </span><span class="symbol">=</span><span class="normal"> </span><span class="string">"0123456789"</span><span class="symbol">;</span>
+
+<span class="normal">	Print_unsigned</span><span class="symbol">:</span>
+<span class="normal">	    sign </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="normal">	Print_signed</span><span class="symbol">:</span>
+<span class="normal">	    signch </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	    uval2 </span><span class="symbol">=</span><span class="normal"> uval</span><span class="symbol">;</span>
+
+<span class="normal">	    </span><span class="comment">/*</span>
+<span class="comment">	     * Check for sign character.</span>
+<span class="comment">	     */</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> sign </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> f_sign </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> uval </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		    signch </span><span class="symbol">=</span><span class="normal"> </span><span class="string">'+'</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> f_space </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> uval </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		    signch </span><span class="symbol">=</span><span class="normal"> </span><span class="string">' '</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> uval </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		    signch </span><span class="symbol">=</span><span class="normal"> </span><span class="string">'-'</span><span class="symbol">;</span>
+<span class="normal">		    uval </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">-(</span><span class="normal"> </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> uval </span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+
+<span class="normal">	    </span><span class="comment">/*</span>
+<span class="comment">	     * Create reversed number string.</span>
+<span class="comment">	     */</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">sizeof</span><span class="normal"> </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">8</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> base </span><span class="symbol">==</span><span class="normal"> </span><span class="number">16</span><span class="symbol">)</span>
+<span class="normal">	    </span><span class="cbracket">{</span>
+<span class="normal">		numdigits </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">do</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		    convert</span><span class="symbol">[</span><span class="normal">numdigits</span><span class="symbol">++]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal">  digits</span><span class="symbol">[</span><span class="normal">uval </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="number">0xf</span><span class="symbol">];</span>
+<span class="normal">		    uval </span><span class="symbol">/=</span><span class="normal"> </span><span class="number">16</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> uval </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+<span class="normal">	    </span><span class="keyword">else</span>
+<span class="normal">	    </span><span class="cbracket">{</span>
+<span class="normal">		numdigits </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">do</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		    convert</span><span class="symbol">[</span><span class="normal">numdigits</span><span class="symbol">++]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal">  digits</span><span class="symbol">[(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="symbol">)</span><span class="normal"> uval </span><span class="symbol">%</span><span class="normal"> base</span><span class="symbol">];</span>
+<span class="normal">		    uval </span><span class="symbol">/=</span><span class="normal"> base</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> uval </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+
+<span class="normal">	    </span><span class="comment">/*</span>
+<span class="comment">	     * Calculate the actual size of the printed number.</span>
+<span class="comment">	     */</span>
+<span class="normal">	    numpr </span><span class="symbol">=</span><span class="normal"> numdigits </span><span class="symbol">&gt;</span><span class="normal"> precision </span><span class="symbol">?</span><span class="normal"> numdigits </span><span class="symbol">:</span><span class="normal"> precision</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> signch </span><span class="symbol">)</span>
+<span class="normal">		numpr</span><span class="symbol">++;</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> f_alternate </span><span class="comment">/*&amp;&amp; uval2 != 0*/</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> base </span><span class="symbol">==</span><span class="normal"> </span><span class="number">8</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">		    numpr</span><span class="symbol">++;</span>
+<span class="normal">		</span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> base </span><span class="symbol">==</span><span class="normal"> </span><span class="number">16</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> base </span><span class="symbol">==</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">		    numpr </span><span class="symbol">+=</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+
+<span class="normal">	    </span><span class="comment">/*</span>
+<span class="comment">	     * Insert left padding.</span>
+<span class="comment">	     */</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">!</span><span class="normal"> f_left </span><span class="symbol">&amp;&amp;</span><span class="normal"> width </span><span class="symbol">&gt;</span><span class="normal"> numpr </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> f_zero </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		    numpr </span><span class="symbol">=</span><span class="normal"> width</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> width </span><span class="symbol">-</span><span class="normal"> numpr</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">--</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">			</span><span class="function">PUTCH</span><span class="symbol">(</span><span class="string">' '</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+
+<span class="normal">	    </span><span class="comment">/*</span>
+<span class="comment">	     * Insert sign character.</span>
+<span class="comment">	     */</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> signch </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">PUTCH</span><span class="symbol">(</span><span class="normal"> signch </span><span class="symbol">);</span>
+<span class="normal">		numpr</span><span class="symbol">--;</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+
+<span class="normal">	    </span><span class="comment">/*</span>
+<span class="comment">	     * Insert number prefix.</span>
+<span class="comment">	     */</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> f_alternate </span><span class="comment">/*&amp;&amp; uval2 != 0*/</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> base </span><span class="symbol">==</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		    numpr</span><span class="symbol">--;</span>
+<span class="normal">		    </span><span class="function">PUTCH</span><span class="symbol">(</span><span class="string">'%'</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> base </span><span class="symbol">==</span><span class="normal"> </span><span class="number">8</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		    numpr</span><span class="symbol">--;</span>
+<span class="normal">		    </span><span class="function">PUTCH</span><span class="symbol">(</span><span class="string">'0'</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> base </span><span class="symbol">==</span><span class="normal"> </span><span class="number">16</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		    numpr </span><span class="symbol">-=</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span>
+<span class="normal">		    </span><span class="function">PUTSTR</span><span class="symbol">(</span><span class="string">"0x"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+
+<span class="normal">	    </span><span class="comment">/*</span>
+<span class="comment">	     * Insert zero padding.</span>
+<span class="comment">	     */</span>
+<span class="normal">	    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> numpr </span><span class="symbol">-</span><span class="normal"> numdigits</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">--</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">		</span><span class="function">PUTCH</span><span class="symbol">(</span><span class="string">'0'</span><span class="symbol">);</span>
+
+<span class="normal">	    </span><span class="comment">/*</span>
+<span class="comment">	     * Insert number.</span>
+<span class="comment">	     */</span>
+<span class="normal">	    </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> numdigits </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">		</span><span class="function">PUTCH</span><span class="symbol">(</span><span class="normal"> convert</span><span class="symbol">[--</span><span class="normal">numdigits</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="function">RIGHTPAD</span><span class="symbol">(</span><span class="normal"> width </span><span class="symbol">-</span><span class="normal"> numpr </span><span class="symbol">-</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">signch </span><span class="symbol">?</span><span class="normal"> </span><span class="number">1</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="keyword">break</span><span class="symbol">;</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="function">defined</span><span class="symbol">(</span><span class="normal">L4_ARCH_ALPHA</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="keyword">case</span><span class="normal"> </span><span class="string">'f'</span><span class="symbol">:</span><span class="normal"> </span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="type">double</span><span class="normal"> fval </span><span class="symbol">=</span><span class="normal"> </span><span class="function">va_arg</span><span class="symbol">(</span><span class="normal"> ap</span><span class="symbol">,</span><span class="normal"> </span><span class="type">double</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> precision </span><span class="symbol">==</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">		precision </span><span class="symbol">=</span><span class="normal"> </span><span class="number">6</span><span class="symbol">;</span>
+
+<span class="normal">	    </span><span class="comment">/*</span>
+<span class="comment">	     * Check for sign character.</span>
+<span class="comment">	     */</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> f_sign </span><span class="symbol">&amp;&amp;</span><span class="normal"> fval </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">0.0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		signch </span><span class="symbol">=</span><span class="normal"> </span><span class="string">'+'</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> f_space </span><span class="symbol">&amp;&amp;</span><span class="normal"> fval </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">0.0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		signch </span><span class="symbol">=</span><span class="normal"> </span><span class="string">' '</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> fval </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0.0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		signch </span><span class="symbol">=</span><span class="normal"> </span><span class="string">'-'</span><span class="symbol">;</span>
+<span class="normal">		fval </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">-</span><span class="normal">fval</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		signch </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+
+<span class="normal">	    </span><span class="comment">/*</span>
+<span class="comment">	     * Get the integer part of the number.  If the floating</span>
+<span class="comment">	     * point value is greater than the maximum value of an</span>
+<span class="comment">	     * unsigned long, the result is undefined.</span>
+<span class="comment">	     */</span>
+<span class="normal">	    uval </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">long</span><span class="symbol">)</span><span class="normal"> fval</span><span class="symbol">;</span>
+<span class="normal">	    numdigits </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="keyword">do</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		convert</span><span class="symbol">[</span><span class="normal"> numdigits</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal">  </span><span class="string">'0'</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> uval </span><span class="symbol">%</span><span class="normal"> </span><span class="number">10</span><span class="symbol">;</span>
+<span class="normal">		uval </span><span class="symbol">/=</span><span class="normal"> </span><span class="number">10</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> uval </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">);</span>
+
+<span class="normal">	    </span><span class="comment">/*</span>
+<span class="comment">	     * Calculate the actual size of the printed number.</span>
+<span class="comment">	     */</span>
+<span class="normal">	    numpr </span><span class="symbol">=</span><span class="normal"> numdigits </span><span class="symbol">+</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">signch </span><span class="symbol">?</span><span class="normal"> </span><span class="number">1</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> precision </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">		numpr </span><span class="symbol">+=</span><span class="normal"> </span><span class="number">1</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> precision</span><span class="symbol">;</span>
+
+<span class="normal">	    </span><span class="function">LEFTPAD</span><span class="symbol">(</span><span class="normal"> width </span><span class="symbol">-</span><span class="normal"> numpr </span><span class="symbol">);</span>
+
+<span class="normal">	    </span><span class="comment">/*</span>
+<span class="comment">	     * Insert sign character.</span>
+<span class="comment">	     */</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> signch </span><span class="symbol">)</span>
+<span class="normal">		</span><span class="function">PUTCH</span><span class="symbol">(</span><span class="normal"> signch </span><span class="symbol">);</span>
+
+<span class="normal">	    </span><span class="comment">/*</span>
+<span class="comment">	     * Insert integer number.</span>
+<span class="comment">	     */</span>
+<span class="normal">	    </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> numdigits </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">		</span><span class="function">PUTCH</span><span class="symbol">(</span><span class="normal"> convert</span><span class="symbol">[--</span><span class="normal">numdigits</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">);</span>
+
+<span class="normal">	    </span><span class="comment">/*</span>
+<span class="comment">	     * Insert precision.</span>
+<span class="comment">	     */</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> precision </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="comment">/*</span>
+<span class="comment">		 * Truncate number to fractional part only.</span>
+<span class="comment">		 */</span>
+<span class="normal">		</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> fval </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">1.0</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">		    fval </span><span class="symbol">-=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">double</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">long</span><span class="symbol">)</span><span class="normal"> fval</span><span class="symbol">;</span>
+
+<span class="normal">		</span><span class="function">PUTCH</span><span class="symbol">(</span><span class="string">'.'</span><span class="symbol">);</span>
+
+<span class="normal">		</span><span class="comment">/*</span>
+<span class="comment">		 * Insert precision digits.</span>
+<span class="comment">		 */</span>
+<span class="normal">		</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> precision</span><span class="symbol">--</span><span class="normal"> </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		    fval </span><span class="symbol">*=</span><span class="normal"> </span><span class="number">10.0</span><span class="symbol">;</span>
+<span class="normal">		    uval </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">long</span><span class="symbol">)</span><span class="normal"> fval</span><span class="symbol">;</span>
+<span class="normal">		    </span><span class="function">PUTCH</span><span class="symbol">(</span><span class="normal"> </span><span class="string">'0'</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> uval </span><span class="symbol">);</span>
+<span class="normal">		    fval </span><span class="symbol">-=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">double</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">long</span><span class="symbol">)</span><span class="normal"> fval</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+
+<span class="normal">	    </span><span class="function">RIGHTPAD</span><span class="symbol">(</span><span class="normal"> width </span><span class="symbol">-</span><span class="normal"> numpr </span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+<span class="normal">	</span><span class="keyword">case</span><span class="normal"> </span><span class="string">'t'</span><span class="symbol">:</span>
+<span class="normal">	    tid </span><span class="symbol">=</span><span class="normal"> </span><span class="function">va_arg</span><span class="symbol">(</span><span class="normal"> ap</span><span class="symbol">,</span><span class="normal"> L4_ThreadId_t </span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="function">L4_IsNilThread</span><span class="symbol">(</span><span class="normal">tid</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">PUTSTR</span><span class="symbol">(</span><span class="string">"NIL_ID"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+<span class="normal">	    digits </span><span class="symbol">=</span><span class="normal"> </span><span class="string">"0123456789"</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">L4_IsGlobalId</span><span class="symbol">(</span><span class="normal">tid</span><span class="symbol">))</span>
+<span class="normal">	    </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">PUTSTR</span><span class="symbol">(</span><span class="string">"GlobThread="</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="function">PUTDEC</span><span class="symbol">(</span><span class="normal">tid</span><span class="symbol">.</span><span class="normal">global</span><span class="symbol">.</span><span class="normal">X</span><span class="symbol">.</span><span class="normal">thread_no</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="function">PUTSTR</span><span class="symbol">(</span><span class="string">",ver="</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="function">PUTDEC</span><span class="symbol">(</span><span class="normal">tid</span><span class="symbol">.</span><span class="normal">global</span><span class="symbol">.</span><span class="normal">X</span><span class="symbol">.</span><span class="normal">version</span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="cbracket">}</span><span class="normal"> </span>
+<span class="normal">	    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">L4_IsLocalId</span><span class="symbol">(</span><span class="normal">tid</span><span class="symbol">))</span>
+<span class="normal">	    </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">PUTSTR</span><span class="symbol">(</span><span class="string">"LocThread="</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="function">PUTDEC</span><span class="symbol">(</span><span class="normal">tid</span><span class="symbol">.</span><span class="normal">local</span><span class="symbol">.</span><span class="normal">X</span><span class="symbol">.</span><span class="normal">local_id</span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+<span class="normal">	    </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">PUTSTR</span><span class="symbol">(</span><span class="string">"? "</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="function">PUTDEC</span><span class="symbol">(</span><span class="normal">tid</span><span class="symbol">.</span><span class="normal">raw</span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+<span class="normal">	    </span><span class="keyword">break</span><span class="symbol">;</span>
+
+
+<span class="normal">	</span><span class="keyword">case</span><span class="normal"> </span><span class="string">'s'</span><span class="symbol">:</span>
+<span class="normal">	    string </span><span class="symbol">=</span><span class="normal"> </span><span class="function">va_arg</span><span class="symbol">(</span><span class="normal"> ap</span><span class="symbol">,</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="symbol">);</span>
+
+<span class="normal">	    </span><span class="comment">/*</span>
+<span class="comment">	     * Sanity check.</span>
+<span class="comment">	     */</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> string </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">PUTSTR</span><span class="symbol">(</span><span class="normal"> </span><span class="string">"(null)"</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> width </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="comment">/*</span>
+<span class="comment">		 * Calculate printed size.</span>
+<span class="comment">		 */</span>
+<span class="normal">		numpr </span><span class="symbol">=</span><span class="normal"> </span><span class="function">strlen</span><span class="symbol">(</span><span class="normal"> string </span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> precision </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> precision </span><span class="symbol">&lt;</span><span class="normal"> numpr </span><span class="symbol">)</span>
+<span class="normal">		    numpr </span><span class="symbol">=</span><span class="normal"> precision</span><span class="symbol">;</span>
+
+<span class="normal">		</span><span class="function">LEFTPAD</span><span class="symbol">(</span><span class="normal"> width </span><span class="symbol">-</span><span class="normal"> numpr </span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+
+<span class="normal">	    </span><span class="comment">/*</span>
+<span class="comment">	     * Insert string.</span>
+<span class="comment">	     */</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> precision </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal"> 		</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> precision</span><span class="symbol">--</span><span class="normal"> </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">c </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">string</span><span class="symbol">++)</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> </span><span class="string">'</span><span class="specialchar">\0</span><span class="string">'</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">		    </span><span class="function">PUTCH</span><span class="symbol">(</span><span class="normal"> c </span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal"> 		</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">c </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">string</span><span class="symbol">++)</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> </span><span class="string">'</span><span class="specialchar">\0</span><span class="string">'</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">		    </span><span class="function">PUTCH</span><span class="symbol">(</span><span class="normal"> c </span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+
+<span class="normal">	    </span><span class="function">RIGHTPAD</span><span class="symbol">(</span><span class="normal"> width </span><span class="symbol">-</span><span class="normal"> numpr </span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="keyword">break</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">case</span><span class="normal"> </span><span class="string">'c'</span><span class="symbol">:</span>
+<span class="normal">	    </span><span class="function">PUTCH</span><span class="symbol">(</span><span class="normal"> </span><span class="function">va_arg</span><span class="symbol">(</span><span class="normal"> ap</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="keyword">break</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">case</span><span class="normal"> </span><span class="string">'%'</span><span class="symbol">:</span>
+<span class="normal">	    </span><span class="function">PUTCH</span><span class="symbol">(</span><span class="string">'%'</span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="keyword">break</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">case</span><span class="normal"> </span><span class="string">'n'</span><span class="symbol">:</span>
+<span class="normal">	    </span><span class="symbol">*(</span><span class="function">va_arg</span><span class="symbol">(</span><span class="normal"> ap</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> p </span><span class="symbol">-</span><span class="normal"> str</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="keyword">break</span><span class="symbol">;</span>
+
+<span class="label">	default:</span>
+<span class="normal">	    </span><span class="function">PUTCH</span><span class="symbol">(</span><span class="string">'%'</span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="function">PUTCH</span><span class="symbol">(</span><span class="normal">c</span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="label"> Done:</span>
+
+<span class="normal">    </span><span class="comment">/*</span>
+<span class="comment">     * Null terminate string.</span>
+<span class="comment">     */</span>
+<span class="normal">    </span><span class="symbol">*</span><span class="normal">p </span><span class="symbol">=</span><span class="normal"> </span><span class="string">'</span><span class="specialchar">\0</span><span class="string">'</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/*</span>
+<span class="comment">     * Return size of printed string.</span>
+<span class="comment">     */</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> p </span><span class="symbol">-</span><span class="normal"> str</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Function snprintf (str, size, fmt, ...)</span>
+<span class="comment"> *</span>
+<span class="comment"> *    Print formated string to a string like snprintf(3).</span>
+<span class="comment"> *</span>
+<span class="comment"> */</span>
+<span class="type">int</span><span class="normal"> </span><span class="function">__l4_snprintf</span><span class="symbol">(</span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">L4_Size_t</span><span class="normal"> size</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">fmt</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">...)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">va_list</span><span class="normal"> ap</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal"> r</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/*</span>
+<span class="comment">     * Safety check</span>
+<span class="comment">     */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> fmt </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">)</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/*</span>
+<span class="comment">     * Print into buffer.</span>
+<span class="comment">     */</span>
+<span class="normal">    </span><span class="function">va_start</span><span class="symbol">(</span><span class="normal">ap</span><span class="symbol">,</span><span class="normal"> fmt</span><span class="symbol">);</span>
+<span class="normal">    r </span><span class="symbol">=</span><span class="normal"> </span><span class="function">l4_vsnprintf</span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> size</span><span class="symbol">,</span><span class="normal"> fmt</span><span class="symbol">,</span><span class="normal"> ap</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">va_end</span><span class="symbol">(</span><span class="normal">ap</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> r</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Function printf (fmt, ...)</span>
+<span class="comment"> *</span>
+<span class="comment"> *    Print formated string to terminal like printf(3).</span>
+<span class="comment"> *</span>
+<span class="comment"> */</span>
+<span class="type">int</span><span class="normal"> </span><span class="function">__l4_printf</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">fmt</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">...)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="type">char</span><span class="normal"> outbuf</span><span class="symbol">[</span><span class="number">256</span><span class="symbol">];</span>
+<span class="normal">    </span><span class="usertype">va_list</span><span class="normal"> ap</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal"> r</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/*</span>
+<span class="comment">     * Safety check</span>
+<span class="comment">     */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> fmt </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">)</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/*</span>
+<span class="comment">     * Print into buffer.</span>
+<span class="comment">     */</span>
+<span class="normal">    </span><span class="function">va_start</span><span class="symbol">(</span><span class="normal">ap</span><span class="symbol">,</span><span class="normal"> fmt</span><span class="symbol">);</span>
+<span class="normal">    r </span><span class="symbol">=</span><span class="normal"> </span><span class="function">l4_vsnprintf</span><span class="symbol">(</span><span class="normal">outbuf</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">outbuf</span><span class="symbol">),</span><span class="normal"> fmt</span><span class="symbol">,</span><span class="normal"> ap</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">va_end</span><span class="symbol">(</span><span class="normal">ap</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="comment">/*</span>
+<span class="comment">     * Output to terminal.</span>
+<span class="comment">     */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> r </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">	</span><span class="function">print_string</span><span class="symbol">(</span><span class="normal">outbuf</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> r</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Function vprintf (fmt, va_list)</span>
+<span class="comment"> *</span>
+<span class="comment"> *    Print formated string to terminal like vprintf(3).</span>
+<span class="comment"> *</span>
+<span class="comment"> */</span>
+<span class="type">int</span><span class="normal"> </span><span class="function">__l4_vprintf</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">fmt</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">va_list</span><span class="normal"> ap</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="type">char</span><span class="normal"> outbuf</span><span class="symbol">[</span><span class="number">256</span><span class="symbol">];</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> r</span><span class="symbol">;</span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="comment">/*</span>
+<span class="comment">	 * Safety check</span>
+<span class="comment">	 */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> fmt </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">)</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="comment">/*</span>
+<span class="comment">	 * Print into buffer.</span>
+<span class="comment">	 */</span>
+<span class="normal">	r </span><span class="symbol">=</span><span class="normal"> </span><span class="function">l4_vsnprintf</span><span class="symbol">(</span><span class="normal">outbuf</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">outbuf</span><span class="symbol">),</span><span class="normal"> fmt</span><span class="symbol">,</span><span class="normal"> ap</span><span class="symbol">);</span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="comment">/*</span>
+<span class="comment">	 * Output to terminal.</span>
+<span class="comment">	 */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> r </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">		</span><span class="function">print_string</span><span class="symbol">(</span><span class="normal">outbuf</span><span class="symbol">);</span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> r</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

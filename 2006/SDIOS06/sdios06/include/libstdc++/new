@@ -1,0 +1,75 @@
+//
+// $Id$
+//
+// Description: Support for C++ new and delete
+//
+//
+// Author: Ulf Vatter <uvatter@ira.uka.de>, (C) 2004
+//
+// Copyright: See COPYING file that comes with this distribution
+//
+//
+#ifndef NEW_H_
+#define NEW_H_
+
+#define __need_size_t
+#define __need_NULL
+#include <stddef.h>
+#include <stdlib.h>
+
+#include <l4/kdebug.h>
+
+// Very, very simple new and delete
+// C++-Standart say, that new never returns 0, but throws an exeption
+// We simulate this via an L4_KDB_Enter
+
+extern inline void* operator new (size_t size)
+{
+	void* foo=malloc(size);
+	if(foo == NULL)
+		L4_KDB_Enter("new: Out of memory");
+	return foo;
+}
+
+extern inline void* operator new[] (size_t size)
+{
+	void* foo=malloc(size);
+	if (foo == NULL)
+		L4_KDB_Enter("new: Out of memory");
+	return foo;
+}
+
+extern inline void operator delete (void * p)
+{
+	free(p);
+}
+
+extern inline void operator delete[] (void * p)
+{
+	free(p);
+}
+
+// The placement new is for manually triggering the constructor
+extern inline void* operator new (size_t size, void* placement)
+{
+	(void) size;
+	return placement;
+}
+
+extern inline void* operator new[] (size_t size, void* placement)
+{
+	(void) size;
+	return placement;
+}
+
+// actually, these doesn't really make sense to call. Use obj->~obj() instead
+extern inline void operator delete (void *, void*)
+{
+}
+
+extern inline void operator delete[] (void *, void*)
+{
+}
+
+#endif
+

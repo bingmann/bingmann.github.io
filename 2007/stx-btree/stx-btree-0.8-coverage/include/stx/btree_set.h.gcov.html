@@ -1,0 +1,633 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>LCOV - STX B+ Tree Testsuite - include/stx/btree_set.h</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LTP GCOV extension - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+        <tr>
+          <td class="headerItem" width="20%">Current&nbsp;view:</td>
+          <td class="headerValue" width="80%" colspan=4><a href="../../index.html">directory</a> - <a href="index.html">include/stx</a> - btree_set.h</td>
+        </tr>
+        <tr>
+          <td class="headerItem" width="20%">Test:</td>
+          <td class="headerValue" width="80%" colspan=4>STX B+ Tree Testsuite</td>
+        </tr>
+        <tr>
+          <td class="headerItem" width="20%">Date:</td>
+          <td class="headerValue" width="20%">2007-05-13</td>
+          <td width="20%"></td>
+          <td class="headerItem" width="20%">Instrumented&nbsp;lines:</td>
+          <td class="headerValue" width="20%">97</td>
+        </tr>
+        <tr>
+          <td class="headerItem" width="20%">Code&nbsp;covered:</td>
+          <td class="headerValue" width="20%">0.0 %</td>
+          <td width="20%"></td>
+          <td class="headerItem" width="20%">Executed&nbsp;lines:</td>
+          <td class="headerValue" width="20%">0</td>
+        </tr>
+        </table>
+      </td>
+    </tr>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td><pre class="source">
+<span class="lineNum">       1 </span>                : // $Id: btree_set.h 59 2007-05-13 11:08:30Z tb $
+<span class="lineNum">       2 </span>                : /** \file btree_set.h
+<span class="lineNum">       3 </span>                :  * Contains the specialized B+ tree template class btree_set
+<span class="lineNum">       4 </span>                :  */
+<span class="lineNum">       5 </span>                : 
+<span class="lineNum">       6 </span>                : /*
+<span class="lineNum">       7 </span>                :  * STX B+ Tree Template Classes v0.8
+<span class="lineNum">       8 </span>                :  * Copyright (C) 2007 Timo Bingmann
+<span class="lineNum">       9 </span>                :  *
+<span class="lineNum">      10 </span>                :  * This library is free software; you can redistribute it and/or modify it
+<span class="lineNum">      11 </span>                :  * under the terms of the GNU Lesser General Public License as published by the
+<span class="lineNum">      12 </span>                :  * Free Software Foundation; either version 2.1 of the License, or (at your
+<span class="lineNum">      13 </span>                :  * option) any later version.
+<span class="lineNum">      14 </span>                :  *
+<span class="lineNum">      15 </span>                :  * This library is distributed in the hope that it will be useful, but WITHOUT
+<span class="lineNum">      16 </span>                :  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+<span class="lineNum">      17 </span>                :  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
+<span class="lineNum">      18 </span>                :  * for more details.
+<span class="lineNum">      19 </span>                :  *
+<span class="lineNum">      20 </span>                :  * You should have received a copy of the GNU Lesser General Public License
+<span class="lineNum">      21 </span>                :  * along with this library; if not, write to the Free Software Foundation,
+<span class="lineNum">      22 </span>                :  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+<span class="lineNum">      23 </span>                :  */
+<span class="lineNum">      24 </span>                : 
+<span class="lineNum">      25 </span>                : #ifndef _STX_BTREE_SET_H_
+<span class="lineNum">      26 </span>                : #define _STX_BTREE_SET_H_
+<span class="lineNum">      27 </span>                : 
+<span class="lineNum">      28 </span>                : #include &lt;stx/btree.h&gt;
+<span class="lineNum">      29 </span>                : 
+<span class="lineNum">      30 </span>                : namespace stx {
+<span class="lineNum">      31 </span>                : 
+<span class="lineNum">      32 </span>                : /** @brief Specialized B+ tree template class implementing STL's set container.
+<span class="lineNum">      33 </span>                :  *
+<span class="lineNum">      34 </span>                :  * Implements the STL set using a B+ tree. It can be used as a drop-in
+<span class="lineNum">      35 </span>                :  * replacement for std::set. Not all asymptotic time requirements are met in
+<span class="lineNum">      36 </span>                :  * theory. There is no allocator template parameter, instead the class has a
+<span class="lineNum">      37 </span>                :  * traits class defining B+ tree properties like slots and self-verification.
+<span class="lineNum">      38 </span>                :  *
+<span class="lineNum">      39 </span>                :  * It is somewhat inefficient to implement a set using a B+ tree, a plain B
+<span class="lineNum">      40 </span>                :  * tree would hold fewer copies of the keys.
+<span class="lineNum">      41 </span>                :  *
+<span class="lineNum">      42 </span>                :  * The set class is derived from the base implementation class btree by
+<span class="lineNum">      43 </span>                :  * specifying an empty struct as data_type. All function are adapted to provide
+<span class="lineNum">      44 </span>                :  * the inner class with placeholder objects. Most tricky to get right were the
+<span class="lineNum">      45 </span>                :  * return type's of iterators which as value_type should be the same as
+<span class="lineNum">      46 </span>                :  * key_type, and not a pair of key and dummy-struct. This is taken case of
+<span class="lineNum">      47 </span>                :  * using some template magic in the btree class.
+<span class="lineNum">      48 </span>                :  */
+<span class="lineNum">      49 </span>                : template &lt;typename _Key,
+<span class="lineNum">      50 </span>                :           typename _Compare = std::less&lt;_Key&gt;,
+<span class="lineNum">      51 </span>                :           typename _Traits = btree_default_set_traits&lt;_Key&gt; &gt;
+<span class="lineNum">      52 </span>                : class btree_set
+<span class="lineNum">      53 </span>                : {
+<span class="lineNum">      54 </span>                : public:
+<span class="lineNum">      55 </span>                :     // *** Template Parameter Types
+<span class="lineNum">      56 </span>                : 
+<span class="lineNum">      57 </span>                :     /// First template parameter: The key type of the B+ tree. This is stored
+<span class="lineNum">      58 </span>                :     /// in inner nodes and leaves
+<span class="lineNum">      59 </span>                :     typedef _Key                        key_type;
+<span class="lineNum">      60 </span>                : 
+<span class="lineNum">      61 </span>                :     /// Second template parameter: Key comparison function object
+<span class="lineNum">      62 </span>                :     typedef _Compare                    key_compare;
+<span class="lineNum">      63 </span>                : 
+<span class="lineNum">      64 </span>                :     /// Third template parameter: Traits object used to define more parameters
+<span class="lineNum">      65 </span>                :     /// of the B+ tree
+<span class="lineNum">      66 </span>                :     typedef _Traits                     traits;
+<span class="lineNum">      67 </span>                : 
+<span class="lineNum">      68 </span>                :     /// The macro BTREE_FRIENDS can be used by outside class to access the B+
+<span class="lineNum">      69 </span>                :     /// tree internals. This was added for wxBTreeDemo to be able to draw the
+<span class="lineNum">      70 </span>                :     /// tree.
+<span class="lineNum">      71 </span>                :     BTREE_FRIENDS
+<span class="lineNum">      72 </span>                : 
+<span class="lineNum">      73 </span>                : private:
+<span class="lineNum">      74 </span>                :     // *** The data_type
+<span class="lineNum">      75 </span>                : 
+<span class="lineNum">      76 </span>                :     /// \internal The empty struct used as a placeholder for the data_type
+<span class="lineNum">      77 </span>                :     struct empty_struct
+<span class="lineNum">      78 </span>                :     {
+<span class="lineNum">      79 </span>                :     };
+<span class="lineNum">      80 </span>                : 
+<span class="lineNum">      81 </span>                : public:
+<span class="lineNum">      82 </span>                :     // *** Constructed Types
+<span class="lineNum">      83 </span>                : 
+<span class="lineNum">      84 </span>                :     /// The empty data_type
+<span class="lineNum">      85 </span>                :     typedef struct empty_struct         data_type;
+<span class="lineNum">      86 </span>                : 
+<span class="lineNum">      87 </span>                :     /// Construct the set value_type: the key_type.
+<span class="lineNum">      88 </span>                :     typedef key_type                    value_type;
+<span class="lineNum">      89 </span>                : 
+<span class="lineNum">      90 </span>                :     /// Typedef of our own type
+<span class="lineNum">      91 </span>                :     typedef btree_set&lt;key_type, key_compare, traits&gt;      self;
+<span class="lineNum">      92 </span>                : 
+<span class="lineNum">      93 </span>                :     /// Implementation type of the btree_base
+<span class="lineNum">      94 </span>                :     typedef stx::btree&lt;key_type, data_type, value_type, key_compare, traits, false&gt; btree_impl;
+<span class="lineNum">      95 </span>                : 
+<span class="lineNum">      96 </span>                :     /// Function class comparing two value_type keys.
+<span class="lineNum">      97 </span>                :     typedef typename btree_impl::value_compare  value_compare;
+<span class="lineNum">      98 </span>                : 
+<span class="lineNum">      99 </span>                :     /// Size type used to count keys
+<span class="lineNum">     100 </span>                :     typedef typename btree_impl::size_type      size_type;
+<span class="lineNum">     101 </span>                : 
+<span class="lineNum">     102 </span>                :     /// Small structure containing statistics about the tree
+<span class="lineNum">     103 </span>                :     typedef typename btree_impl::tree_stats     tree_stats;
+<span class="lineNum">     104 </span>                : 
+<span class="lineNum">     105 </span>                : public:
+<span class="lineNum">     106 </span>                :     // *** Static Constant Options and Values of the B+ Tree
+<span class="lineNum">     107 </span>                : 
+<span class="lineNum">     108 </span>                :     /// Base B+ tree parameter: The number of key slots in each leaf
+<span class="lineNum">     109 </span>                :     static const unsigned short         leafslotmax =  btree_impl::leafslotmax;
+<span class="lineNum">     110 </span>                : 
+<span class="lineNum">     111 </span>                :     /// Base B+ tree parameter: The number of key slots in each inner node,
+<span class="lineNum">     112 </span>                :     /// this can differ from slots in each leaf.
+<span class="lineNum">     113 </span>                :     static const unsigned short         innerslotmax =  btree_impl::innerslotmax;
+<span class="lineNum">     114 </span>                : 
+<span class="lineNum">     115 </span>                :     /// Computed B+ tree parameter: The minimum number of key slots used in a
+<span class="lineNum">     116 </span>                :     /// leaf. If fewer slots are used, the leaf will be merged or slots shifted
+<span class="lineNum">     117 </span>                :     /// from it's siblings.
+<span class="lineNum">     118 </span>                :     static const unsigned short         minleafslots = btree_impl::minleafslots;
+<span class="lineNum">     119 </span>                : 
+<span class="lineNum">     120 </span>                :     /// Computed B+ tree parameter: The minimum number of key slots used
+<span class="lineNum">     121 </span>                :     /// in an inner node. If fewer slots are used, the inner node will be
+<span class="lineNum">     122 </span>                :     /// merged or slots shifted from it's siblings.
+<span class="lineNum">     123 </span>                :     static const unsigned short         mininnerslots = btree_impl::mininnerslots;
+<span class="lineNum">     124 </span>                : 
+<span class="lineNum">     125 </span>                :     /// Debug parameter: Enables expensive and thorough checking of the B+ tree
+<span class="lineNum">     126 </span>                :     /// invariants after each insert/erase operation.
+<span class="lineNum">     127 </span>                :     static const bool                   selfverify = btree_impl::selfverify;
+<span class="lineNum">     128 </span>                : 
+<span class="lineNum">     129 </span>                :     /// Debug parameter: Prints out lots of debug information about how the
+<span class="lineNum">     130 </span>                :     /// algorithms change the tree. Requires the header file to be compiled
+<span class="lineNum">     131 </span>                :     /// with BTREE_DEBUG and the key type must be std::ostream printable.
+<span class="lineNum">     132 </span>                :     static const bool                   debug = btree_impl::debug;
+<span class="lineNum">     133 </span>                : 
+<span class="lineNum">     134 </span>                :     /// Operational parameter: Allow duplicate keys in the btree.
+<span class="lineNum">     135 </span>                :     static const bool                   allow_duplicates = btree_impl::allow_duplicates;
+<span class="lineNum">     136 </span>                : 
+<span class="lineNum">     137 </span>                : public:
+<span class="lineNum">     138 </span>                :     // *** Iterators and Reverse Iterators
+<span class="lineNum">     139 </span>                : 
+<span class="lineNum">     140 </span>                :     /// STL-like iterator object for B+ tree items. The iterator points to a
+<span class="lineNum">     141 </span>                :     /// specific slot number in a leaf.
+<span class="lineNum">     142 </span>                :     typedef typename btree_impl::iterator               iterator;
+<span class="lineNum">     143 </span>                : 
+<span class="lineNum">     144 </span>                :     /// STL-like iterator object for B+ tree items. The iterator points to a
+<span class="lineNum">     145 </span>                :     /// specific slot number in a leaf.
+<span class="lineNum">     146 </span>                :     typedef typename btree_impl::const_iterator         const_iterator;
+<span class="lineNum">     147 </span>                : 
+<span class="lineNum">     148 </span>                :     /// create mutable reverse iterator by using STL magic
+<span class="lineNum">     149 </span>                :     typedef typename btree_impl::reverse_iterator       reverse_iterator;
+<span class="lineNum">     150 </span>                : 
+<span class="lineNum">     151 </span>                :     /// create constant reverse iterator by using STL magic
+<span class="lineNum">     152 </span>                :     typedef typename btree_impl::const_reverse_iterator const_reverse_iterator;
+<span class="lineNum">     153 </span>                : 
+<span class="lineNum">     154 </span>                : private:
+<span class="lineNum">     155 </span>                :     // *** Tree Implementation Object
+<span class="lineNum">     156 </span>                : 
+<span class="lineNum">     157 </span>                :     /// The contained implementation object
+<span class="lineNum">     158 </span>                :     btree_impl  tree;
+<span class="lineNum">     159 </span>                : 
+<span class="lineNum">     160 </span>                : public:
+<span class="lineNum">     161 </span>                :     // *** Constructors and Destructor
+<span class="lineNum">     162 </span>                : 
+<span class="lineNum">     163 </span>                :     /// Default constructor initializing an empty B+ tree with the standard key
+<span class="lineNum">     164 </span>                :     /// comparison function
+<span class="lineNum">     165 </span><span class="lineNoCov">              0 :     inline btree_set()</span>
+<span class="lineNum">     166 </span><span class="lineNoCov">              0 :         : tree()</span>
+<span class="lineNum">     167 </span><span class="lineNoCov">              0 :     {</span>
+<span class="lineNum">     168 </span>                :     }
+<span class="lineNum">     169 </span>                : 
+<span class="lineNum">     170 </span>                :     /// Constructor initializing an empty B+ tree with a special key
+<span class="lineNum">     171 </span>                :     /// comparison object
+<span class="lineNum">     172 </span><span class="lineNoCov">              0 :     inline btree_set(const key_compare &amp;kcf)</span>
+<span class="lineNum">     173 </span><span class="lineNoCov">              0 :         : tree(kcf)</span>
+<span class="lineNum">     174 </span><span class="lineNoCov">              0 :     {</span>
+<span class="lineNum">     175 </span>                :     }
+<span class="lineNum">     176 </span>                : 
+<span class="lineNum">     177 </span>                :     /// Constructor initializing a B+ tree with the range [first,last)
+<span class="lineNum">     178 </span>                :     template &lt;class InputIterator&gt;
+<span class="lineNum">     179 </span>                :     inline btree_set(InputIterator first, InputIterator last)
+<span class="lineNum">     180 </span>                :         : tree()
+<span class="lineNum">     181 </span>                :     {
+<span class="lineNum">     182 </span>                :         insert(first, last);
+<span class="lineNum">     183 </span>                :     }
+<span class="lineNum">     184 </span>                : 
+<span class="lineNum">     185 </span>                :     /// Constructor initializing a B+ tree with the range [first,last) and a
+<span class="lineNum">     186 </span>                :     /// special key comparison object
+<span class="lineNum">     187 </span>                :     template &lt;class InputIterator&gt;
+<span class="lineNum">     188 </span>                :     inline btree_set(InputIterator first, InputIterator last, const key_compare &amp;kcf)
+<span class="lineNum">     189 </span>                :         : tree(kcf)
+<span class="lineNum">     190 </span>                :     {
+<span class="lineNum">     191 </span>                :         insert(first, last);
+<span class="lineNum">     192 </span>                :     }
+<span class="lineNum">     193 </span>                : 
+<span class="lineNum">     194 </span>                :     /// Frees up all used B+ tree memory pages
+<span class="lineNum">     195 </span><span class="lineNoCov">              0 :     inline ~btree_set()</span>
+<span class="lineNum">     196 </span><span class="lineNoCov">              0 :     {</span>
+<span class="lineNum">     197 </span>                :     }
+<span class="lineNum">     198 </span>                : 
+<span class="lineNum">     199 </span>                :     /// Fast swapping of two identical B+ tree objects.
+<span class="lineNum">     200 </span><span class="lineNoCov">              0 :     void swap(self&amp; from)</span>
+<span class="lineNum">     201 </span>                :     {
+<span class="lineNum">     202 </span><span class="lineNoCov">              0 :         std::swap(tree, from.tree);</span>
+<span class="lineNum">     203 </span>                :     }
+<span class="lineNum">     204 </span>                : 
+<span class="lineNum">     205 </span>                : public:
+<span class="lineNum">     206 </span>                :     // *** Key and Value Comparison Function Objects
+<span class="lineNum">     207 </span>                : 
+<span class="lineNum">     208 </span>                :     /// Constant access to the key comparison object sorting the B+ tree
+<span class="lineNum">     209 </span><span class="lineNoCov">              0 :     inline key_compare key_comp() const</span>
+<span class="lineNum">     210 </span>                :     {
+<span class="lineNum">     211 </span><span class="lineNoCov">              0 :         return tree.key_comp();</span>
+<span class="lineNum">     212 </span>                :     }
+<span class="lineNum">     213 </span>                : 
+<span class="lineNum">     214 </span>                :     /// Constant access to a constructed value_type comparison object. required
+<span class="lineNum">     215 </span>                :     /// by the STL
+<span class="lineNum">     216 </span><span class="lineNoCov">              0 :     inline value_compare value_comp() const</span>
+<span class="lineNum">     217 </span>                :     {
+<span class="lineNum">     218 </span><span class="lineNoCov">              0 :         return tree.value_comp();</span>
+<span class="lineNum">     219 </span>                :     }
+<span class="lineNum">     220 </span>                : 
+<span class="lineNum">     221 </span>                : public:
+<span class="lineNum">     222 </span>                :     // *** Fast Destruction of the B+ Tree
+<span class="lineNum">     223 </span>                : 
+<span class="lineNum">     224 </span>                :     /// Frees all keys and all nodes of the tree
+<span class="lineNum">     225 </span><span class="lineNoCov">              0 :     void clear()</span>
+<span class="lineNum">     226 </span>                :     {
+<span class="lineNum">     227 </span><span class="lineNoCov">              0 :         tree.clear();</span>
+<span class="lineNum">     228 </span>                :     }
+<span class="lineNum">     229 </span>                : 
+<span class="lineNum">     230 </span>                : public:
+<span class="lineNum">     231 </span>                :     // *** STL Iterator Construction Functions
+<span class="lineNum">     232 </span>                : 
+<span class="lineNum">     233 </span>                :     /// Constructs a read/data-write iterator that points to the first slot in
+<span class="lineNum">     234 </span>                :     /// the first leaf of the B+ tree.
+<span class="lineNum">     235 </span><span class="lineNoCov">              0 :     inline iterator begin()</span>
+<span class="lineNum">     236 </span>                :     {
+<span class="lineNum">     237 </span><span class="lineNoCov">              0 :         return tree.begin();</span>
+<span class="lineNum">     238 </span>                :     }
+<span class="lineNum">     239 </span>                : 
+<span class="lineNum">     240 </span>                :     /// Constructs a read/data-write iterator that points to the first invalid
+<span class="lineNum">     241 </span>                :     /// slot in the last leaf of the B+ tree.
+<span class="lineNum">     242 </span><span class="lineNoCov">              0 :     inline iterator end()</span>
+<span class="lineNum">     243 </span>                :     {
+<span class="lineNum">     244 </span><span class="lineNoCov">              0 :         return tree.end();</span>
+<span class="lineNum">     245 </span>                :     }
+<span class="lineNum">     246 </span>                : 
+<span class="lineNum">     247 </span>                :     /// Constructs a read-only constant iterator that points to the first slot
+<span class="lineNum">     248 </span>                :     /// in the first leaf of the B+ tree.
+<span class="lineNum">     249 </span><span class="lineNoCov">              0 :     inline const_iterator begin() const</span>
+<span class="lineNum">     250 </span>                :     {
+<span class="lineNum">     251 </span><span class="lineNoCov">              0 :         return tree.begin();</span>
+<span class="lineNum">     252 </span>                :     }
+<span class="lineNum">     253 </span>                : 
+<span class="lineNum">     254 </span>                :     /// Constructs a read-only constant iterator that points to the first
+<span class="lineNum">     255 </span>                :     /// invalid slot in the last leaf of the B+ tree.
+<span class="lineNum">     256 </span><span class="lineNoCov">              0 :     inline const_iterator end() const</span>
+<span class="lineNum">     257 </span>                :     {
+<span class="lineNum">     258 </span><span class="lineNoCov">              0 :         return tree.end();</span>
+<span class="lineNum">     259 </span>                :     }
+<span class="lineNum">     260 </span>                : 
+<span class="lineNum">     261 </span>                :     /// Constructs a read/data-write reverse iterator that points to the first
+<span class="lineNum">     262 </span>                :     /// invalid slot in the last leaf of the B+ tree. Uses STL magic.
+<span class="lineNum">     263 </span><span class="lineNoCov">              0 :     inline reverse_iterator rbegin()</span>
+<span class="lineNum">     264 </span>                :     {
+<span class="lineNum">     265 </span><span class="lineNoCov">              0 :         return tree.rbegin();</span>
+<span class="lineNum">     266 </span>                :     }
+<span class="lineNum">     267 </span>                : 
+<span class="lineNum">     268 </span>                :     /// Constructs a read/data-write reverse iterator that points to the first
+<span class="lineNum">     269 </span>                :     /// slot in the first leaf of the B+ tree. Uses STL magic.
+<span class="lineNum">     270 </span><span class="lineNoCov">              0 :     inline reverse_iterator rend()</span>
+<span class="lineNum">     271 </span>                :     {
+<span class="lineNum">     272 </span><span class="lineNoCov">              0 :         return tree.rend();</span>
+<span class="lineNum">     273 </span>                :     }
+<span class="lineNum">     274 </span>                : 
+<span class="lineNum">     275 </span>                :     /// Constructs a read-only reverse iterator that points to the first
+<span class="lineNum">     276 </span>                :     /// invalid slot in the last leaf of the B+ tree. Uses STL magic.
+<span class="lineNum">     277 </span><span class="lineNoCov">              0 :     inline const_reverse_iterator rbegin() const</span>
+<span class="lineNum">     278 </span>                :     {
+<span class="lineNum">     279 </span><span class="lineNoCov">              0 :         return tree.rbegin();</span>
+<span class="lineNum">     280 </span>                :     }
+<span class="lineNum">     281 </span>                : 
+<span class="lineNum">     282 </span>                :     /// Constructs a read-only reverse iterator that points to the first slot
+<span class="lineNum">     283 </span>                :     /// in the first leaf of the B+ tree. Uses STL magic.
+<span class="lineNum">     284 </span><span class="lineNoCov">              0 :     inline const_reverse_iterator rend() const</span>
+<span class="lineNum">     285 </span>                :     {
+<span class="lineNum">     286 </span><span class="lineNoCov">              0 :         return tree.rend();</span>
+<span class="lineNum">     287 </span>                :     }
+<span class="lineNum">     288 </span>                : 
+<span class="lineNum">     289 </span>                : public:
+<span class="lineNum">     290 </span>                :     // *** Access Functions to the Item Count
+<span class="lineNum">     291 </span>                : 
+<span class="lineNum">     292 </span>                :     /// Return the number of keys in the B+ tree
+<span class="lineNum">     293 </span><span class="lineNoCov">              0 :     inline size_type size() const</span>
+<span class="lineNum">     294 </span>                :     {
+<span class="lineNum">     295 </span><span class="lineNoCov">              0 :         return tree.size();</span>
+<span class="lineNum">     296 </span>                :     }
+<span class="lineNum">     297 </span>                : 
+<span class="lineNum">     298 </span>                :     /// Returns true if there is at least one key in the B+ tree
+<span class="lineNum">     299 </span><span class="lineNoCov">              0 :     inline bool empty() const</span>
+<span class="lineNum">     300 </span>                :     {
+<span class="lineNum">     301 </span><span class="lineNoCov">              0 :         return tree.empty();</span>
+<span class="lineNum">     302 </span>                :     }
+<span class="lineNum">     303 </span>                :     
+<span class="lineNum">     304 </span>                :     /// Returns the largest possible size of the B+ Tree. This is just a
+<span class="lineNum">     305 </span>                :     /// function required by the STL standard, the B+ Tree can hold more items.
+<span class="lineNum">     306 </span><span class="lineNoCov">              0 :     inline size_type max_size() const</span>
+<span class="lineNum">     307 </span>                :     {
+<span class="lineNum">     308 </span><span class="lineNoCov">              0 :         return tree.max_size();</span>
+<span class="lineNum">     309 </span>                :     }
+<span class="lineNum">     310 </span>                : 
+<span class="lineNum">     311 </span>                :     /// Return a const reference to the current statistics.
+<span class="lineNum">     312 </span><span class="lineNoCov">              0 :     inline const tree_stats&amp; get_stats() const</span>
+<span class="lineNum">     313 </span>                :     {
+<span class="lineNum">     314 </span><span class="lineNoCov">              0 :         return tree.get_stats();</span>
+<span class="lineNum">     315 </span>                :     }
+<span class="lineNum">     316 </span>                : 
+<span class="lineNum">     317 </span>                : public:
+<span class="lineNum">     318 </span>                :     // *** Standard Access Functions Querying the Tree by Descending to a Leaf
+<span class="lineNum">     319 </span>                : 
+<span class="lineNum">     320 </span>                :     /// Non-STL function checking whether a key is in the B+ tree. The same as
+<span class="lineNum">     321 </span>                :     /// (find(k) != end()) or (count() != 0).
+<span class="lineNum">     322 </span><span class="lineNoCov">              0 :     bool exists(const key_type &amp;key) const</span>
+<span class="lineNum">     323 </span>                :     {
+<span class="lineNum">     324 </span><span class="lineNoCov">              0 :         return tree.exists(key);</span>
+<span class="lineNum">     325 </span>                :     }
+<span class="lineNum">     326 </span>                : 
+<span class="lineNum">     327 </span>                :     /// Tries to locate a key in the B+ tree and returns an iterator to the
+<span class="lineNum">     328 </span>                :     /// key slot if found. If unsuccessful it returns end().
+<span class="lineNum">     329 </span><span class="lineNoCov">              0 :     iterator find(const key_type &amp;key)</span>
+<span class="lineNum">     330 </span>                :     {
+<span class="lineNum">     331 </span><span class="lineNoCov">              0 :         return tree.find(key);</span>
+<span class="lineNum">     332 </span>                :     }
+<span class="lineNum">     333 </span>                : 
+<span class="lineNum">     334 </span>                :     /// Tries to locate a key in the B+ tree and returns an constant iterator
+<span class="lineNum">     335 </span>                :     /// to the key slot if found. If unsuccessful it returns end().
+<span class="lineNum">     336 </span><span class="lineNoCov">              0 :     const_iterator find(const key_type &amp;key) const</span>
+<span class="lineNum">     337 </span>                :     {
+<span class="lineNum">     338 </span><span class="lineNoCov">              0 :         return tree.find(key);</span>
+<span class="lineNum">     339 </span>                :     }
+<span class="lineNum">     340 </span>                : 
+<span class="lineNum">     341 </span>                :     /// Tries to locate a key in the B+ tree and returns the number of
+<span class="lineNum">     342 </span>                :     /// identical key entries found. As this is a unique set, count() returns
+<span class="lineNum">     343 </span>                :     /// either 0 or 1.
+<span class="lineNum">     344 </span><span class="lineNoCov">              0 :     size_type count(const key_type &amp;key) const</span>
+<span class="lineNum">     345 </span>                :     {
+<span class="lineNum">     346 </span><span class="lineNoCov">              0 :         return tree.count(key);</span>
+<span class="lineNum">     347 </span>                :     }
+<span class="lineNum">     348 </span>                : 
+<span class="lineNum">     349 </span>                :     /// Searches the B+ tree and returns an iterator to the first key less or
+<span class="lineNum">     350 </span>                :     /// equal to the parameter. If unsuccessful it returns end().
+<span class="lineNum">     351 </span><span class="lineNoCov">              0 :     iterator lower_bound(const key_type&amp; key)</span>
+<span class="lineNum">     352 </span>                :     {
+<span class="lineNum">     353 </span><span class="lineNoCov">              0 :         return tree.lower_bound(key);</span>
+<span class="lineNum">     354 </span>                :     }
+<span class="lineNum">     355 </span>                : 
+<span class="lineNum">     356 </span>                :     /// Searches the B+ tree and returns an constant iterator to the first key
+<span class="lineNum">     357 </span>                :     /// less or equal to the parameter. If unsuccessful it returns end().
+<span class="lineNum">     358 </span><span class="lineNoCov">              0 :     const_iterator lower_bound(const key_type&amp; key) const</span>
+<span class="lineNum">     359 </span>                :     {
+<span class="lineNum">     360 </span><span class="lineNoCov">              0 :         return tree.lower_bound(key);</span>
+<span class="lineNum">     361 </span>                :     }
+<span class="lineNum">     362 </span>                : 
+<span class="lineNum">     363 </span>                :     /// Searches the B+ tree and returns an iterator to the first key greater
+<span class="lineNum">     364 </span>                :     /// than the parameter. If unsuccessful it returns end().
+<span class="lineNum">     365 </span><span class="lineNoCov">              0 :     iterator upper_bound(const key_type&amp; key)</span>
+<span class="lineNum">     366 </span>                :     {
+<span class="lineNum">     367 </span><span class="lineNoCov">              0 :         return tree.upper_bound(key);</span>
+<span class="lineNum">     368 </span>                :     }
+<span class="lineNum">     369 </span>                : 
+<span class="lineNum">     370 </span>                :     /// Searches the B+ tree and returns an constant iterator to the first key
+<span class="lineNum">     371 </span>                :     /// greater than the parameter. If unsuccessful it returns end().
+<span class="lineNum">     372 </span><span class="lineNoCov">              0 :     const_iterator upper_bound(const key_type&amp; key) const</span>
+<span class="lineNum">     373 </span>                :     {
+<span class="lineNum">     374 </span><span class="lineNoCov">              0 :         return tree.upper_bound(key);</span>
+<span class="lineNum">     375 </span>                :     }
+<span class="lineNum">     376 </span>                : 
+<span class="lineNum">     377 </span>                :     /// Searches the B+ tree and returns both lower_bound() and upper_bound().
+<span class="lineNum">     378 </span><span class="lineNoCov">              0 :     inline std::pair&lt;iterator, iterator&gt; equal_range(const key_type&amp; key)</span>
+<span class="lineNum">     379 </span>                :     {
+<span class="lineNum">     380 </span><span class="lineNoCov">              0 :         return tree.equal_range(key);</span>
+<span class="lineNum">     381 </span>                :     }
+<span class="lineNum">     382 </span>                : 
+<span class="lineNum">     383 </span>                :     /// Searches the B+ tree and returns both lower_bound() and upper_bound().
+<span class="lineNum">     384 </span><span class="lineNoCov">              0 :     inline std::pair&lt;const_iterator, const_iterator&gt; equal_range(const key_type&amp; key) const</span>
+<span class="lineNum">     385 </span>                :     {
+<span class="lineNum">     386 </span><span class="lineNoCov">              0 :         return tree.equal_range(key);</span>
+<span class="lineNum">     387 </span>                :     }
+<span class="lineNum">     388 </span>                : 
+<span class="lineNum">     389 </span>                : public:
+<span class="lineNum">     390 </span>                :     // *** B+ Tree Object Comparison Functions
+<span class="lineNum">     391 </span>                : 
+<span class="lineNum">     392 </span>                :     /// Equality relation of B+ trees of the same type. B+ trees of the same
+<span class="lineNum">     393 </span>                :     /// size and equal elements are considered equal.
+<span class="lineNum">     394 </span><span class="lineNoCov">              0 :     inline bool operator==(const self &amp;other) const</span>
+<span class="lineNum">     395 </span>                :     {
+<span class="lineNum">     396 </span><span class="lineNoCov">              0 :         return (tree == other.tree);</span>
+<span class="lineNum">     397 </span>                :     }
+<span class="lineNum">     398 </span>                : 
+<span class="lineNum">     399 </span>                :     /// Inequality relation. Based on operator==.
+<span class="lineNum">     400 </span><span class="lineNoCov">              0 :     inline bool operator!=(const self &amp;other) const</span>
+<span class="lineNum">     401 </span>                :     {
+<span class="lineNum">     402 </span><span class="lineNoCov">              0 :         return (tree != other.tree);</span>
+<span class="lineNum">     403 </span>                :     }
+<span class="lineNum">     404 </span>                : 
+<span class="lineNum">     405 </span>                :     /// Total ordering relation of B+ trees of the same type. It uses
+<span class="lineNum">     406 </span>                :     /// std::lexicographical_compare() for the actual comparison of elements.
+<span class="lineNum">     407 </span><span class="lineNoCov">              0 :     inline bool operator&lt;(const self &amp;other) const</span>
+<span class="lineNum">     408 </span>                :     {
+<span class="lineNum">     409 </span><span class="lineNoCov">              0 :         return (tree &lt; other.tree);</span>
+<span class="lineNum">     410 </span>                :     }
+<span class="lineNum">     411 </span>                : 
+<span class="lineNum">     412 </span>                :     /// Greater relation. Based on operator&lt;.
+<span class="lineNum">     413 </span><span class="lineNoCov">              0 :     inline bool operator&gt;(const self &amp;other) const</span>
+<span class="lineNum">     414 </span>                :     {
+<span class="lineNum">     415 </span><span class="lineNoCov">              0 :         return (tree &gt; other.tree);</span>
+<span class="lineNum">     416 </span>                :     }
+<span class="lineNum">     417 </span>                : 
+<span class="lineNum">     418 </span>                :     /// Less-equal relation. Based on operator&lt;.
+<span class="lineNum">     419 </span><span class="lineNoCov">              0 :     inline bool operator&lt;=(const self &amp;other) const</span>
+<span class="lineNum">     420 </span>                :     {
+<span class="lineNum">     421 </span><span class="lineNoCov">              0 :         return (tree &lt;= other.tree);</span>
+<span class="lineNum">     422 </span>                :     }
+<span class="lineNum">     423 </span>                : 
+<span class="lineNum">     424 </span>                :     /// Greater-equal relation. Based on operator&lt;.
+<span class="lineNum">     425 </span><span class="lineNoCov">              0 :     inline bool operator&gt;=(const self &amp;other) const</span>
+<span class="lineNum">     426 </span>                :     {
+<span class="lineNum">     427 </span><span class="lineNoCov">              0 :         return (tree &gt;= other.tree);</span>
+<span class="lineNum">     428 </span>                :     }
+<span class="lineNum">     429 </span>                : 
+<span class="lineNum">     430 </span>                : public:
+<span class="lineNum">     431 </span>                :     /// *** Fast Copy: Assign Operator and Copy Constructors
+<span class="lineNum">     432 </span>                : 
+<span class="lineNum">     433 </span>                :     /// Assignment operator. All the keys are copied
+<span class="lineNum">     434 </span><span class="lineNoCov">              0 :     inline self&amp; operator= (const self &amp;other)</span>
+<span class="lineNum">     435 </span>                :     {
+<span class="lineNum">     436 </span><span class="lineNoCov">              0 :         if (this != &amp;other)</span>
+<span class="lineNum">     437 </span>                :         {
+<span class="lineNum">     438 </span><span class="lineNoCov">              0 :             tree = other.tree;</span>
+<span class="lineNum">     439 </span>                :         }
+<span class="lineNum">     440 </span><span class="lineNoCov">              0 :         return *this;</span>
+<span class="lineNum">     441 </span>                :     }
+<span class="lineNum">     442 </span>                : 
+<span class="lineNum">     443 </span>                :     /// Copy constructor. The newly initialized B+ tree object will contain a
+<span class="lineNum">     444 </span>                :     /// copy of all keys.
+<span class="lineNum">     445 </span><span class="lineNoCov">              0 :     inline btree_set(const self &amp;other)</span>
+<span class="lineNum">     446 </span><span class="lineNoCov">              0 :         : tree(other.tree)</span>
+<span class="lineNum">     447 </span><span class="lineNoCov">              0 :     {</span>
+<span class="lineNum">     448 </span>                :     }
+<span class="lineNum">     449 </span>                :     
+<span class="lineNum">     450 </span>                : public:
+<span class="lineNum">     451 </span>                :     // *** Public Insertion Functions
+<span class="lineNum">     452 </span>                : 
+<span class="lineNum">     453 </span>                :     /// Attempt to insert a key into the B+ tree. The insert will fail if it is
+<span class="lineNum">     454 </span>                :     /// already present.
+<span class="lineNum">     455 </span><span class="lineNoCov">              0 :     inline std::pair&lt;iterator, bool&gt; insert(const key_type&amp; x)</span>
+<span class="lineNum">     456 </span>                :     {
+<span class="lineNum">     457 </span><span class="lineNoCov">              0 :         return tree.insert2(x, data_type());</span>
+<span class="lineNum">     458 </span>                :     }
+<span class="lineNum">     459 </span>                :     
+<span class="lineNum">     460 </span>                :     /// Attempt to insert a key into the B+ tree. The iterator hint is
+<span class="lineNum">     461 </span>                :     /// currently ignored by the B+ tree insertion routine.
+<span class="lineNum">     462 </span><span class="lineNoCov">              0 :     inline iterator insert(iterator hint, const key_type &amp;x)</span>
+<span class="lineNum">     463 </span>                :     {
+<span class="lineNum">     464 </span><span class="lineNoCov">              0 :         return tree.insert2(hint, x, data_type());</span>
+<span class="lineNum">     465 </span>                :     }
+<span class="lineNum">     466 </span>                : 
+<span class="lineNum">     467 </span>                :     /// Attempt to insert the range [first,last) of iterators dereferencing to
+<span class="lineNum">     468 </span>                :     /// key_type into the B+ tree. Each key/data pair is inserted individually.
+<span class="lineNum">     469 </span>                :     template &lt;typename InputIterator&gt;
+<span class="lineNum">     470 </span>                :     inline void insert(InputIterator first, InputIterator last)
+<span class="lineNum">     471 </span>                :     {
+<span class="lineNum">     472 </span>                :         InputIterator iter = first;
+<span class="lineNum">     473 </span>                :         while(iter != last)
+<span class="lineNum">     474 </span>                :         {
+<span class="lineNum">     475 </span>                :             insert(*iter);
+<span class="lineNum">     476 </span>                :             ++iter;
+<span class="lineNum">     477 </span>                :         }
+<span class="lineNum">     478 </span>                :     }
+<span class="lineNum">     479 </span>                : 
+<span class="lineNum">     480 </span>                : public:
+<span class="lineNum">     481 </span>                :     // *** Public Erase Functions
+<span class="lineNum">     482 </span>                : 
+<span class="lineNum">     483 </span>                :     /// Erases the key from the set. As this is a unique set, there is no
+<span class="lineNum">     484 </span>                :     /// difference to erase().
+<span class="lineNum">     485 </span><span class="lineNoCov">              0 :     bool erase_one(const key_type &amp;key)</span>
+<span class="lineNum">     486 </span>                :     {
+<span class="lineNum">     487 </span><span class="lineNoCov">              0 :         return tree.erase_one(key);</span>
+<span class="lineNum">     488 </span>                :     }
+<span class="lineNum">     489 </span>                : 
+<span class="lineNum">     490 </span>                :     /// Erases all the key/data pairs associated with the given key.
+<span class="lineNum">     491 </span><span class="lineNoCov">              0 :     size_type erase(const key_type &amp;key)</span>
+<span class="lineNum">     492 </span>                :     {
+<span class="lineNum">     493 </span><span class="lineNoCov">              0 :         return tree.erase(key);</span>
+<span class="lineNum">     494 </span>                :     }
+<span class="lineNum">     495 </span>                : 
+<span class="lineNum">     496 </span>                : #ifdef BTREE_TODO
+<span class="lineNum">     497 </span>                :     /// Erase the keys referenced by the iterator.
+<span class="lineNum">     498 </span>                :     void erase(iterator iter)
+<span class="lineNum">     499 </span>                :     {
+<span class="lineNum">     500 </span>                : 
+<span class="lineNum">     501 </span>                :     }
+<span class="lineNum">     502 </span>                : #endif
+<span class="lineNum">     503 </span>                : 
+<span class="lineNum">     504 </span>                : #ifdef BTREE_TODO
+<span class="lineNum">     505 </span>                :     /// Erase all keys in the range [first,last). This function is currently
+<span class="lineNum">     506 </span>                :     /// not implemented by the B+ Tree.
+<span class="lineNum">     507 </span>                :     void erase(iterator /* first */, iterator /* last */)
+<span class="lineNum">     508 </span>                :     {
+<span class="lineNum">     509 </span>                :         abort();
+<span class="lineNum">     510 </span>                :     }
+<span class="lineNum">     511 </span>                : #endif
+<span class="lineNum">     512 </span>                : 
+<span class="lineNum">     513 </span>                : #ifdef BTREE_DEBUG
+<span class="lineNum">     514 </span>                : public:
+<span class="lineNum">     515 </span>                :     // *** Debug Printing
+<span class="lineNum">     516 </span>                : 
+<span class="lineNum">     517 </span>                :     /// Print out the B+ tree structure with keys onto the given ostream. This function
+<span class="lineNum">     518 </span>                :     /// requires that the header is compiled with BTREE_DEBUG and that key_type
+<span class="lineNum">     519 </span>                :     /// is printable via std::ostream.
+<span class="lineNum">     520 </span><span class="lineNoCov">              0 :     void print(std::ostream &amp;os) const</span>
+<span class="lineNum">     521 </span>                :     {
+<span class="lineNum">     522 </span><span class="lineNoCov">              0 :         tree.print(os);</span>
+<span class="lineNum">     523 </span>                :     }
+<span class="lineNum">     524 </span>                : 
+<span class="lineNum">     525 </span>                :     /// Print out only the leaves via the double linked list.
+<span class="lineNum">     526 </span><span class="lineNoCov">              0 :     void print_leaves(std::ostream &amp;os) const</span>
+<span class="lineNum">     527 </span>                :     {
+<span class="lineNum">     528 </span><span class="lineNoCov">              0 :         tree.print_leaves(os);</span>
+<span class="lineNum">     529 </span>                :     }
+<span class="lineNum">     530 </span>                : 
+<span class="lineNum">     531 </span>                : #endif
+<span class="lineNum">     532 </span>                : 
+<span class="lineNum">     533 </span>                : public:
+<span class="lineNum">     534 </span>                :     // *** Verification of B+ Tree Invariants
+<span class="lineNum">     535 </span>                : 
+<span class="lineNum">     536 </span>                :     /// Run a thorough verification of all B+ tree invariants. The program
+<span class="lineNum">     537 </span>                :     /// aborts via BTREE_ASSERT() if something is wrong.
+<span class="lineNum">     538 </span><span class="lineNoCov">              0 :     void verify() const</span>
+<span class="lineNum">     539 </span>                :     {
+<span class="lineNum">     540 </span><span class="lineNoCov">              0 :         tree.verify();</span>
+<span class="lineNum">     541 </span>                :     }
+<span class="lineNum">     542 </span>                : 
+<span class="lineNum">     543 </span>                : public:
+<span class="lineNum">     544 </span>                : 
+<span class="lineNum">     545 </span>                :     /// Dump the contents of the B+ tree out onto an ostream as a binary
+<span class="lineNum">     546 </span>                :     /// image. The image contains memory pointers which will be fixed when the
+<span class="lineNum">     547 </span>                :     /// image is restored. For this to work your key_type must be an integral
+<span class="lineNum">     548 </span>                :     /// type and contain no pointers or references.
+<span class="lineNum">     549 </span><span class="lineNoCov">              0 :     void dump(std::ostream &amp;os) const</span>
+<span class="lineNum">     550 </span>                :     {
+<span class="lineNum">     551 </span><span class="lineNoCov">              0 :         tree.dump(os);</span>
+<span class="lineNum">     552 </span>                :     }
+<span class="lineNum">     553 </span>                : 
+<span class="lineNum">     554 </span>                :     /// Restore a binary image of a dumped B+ tree from an istream. The B+ tree
+<span class="lineNum">     555 </span>                :     /// pointers are fixed using the dump order. For dump and restore to work
+<span class="lineNum">     556 </span>                :     /// your key_type must be an integral type and contain no pointers or
+<span class="lineNum">     557 </span>                :     /// references. Returns true if the restore was successful.
+<span class="lineNum">     558 </span><span class="lineNoCov">              0 :     bool restore(std::istream &amp;is)</span>
+<span class="lineNum">     559 </span>                :     {
+<span class="lineNum">     560 </span><span class="lineNoCov">              0 :         return tree.restore(is);</span>
+<span class="lineNum">     561 </span>                :     }
+<span class="lineNum">     562 </span>                : };
+<span class="lineNum">     563 </span>                : 
+<span class="lineNum">     564 </span>                : } // namespace stx
+<span class="lineNum">     565 </span>                : 
+<span class="lineNum">     566 </span>                : #endif // _STX_BTREE_SET_H_
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+  <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+  <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LTP GCOV extension version 1.4</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

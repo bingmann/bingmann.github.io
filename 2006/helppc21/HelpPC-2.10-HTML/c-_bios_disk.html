@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - _bios_disk</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; MSC: unsigned _bios_disk(unsigned cmd,struct diskinfo_t *dskinfo)</span><br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- prototype in bios.h<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- cmd &nbsp; = _DISK_RESET &nbsp; resets disk system &nbsp;(INT 13,0)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= _DISK_STATUS &nbsp;return disk status &nbsp;(INT 13,1)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= _DISK_READ &nbsp; &nbsp;read disk sectors &nbsp;(INT 13,2)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= _DISK_WRITE &nbsp; write disk sectors &nbsp;(INT 13,3)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= _DISK_VERIFY &nbsp;verify disk sectors &nbsp;(INT 13,4)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= _DISK_FORMAT &nbsp;format disk track &nbsp;(INT 13,5)<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- dskinfo = pointer to structure containing disk information:<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;struct diskinfo_t<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; unsigned drive; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;- physical drive number<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; unsigned head; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - head number<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; unsigned track; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;- track number<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; unsigned sector; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - sector number<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; unsigned nsectors; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - sectors to deal with<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; void _far *buffer; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - data buffer<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; };<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- returns status of operation (AX register, AH contains status)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- drive numbers represent physical drives (0 = A:, 1 = B:,<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;80h = drive 0, 81h = drive 1<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- disk reads should be retried at least 3 times<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- Turbo C uses <a href="c-biosdisk.html">biosdisk</a>()<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see &nbsp;<a href="int-int_13.html">INT 13</a><br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">_bios_disk</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

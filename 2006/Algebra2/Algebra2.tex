@@ -1,0 +1,187 @@
+\documentclass[a4paper,12pt]{report}
+
+% Deutsche Sprache
+\usepackage{ngerman}
+
+% Verschiebt \sections auf die naechste seite falls sie zu tief sind. Muss vor
+% hyperref kommen.
+\usepackage[nobottomtitles]{titlesec}
+
+% Schicke Schrift
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+% schmaler rand
+\usepackage{geometry}
+\geometry{a4paper,tmargin=2cm,lmargin=2cm,rmargin=2cm}
+
+\setlength\parskip{\smallskipamount}
+\setlength\parindent{0pt}
+\tolerance=900
+
+% Vokabelliste erzeugen
+\usepackage{index}
+\newindex{default}{idx}{ind}{Vokabeln}
+
+% links
+\usepackage{color}
+\usepackage{hyperref}
+
+\definecolor{rltred}{rgb}{0.75,0,0}
+\definecolor{rltgreen}{rgb}{0,0.5,0}
+\definecolor{rltblue}{rgb}{0,0,0.75}
+
+\hypersetup{
+  pdftitle={Algebra II Prof. Herrlich},
+  pdfsubject={Algebra II},
+  pdfkeywords={Algebra II Herrlich A2},
+  pdfproducer={pdfLaTeX},
+  pdfpagemode={UseOutlines},
+  colorlinks=true,
+  bookmarksopen=true,
+  bookmarksnumbered=true,
+  urlcolor=rltblue,
+  filecolor=rltgreen,
+  linkcolor=rltblue,
+  backref=true,
+  pagebackref=true,
+  pdfpagemode=None
+}
+
+% Mathe-Pakete
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{stmaryrd}
+
+% Für Diagramme
+\usepackage[arrow,matrix,curve]{xy}
+
+\usepackage{etex}
+\usepackage{pictex}
+\usepackage{graphicx}
+
+% Theorem-Umgebung
+\usepackage[hyperref,amsmath,thmmarks,thref]{ntheorem}
+
+% keine kursiv schrift in theorems
+\theorembodyfont{}
+
+% Theoreme definieren
+\theoremstyle{break}
+    \newtheorem{Satz}{Satz}
+    \newtheorem{SatzDef}[Satz]{Satz + Definition}
+    \newtheorem{Def}{Definition}[chapter]
+    \newtheorem{DefBem}[Def]{Definition + Bemerkung}
+    \newtheorem{Bem}[Def]{Bemerkung}
+    \newtheorem{BemDef}[Def]{Bemerkung + Definition}
+    \newtheorem{Prop}[Def]{Proposition}
+    \newtheorem{PropDef}[Def]{Proposition + Definition}
+    \newtheorem{Folg}[Def]{Folgerung}
+    \newtheorem{Bsp}[Def]{Beispiele}
+    \newtheorem{DefProp}[Def]{Definition + Proposition}
+    \newtheorem{anBew}[Def]{Beweis}
+\theoremstyle{nonumberbreak}
+    \newtheorem{Bew}{Beweis}
+    \newtheorem{nnBem}{Bemerkung}
+    \newtheorem{nnBsp}{Beispiele}
+    \newtheorem{nnSatz}{Satz}
+    \newtheorem{nnFolg}{Folgerung}
+    \newtheorem{Beo}{Beobachtung}
+    \newtheorem{Eri}{Erinnerung}
+\theoremstyle{nonumberplain}
+    \theoremsymbol{\ensuremath{\Box}}
+    \newtheorem{proof}{Beweis}
+
+\newcommand{\emp}[1]{\textbf{\emph{#1}}}
+\newcommand{\defeqr}[0]{\mathrel{\mathop:}=}
+\newcommand{\defeql}[0]{=\mathrel{\mathop:}}
+
+\newcommand{\myref}[2]{%
+\hyperref[#2]{#1~\ref*{#2}}%
+}
+
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Quot}{Quot}
+
+\DeclareMathOperator{\Kern}{Kern}
+\DeclareMathOperator{\Bild}{Bild}
+
+\newcommand{\FakRaum}[2]{
+  \raisebox{0.7ex}{\ensuremath{#1}}
+  \ensuremath{\mkern-3mu}\big/\ensuremath{\mkern-3mu}
+  \raisebox{-0.6ex}{\ensuremath{#2}}} 
+
+\renewcommand{\labelenumi}{\theenumi}    
+\renewcommand{\theenumi}{(\alph{enumi})}
+
+\renewcommand{\OE}{O\!\!E}
+
+% Weniger Abstand nach der Ueberschrift des Inhaltsverzeichnises
+\makeatletter
+\let\@my@starttoc\@starttoc
+\renewcommand*{\@starttoc}[1]{%
+  \addvspace{-1.5em}%
+  \@my@starttoc{#1}%
+}
+\makeatother
+
+% Einige Anstrengungen, um den § vor die Section-Nummer zu stellen
+% \renewcommand{\thesection} allein führt zu einem Konflikt mit ntheorem-hyper
+\makeatletter
+\def\@seccntformat#1{\@ifundefined{#1@cntformat}%
+{\csname the#1\endcsname\quad}% default
+{\csname #1@cntformat\endcsname}% individual control
+}
+\def\section@cntformat{§\@arabic\c@section\quad}
+\makeatother
+
+\title{Algebra II - Sommersemester 2006\\ Prof. Dr. F. Herrlich}
+\author{Die Mitarbeiter von \url{http://lkwiki.nomeata.de/}}
+
+\begin{document}
+
+\maketitle
+
+% Inhaltsverzeichnis
+\pdfbookmark[1]{Inhaltsverzeichnis}{contents}
+\setlength\parskip{0.6pt}
+\tableofcontents
+
+% Liste der benannten Saetze
+\section*{Benannte Sätze}
+\pdfbookmark[1]{Benannte Sätze}{contents}
+
+\theoremlisttype{optname}
+\listtheorems{Satz,SatzDef,Def,DefBem,BemDef,Prop,PropDef,Bsp,DefProp}
+
+\setlength\parskip{\smallskipamount}
+
+\input{Algebra2Par11.part}
+\input{Algebra2Par12.part}
+\input{Algebra2Par13.part}
+\input{Algebra2Par14.part}
+\input{Algebra2Par15.part}
+\input{Algebra2Par16.part}
+\input{Algebra2Par17.part}
+
+\input{Algebra2Par21.part}
+\input{Algebra2Par22.part}
+\input{Algebra2Par23.part}
+\input{Algebra2Par24.part}
+\input{Algebra2Par25.part}
+\input{Algebra2Par26.part}
+\input{Algebra2Par27.part}
+\input{Algebra2Par28.part}
+\input{Algebra2Par29.part}
+\input{Algebra2Par2A.part}
+\input{Algebra2Par2B.part}
+
+\appendix
+
+\def\indexspace{\par\medskip}
+\printindex[default][\phantomsection\addcontentsline{toc}{chapter}{Vokabeln}\vspace{-1.2em}]
+
+\end{document}

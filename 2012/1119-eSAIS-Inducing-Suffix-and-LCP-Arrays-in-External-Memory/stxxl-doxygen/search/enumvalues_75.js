@@ -1,0 +1,1 @@
+var searchData=[["uninitialized",["uninitialized",["../classstxxl_1_1vector.html#af7e3046d206e5f1f7b9573c4710d50cbaa37d97e77aff649426f70c01531325a9",1,"stxxl::vector"]]]];

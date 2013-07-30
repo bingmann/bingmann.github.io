@@ -1,0 +1,1 @@
+var searchData=[["kclip",["KClip",["../classKClip.html",1,""]]]];

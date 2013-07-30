@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2006/SDIOS06/sdios06/util/kickstart/mbi-loader.cc - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal4.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2006/">2006</a> / <a href="/2006/SDIOS06/">SDIOS06</a> / <a href="/2006/SDIOS06/sdios06/">sdios06</a> / <a href="/2006/SDIOS06/sdios06/util/">util</a> / <a href="/2006/SDIOS06/sdios06/util/kickstart/">kickstart</a> / <a href="/2006/SDIOS06/sdios06/util/kickstart/mbi-loader.cc.html">mbi-loader.cc</a> (<a href="/2006/SDIOS06/sdios06/util/kickstart/mbi-loader.cc">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">/*********************************************************************</span>
+<span class="comment"> *                </span>
+<span class="comment"> * Copyright (C) 2004,  Karlsruhe University</span>
+<span class="comment"> *                </span>
+<span class="comment"> * File path:     mbi-loader.cc</span>
+<span class="comment"> * Description:   MBI specific boot loader functions</span>
+<span class="comment"> *                </span>
+<span class="comment"> * Redistribution and use in source and binary forms, with or without</span>
+<span class="comment"> * modification, are permitted provided that the following conditions</span>
+<span class="comment"> * are met:</span>
+<span class="comment"> * 1. Redistributions of source code must retain the above copyright</span>
+<span class="comment"> *    notice, this list of conditions and the following disclaimer.</span>
+<span class="comment"> * 2. Redistributions in binary form must reproduce the above copyright</span>
+<span class="comment"> *    notice, this list of conditions and the following disclaimer in the</span>
+<span class="comment"> *    documentation and/or other materials provided with the distribution.</span>
+<span class="comment"> * </span>
+<span class="comment"> * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND</span>
+<span class="comment"> * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE</span>
+<span class="comment"> * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE</span>
+<span class="comment"> * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE</span>
+<span class="comment"> * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL</span>
+<span class="comment"> * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS</span>
+<span class="comment"> * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)</span>
+<span class="comment"> * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT</span>
+<span class="comment"> * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY</span>
+<span class="comment"> * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF</span>
+<span class="comment"> * SUCH DAMAGE.</span>
+<span class="comment"> *                </span>
+<span class="comment"> * $Id: mbi-loader.cc,v 1.2.2.2 2004/11/23 14:35:34 skoglund Exp $</span>
+<span class="comment"> *                </span>
+<span class="comment"> ********************************************************************/</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;config.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;l4io.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;l4/bootinfo.h&gt;</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"kickstart.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"mbi.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"kipmgr.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"lib.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"elf.h"</span>
+
+<span class="type">void</span><span class="normal"> </span><span class="function">install_memory</span><span class="symbol">(</span><span class="normal">mbi_t </span><span class="symbol">*</span><span class="normal"> mbi</span><span class="symbol">,</span><span class="normal"> kip_manager_t</span><span class="symbol">*</span><span class="normal"> kip</span><span class="symbol">);</span>
+
+<span class="preproc">#define</span><span class="normal"> MAX_MBI_MODULES		</span><span class="number">32</span>
+<span class="preproc">#define</span><span class="normal"> STRING_BUFFER_SIZE	</span><span class="number">4096</span>
+
+<span class="keyword">static</span><span class="normal"> </span><span class="usertype">mbi_t</span><span class="normal"> mbi_copy</span><span class="symbol">;</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="usertype">mbi_module_t</span><span class="normal"> mbi_modules</span><span class="symbol">[</span><span class="normal">MAX_MBI_MODULES</span><span class="symbol">];</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="usertype">mbi_module_t</span><span class="normal"> orig_mbi_modules</span><span class="symbol">[</span><span class="normal">MAX_MBI_MODULES</span><span class="symbol">];</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="type">char</span><span class="normal"> strings_copy</span><span class="symbol">[</span><span class="normal">STRING_BUFFER_SIZE</span><span class="symbol">];</span>
+
+<span class="keyword">static</span><span class="normal"> mbi_t </span><span class="symbol">*</span><span class="normal"> mbi</span><span class="symbol">;</span>
+
+<span class="comment">/**</span>
+<span class="comment"> * Maximum size for bootinfo structure.</span>
+<span class="comment"> */</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="usertype">L4_Word_t</span><span class="normal"> max_bootinfo_size</span><span class="symbol">;</span>
+
+
+<span class="comment">/* Override physical memory size from BIOS when non-zero.  Variable</span>
+<span class="comment">   can be set with command line parameter maxmem=&lt;num&gt;[KMG] */</span>
+<span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> max_phys_mem </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+
+<span class="comment">/* Reserve this much conventional memory for the kernel</span>
+<span class="comment">   Can be changed with command line parameter kmem=&lt;num&gt;[KMG] */</span>
+<span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> additional_kmem_size </span><span class="symbol">=</span><span class="normal"> </span><span class="number">16</span><span class="symbol">*</span><span class="number">1024</span><span class="symbol">*</span><span class="number">1024</span><span class="symbol">;</span>
+
+
+<span class="comment">/* Decode all executable MBI modules. */</span>
+<span class="type">bool</span><span class="normal"> decode_all_executables </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+
+
+<span class="comment">/**</span>
+<span class="comment"> * Load L4 system modules as referenced by the MBI structure</span>
+<span class="comment"> *</span>
+<span class="comment"> * The first three modules in the MBI modules list are ELF-loaded.  If</span>
+<span class="comment"> * 'decode-all' is specified on the kickstart command line, other ELF</span>
+<span class="comment"> * files in the module list are also ELF loader.  The memory range of</span>
+<span class="comment"> * each of these modules is updated with the enclosing memory range of</span>
+<span class="comment"> * the loaded image and the entry point is set for each successfully</span>
+<span class="comment"> * loaded image.  Modules are loaded in the order they appear in the</span>
+<span class="comment"> * MBI's module list.  No checks for overlapping of ELF images and</span>
+<span class="comment"> * loaded images are performed.</span>
+<span class="comment"> *</span>
+<span class="comment"> * </span><span class="type">@returns</span><span class="comment">     true on successful load, false otherwise.</span>
+<span class="comment"> */</span>
+<span class="type">bool</span><span class="normal"> </span><span class="function">load_modules</span><span class="normal"> </span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">// Is the modules info in the MBI valid?</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">mbi</span><span class="symbol">-&gt;</span><span class="normal">flags</span><span class="symbol">.</span><span class="normal">mods</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="comment">/* We need at least three modules: kernel, sigma0, roottask */</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">mbi</span><span class="symbol">-&gt;</span><span class="normal">modcount </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">3</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">LOADIT</span><span class="symbol">(</span><span class="normal">idx</span><span class="symbol">)</span><span class="normal">                                                     </span><span class="symbol">\</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="function">elf_load</span><span class="symbol">(</span><span class="normal">mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="normal">idx</span><span class="symbol">].</span><span class="normal">start</span><span class="symbol">,</span><span class="normal"> mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="normal">idx</span><span class="symbol">].</span><span class="normal">end</span><span class="symbol">,</span><span class="normal">     </span><span class="symbol">\</span>
+<span class="normal">                          </span><span class="symbol">&amp;</span><span class="normal">mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="normal">idx</span><span class="symbol">].</span><span class="normal">start</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="normal">idx</span><span class="symbol">].</span><span class="normal">end</span><span class="symbol">,</span><span class="normal">   </span><span class="symbol">\</span>
+<span class="normal">                          </span><span class="symbol">&amp;</span><span class="normal">mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="normal">idx</span><span class="symbol">].</span><span class="normal">entry</span><span class="symbol">))</span><span class="normal">                       </span><span class="symbol">\</span>
+<span class="normal">            </span><span class="cbracket">{</span><span class="normal">                                                           </span><span class="symbol">\</span>
+<span class="normal">                </span><span class="function">FAIL</span><span class="symbol">();</span><span class="normal">                                                 </span><span class="symbol">\</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+
+<span class="normal">            </span><span class="function">l4_printf</span><span class="symbol">(</span><span class="string">" kernel  "</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="function">LOADIT</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="function">l4_printf</span><span class="symbol">(</span><span class="string">" sigma0  "</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="function">LOADIT</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="function">l4_printf</span><span class="symbol">(</span><span class="string">" roottask"</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="function">LOADIT</span><span class="symbol">(</span><span class="number">2</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="keyword">else</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">FAIL</span><span class="symbol">();</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">decode_all_executables</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="comment">// Also decode other ELF files in module list.</span>
+<span class="normal">	    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">L4_Word_t</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">3</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> mbi</span><span class="symbol">-&gt;</span><span class="normal">modcount</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span>
+<span class="normal">		</span><span class="function">elf_load</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">].</span><span class="normal">start</span><span class="symbol">,</span><span class="normal"> mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">].</span><span class="normal">end</span><span class="symbol">,</span>
+<span class="normal">			  </span><span class="symbol">&amp;</span><span class="normal">mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">].</span><span class="normal">start</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">].</span><span class="normal">end</span><span class="symbol">,</span>
+<span class="normal">			  </span><span class="symbol">&amp;</span><span class="normal">mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">].</span><span class="normal">entry</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span>
+<span class="normal">        </span><span class="function">FAIL</span><span class="symbol">();</span>
+
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/**</span>
+<span class="comment"> * Find free memory.</span>
+<span class="comment"> *</span>
+<span class="comment"> * </span><span class="type">@param</span><span class="comment"> size	The size of the region to find.</span>
+<span class="comment"> * </span><span class="type">@param</span><span class="comment"> kip	A pointer to the kip manager.  All memory descriptors should</span>
+<span class="comment"> * 		be defined before calling this function.</span>
+<span class="comment"> *</span>
+<span class="comment"> * Find a region of memory which doesn't overlap the kickstarter, the </span>
+<span class="comment"> * multiboot modules, nor the memory regions defined in the kip.</span>
+<span class="comment"> *</span>
+<span class="comment"> * </span><span class="type">@returns</span><span class="comment"> The start address of the available memory region, otherwise 0.</span>
+<span class="comment"> */</span>
+<span class="usertype">L4_Word_t</span><span class="normal"> </span><span class="function">find_free_mem_region</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">L4_Word_t</span><span class="normal"> size</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">kip_manager_t</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">kip</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">L4_Word64_t</span><span class="normal"> phys_start</span><span class="symbol">,</span><span class="normal"> phys_end</span><span class="symbol">;</span>
+
+<span class="normal">    phys_end </span><span class="symbol">=</span><span class="normal"> kip</span><span class="symbol">-&gt;</span><span class="function">get_phys_mem_max</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">phys_start </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> phys_start </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">phys_end </span><span class="symbol">-</span><span class="normal"> size</span><span class="symbol">);</span><span class="normal"> phys_start </span><span class="symbol">+=</span><span class="normal"> size</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">mbi</span><span class="symbol">-&gt;</span><span class="function">is_mem_region_free</span><span class="symbol">(</span><span class="normal">phys_start</span><span class="symbol">,</span><span class="normal"> size</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">	    </span><span class="keyword">continue</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">kip</span><span class="symbol">-&gt;</span><span class="function">is_mem_region_free</span><span class="symbol">(</span><span class="normal">phys_start</span><span class="symbol">,</span><span class="normal"> size</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">	    </span><span class="keyword">continue</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> phys_start</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/**</span>
+<span class="comment"> * Prepare user-level copy of the mbi.</span>
+<span class="comment"> *</span>
+<span class="comment"> * </span><span class="type">@param</span><span class="comment"> kip	The kip manager pointer.  All memory descriptors should</span>
+<span class="comment"> * 		be defined before calling this function.</span>
+<span class="comment"> *</span>
+<span class="comment"> * Prepares the mbi for use by user-level applications.  It allocates</span>
+<span class="comment"> * contiguous memory for the mbi, and then copies the mbi to this</span>
+<span class="comment"> * memory region.  All modules and strings are copied to the region too.</span>
+<span class="comment"> * The new memory region is defined as a memory descriptor in the</span>
+<span class="comment"> * kip, as a bootloader specific type.</span>
+<span class="comment"> *</span>
+<span class="comment"> * </span><span class="type">@returns</span><span class="comment"> The pointer to the newly allocated mbi.</span>
+<span class="comment"> */</span>
+<span class="normal">mbi_t </span><span class="symbol">*</span><span class="normal"> </span><span class="function">install_mbi</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">kip_manager_t</span><span class="symbol">*</span><span class="normal"> kip</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">// Make a copy of the mbi, and protect it.  First calculate its size.</span>
+<span class="normal">    </span><span class="usertype">L4_Word_t</span><span class="normal"> mbi_size </span><span class="symbol">=</span><span class="normal"> mbi</span><span class="symbol">-&gt;</span><span class="function">get_size</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal"> mbi_size </span><span class="symbol">%</span><span class="normal"> </span><span class="number">4096</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">	mbi_size </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">mbi_size </span><span class="symbol">+</span><span class="normal"> </span><span class="number">4096</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="symbol">~(</span><span class="number">4096</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="usertype">L4_Word_t</span><span class="normal"> target_mbi </span><span class="symbol">=</span><span class="normal"> </span><span class="function">find_free_mem_region</span><span class="symbol">(</span><span class="normal"> mbi_size</span><span class="symbol">,</span><span class="normal"> kip </span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal"> target_mbi </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">	</span><span class="function">FAIL</span><span class="symbol">();</span>
+<span class="normal">    mbi</span><span class="symbol">-&gt;</span><span class="function">copy</span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">mbi_t </span><span class="symbol">*)</span><span class="normal">target_mbi </span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="comment">// Protect the mbi.</span>
+<span class="normal">    kip</span><span class="symbol">-&gt;</span><span class="function">dedicate_memory</span><span class="symbol">(</span><span class="normal"> target_mbi</span><span class="symbol">,</span><span class="normal"> target_mbi </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> mbi_size</span><span class="symbol">,</span><span class="normal"> </span>
+<span class="normal">	    L4_BootLoaderSpecificMemoryType</span><span class="symbol">,</span><span class="normal"> </span>
+<span class="normal">	    kip_manager_t</span><span class="symbol">::</span><span class="normal">desc_init_table </span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">mbi_t </span><span class="symbol">*)</span><span class="normal">target_mbi</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/**</span>
+<span class="comment"> * Allocate and initialize a new bootinfo structure. </span>
+<span class="comment"> *</span>
+<span class="comment"> * </span><span class="type">@param</span><span class="comment"> kip		Pointer to KIP manager</span>
+<span class="comment"> *</span>
+<span class="comment"> * The function allocates an initializes an empty bootinfo structure.</span>
+<span class="comment"> * The amount of space allocated is the minimum page size supported by</span>
+<span class="comment"> * the architecture/kernel.  The bootinfo structure is additionally</span>
+<span class="comment"> * recorded in a memory descriptor in the KIP.</span>
+<span class="comment"> *</span>
+<span class="comment"> * </span><span class="type">@returns</span><span class="comment"> pointer to newly allocated bootinfo structure, or NULL if</span>
+<span class="comment"> * unable to allocate memmory to hold the structure.</span>
+<span class="comment"> */</span>
+<span class="normal">L4_BootInfo_t </span><span class="symbol">*</span><span class="normal"> </span><span class="function">init_bootinfo</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">kip_manager_t </span><span class="symbol">*</span><span class="normal"> kip</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    max_bootinfo_size </span><span class="symbol">=</span><span class="normal"> kip</span><span class="symbol">-&gt;</span><span class="function">get_min_pagesize</span><span class="normal"> </span><span class="symbol">();</span>
+<span class="normal">    L4_BootInfo_t </span><span class="symbol">*</span><span class="normal"> bi </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">L4_BootInfo_t </span><span class="symbol">*)</span>
+<span class="normal">	</span><span class="function">find_free_mem_region</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">max_bootinfo_size</span><span class="symbol">,</span><span class="normal"> kip</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">bi </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> NULL</span><span class="symbol">;</span>
+
+<span class="normal">    bi</span><span class="symbol">-&gt;</span><span class="normal">magic		</span><span class="symbol">=</span><span class="normal"> L4_BOOTINFO_MAGIC</span><span class="symbol">;</span>
+<span class="normal">    bi</span><span class="symbol">-&gt;</span><span class="normal">version		</span><span class="symbol">=</span><span class="normal"> L4_BOOTINFO_VERSION</span><span class="symbol">;</span>
+<span class="normal">    bi</span><span class="symbol">-&gt;</span><span class="normal">size		</span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">bi</span><span class="symbol">);</span>
+<span class="normal">    bi</span><span class="symbol">-&gt;</span><span class="normal">first_entry	</span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">bi</span><span class="symbol">);</span>
+<span class="normal">    bi</span><span class="symbol">-&gt;</span><span class="normal">num_entries	</span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">// Protect bootinfo structure</span>
+<span class="normal">    kip</span><span class="symbol">-&gt;</span><span class="function">dedicate_memory</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">L4_Word_t</span><span class="symbol">)</span><span class="normal"> bi</span><span class="symbol">,</span>
+<span class="normal">			  </span><span class="symbol">(</span><span class="normal">L4_Word_t</span><span class="symbol">)</span><span class="normal"> bi </span><span class="symbol">+</span><span class="normal"> max_bootinfo_size </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span>
+<span class="normal">			  L4_BootLoaderSpecificMemoryType</span><span class="symbol">,</span><span class="normal"> </span>
+<span class="normal">			  kip_manager_t</span><span class="symbol">::</span><span class="normal">desc_init_table</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> bi</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/**</span>
+<span class="comment"> * Record all MBI modules into bootinfo</span>
+<span class="comment"> *</span>
+<span class="comment"> * </span><span class="type">@param</span><span class="comment"> bi		Pointer to bootinfo</span>
+<span class="comment"> * </span><span class="type">@param</span><span class="comment"> rec		Pointer to next free bootinfo record</span>
+<span class="comment"> *</span>
+<span class="comment"> * Function parses through all multiboot info modules and inserts them</span>
+<span class="comment"> * into the bootinfo structure, either as a simple executable or as a</span>
+<span class="comment"> * simple module record.</span>
+<span class="comment"> *</span>
+<span class="comment"> * </span><span class="type">@returns</span><span class="comment"> pointer to next free bootinfo record</span>
+<span class="comment"> */</span>
+<span class="normal">L4_BootRec_t </span><span class="symbol">*</span><span class="normal"> </span><span class="function">record_bootinfo_modules</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">L4_BootInfo_t </span><span class="symbol">*</span><span class="normal"> bi</span><span class="symbol">,</span>
+<span class="normal">					L4_BootRec_t </span><span class="symbol">*</span><span class="normal"> rec</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">L4_Word_t</span><span class="normal"> sz</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">// XXX Make sure that we do not overflow the allocated memory for</span>
+<span class="normal">    </span><span class="comment">// the bootinfo structure.</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">mbi</span><span class="symbol">-&gt;</span><span class="normal">flags</span><span class="symbol">.</span><span class="normal">mods</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">L4_Word_t</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> mbi</span><span class="symbol">-&gt;</span><span class="normal">modcount</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    L4_Boot_SimpleExec_t </span><span class="symbol">*</span><span class="normal"> exec </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">L4_Boot_SimpleExec_t </span><span class="symbol">*)</span><span class="normal"> rec</span><span class="symbol">;</span>
+
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">decode_all_executables </span><span class="symbol">||</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">3</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span>
+<span class="normal">		</span><span class="function">elf_find_sections</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">orig_mbi_modules</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">].</span><span class="normal">start</span><span class="symbol">,</span><span class="normal"> exec</span><span class="symbol">))</span>
+<span class="normal">	    </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="comment">// Found en ELF module.  Copy commandline into</span>
+<span class="normal">		</span><span class="comment">// bootinfo.</span>
+<span class="normal">		sz </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">exec</span><span class="symbol">);</span>
+<span class="normal">		exec</span><span class="symbol">-&gt;</span><span class="normal">cmdline_offset </span><span class="symbol">=</span><span class="normal"> sz</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="function">strcpy</span><span class="normal"> </span><span class="symbol">((</span><span class="type">char</span><span class="normal"> </span><span class="symbol">*)</span><span class="normal"> exec </span><span class="symbol">+</span><span class="normal"> sz</span><span class="symbol">,</span><span class="normal"> mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">].</span><span class="normal">cmdline</span><span class="symbol">);</span>
+<span class="normal">		sz </span><span class="symbol">+=</span><span class="normal"> </span><span class="function">strlen</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">].</span><span class="normal">cmdline</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">		sz </span><span class="symbol">=</span><span class="normal"> </span><span class="function">align_up</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">sz</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">L4_Word_t</span><span class="symbol">));</span>
+<span class="normal">		exec</span><span class="symbol">-&gt;</span><span class="normal">offset_next </span><span class="symbol">=</span><span class="normal"> sz</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+<span class="normal">	    </span><span class="keyword">else</span>
+<span class="normal">	    </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="comment">// Record module as a simple module.</span>
+<span class="normal">		L4_Boot_Module_t </span><span class="symbol">*</span><span class="normal"> mod </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">L4_Boot_Module_t </span><span class="symbol">*)</span><span class="normal"> rec</span><span class="symbol">;</span>
+<span class="normal">		sz </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">mod</span><span class="symbol">);</span>
+
+<span class="normal">		mod</span><span class="symbol">-&gt;</span><span class="normal">type	 </span><span class="symbol">=</span><span class="normal"> L4_BootInfo_Module</span><span class="symbol">;</span>
+<span class="normal">		mod</span><span class="symbol">-&gt;</span><span class="normal">version	 </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">		mod</span><span class="symbol">-&gt;</span><span class="normal">offset_next </span><span class="symbol">=</span><span class="normal"> sz</span><span class="symbol">;</span>
+<span class="normal">		mod</span><span class="symbol">-&gt;</span><span class="normal">start 	 </span><span class="symbol">=</span><span class="normal"> mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">].</span><span class="normal">start</span><span class="symbol">;</span>
+<span class="normal">		mod</span><span class="symbol">-&gt;</span><span class="normal">size 	 </span><span class="symbol">=</span><span class="normal"> mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">].</span><span class="normal">end </span><span class="symbol">-</span><span class="normal"> mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">].</span><span class="normal">start</span><span class="symbol">;</span>
+
+<span class="normal">		</span><span class="comment">// Copy command line to bootinfo.</span>
+<span class="normal">		mod</span><span class="symbol">-&gt;</span><span class="normal">cmdline_offset </span><span class="symbol">=</span><span class="normal"> sz</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="function">strcpy</span><span class="normal"> </span><span class="symbol">((</span><span class="type">char</span><span class="normal"> </span><span class="symbol">*)</span><span class="normal"> exec </span><span class="symbol">+</span><span class="normal"> sz</span><span class="symbol">,</span><span class="normal"> mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">].</span><span class="normal">cmdline</span><span class="symbol">);</span>
+<span class="normal">		sz </span><span class="symbol">+=</span><span class="normal"> </span><span class="function">strlen</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">].</span><span class="normal">cmdline</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">		sz </span><span class="symbol">=</span><span class="normal"> </span><span class="function">align_up</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">sz</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">L4_Word_t</span><span class="symbol">));</span>
+<span class="normal">		mod</span><span class="symbol">-&gt;</span><span class="normal">offset_next </span><span class="symbol">=</span><span class="normal"> sz</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+
+<span class="normal">	    rec </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">L4_BootRec_t </span><span class="symbol">*)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">L4_Word_t</span><span class="symbol">)</span><span class="normal"> rec </span><span class="symbol">+</span><span class="normal"> sz</span><span class="symbol">);</span>
+<span class="normal">	    bi</span><span class="symbol">-&gt;</span><span class="normal">num_entries</span><span class="symbol">++;</span>
+<span class="normal">	    bi</span><span class="symbol">-&gt;</span><span class="normal">size </span><span class="symbol">+=</span><span class="normal"> sz</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> rec</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/**</span>
+<span class="comment"> * Check if a valid multiboot info structure is present.</span>
+<span class="comment"> */</span>
+<span class="type">bool</span><span class="normal"> </span><span class="function">mbi_probe</span><span class="normal"> </span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    mbi_t </span><span class="symbol">*</span><span class="normal"> _mbi </span><span class="symbol">=</span><span class="normal"> mbi_t</span><span class="symbol">::</span><span class="function">prepare</span><span class="symbol">();</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">_mbi </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">// Make a safe copy of the MBI structure itself.</span>
+<span class="normal">    </span><span class="function">memcopy</span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">mbi_copy</span><span class="symbol">,</span><span class="normal"> _mbi</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">mbi_t</span><span class="symbol">));</span>
+<span class="normal">    mbi </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">mbi_copy</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/**</span>
+<span class="comment"> * Init function that understands multiboot info structure.</span>
+<span class="comment"> *</span>
+<span class="comment"> * The procedure goes as follows:</span>
+<span class="comment"> * - Find/prepare an MBI structure</span>
+<span class="comment"> * - ELF-load the first three modules (kernel,sigma0,roottask)</span>
+<span class="comment"> * - Find the KIP in the kernel</span>
+<span class="comment"> * - Install memory descriptors from the MBI in the KIP</span>
+<span class="comment"> * - Install initial servers (sigma0,roottask) in the KIP</span>
+<span class="comment"> * - Store the bootinfo value in the KIP</span>
+<span class="comment"> * - Flush caches</span>
+<span class="comment"> * - Launch the kernel</span>
+<span class="comment"> *</span>
+<span class="comment"> * </span><span class="type">@returns</span><span class="comment"> entry point for kernel</span>
+<span class="comment"> */</span>
+<span class="usertype">L4_Word_t</span><span class="normal"> </span><span class="function">mbi_init</span><span class="normal"> </span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">kip_manager_t</span><span class="normal"> kip</span><span class="symbol">;</span>
+
+<span class="normal">    L4_BootInfo_t </span><span class="symbol">*</span><span class="normal"> bi </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">    L4_BootRec_t </span><span class="symbol">*</span><span class="normal"> rec </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="type">bool</span><span class="normal"> use_bootinfo </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="type">bool</span><span class="normal"> use_mbi </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">// The KIP is somewhere in the kernel (module 0)</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">kip</span><span class="symbol">.</span><span class="function">find_kip</span><span class="symbol">(</span><span class="normal">mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">].</span><span class="normal">start</span><span class="symbol">,</span><span class="normal"> mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">].</span><span class="normal">end</span><span class="symbol">))</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="comment">// Bail out if we couldn't find a KIP</span>
+<span class="normal">        </span><span class="function">FAIL</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">// Command line strings tend to occupy the same space that we want</span>
+<span class="normal">    </span><span class="comment">// to use.  Make a copy of all the strings.</span>
+<span class="normal">    </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> sptr </span><span class="symbol">=</span><span class="normal"> strings_copy</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">L4_Word_t</span><span class="normal"> nfree </span><span class="symbol">=</span><span class="normal"> STRING_BUFFER_SIZE</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">L4_Word_t</span><span class="normal"> len</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">COPY_STRING</span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">)</span><span class="normal">			</span><span class="symbol">\</span>
+<span class="normal">    </span><span class="keyword">do</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal">					</span><span class="symbol">\</span>
+<span class="normal">	len </span><span class="symbol">=</span><span class="normal"> </span><span class="function">strlen</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal">			</span><span class="symbol">\</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">len </span><span class="symbol">&gt;</span><span class="normal"> nfree</span><span class="symbol">)</span><span class="normal">			</span><span class="symbol">\</span>
+<span class="normal">	</span><span class="cbracket">{</span><span class="normal">					</span><span class="symbol">\</span>
+<span class="normal">	    </span><span class="function">l4_printf</span><span class="normal"> </span><span class="symbol">(</span><span class="string">"String buffer overrun</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">);</span><span class="normal">	</span><span class="symbol">\</span>
+<span class="normal">	    </span><span class="function">FAIL</span><span class="normal"> </span><span class="symbol">();</span><span class="normal">				</span><span class="symbol">\</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal">					</span><span class="symbol">\</span>
+<span class="normal">	</span><span class="function">strcpy</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">sptr</span><span class="symbol">,</span><span class="normal"> str</span><span class="symbol">);</span><span class="normal">			</span><span class="symbol">\</span>
+<span class="normal">	str </span><span class="symbol">=</span><span class="normal"> sptr</span><span class="symbol">;</span><span class="normal">				</span><span class="symbol">\</span>
+<span class="normal">	nfree </span><span class="symbol">-=</span><span class="normal"> len</span><span class="symbol">;</span><span class="normal">				</span><span class="symbol">\</span>
+<span class="normal">	sptr </span><span class="symbol">+=</span><span class="normal"> len</span><span class="symbol">;</span><span class="normal">				</span><span class="symbol">\</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">)</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">mbi</span><span class="symbol">-&gt;</span><span class="normal">flags</span><span class="symbol">.</span><span class="normal">cmdline</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> p</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="function">COPY_STRING</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">mbi</span><span class="symbol">-&gt;</span><span class="normal">cmdline</span><span class="symbol">);</span>
+
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">PARSENUM</span><span class="symbol">(</span><span class="normal">name</span><span class="symbol">,</span><span class="normal"> var</span><span class="symbol">,</span><span class="normal"> msg</span><span class="symbol">,</span><span class="normal"> massage</span><span class="symbol">...)</span><span class="normal">			</span><span class="symbol">\</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">p </span><span class="symbol">=</span><span class="normal"> </span><span class="function">strstr</span><span class="symbol">(</span><span class="normal">mbi</span><span class="symbol">-&gt;</span><span class="normal">cmdline</span><span class="symbol">,</span><span class="normal"> name</span><span class="string">"="</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal">	</span><span class="symbol">\</span>
+<span class="normal">        </span><span class="cbracket">{</span><span class="normal">							</span><span class="symbol">\</span>
+<span class="normal">            var </span><span class="symbol">=</span><span class="normal"> </span><span class="function">strtoul</span><span class="symbol">(</span><span class="normal">p</span><span class="symbol">+</span><span class="function">strlen</span><span class="symbol">(</span><span class="normal">name</span><span class="symbol">)+</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">p</span><span class="symbol">,</span><span class="normal"> </span><span class="number">10</span><span class="symbol">);</span><span class="normal">		</span><span class="symbol">\</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">p </span><span class="symbol">==</span><span class="normal"> </span><span class="string">'K'</span><span class="symbol">)</span><span class="normal"> var</span><span class="symbol">*=</span><span class="number">1024</span><span class="symbol">;</span><span class="normal">				</span><span class="symbol">\</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">p </span><span class="symbol">==</span><span class="normal"> </span><span class="string">'M'</span><span class="symbol">)</span><span class="normal"> var</span><span class="symbol">*=</span><span class="number">1024</span><span class="symbol">*</span><span class="number">1024</span><span class="symbol">;</span><span class="normal">			</span><span class="symbol">\</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">p </span><span class="symbol">==</span><span class="normal"> </span><span class="string">'G'</span><span class="symbol">)</span><span class="normal"> var</span><span class="symbol">*=</span><span class="number">1024</span><span class="symbol">*</span><span class="number">1024</span><span class="symbol">*</span><span class="number">1024</span><span class="symbol">;</span><span class="normal">			</span><span class="symbol">\</span>
+<span class="normal">            massage</span><span class="symbol">;</span><span class="normal">						</span><span class="symbol">\</span>
+<span class="normal">            </span><span class="function">l4_printf</span><span class="symbol">(</span><span class="normal">msg</span><span class="symbol">,</span><span class="normal">						</span><span class="symbol">\</span>
+<span class="normal">                   var </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">&lt;&lt;</span><span class="number">30</span><span class="normal"> </span><span class="symbol">?</span><span class="normal"> var</span><span class="symbol">&gt;&gt;</span><span class="number">30</span><span class="normal"> </span><span class="symbol">:</span><span class="normal">			</span><span class="symbol">\</span>
+<span class="normal">                   var </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">&lt;&lt;</span><span class="number">20</span><span class="normal"> </span><span class="symbol">?</span><span class="normal"> var</span><span class="symbol">&gt;&gt;</span><span class="number">20</span><span class="normal"> </span><span class="symbol">:</span><span class="normal">			</span><span class="symbol">\</span>
+<span class="normal">                   var </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">&lt;&lt;</span><span class="number">10</span><span class="normal"> </span><span class="symbol">?</span><span class="normal"> var</span><span class="symbol">&gt;&gt;</span><span class="number">10</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> var</span><span class="symbol">,</span><span class="normal">		</span><span class="symbol">\</span>
+<span class="normal">                   var </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">&lt;&lt;</span><span class="number">30</span><span class="normal"> </span><span class="symbol">?</span><span class="normal"> </span><span class="string">"G"</span><span class="normal"> </span><span class="symbol">:</span><span class="normal">				</span><span class="symbol">\</span>
+<span class="normal">                   var </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">&lt;&lt;</span><span class="number">20</span><span class="normal"> </span><span class="symbol">?</span><span class="normal"> </span><span class="string">"M"</span><span class="normal"> </span><span class="symbol">:</span><span class="normal">				</span><span class="symbol">\</span>
+<span class="normal">                   var </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">&lt;&lt;</span><span class="number">10</span><span class="normal"> </span><span class="symbol">?</span><span class="normal"> </span><span class="string">"K"</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> </span><span class="string">""</span><span class="symbol">);</span><span class="normal">			</span><span class="symbol">\</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">PARSEBOOL</span><span class="symbol">(</span><span class="normal">name</span><span class="symbol">,</span><span class="normal"> var</span><span class="symbol">,</span><span class="normal"> msg</span><span class="symbol">)</span><span class="normal">				</span><span class="symbol">\</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">p </span><span class="symbol">=</span><span class="normal"> </span><span class="function">strstr</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">mbi</span><span class="symbol">-&gt;</span><span class="normal">cmdline</span><span class="symbol">,</span><span class="normal"> name</span><span class="string">"="</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal">	</span><span class="symbol">\</span>
+<span class="normal">	</span><span class="cbracket">{</span><span class="normal">							</span><span class="symbol">\</span>
+<span class="normal">	    p </span><span class="symbol">=</span><span class="normal"> </span><span class="function">strchr</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">p</span><span class="symbol">,</span><span class="normal"> </span><span class="string">'='</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal">				</span><span class="symbol">\</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">strncmp</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">p</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"yes"</span><span class="symbol">,</span><span class="normal"> </span><span class="number">3</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">||</span><span class="normal">			</span><span class="symbol">\</span>
+<span class="normal">		</span><span class="function">strncmp</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">p</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"on"</span><span class="symbol">,</span><span class="normal"> </span><span class="number">2</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">||</span><span class="normal">			</span><span class="symbol">\</span>
+<span class="normal">		</span><span class="function">strncmp</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">p</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"enable"</span><span class="symbol">,</span><span class="normal"> </span><span class="number">6</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal">			</span><span class="symbol">\</span>
+<span class="normal">	    </span><span class="cbracket">{</span><span class="normal">							</span><span class="symbol">\</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal"> var</span><span class="symbol">)</span><span class="normal"> </span><span class="function">l4_printf</span><span class="normal"> </span><span class="symbol">(</span><span class="string">"Enabling %s</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> msg</span><span class="symbol">);</span><span class="normal">	</span><span class="symbol">\</span>
+<span class="normal">		var </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span><span class="normal">					</span><span class="symbol">\</span>
+<span class="normal">	    </span><span class="cbracket">}</span><span class="normal">							</span><span class="symbol">\</span>
+<span class="normal">	    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">strncmp</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">p</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"no"</span><span class="symbol">,</span><span class="normal"> </span><span class="number">2</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">||</span><span class="normal">		</span><span class="symbol">\</span>
+<span class="normal">		     </span><span class="function">strncmp</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">p</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"off"</span><span class="symbol">,</span><span class="normal"> </span><span class="number">3</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">||</span><span class="normal">		</span><span class="symbol">\</span>
+<span class="normal">		     </span><span class="function">strncmp</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">p</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"disable"</span><span class="symbol">,</span><span class="normal"> </span><span class="number">7</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal">		</span><span class="symbol">\</span>
+<span class="normal">	    </span><span class="cbracket">{</span><span class="normal">							</span><span class="symbol">\</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">var</span><span class="symbol">)</span><span class="normal"> </span><span class="function">l4_printf</span><span class="normal"> </span><span class="symbol">(</span><span class="string">"Disabling %s</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> msg</span><span class="symbol">);</span><span class="normal">	</span><span class="symbol">\</span>
+<span class="normal">		var </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span><span class="normal">					</span><span class="symbol">\</span>
+<span class="normal">	    </span><span class="cbracket">}</span><span class="normal">							</span><span class="symbol">\</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">        </span><span class="function">PARSENUM</span><span class="symbol">(</span><span class="string">"maxmem"</span><span class="symbol">,</span>
+<span class="normal">                 max_phys_mem</span><span class="symbol">,</span>
+<span class="normal">                 </span><span class="string">"Limiting physical memory to %d%sB</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="function">PARSENUM</span><span class="symbol">(</span><span class="string">"kmem"</span><span class="symbol">,</span>
+<span class="normal">                 additional_kmem_size</span><span class="symbol">,</span>
+<span class="normal">                 </span><span class="string">"Reserving %d%sB for kernel memory</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span>
+<span class="normal">                 additional_kmem_size </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="symbol">~(</span><span class="normal">kip</span><span class="symbol">.</span><span class="function">get_min_pagesize</span><span class="symbol">()-</span><span class="number">1</span><span class="symbol">));</span>
+
+<span class="normal">	</span><span class="function">PARSEBOOL</span><span class="normal"> </span><span class="symbol">(</span><span class="string">"bootinfo"</span><span class="symbol">,</span><span class="normal"> use_bootinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"generic bootinfo"</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">PARSEBOOL</span><span class="normal"> </span><span class="symbol">(</span><span class="string">"mbi"</span><span class="symbol">,</span><span class="normal"> use_mbi</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"multiboot info"</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">PARSEBOOL</span><span class="normal"> </span><span class="symbol">(</span><span class="string">"decode-all"</span><span class="symbol">,</span><span class="normal"> decode_all_executables</span><span class="symbol">,</span>
+<span class="normal">		   </span><span class="string">"decoding of all executables"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">mbi</span><span class="symbol">-&gt;</span><span class="normal">flags</span><span class="symbol">.</span><span class="normal">mods</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">mbi</span><span class="symbol">-&gt;</span><span class="normal">modcount </span><span class="symbol">&gt;</span><span class="normal"> MAX_MBI_MODULES</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="function">l4_printf</span><span class="symbol">(</span><span class="string">"WARNING: Restrcting number of modules to %d (was %d)</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span>
+<span class="normal">		   MAX_MBI_MODULES</span><span class="symbol">,</span><span class="normal"> mbi</span><span class="symbol">-&gt;</span><span class="normal">modcount</span><span class="symbol">);</span>
+<span class="normal">	    mbi</span><span class="symbol">-&gt;</span><span class="normal">modcount </span><span class="symbol">=</span><span class="normal"> MAX_MBI_MODULES</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">        </span><span class="comment">// Copy all mods array members into new mods array</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">L4_Word_t</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> mbi</span><span class="symbol">-&gt;</span><span class="normal">modcount</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="function">COPY_STRING</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">].</span><span class="normal">cmdline</span><span class="symbol">);</span>
+<span class="normal">	    orig_mbi_modules</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> mbi_modules</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">        mbi</span><span class="symbol">-&gt;</span><span class="normal">mods </span><span class="symbol">=</span><span class="normal"> mbi_modules</span><span class="symbol">;</span>
+
+<span class="normal">        </span><span class="comment">/* Install the roottask's command line as the kernel command</span>
+<span class="comment">           line in the MBI. By convention, the roottask is the third</span>
+<span class="comment">           module. */</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">mbi</span><span class="symbol">-&gt;</span><span class="normal">modcount </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">2</span><span class="symbol">)</span>
+<span class="normal">            mbi</span><span class="symbol">-&gt;</span><span class="normal">cmdline </span><span class="symbol">=</span><span class="normal"> mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="number">2</span><span class="symbol">].</span><span class="normal">cmdline</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">// Load the first three modules as ELF images into memory</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="function">load_modules</span><span class="symbol">())</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="comment">// Bail out if loading failed</span>
+<span class="normal">        </span><span class="function">l4_printf</span><span class="symbol">(</span><span class="string">"Failed to load all necessary modules</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="function">FAIL</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">// Update with location of KIP in loader kernel</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">kip</span><span class="symbol">.</span><span class="function">find_kip</span><span class="symbol">(</span><span class="normal">mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">].</span><span class="normal">start</span><span class="symbol">,</span><span class="normal"> mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">].</span><span class="normal">end</span><span class="symbol">))</span>
+<span class="normal">        </span><span class="function">FAIL</span><span class="symbol">();</span>
+
+<span class="normal">    </span><span class="comment">// Set up the memory descriptors in the KIP</span>
+<span class="normal">    </span><span class="function">install_memory</span><span class="symbol">(</span><span class="normal">mbi</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">kip</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="comment">// Install sigma0's memory region and entry point in the KIP</span>
+<span class="normal">    kip</span><span class="symbol">.</span><span class="function">install_sigma0</span><span class="symbol">(</span><span class="normal">mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="number">1</span><span class="symbol">].</span><span class="normal">start</span><span class="symbol">,</span><span class="normal"> mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="number">1</span><span class="symbol">].</span><span class="normal">end</span><span class="symbol">,</span>
+<span class="normal">                       mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="number">1</span><span class="symbol">].</span><span class="normal">entry</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="comment">// Install the root_task's memory region and entry point in the KIP</span>
+<span class="normal">    kip</span><span class="symbol">.</span><span class="function">install_root_task</span><span class="symbol">(</span><span class="normal">mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="number">2</span><span class="symbol">].</span><span class="normal">start</span><span class="symbol">,</span><span class="normal"> mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="number">2</span><span class="symbol">].</span><span class="normal">end</span><span class="symbol">,</span>
+<span class="normal">			  mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="number">2</span><span class="symbol">].</span><span class="normal">entry</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="comment">// Protect all user-level modules.</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">L4_Word_t</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">3</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> mbi</span><span class="symbol">-&gt;</span><span class="normal">modcount</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span>
+<span class="normal">	kip</span><span class="symbol">.</span><span class="function">dedicate_memory</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">].</span><span class="normal">start</span><span class="symbol">,</span><span class="normal"> mbi</span><span class="symbol">-&gt;</span><span class="normal">mods</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">].</span><span class="normal">end </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span>
+<span class="normal">			     L4_BootLoaderSpecificMemoryType</span><span class="symbol">,</span><span class="normal"> </span>
+<span class="normal">			     kip_manager_t</span><span class="symbol">::</span><span class="normal">desc_boot_module</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">use_bootinfo</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="comment">// Allocate and initialize a bootinfo structure.</span>
+<span class="normal">	bi </span><span class="symbol">=</span><span class="normal"> </span><span class="function">init_bootinfo</span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">kip</span><span class="symbol">);</span>
+<span class="normal">	rec </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">L4_BootRec_t </span><span class="symbol">*)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">L4_Word_t</span><span class="symbol">)</span><span class="normal"> bi </span><span class="symbol">+</span><span class="normal"> bi</span><span class="symbol">-&gt;</span><span class="normal">size</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">bi</span><span class="symbol">)</span>
+<span class="normal">	    </span><span class="comment">// Record MBI modules</span>
+<span class="normal">	    rec </span><span class="symbol">=</span><span class="normal"> </span><span class="function">record_bootinfo_modules</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">bi</span><span class="symbol">,</span><span class="normal"> rec</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">else</span>
+<span class="normal">	    use_bootinfo </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">// Move the MBI into a dedicated memory region</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">use_mbi</span><span class="symbol">)</span>
+<span class="normal">	mbi </span><span class="symbol">=</span><span class="normal"> </span><span class="function">install_mbi</span><span class="symbol">(&amp;</span><span class="normal">kip</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">use_bootinfo </span><span class="symbol">&amp;&amp;</span><span class="normal"> use_mbi</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="comment">// Make sure that we record MBI location after we have</span>
+<span class="normal">	</span><span class="comment">// installed it.</span>
+
+<span class="normal">	L4_Boot_MBI_t </span><span class="symbol">*</span><span class="normal"> bimbi </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">L4_Boot_MBI_t </span><span class="symbol">*)</span><span class="normal"> rec</span><span class="symbol">;</span>
+
+<span class="normal">	bimbi</span><span class="symbol">-&gt;</span><span class="normal">type	</span><span class="symbol">=</span><span class="normal"> L4_BootInfo_Multiboot</span><span class="symbol">;</span>
+<span class="normal">	bimbi</span><span class="symbol">-&gt;</span><span class="normal">version	</span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">	bimbi</span><span class="symbol">-&gt;</span><span class="normal">offset_next </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">bimbi</span><span class="symbol">);</span>
+<span class="normal">	bimbi</span><span class="symbol">-&gt;</span><span class="normal">address	</span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">L4_Word_t</span><span class="symbol">)</span><span class="normal"> mbi</span><span class="symbol">;</span>
+
+<span class="normal">	bi</span><span class="symbol">-&gt;</span><span class="normal">num_entries</span><span class="symbol">++;</span>
+<span class="normal">	bi</span><span class="symbol">-&gt;</span><span class="normal">size </span><span class="symbol">+=</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">bimbi</span><span class="symbol">);</span>
+<span class="normal">	rec </span><span class="symbol">=</span><span class="normal"> </span><span class="function">L4_Next</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">rec</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">// Install the bootinfo or MBI into the KIP</span>
+<span class="normal">    kip</span><span class="symbol">.</span><span class="function">update_kip</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">use_bootinfo </span><span class="symbol">?</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">L4_Word_t</span><span class="symbol">)</span><span class="normal"> bi </span><span class="symbol">:</span>
+<span class="normal">		    use_mbi </span><span class="symbol">?</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">L4_Word_t</span><span class="symbol">)</span><span class="normal"> mbi </span><span class="symbol">:</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">    </span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> mbi_modules</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">].</span><span class="normal">entry</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

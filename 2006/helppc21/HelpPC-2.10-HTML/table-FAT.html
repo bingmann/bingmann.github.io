@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - FAT</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FAT - File Allocation Table</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;12 Bit &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Meaning &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 16 Bit</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; 000 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; free space &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0000<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; FF1-FF7 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;bad track marking &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FFF1-FFF7<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; FF8-FFE &nbsp; may be used to mark end of a file chain &nbsp; FFF8-FFFE<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; FFF &nbsp; &nbsp; &nbsp; standard marker for end of a file chain &nbsp; FFFF<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- the FAT is implemented as an array containing a linked list<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;for each file; &nbsp;the files directory entry has a pointer to the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;first cluster which contains the cluster number of the next<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;cluster in the chain until the pointer contained is FFFh<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(12 bit FAT) and FFFFh (16 bit FAT) marking end of file<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- DOS maintains two copies of the FAT, but does not use the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;second copy for anything other than a mirror image of the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;first; &nbsp;CHKDSK doesn't even read the second FAT<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- disks with FF1h clusters and above use 16 bit FAT tables, disk<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;with less use 12 bit FAT tables<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- DOS 4.x did not change the size of the cluster number as some<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;suggest, but instead increased the size of the sector number<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- bytes 0 of the FAT contains the Media Descriptor Byte<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Calculating 12 bit FAT Entries</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1. Get starting cluster from directory entry.<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;2. Multiply the cluster number just used by 1.5<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;3. The whole part of the product is the offset into the FAT,<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; of the entry that maps to the cluster in the directory.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; This entry contains the number of the next cluster.<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;4. Move the word at the calculated FAT into a register.<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;5. If the last cluster used was an even number, keep the low order<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 12 bits of the register, otherwise, keep the high order 12 bits.<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;6. If the resultant 12 bits are (0FF8h-0FFFh) no more clusters<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; are in the file. &nbsp;Otherwise, the next 12 bits contain the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cluster number of the next cluster in the file.<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Calculating 16 Bit FAT Entries</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1. Get the starting cluster of the file from the directory.<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;2. Multiply the cluster number found by 2.<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;3. Load the word at the calculated FAT offset into a register.<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;4. If the 16 bits are (0FFF8h-0FFFFh) no more clusters are in<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; the file. Otherwise, the 16 bits contain the cluster number<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; of the next cluster in the file.<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;To convert the cluster to a logical sector number (relative<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;sector, similar to that used by DEBUG, int 25h and 26h):<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1. Subtract 2 from the cluster number<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;2. Multiply the result by the number of sectors per cluster.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;3. Add the logical sector number of the beginning of the data area.<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see &nbsp;<a href="table-media_descriptor_byte.html">MEDIA DESCRIPTOR</a><br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">FAT</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

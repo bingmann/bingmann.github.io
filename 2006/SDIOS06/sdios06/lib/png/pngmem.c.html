@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2006/SDIOS06/sdios06/lib/png/pngmem.c - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal7.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2006/">2006</a> / <a href="/2006/SDIOS06/">SDIOS06</a> / <a href="/2006/SDIOS06/sdios06/">sdios06</a> / <a href="/2006/SDIOS06/sdios06/lib/">lib</a> / <a href="/2006/SDIOS06/sdios06/lib/png/">png</a> / <a href="/2006/SDIOS06/sdios06/lib/png/pngmem.c.html">pngmem.c</a> (<a href="/2006/SDIOS06/sdios06/lib/png/pngmem.c">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt>
+<span class="comment">/* pngmem.c - stub functions for memory allocation</span>
+<span class="comment"> *</span>
+<span class="comment"> * Last changed in libpng 1.2.9 April 14, 2006</span>
+<span class="comment"> * For conditions of distribution and use, see copyright notice in png.h</span>
+<span class="comment"> * Copyright (c) 1998-2006 Glenn Randers-Pehrson</span>
+<span class="comment"> * (Version 0.96 Copyright (c) 1996, 1997 Andreas Dilger)</span>
+<span class="comment"> * (Version 0.88 Copyright (c) 1995, 1996 Guy Eric Schalnat, Group 42, Inc.)</span>
+<span class="comment"> *</span>
+<span class="comment"> * This file provides a location for all memory allocation.  Users who</span>
+<span class="comment"> * need special memory handling are expected to supply replacement</span>
+<span class="comment"> * functions for png_malloc() and png_free(), and to use</span>
+<span class="comment"> * png_create_read_struct_2() and png_create_write_struct_2() to</span>
+<span class="comment"> * identify the replacement functions.</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#define</span><span class="normal"> PNG_INTERNAL</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"png.h"</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_READ_SUPPORTED</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_WRITE_SUPPORTED</span><span class="symbol">)</span>
+
+<span class="comment">/* Borland DOS special memory handler */</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">__TURBOC__</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="function">defined</span><span class="symbol">(</span><span class="normal">_Windows</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="function">defined</span><span class="symbol">(</span><span class="normal">__FLAT__</span><span class="symbol">)</span>
+<span class="comment">/* if you change this, be sure to change the one in png.h also */</span>
+
+<span class="comment">/* Allocate memory for a png_struct.  The malloc and memset can be replaced</span>
+<span class="comment">   by a single call to calloc() if this is thought to improve performance. */</span>
+<span class="normal">png_voidp </span><span class="comment">/* PRIVATE */</span>
+<span class="function">png_create_struct</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> type</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="preproc">#ifdef</span><span class="normal"> PNG_USER_MEM_SUPPORTED</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="function">png_create_struct_2</span><span class="symbol">(</span><span class="normal">type</span><span class="symbol">,</span><span class="normal"> png_malloc_ptr_NULL</span><span class="symbol">,</span><span class="normal"> png_voidp_NULL</span><span class="symbol">));</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/* Alternate version of png_create_struct, for use with user-defined malloc. */</span>
+<span class="normal">png_voidp </span><span class="comment">/* PRIVATE */</span>
+<span class="function">png_create_struct_2</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> type</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_malloc_ptr</span><span class="normal"> malloc_fn</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_voidp</span><span class="normal"> mem_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* PNG_USER_MEM_SUPPORTED */</span>
+<span class="normal">   </span><span class="usertype">png_size_t</span><span class="normal"> size</span><span class="symbol">;</span>
+<span class="normal">   </span><span class="usertype">png_voidp</span><span class="normal"> struct_ptr</span><span class="symbol">;</span>
+
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">type </span><span class="symbol">==</span><span class="normal"> PNG_STRUCT_INFO</span><span class="symbol">)</span>
+<span class="normal">     size </span><span class="symbol">=</span><span class="normal"> </span><span class="function">png_sizeof</span><span class="symbol">(</span><span class="normal">png_info</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">type </span><span class="symbol">==</span><span class="normal"> PNG_STRUCT_PNG</span><span class="symbol">)</span>
+<span class="normal">     size </span><span class="symbol">=</span><span class="normal"> </span><span class="function">png_sizeof</span><span class="symbol">(</span><span class="normal">png_struct</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="keyword">else</span>
+<span class="normal">     </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="function">png_get_copyright</span><span class="symbol">(</span><span class="normal">NULL</span><span class="symbol">));</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> PNG_USER_MEM_SUPPORTED</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">malloc_fn </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="usertype">png_struct</span><span class="normal"> dummy_struct</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="usertype">png_structp</span><span class="normal"> png_ptr </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">dummy_struct</span><span class="symbol">;</span>
+<span class="normal">      png_ptr</span><span class="symbol">-&gt;</span><span class="normal">mem_ptr</span><span class="symbol">=</span><span class="normal">mem_ptr</span><span class="symbol">;</span>
+<span class="normal">      struct_ptr </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(*(</span><span class="normal">malloc_fn</span><span class="symbol">))(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_uint_32</span><span class="symbol">)</span><span class="normal">size</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">else</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* PNG_USER_MEM_SUPPORTED */</span>
+<span class="normal">      struct_ptr </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_voidp</span><span class="symbol">)</span><span class="function">farmalloc</span><span class="symbol">(</span><span class="normal">size</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">struct_ptr </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">png_memset</span><span class="symbol">(</span><span class="normal">struct_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> size</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">struct_ptr</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/* Free memory allocated by a png_create_struct() call */</span>
+<span class="type">void</span><span class="normal"> </span><span class="comment">/* PRIVATE */</span>
+<span class="function">png_destroy_struct</span><span class="symbol">(</span><span class="usertype">png_voidp</span><span class="normal"> struct_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="preproc">#ifdef</span><span class="normal"> PNG_USER_MEM_SUPPORTED</span>
+<span class="normal">   </span><span class="function">png_destroy_struct_2</span><span class="symbol">(</span><span class="normal">struct_ptr</span><span class="symbol">,</span><span class="normal"> png_free_ptr_NULL</span><span class="symbol">,</span><span class="normal"> png_voidp_NULL</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/* Free memory allocated by a png_create_struct() call */</span>
+<span class="type">void</span><span class="normal"> </span><span class="comment">/* PRIVATE */</span>
+<span class="function">png_destroy_struct_2</span><span class="symbol">(</span><span class="usertype">png_voidp</span><span class="normal"> struct_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_free_ptr</span><span class="normal"> free_fn</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="usertype">png_voidp</span><span class="normal"> mem_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="preproc">#endif</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">struct_ptr </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="preproc">#ifdef</span><span class="normal"> PNG_USER_MEM_SUPPORTED</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">free_fn </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="cbracket">{</span>
+<span class="normal">         </span><span class="usertype">png_struct</span><span class="normal"> dummy_struct</span><span class="symbol">;</span>
+<span class="normal">         </span><span class="usertype">png_structp</span><span class="normal"> png_ptr </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">dummy_struct</span><span class="symbol">;</span>
+<span class="normal">         png_ptr</span><span class="symbol">-&gt;</span><span class="normal">mem_ptr</span><span class="symbol">=</span><span class="normal">mem_ptr</span><span class="symbol">;</span>
+<span class="normal">         </span><span class="symbol">(*(</span><span class="normal">free_fn</span><span class="symbol">))(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> struct_ptr</span><span class="symbol">);</span>
+<span class="normal">         </span><span class="keyword">return</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* PNG_USER_MEM_SUPPORTED */</span>
+<span class="normal">      </span><span class="function">farfree</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">struct_ptr</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/* Allocate memory.  For reasonable files, size should never exceed</span>
+<span class="comment"> * 64K.  However, zlib may allocate more then 64K if you don't tell</span>
+<span class="comment"> * it not to.  See zconf.h and png.h for more information. zlib does</span>
+<span class="comment"> * need to allocate exactly 64K, so whatever you call here must</span>
+<span class="comment"> * have the ability to do that.</span>
+<span class="comment"> *</span>
+<span class="comment"> * Borland seems to have a problem in DOS mode for exactly 64K.</span>
+<span class="comment"> * It gives you a segment with an offset of 8 (perhaps to store its</span>
+<span class="comment"> * memory stuff).  zlib doesn't like this at all, so we have to</span>
+<span class="comment"> * detect and deal with it.  This code should not be needed in</span>
+<span class="comment"> * Windows or OS/2 modes, and only in 16 bit mode.  This code has</span>
+<span class="comment"> * been updated by Alexander Lehmann for version 0.89 to waste less</span>
+<span class="comment"> * memory.</span>
+<span class="comment"> *</span>
+<span class="comment"> * Note that we can't use png_size_t for the "size" declaration,</span>
+<span class="comment"> * since on some systems a png_size_t is a 16-bit quantity, and as a</span>
+<span class="comment"> * result, we would be truncating potentially larger memory requests</span>
+<span class="comment"> * (which should cause a fatal error) and introducing major problems.</span>
+<span class="comment"> */</span>
+
+<span class="normal">png_voidp PNGAPI</span>
+<span class="function">png_malloc</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_uint_32</span><span class="normal"> size</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="usertype">png_voidp</span><span class="normal"> ret</span><span class="symbol">;</span>
+
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">||</span><span class="normal"> size </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">NULL</span><span class="symbol">);</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> PNG_USER_MEM_SUPPORTED</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">malloc_fn </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">       ret </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">png_voidp</span><span class="symbol">)(*(</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">malloc_fn</span><span class="symbol">))(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_size_t</span><span class="symbol">)</span><span class="normal">size</span><span class="symbol">));</span>
+<span class="normal">   </span><span class="keyword">else</span>
+<span class="normal">       ret </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="function">png_malloc_default</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> size</span><span class="symbol">));</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ret </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">flags</span><span class="symbol">&amp;</span><span class="normal">PNG_FLAG_MALLOC_NULL_MEM_OK</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">       </span><span class="function">png_error</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"Out of memory!"</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ret</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="normal">png_voidp PNGAPI</span>
+<span class="function">png_malloc_default</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_uint_32</span><span class="normal"> size</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="usertype">png_voidp</span><span class="normal"> ret</span><span class="symbol">;</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* PNG_USER_MEM_SUPPORTED */</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> PNG_MAX_MALLOC_64K</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">size </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_uint_32</span><span class="symbol">)</span><span class="number">65536L</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">png_warning</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"Cannot Allocate &gt; 64K"</span><span class="symbol">);</span>
+<span class="normal">      ret </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">else</span>
+<span class="preproc">#endif</span>
+
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">size </span><span class="symbol">!=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">size_t</span><span class="symbol">)</span><span class="normal">size</span><span class="symbol">)</span>
+<span class="normal">     ret </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">   </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">size </span><span class="symbol">==</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_uint_32</span><span class="symbol">)</span><span class="number">65536L</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">offset_table </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="cbracket">{</span>
+<span class="normal">         </span><span class="comment">/* try to see if we need to do any of this fancy stuff */</span>
+<span class="normal">         ret </span><span class="symbol">=</span><span class="normal"> </span><span class="function">farmalloc</span><span class="symbol">(</span><span class="normal">size</span><span class="symbol">);</span>
+<span class="normal">         </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ret </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">png_size_t</span><span class="symbol">)</span><span class="normal">ret </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="number">0xffff</span><span class="symbol">))</span>
+<span class="normal">         </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="type">int</span><span class="normal"> num_blocks</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="usertype">png_uint_32</span><span class="normal"> total_size</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="usertype">png_bytep</span><span class="normal"> table</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="type">int</span><span class="normal"> i</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="usertype">png_byte</span><span class="normal"> huge </span><span class="symbol">*</span><span class="normal"> hptr</span><span class="symbol">;</span>
+
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ret </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">            </span><span class="cbracket">{</span>
+<span class="normal">               </span><span class="function">farfree</span><span class="symbol">(</span><span class="normal">ret</span><span class="symbol">);</span>
+<span class="normal">               ret </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+
+<span class="normal">            </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">zlib_window_bits </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">14</span><span class="symbol">)</span>
+<span class="normal">               num_blocks </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)(</span><span class="number">1</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">zlib_window_bits </span><span class="symbol">-</span><span class="normal"> </span><span class="number">14</span><span class="symbol">));</span>
+<span class="normal">            </span><span class="keyword">else</span>
+<span class="normal">               num_blocks </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">zlib_mem_level </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">7</span><span class="symbol">)</span>
+<span class="normal">               num_blocks </span><span class="symbol">+=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)(</span><span class="number">1</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">zlib_mem_level </span><span class="symbol">-</span><span class="normal"> </span><span class="number">7</span><span class="symbol">));</span>
+<span class="normal">            </span><span class="keyword">else</span>
+<span class="normal">               num_blocks</span><span class="symbol">++;</span>
+
+<span class="normal">            total_size </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">png_uint_32</span><span class="symbol">)</span><span class="number">65536L</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_uint_32</span><span class="symbol">)</span><span class="normal">num_blocks</span><span class="symbol">+</span><span class="number">16</span><span class="symbol">;</span>
+
+<span class="normal">            table </span><span class="symbol">=</span><span class="normal"> </span><span class="function">farmalloc</span><span class="symbol">(</span><span class="normal">total_size</span><span class="symbol">);</span>
+
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">table </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">            </span><span class="cbracket">{</span>
+<span class="preproc">#ifndef</span><span class="normal"> PNG_USER_MEM_SUPPORTED</span>
+<span class="normal">               </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">flags</span><span class="symbol">&amp;</span><span class="normal">PNG_FLAG_MALLOC_NULL_MEM_OK</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">                  </span><span class="function">png_error</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"Out Of Memory."</span><span class="symbol">);</span><span class="normal"> </span><span class="comment">/* Note "O" and "M" */</span>
+<span class="normal">               </span><span class="keyword">else</span>
+<span class="normal">                  </span><span class="function">png_warning</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"Out Of Memory."</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="normal">               </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">NULL</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">png_size_t</span><span class="symbol">)</span><span class="normal">table </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="number">0xfff0</span><span class="symbol">)</span>
+<span class="normal">            </span><span class="cbracket">{</span>
+<span class="preproc">#ifndef</span><span class="normal"> PNG_USER_MEM_SUPPORTED</span>
+<span class="normal">               </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">flags</span><span class="symbol">&amp;</span><span class="normal">PNG_FLAG_MALLOC_NULL_MEM_OK</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">                  </span><span class="function">png_error</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span>
+<span class="normal">                    </span><span class="string">"Farmalloc didn't return normalized pointer"</span><span class="symbol">);</span>
+<span class="normal">               </span><span class="keyword">else</span>
+<span class="normal">                  </span><span class="function">png_warning</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span>
+<span class="normal">                    </span><span class="string">"Farmalloc didn't return normalized pointer"</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="normal">               </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">NULL</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+
+<span class="normal">            png_ptr</span><span class="symbol">-&gt;</span><span class="normal">offset_table </span><span class="symbol">=</span><span class="normal"> table</span><span class="symbol">;</span>
+<span class="normal">            png_ptr</span><span class="symbol">-&gt;</span><span class="normal">offset_table_ptr </span><span class="symbol">=</span><span class="normal"> </span><span class="function">farmalloc</span><span class="symbol">(</span><span class="normal">num_blocks </span><span class="symbol">*</span>
+<span class="normal">               </span><span class="function">png_sizeof</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_bytep</span><span class="symbol">));</span>
+
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">offset_table_ptr </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">            </span><span class="cbracket">{</span>
+<span class="preproc">#ifndef</span><span class="normal"> PNG_USER_MEM_SUPPORTED</span>
+<span class="normal">               </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">flags</span><span class="symbol">&amp;</span><span class="normal">PNG_FLAG_MALLOC_NULL_MEM_OK</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">                  </span><span class="function">png_error</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"Out Of memory."</span><span class="symbol">);</span><span class="normal"> </span><span class="comment">/* Note "O" and "M" */</span>
+<span class="normal">               </span><span class="keyword">else</span>
+<span class="normal">                  </span><span class="function">png_warning</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"Out Of memory."</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="normal">               </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">NULL</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+
+<span class="normal">            hptr </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">png_byte</span><span class="normal"> huge </span><span class="symbol">*)</span><span class="normal">table</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">png_size_t</span><span class="symbol">)</span><span class="normal">hptr </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="number">0xf</span><span class="symbol">)</span>
+<span class="normal">            </span><span class="cbracket">{</span>
+<span class="normal">               hptr </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">png_byte</span><span class="normal"> huge </span><span class="symbol">*)((</span><span class="type">long</span><span class="symbol">)(</span><span class="normal">hptr</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="number">0xfffffff0L</span><span class="symbol">);</span>
+<span class="normal">               hptr </span><span class="symbol">=</span><span class="normal"> hptr </span><span class="symbol">+</span><span class="normal"> </span><span class="number">16L</span><span class="symbol">;</span><span class="normal">  </span><span class="comment">/* "hptr += 16L" fails on Turbo C++ 3.0 */</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">            </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> num_blocks</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span>
+<span class="normal">            </span><span class="cbracket">{</span>
+<span class="normal">               png_ptr</span><span class="symbol">-&gt;</span><span class="normal">offset_table_ptr</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_bytep</span><span class="symbol">)</span><span class="normal">hptr</span><span class="symbol">;</span>
+<span class="normal">               hptr </span><span class="symbol">=</span><span class="normal"> hptr </span><span class="symbol">+</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_uint_32</span><span class="symbol">)</span><span class="number">65536L</span><span class="symbol">;</span><span class="normal">  </span><span class="comment">/* "+=" fails on TC++3.0 */</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+
+<span class="normal">            png_ptr</span><span class="symbol">-&gt;</span><span class="normal">offset_table_number </span><span class="symbol">=</span><span class="normal"> num_blocks</span><span class="symbol">;</span>
+<span class="normal">            png_ptr</span><span class="symbol">-&gt;</span><span class="normal">offset_table_count </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">            png_ptr</span><span class="symbol">-&gt;</span><span class="normal">offset_table_count_free </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">         </span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">offset_table_count </span><span class="symbol">&gt;=</span><span class="normal"> png_ptr</span><span class="symbol">-&gt;</span><span class="normal">offset_table_number</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="cbracket">{</span>
+<span class="preproc">#ifndef</span><span class="normal"> PNG_USER_MEM_SUPPORTED</span>
+<span class="normal">         </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">flags</span><span class="symbol">&amp;</span><span class="normal">PNG_FLAG_MALLOC_NULL_MEM_OK</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">            </span><span class="function">png_error</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"Out of Memory."</span><span class="symbol">);</span><span class="normal"> </span><span class="comment">/* Note "o" and "M" */</span>
+<span class="normal">         </span><span class="keyword">else</span>
+<span class="normal">            </span><span class="function">png_warning</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"Out of Memory."</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="normal">         </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">NULL</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+
+<span class="normal">      ret </span><span class="symbol">=</span><span class="normal"> png_ptr</span><span class="symbol">-&gt;</span><span class="normal">offset_table_ptr</span><span class="symbol">[</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">offset_table_count</span><span class="symbol">++];</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">else</span>
+<span class="normal">      ret </span><span class="symbol">=</span><span class="normal"> </span><span class="function">farmalloc</span><span class="symbol">(</span><span class="normal">size</span><span class="symbol">);</span>
+
+<span class="preproc">#ifndef</span><span class="normal"> PNG_USER_MEM_SUPPORTED</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ret </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">flags</span><span class="symbol">&amp;</span><span class="normal">PNG_FLAG_MALLOC_NULL_MEM_OK</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">         </span><span class="function">png_error</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"Out of memory."</span><span class="symbol">);</span><span class="normal"> </span><span class="comment">/* Note "o" and "m" */</span>
+<span class="normal">      </span><span class="keyword">else</span>
+<span class="normal">         </span><span class="function">png_warning</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"Out of memory."</span><span class="symbol">);</span><span class="normal"> </span><span class="comment">/* Note "o" and "m" */</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ret</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/* free a pointer allocated by png_malloc().  In the default</span>
+<span class="comment">   configuration, png_ptr is not used, but is passed in case it</span>
+<span class="comment">   is needed.  If ptr is NULL, return without taking any action. */</span>
+<span class="type">void</span><span class="normal"> PNGAPI</span>
+<span class="function">png_free</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_voidp</span><span class="normal"> ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">||</span><span class="normal"> ptr </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="symbol">;</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> PNG_USER_MEM_SUPPORTED</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">free_fn </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="symbol">(*(</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">free_fn</span><span class="symbol">))(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> ptr</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="symbol">;</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">else</span><span class="normal"> </span><span class="function">png_free_default</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> ptr</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> PNGAPI</span>
+<span class="function">png_free_default</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_voidp</span><span class="normal"> ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* PNG_USER_MEM_SUPPORTED */</span>
+
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">offset_table </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="type">int</span><span class="normal"> i</span><span class="symbol">;</span>
+
+<span class="normal">      </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> png_ptr</span><span class="symbol">-&gt;</span><span class="normal">offset_table_count</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span>
+<span class="normal">      </span><span class="cbracket">{</span>
+<span class="normal">         </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ptr </span><span class="symbol">==</span><span class="normal"> png_ptr</span><span class="symbol">-&gt;</span><span class="normal">offset_table_ptr</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">])</span>
+<span class="normal">         </span><span class="cbracket">{</span>
+<span class="normal">            ptr </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">            png_ptr</span><span class="symbol">-&gt;</span><span class="normal">offset_table_count_free</span><span class="symbol">++;</span>
+<span class="normal">            </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">         </span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">offset_table_count_free </span><span class="symbol">==</span><span class="normal"> png_ptr</span><span class="symbol">-&gt;</span><span class="normal">offset_table_count</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="cbracket">{</span>
+<span class="normal">         </span><span class="function">farfree</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">offset_table</span><span class="symbol">);</span>
+<span class="normal">         </span><span class="function">farfree</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">offset_table_ptr</span><span class="symbol">);</span>
+<span class="normal">         png_ptr</span><span class="symbol">-&gt;</span><span class="normal">offset_table </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">         png_ptr</span><span class="symbol">-&gt;</span><span class="normal">offset_table_ptr </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ptr </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">farfree</span><span class="symbol">(</span><span class="normal">ptr</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="preproc">#else</span><span class="normal"> </span><span class="comment">/* Not the Borland DOS special memory handler */</span>
+
+<span class="comment">/* Allocate memory for a png_struct or a png_info.  The malloc and</span>
+<span class="comment">   memset can be replaced by a single call to calloc() if this is thought</span>
+<span class="comment">   to improve performance noticably. */</span>
+<span class="normal">png_voidp </span><span class="comment">/* PRIVATE */</span>
+<span class="function">png_create_struct</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> type</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="preproc">#ifdef</span><span class="normal"> PNG_USER_MEM_SUPPORTED</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="function">png_create_struct_2</span><span class="symbol">(</span><span class="normal">type</span><span class="symbol">,</span><span class="normal"> png_malloc_ptr_NULL</span><span class="symbol">,</span><span class="normal"> png_voidp_NULL</span><span class="symbol">));</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/* Allocate memory for a png_struct or a png_info.  The malloc and</span>
+<span class="comment">   memset can be replaced by a single call to calloc() if this is thought</span>
+<span class="comment">   to improve performance noticably. */</span>
+<span class="normal">png_voidp </span><span class="comment">/* PRIVATE */</span>
+<span class="function">png_create_struct_2</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> type</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_malloc_ptr</span><span class="normal"> malloc_fn</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_voidp</span><span class="normal"> mem_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* PNG_USER_MEM_SUPPORTED */</span>
+<span class="normal">   </span><span class="usertype">png_size_t</span><span class="normal"> size</span><span class="symbol">;</span>
+<span class="normal">   </span><span class="usertype">png_voidp</span><span class="normal"> struct_ptr</span><span class="symbol">;</span>
+
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">type </span><span class="symbol">==</span><span class="normal"> PNG_STRUCT_INFO</span><span class="symbol">)</span>
+<span class="normal">      size </span><span class="symbol">=</span><span class="normal"> </span><span class="function">png_sizeof</span><span class="symbol">(</span><span class="normal">png_info</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">type </span><span class="symbol">==</span><span class="normal"> PNG_STRUCT_PNG</span><span class="symbol">)</span>
+<span class="normal">      size </span><span class="symbol">=</span><span class="normal"> </span><span class="function">png_sizeof</span><span class="symbol">(</span><span class="normal">png_struct</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="keyword">else</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">NULL</span><span class="symbol">);</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> PNG_USER_MEM_SUPPORTED</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">malloc_fn </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="usertype">png_struct</span><span class="normal"> dummy_struct</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="usertype">png_structp</span><span class="normal"> png_ptr </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">dummy_struct</span><span class="symbol">;</span>
+<span class="normal">      png_ptr</span><span class="symbol">-&gt;</span><span class="normal">mem_ptr</span><span class="symbol">=</span><span class="normal">mem_ptr</span><span class="symbol">;</span>
+<span class="normal">      struct_ptr </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(*(</span><span class="normal">malloc_fn</span><span class="symbol">))(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> size</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">struct_ptr </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">         </span><span class="function">png_memset</span><span class="symbol">(</span><span class="normal">struct_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> size</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">struct_ptr</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* PNG_USER_MEM_SUPPORTED */</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">__TURBOC__</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="function">defined</span><span class="symbol">(</span><span class="normal">__FLAT__</span><span class="symbol">)</span>
+<span class="normal">   struct_ptr </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_voidp</span><span class="symbol">)</span><span class="function">farmalloc</span><span class="symbol">(</span><span class="normal">size</span><span class="symbol">);</span>
+<span class="preproc">#else</span>
+<span class="preproc"># if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">_MSC_VER</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">MAXSEG_64K</span><span class="symbol">)</span>
+<span class="normal">   struct_ptr </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_voidp</span><span class="symbol">)</span><span class="function">halloc</span><span class="symbol">(</span><span class="normal">size</span><span class="symbol">,</span><span class="number">1</span><span class="symbol">);</span>
+<span class="preproc"># else</span>
+<span class="normal">   struct_ptr </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_voidp</span><span class="symbol">)</span><span class="function">malloc</span><span class="symbol">(</span><span class="normal">size</span><span class="symbol">);</span>
+<span class="preproc"># endif</span>
+<span class="preproc">#endif</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">struct_ptr </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">png_memset</span><span class="symbol">(</span><span class="normal">struct_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> size</span><span class="symbol">);</span>
+
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">struct_ptr</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/* Free memory allocated by a png_create_struct() call */</span>
+<span class="type">void</span><span class="normal"> </span><span class="comment">/* PRIVATE */</span>
+<span class="function">png_destroy_struct</span><span class="symbol">(</span><span class="usertype">png_voidp</span><span class="normal"> struct_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="preproc">#ifdef</span><span class="normal"> PNG_USER_MEM_SUPPORTED</span>
+<span class="normal">   </span><span class="function">png_destroy_struct_2</span><span class="symbol">(</span><span class="normal">struct_ptr</span><span class="symbol">,</span><span class="normal"> png_free_ptr_NULL</span><span class="symbol">,</span><span class="normal"> png_voidp_NULL</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/* Free memory allocated by a png_create_struct() call */</span>
+<span class="type">void</span><span class="normal"> </span><span class="comment">/* PRIVATE */</span>
+<span class="function">png_destroy_struct_2</span><span class="symbol">(</span><span class="usertype">png_voidp</span><span class="normal"> struct_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_free_ptr</span><span class="normal"> free_fn</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="usertype">png_voidp</span><span class="normal"> mem_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* PNG_USER_MEM_SUPPORTED */</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">struct_ptr </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="preproc">#ifdef</span><span class="normal"> PNG_USER_MEM_SUPPORTED</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">free_fn </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="cbracket">{</span>
+<span class="normal">         </span><span class="usertype">png_struct</span><span class="normal"> dummy_struct</span><span class="symbol">;</span>
+<span class="normal">         </span><span class="usertype">png_structp</span><span class="normal"> png_ptr </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">dummy_struct</span><span class="symbol">;</span>
+<span class="normal">         png_ptr</span><span class="symbol">-&gt;</span><span class="normal">mem_ptr</span><span class="symbol">=</span><span class="normal">mem_ptr</span><span class="symbol">;</span>
+<span class="normal">         </span><span class="symbol">(*(</span><span class="normal">free_fn</span><span class="symbol">))(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> struct_ptr</span><span class="symbol">);</span>
+<span class="normal">         </span><span class="keyword">return</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* PNG_USER_MEM_SUPPORTED */</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">__TURBOC__</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="function">defined</span><span class="symbol">(</span><span class="normal">__FLAT__</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">farfree</span><span class="symbol">(</span><span class="normal">struct_ptr</span><span class="symbol">);</span>
+<span class="preproc">#else</span>
+<span class="preproc"># if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">_MSC_VER</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">MAXSEG_64K</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">hfree</span><span class="symbol">(</span><span class="normal">struct_ptr</span><span class="symbol">);</span>
+<span class="preproc"># else</span>
+<span class="normal">      </span><span class="function">free</span><span class="symbol">(</span><span class="normal">struct_ptr</span><span class="symbol">);</span>
+<span class="preproc"># endif</span>
+<span class="preproc">#endif</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/* Allocate memory.  For reasonable files, size should never exceed</span>
+<span class="comment">   64K.  However, zlib may allocate more then 64K if you don't tell</span>
+<span class="comment">   it not to.  See zconf.h and png.h for more information.  zlib does</span>
+<span class="comment">   need to allocate exactly 64K, so whatever you call here must</span>
+<span class="comment">   have the ability to do that. */</span>
+
+<span class="normal">png_voidp PNGAPI</span>
+<span class="function">png_malloc</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_uint_32</span><span class="normal"> size</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="usertype">png_voidp</span><span class="normal"> ret</span><span class="symbol">;</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> PNG_USER_MEM_SUPPORTED</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">||</span><span class="normal"> size </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">NULL</span><span class="symbol">);</span>
+
+<span class="normal">   </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">malloc_fn </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">       ret </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">png_voidp</span><span class="symbol">)(*(</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">malloc_fn</span><span class="symbol">))(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_size_t</span><span class="symbol">)</span><span class="normal">size</span><span class="symbol">));</span>
+<span class="normal">   </span><span class="keyword">else</span>
+<span class="normal">       ret </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="function">png_malloc_default</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> size</span><span class="symbol">));</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ret </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">flags</span><span class="symbol">&amp;</span><span class="normal">PNG_FLAG_MALLOC_NULL_MEM_OK</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">       </span><span class="function">png_error</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"Out of Memory!"</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ret</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="normal">png_voidp PNGAPI</span>
+<span class="function">png_malloc_default</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_uint_32</span><span class="normal"> size</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="usertype">png_voidp</span><span class="normal"> ret</span><span class="symbol">;</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* PNG_USER_MEM_SUPPORTED */</span>
+
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">||</span><span class="normal"> size </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">NULL</span><span class="symbol">);</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> PNG_MAX_MALLOC_64K</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">size </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_uint_32</span><span class="symbol">)</span><span class="number">65536L</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="preproc">#ifndef</span><span class="normal"> PNG_USER_MEM_SUPPORTED</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">flags</span><span class="symbol">&amp;</span><span class="normal">PNG_FLAG_MALLOC_NULL_MEM_OK</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">         </span><span class="function">png_error</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"Cannot Allocate &gt; 64K"</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">else</span>
+<span class="preproc">#endif</span>
+<span class="normal">         </span><span class="keyword">return</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="normal"> </span><span class="comment">/* Check for overflow */</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">__TURBOC__</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="function">defined</span><span class="symbol">(</span><span class="normal">__FLAT__</span><span class="symbol">)</span>
+<span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">size </span><span class="symbol">!=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">long</span><span class="symbol">)</span><span class="normal">size</span><span class="symbol">)</span>
+<span class="normal">   ret </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal"> </span><span class="keyword">else</span>
+<span class="normal">   ret </span><span class="symbol">=</span><span class="normal"> </span><span class="function">farmalloc</span><span class="symbol">(</span><span class="normal">size</span><span class="symbol">);</span>
+<span class="preproc">#else</span>
+<span class="preproc"># if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">_MSC_VER</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">MAXSEG_64K</span><span class="symbol">)</span>
+<span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">size </span><span class="symbol">!=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">long</span><span class="symbol">)</span><span class="normal">size</span><span class="symbol">)</span>
+<span class="normal">   ret </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal"> </span><span class="keyword">else</span>
+<span class="normal">   ret </span><span class="symbol">=</span><span class="normal"> </span><span class="function">halloc</span><span class="symbol">(</span><span class="normal">size</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="preproc"># else</span>
+<span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">size </span><span class="symbol">!=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">size_t</span><span class="symbol">)</span><span class="normal">size</span><span class="symbol">)</span>
+<span class="normal">   ret </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal"> </span><span class="keyword">else</span>
+<span class="normal">   ret </span><span class="symbol">=</span><span class="normal"> </span><span class="function">malloc</span><span class="symbol">((</span><span class="normal">size_t</span><span class="symbol">)</span><span class="normal">size</span><span class="symbol">);</span>
+<span class="preproc"># endif</span>
+<span class="preproc">#endif</span>
+
+<span class="preproc">#ifndef</span><span class="normal"> PNG_USER_MEM_SUPPORTED</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ret </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">flags</span><span class="symbol">&amp;</span><span class="normal">PNG_FLAG_MALLOC_NULL_MEM_OK</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">png_error</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"Out of Memory"</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ret</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/* Free a pointer allocated by png_malloc().  If ptr is NULL, return</span>
+<span class="comment">   without taking any action. */</span>
+<span class="type">void</span><span class="normal"> PNGAPI</span>
+<span class="function">png_free</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_voidp</span><span class="normal"> ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">||</span><span class="normal"> ptr </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="symbol">;</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> PNG_USER_MEM_SUPPORTED</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">free_fn </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="symbol">(*(</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">free_fn</span><span class="symbol">))(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> ptr</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="symbol">;</span>
+<span class="normal">   </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">else</span><span class="normal"> </span><span class="function">png_free_default</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> ptr</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="type">void</span><span class="normal"> PNGAPI</span>
+<span class="function">png_free_default</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_voidp</span><span class="normal"> ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_ptr </span><span class="symbol">==</span><span class="normal"> NULL </span><span class="symbol">||</span><span class="normal"> ptr </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="symbol">;</span>
+
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* PNG_USER_MEM_SUPPORTED */</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">__TURBOC__</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="function">defined</span><span class="symbol">(</span><span class="normal">__FLAT__</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="function">farfree</span><span class="symbol">(</span><span class="normal">ptr</span><span class="symbol">);</span>
+<span class="preproc">#else</span>
+<span class="preproc"># if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">_MSC_VER</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">MAXSEG_64K</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="function">hfree</span><span class="symbol">(</span><span class="normal">ptr</span><span class="symbol">);</span>
+<span class="preproc"># else</span>
+<span class="normal">   </span><span class="function">free</span><span class="symbol">(</span><span class="normal">ptr</span><span class="symbol">);</span>
+<span class="preproc"># endif</span>
+<span class="preproc">#endif</span>
+<span class="cbracket">}</span>
+
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* Not Borland DOS special memory handler */</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">PNG_1_0_X</span><span class="symbol">)</span>
+<span class="preproc">#  define</span><span class="normal"> </span><span class="usertype">png_malloc_warn</span><span class="normal"> png_malloc</span>
+<span class="preproc">#else</span>
+<span class="comment">/* This function was added at libpng version 1.2.3.  The png_malloc_warn()</span>
+<span class="comment"> * function will set up png_malloc() to issue a png_warning and return NULL</span>
+<span class="comment"> * instead of issuing a png_error, if it fails to allocate the requested</span>
+<span class="comment"> * memory.</span>
+<span class="comment"> */</span>
+<span class="normal">png_voidp PNGAPI</span>
+<span class="function">png_malloc_warn</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_uint_32</span><span class="normal"> size</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="usertype">png_voidp</span><span class="normal"> ptr</span><span class="symbol">;</span>
+<span class="normal">   </span><span class="usertype">png_uint_32</span><span class="normal"> save_flags</span><span class="symbol">=</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">flags</span><span class="symbol">;</span>
+
+<span class="normal">   png_ptr</span><span class="symbol">-&gt;</span><span class="normal">flags</span><span class="symbol">|=</span><span class="normal">PNG_FLAG_MALLOC_NULL_MEM_OK</span><span class="symbol">;</span>
+<span class="normal">   ptr </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_voidp</span><span class="symbol">)</span><span class="function">png_malloc</span><span class="symbol">((</span><span class="normal">png_structp</span><span class="symbol">)</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="normal"> size</span><span class="symbol">);</span>
+<span class="normal">   png_ptr</span><span class="symbol">-&gt;</span><span class="normal">flags</span><span class="symbol">=</span><span class="normal">save_flags</span><span class="symbol">;</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="symbol">(</span><span class="normal">ptr</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="normal">png_voidp PNGAPI</span>
+<span class="function">png_memcpy_check</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_voidp</span><span class="normal"> s1</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_voidp</span><span class="normal"> s2</span><span class="symbol">,</span>
+<span class="normal">   </span><span class="usertype">png_uint_32</span><span class="normal"> length</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="usertype">png_size_t</span><span class="normal"> size</span><span class="symbol">;</span>
+
+<span class="normal">   size </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_size_t</span><span class="symbol">)</span><span class="normal">length</span><span class="symbol">;</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">png_uint_32</span><span class="symbol">)</span><span class="normal">size </span><span class="symbol">!=</span><span class="normal"> length</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">png_error</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="string">"Overflow in png_memcpy_check."</span><span class="symbol">);</span>
+
+<span class="normal">   </span><span class="keyword">return</span><span class="symbol">(</span><span class="function">png_memcpy</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">s1</span><span class="symbol">,</span><span class="normal"> s2</span><span class="symbol">,</span><span class="normal"> size</span><span class="symbol">));</span>
+<span class="cbracket">}</span>
+
+<span class="normal">png_voidp PNGAPI</span>
+<span class="function">png_memset_check</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_voidp</span><span class="normal"> s1</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> value</span><span class="symbol">,</span>
+<span class="normal">   </span><span class="usertype">png_uint_32</span><span class="normal"> length</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="usertype">png_size_t</span><span class="normal"> size</span><span class="symbol">;</span>
+
+<span class="normal">   size </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">png_size_t</span><span class="symbol">)</span><span class="normal">length</span><span class="symbol">;</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">png_uint_32</span><span class="symbol">)</span><span class="normal">size </span><span class="symbol">!=</span><span class="normal"> length</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">png_error</span><span class="symbol">(</span><span class="normal">png_ptr</span><span class="symbol">,</span><span class="string">"Overflow in png_memset_check."</span><span class="symbol">);</span>
+
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="function">png_memset</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">s1</span><span class="symbol">,</span><span class="normal"> value</span><span class="symbol">,</span><span class="normal"> size</span><span class="symbol">));</span>
+
+<span class="cbracket">}</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> PNG_USER_MEM_SUPPORTED</span>
+<span class="comment">/* This function is called when the application wants to use another method</span>
+<span class="comment"> * of allocating and freeing memory.</span>
+<span class="comment"> */</span>
+<span class="type">void</span><span class="normal"> PNGAPI</span>
+<span class="function">png_set_mem_fn</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_voidp</span><span class="normal"> mem_ptr</span><span class="symbol">,</span><span class="normal"> png_malloc_ptr</span>
+<span class="normal">  malloc_fn</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">png_free_ptr</span><span class="normal"> free_fn</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   png_ptr</span><span class="symbol">-&gt;</span><span class="normal">mem_ptr </span><span class="symbol">=</span><span class="normal"> mem_ptr</span><span class="symbol">;</span>
+<span class="normal">   png_ptr</span><span class="symbol">-&gt;</span><span class="normal">malloc_fn </span><span class="symbol">=</span><span class="normal"> malloc_fn</span><span class="symbol">;</span>
+<span class="normal">   png_ptr</span><span class="symbol">-&gt;</span><span class="normal">free_fn </span><span class="symbol">=</span><span class="normal"> free_fn</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/* This function returns a pointer to the mem_ptr associated with the user</span>
+<span class="comment"> * functions.  The application should free any memory associated with this</span>
+<span class="comment"> * pointer before png_write_destroy and png_read_destroy are called.</span>
+<span class="comment"> */</span>
+<span class="normal">png_voidp PNGAPI</span>
+<span class="function">png_get_mem_ptr</span><span class="symbol">(</span><span class="usertype">png_structp</span><span class="normal"> png_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">png_voidp</span><span class="symbol">)</span><span class="normal">png_ptr</span><span class="symbol">-&gt;</span><span class="normal">mem_ptr</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* PNG_USER_MEM_SUPPORTED */</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* PNG_READ_SUPPORTED || PNG_WRITE_SUPPORTED */</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

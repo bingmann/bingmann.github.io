@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2006/SDIOS06/sdios06/lib/jpeg/jcmarker.c - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal3.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2006/">2006</a> / <a href="/2006/SDIOS06/">SDIOS06</a> / <a href="/2006/SDIOS06/sdios06/">sdios06</a> / <a href="/2006/SDIOS06/sdios06/lib/">lib</a> / <a href="/2006/SDIOS06/sdios06/lib/jpeg/">jpeg</a> / <a href="/2006/SDIOS06/sdios06/lib/jpeg/jcmarker.c.html">jcmarker.c</a> (<a href="/2006/SDIOS06/sdios06/lib/jpeg/jcmarker.c">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">/*</span>
+<span class="comment"> * jcmarker.c</span>
+<span class="comment"> *</span>
+<span class="comment"> * Copyright (C) 1991-1998, Thomas G. Lane.</span>
+<span class="comment"> * This file is part of the Independent JPEG Group's software.</span>
+<span class="comment"> * For conditions of distribution and use, see the accompanying README file.</span>
+<span class="comment"> *</span>
+<span class="comment"> * This file contains routines to write JPEG datastream markers.</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#define</span><span class="normal"> JPEG_INTERNALS</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"jinclude.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"jpeglib.h"</span>
+
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">enum</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal">			</span><span class="comment">/* JPEG marker codes */</span>
+<span class="normal">  M_SOF0  </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xc0</span><span class="symbol">,</span>
+<span class="normal">  M_SOF1  </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xc1</span><span class="symbol">,</span>
+<span class="normal">  M_SOF2  </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xc2</span><span class="symbol">,</span>
+<span class="normal">  M_SOF3  </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xc3</span><span class="symbol">,</span>
+<span class="normal">  </span>
+<span class="normal">  M_SOF5  </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xc5</span><span class="symbol">,</span>
+<span class="normal">  M_SOF6  </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xc6</span><span class="symbol">,</span>
+<span class="normal">  M_SOF7  </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xc7</span><span class="symbol">,</span>
+<span class="normal">  </span>
+<span class="normal">  M_JPG   </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xc8</span><span class="symbol">,</span>
+<span class="normal">  M_SOF9  </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xc9</span><span class="symbol">,</span>
+<span class="normal">  M_SOF10 </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xca</span><span class="symbol">,</span>
+<span class="normal">  M_SOF11 </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xcb</span><span class="symbol">,</span>
+<span class="normal">  </span>
+<span class="normal">  M_SOF13 </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xcd</span><span class="symbol">,</span>
+<span class="normal">  M_SOF14 </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xce</span><span class="symbol">,</span>
+<span class="normal">  M_SOF15 </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xcf</span><span class="symbol">,</span>
+<span class="normal">  </span>
+<span class="normal">  M_DHT   </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xc4</span><span class="symbol">,</span>
+<span class="normal">  </span>
+<span class="normal">  M_DAC   </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xcc</span><span class="symbol">,</span>
+<span class="normal">  </span>
+<span class="normal">  M_RST0  </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xd0</span><span class="symbol">,</span>
+<span class="normal">  M_RST1  </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xd1</span><span class="symbol">,</span>
+<span class="normal">  M_RST2  </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xd2</span><span class="symbol">,</span>
+<span class="normal">  M_RST3  </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xd3</span><span class="symbol">,</span>
+<span class="normal">  M_RST4  </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xd4</span><span class="symbol">,</span>
+<span class="normal">  M_RST5  </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xd5</span><span class="symbol">,</span>
+<span class="normal">  M_RST6  </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xd6</span><span class="symbol">,</span>
+<span class="normal">  M_RST7  </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xd7</span><span class="symbol">,</span>
+<span class="normal">  </span>
+<span class="normal">  M_SOI   </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xd8</span><span class="symbol">,</span>
+<span class="normal">  M_EOI   </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xd9</span><span class="symbol">,</span>
+<span class="normal">  M_SOS   </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xda</span><span class="symbol">,</span>
+<span class="normal">  M_DQT   </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xdb</span><span class="symbol">,</span>
+<span class="normal">  M_DNL   </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xdc</span><span class="symbol">,</span>
+<span class="normal">  M_DRI   </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xdd</span><span class="symbol">,</span>
+<span class="normal">  M_DHP   </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xde</span><span class="symbol">,</span>
+<span class="normal">  M_EXP   </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xdf</span><span class="symbol">,</span>
+<span class="normal">  </span>
+<span class="normal">  M_APP0  </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xe0</span><span class="symbol">,</span>
+<span class="normal">  M_APP1  </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xe1</span><span class="symbol">,</span>
+<span class="normal">  M_APP2  </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xe2</span><span class="symbol">,</span>
+<span class="normal">  M_APP3  </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xe3</span><span class="symbol">,</span>
+<span class="normal">  M_APP4  </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xe4</span><span class="symbol">,</span>
+<span class="normal">  M_APP5  </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xe5</span><span class="symbol">,</span>
+<span class="normal">  M_APP6  </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xe6</span><span class="symbol">,</span>
+<span class="normal">  M_APP7  </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xe7</span><span class="symbol">,</span>
+<span class="normal">  M_APP8  </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xe8</span><span class="symbol">,</span>
+<span class="normal">  M_APP9  </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xe9</span><span class="symbol">,</span>
+<span class="normal">  M_APP10 </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xea</span><span class="symbol">,</span>
+<span class="normal">  M_APP11 </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xeb</span><span class="symbol">,</span>
+<span class="normal">  M_APP12 </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xec</span><span class="symbol">,</span>
+<span class="normal">  M_APP13 </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xed</span><span class="symbol">,</span>
+<span class="normal">  M_APP14 </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xee</span><span class="symbol">,</span>
+<span class="normal">  M_APP15 </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xef</span><span class="symbol">,</span>
+<span class="normal">  </span>
+<span class="normal">  M_JPG0  </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xf0</span><span class="symbol">,</span>
+<span class="normal">  M_JPG13 </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xfd</span><span class="symbol">,</span>
+<span class="normal">  M_COM   </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xfe</span><span class="symbol">,</span>
+<span class="normal">  </span>
+<span class="normal">  M_TEM   </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0x01</span><span class="symbol">,</span>
+<span class="normal">  </span>
+<span class="normal">  M_ERROR </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0x100</span>
+<span class="cbracket">}</span><span class="normal"> JPEG_MARKER</span><span class="symbol">;</span>
+
+
+<span class="comment">/* Private state */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">jpeg_marker_writer</span><span class="normal"> pub</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* public fields */</span>
+
+<span class="normal">  </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> last_restart_interval</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* last DRI value emitted; 0 after SOI */</span>
+<span class="cbracket">}</span><span class="normal"> my_marker_writer</span><span class="symbol">;</span>
+
+<span class="keyword">typedef</span><span class="normal"> my_marker_writer </span><span class="symbol">*</span><span class="normal"> my_marker_ptr</span><span class="symbol">;</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Basic output routines.</span>
+<span class="comment"> *</span>
+<span class="comment"> * Note that we do not support suspension while writing a marker.</span>
+<span class="comment"> * Therefore, an application using suspension must ensure that there is</span>
+<span class="comment"> * enough buffer space for the initial markers (typ. 600-700 bytes) before</span>
+<span class="comment"> * calling jpeg_start_compress, and enough space to write the trailing EOI</span>
+<span class="comment"> * (a few bytes) before calling jpeg_finish_compress.  Multipass compression</span>
+<span class="comment"> * modes are not supported at all with suspension, so those two are the only</span>
+<span class="comment"> * points where markers will be written.</span>
+<span class="comment"> */</span>
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">emit_byte</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> val</span><span class="symbol">)</span>
+<span class="comment">/* Emit a byte */</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">jpeg_destination_mgr</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> dest </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">dest</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="symbol">*(</span><span class="normal">dest</span><span class="symbol">-&gt;</span><span class="normal">next_output_byte</span><span class="symbol">)++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JOCTET</span><span class="symbol">)</span><span class="normal"> val</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(--</span><span class="normal">dest</span><span class="symbol">-&gt;</span><span class="normal">free_in_buffer </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">dest</span><span class="symbol">-&gt;</span><span class="normal">empty_output_buffer</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">))</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_CANT_SUSPEND</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">emit_marker</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">JPEG_MARKER</span><span class="normal"> mark</span><span class="symbol">)</span>
+<span class="comment">/* Emit a marker code */</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0xFF</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> mark</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">emit_2bytes</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> value</span><span class="symbol">)</span>
+<span class="comment">/* Emit a 2-byte integer; these are always MSB first in JPEG files */</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">value </span><span class="symbol">&gt;&gt;</span><span class="normal"> </span><span class="number">8</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="number">0xFF</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> value </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="number">0xFF</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Routines to write specific marker types.</span>
+<span class="comment"> */</span>
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span>
+<span class="function">emit_dqt</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> index</span><span class="symbol">)</span>
+<span class="comment">/* Emit a DQT marker */</span>
+<span class="comment">/* Returns the precision used (0 = 8bits, 1 = 16bits) for baseline checking */</span>
+<span class="cbracket">{</span>
+<span class="normal">  JQUANT_TBL </span><span class="symbol">*</span><span class="normal"> qtbl </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">quant_tbl_ptrs</span><span class="symbol">[</span><span class="normal">index</span><span class="symbol">];</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> prec</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> i</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">qtbl </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">ERREXIT1</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_NO_QUANT_TABLE</span><span class="symbol">,</span><span class="normal"> index</span><span class="symbol">);</span>
+
+<span class="normal">  prec </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> DCTSIZE2</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">qtbl</span><span class="symbol">-&gt;</span><span class="normal">quantval</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">255</span><span class="symbol">)</span>
+<span class="normal">      prec </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal"> qtbl</span><span class="symbol">-&gt;</span><span class="normal">sent_table</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">emit_marker</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> M_DQT</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="function">emit_2bytes</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> prec </span><span class="symbol">?</span><span class="normal"> DCTSIZE2</span><span class="symbol">*</span><span class="number">2</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> DCTSIZE2 </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">2</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> index </span><span class="symbol">+</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">prec</span><span class="symbol">&lt;&lt;</span><span class="number">4</span><span class="symbol">));</span>
+
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> DCTSIZE2</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="comment">/* The table entries must be emitted in zigzag order. */</span>
+<span class="normal">      </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> qval </span><span class="symbol">=</span><span class="normal"> qtbl</span><span class="symbol">-&gt;</span><span class="normal">quantval</span><span class="symbol">[</span><span class="normal">jpeg_natural_order</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]];</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">prec</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">qval </span><span class="symbol">&gt;&gt;</span><span class="normal"> </span><span class="number">8</span><span class="symbol">));</span>
+<span class="normal">      </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">qval </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="number">0xFF</span><span class="symbol">));</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    qtbl</span><span class="symbol">-&gt;</span><span class="normal">sent_table </span><span class="symbol">=</span><span class="normal"> TRUE</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">return</span><span class="normal"> prec</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">emit_dht</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> index</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">boolean</span><span class="normal"> is_ac</span><span class="symbol">)</span>
+<span class="comment">/* Emit a DHT marker */</span>
+<span class="cbracket">{</span>
+<span class="normal">  JHUFF_TBL </span><span class="symbol">*</span><span class="normal"> htbl</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> length</span><span class="symbol">,</span><span class="normal"> i</span><span class="symbol">;</span>
+<span class="normal">  </span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">is_ac</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    htbl </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">ac_huff_tbl_ptrs</span><span class="symbol">[</span><span class="normal">index</span><span class="symbol">];</span>
+<span class="normal">    index </span><span class="symbol">+=</span><span class="normal"> </span><span class="number">0x10</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* output index has AC bit set */</span>
+<span class="normal">  </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    htbl </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">dc_huff_tbl_ptrs</span><span class="symbol">[</span><span class="normal">index</span><span class="symbol">];</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">htbl </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">ERREXIT1</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_NO_HUFF_TABLE</span><span class="symbol">,</span><span class="normal"> index</span><span class="symbol">);</span>
+<span class="normal">  </span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal"> htbl</span><span class="symbol">-&gt;</span><span class="normal">sent_table</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">emit_marker</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> M_DHT</span><span class="symbol">);</span>
+<span class="normal">    </span>
+<span class="normal">    length </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;=</span><span class="normal"> </span><span class="number">16</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span>
+<span class="normal">      length </span><span class="symbol">+=</span><span class="normal"> htbl</span><span class="symbol">-&gt;</span><span class="normal">bits</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span>
+<span class="normal">    </span>
+<span class="normal">    </span><span class="function">emit_2bytes</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> length </span><span class="symbol">+</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">16</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> index</span><span class="symbol">);</span>
+<span class="normal">    </span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;=</span><span class="normal"> </span><span class="number">16</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span>
+<span class="normal">      </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> htbl</span><span class="symbol">-&gt;</span><span class="normal">bits</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]);</span>
+<span class="normal">    </span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> length</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span>
+<span class="normal">      </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> htbl</span><span class="symbol">-&gt;</span><span class="normal">huffval</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]);</span>
+<span class="normal">    </span>
+<span class="normal">    htbl</span><span class="symbol">-&gt;</span><span class="normal">sent_table </span><span class="symbol">=</span><span class="normal"> TRUE</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">emit_dac</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="comment">/* Emit a DAC marker */</span>
+<span class="comment">/* Since the useful info is so small, we want to emit all the tables in */</span>
+<span class="comment">/* one DAC marker.  Therefore this routine does its own scan of the table. */</span>
+<span class="cbracket">{</span>
+<span class="preproc">#ifdef</span><span class="normal"> C_ARITH_CODING_SUPPORTED</span>
+<span class="normal">  </span><span class="type">char</span><span class="normal"> dc_in_use</span><span class="symbol">[</span><span class="normal">NUM_ARITH_TBLS</span><span class="symbol">];</span>
+<span class="normal">  </span><span class="type">char</span><span class="normal"> ac_in_use</span><span class="symbol">[</span><span class="normal">NUM_ARITH_TBLS</span><span class="symbol">];</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> length</span><span class="symbol">,</span><span class="normal"> i</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">jpeg_component_info</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">compptr</span><span class="symbol">;</span>
+<span class="normal">  </span>
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> NUM_ARITH_TBLS</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span>
+<span class="normal">    dc_in_use</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> ac_in_use</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">  </span>
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">comps_in_scan</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    compptr </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">cur_comp_info</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span>
+<span class="normal">    dc_in_use</span><span class="symbol">[</span><span class="normal">compptr</span><span class="symbol">-&gt;</span><span class="normal">dc_tbl_no</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">    ac_in_use</span><span class="symbol">[</span><span class="normal">compptr</span><span class="symbol">-&gt;</span><span class="normal">ac_tbl_no</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="normal">  </span>
+<span class="normal">  length </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> NUM_ARITH_TBLS</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span>
+<span class="normal">    length </span><span class="symbol">+=</span><span class="normal"> dc_in_use</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> ac_in_use</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span>
+<span class="normal">  </span>
+<span class="normal">  </span><span class="function">emit_marker</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> M_DAC</span><span class="symbol">);</span>
+<span class="normal">  </span>
+<span class="normal">  </span><span class="function">emit_2bytes</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> length</span><span class="symbol">*</span><span class="number">2</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">2</span><span class="symbol">);</span>
+<span class="normal">  </span>
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> NUM_ARITH_TBLS</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">dc_in_use</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">])</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> i</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">arith_dc_L</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">arith_dc_U</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]&lt;&lt;</span><span class="number">4</span><span class="symbol">));</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ac_in_use</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">])</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> i </span><span class="symbol">+</span><span class="normal"> </span><span class="number">0x10</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">arith_ac_K</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* C_ARITH_CODING_SUPPORTED */</span>
+<span class="cbracket">}</span>
+
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">emit_dri</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="comment">/* Emit a DRI marker */</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="function">emit_marker</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> M_DRI</span><span class="symbol">);</span>
+<span class="normal">  </span>
+<span class="normal">  </span><span class="function">emit_2bytes</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="number">4</span><span class="symbol">);</span><span class="normal">	</span><span class="comment">/* fixed length */</span>
+
+<span class="normal">  </span><span class="function">emit_2bytes</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">restart_interval</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">emit_sof</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">JPEG_MARKER</span><span class="normal"> code</span><span class="symbol">)</span>
+<span class="comment">/* Emit a SOF marker */</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> ci</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">jpeg_component_info</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">compptr</span><span class="symbol">;</span>
+<span class="normal">  </span>
+<span class="normal">  </span><span class="function">emit_marker</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> code</span><span class="symbol">);</span>
+<span class="normal">  </span>
+<span class="normal">  </span><span class="function">emit_2bytes</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="number">3</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components </span><span class="symbol">+</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">5</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span><span class="normal"> </span><span class="comment">/* length */</span>
+
+<span class="normal">  </span><span class="comment">/* Make sure image isn't bigger than SOF field can handle */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_height </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">65535L</span><span class="normal"> </span><span class="symbol">||</span>
+<span class="normal">      </span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_width </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">65535L</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">ERREXIT1</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_IMAGE_TOO_BIG</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="symbol">)</span><span class="normal"> </span><span class="number">65535</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">data_precision</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function">emit_2bytes</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_height</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function">emit_2bytes</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">image_width</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> compptr </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">comp_info</span><span class="symbol">;</span><span class="normal"> ci </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components</span><span class="symbol">;</span>
+<span class="normal">       ci</span><span class="symbol">++,</span><span class="normal"> compptr</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">component_id</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">compptr</span><span class="symbol">-&gt;</span><span class="normal">h_samp_factor </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="number">4</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">v_samp_factor</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">quant_tbl_no</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">emit_sos</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="comment">/* Emit a SOS marker */</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> i</span><span class="symbol">,</span><span class="normal"> td</span><span class="symbol">,</span><span class="normal"> ta</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">jpeg_component_info</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">compptr</span><span class="symbol">;</span>
+<span class="normal">  </span>
+<span class="normal">  </span><span class="function">emit_marker</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> M_SOS</span><span class="symbol">);</span>
+<span class="normal">  </span>
+<span class="normal">  </span><span class="function">emit_2bytes</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">comps_in_scan </span><span class="symbol">+</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">3</span><span class="symbol">);</span><span class="normal"> </span><span class="comment">/* length */</span>
+<span class="normal">  </span>
+<span class="normal">  </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">comps_in_scan</span><span class="symbol">);</span>
+<span class="normal">  </span>
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">comps_in_scan</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    compptr </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">cur_comp_info</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span>
+<span class="normal">    </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">component_id</span><span class="symbol">);</span>
+<span class="normal">    td </span><span class="symbol">=</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">dc_tbl_no</span><span class="symbol">;</span>
+<span class="normal">    ta </span><span class="symbol">=</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">ac_tbl_no</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">progressive_mode</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="comment">/* Progressive mode: only DC or only AC tables are used in one scan;</span>
+<span class="comment">       * furthermore, Huffman coding of DC refinement uses no table at all.</span>
+<span class="comment">       * We emit 0 for unused field(s); this is recommended by the P&amp;M text</span>
+<span class="comment">       * but does not seem to be specified in the standard.</span>
+<span class="comment">       */</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">Ss </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	ta </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* DC scan */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">Ah </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">arith_code</span><span class="symbol">)</span>
+<span class="normal">	  td </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* no DC table either */</span>
+<span class="normal">      </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	td </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* AC scan */</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">td </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="number">4</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> ta</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">Ss</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">Se</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">Ah </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="number">4</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">Al</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">emit_jfif_app0</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="comment">/* Emit a JFIF-compliant APP0 marker */</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="comment">/*</span>
+<span class="comment">   * Length of APP0 block	(2 bytes)</span>
+<span class="comment">   * Block ID			(4 bytes - ASCII "JFIF")</span>
+<span class="comment">   * Zero byte			(1 byte to terminate the ID string)</span>
+<span class="comment">   * Version Major, Minor	(2 bytes - major first)</span>
+<span class="comment">   * Units			(1 byte - 0x00 = none, 0x01 = inch, 0x02 = cm)</span>
+<span class="comment">   * Xdpu			(2 bytes - dots per unit horizontal)</span>
+<span class="comment">   * Ydpu			(2 bytes - dots per unit vertical)</span>
+<span class="comment">   * Thumbnail X size		(1 byte)</span>
+<span class="comment">   * Thumbnail Y size		(1 byte)</span>
+<span class="comment">   */</span>
+<span class="normal">  </span>
+<span class="normal">  </span><span class="function">emit_marker</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> M_APP0</span><span class="symbol">);</span>
+<span class="normal">  </span>
+<span class="normal">  </span><span class="function">emit_2bytes</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">4</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span><span class="normal"> </span><span class="comment">/* length */</span>
+
+<span class="normal">  </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0x4A</span><span class="symbol">);</span><span class="normal">	</span><span class="comment">/* Identifier: ASCII "JFIF" */</span>
+<span class="normal">  </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0x46</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0x49</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0x46</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">JFIF_major_version</span><span class="symbol">);</span><span class="normal"> </span><span class="comment">/* Version fields */</span>
+<span class="normal">  </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">JFIF_minor_version</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">density_unit</span><span class="symbol">);</span><span class="normal"> </span><span class="comment">/* Pixel size information */</span>
+<span class="normal">  </span><span class="function">emit_2bytes</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">X_density</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function">emit_2bytes</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">Y_density</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span><span class="normal">		</span><span class="comment">/* No thumbnail image */</span>
+<span class="normal">  </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+
+<span class="function">LOCAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">emit_adobe_app14</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="comment">/* Emit an Adobe APP14 marker */</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="comment">/*</span>
+<span class="comment">   * Length of APP14 block	(2 bytes)</span>
+<span class="comment">   * Block ID			(5 bytes - ASCII "Adobe")</span>
+<span class="comment">   * Version Number		(2 bytes - currently 100)</span>
+<span class="comment">   * Flags0			(2 bytes - currently 0)</span>
+<span class="comment">   * Flags1			(2 bytes - currently 0)</span>
+<span class="comment">   * Color transform		(1 byte)</span>
+<span class="comment">   *</span>
+<span class="comment">   * Although Adobe TN 5116 mentions Version = 101, all the Adobe files</span>
+<span class="comment">   * now in circulation seem to use Version = 100, so that's what we write.</span>
+<span class="comment">   *</span>
+<span class="comment">   * We write the color transform byte as 1 if the JPEG color space is</span>
+<span class="comment">   * YCbCr, 2 if it's YCCK, 0 otherwise.  Adobe's definition has to do with</span>
+<span class="comment">   * whether the encoder performed a transformation, which is pretty useless.</span>
+<span class="comment">   */</span>
+<span class="normal">  </span>
+<span class="normal">  </span><span class="function">emit_marker</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> M_APP14</span><span class="symbol">);</span>
+<span class="normal">  </span>
+<span class="normal">  </span><span class="function">emit_2bytes</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">5</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span><span class="normal"> </span><span class="comment">/* length */</span>
+
+<span class="normal">  </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0x41</span><span class="symbol">);</span><span class="normal">	</span><span class="comment">/* Identifier: ASCII "Adobe" */</span>
+<span class="normal">  </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0x64</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0x6F</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0x62</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0x65</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function">emit_2bytes</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="number">100</span><span class="symbol">);</span><span class="normal">	</span><span class="comment">/* Version */</span>
+<span class="normal">  </span><span class="function">emit_2bytes</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span><span class="normal">	</span><span class="comment">/* Flags0 */</span>
+<span class="normal">  </span><span class="function">emit_2bytes</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span><span class="normal">	</span><span class="comment">/* Flags1 */</span>
+<span class="normal">  </span><span class="keyword">switch</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">jpeg_color_space</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">case</span><span class="normal"> JCS_YCbCr</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span><span class="normal">	</span><span class="comment">/* Color transform = 1 */</span>
+<span class="normal">    </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">case</span><span class="normal"> JCS_YCCK</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="number">2</span><span class="symbol">);</span><span class="normal">	</span><span class="comment">/* Color transform = 2 */</span>
+<span class="normal">    </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="label">  default:</span>
+<span class="normal">    </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span><span class="normal">	</span><span class="comment">/* Color transform = 0 */</span>
+<span class="normal">    </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * These routines allow writing an arbitrary marker with parameters.</span>
+<span class="comment"> * The only intended use is to emit COM or APPn markers after calling</span>
+<span class="comment"> * write_file_header and before calling write_frame_header.</span>
+<span class="comment"> * Other uses are not guaranteed to produce desirable results.</span>
+<span class="comment"> * Counting the parameter bytes properly is the caller's responsibility.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">write_marker_header</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> marker</span><span class="symbol">,</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> datalen</span><span class="symbol">)</span>
+<span class="comment">/* Emit an arbitrary marker header */</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">datalen </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="symbol">)</span><span class="normal"> </span><span class="number">65533</span><span class="symbol">)</span><span class="normal">		</span><span class="comment">/* safety check */</span>
+<span class="normal">    </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_LENGTH</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="function">emit_marker</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JPEG_MARKER</span><span class="symbol">)</span><span class="normal"> marker</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="function">emit_2bytes</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">datalen </span><span class="symbol">+</span><span class="normal"> </span><span class="number">2</span><span class="symbol">));</span><span class="normal">	</span><span class="comment">/* total length */</span>
+<span class="cbracket">}</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">write_marker_byte</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> val</span><span class="symbol">)</span>
+<span class="comment">/* Emit one byte of marker parameters following write_marker_header */</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="function">emit_byte</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> val</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Write datastream header.</span>
+<span class="comment"> * This consists of an SOI and optional APPn markers.</span>
+<span class="comment"> * We recommend use of the JFIF marker, but not the Adobe marker,</span>
+<span class="comment"> * when using YCbCr or grayscale data.  The JFIF marker should NOT</span>
+<span class="comment"> * be used for any other JPEG colorspace.  The Adobe marker is helpful</span>
+<span class="comment"> * to distinguish RGB, CMYK, and YCCK colorspaces.</span>
+<span class="comment"> * Note that an application can write additional header markers after</span>
+<span class="comment"> * jpeg_start_compress returns.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">write_file_header</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_marker_ptr</span><span class="normal"> marker </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_marker_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">marker</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="function">emit_marker</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> M_SOI</span><span class="symbol">);</span><span class="normal">	</span><span class="comment">/* first the SOI */</span>
+
+<span class="normal">  </span><span class="comment">/* SOI is defined to reset restart interval to 0 */</span>
+<span class="normal">  marker</span><span class="symbol">-&gt;</span><span class="normal">last_restart_interval </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">write_JFIF_header</span><span class="symbol">)</span><span class="normal">	</span><span class="comment">/* next an optional JFIF APP0 */</span>
+<span class="normal">    </span><span class="function">emit_jfif_app0</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">write_Adobe_marker</span><span class="symbol">)</span><span class="normal"> </span><span class="comment">/* next an optional Adobe APP14 */</span>
+<span class="normal">    </span><span class="function">emit_adobe_app14</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Write frame header.</span>
+<span class="comment"> * This consists of DQT and SOFn markers.</span>
+<span class="comment"> * Note that we do not emit the SOF until we have emitted the DQT(s).</span>
+<span class="comment"> * This avoids compatibility problems with incorrect implementations that</span>
+<span class="comment"> * try to error-check the quant table numbers as soon as they see the SOF.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">write_frame_header</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> ci</span><span class="symbol">,</span><span class="normal"> prec</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">boolean</span><span class="normal"> is_baseline</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">jpeg_component_info</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">compptr</span><span class="symbol">;</span>
+<span class="normal">  </span>
+<span class="normal">  </span><span class="comment">/* Emit DQT for each quantization table.</span>
+<span class="comment">   * Note that emit_dqt() suppresses any duplicate tables.</span>
+<span class="comment">   */</span>
+<span class="normal">  prec </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> compptr </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">comp_info</span><span class="symbol">;</span><span class="normal"> ci </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components</span><span class="symbol">;</span>
+<span class="normal">       ci</span><span class="symbol">++,</span><span class="normal"> compptr</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    prec </span><span class="symbol">+=</span><span class="normal"> </span><span class="function">emit_dqt</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">quant_tbl_no</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="comment">/* now prec is nonzero iff there are any 16-bit quant tables. */</span>
+
+<span class="normal">  </span><span class="comment">/* Check for a non-baseline specification.</span>
+<span class="comment">   * Note we assume that Huffman table numbers won't be changed later.</span>
+<span class="comment">   */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">arith_code </span><span class="symbol">||</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">progressive_mode </span><span class="symbol">||</span>
+<span class="normal">      cinfo</span><span class="symbol">-&gt;</span><span class="normal">data_precision </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">8</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    is_baseline </span><span class="symbol">=</span><span class="normal"> FALSE</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    is_baseline </span><span class="symbol">=</span><span class="normal"> TRUE</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> compptr </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">comp_info</span><span class="symbol">;</span><span class="normal"> ci </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components</span><span class="symbol">;</span>
+<span class="normal">	 ci</span><span class="symbol">++,</span><span class="normal"> compptr</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">compptr</span><span class="symbol">-&gt;</span><span class="normal">dc_tbl_no </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">1</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">ac_tbl_no </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">	is_baseline </span><span class="symbol">=</span><span class="normal"> FALSE</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">prec </span><span class="symbol">&amp;&amp;</span><span class="normal"> is_baseline</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      is_baseline </span><span class="symbol">=</span><span class="normal"> FALSE</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="comment">/* If it's baseline except for quantizer size, warn the user */</span>
+<span class="normal">      </span><span class="function">TRACEMS</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> JTRC_16BIT_TABLES</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="comment">/* Emit the proper SOF marker */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">arith_code</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">emit_sof</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> M_SOF9</span><span class="symbol">);</span><span class="normal">	</span><span class="comment">/* SOF code for arithmetic coding */</span>
+<span class="normal">  </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">progressive_mode</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">emit_sof</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> M_SOF2</span><span class="symbol">);</span><span class="normal">	</span><span class="comment">/* SOF code for progressive Huffman */</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">is_baseline</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">emit_sof</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> M_SOF0</span><span class="symbol">);</span><span class="normal">	</span><span class="comment">/* SOF code for baseline implementation */</span>
+<span class="normal">    </span><span class="keyword">else</span>
+<span class="normal">      </span><span class="function">emit_sof</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> M_SOF1</span><span class="symbol">);</span><span class="normal">	</span><span class="comment">/* SOF code for non-baseline Huffman file */</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Write scan header.</span>
+<span class="comment"> * This consists of DHT or DAC markers, optional DRI, and SOS.</span>
+<span class="comment"> * Compressed data will be written following the SOS.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">write_scan_header</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_marker_ptr</span><span class="normal"> marker </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_marker_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">marker</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> i</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">jpeg_component_info</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">compptr</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">arith_code</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">/* Emit arith conditioning info.  We may have some duplication</span>
+<span class="comment">     * if the file has multiple scans, but it's so small it's hardly</span>
+<span class="comment">     * worth worrying about.</span>
+<span class="comment">     */</span>
+<span class="normal">    </span><span class="function">emit_dac</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">/* Emit Huffman tables.</span>
+<span class="comment">     * Note that emit_dht() suppresses any duplicate tables.</span>
+<span class="comment">     */</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">comps_in_scan</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      compptr </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">cur_comp_info</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">progressive_mode</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="comment">/* Progressive mode: only DC or only AC tables are used in one scan */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">Ss </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">Ah </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal">	</span><span class="comment">/* DC needs no table for refinement scan */</span>
+<span class="normal">	    </span><span class="function">emit_dht</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">dc_tbl_no</span><span class="symbol">,</span><span class="normal"> FALSE</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	  </span><span class="function">emit_dht</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">ac_tbl_no</span><span class="symbol">,</span><span class="normal"> TRUE</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="comment">/* Sequential mode: need both DC and AC tables */</span>
+<span class="normal">	</span><span class="function">emit_dht</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">dc_tbl_no</span><span class="symbol">,</span><span class="normal"> FALSE</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">emit_dht</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">ac_tbl_no</span><span class="symbol">,</span><span class="normal"> TRUE</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="comment">/* Emit DRI if required --- note that DRI value could change for each scan.</span>
+<span class="comment">   * We avoid wasting space with unnecessary DRIs, however.</span>
+<span class="comment">   */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">restart_interval </span><span class="symbol">!=</span><span class="normal"> marker</span><span class="symbol">-&gt;</span><span class="normal">last_restart_interval</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">emit_dri</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="normal">    marker</span><span class="symbol">-&gt;</span><span class="normal">last_restart_interval </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">restart_interval</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="function">emit_sos</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Write datastream trailer.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">write_file_trailer</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="function">emit_marker</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> M_EOI</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Write an abbreviated table-specification datastream.</span>
+<span class="comment"> * This consists of SOI, DQT and DHT tables, and EOI.</span>
+<span class="comment"> * Any table that is defined and not marked sent_table = TRUE will be</span>
+<span class="comment"> * emitted.  Note that all tables will be marked sent_table = TRUE at exit.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">write_tables_only</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> i</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="function">emit_marker</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> M_SOI</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> NUM_QUANT_TBLS</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">quant_tbl_ptrs</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span><span class="normal"> </span><span class="function">emit_dqt</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> i</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">arith_code</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> NUM_HUFF_TBLS</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">dc_huff_tbl_ptrs</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="function">emit_dht</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> i</span><span class="symbol">,</span><span class="normal"> FALSE</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">ac_huff_tbl_ptrs</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="function">emit_dht</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> i</span><span class="symbol">,</span><span class="normal"> TRUE</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="function">emit_marker</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> M_EOI</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Initialize the marker writer module.</span>
+<span class="comment"> */</span>
+
+<span class="function">GLOBAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">jinit_marker_writer</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_compress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_marker_ptr</span><span class="normal"> marker</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Create the subobject */</span>
+<span class="normal">  marker </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_marker_ptr</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">mem</span><span class="symbol">-&gt;</span><span class="normal">alloc_small</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> JPOOL_IMAGE</span><span class="symbol">,</span>
+<span class="normal">				</span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="normal">my_marker_writer</span><span class="symbol">));</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">marker </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">jpeg_marker_writer</span><span class="normal"> </span><span class="symbol">*)</span><span class="normal"> marker</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="comment">/* Initialize method pointers */</span>
+<span class="normal">  marker</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">write_file_header </span><span class="symbol">=</span><span class="normal"> write_file_header</span><span class="symbol">;</span>
+<span class="normal">  marker</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">write_frame_header </span><span class="symbol">=</span><span class="normal"> write_frame_header</span><span class="symbol">;</span>
+<span class="normal">  marker</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">write_scan_header </span><span class="symbol">=</span><span class="normal"> write_scan_header</span><span class="symbol">;</span>
+<span class="normal">  marker</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">write_file_trailer </span><span class="symbol">=</span><span class="normal"> write_file_trailer</span><span class="symbol">;</span>
+<span class="normal">  marker</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">write_tables_only </span><span class="symbol">=</span><span class="normal"> write_tables_only</span><span class="symbol">;</span>
+<span class="normal">  marker</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">write_marker_header </span><span class="symbol">=</span><span class="normal"> write_marker_header</span><span class="symbol">;</span>
+<span class="normal">  marker</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">write_marker_byte </span><span class="symbol">=</span><span class="normal"> write_marker_byte</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="comment">/* Initialize private state */</span>
+<span class="normal">  marker</span><span class="symbol">-&gt;</span><span class="normal">last_restart_interval </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

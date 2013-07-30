@@ -1,0 +1,71 @@
+\section{Symmetrische und äußere Algebra}
+
+\begin{Def} Seien $M,N$ $R$-Moduln, $n \geq 1$, $\Phi: M^n \rightarrow N$ $R$-multilinear.
+  \begin{enumerate}
+  \item[a)] $\Phi$ heißt \emp{symmetrisch}\index{Abbildung!symmetrische}, wenn für alle $(x_1, \dots, x_n) \in M^n$ und alle $\sigma \in S_n$ gilt:\\
+    $\Phi(x_1, \dots , x_n) = \Phi( x_{\sigma(1)},  \dots, x_{\sigma(n)})$
+  \item[b)] $\Phi$ heißt \emp{alternierend}\index{Abbildung!alternierende}, wenn für alle $(x_1, \dots, x_n ) \in M^n$ gilt:\\
+    Ist $x_i = x_j$ für ein Paar $(x_i,x_j)$ mit $i \neq j$, so ist $\Phi(x_1, \dots , x_n) = 0$\\
+    Ausser in $\textrm{char} = 2$ ist das äquivalent zu $\Phi(x_1, \ldots, x_n) = -\Phi(x_1, \ldots, x_j, \ldots, x_i, \ldots, x_n)$
+  \item[c)] $\mbox{Sym}^n_M(N) := \{ \Phi: M^n \rightarrow N: \Phi \text{ multilinear, symmetrisch}\}$\\
+    $\mbox{Alt}^n_M(N) := \{ \Phi: M^n \rightarrow N: \Phi \text{ multilinear, alternierend}\}$\\
+    $\mbox{Sym}^n_M(N)$ und  $\mbox{Alt}^n_M(N)$ sind $R$-Moduln.
+  \end{enumerate}
+\end{Def}
+
+\begin{Satz}[Symmetrische und äußere Potenz]
+Zu jedem $R$-Modul $M$ und jedem $n \geq 1$ gibt es $R$-Moduln $S^n(M)$ und $\Lambda^n(M)$ (genannt die n-te \emp{symmetrische}\index{Potenz!symmetrische} bzw. \emp{äußere Potenz}\index{Potenz!äußere} von $M$)
+  und eine symmetrische bzw. alternierende multilineare Abbildung $M^n \rightarrow S^n(M)$ bzw.  $M^n \rightarrow \Lambda ^n(M)$ mit folgender UAE:
+$$
+\xymatrix{
+M^n \ar[rr] \ar[rd]_{\Phi\in \textrm{Sym}_M^n(N)}  &     &  S^n(M) \ar[dl]^{\exists!\varphi\textrm{\ linear}}  &
+\text{bzw.} &
+M^n \ar[rr] \ar[rd]_{\Psi\in \textrm{Alt}_M^n(N)}  &     &  \Lambda^n(M) \ar[dl]^{\exists!\psi\textrm{\ linear}}  \\
+  &  N  & & &
+  &  N  & \\
+}
+$$
+Mit $S^0(M) := R =: \Lambda^0(M)$ heißt $S(M):= \bigoplus_{n\geq 0} S^n(M)$ die \emp{symmetrische Algebra}\index{Algebra!symmetrische} über $M$\\
+$\Lambda (M) := \bigoplus_{n\geq 0} \Lambda^n(M)$ die \emp{äußere Algebra}\index{Algebra!äußere} über $M$ (oder \emp{Graßmann-Algebra}\index{Graßmann-Algebra})
+\end{Satz}
+ 
+\begin{Bew}
+  Sei $\mathbb{J}^n(M)$ der Untermodul von $T^n(M)$, der erzeugt wird von allen\\
+  $x_1 \otimes \dots \otimes x_n -x_{\sigma(1)} \otimes \dots \otimes x_{\sigma(n)}$, $x_i \in M$, $ \sigma \in S_n$ und \\
+  $\mathbb{I}^n(M)$ der Untermodul von $T^n(M)$, der erzeugt wird von allen\\
+  $x_1 \otimes \dots \otimes x_n$ für die $x_i = x_j$ für ein Paar $(i,j)$ mit $i \neq j$.\\
+  Setze $S^n(M) := \FakRaum{T^n(M)}{\mathbb{J}^n(M)}$ und
+  $\Lambda^n(M) := \FakRaum{T^n(M)}{\mathbb{I}^n(M)}$ \\
+  Sei $\Phi: M^n \rightarrow N$ multilinear und symmetrisch. $\Phi$ induziert 
+  $\tilde{\varphi}:T^n(M) \rightarrow N$ $R$-linear (weil $\Phi$ multilinear), da $\Phi$ symmetrisch ist, ist
+  $\mathbb{J}(M) \subseteq \Kern(\tilde{\varphi})$. $\tilde{\varphi}$ induziert also $\varphi:S^n(M) \rightarrow N$
+  $R$-linear; genauso falls $\Psi : M^n \rightarrow N$ alternierend.
+\end{Bew}
+
+\begin{Prop}
+  Sei $M$ freier $R$-Modul mit Basis $e_1, \dots, e_r$. Dann gilt für jedes $n \geq 1$:
+  \begin{enumerate}
+  \item[a)] $S^n(M)$ ist freier Modul mit Basis $\{e_1^{\nu_1} \cdot \ldots \cdot e_r^{\nu_r}: \sum_{i=1}^{r}{\nu_i} =  n \}$
+  \item[b)] $S(M) \cong R[X_1, \dots, X_r]$
+  \item[c)] $\Lambda^n(M)$ ist freier $R$-Modul mit Basis \\
+    $\{e_{i_1} \wedge \dots \wedge e_{i_n}: 1 \leq i_1 < i_2 < \dots < i_n \leq r \}$
+  \item[d)] $\Lambda^n(M) = 0$ für $n > r$ 
+  \end{enumerate}
+\end{Prop}
+ 
+\begin{Bew}
+  \begin{enumerate}
+  \item[b)] folgt aus a)
+  \item[d)] folgt aus c)
+  \item[c)] $\Lambda^r(M)$ wird erzeugt von $e_1 \wedge \dots \wedge e_r$: klar.\\
+    $\Lambda^r(M)$ ist frei (vom Rang 1), denn aus $a \cdot e_1 \wedge \dots \wedge e_r = 0$ folgt $a=0$.
+
+    Für $n < r$ bilden  $\{e_{i_1} \wedge \dots \wedge e_{i_n}: 1 \leq i_1 < i_2 < \dots < i_n \leq r \}$
+    ein Erzeugendensystem.\\
+    Zu zeigen: $\{e_{i_1} \wedge \dots \wedge e_{i_n}: 1 \leq i_1 < i_2 < \dots < i_n \leq r \}$ ist linear unabhängig.\\
+    Sei dazu $\sum_{1 \leq i_1 < \dots < i_n \leq r} a_{\underline{i}}e_{i_1} \wedge \dots \wedge e_{i_n} = 0$\\
+    Für $\underline{j} = (j_1, \dots, j_n)$ mit $1 \leq j_1 < \dots < j_n \leq r$ sei $\sigma_j \in S_n$ mit 
+    $\sigma_j(\nu) = j_{\nu}$ für $\nu = 1, \dots n$ Dann ist $ 0= (\sum a_i e_{i_1} \wedge \dots \wedge e_{i_n}) \wedge 
+    e_{\sigma_j(n+1)}  \wedge \dots \wedge e_{\sigma_j(r) } = a_j e_1 \wedge \dots \wedge e_r$ $\Rightarrow a_j = 0 \Rightarrow$ l.u. 
+  \end{enumerate}
+\end{Bew}

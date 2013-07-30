@@ -1,0 +1,71 @@
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
+top_builddir = @top_builddir@
+
+include $(top_srcdir)/Mk/l4.base.mk
+
+SRCS = \
+	main/sdi/SDL_sdi_main.c \
+	SDL.c \
+	file/SDL_rwops.c \
+	timer/sdi/SDL_systimer.c \
+	timer/SDL_timer.c \
+	video/sdi/SDL_sdimouse.c \
+	video/sdi/SDL_sdievents.c \
+	video/sdi/SDL_sdivideo.c \
+	video/SDL_bmp.c \
+	video/SDL_blit.c \
+	video/SDL_yuv.c \
+	video/SDL_stretch.c \
+	video/SDL_video.c \
+	video/SDL_blit_0.c \
+	video/SDL_blit_1.c \
+	video/SDL_blit_A.c \
+	video/SDL_blit_N.c \
+	video/SDL_cursor.c \
+	video/SDL_RLEaccel.c \
+	video/SDL_pixels.c \
+	video/SDL_yuv_sw.c \
+	video/SDL_yuv_mmx.c \
+	video/SDL_surface.c \
+	video/SDL_gamma.c \
+	events/SDL_mouse.c \
+	events/SDL_resize.c \
+	events/SDL_quit.c \
+	events/SDL_events.c \
+	events/SDL_active.c \
+	events/SDL_keyboard.c \
+	events/SDL_expose.c \
+	stdlib/SDL_getenv.c \
+	stdlib/SDL_iconv.c \
+	stdlib/SDL_malloc.c \
+	stdlib/SDL_qsort.c \
+	stdlib/SDL_stdlib.c \
+	stdlib/SDL_string.c \
+	cpuinfo/SDL_cpuinfo.c \
+	thread/SDL_thread.c \
+	thread/generic/SDL_syscond.c \
+	thread/generic/SDL_systhread.c \
+	thread/generic/SDL_sysmutex.c \
+	thread/generic/SDL_syssem.c \
+	audio/SDL_audio.c \
+	audio/SDL_audiocvt.c \
+	audio/SDL_audiodev.c \
+	audio/SDL_mixer.c \
+	audio/SDL_mixer_m68k.c \
+	audio/SDL_mixer_MMX.c \
+	audio/SDL_mixer_MMX_VC.c \
+	audio/SDL_wave.c \
+	audio/dummy/SDL_dummyaudio.c \
+	joystick/SDL_joystick.c \
+	joystick/dummy/SDL_sysjoystick.c \
+	SDL_fatal.c \
+	SDL_error.c
+
+LIBRARY = SDL
+
+CURRENT_CFLAGS := $(CFLAGS)
+CFLAGS := $(filter-out -Wconversion, $(filter-out -Wshadow, $(CURRENT_CFLAGS)))
+CPPFLAGS += -I$(top_srcdir)/include/SDL
+
+include $(top_srcdir)/Mk/l4.lib.mk

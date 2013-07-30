@@ -1,0 +1,50 @@
+//
+// $Id$
+//
+// Description of the syscall server interface
+//
+#include <types.idl>
+
+[uuid(IF_SYSCALL_ID)]
+interface IF_SYSCALL {
+
+	exception syscall_error {};
+	
+	/**
+	 * Used to register a Thread as InterruptHandler
+	 */
+	void AssociateInterrupt ( 	in L4_ThreadId_t InterruptThread,
+								in L4_ThreadId_t InterruptHandler,
+								out L4_Word_t word );
+	
+	/**
+	 * Used to deregister the InterruptHandler Thread
+	 */
+	void DeassociateInterrupt (	in L4_ThreadId_t InterruptThread,
+								out L4_Word_t word);
+
+	/**
+	 * Used by the pager to create new tasks
+	 */
+	void Sigma1ThreadControl(in L4_ThreadId_t dest,
+							 in L4_ThreadId_t SpaceSpecifier,
+							 in L4_ThreadId_t scheduler,
+							 in L4_ThreadId_t pager,
+							 in L4_Word_t utcblocation)
+		raises(syscall_error);
+
+	/**
+	 * Used by the pager to configure new address spaces
+	 */
+	void Sigma1SpaceControl(in L4_ThreadId_t SpaceSpecifier,
+							in L4_Word_t control,
+							in L4_Fpage_t KIPArea,
+							in L4_Fpage_t UtcbArea,
+							in L4_ThreadId_t redirector)
+		raises(syscall_error);
+
+	/**
+	 * More Syscalls to follow: ...
+	 */
+
+};

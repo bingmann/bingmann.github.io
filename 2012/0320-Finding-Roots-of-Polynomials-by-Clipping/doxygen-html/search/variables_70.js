@@ -1,0 +1,1 @@
+var searchData=[["print_5fprecision",["print_precision",["../clipper_8cc.html#a52f19b4354284bf9a2af3d8b28ef61e7",1,"clipper.cc"]]]];

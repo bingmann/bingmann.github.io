@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2013/pmbw/pmbw-0.6/stats2gnuplot.cc - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal1.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2013/">2013</a> / <a href="/2013/pmbw/">pmbw</a> / <a href="/2013/pmbw/pmbw-0.6/">pmbw-0.6</a> / <a href="/2013/pmbw/pmbw-0.6/stats2gnuplot.cc.html">stats2gnuplot.cc</a> (<a href="/2013/pmbw/pmbw-0.6/stats2gnuplot.cc">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">// -*- mode: c++; fill-column: 79 -*-</span>
+<span class="comment">/******************************************************************************</span>
+<span class="comment"> * stats2gnuplot.cc</span>
+<span class="comment"> *</span>
+<span class="comment"> * Convert stats.txt to a gnuplot script.</span>
+<span class="comment"> *</span>
+<span class="comment"> * This program will read a stats.txt file created by pmbw and output a gnuplot</span>
+<span class="comment"> * script, which generates a PDF. The program is used as following:</span>
+<span class="comment"> *</span>
+<span class="comment"> * "./stats2gnuplot stats.txt | gnuplot"</span>
+<span class="comment"> *</span>
+<span class="comment"> ******************************************************************************</span>
+<span class="comment"> * Copyright (C) 2013 Timo Bingmann </span><span class="url">&lt;tb@panthema.net&gt;</span>
+<span class="comment"> *</span>
+<span class="comment"> * This program is free software: you can redistribute it and/or modify it</span>
+<span class="comment"> * under the terms of the GNU General Public License as published by the Free</span>
+<span class="comment"> * Software Foundation, either version 3 of the License, or (at your option)</span>
+<span class="comment"> * any later version.</span>
+<span class="comment"> *</span>
+<span class="comment"> * This program is distributed in the hope that it will be useful, but WITHOUT</span>
+<span class="comment"> * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or</span>
+<span class="comment"> * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for</span>
+<span class="comment"> * more details.</span>
+<span class="comment"> *</span>
+<span class="comment"> * You should have received a copy of the GNU General Public License along with</span>
+<span class="comment"> * this program.  If not, see </span><span class="url">&lt;http://www.gnu.org/licenses/&gt;</span><span class="comment">.</span>
+<span class="comment"> *****************************************************************************/</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;iostream&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;fstream&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;sstream&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;iomanip&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;algorithm&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;vector&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;set&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;map&gt;</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;errno.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;string.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;stdlib.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;math.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;unistd.h&gt;</span>
+
+<span class="comment">// *** Warnings Output Function</span>
+
+<span class="type">bool</span><span class="normal"> gopt_warnings </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">ERR</span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">)</span><span class="normal">  </span><span class="keyword">do</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">cerr </span><span class="symbol">&lt;&lt;</span><span class="normal"> x </span><span class="symbol">&lt;&lt;</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">endl</span><span class="symbol">;</span><span class="normal"> </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">while</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">)</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">ERRX</span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">do</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">cerr </span><span class="symbol">&lt;&lt;</span><span class="normal"> x</span><span class="symbol">;</span><span class="normal"> </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">while</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">)</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">WARN</span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">do</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">gopt_warnings</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">cerr </span><span class="symbol">&lt;&lt;</span><span class="normal"> x </span><span class="symbol">&lt;&lt;</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">endl</span><span class="symbol">;</span><span class="normal"> </span><span class="cbracket">}</span><span class="normal"> </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">while</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">)</span>
+
+<span class="comment">// *** List of Function Name Processed (and Their Order)</span>
+
+<span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="symbol">*</span><span class="normal"> funclist</span><span class="symbol">[]</span><span class="normal"> </span><span class="symbol">=</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="string">"ScanWrite256PtrSimpleLoop"</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="string">"ScanWrite256PtrUnrollLoop"</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="string">"ScanRead256PtrSimpleLoop"</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="string">"ScanRead256PtrUnrollLoop"</span><span class="symbol">,</span>
+
+<span class="normal">    </span><span class="string">"ScanWrite128PtrSimpleLoop"</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="string">"ScanWrite128PtrUnrollLoop"</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="string">"ScanRead128PtrSimpleLoop"</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="string">"ScanRead128PtrUnrollLoop"</span><span class="symbol">,</span>
+
+<span class="normal">    </span><span class="string">"ScanWrite64PtrSimpleLoop"</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="string">"ScanWrite64PtrUnrollLoop"</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="string">"ScanRead64PtrSimpleLoop"</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="string">"ScanRead64PtrUnrollLoop"</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="string">"ScanWrite64IndexSimpleLoop"</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="string">"ScanWrite64IndexUnrollLoop"</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="string">"ScanRead64IndexSimpleLoop"</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="string">"ScanRead64IndexUnrollLoop"</span><span class="symbol">,</span>
+
+<span class="normal">    </span><span class="string">"ScanWrite32PtrSimpleLoop"</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="string">"ScanWrite32PtrUnrollLoop"</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="string">"ScanWrite32PtrMultiLoop"</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="string">"ScanRead32PtrSimpleLoop"</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="string">"ScanRead32PtrUnrollLoop"</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="string">"ScanRead32PtrMultiLoop"</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="string">"ScanWrite32IndexSimpleLoop"</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="string">"ScanWrite32IndexUnrollLoop"</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="string">"ScanRead32IndexSimpleLoop"</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="string">"ScanRead32IndexUnrollLoop"</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="string">"cScanWrite32IndexSimpleLoop"</span><span class="symbol">,</span>
+
+<span class="normal">    </span><span class="string">"ScanWrite16PtrSimpleLoop"</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="string">"ScanWrite16PtrUnrollLoop"</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="string">"ScanRead16PtrSimpleLoop"</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="string">"ScanRead16PtrUnrollLoop"</span><span class="symbol">,</span>
+
+<span class="normal">    </span><span class="string">"PermRead64SimpleLoop"</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="string">"PermRead64UnrollLoop"</span><span class="symbol">,</span>
+
+<span class="normal">    </span><span class="string">"PermRead32SimpleLoop"</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="string">"PermRead32UnrollLoop"</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="string">"cPermRead32SimpleLoop"</span><span class="symbol">,</span>
+
+<span class="normal">    NULL</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="comment">// ****************************************************************************</span>
+<span class="comment">// *** Functions to read RESULT key-value files into Result vector</span>
+
+<span class="keyword">struct</span><span class="normal"> </span><span class="classname">Result</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">// *** contains the field read from each RESULT line</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">string</span><span class="normal"> datetime</span><span class="symbol">;</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">string</span><span class="normal"> host</span><span class="symbol">;</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">string</span><span class="normal"> funcname</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">size_t</span><span class="normal"> nthreads</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">size_t</span><span class="normal"> areasize</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">size_t</span><span class="normal"> threadsize</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">size_t</span><span class="normal"> testsize</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">size_t</span><span class="normal"> repeats</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">size_t</span><span class="normal"> testvol</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">size_t</span><span class="normal"> testaccess</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="type">double</span><span class="normal"> time</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="type">double</span><span class="normal"> bandwidth</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="type">double</span><span class="normal"> rate</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">size_t</span><span class="normal"> funcname_id</span><span class="symbol">;</span><span class="normal">  </span><span class="comment">// index of funcname in funclist (for nicer order)</span>
+
+<span class="normal">    </span><span class="function">Result</span><span class="symbol">()</span>
+<span class="normal">        </span><span class="symbol">:</span><span class="normal"> </span><span class="function">nthreads</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">),</span><span class="normal"> </span><span class="function">areasize</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">),</span><span class="normal"> </span><span class="function">threadsize</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">),</span><span class="normal"> </span><span class="function">testsize</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">),</span><span class="normal"> </span><span class="function">repeats</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">),</span>
+<span class="normal">          </span><span class="function">testvol</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">),</span><span class="normal"> </span><span class="function">testaccess</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">),</span>
+<span class="normal">          </span><span class="function">time</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">),</span><span class="normal"> </span><span class="function">bandwidth</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">),</span><span class="normal"> </span><span class="function">rate</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// parse a single RESULT key-value and save its information</span>
+<span class="normal">    </span><span class="type">bool</span><span class="normal"> </span><span class="function">process_line_keyvalue</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">string</span><span class="symbol">&amp;</span><span class="normal"> key</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">string</span><span class="symbol">&amp;</span><span class="normal"> value</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="comment">/// sort order of results is: (funcname_id,nthreads,testsize)</span>
+<span class="normal">    </span><span class="type">bool</span><span class="normal"> </span><span class="keyword">operator</span><span class="symbol">&lt;</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> Result</span><span class="symbol">&amp;</span><span class="normal"> b</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">funcname_id </span><span class="symbol">==</span><span class="normal"> b</span><span class="symbol">.</span><span class="normal">funcname_id</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">nthreads </span><span class="symbol">==</span><span class="normal"> b</span><span class="symbol">.</span><span class="normal">nthreads</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">                </span><span class="keyword">return</span><span class="normal"> testsize </span><span class="symbol">&lt;</span><span class="normal"> b</span><span class="symbol">.</span><span class="normal">testsize</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">            </span><span class="keyword">return</span><span class="normal"> nthreads </span><span class="symbol">&lt;</span><span class="normal"> b</span><span class="symbol">.</span><span class="normal">nthreads</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> funcname_id </span><span class="symbol">&lt;</span><span class="normal"> b</span><span class="symbol">.</span><span class="normal">funcname_id</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="comment">/// global: hostname read from results</span>
+<span class="normal">std</span><span class="symbol">::</span><span class="usertype">string</span><span class="normal"> g_hostname</span><span class="symbol">;</span>
+
+<span class="comment">/// global: output filename of gnuplot pdf</span>
+<span class="normal">std</span><span class="symbol">::</span><span class="usertype">string</span><span class="normal"> g_gnuplot_output</span><span class="symbol">;</span>
+
+<span class="comment">/// global: the sorted results array</span>
+<span class="normal">std</span><span class="symbol">::</span><span class="usertype">vector&lt;Result&gt;</span><span class="normal"> g_results</span><span class="symbol">;</span>
+
+<span class="comment">/// parse a number as size_t with error detection</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="keyword">inline</span><span class="normal"> </span><span class="type">bool</span>
+<span class="function">parse_sizet</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">string</span><span class="symbol">&amp;</span><span class="normal"> value</span><span class="symbol">,</span><span class="normal"> size_t</span><span class="symbol">&amp;</span><span class="normal"> out</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="type">char</span><span class="symbol">*</span><span class="normal"> endp</span><span class="symbol">;</span>
+<span class="normal">    out </span><span class="symbol">=</span><span class="normal"> </span><span class="function">strtoull</span><span class="symbol">(</span><span class="normal">value</span><span class="symbol">.</span><span class="function">c_str</span><span class="symbol">(),</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">endp</span><span class="symbol">,</span><span class="normal"> </span><span class="number">10</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">endp </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">endp </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/// parse a number as double with error detection</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="keyword">inline</span><span class="normal"> </span><span class="type">bool</span>
+<span class="function">parse_double</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">string</span><span class="symbol">&amp;</span><span class="normal"> value</span><span class="symbol">,</span><span class="normal"> </span><span class="type">double</span><span class="symbol">&amp;</span><span class="normal"> out</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="type">char</span><span class="symbol">*</span><span class="normal"> endp</span><span class="symbol">;</span>
+<span class="normal">    out </span><span class="symbol">=</span><span class="normal"> </span><span class="function">strtod</span><span class="symbol">(</span><span class="normal">value</span><span class="symbol">.</span><span class="function">c_str</span><span class="symbol">(),</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">endp</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">endp </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">endp </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/// parse a funcname into funcname_id with error detection</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="keyword">inline</span><span class="normal"> </span><span class="type">bool</span>
+<span class="function">find_funcname</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">string</span><span class="symbol">&amp;</span><span class="normal"> funcname</span><span class="symbol">,</span><span class="normal"> size_t</span><span class="symbol">&amp;</span><span class="normal"> funcname_id</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> funclist</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">funcname </span><span class="symbol">==</span><span class="normal"> funclist</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">])</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            funcname_id </span><span class="symbol">=</span><span class="normal"> i</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="normal">cerr </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">"Unknown funcname="</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> funcname </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">"</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/// parse a single RESULT key-value and save its information</span>
+<span class="type">bool</span><span class="normal"> Result</span><span class="symbol">::</span><span class="function">process_line_keyvalue</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">string</span><span class="symbol">&amp;</span><span class="normal"> key</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">string</span><span class="symbol">&amp;</span><span class="normal"> value</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">key </span><span class="symbol">==</span><span class="normal"> </span><span class="string">"datetime"</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        datetime </span><span class="symbol">=</span><span class="normal"> value</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">key </span><span class="symbol">==</span><span class="normal"> </span><span class="string">"host"</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        host </span><span class="symbol">=</span><span class="normal"> value</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">key </span><span class="symbol">==</span><span class="normal"> </span><span class="string">"funcname"</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        funcname </span><span class="symbol">=</span><span class="normal"> value</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="function">find_funcname</span><span class="symbol">(</span><span class="normal">funcname</span><span class="symbol">,</span><span class="normal"> funcname_id</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">key </span><span class="symbol">==</span><span class="normal"> </span><span class="string">"nthreads"</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="function">parse_sizet</span><span class="symbol">(</span><span class="normal">value</span><span class="symbol">,</span><span class="normal"> nthreads</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">key </span><span class="symbol">==</span><span class="normal"> </span><span class="string">"areasize"</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="function">parse_sizet</span><span class="symbol">(</span><span class="normal">value</span><span class="symbol">,</span><span class="normal"> areasize</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">key </span><span class="symbol">==</span><span class="normal"> </span><span class="string">"threadsize"</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="function">parse_sizet</span><span class="symbol">(</span><span class="normal">value</span><span class="symbol">,</span><span class="normal"> threadsize</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">key </span><span class="symbol">==</span><span class="normal"> </span><span class="string">"testsize"</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="function">parse_sizet</span><span class="symbol">(</span><span class="normal">value</span><span class="symbol">,</span><span class="normal"> testsize</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">key </span><span class="symbol">==</span><span class="normal"> </span><span class="string">"repeats"</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="function">parse_sizet</span><span class="symbol">(</span><span class="normal">value</span><span class="symbol">,</span><span class="normal"> repeats</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">key </span><span class="symbol">==</span><span class="normal"> </span><span class="string">"testvol"</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="function">parse_sizet</span><span class="symbol">(</span><span class="normal">value</span><span class="symbol">,</span><span class="normal"> testvol</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">key </span><span class="symbol">==</span><span class="normal"> </span><span class="string">"testaccess"</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="function">parse_sizet</span><span class="symbol">(</span><span class="normal">value</span><span class="symbol">,</span><span class="normal"> testaccess</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">key </span><span class="symbol">==</span><span class="normal"> </span><span class="string">"time"</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="function">parse_double</span><span class="symbol">(</span><span class="normal">value</span><span class="symbol">,</span><span class="normal"> time</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">key </span><span class="symbol">==</span><span class="normal"> </span><span class="string">"bandwidth"</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="function">parse_double</span><span class="symbol">(</span><span class="normal">value</span><span class="symbol">,</span><span class="normal"> bandwidth</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">key </span><span class="symbol">==</span><span class="normal"> </span><span class="string">"rate"</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="function">parse_double</span><span class="symbol">(</span><span class="normal">value</span><span class="symbol">,</span><span class="normal"> rate</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/// process a single line containing RESULT key-value pairs</span>
+<span class="type">bool</span><span class="normal"> </span><span class="function">process_line</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">string</span><span class="symbol">&amp;</span><span class="normal"> line</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="normal">string</span><span class="symbol">::</span><span class="usertype">size_type</span><span class="normal"> splitpos </span><span class="symbol">=</span><span class="normal"> line</span><span class="symbol">.</span><span class="function">find</span><span class="symbol">(</span><span class="string">'</span><span class="specialchar">\t</span><span class="string">'</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">splitpos </span><span class="symbol">==</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">string</span><span class="symbol">::</span><span class="normal">npos</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">line</span><span class="symbol">.</span><span class="function">substr</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">,</span><span class="normal">splitpos</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> </span><span class="string">"RESULT"</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">Result</span><span class="normal"> result</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">do</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="normal">string</span><span class="symbol">::</span><span class="usertype">size_type</span><span class="normal"> splitprev </span><span class="symbol">=</span><span class="normal"> splitpos</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">        splitpos </span><span class="symbol">=</span><span class="normal"> line</span><span class="symbol">.</span><span class="function">find</span><span class="symbol">(</span><span class="string">'</span><span class="specialchar">\t</span><span class="string">'</span><span class="symbol">,</span><span class="normal"> splitprev</span><span class="symbol">);</span>
+
+<span class="normal">        std</span><span class="symbol">::</span><span class="usertype">string</span><span class="normal"> keyvalue </span><span class="symbol">=</span><span class="normal"> line</span><span class="symbol">.</span><span class="function">substr</span><span class="symbol">(</span><span class="normal">splitprev</span><span class="symbol">,</span><span class="normal"> splitpos </span><span class="symbol">-</span><span class="normal"> splitprev</span><span class="symbol">);</span>
+
+<span class="normal">        std</span><span class="symbol">::</span><span class="normal">string</span><span class="symbol">::</span><span class="usertype">size_type</span><span class="normal"> equalpos </span><span class="symbol">=</span><span class="normal"> keyvalue</span><span class="symbol">.</span><span class="function">find</span><span class="symbol">(</span><span class="string">'='</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">equalpos </span><span class="symbol">!=</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">string</span><span class="symbol">::</span><span class="normal">npos</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">result</span><span class="symbol">.</span><span class="function">process_line_keyvalue</span><span class="symbol">(</span><span class="normal"> keyvalue</span><span class="symbol">.</span><span class="function">substr</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">,</span><span class="normal">equalpos</span><span class="symbol">),</span>
+<span class="normal">                                               keyvalue</span><span class="symbol">.</span><span class="function">substr</span><span class="symbol">(</span><span class="normal">equalpos</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">))</span>
+<span class="normal">            </span><span class="cbracket">{</span>
+<span class="normal">                </span><span class="function">WARN</span><span class="symbol">(</span><span class="string">"Invalid key-value pair: "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> keyvalue</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="keyword">else</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">WARN</span><span class="symbol">(</span><span class="string">"Invalid key-value pair: "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> keyvalue</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">while</span><span class="symbol">(</span><span class="normal">splitpos </span><span class="symbol">!=</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">string</span><span class="symbol">::</span><span class="normal">npos</span><span class="symbol">);</span>
+
+<span class="normal">    g_results</span><span class="symbol">.</span><span class="function">push_back</span><span class="symbol">(</span><span class="normal">result</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/// read a stream of RESULT lines</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">process_stream</span><span class="symbol">(</span><span class="normal">std</span><span class="symbol">::</span><span class="normal">istream</span><span class="symbol">&amp;</span><span class="normal"> in</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">string</span><span class="normal"> line</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">std</span><span class="symbol">::</span><span class="function">getline</span><span class="symbol">(</span><span class="normal">in</span><span class="symbol">,</span><span class="normal">line</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="function">process_line</span><span class="symbol">(</span><span class="normal">line</span><span class="symbol">))</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">WARN</span><span class="symbol">(</span><span class="string">"Non-RESULT line: "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> line</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/// open a file as a stream</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">process_file</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="symbol">*</span><span class="normal"> path</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">ifstream</span><span class="normal"> </span><span class="function">in</span><span class="symbol">(</span><span class="normal">path</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">in</span><span class="symbol">.</span><span class="function">good</span><span class="symbol">())</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">ERR</span><span class="symbol">(</span><span class="string">"Error opening file "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> path </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">": "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="function">strerror</span><span class="symbol">(</span><span class="normal">errno</span><span class="symbol">));</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">process_stream</span><span class="symbol">(</span><span class="normal">in</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/// check for multiple hosts</span>
+<span class="type">bool</span><span class="normal"> </span><span class="function">check_multiple_hosts</span><span class="symbol">()</span>
+<span class="cbracket">{</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">set&lt;std::string&gt;</span><span class="normal"> hostnames</span><span class="symbol">;</span>
+<span class="normal">    g_hostname </span><span class="symbol">=</span><span class="normal"> g_results</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">].</span><span class="normal">host</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> g_results</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        hostnames</span><span class="symbol">.</span><span class="function">insert</span><span class="symbol">(</span><span class="normal"> g_results</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">].</span><span class="normal">host </span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">hostnames</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">ERRX</span><span class="symbol">(</span><span class="string">"Multiple different hostnames found in results:"</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="symbol">(</span><span class="normal">std</span><span class="symbol">::</span><span class="normal">set</span><span class="symbol">&lt;</span><span class="normal">std</span><span class="symbol">::</span><span class="normal">string</span><span class="symbol">&gt;::</span><span class="usertype">const_iterator</span><span class="normal"> hi </span><span class="symbol">=</span><span class="normal"> hostnames</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">();</span>
+<span class="normal">            hi </span><span class="symbol">!=</span><span class="normal"> hostnames</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">();</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">hi</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">ERRX</span><span class="symbol">(</span><span class="string">" "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">hi</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="function">ERR</span><span class="symbol">(</span><span class="string">""</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="comment">// ****************************************************************************</span>
+<span class="comment">// *** Output various plots generated from results</span>
+
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">P</span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">)</span><span class="normal">    </span><span class="keyword">do</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> os </span><span class="symbol">&lt;&lt;</span><span class="normal"> x </span><span class="symbol">&lt;&lt;</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">endl</span><span class="symbol">;</span><span class="normal"> </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">while</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">)</span>
+
+<span class="comment">/// join a vector of saved plot lines and output data stream afterwards</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">join_plotlines</span><span class="symbol">(</span><span class="normal">std</span><span class="symbol">::</span><span class="normal">ostream</span><span class="symbol">&amp;</span><span class="normal"> os</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">vector</span><span class="symbol">&lt;</span><span class="normal">std</span><span class="symbol">::</span><span class="normal">string</span><span class="symbol">&gt;&amp;</span><span class="normal"> plotlines</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">ostringstream</span><span class="symbol">&amp;</span><span class="normal"> datass</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">plotlines</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">return</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"plot </span><span class="specialchar">\\</span><span class="string">"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> plotlines</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        os </span><span class="symbol">&lt;&lt;</span><span class="normal"> plotlines</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">!=</span><span class="normal"> plotlines</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">()-</span><span class="number">1</span><span class="symbol">)</span><span class="normal"> os </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">", </span><span class="specialchar">\\</span><span class="string">"</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">endl</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="keyword">else</span><span class="normal"> os </span><span class="symbol">&lt;&lt;</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">endl</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    os </span><span class="symbol">&lt;&lt;</span><span class="normal"> datass</span><span class="symbol">.</span><span class="function">str</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">endl</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/// use STL stringstream to stringify a value</span>
+<span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">T</span><span class="symbol">&gt;</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="keyword">inline</span><span class="normal"> std</span><span class="symbol">::</span><span class="usertype">string</span><span class="normal"> </span><span class="function">toStr</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> T</span><span class="symbol">&amp;</span><span class="normal"> v</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">ostringstream</span><span class="normal"> s</span><span class="symbol">;</span><span class="normal"> s </span><span class="symbol">&lt;&lt;</span><span class="normal"> v</span><span class="symbol">;</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> s</span><span class="symbol">.</span><span class="function">str</span><span class="symbol">();</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/// filter functional type used in plot procedures</span>
+<span class="keyword">typedef</span><span class="normal"> </span><span class="type">bool</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">filter_type</span><span class="symbol">)(</span><span class="keyword">const</span><span class="normal"> Result</span><span class="symbol">&amp;</span><span class="normal"> r</span><span class="symbol">);</span>
+
+<span class="comment">/// data formatting functional used in plot procedures</span>
+<span class="keyword">typedef</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">data_print_func</span><span class="symbol">)(</span><span class="normal">std</span><span class="symbol">::</span><span class="normal">ostream</span><span class="symbol">&amp;</span><span class="normal"> datass</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> Result</span><span class="symbol">&amp;</span><span class="normal"> r</span><span class="symbol">);</span>
+
+<span class="comment">/// Plot procedure: iterate over results, filter them and output a plot</span>
+<span class="comment">/// containing funcname plotlines</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">plot_funcname_iteration</span><span class="symbol">(</span><span class="normal">std</span><span class="symbol">::</span><span class="normal">ostream</span><span class="symbol">&amp;</span><span class="normal"> os</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">filter_type</span><span class="normal"> filter</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">data_print_func</span><span class="normal"> print_func</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">ostringstream</span><span class="normal"> datass</span><span class="symbol">;</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">vector&lt;std::string&gt;</span><span class="normal"> plotlines</span><span class="symbol">;</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">string</span><span class="normal"> cfuncname</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">// current funcname in iteration</span>
+<span class="normal">    </span><span class="usertype">size_t</span><span class="normal"> ctestsize </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">// iterate over all results in order and collect plotlines</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> g_results</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">const</span><span class="normal"> Result</span><span class="symbol">&amp;</span><span class="normal"> r </span><span class="symbol">=</span><span class="normal"> g_results</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="function">filter</span><span class="symbol">(</span><span class="normal">r</span><span class="symbol">))</span><span class="normal"> </span><span class="keyword">continue</span><span class="symbol">;</span>
+
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cfuncname </span><span class="symbol">==</span><span class="normal"> r</span><span class="symbol">.</span><span class="normal">funcname </span><span class="symbol">&amp;&amp;</span><span class="normal"> ctestsize </span><span class="symbol">==</span><span class="normal"> r</span><span class="symbol">.</span><span class="normal">testsize</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">WARN</span><span class="symbol">(</span><span class="string">"Multiple results found for "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> cfuncname</span>
+<span class="normal">                 </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">" testsize "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> ctestsize </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">", ignoring second."</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="keyword">continue</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cfuncname </span><span class="symbol">!=</span><span class="normal"> r</span><span class="symbol">.</span><span class="normal">funcname</span><span class="symbol">)</span><span class="normal"> </span><span class="comment">// start new plot line</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">datass</span><span class="symbol">.</span><span class="function">str</span><span class="symbol">().</span><span class="function">size</span><span class="symbol">())</span><span class="normal"> datass </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">"e"</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">endl</span><span class="symbol">;</span>
+
+<span class="normal">            plotlines</span><span class="symbol">.</span><span class="function">push_back</span><span class="symbol">(</span><span class="string">"'-' using 1:2 title '"</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> r</span><span class="symbol">.</span><span class="normal">funcname </span><span class="symbol">+</span><span class="normal"> </span><span class="string">"' with linespoints"</span><span class="symbol">);</span>
+<span class="normal">            cfuncname </span><span class="symbol">=</span><span class="normal"> r</span><span class="symbol">.</span><span class="normal">funcname</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        </span><span class="function">print_func</span><span class="symbol">(</span><span class="normal">datass</span><span class="symbol">,</span><span class="normal"> r</span><span class="symbol">);</span>
+
+<span class="normal">        ctestsize </span><span class="symbol">=</span><span class="normal"> r</span><span class="symbol">.</span><span class="normal">testsize</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">datass</span><span class="symbol">.</span><span class="function">str</span><span class="symbol">().</span><span class="function">size</span><span class="symbol">())</span><span class="normal"> datass </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">"e</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="function">join_plotlines</span><span class="symbol">(</span><span class="normal">os</span><span class="symbol">,</span><span class="normal"> plotlines</span><span class="symbol">,</span><span class="normal"> datass</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/// plot the bandwidth in GiB/s for each Result</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">plot_data_bandwidth</span><span class="symbol">(</span><span class="normal">std</span><span class="symbol">::</span><span class="normal">ostream</span><span class="symbol">&amp;</span><span class="normal"> datass</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> Result</span><span class="symbol">&amp;</span><span class="normal"> r</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    datass </span><span class="symbol">&lt;&lt;</span><span class="normal"> std</span><span class="symbol">::</span><span class="function">setprecision</span><span class="symbol">(</span><span class="number">20</span><span class="symbol">)</span>
+<span class="normal">           </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="function">log</span><span class="symbol">(</span><span class="normal">r</span><span class="symbol">.</span><span class="normal">testsize</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">/</span><span class="normal"> </span><span class="function">log</span><span class="symbol">(</span><span class="number">2</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">"</span><span class="specialchar">\t</span><span class="string">"</span>
+<span class="normal">           </span><span class="symbol">&lt;&lt;</span><span class="normal"> r</span><span class="symbol">.</span><span class="normal">bandwidth </span><span class="symbol">/</span><span class="normal"> </span><span class="number">1024</span><span class="symbol">/</span><span class="number">1024</span><span class="symbol">/</span><span class="number">1024</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">"</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/// plot the latency (access time) in nanoseconds for each Result</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">plot_data_latency</span><span class="symbol">(</span><span class="normal">std</span><span class="symbol">::</span><span class="normal">ostream</span><span class="symbol">&amp;</span><span class="normal"> datass</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> Result</span><span class="symbol">&amp;</span><span class="normal"> r</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    datass </span><span class="symbol">&lt;&lt;</span><span class="normal"> std</span><span class="symbol">::</span><span class="function">setprecision</span><span class="symbol">(</span><span class="number">20</span><span class="symbol">)</span>
+<span class="normal">           </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="function">log</span><span class="symbol">(</span><span class="normal">r</span><span class="symbol">.</span><span class="normal">testsize</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">/</span><span class="normal"> </span><span class="function">log</span><span class="symbol">(</span><span class="number">2</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">"</span><span class="specialchar">\t</span><span class="string">"</span>
+<span class="normal">           </span><span class="symbol">&lt;&lt;</span><span class="normal"> r</span><span class="symbol">.</span><span class="normal">rate </span><span class="symbol">*</span><span class="normal"> </span><span class="number">1e9</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">"</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/// show only sequential results with procs = 1</span>
+<span class="type">bool</span><span class="normal"> </span><span class="function">filter_sequential</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> Result</span><span class="symbol">&amp;</span><span class="normal"> r</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">r</span><span class="symbol">.</span><span class="normal">nthreads </span><span class="symbol">==</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="type">bool</span><span class="normal"> </span><span class="function">filter_sequential_nonpermutation</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> Result</span><span class="symbol">&amp;</span><span class="normal"> r</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">r</span><span class="symbol">.</span><span class="normal">nthreads </span><span class="symbol">==</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">r</span><span class="symbol">.</span><span class="normal">funcname</span><span class="symbol">.</span><span class="function">find</span><span class="symbol">(</span><span class="string">"Perm"</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">string</span><span class="symbol">::</span><span class="normal">npos</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="type">bool</span><span class="normal"> </span><span class="function">filter_sequential_64bit_reads</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> Result</span><span class="symbol">&amp;</span><span class="normal"> r</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">r</span><span class="symbol">.</span><span class="normal">nthreads </span><span class="symbol">==</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">r</span><span class="symbol">.</span><span class="normal">funcname</span><span class="symbol">.</span><span class="function">find</span><span class="symbol">(</span><span class="string">"Read64"</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">string</span><span class="symbol">::</span><span class="normal">npos</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/// Plots showing just sequential memory bandwidth and latency</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">plot_sequential</span><span class="symbol">(</span><span class="normal">std</span><span class="symbol">::</span><span class="normal">ostream</span><span class="symbol">&amp;</span><span class="normal"> os</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set key top right"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set title '"</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> g_hostname </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">" - One Thread Memory Bandwidth'"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set ylabel 'Bandwidth [GiB/s]'"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set yrange [0:*]"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">plot_funcname_iteration</span><span class="symbol">(</span><span class="normal">os</span><span class="symbol">,</span><span class="normal"> filter_sequential</span><span class="symbol">,</span><span class="normal"> plot_data_bandwidth</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set key top left"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set title '"</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> g_hostname </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">" - One Thread Memory Latency'"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set ylabel 'Access Time [ns]'"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">plot_funcname_iteration</span><span class="symbol">(</span><span class="normal">os</span><span class="symbol">,</span><span class="normal"> filter_sequential</span><span class="symbol">,</span><span class="normal"> plot_data_latency</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set key top left"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set title '"</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> g_hostname </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">" - One Thread Memory Latency (excluding Permutation)'"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set ylabel 'Access Time [ns]'"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">plot_funcname_iteration</span><span class="symbol">(</span><span class="normal">os</span><span class="symbol">,</span><span class="normal"> filter_sequential_nonpermutation</span><span class="symbol">,</span><span class="normal"> plot_data_latency</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set key top right"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set title '"</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> g_hostname </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">" - One Thread Memory Bandwidth (only 64-bit Reads)'"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set ylabel 'Bandwidth [GiB/s]'"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">plot_funcname_iteration</span><span class="symbol">(</span><span class="normal">os</span><span class="symbol">,</span><span class="normal"> filter_sequential_64bit_reads</span><span class="symbol">,</span><span class="normal"> plot_data_bandwidth</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/// Plot procedure: iterate over results, filter them to show only one funcname</span>
+<span class="comment">/// and output a plot containing plotlines for each nthreads</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">plot_parallel_iteration</span><span class="symbol">(</span><span class="normal">std</span><span class="symbol">::</span><span class="normal">ostream</span><span class="symbol">&amp;</span><span class="normal"> os</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">string</span><span class="symbol">&amp;</span><span class="normal"> funcname</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">data_print_func</span><span class="normal"> print_func</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">ostringstream</span><span class="normal"> datass</span><span class="symbol">;</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">vector&lt;std::string&gt;</span><span class="normal"> plotlines</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">size_t</span><span class="normal"> cnthreads </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal">    </span><span class="comment">// current nthreads</span>
+<span class="normal">    </span><span class="usertype">size_t</span><span class="normal"> ctestsize </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal">  </span><span class="comment">// current testsize</span>
+
+<span class="normal">    </span><span class="comment">// iterate over all results in order, separate funcnames and collect plotlines for each funcname</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> g_results</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">const</span><span class="normal"> Result</span><span class="symbol">&amp;</span><span class="normal"> r </span><span class="symbol">=</span><span class="normal"> g_results</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">r</span><span class="symbol">.</span><span class="normal">funcname </span><span class="symbol">!=</span><span class="normal"> funcname</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">continue</span><span class="symbol">;</span>
+
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cnthreads </span><span class="symbol">==</span><span class="normal"> r</span><span class="symbol">.</span><span class="normal">nthreads </span><span class="symbol">&amp;&amp;</span><span class="normal"> ctestsize </span><span class="symbol">==</span><span class="normal"> r</span><span class="symbol">.</span><span class="normal">testsize</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">WARN</span><span class="symbol">(</span><span class="string">"Multiple results found for "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> funcname </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">" nthreads "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> cnthreads</span>
+<span class="normal">                 </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">" testsize "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> ctestsize </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">", ignoring second."</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="keyword">continue</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cnthreads </span><span class="symbol">!=</span><span class="normal"> r</span><span class="symbol">.</span><span class="normal">nthreads</span><span class="symbol">)</span><span class="normal"> </span><span class="comment">// start new plot line</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">datass</span><span class="symbol">.</span><span class="function">str</span><span class="symbol">().</span><span class="function">size</span><span class="symbol">())</span><span class="normal"> datass </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">"e</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">;</span>
+
+<span class="normal">            plotlines</span><span class="symbol">.</span><span class="function">push_back</span><span class="symbol">(</span><span class="string">"'-' using 1:2 title 'p="</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="function">toStr</span><span class="symbol">(</span><span class="normal">r</span><span class="symbol">.</span><span class="normal">nthreads</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="string">"' with linespoints"</span><span class="symbol">);</span>
+<span class="normal">            cnthreads </span><span class="symbol">=</span><span class="normal"> r</span><span class="symbol">.</span><span class="normal">nthreads</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        </span><span class="function">print_func</span><span class="symbol">(</span><span class="normal">datass</span><span class="symbol">,</span><span class="normal"> r</span><span class="symbol">);</span>
+
+<span class="normal">        ctestsize </span><span class="symbol">=</span><span class="normal"> r</span><span class="symbol">.</span><span class="normal">testsize</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">datass</span><span class="symbol">.</span><span class="function">str</span><span class="symbol">().</span><span class="function">size</span><span class="symbol">())</span><span class="normal"> datass </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">"e</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="function">join_plotlines</span><span class="symbol">(</span><span class="normal">os</span><span class="symbol">,</span><span class="normal"> plotlines</span><span class="symbol">,</span><span class="normal"> datass</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/// Plot procedure: iterate over results, filter them to show only one funcname</span>
+<span class="comment">/// and output a plot containing plotlines for each nthreads. Calculate the</span>
+<span class="comment">/// speedup of memory bandwidth over the nthreads=1 entry.</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">plot_parallel_speedup_bandwidth</span><span class="symbol">(</span><span class="normal">std</span><span class="symbol">::</span><span class="normal">ostream</span><span class="symbol">&amp;</span><span class="normal"> os</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">string</span><span class="symbol">&amp;</span><span class="normal"> funcname</span><span class="symbol">,</span><span class="normal"> </span><span class="type">double</span><span class="symbol">&amp;</span><span class="normal"> avgspeedup</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">ostringstream</span><span class="normal"> datass</span><span class="symbol">;</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">vector&lt;std::string&gt;</span><span class="normal"> plotlines</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">size_t</span><span class="normal"> cnthreads </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal">    </span><span class="comment">// current nthreads</span>
+<span class="normal">    </span><span class="usertype">size_t</span><span class="normal"> ctestsize </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal">  </span><span class="comment">// current testsize</span>
+
+<span class="normal">    avgspeedup </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">size_t</span><span class="normal"> cntspeedup </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">map&lt;size_t,double&gt;</span><span class="normal"> seqbandwidth</span><span class="symbol">;</span><span class="normal">       </span><span class="comment">// map areasize -&gt; sequential bandwidth (nthreads=1)</span>
+<span class="normal">    </span><span class="comment">// areasize is used instead of testsize, because testsize may depend on rounding due to nthreads.</span>
+
+<span class="normal">    </span><span class="comment">// iterate over all results in order, separate funcnames and collect plotlines for each funcname</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> g_results</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">const</span><span class="normal"> Result</span><span class="symbol">&amp;</span><span class="normal"> r </span><span class="symbol">=</span><span class="normal"> g_results</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">r</span><span class="symbol">.</span><span class="normal">funcname </span><span class="symbol">!=</span><span class="normal"> funcname</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">continue</span><span class="symbol">;</span>
+
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cnthreads </span><span class="symbol">==</span><span class="normal"> r</span><span class="symbol">.</span><span class="normal">nthreads </span><span class="symbol">&amp;&amp;</span><span class="normal"> ctestsize </span><span class="symbol">==</span><span class="normal"> r</span><span class="symbol">.</span><span class="normal">testsize</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">WARN</span><span class="symbol">(</span><span class="string">"Multiple results found for "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> funcname </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">" nthreads "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> cnthreads</span>
+<span class="normal">                 </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">" testsize "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> ctestsize </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">", ignoring second."</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="keyword">continue</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cnthreads </span><span class="symbol">!=</span><span class="normal"> r</span><span class="symbol">.</span><span class="normal">nthreads</span><span class="symbol">)</span><span class="normal"> </span><span class="comment">// start new plot line</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">datass</span><span class="symbol">.</span><span class="function">str</span><span class="symbol">().</span><span class="function">size</span><span class="symbol">())</span><span class="normal"> datass </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">"e</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">;</span>
+
+<span class="normal">            plotlines</span><span class="symbol">.</span><span class="function">push_back</span><span class="symbol">(</span><span class="string">"'-' using 1:2 title 'p="</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="function">toStr</span><span class="symbol">(</span><span class="normal">r</span><span class="symbol">.</span><span class="normal">nthreads</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="string">"' with linespoints"</span><span class="symbol">);</span>
+<span class="normal">            cnthreads </span><span class="symbol">=</span><span class="normal"> r</span><span class="symbol">.</span><span class="normal">nthreads</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">r</span><span class="symbol">.</span><span class="normal">nthreads </span><span class="symbol">==</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            seqbandwidth</span><span class="symbol">[</span><span class="normal">r</span><span class="symbol">.</span><span class="normal">areasize</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> r</span><span class="symbol">.</span><span class="normal">bandwidth</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">seqbandwidth</span><span class="symbol">[</span><span class="normal">r</span><span class="symbol">.</span><span class="normal">areasize</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">WARN</span><span class="symbol">(</span><span class="string">"Missing sequential bandwidth in speedup plot for "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> funcname </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">" nthreads "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> cnthreads</span>
+<span class="normal">                 </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">" testsize "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> ctestsize </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">", skipping."</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="keyword">else</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            datass </span><span class="symbol">&lt;&lt;</span><span class="normal"> std</span><span class="symbol">::</span><span class="function">setprecision</span><span class="symbol">(</span><span class="number">20</span><span class="symbol">)</span>
+<span class="normal">                   </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="function">log</span><span class="symbol">(</span><span class="normal">r</span><span class="symbol">.</span><span class="normal">testsize</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">/</span><span class="normal"> </span><span class="function">log</span><span class="symbol">(</span><span class="number">2</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">"</span><span class="specialchar">\t</span><span class="string">"</span>
+<span class="normal">                   </span><span class="symbol">&lt;&lt;</span><span class="normal"> r</span><span class="symbol">.</span><span class="normal">bandwidth </span><span class="symbol">/</span><span class="normal"> seqbandwidth</span><span class="symbol">[</span><span class="normal">r</span><span class="symbol">.</span><span class="normal">areasize</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">"</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">;</span>
+
+<span class="normal">            avgspeedup </span><span class="symbol">+=</span><span class="normal"> r</span><span class="symbol">.</span><span class="normal">bandwidth </span><span class="symbol">/</span><span class="normal"> seqbandwidth</span><span class="symbol">[</span><span class="normal">r</span><span class="symbol">.</span><span class="normal">areasize</span><span class="symbol">];</span>
+<span class="normal">            cntspeedup</span><span class="symbol">++;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        ctestsize </span><span class="symbol">=</span><span class="normal"> r</span><span class="symbol">.</span><span class="normal">testsize</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">datass</span><span class="symbol">.</span><span class="function">str</span><span class="symbol">().</span><span class="function">size</span><span class="symbol">())</span><span class="normal"> datass </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">"e</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="function">join_plotlines</span><span class="symbol">(</span><span class="normal">os</span><span class="symbol">,</span><span class="normal"> plotlines</span><span class="symbol">,</span><span class="normal"> datass</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="comment">// divide by number of speedup values found</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cntspeedup </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">        avgspeedup </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">else</span>
+<span class="normal">        avgspeedup </span><span class="symbol">/=</span><span class="normal"> cntspeedup</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> </span><span class="function">plot_parallel_funcname</span><span class="symbol">(</span><span class="normal">std</span><span class="symbol">::</span><span class="normal">ostream</span><span class="symbol">&amp;</span><span class="normal"> os</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">string</span><span class="symbol">&amp;</span><span class="normal"> funcname</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set key top right"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set title '"</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> g_hostname </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">" - Memory Bandwidth - "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> funcname</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set ylabel 'Bandwidth [GiB/s]'"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">plot_parallel_iteration</span><span class="symbol">(</span><span class="normal">os</span><span class="symbol">,</span><span class="normal"> funcname</span><span class="symbol">,</span><span class="normal"> plot_data_bandwidth</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set key top left"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set title '"</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> g_hostname </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">" - Memory Latency - "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> funcname</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set ylabel 'Access Time [ns]'"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">plot_parallel_iteration</span><span class="symbol">(</span><span class="normal">os</span><span class="symbol">,</span><span class="normal"> funcname</span><span class="symbol">,</span><span class="normal"> plot_data_latency</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set key top right"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set title '"</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> g_hostname </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">" - Speedup of Memory Bandwidth - "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> funcname</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set ylabel 'Bandwidth Speedup [1]'"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="type">double</span><span class="normal"> avgspeedup</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="function">plot_parallel_speedup_bandwidth</span><span class="symbol">(</span><span class="normal">os</span><span class="symbol">,</span><span class="normal"> funcname</span><span class="symbol">,</span><span class="normal"> avgspeedup</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="comment">// replot last plot with other yrange scale</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set title '"</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> g_hostname </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">" - Speedup of Memory Bandwidth (enlarged) - "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> funcname</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set yrange [*:"</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> avgspeedup </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">"]"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">plot_parallel_speedup_bandwidth</span><span class="symbol">(</span><span class="normal">os</span><span class="symbol">,</span><span class="normal"> funcname</span><span class="symbol">,</span><span class="normal"> avgspeedup</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set yrange [*:*]"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">""</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"##############################"</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> </span><span class="function">plot_parallel</span><span class="symbol">(</span><span class="normal">std</span><span class="symbol">::</span><span class="normal">ostream</span><span class="symbol">&amp;</span><span class="normal"> os</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> funclist</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">plot_parallel_funcname</span><span class="symbol">(</span><span class="normal">os</span><span class="symbol">,</span><span class="normal">funclist</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> </span><span class="function">output_gnuplot</span><span class="symbol">(</span><span class="normal">std</span><span class="symbol">::</span><span class="normal">ostream</span><span class="symbol">&amp;</span><span class="normal"> os</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set terminal pdf size 28cm,19.6cm linewidth 2.0 font </span><span class="specialchar">\"</span><span class="string">Arial,18</span><span class="specialchar">\"</span><span class="string">"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set output '"</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> g_gnuplot_output </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">"'"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">""</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set pointsize 0.7"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set style line 6 lc rgb '#f0b000'"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set style line 15 lc rgb '#f0b000'"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set style line 24 lc rgb '#f0b000'"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set style line 33 lc rgb '#f0b000'"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set style line 42 lc rgb '#f0b000'"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set style line 51 lc rgb '#f0b000'"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set style line 60 lc rgb '#f0b000'"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set style increment user"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">""</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set grid xtics ytics"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set xtics 1"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set xlabel 'Array Size log_2 [B]'"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">P</span><span class="symbol">(</span><span class="string">"set label 1 'pmbw "</span><span class="normal"> VERSION </span><span class="string">"' right at screen 0.98, screen 0.02"</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="function">plot_sequential</span><span class="symbol">(</span><span class="normal">os</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">plot_parallel</span><span class="symbol">(</span><span class="normal">os</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/// main: read stdin or from all files on the command line</span>
+<span class="type">int</span><span class="normal"> </span><span class="function">main</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> argc</span><span class="symbol">,</span><span class="normal"> </span><span class="type">char</span><span class="symbol">*</span><span class="normal"> argv</span><span class="symbol">[])</span>
+<span class="cbracket">{</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">string</span><span class="normal"> opt_hostname_override</span><span class="symbol">;</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">string</span><span class="normal"> opt_gnuplot_output_override</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">argc </span><span class="symbol">==</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">process_stream</span><span class="symbol">(</span><span class="normal">std</span><span class="symbol">::</span><span class="normal">cin</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="comment">// *** parse command line options</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> opt</span><span class="symbol">;</span>
+
+<span class="normal">        </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">opt </span><span class="symbol">=</span><span class="normal"> </span><span class="function">getopt</span><span class="symbol">(</span><span class="normal">argc</span><span class="symbol">,</span><span class="normal"> argv</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"vh:o:"</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="keyword">switch</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">opt</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="keyword">case</span><span class="normal"> </span><span class="string">'h'</span><span class="symbol">:</span>
+<span class="normal">                opt_hostname_override </span><span class="symbol">=</span><span class="normal"> optarg</span><span class="symbol">;</span>
+<span class="normal">                </span><span class="function">ERR</span><span class="symbol">(</span><span class="string">"Setting hostname override to '"</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> opt_hostname_override </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">"'"</span><span class="symbol">);</span>
+<span class="normal">                </span><span class="keyword">break</span><span class="symbol">;</span>
+
+<span class="normal">            </span><span class="keyword">case</span><span class="normal"> </span><span class="string">'o'</span><span class="symbol">:</span>
+<span class="normal">                opt_gnuplot_output_override </span><span class="symbol">=</span><span class="normal"> optarg</span><span class="symbol">;</span>
+<span class="normal">                </span><span class="function">ERR</span><span class="symbol">(</span><span class="string">"Setting gnuplot output override to '"</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> opt_gnuplot_output_override </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">"'"</span><span class="symbol">);</span>
+<span class="normal">                </span><span class="keyword">break</span><span class="symbol">;</span>
+
+<span class="normal">            </span><span class="keyword">case</span><span class="normal"> </span><span class="string">'v'</span><span class="symbol">:</span>
+<span class="normal">                gopt_warnings </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="normal">                </span><span class="function">ERR</span><span class="symbol">(</span><span class="string">"Outputting verbose warnings when processing plots."</span><span class="symbol">);</span>
+<span class="normal">                </span><span class="keyword">break</span><span class="symbol">;</span>
+
+<span class="normal">            </span><span class="keyword">default</span><span class="symbol">:</span><span class="normal"> </span><span class="comment">/* '?' */</span>
+<span class="normal">                </span><span class="function">ERR</span><span class="symbol">(</span><span class="string">"Usage: "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> argv</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">" [-v] [-h hostname] [files...]"</span><span class="symbol">);</span>
+<span class="normal">                </span><span class="function">exit</span><span class="symbol">(</span><span class="normal">EXIT_FAILURE</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">optind </span><span class="symbol">&lt;</span><span class="normal"> argc</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span><span class="comment">// process files</span>
+<span class="normal">            </span><span class="function">process_file</span><span class="symbol">(</span><span class="normal">argv</span><span class="symbol">[</span><span class="normal">optind</span><span class="symbol">++]);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">g_results</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">ERR</span><span class="symbol">(</span><span class="string">"No RESULT lines found in input."</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">ERR</span><span class="symbol">(</span><span class="string">"Parsed "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> g_results</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">" RESULT lines in input."</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="function">check_multiple_hosts</span><span class="symbol">())</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">opt_hostname_override</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">())</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">ERR</span><span class="symbol">(</span><span class="string">"Use -h &lt;hostname&gt; to override the hostnames if this is intentional."</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="keyword">return</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">opt_hostname_override</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">())</span>
+<span class="normal">        g_hostname </span><span class="symbol">=</span><span class="normal"> opt_hostname_override</span><span class="symbol">;</span>
+
+<span class="normal">    g_gnuplot_output </span><span class="symbol">=</span><span class="normal"> </span><span class="string">"plots-"</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> g_hostname </span><span class="symbol">+</span><span class="normal"> </span><span class="string">".pdf"</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">opt_gnuplot_output_override</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">())</span>
+<span class="normal">        g_gnuplot_output </span><span class="symbol">=</span><span class="normal"> opt_gnuplot_output_override</span><span class="symbol">;</span>
+
+<span class="normal">    std</span><span class="symbol">::</span><span class="function">sort</span><span class="symbol">(</span><span class="normal">g_results</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">(),</span><span class="normal"> g_results</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">());</span>
+
+<span class="normal">    </span><span class="function">output_gnuplot</span><span class="symbol">(</span><span class="normal">std</span><span class="symbol">::</span><span class="normal">cout</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

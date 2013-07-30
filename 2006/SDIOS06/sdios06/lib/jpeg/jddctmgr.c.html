@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2006/SDIOS06/sdios06/lib/jpeg/jddctmgr.c - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal3.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2006/">2006</a> / <a href="/2006/SDIOS06/">SDIOS06</a> / <a href="/2006/SDIOS06/sdios06/">sdios06</a> / <a href="/2006/SDIOS06/sdios06/lib/">lib</a> / <a href="/2006/SDIOS06/sdios06/lib/jpeg/">jpeg</a> / <a href="/2006/SDIOS06/sdios06/lib/jpeg/jddctmgr.c.html">jddctmgr.c</a> (<a href="/2006/SDIOS06/sdios06/lib/jpeg/jddctmgr.c">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">/*</span>
+<span class="comment"> * jddctmgr.c</span>
+<span class="comment"> *</span>
+<span class="comment"> * Copyright (C) 1994-1996, Thomas G. Lane.</span>
+<span class="comment"> * This file is part of the Independent JPEG Group's software.</span>
+<span class="comment"> * For conditions of distribution and use, see the accompanying README file.</span>
+<span class="comment"> *</span>
+<span class="comment"> * This file contains the inverse-DCT management logic.</span>
+<span class="comment"> * This code selects a particular IDCT implementation to be used,</span>
+<span class="comment"> * and it performs related housekeeping chores.  No code in this file</span>
+<span class="comment"> * is executed per IDCT step, only during output pass setup.</span>
+<span class="comment"> *</span>
+<span class="comment"> * Note that the IDCT routines are responsible for performing coefficient</span>
+<span class="comment"> * dequantization as well as the IDCT proper.  This module sets up the</span>
+<span class="comment"> * dequantization multiplier table needed by the IDCT routine.</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#define</span><span class="normal"> JPEG_INTERNALS</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"jinclude.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"jpeglib.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"jdct.h"</span><span class="normal">		</span><span class="comment">/* Private declarations for DCT subsystem */</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * The decompressor input side (jdinput.c) saves away the appropriate</span>
+<span class="comment"> * quantization table for each component at the start of the first scan</span>
+<span class="comment"> * involving that component.  (This is necessary in order to correctly</span>
+<span class="comment"> * decode files that reuse Q-table slots.)</span>
+<span class="comment"> * When we are ready to make an output pass, the saved Q-table is converted</span>
+<span class="comment"> * to a multiplier table that will actually be used by the IDCT routine.</span>
+<span class="comment"> * The multiplier table contents are IDCT-method-dependent.  To support</span>
+<span class="comment"> * application changes in IDCT method between scans, we can remake the</span>
+<span class="comment"> * multiplier tables if necessary.</span>
+<span class="comment"> * In buffered-image mode, the first output pass may occur before any data</span>
+<span class="comment"> * has been seen for some components, and thus before their Q-tables have</span>
+<span class="comment"> * been saved away.  To handle this case, multiplier tables are preset</span>
+<span class="comment"> * to zeroes; the result of the IDCT will be a neutral gray level.</span>
+<span class="comment"> */</span>
+
+
+<span class="comment">/* Private subobject for this module */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">jpeg_inverse_dct</span><span class="normal"> pub</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* public fields */</span>
+
+<span class="normal">  </span><span class="comment">/* This array contains the IDCT method code that each multiplier table</span>
+<span class="comment">   * is currently set up for, or -1 if it's not yet set up.</span>
+<span class="comment">   * The actual multiplier tables are pointed to by dct_table in the</span>
+<span class="comment">   * per-component comp_info structures.</span>
+<span class="comment">   */</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> cur_method</span><span class="symbol">[</span><span class="normal">MAX_COMPONENTS</span><span class="symbol">];</span>
+<span class="cbracket">}</span><span class="normal"> my_idct_controller</span><span class="symbol">;</span>
+
+<span class="keyword">typedef</span><span class="normal"> my_idct_controller </span><span class="symbol">*</span><span class="normal"> my_idct_ptr</span><span class="symbol">;</span>
+
+
+<span class="comment">/* Allocated multiplier tables: big enough for any supported variant */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">union</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">ISLOW_MULT_TYPE</span><span class="normal"> islow_array</span><span class="symbol">[</span><span class="normal">DCTSIZE2</span><span class="symbol">];</span>
+<span class="preproc">#ifdef</span><span class="normal"> DCT_IFAST_SUPPORTED</span>
+<span class="normal">  </span><span class="usertype">IFAST_MULT_TYPE</span><span class="normal"> ifast_array</span><span class="symbol">[</span><span class="normal">DCTSIZE2</span><span class="symbol">];</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#ifdef</span><span class="normal"> DCT_FLOAT_SUPPORTED</span>
+<span class="normal">  </span><span class="usertype">FLOAT_MULT_TYPE</span><span class="normal"> float_array</span><span class="symbol">[</span><span class="normal">DCTSIZE2</span><span class="symbol">];</span>
+<span class="preproc">#endif</span>
+<span class="cbracket">}</span><span class="normal"> multiplier_table</span><span class="symbol">;</span>
+
+
+<span class="comment">/* The current scaled-IDCT routines require ISLOW-style multiplier tables,</span>
+<span class="comment"> * so be sure to compile that code if either ISLOW or SCALING is requested.</span>
+<span class="comment"> */</span>
+<span class="preproc">#ifdef</span><span class="normal"> DCT_ISLOW_SUPPORTED</span>
+<span class="preproc">#define</span><span class="normal"> PROVIDE_ISLOW_TABLES</span>
+<span class="preproc">#else</span>
+<span class="preproc">#ifdef</span><span class="normal"> IDCT_SCALING_SUPPORTED</span>
+<span class="preproc">#define</span><span class="normal"> PROVIDE_ISLOW_TABLES</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#endif</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Prepare for an output pass.</span>
+<span class="comment"> * Here we select the proper IDCT routine for each component and build</span>
+<span class="comment"> * a matching multiplier table.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">start_pass</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_idct_ptr</span><span class="normal"> idct </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_idct_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">idct</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> ci</span><span class="symbol">,</span><span class="normal"> i</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">jpeg_component_info</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">compptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> method </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">inverse_DCT_method_ptr</span><span class="normal"> method_ptr </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">  JQUANT_TBL </span><span class="symbol">*</span><span class="normal"> qtbl</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> compptr </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">comp_info</span><span class="symbol">;</span><span class="normal"> ci </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components</span><span class="symbol">;</span>
+<span class="normal">       ci</span><span class="symbol">++,</span><span class="normal"> compptr</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">/* Select the proper IDCT routine for this component's scaling */</span>
+<span class="normal">    </span><span class="keyword">switch</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">compptr</span><span class="symbol">-&gt;</span><span class="normal">DCT_scaled_size</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="preproc">#ifdef</span><span class="normal"> IDCT_SCALING_SUPPORTED</span>
+<span class="normal">    </span><span class="keyword">case</span><span class="normal"> </span><span class="number">1</span><span class="symbol">:</span>
+<span class="normal">      method_ptr </span><span class="symbol">=</span><span class="normal"> jpeg_idct_1x1</span><span class="symbol">;</span>
+<span class="normal">      method </span><span class="symbol">=</span><span class="normal"> JDCT_ISLOW</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* jidctred uses islow-style table */</span>
+<span class="normal">      </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">case</span><span class="normal"> </span><span class="number">2</span><span class="symbol">:</span>
+<span class="normal">      method_ptr </span><span class="symbol">=</span><span class="normal"> jpeg_idct_2x2</span><span class="symbol">;</span>
+<span class="normal">      method </span><span class="symbol">=</span><span class="normal"> JDCT_ISLOW</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* jidctred uses islow-style table */</span>
+<span class="normal">      </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">case</span><span class="normal"> </span><span class="number">4</span><span class="symbol">:</span>
+<span class="normal">      method_ptr </span><span class="symbol">=</span><span class="normal"> jpeg_idct_4x4</span><span class="symbol">;</span>
+<span class="normal">      method </span><span class="symbol">=</span><span class="normal"> JDCT_ISLOW</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* jidctred uses islow-style table */</span>
+<span class="normal">      </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="preproc">#endif</span>
+<span class="normal">    </span><span class="keyword">case</span><span class="normal"> DCTSIZE</span><span class="symbol">:</span>
+<span class="normal">      </span><span class="keyword">switch</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">dct_method</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="preproc">#ifdef</span><span class="normal"> DCT_ISLOW_SUPPORTED</span>
+<span class="normal">      </span><span class="keyword">case</span><span class="normal"> JDCT_ISLOW</span><span class="symbol">:</span>
+<span class="normal">	method_ptr </span><span class="symbol">=</span><span class="normal"> jpeg_idct_islow</span><span class="symbol">;</span>
+<span class="normal">	method </span><span class="symbol">=</span><span class="normal"> JDCT_ISLOW</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#ifdef</span><span class="normal"> DCT_IFAST_SUPPORTED</span>
+<span class="normal">      </span><span class="keyword">case</span><span class="normal"> JDCT_IFAST</span><span class="symbol">:</span>
+<span class="normal">	method_ptr </span><span class="symbol">=</span><span class="normal"> jpeg_idct_ifast</span><span class="symbol">;</span>
+<span class="normal">	method </span><span class="symbol">=</span><span class="normal"> JDCT_IFAST</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#ifdef</span><span class="normal"> DCT_FLOAT_SUPPORTED</span>
+<span class="normal">      </span><span class="keyword">case</span><span class="normal"> JDCT_FLOAT</span><span class="symbol">:</span>
+<span class="normal">	method_ptr </span><span class="symbol">=</span><span class="normal"> jpeg_idct_float</span><span class="symbol">;</span>
+<span class="normal">	method </span><span class="symbol">=</span><span class="normal"> JDCT_FLOAT</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="preproc">#endif</span>
+<span class="label">      default:</span>
+<span class="normal">	</span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_NOT_COMPILED</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="label">    default:</span>
+<span class="normal">      </span><span class="function">ERREXIT1</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_BAD_DCTSIZE</span><span class="symbol">,</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">DCT_scaled_size</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    idct</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">inverse_DCT</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> method_ptr</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* Create multiplier table from quant table.</span>
+<span class="comment">     * However, we can skip this if the component is uninteresting</span>
+<span class="comment">     * or if we already built the table.  Also, if no quant table</span>
+<span class="comment">     * has yet been saved for the component, we leave the</span>
+<span class="comment">     * multiplier table all-zero; we'll be reading zeroes from the</span>
+<span class="comment">     * coefficient controller's buffer anyway.</span>
+<span class="comment">     */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">component_needed </span><span class="symbol">||</span><span class="normal"> idct</span><span class="symbol">-&gt;</span><span class="normal">cur_method</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> method</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="keyword">continue</span><span class="symbol">;</span>
+<span class="normal">    qtbl </span><span class="symbol">=</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">quant_table</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">qtbl </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal">		</span><span class="comment">/* happens if no data yet for component */</span>
+<span class="normal">      </span><span class="keyword">continue</span><span class="symbol">;</span>
+<span class="normal">    idct</span><span class="symbol">-&gt;</span><span class="normal">cur_method</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> method</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">switch</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">method</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="preproc">#ifdef</span><span class="normal"> PROVIDE_ISLOW_TABLES</span>
+<span class="normal">    </span><span class="keyword">case</span><span class="normal"> JDCT_ISLOW</span><span class="symbol">:</span>
+<span class="normal">      </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="comment">/* For LL&amp;M IDCT method, multipliers are equal to raw quantization</span>
+<span class="comment">	 * coefficients, but are stored as ints to ensure access efficiency.</span>
+<span class="comment">	 */</span>
+<span class="normal">	ISLOW_MULT_TYPE </span><span class="symbol">*</span><span class="normal"> ismtbl </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ISLOW_MULT_TYPE </span><span class="symbol">*)</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">dct_table</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> DCTSIZE2</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	  ismtbl</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ISLOW_MULT_TYPE</span><span class="symbol">)</span><span class="normal"> qtbl</span><span class="symbol">-&gt;</span><span class="normal">quantval</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#ifdef</span><span class="normal"> DCT_IFAST_SUPPORTED</span>
+<span class="normal">    </span><span class="keyword">case</span><span class="normal"> JDCT_IFAST</span><span class="symbol">:</span>
+<span class="normal">      </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="comment">/* For AA&amp;N IDCT method, multipliers are equal to quantization</span>
+<span class="comment">	 * coefficients scaled by scalefactor[row]*scalefactor[col], where</span>
+<span class="comment">	 *   scalefactor[0] = 1</span>
+<span class="comment">	 *   scalefactor[k] = cos(k*PI/16) * sqrt(2)    for k=1..7</span>
+<span class="comment">	 * For integer operation, the multiplier table is to be scaled by</span>
+<span class="comment">	 * IFAST_SCALE_BITS.</span>
+<span class="comment">	 */</span>
+<span class="normal">	IFAST_MULT_TYPE </span><span class="symbol">*</span><span class="normal"> ifmtbl </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">IFAST_MULT_TYPE </span><span class="symbol">*)</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">dct_table</span><span class="symbol">;</span>
+<span class="preproc">#define</span><span class="normal"> CONST_BITS </span><span class="number">14</span>
+<span class="normal">	</span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">INT16</span><span class="normal"> aanscales</span><span class="symbol">[</span><span class="normal">DCTSIZE2</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	  </span><span class="comment">/* precomputed values scaled up by 14 bits */</span>
+<span class="normal">	  </span><span class="number">16384</span><span class="symbol">,</span><span class="normal"> </span><span class="number">22725</span><span class="symbol">,</span><span class="normal"> </span><span class="number">21407</span><span class="symbol">,</span><span class="normal"> </span><span class="number">19266</span><span class="symbol">,</span><span class="normal"> </span><span class="number">16384</span><span class="symbol">,</span><span class="normal"> </span><span class="number">12873</span><span class="symbol">,</span><span class="normal">  </span><span class="number">8867</span><span class="symbol">,</span><span class="normal">  </span><span class="number">4520</span><span class="symbol">,</span>
+<span class="normal">	  </span><span class="number">22725</span><span class="symbol">,</span><span class="normal"> </span><span class="number">31521</span><span class="symbol">,</span><span class="normal"> </span><span class="number">29692</span><span class="symbol">,</span><span class="normal"> </span><span class="number">26722</span><span class="symbol">,</span><span class="normal"> </span><span class="number">22725</span><span class="symbol">,</span><span class="normal"> </span><span class="number">17855</span><span class="symbol">,</span><span class="normal"> </span><span class="number">12299</span><span class="symbol">,</span><span class="normal">  </span><span class="number">6270</span><span class="symbol">,</span>
+<span class="normal">	  </span><span class="number">21407</span><span class="symbol">,</span><span class="normal"> </span><span class="number">29692</span><span class="symbol">,</span><span class="normal"> </span><span class="number">27969</span><span class="symbol">,</span><span class="normal"> </span><span class="number">25172</span><span class="symbol">,</span><span class="normal"> </span><span class="number">21407</span><span class="symbol">,</span><span class="normal"> </span><span class="number">16819</span><span class="symbol">,</span><span class="normal"> </span><span class="number">11585</span><span class="symbol">,</span><span class="normal">  </span><span class="number">5906</span><span class="symbol">,</span>
+<span class="normal">	  </span><span class="number">19266</span><span class="symbol">,</span><span class="normal"> </span><span class="number">26722</span><span class="symbol">,</span><span class="normal"> </span><span class="number">25172</span><span class="symbol">,</span><span class="normal"> </span><span class="number">22654</span><span class="symbol">,</span><span class="normal"> </span><span class="number">19266</span><span class="symbol">,</span><span class="normal"> </span><span class="number">15137</span><span class="symbol">,</span><span class="normal"> </span><span class="number">10426</span><span class="symbol">,</span><span class="normal">  </span><span class="number">5315</span><span class="symbol">,</span>
+<span class="normal">	  </span><span class="number">16384</span><span class="symbol">,</span><span class="normal"> </span><span class="number">22725</span><span class="symbol">,</span><span class="normal"> </span><span class="number">21407</span><span class="symbol">,</span><span class="normal"> </span><span class="number">19266</span><span class="symbol">,</span><span class="normal"> </span><span class="number">16384</span><span class="symbol">,</span><span class="normal"> </span><span class="number">12873</span><span class="symbol">,</span><span class="normal">  </span><span class="number">8867</span><span class="symbol">,</span><span class="normal">  </span><span class="number">4520</span><span class="symbol">,</span>
+<span class="normal">	  </span><span class="number">12873</span><span class="symbol">,</span><span class="normal"> </span><span class="number">17855</span><span class="symbol">,</span><span class="normal"> </span><span class="number">16819</span><span class="symbol">,</span><span class="normal"> </span><span class="number">15137</span><span class="symbol">,</span><span class="normal"> </span><span class="number">12873</span><span class="symbol">,</span><span class="normal"> </span><span class="number">10114</span><span class="symbol">,</span><span class="normal">  </span><span class="number">6967</span><span class="symbol">,</span><span class="normal">  </span><span class="number">3552</span><span class="symbol">,</span>
+<span class="normal">	   </span><span class="number">8867</span><span class="symbol">,</span><span class="normal"> </span><span class="number">12299</span><span class="symbol">,</span><span class="normal"> </span><span class="number">11585</span><span class="symbol">,</span><span class="normal"> </span><span class="number">10426</span><span class="symbol">,</span><span class="normal">  </span><span class="number">8867</span><span class="symbol">,</span><span class="normal">  </span><span class="number">6967</span><span class="symbol">,</span><span class="normal">  </span><span class="number">4799</span><span class="symbol">,</span><span class="normal">  </span><span class="number">2446</span><span class="symbol">,</span>
+<span class="normal">	   </span><span class="number">4520</span><span class="symbol">,</span><span class="normal">  </span><span class="number">6270</span><span class="symbol">,</span><span class="normal">  </span><span class="number">5906</span><span class="symbol">,</span><span class="normal">  </span><span class="number">5315</span><span class="symbol">,</span><span class="normal">  </span><span class="number">4520</span><span class="symbol">,</span><span class="normal">  </span><span class="number">3552</span><span class="symbol">,</span><span class="normal">  </span><span class="number">2446</span><span class="symbol">,</span><span class="normal">  </span><span class="number">1247</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">	SHIFT_TEMPS</span>
+
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> DCTSIZE2</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	  ifmtbl</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">IFAST_MULT_TYPE</span><span class="symbol">)</span>
+<span class="normal">	    </span><span class="function">DESCALE</span><span class="symbol">(</span><span class="function">MULTIPLY16V16</span><span class="symbol">((</span><span class="normal">INT32</span><span class="symbol">)</span><span class="normal"> qtbl</span><span class="symbol">-&gt;</span><span class="normal">quantval</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">],</span>
+<span class="normal">				  </span><span class="symbol">(</span><span class="normal">INT32</span><span class="symbol">)</span><span class="normal"> aanscales</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]),</span>
+<span class="normal">		    CONST_BITS</span><span class="symbol">-</span><span class="normal">IFAST_SCALE_BITS</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#ifdef</span><span class="normal"> DCT_FLOAT_SUPPORTED</span>
+<span class="normal">    </span><span class="keyword">case</span><span class="normal"> JDCT_FLOAT</span><span class="symbol">:</span>
+<span class="normal">      </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="comment">/* For float AA&amp;N IDCT method, multipliers are equal to quantization</span>
+<span class="comment">	 * coefficients scaled by scalefactor[row]*scalefactor[col], where</span>
+<span class="comment">	 *   scalefactor[0] = 1</span>
+<span class="comment">	 *   scalefactor[k] = cos(k*PI/16) * sqrt(2)    for k=1..7</span>
+<span class="comment">	 */</span>
+<span class="normal">	FLOAT_MULT_TYPE </span><span class="symbol">*</span><span class="normal"> fmtbl </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">FLOAT_MULT_TYPE </span><span class="symbol">*)</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">dct_table</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> row</span><span class="symbol">,</span><span class="normal"> col</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">double</span><span class="normal"> aanscalefactor</span><span class="symbol">[</span><span class="normal">DCTSIZE</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	  </span><span class="number">1.0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1.387039845</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1.306562965</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1.175875602</span><span class="symbol">,</span>
+<span class="normal">	  </span><span class="number">1.0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0.785694958</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0.541196100</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0.275899379</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="normal">	i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">row </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> row </span><span class="symbol">&lt;</span><span class="normal"> DCTSIZE</span><span class="symbol">;</span><span class="normal"> row</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">col </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> col </span><span class="symbol">&lt;</span><span class="normal"> DCTSIZE</span><span class="symbol">;</span><span class="normal"> col</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	    fmtbl</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">FLOAT_MULT_TYPE</span><span class="symbol">)</span>
+<span class="normal">	      </span><span class="symbol">((</span><span class="type">double</span><span class="symbol">)</span><span class="normal"> qtbl</span><span class="symbol">-&gt;</span><span class="normal">quantval</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">*</span>
+<span class="normal">	       aanscalefactor</span><span class="symbol">[</span><span class="normal">row</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> aanscalefactor</span><span class="symbol">[</span><span class="normal">col</span><span class="symbol">]);</span>
+<span class="normal">	    i</span><span class="symbol">++;</span>
+<span class="normal">	  </span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="preproc">#endif</span>
+<span class="label">    default:</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_NOT_COMPILED</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Initialize IDCT manager.</span>
+<span class="comment"> */</span>
+
+<span class="function">GLOBAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">jinit_inverse_dct</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_idct_ptr</span><span class="normal"> idct</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> ci</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">jpeg_component_info</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">compptr</span><span class="symbol">;</span>
+
+<span class="normal">  idct </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_idct_ptr</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">mem</span><span class="symbol">-&gt;</span><span class="normal">alloc_small</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> JPOOL_IMAGE</span><span class="symbol">,</span>
+<span class="normal">				</span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="normal">my_idct_controller</span><span class="symbol">));</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">idct </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">jpeg_inverse_dct</span><span class="normal"> </span><span class="symbol">*)</span><span class="normal"> idct</span><span class="symbol">;</span>
+<span class="normal">  idct</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">start_pass </span><span class="symbol">=</span><span class="normal"> start_pass</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> compptr </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">comp_info</span><span class="symbol">;</span><span class="normal"> ci </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components</span><span class="symbol">;</span>
+<span class="normal">       ci</span><span class="symbol">++,</span><span class="normal"> compptr</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">/* Allocate and pre-zero a multiplier table for each component */</span>
+<span class="normal">    compptr</span><span class="symbol">-&gt;</span><span class="normal">dct_table </span><span class="symbol">=</span>
+<span class="normal">      </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">mem</span><span class="symbol">-&gt;</span><span class="normal">alloc_small</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> JPOOL_IMAGE</span><span class="symbol">,</span>
+<span class="normal">				  </span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="normal">multiplier_table</span><span class="symbol">));</span>
+<span class="normal">    </span><span class="function">MEMZERO</span><span class="symbol">(</span><span class="normal">compptr</span><span class="symbol">-&gt;</span><span class="normal">dct_table</span><span class="symbol">,</span><span class="normal"> </span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="normal">multiplier_table</span><span class="symbol">));</span>
+<span class="normal">    </span><span class="comment">/* Mark multiplier table not yet set up for any method */</span>
+<span class="normal">    idct</span><span class="symbol">-&gt;</span><span class="normal">cur_method</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

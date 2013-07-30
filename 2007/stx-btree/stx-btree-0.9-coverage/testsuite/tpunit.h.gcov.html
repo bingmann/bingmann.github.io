@@ -1,0 +1,606 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - STX B+ Tree Testsuite - testsuite/tpunit.h</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">testsuite</a> - tpunit.h<span style="font-size: 80%;"> (source / <a href="tpunit.h.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">STX B+ Tree Testsuite</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">77</td>
+            <td class="headerCovTableEntry">83</td>
+            <td class="headerCovTableEntryHi">92.8 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2013-05-05</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">41</td>
+            <td class="headerCovTableEntry">42</td>
+            <td class="headerCovTableEntryHi">97.6 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /**</a>
+<span class="lineNum">       2 </span>            :  * Copyright (c) 2011 Trevor Pounds
+<span class="lineNum">       3 </span>            :  *
+<span class="lineNum">       4 </span>            :  * Permission is hereby granted, free of charge, to any person obtaining a copy
+<span class="lineNum">       5 </span>            :  * of this software and associated documentation files (the &quot;Software&quot;), to deal
+<span class="lineNum">       6 </span>            :  * in the Software without restriction, including without limitation the rights
+<span class="lineNum">       7 </span>            :  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+<span class="lineNum">       8 </span>            :  * copies of the Software, and to permit persons to whom the Software is
+<span class="lineNum">       9 </span>            :  * furnished to do so, subject to the following conditions:
+<span class="lineNum">      10 </span>            :  *
+<span class="lineNum">      11 </span>            :  * The above copyright notice and this permission notice shall be included in
+<span class="lineNum">      12 </span>            :  * all copies or substantial portions of the Software.
+<span class="lineNum">      13 </span>            :  *
+<span class="lineNum">      14 </span>            :  * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+<span class="lineNum">      15 </span>            :  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+<span class="lineNum">      16 </span>            :  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+<span class="lineNum">      17 </span>            :  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+<span class="lineNum">      18 </span>            :  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+<span class="lineNum">      19 </span>            :  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+<span class="lineNum">      20 </span>            :  * THE SOFTWARE.
+<span class="lineNum">      21 </span>            :  */
+<span class="lineNum">      22 </span>            : #ifndef __TPUNITPP_HPP__
+<span class="lineNum">      23 </span>            : #define __TPUNITPP_HPP__
+<span class="lineNum">      24 </span>            : 
+<span class="lineNum">      25 </span>            : /**
+<span class="lineNum">      26 </span>            :  * Declare printf dependency inline to workaround
+<span class="lineNum">      27 </span>            :  * potential #include &lt;stdio.h&gt; compiler/linker bugs.
+<span class="lineNum">      28 </span>            :  */
+<span class="lineNum">      29 </span>            : extern &quot;C&quot; int printf(const char*, ...);
+<span class="lineNum">      30 </span>            : 
+<span class="lineNum">      31 </span>            : /**
+<span class="lineNum">      32 </span>            :  * TPUNITPP_VERSION macro contains an integer represented by
+<span class="lineNum">      33 </span>            :  * the value (M*1000000 + N*1000 + P) where M is the major
+<span class="lineNum">      34 </span>            :  * version, N is the minor version, and P is the patch version.
+<span class="lineNum">      35 </span>            :  *
+<span class="lineNum">      36 </span>            :  * TPUNITPP_VERSION_MAJOR is an integer of the major version.
+<span class="lineNum">      37 </span>            :  * TPUNITPP_VERSION_MINOR is an integer of the minor version.
+<span class="lineNum">      38 </span>            :  * TPUNITPP_VERSION_PATCH is an integer of the patch version.
+<span class="lineNum">      39 </span>            :  */
+<span class="lineNum">      40 </span>            : #define TPUNITPP_VERSION 1000002
+<span class="lineNum">      41 </span>            : #define TPUNITPP_VERSION_MAJOR 1
+<span class="lineNum">      42 </span>            : #define TPUNITPP_VERSION_MINOR 0
+<span class="lineNum">      43 </span>            : #define TPUNITPP_VERSION_PATCH 2
+<span class="lineNum">      44 </span>            : 
+<span class="lineNum">      45 </span>            : /**
+<span class="lineNum">      46 </span>            :  * ABORT(); generates a failure, immediately returning from the
+<span class="lineNum">      47 </span>            :  * currently executing test function.
+<span class="lineNum">      48 </span>            :  * FAIL(); generates a failure, allowing the currently executing
+<span class="lineNum">      49 </span>            :  * test function to continue.
+<span class="lineNum">      50 </span>            :  * PASS(); does nothing, effectively considered a NOP but may be
+<span class="lineNum">      51 </span>            :  * useful for annotating test cases with their desired intent.
+<span class="lineNum">      52 </span>            :  * TRACE(message); adds a trace to the test output with a user
+<span class="lineNum">      53 </span>            :  * specified string message.
+<span class="lineNum">      54 </span>            :  */
+<span class="lineNum">      55 </span>            : #define ABORT() __assert(__FILE__, __LINE__); return;
+<span class="lineNum">      56 </span>            : #define FAIL()  __assert(__FILE__, __LINE__);
+<span class="lineNum">      57 </span>            : #define PASS()  /* do nothing */
+<span class="lineNum">      58 </span>            : #define TRACE(message) __trace(__FILE__, __LINE__, message);
+<span class="lineNum">      59 </span>            : 
+<span class="lineNum">      60 </span>            : /**
+<span class="lineNum">      61 </span>            :  * The set of core macros for basic predicate testing of boolean
+<span class="lineNum">      62 </span>            :  * expressions and value comparisons.
+<span class="lineNum">      63 </span>            :  *
+<span class="lineNum">      64 </span>            :  * ASSERT_*(...); generates a failure, immediately returning from
+<span class="lineNum">      65 </span>            :  * the currently executing test function if the supplied predicate
+<span class="lineNum">      66 </span>            :  * is not satisfied.
+<span class="lineNum">      67 </span>            :  * EXPECT_*(...); generates a failure, allowing the currently
+<span class="lineNum">      68 </span>            :  * executing test function to continue if the supplied predicate
+<span class="lineNum">      69 </span>            :  * is not satisified.
+<span class="lineNum">      70 </span>            :  */
+<span class="lineNum">      71 </span>            : #define ASSERT_TRUE(condition) do { if(condition) { PASS(); } else { ABORT(); } } while(0)
+<span class="lineNum">      72 </span>            : #define EXPECT_TRUE(condition) do { if(condition) { PASS(); } else { FAIL(); } } while(0)
+<span class="lineNum">      73 </span>            : #define ASSERT_FALSE(condition) do { if(condition) { ABORT(); } else { PASS(); } } while(0)
+<span class="lineNum">      74 </span>            : #define EXPECT_FALSE(condition) do { if(condition) { FAIL(); } else { PASS(); } } while(0)
+<span class="lineNum">      75 </span>            : #define ASSERT_EQUAL(lhs, rhs) do { if((lhs) == (rhs)) { PASS(); } else { ABORT(); } } while(0)
+<span class="lineNum">      76 </span>            : #define EXPECT_EQUAL(lhs, rhs) do { if((lhs) == (rhs)) { PASS(); } else { FAIL(); } } while(0)
+<span class="lineNum">      77 </span>            : #define ASSERT_NOT_EQUAL(lhs, rhs) do { if((lhs) != (rhs)) { PASS(); } else { ABORT(); } } while(0)
+<span class="lineNum">      78 </span>            : #define EXPECT_NOT_EQUAL(lhs, rhs) do { if((lhs) != (rhs)) { PASS(); } else { FAIL(); } } while(0)
+<span class="lineNum">      79 </span>            : #define ASSERT_GREATER_THAN(lhs, rhs) do { if((lhs) &gt; (rhs)) { PASS(); } else { ABORT(); } } while(0)
+<span class="lineNum">      80 </span>            : #define EXPECT_GREATER_THAN(lhs, rhs) do { if((lhs) &gt; (rhs)) { PASS(); } else { FAIL(); } } while(0)
+<span class="lineNum">      81 </span>            : #define ASSERT_GREATER_THAN_EQUAL(lhs, rhs) do { if((lhs) &gt;= (rhs)) { PASS(); } else { ABORT(); } } while(0)
+<span class="lineNum">      82 </span>            : #define EXPECT_GREATER_THAN_EQUAL(lhs, rhs) do { if((lhs) &gt;= (rhs)) { PASS(); } else { FAIL(); } } while(0)
+<span class="lineNum">      83 </span>            : #define ASSERT_LESS_THAN(lhs, rhs) do { if((lhs) &lt; (rhs)) { PASS(); } else { ABORT(); } } while(0)
+<span class="lineNum">      84 </span>            : #define EXPECT_LESS_THAN(lhs, rhs) do { if((lhs) &lt; (rhs)) { PASS(); } else { FAIL(); } } while(0)
+<span class="lineNum">      85 </span>            : #define ASSERT_LESS_THAN_EQUAL(lhs, rhs) do { if((lhs) &lt;= (rhs)) { PASS(); } else { ABORT(); } } while(0)
+<span class="lineNum">      86 </span>            : #define EXPECT_LESS_THAN_EQUAL(lhs, rhs) do { if((lhs) &lt;= (rhs)) { PASS(); } else { FAIL(); } } while(0)
+<span class="lineNum">      87 </span>            : 
+<span class="lineNum">      88 </span>            : #define ASSERT(condition) do { if(condition) { PASS(); } else { ABORT(); } } while(0)
+<span class="lineNum">      89 </span>            : 
+<span class="lineNum">      90 </span>            : /**
+<span class="lineNum">      91 </span>            :  * The set of floating-point macros used to compare double/float values.
+<span class="lineNum">      92 </span>            :  *
+<span class="lineNum">      93 </span>            :  * ASSERT|EXPECT_FLOAT_EQUAL(lhs, rhs); generates a failure if the given
+<span class="lineNum">      94 </span>            :  * floating-point values are not within 4 ULPs of each other.
+<span class="lineNum">      95 </span>            :  * ASSERT|EXPECT_FLOAT_NEAR(lhs, rhs, abs_error); generates a failure if
+<span class="lineNum">      96 </span>            :  * the given floating-point values exceed the absolute error.
+<span class="lineNum">      97 </span>            :  */
+<span class="lineNum">      98 </span>            : #define ASSERT_FLOAT_EQUAL(lhs, rhs) do { if(__fp_equal(lhs, rhs, 4)) { PASS(); } else { ABORT(); } } while(0)
+<span class="lineNum">      99 </span>            : #define EXPECT_FLOAT_EQUAL(lhs, rhs) do { if(__fp_equal(lhs, rhs, 4)) { PASS(); } else { FAIL(); } } while(0)
+<span class="lineNum">     100 </span>            : #define ASSERT_FLOAT_NEAR(lhs, rhs, abs_error) do { if((((lhs) &gt; (rhs)) ? (lhs) - (rhs) : (rhs) - (lhs)) &lt;= (abs_error)) { PASS(); } else { ABORT(); } } while(0)
+<span class="lineNum">     101 </span>            : #define EXPECT_FLOAT_NEAR(lhs, rhs, abs_error) do { if((((lhs) &gt; (rhs)) ? (lhs) - (rhs) : (rhs) - (lhs)) &lt;= (abs_error)) { PASS(); } else { FAIL(); } } while(0)
+<span class="lineNum">     102 </span>            : 
+<span class="lineNum">     103 </span>            : /**
+<span class="lineNum">     104 </span>            :  * The set of macros for checking whether a statement will throw or not
+<span class="lineNum">     105 </span>            :  * throw an exception. Note, the checked exception macros will generally
+<span class="lineNum">     106 </span>            :  * not work with compilers that do not support exceptions or have them
+<span class="lineNum">     107 </span>            :  * explicitly turned off using a compiler flag (e.g. -fno-exceptions).
+<span class="lineNum">     108 </span>            :  *
+<span class="lineNum">     109 </span>            :  * ASSERT|EXPECT_THROW(statement, exception); generates a failure if
+<span class="lineNum">     110 </span>            :  * the given statement does not throw the supplied excetion.
+<span class="lineNum">     111 </span>            :  * ASSERT|EXPECT_NO_THROW(statement, exception); generates a failure
+<span class="lineNum">     112 </span>            :  * if the given statement throws any exception. Useful for ensuring
+<span class="lineNum">     113 </span>            :  * a statement never throws an exception.
+<span class="lineNum">     114 </span>            :  * ASSERT|EXPECT_ANY_THROW(statement); generates a failure if the
+<span class="lineNum">     115 </span>            :  * given statement does not throw any exceptions.
+<span class="lineNum">     116 </span>            :  */
+<span class="lineNum">     117 </span>            : #define ASSERT_THROW(statement, exception) do { try { statement; ABORT(); } catch(const exception&amp; e) { PASS(); } catch(...) { ABORT(); } } while(0)
+<span class="lineNum">     118 </span>            : #define EXPECT_THROW(statement, exception) do { try { statement; FAIL(); } catch(const exception&amp; e) { PASS(); } catch(...) { FAIL(); } } while(0)
+<span class="lineNum">     119 </span>            : #define ASSERT_NO_THROW(statement) do { try { statement; PASS(); } catch(...) { ABORT(); } } while(0)
+<span class="lineNum">     120 </span>            : #define EXPECT_NO_THROW(statement) do { try { statement; PASS(); } catch(...) { FAIL(); } } while(0)
+<span class="lineNum">     121 </span>            : #define ASSERT_ANY_THROW(statement) do { try { statement; ABORT(); } catch(...) { PASS(); } } while(0)
+<span class="lineNum">     122 </span>            : #define EXPECT_ANY_THROW(statement) do { try { statement; FAIL(); } catch(...) { PASS(); } } while(0)
+<span class="lineNum">     123 </span>            : 
+<span class="lineNum">     124 </span>            : /**
+<span class="lineNum">     125 </span>            :  * The set of convenience macros for registering functions with the test
+<span class="lineNum">     126 </span>            :  * fixture.
+<span class="lineNum">     127 </span>            :  *
+<span class="lineNum">     128 </span>            :  * AFTER(function); registers a function to run once after each subsequent
+<span class="lineNum">     129 </span>            :  * test function within a test fixture.
+<span class="lineNum">     130 </span>            :  * AFTER_CLASS(function); registers a function to run once after all test
+<span class="lineNum">     131 </span>            :  * functions within a test fixture. Useful for cleaning up shared state
+<span class="lineNum">     132 </span>            :  * used by all test functions.
+<span class="lineNum">     133 </span>            :  * BEFORE(function); registers a function to run once before each subsequent
+<span class="lineNum">     134 </span>            :  * test function within a test fixture.
+<span class="lineNum">     135 </span>            :  * BEFORE_CLASS(function); registers a function to run once before all test
+<span class="lineNum">     136 </span>            :  * functions within a test fixture. Useful for initializing shared state
+<span class="lineNum">     137 </span>            :  * used by all test functions.
+<span class="lineNum">     138 </span>            :  * TEST(function); registers a function to run as a test within a test fixture.
+<span class="lineNum">     139 </span>            :  */
+<span class="lineNum">     140 </span>            : #define AFTER(M)        After(&amp;M, &quot;After: &quot; #M)
+<span class="lineNum">     141 </span>            : #define AFTER_CLASS(M)  AfterClass(&amp;M, &quot;AfterClass: &quot; #M)
+<span class="lineNum">     142 </span>            : #define BEFORE(M)       Before(&amp;M, &quot;Before: &quot; #M)
+<span class="lineNum">     143 </span>            : #define BEFORE_CLASS(M) BeforeClass(&amp;M, &quot;BeforeClass: &quot; #M)
+<span class="lineNum">     144 </span>            : #define TEST(M)         Test(&amp;M, #M)
+<span class="lineNum">     145 </span>            : 
+<span class="lineNum">     146 </span>            : namespace tpunit
+<span class="lineNum">     147 </span>            : {
+<span class="lineNum">     148 </span>            :    /**
+<span class="lineNum">     149 </span>            :     * The primary class that provides the integration point for creating user
+<span class="lineNum">     150 </span>            :     * defined test cases. To get started one only needs to derive from TestFixture,
+<span class="lineNum">     151 </span>            :     * define a few test methods and register them with the base constructor.
+<span class="lineNum">     152 </span>            :     */
+<span class="lineNum">     153 </span>            :    class TestFixture
+<span class="lineNum">     154 </span>            :    {
+<span class="lineNum">     155 </span>            :       private:
+<span class="lineNum">     156 </span>            : 
+<span class="lineNum">     157 </span>            :          /**
+<span class="lineNum">     158 </span>            :           * An internal class representing a TestFixture class.
+<span class="lineNum">     159 </span>            :           */
+<a name="160"><span class="lineNum">     160 </span>            :          struct method</a>
+<span class="lineNum">     161 </span>            :          {
+<span class="lineNum">     162 </span><span class="lineCov">        197 :             method(TestFixture* obj, void (TestFixture::*addr)(), const char* name, unsigned char type)</span>
+<span class="lineNum">     163 </span>            :                : _this(obj)
+<span class="lineNum">     164 </span>            :                , _addr(addr)
+<span class="lineNum">     165 </span>            :                , _name()
+<span class="lineNum">     166 </span>            :                , _type(type)
+<span class="lineNum">     167 </span><span class="lineCov">        197 :                , _next(0)</span>
+<span class="lineNum">     168 </span>            :             {
+<span class="lineNum">     169 </span><span class="lineCov">        197 :                char* dest = _name;</span>
+<span class="lineNum">     170 </span><span class="lineCov">       7826 :                while(name &amp;&amp; *name != 0)</span>
+<span class="lineNum">     171 </span><span class="lineCov">       7432 :                   { *dest++ = *name++; }</span>
+<span class="lineNum">     172 </span><span class="lineCov">        197 :                dest = 0;</span>
+<a name="173"><span class="lineNum">     173 </span><span class="lineCov">        197 :             }</span></a>
+<span class="lineNum">     174 </span>            : 
+<span class="lineNum">     175 </span><span class="lineCov">        197 :             ~method()</span>
+<span class="lineNum">     176 </span><span class="lineCov">        197 :                { delete _next; }</span>
+<span class="lineNum">     177 </span>            : 
+<span class="lineNum">     178 </span>            :             TestFixture* _this;
+<span class="lineNum">     179 </span>            :             void (TestFixture::*_addr)();
+<span class="lineNum">     180 </span>            :             char _name[256];
+<span class="lineNum">     181 </span>            : 
+<span class="lineNum">     182 </span>            :             enum
+<span class="lineNum">     183 </span>            :             {
+<span class="lineNum">     184 </span>            :                AFTER_METHOD,  AFTER_CLASS_METHOD,
+<span class="lineNum">     185 </span>            :                BEFORE_METHOD, BEFORE_CLASS_METHOD,
+<span class="lineNum">     186 </span>            :                TEST_METHOD
+<span class="lineNum">     187 </span>            :             };
+<span class="lineNum">     188 </span>            :             unsigned char _type;
+<span class="lineNum">     189 </span>            : 
+<span class="lineNum">     190 </span>            :             method* _next;
+<span class="lineNum">     191 </span>            :          };
+<span class="lineNum">     192 </span>            : 
+<span class="lineNum">     193 </span>            :          /**
+<span class="lineNum">     194 </span>            :           * An internal class representing a TestFixture class.
+<span class="lineNum">     195 </span>            :           */
+<a name="196"><span class="lineNum">     196 </span>            :          struct fixture</a>
+<span class="lineNum">     197 </span>            :          {
+<span class="lineNum">     198 </span><span class="lineCov">         30 :             fixture()</span>
+<span class="lineNum">     199 </span>            :                : _afters(0),  _after_classes(0) 
+<span class="lineNum">     200 </span>            :                , _befores(0), _before_classes(0) 
+<span class="lineNum">     201 </span><span class="lineCov">         30 :                , _tests(0),   _next(0)</span>
+<a name="202"><span class="lineNum">     202 </span><span class="lineCov">         30 :                {}</span></a>
+<span class="lineNum">     203 </span>            : 
+<span class="lineNum">     204 </span><span class="lineCov">         30 :             ~fixture()</span>
+<span class="lineNum">     205 </span>            :             {
+<span class="lineNum">     206 </span><span class="lineCov">         30 :                delete _afters;</span>
+<span class="lineNum">     207 </span><span class="lineCov">         30 :                delete _after_classes;</span>
+<span class="lineNum">     208 </span><span class="lineCov">         30 :                delete _befores;</span>
+<span class="lineNum">     209 </span><span class="lineCov">         30 :                delete _before_classes;</span>
+<span class="lineNum">     210 </span><span class="lineCov">         30 :                delete _tests;</span>
+<span class="lineNum">     211 </span><span class="lineCov">         30 :                delete _next;</span>
+<span class="lineNum">     212 </span><span class="lineCov">         30 :             }</span>
+<span class="lineNum">     213 </span>            : 
+<span class="lineNum">     214 </span>            :             method* _afters;
+<span class="lineNum">     215 </span>            :             method* _after_classes;
+<span class="lineNum">     216 </span>            :             method* _befores;
+<span class="lineNum">     217 </span>            :             method* _before_classes;
+<span class="lineNum">     218 </span>            :             method* _tests;
+<span class="lineNum">     219 </span>            : 
+<span class="lineNum">     220 </span>            :             fixture* _next;
+<span class="lineNum">     221 </span>            :          };
+<span class="lineNum">     222 </span>            : 
+<span class="lineNum">     223 </span>            :          /**
+<span class="lineNum">     224 </span>            :           * A struct holding test statistics. 
+<span class="lineNum">     225 </span>            :           */
+<a name="226"><span class="lineNum">     226 </span>            :          struct stats</a>
+<span class="lineNum">     227 </span>            :          {
+<span class="lineNum">     228 </span><span class="lineCov">          1 :             stats()</span>
+<span class="lineNum">     229 </span>            :                : _assertions(0)
+<span class="lineNum">     230 </span>            :                , _failures(0)
+<span class="lineNum">     231 </span>            :                , _passes(0)
+<span class="lineNum">     232 </span><span class="lineCov">          1 :                , _traces(0)</span>
+<span class="lineNum">     233 </span><span class="lineCov">          1 :                {}</span>
+<span class="lineNum">     234 </span>            : 
+<span class="lineNum">     235 </span>            :             int _assertions;
+<span class="lineNum">     236 </span>            :             int _failures;
+<span class="lineNum">     237 </span>            :             int _passes;
+<span class="lineNum">     238 </span>            :             int _traces;
+<span class="lineNum">     239 </span>            :          };
+<span class="lineNum">     240 </span>            : 
+<span class="lineNum">     241 </span>            :       public:
+<span class="lineNum">     242 </span>            : 
+<span class="lineNum">     243 </span>            :          /**
+<span class="lineNum">     244 </span>            :           * The base constructor of all test fixtures used to register methods executed by the default runner.
+<span class="lineNum">     245 </span>            :           *
+<a name="246"><span class="lineNum">     246 </span>            :           * @param[in] m0...m29 A list of methods to register with the test fixture.</a>
+<span class="lineNum">     247 </span>            :           */
+<span class="lineNum">     248 </span><span class="lineCov">         29 :          TestFixture(method* m0,      method* m1  = 0, method* m2  = 0, method* m3  = 0, method* m4  = 0,</span>
+<span class="lineNum">     249 </span>            :                      method* m5  = 0, method* m6  = 0, method* m7  = 0, method* m8  = 0, method* m9  = 0,
+<span class="lineNum">     250 </span>            :                      method* m10 = 0, method* m11 = 0, method* m12 = 0, method* m13 = 0, method* m14 = 0,
+<span class="lineNum">     251 </span>            :                      method* m15 = 0, method* m16 = 0, method* m17 = 0, method* m18 = 0, method* m19 = 0,
+<span class="lineNum">     252 </span>            :                      method* m20 = 0, method* m21 = 0, method* m22 = 0, method* m23 = 0, method* m24 = 0,
+<span class="lineNum">     253 </span>            :                      method* m25 = 0, method* m26 = 0, method* m27 = 0, method* m28 = 0, method* m29 = 0)
+<span class="lineNum">     254 </span>            :          {
+<span class="lineNum">     255 </span><span class="lineCov">         29 :             fixture* f = &amp;__fixtures();</span>
+<span class="lineNum">     256 </span><span class="lineCov">         29 :             while(f-&gt;_next) { f = f-&gt;_next; }</span>
+<span class="lineNum">     257 </span><span class="lineCov">         29 :             f = f-&gt;_next = new fixture;</span>
+<span class="lineNum">     258 </span>            : 
+<span class="lineNum">     259 </span>            :             #define SET_FIXTURE_METHOD(M) \
+<span class="lineNum">     260 </span>            :                if(M) \
+<span class="lineNum">     261 </span>            :                { \
+<span class="lineNum">     262 </span>            :                   method** m = 0; \
+<span class="lineNum">     263 </span>            :                   switch(M-&gt;_type) \
+<span class="lineNum">     264 </span>            :                   { \
+<span class="lineNum">     265 </span>            :                      case method::AFTER_METHOD:        m = &amp;f-&gt;_afters;         break; \
+<span class="lineNum">     266 </span>            :                      case method::AFTER_CLASS_METHOD:  m = &amp;f-&gt;_after_classes;  break; \
+<span class="lineNum">     267 </span>            :                      case method::BEFORE_METHOD:       m = &amp;f-&gt;_befores;        break; \
+<span class="lineNum">     268 </span>            :                      case method::BEFORE_CLASS_METHOD: m = &amp;f-&gt;_before_classes; break; \
+<span class="lineNum">     269 </span>            :                      case method::TEST_METHOD:         m = &amp;f-&gt;_tests;          break; \
+<span class="lineNum">     270 </span>            :                   } \
+<span class="lineNum">     271 </span>            :                   while(*m &amp;&amp; (*m)-&gt;_next) { m = &amp;(*m)-&gt;_next; } \
+<span class="lineNum">     272 </span>            :                   (*m) ? (*m)-&gt;_next = M : *m = M; \
+<span class="lineNum">     273 </span>            :                }
+<span class="lineNum">     274 </span><span class="lineCov">         29 :             SET_FIXTURE_METHOD(m0)  SET_FIXTURE_METHOD(m1)  SET_FIXTURE_METHOD(m2)  SET_FIXTURE_METHOD(m3)</span>
+<span class="lineNum">     275 </span><span class="lineCov">         29 :             SET_FIXTURE_METHOD(m4)  SET_FIXTURE_METHOD(m5)  SET_FIXTURE_METHOD(m6)  SET_FIXTURE_METHOD(m7)</span>
+<span class="lineNum">     276 </span><span class="lineCov">         29 :             SET_FIXTURE_METHOD(m8)  SET_FIXTURE_METHOD(m9)  SET_FIXTURE_METHOD(m10) SET_FIXTURE_METHOD(m11)</span>
+<span class="lineNum">     277 </span><span class="lineCov">         29 :             SET_FIXTURE_METHOD(m12) SET_FIXTURE_METHOD(m13) SET_FIXTURE_METHOD(m14) SET_FIXTURE_METHOD(m15)</span>
+<span class="lineNum">     278 </span><span class="lineCov">         29 :             SET_FIXTURE_METHOD(m16) SET_FIXTURE_METHOD(m17) SET_FIXTURE_METHOD(m18) SET_FIXTURE_METHOD(m19)</span>
+<span class="lineNum">     279 </span><span class="lineCov">         29 :             SET_FIXTURE_METHOD(m20) SET_FIXTURE_METHOD(m21) SET_FIXTURE_METHOD(m22) SET_FIXTURE_METHOD(m23)</span>
+<span class="lineNum">     280 </span><span class="lineCov">         29 :             SET_FIXTURE_METHOD(m24) SET_FIXTURE_METHOD(m25) SET_FIXTURE_METHOD(m26) SET_FIXTURE_METHOD(m27)</span>
+<span class="lineNum">     281 </span><span class="lineCov">         29 :             SET_FIXTURE_METHOD(m28) SET_FIXTURE_METHOD(m29)</span>
+<span class="lineNum">     282 </span>            :             #undef SET_FIXTURE_METHOD
+<span class="lineNum">     283 </span><span class="lineCov">         29 :          }</span>
+<span class="lineNum">     284 </span>            : 
+<span class="lineNum">     285 </span>            :          /**
+<span class="lineNum">     286 </span>            :           * Registers a method to run once immediately after each test method registered with the test fixture.
+<span class="lineNum">     287 </span>            :           *
+<span class="lineNum">     288 </span>            :           * @param[in] _method A method to register with the test fixture.
+<span class="lineNum">     289 </span>            :           * @param[in] _name The internal name of the method used when status messages are displayed.
+<span class="lineNum">     290 </span>            :           */
+<span class="lineNum">     291 </span>            :          template &lt;typename C&gt;
+<span class="lineNum">     292 </span>            :          method* After(void (C::*_method)(), const char* _name)
+<span class="lineNum">     293 </span>            :             { return new method(this, reinterpret_cast&lt;void (TestFixture::*)()&gt;(_method), _name, method::AFTER_METHOD); }
+<span class="lineNum">     294 </span>            : 
+<span class="lineNum">     295 </span>            :          /**
+<span class="lineNum">     296 </span>            :           * Registers a method to run once immediately after all after/before/test methods registered with
+<span class="lineNum">     297 </span>            :           * the test fixture. Useful for cleaning up shared state used by methods in a test fixture.
+<span class="lineNum">     298 </span>            :           *
+<span class="lineNum">     299 </span>            :           * @param[in] _method A method to register with the test fixture.
+<span class="lineNum">     300 </span>            :           * @param[in] _name The internal name of the method used when status messages are displayed.
+<span class="lineNum">     301 </span>            :           */
+<span class="lineNum">     302 </span>            :          template &lt;typename C&gt;
+<span class="lineNum">     303 </span>            :          method* AfterClass(void (C::*_method)(), const char* _name)
+<span class="lineNum">     304 </span>            :             { return new method(this, reinterpret_cast&lt;void (TestFixture::*)()&gt;(_method), _name, method::AFTER_CLASS_METHOD); }
+<span class="lineNum">     305 </span>            : 
+<span class="lineNum">     306 </span>            :          /**
+<span class="lineNum">     307 </span>            :           * Registers a method to run once immediately before each test method registered with the test fixture.
+<span class="lineNum">     308 </span>            :           *
+<span class="lineNum">     309 </span>            :           * @param[in] _method A method to register with the test fixture.
+<span class="lineNum">     310 </span>            :           * @param[in] _name The internal name of the method used when status messages are displayed.
+<span class="lineNum">     311 </span>            :           */
+<span class="lineNum">     312 </span>            :          template &lt;typename C&gt;
+<span class="lineNum">     313 </span>            :          method* Before(void (C::*_method)(), const char* _name)
+<span class="lineNum">     314 </span>            :             { return new method(this, reinterpret_cast&lt;void (TestFixture::*)()&gt;(_method), _name, method::BEFORE_METHOD); }
+<span class="lineNum">     315 </span>            : 
+<span class="lineNum">     316 </span>            :          /**
+<span class="lineNum">     317 </span>            :           * Registers a method to run once immediately before all after/before/test methods registered with
+<span class="lineNum">     318 </span>            :           * the test fixture. Useful for intializing shared state used by methods in a test fixture.
+<span class="lineNum">     319 </span>            :           *
+<span class="lineNum">     320 </span>            :           * @param[in] _method A method to register with the test fixture.
+<span class="lineNum">     321 </span>            :           * @param[in] _name The internal name of the method used when status messages are displayed.
+<span class="lineNum">     322 </span>            :           */
+<span class="lineNum">     323 </span>            :          template &lt;typename C&gt;
+<span class="lineNum">     324 </span>            :          method* BeforeClass(void (C::*_method)(), const char* _name)
+<span class="lineNum">     325 </span>            :             { return new method(this, reinterpret_cast&lt;void (TestFixture::*)()&gt;(_method), _name, method::BEFORE_CLASS_METHOD); }
+<span class="lineNum">     326 </span>            : 
+<span class="lineNum">     327 </span>            :          /**
+<span class="lineNum">     328 </span>            :           * Registers a method to run as a test with the test fixture.
+<span class="lineNum">     329 </span>            :           *
+<span class="lineNum">     330 </span>            :           * @param[in] _method A method to register with the test fixture.
+<span class="lineNum">     331 </span>            :           * @param[in] _name The internal name of the method used when status messages are displayed.
+<a name="332"><span class="lineNum">     332 </span>            :           */</a>
+<span class="lineNum">     333 </span>            :          template &lt;typename C&gt;
+<span class="lineNum">     334 </span><span class="lineCov">        197 :          method* Test(void (C::*_method)(), const char* _name)</span>
+<span class="lineNum">     335 </span><span class="lineCov">        197 :             { return new method(this, reinterpret_cast&lt;void (TestFixture::*)()&gt;(_method), _name, method::TEST_METHOD); }</span>
+<span class="lineNum">     336 </span>            : 
+<a name="337"><span class="lineNum">     337 </span>            :       protected:</a>
+<span class="lineNum">     338 </span>            : 
+<span class="lineNum">     339 </span><span class="lineCov">          1 :          static int __do_run()</span>
+<span class="lineNum">     340 </span>            :          {
+<span class="lineNum">     341 </span><span class="lineCov">          1 :             fixture* f = __fixtures()._next;</span>
+<span class="lineNum">     342 </span><span class="lineCov">         31 :             while(f)</span>
+<span class="lineNum">     343 </span>            :             {
+<span class="lineNum">     344 </span><span class="lineCov">         29 :                printf(&quot;[--------------]\n&quot;);</span>
+<span class="lineNum">     345 </span><span class="lineCov">         29 :                __do_methods(f-&gt;_before_classes);</span>
+<span class="lineNum">     346 </span><span class="lineCov">         29 :                __do_tests(f);</span>
+<span class="lineNum">     347 </span><span class="lineCov">         29 :                __do_methods(f-&gt;_after_classes);</span>
+<span class="lineNum">     348 </span><span class="lineCov">         29 :                printf(&quot;[--------------]\n\n&quot;);</span>
+<span class="lineNum">     349 </span><span class="lineCov">         29 :                f = f-&gt;_next;</span>
+<span class="lineNum">     350 </span>            :             }
+<span class="lineNum">     351 </span><span class="lineCov">          1 :             printf(&quot;[==============]\n&quot;);</span>
+<span class="lineNum">     352 </span><span class="lineCov">          1 :             printf(&quot;[ TEST RESULTS ]\n&quot;);</span>
+<span class="lineNum">     353 </span><span class="lineCov">          1 :             printf(&quot;[==============]\n&quot;);</span>
+<span class="lineNum">     354 </span><span class="lineCov">          1 :             printf(&quot;[    PASSED    ] %4i tests\n&quot;, __stats()._passes);</span>
+<span class="lineNum">     355 </span><span class="lineCov">          1 :             printf(&quot;[    FAILED    ] %4i tests\n&quot;, __stats()._failures);</span>
+<span class="lineNum">     356 </span><span class="lineCov">          1 :             printf(&quot;[==============]\n&quot;);</span>
+<span class="lineNum">     357 </span><span class="lineCov">          1 :             return __stats()._failures;</span>
+<span class="lineNum">     358 </span>            :          }
+<span class="lineNum">     359 </span>            : 
+<span class="lineNum">     360 </span>            :          /**
+<span class="lineNum">     361 </span>            :           * Determine if two binary32 single precision IEEE 754 floating-point
+<span class="lineNum">     362 </span>            :           * numbers are equal using unit in the last place (ULP) analysis.
+<span class="lineNum">     363 </span>            :           *
+<span class="lineNum">     364 </span>            :           * http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm 
+<span class="lineNum">     365 </span>            :           */
+<span class="lineNum">     366 </span>            :          static bool __fp_equal(float lhs, float rhs, unsigned char ulps)
+<span class="lineNum">     367 </span>            :          {
+<span class="lineNum">     368 </span>            :             union
+<span class="lineNum">     369 </span>            :             {
+<span class="lineNum">     370 </span>            :                float f;
+<span class="lineNum">     371 </span>            :                char  c[4];
+<span class="lineNum">     372 </span>            :             } lhs_u, rhs_u;
+<span class="lineNum">     373 </span>            :             lhs_u.f = lhs;
+<span class="lineNum">     374 </span>            :             rhs_u.f = rhs;
+<span class="lineNum">     375 </span>            : 
+<span class="lineNum">     376 </span>            :             bool lil_endian = (static_cast&lt;unsigned char&gt;(0x00FF)) == 0xFF;
+<span class="lineNum">     377 </span>            :             int msb = lil_endian ? 3 : 0;
+<span class="lineNum">     378 </span>            :             int lsb = lil_endian ? 0 : 3;
+<span class="lineNum">     379 </span>            :             if(lhs_u.c[msb] &lt; 0)
+<span class="lineNum">     380 </span>            :             {
+<span class="lineNum">     381 </span>            :                lhs_u.c[0 ^ lsb] = 0x00 - lhs_u.c[0 ^ lsb];
+<span class="lineNum">     382 </span>            :                lhs_u.c[1 ^ lsb] = ((static_cast&lt;unsigned char&gt;(lhs_u.c[0 ^ lsb]) &gt; 0x00) ? 0xFF : 0x00) - lhs_u.c[1 ^ lsb];
+<span class="lineNum">     383 </span>            :                lhs_u.c[2 ^ lsb] = ((static_cast&lt;unsigned char&gt;(lhs_u.c[1 ^ lsb]) &gt; 0x00) ? 0xFF : 0x00) - lhs_u.c[2 ^ lsb];
+<span class="lineNum">     384 </span>            :                lhs_u.c[3 ^ lsb] = ((static_cast&lt;unsigned char&gt;(lhs_u.c[2 ^ lsb]) &gt; 0x00) ? 0x7F : 0x80) - lhs_u.c[3 ^ lsb];
+<span class="lineNum">     385 </span>            :             }
+<span class="lineNum">     386 </span>            :             if(rhs_u.c[msb] &lt; 0)
+<span class="lineNum">     387 </span>            :             {
+<span class="lineNum">     388 </span>            :                rhs_u.c[0 ^ lsb] = 0x00 - rhs_u.c[0 ^ lsb];
+<span class="lineNum">     389 </span>            :                rhs_u.c[1 ^ lsb] = ((static_cast&lt;unsigned char&gt;(rhs_u.c[0 ^ lsb]) &gt; 0x00) ? 0xFF : 0x00) - rhs_u.c[1 ^ lsb];
+<span class="lineNum">     390 </span>            :                rhs_u.c[2 ^ lsb] = ((static_cast&lt;unsigned char&gt;(rhs_u.c[1 ^ lsb]) &gt; 0x00) ? 0xFF : 0x00) - rhs_u.c[2 ^ lsb];
+<span class="lineNum">     391 </span>            :                rhs_u.c[3 ^ lsb] = ((static_cast&lt;unsigned char&gt;(rhs_u.c[2 ^ lsb]) &gt; 0x00) ? 0x7F : 0x80) - rhs_u.c[3 ^ lsb];
+<span class="lineNum">     392 </span>            :             }
+<span class="lineNum">     393 </span>            :             return (lhs_u.c[1] == rhs_u.c[1] &amp;&amp; lhs_u.c[2] == rhs_u.c[2] &amp;&amp; lhs_u.c[msb] == rhs_u.c[msb]) &amp;&amp;
+<span class="lineNum">     394 </span>            :                    ((lhs_u.c[lsb] &gt; rhs_u.c[lsb]) ? lhs_u.c[lsb] - rhs_u.c[lsb] : rhs_u.c[lsb] - lhs_u.c[lsb]) &lt;= ulps;
+<span class="lineNum">     395 </span>            :          }
+<span class="lineNum">     396 </span>            : 
+<span class="lineNum">     397 </span>            :          /**
+<span class="lineNum">     398 </span>            :           * Determine if two binary64 double precision IEEE 754 floating-point
+<span class="lineNum">     399 </span>            :           * numbers are equal using unit in the last place (ULP) analysis.
+<span class="lineNum">     400 </span>            :           *
+<span class="lineNum">     401 </span>            :           * http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm 
+<span class="lineNum">     402 </span>            :           */
+<span class="lineNum">     403 </span>            :          static bool __fp_equal(double lhs, double rhs, unsigned char ulps)
+<span class="lineNum">     404 </span>            :          {
+<span class="lineNum">     405 </span>            :             union
+<span class="lineNum">     406 </span>            :             {
+<span class="lineNum">     407 </span>            :                double d;
+<span class="lineNum">     408 </span>            :                char   c[8];
+<span class="lineNum">     409 </span>            :             } lhs_u, rhs_u;
+<span class="lineNum">     410 </span>            :             lhs_u.d = lhs;
+<span class="lineNum">     411 </span>            :             rhs_u.d = rhs;
+<span class="lineNum">     412 </span>            : 
+<span class="lineNum">     413 </span>            :             bool lil_endian = static_cast&lt;unsigned char&gt;(0x00FF) == 0xFF;
+<span class="lineNum">     414 </span>            :             int msb = lil_endian ? 7 : 0;
+<span class="lineNum">     415 </span>            :             int lsb = lil_endian ? 0 : 7;
+<span class="lineNum">     416 </span>            :             if(lhs_u.c[msb] &lt; 0)
+<span class="lineNum">     417 </span>            :             {
+<span class="lineNum">     418 </span>            :                lhs_u.c[0 ^ lsb] = 0x00 - lhs_u.c[0 ^ lsb];
+<span class="lineNum">     419 </span>            :                lhs_u.c[1 ^ lsb] = ((static_cast&lt;unsigned char&gt;(lhs_u.c[0 ^ lsb]) &gt; 0x00) ? 0xFF : 0x00) - lhs_u.c[1 ^ lsb];
+<span class="lineNum">     420 </span>            :                lhs_u.c[2 ^ lsb] = ((static_cast&lt;unsigned char&gt;(lhs_u.c[1 ^ lsb]) &gt; 0x00) ? 0xFF : 0x00) - lhs_u.c[2 ^ lsb];
+<span class="lineNum">     421 </span>            :                lhs_u.c[3 ^ lsb] = ((static_cast&lt;unsigned char&gt;(lhs_u.c[2 ^ lsb]) &gt; 0x00) ? 0xFF : 0x00) - lhs_u.c[3 ^ lsb];
+<span class="lineNum">     422 </span>            :                lhs_u.c[4 ^ lsb] = ((static_cast&lt;unsigned char&gt;(lhs_u.c[3 ^ lsb]) &gt; 0x00) ? 0xFF : 0x00) - lhs_u.c[4 ^ lsb];
+<span class="lineNum">     423 </span>            :                lhs_u.c[5 ^ lsb] = ((static_cast&lt;unsigned char&gt;(lhs_u.c[4 ^ lsb]) &gt; 0x00) ? 0xFF : 0x00) - lhs_u.c[5 ^ lsb];
+<span class="lineNum">     424 </span>            :                lhs_u.c[6 ^ lsb] = ((static_cast&lt;unsigned char&gt;(lhs_u.c[5 ^ lsb]) &gt; 0x00) ? 0xFF : 0x00) - lhs_u.c[6 ^ lsb];
+<span class="lineNum">     425 </span>            :                lhs_u.c[7 ^ lsb] = ((static_cast&lt;unsigned char&gt;(lhs_u.c[6 ^ lsb]) &gt; 0x00) ? 0x7F : 0x80) - lhs_u.c[7 ^ lsb];
+<span class="lineNum">     426 </span>            :             }
+<span class="lineNum">     427 </span>            :             if(rhs_u.c[msb] &lt; 0)
+<span class="lineNum">     428 </span>            :             {
+<span class="lineNum">     429 </span>            :                rhs_u.c[0 ^ lsb] = 0x00 - rhs_u.c[0 ^ lsb];
+<span class="lineNum">     430 </span>            :                rhs_u.c[1 ^ lsb] = ((static_cast&lt;unsigned char&gt;(rhs_u.c[0 ^ lsb]) &gt; 0x00) ? 0xFF : 0x00) - rhs_u.c[1 ^ lsb];
+<span class="lineNum">     431 </span>            :                rhs_u.c[2 ^ lsb] = ((static_cast&lt;unsigned char&gt;(rhs_u.c[1 ^ lsb]) &gt; 0x00) ? 0xFF : 0x00) - rhs_u.c[2 ^ lsb];
+<span class="lineNum">     432 </span>            :                rhs_u.c[3 ^ lsb] = ((static_cast&lt;unsigned char&gt;(rhs_u.c[2 ^ lsb]) &gt; 0x00) ? 0xFF : 0x00) - rhs_u.c[3 ^ lsb];
+<span class="lineNum">     433 </span>            :                rhs_u.c[4 ^ lsb] = ((static_cast&lt;unsigned char&gt;(rhs_u.c[3 ^ lsb]) &gt; 0x00) ? 0xFF : 0x00) - rhs_u.c[4 ^ lsb];
+<span class="lineNum">     434 </span>            :                rhs_u.c[5 ^ lsb] = ((static_cast&lt;unsigned char&gt;(rhs_u.c[4 ^ lsb]) &gt; 0x00) ? 0xFF : 0x00) - rhs_u.c[5 ^ lsb];
+<span class="lineNum">     435 </span>            :                rhs_u.c[6 ^ lsb] = ((static_cast&lt;unsigned char&gt;(rhs_u.c[5 ^ lsb]) &gt; 0x00) ? 0xFF : 0x00) - rhs_u.c[6 ^ lsb];
+<span class="lineNum">     436 </span>            :                rhs_u.c[7 ^ lsb] = ((static_cast&lt;unsigned char&gt;(rhs_u.c[6 ^ lsb]) &gt; 0x00) ? 0x7F : 0x80) - rhs_u.c[7 ^ lsb];
+<span class="lineNum">     437 </span>            :             }
+<span class="lineNum">     438 </span>            :             return (lhs_u.c[1] == rhs_u.c[1] &amp;&amp; lhs_u.c[2] == rhs_u.c[2] &amp;&amp;
+<span class="lineNum">     439 </span>            :                     lhs_u.c[3] == rhs_u.c[3] &amp;&amp; lhs_u.c[4] == rhs_u.c[4] &amp;&amp;
+<span class="lineNum">     440 </span>            :                     lhs_u.c[5] == rhs_u.c[5] &amp;&amp; lhs_u.c[6] == rhs_u.c[6] &amp;&amp;
+<span class="lineNum">     441 </span>            :                     lhs_u.c[msb] == rhs_u.c[msb]) &amp;&amp;
+<span class="lineNum">     442 </span>            :                    ((lhs_u.c[lsb] &gt; rhs_u.c[lsb]) ? lhs_u.c[lsb] - rhs_u.c[lsb] : rhs_u.c[lsb] - lhs_u.c[lsb]) &lt;= ulps;
+<a name="443"><span class="lineNum">     443 </span>            :          }</a>
+<span class="lineNum">     444 </span>            : 
+<span class="lineNum">     445 </span><span class="lineNoCov">          0 :          static void __assert(const char* _file, int _line)</span>
+<span class="lineNum">     446 </span><span class="lineNoCov">          0 :             { printf(&quot;[              ]    assert #%i at %s:%i\n&quot;, ++__stats()._assertions, _file, _line); }</span>
+<span class="lineNum">     447 </span>            : 
+<span class="lineNum">     448 </span>            :          static void __trace(const char* _file, int _line, const char* _message)
+<span class="lineNum">     449 </span>            :             { printf(&quot;[              ]    trace #%i at %s:%i: %s\n&quot;, ++__stats()._traces, _file, _line, _message); }
+<span class="lineNum">     450 </span>            : 
+<a name="451"><span class="lineNum">     451 </span>            :       private:</a>
+<span class="lineNum">     452 </span>            : 
+<span class="lineNum">     453 </span><span class="lineCov">        452 :          static void __do_methods(method* m)</span>
+<span class="lineNum">     454 </span>            :          {
+<span class="lineNum">     455 </span><span class="lineCov">        904 :             while(m)</span>
+<span class="lineNum">     456 </span>            :             {
+<span class="lineNum">     457 </span><span class="lineNoCov">          0 :                (*m-&gt;_this.*m-&gt;_addr)();</span>
+<span class="lineNum">     458 </span><span class="lineNoCov">          0 :                m = m-&gt;_next;</span>
+<span class="lineNum">     459 </span>            :             }
+<a name="460"><span class="lineNum">     460 </span><span class="lineCov">        452 :          }</span></a>
+<span class="lineNum">     461 </span>            : 
+<span class="lineNum">     462 </span><span class="lineCov">         29 :          static void __do_tests(fixture* f)</span>
+<span class="lineNum">     463 </span>            :          {
+<span class="lineNum">     464 </span><span class="lineCov">         29 :             method* t = f-&gt;_tests;</span>
+<span class="lineNum">     465 </span><span class="lineCov">        255 :             while(t)</span>
+<span class="lineNum">     466 </span>            :             {
+<span class="lineNum">     467 </span><span class="lineCov">        197 :                __do_methods(f-&gt;_befores);</span>
+<span class="lineNum">     468 </span>            : 
+<span class="lineNum">     469 </span><span class="lineCov">        197 :                int _prev_assertions = __stats()._assertions;</span>
+<span class="lineNum">     470 </span><span class="lineCov">        197 :                printf(&quot;[ RUN          ] %s\n&quot;, t-&gt;_name);</span>
+<span class="lineNum">     471 </span><span class="lineCov">        197 :                (*t-&gt;_this.*t-&gt;_addr)();</span>
+<span class="lineNum">     472 </span><span class="lineCov">        197 :                if(_prev_assertions == __stats()._assertions)</span>
+<span class="lineNum">     473 </span>            :                {
+<span class="lineNum">     474 </span><span class="lineCov">        197 :                   printf(&quot;[       PASSED ] %s\n&quot;, t-&gt;_name);</span>
+<span class="lineNum">     475 </span><span class="lineCov">        197 :                   __stats()._passes++;</span>
+<span class="lineNum">     476 </span>            :                }
+<span class="lineNum">     477 </span>            :                else
+<span class="lineNum">     478 </span>            :                {
+<span class="lineNum">     479 </span><span class="lineNoCov">          0 :                   printf(&quot;[       FAILED ] %s\n&quot;, t-&gt;_name);</span>
+<span class="lineNum">     480 </span><span class="lineNoCov">          0 :                   __stats()._failures++;</span>
+<span class="lineNum">     481 </span>            :                }
+<span class="lineNum">     482 </span><span class="lineCov">        197 :                t = t-&gt;_next;</span>
+<span class="lineNum">     483 </span>            : 
+<span class="lineNum">     484 </span><span class="lineCov">        197 :                __do_methods(f-&gt;_afters);</span>
+<span class="lineNum">     485 </span>            :             }
+<a name="486"><span class="lineNum">     486 </span><span class="lineCov">         29 :          }</span></a>
+<span class="lineNum">     487 </span>            : 
+<span class="lineNum">     488 </span><span class="lineCov">        594 :          static stats&amp; __stats()</span>
+<span class="lineNum">     489 </span>            :          {
+<span class="lineNum">     490 </span><span class="lineCov">        594 :             static stats _stats;</span>
+<span class="lineNum">     491 </span><span class="lineCov">        594 :             return _stats;</span>
+<a name="492"><span class="lineNum">     492 </span>            :          }</a>
+<span class="lineNum">     493 </span>            : 
+<span class="lineNum">     494 </span><span class="lineCov">         30 :          static fixture&amp; __fixtures()</span>
+<span class="lineNum">     495 </span>            :          {
+<span class="lineNum">     496 </span><span class="lineCov">         30 :             static fixture _fixtures;</span>
+<span class="lineNum">     497 </span><span class="lineCov">         30 :             return _fixtures;</span>
+<span class="lineNum">     498 </span>            :          }
+<span class="lineNum">     499 </span>            :    };
+<span class="lineNum">     500 </span>            : 
+<span class="lineNum">     501 </span>            :    /**
+<span class="lineNum">     502 </span>            :     * A class containing the primary entry point for running all registered
+<span class="lineNum">     503 </span>            :     * tpunit++ test cases. Generally this class is wrapped by the user's
+<span class="lineNum">     504 </span>            :     * \em main function.
+<span class="lineNum">     505 </span>            :     */
+<span class="lineNum">     506 </span>            :    class Tests : private TestFixture
+<span class="lineNum">     507 </span>            :    {
+<span class="lineNum">     508 </span>            :       public:
+<span class="lineNum">     509 </span>            : 
+<span class="lineNum">     510 </span>            :          /**
+<span class="lineNum">     511 </span>            :           * Run all of the registered test cases and return the number of failed assertions.
+<span class="lineNum">     512 </span>            :           *
+<a name="513"><span class="lineNum">     513 </span>            :           * @return The number of failing assertions. (e.g. zero if all tests pass, otherwise non-zero)</a>
+<span class="lineNum">     514 </span>            :           */
+<span class="lineNum">     515 </span><span class="lineCov">          1 :          static int Run() { return TestFixture::__do_run(); }</span>
+<span class="lineNum">     516 </span>            : 
+<span class="lineNum">     517 </span>            :       private:
+<span class="lineNum">     518 </span>            : 
+<span class="lineNum">     519 </span>            :          Tests() : TestFixture(0) { /* disable instance creation */ }
+<span class="lineNum">     520 </span>            :    };
+<span class="lineNum">     521 </span>            : } // namespace tpunit
+<span class="lineNum">     522 </span>            : #endif //__TPUNITPP_HPP__
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

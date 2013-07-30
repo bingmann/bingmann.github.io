@@ -1,0 +1,918 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2007/stx-btree/stx-btree-0.8/wxbtreedemo/WMain.cpp - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal2.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2007/">2007</a> / <a href="/2007/stx-btree/">stx-btree</a> / <a href="/2007/stx-btree/stx-btree-0.8/">stx-btree-0.8</a> / <a href="/2007/stx-btree/stx-btree-0.8/wxbtreedemo/">wxbtreedemo</a> / <a href="/2007/stx-btree/stx-btree-0.8/wxbtreedemo/WMain.cpp.html">WMain.cpp</a> (<a href="/2007/stx-btree/stx-btree-0.8/wxbtreedemo/WMain.cpp">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">// $Id: WMain.cpp 58 2007-05-13 10:51:17Z tb $</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * STX B+ Tree Demo Program v0.8</span>
+<span class="comment"> * Copyright (C) 2007 Timo Bingmann</span>
+<span class="comment"> *</span>
+<span class="comment"> * This program is free software; you can redistribute it and/or modify it</span>
+<span class="comment"> * under the terms of the GNU General Public License as published by the Free</span>
+<span class="comment"> * Software Foundation; either version 2 of the License, or (at your option)</span>
+<span class="comment"> * any later version.</span>
+<span class="comment"> *</span>
+<span class="comment"> * This program is distributed in the hope that it will be useful, but WITHOUT</span>
+<span class="comment"> * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or</span>
+<span class="comment"> * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for</span>
+<span class="comment"> * more details.</span>
+<span class="comment"> *</span>
+<span class="comment"> * You should have received a copy of the GNU General Public License along with</span>
+<span class="comment"> * this program; if not, write to the Free Software Foundation, Inc., 59 Temple</span>
+<span class="comment"> * Place, Suite 330, Boston, MA 02111-1307 USA</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;map&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;vector&gt;</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"WMain.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"WTreeDrawing.h"</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;wx/filedlg.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;wx/textfile.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;wx/tokenzr.h&gt;</span>
+
+<span class="normal">WMain</span><span class="symbol">::</span><span class="function">WMain</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="symbol">:</span><span class="normal"> </span><span class="function">WMain_wxg</span><span class="symbol">(</span><span class="normal">NULL</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">""</span><span class="symbol">))</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="preproc">	#include</span><span class="normal"> </span><span class="string">"progicon.xpm"</span>
+<span class="normal">	</span><span class="function">SetIcon</span><span class="symbol">(</span><span class="function">wxIcon</span><span class="symbol">(</span><span class="normal">progicon</span><span class="symbol">));</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    window_TreeDrawing</span><span class="symbol">-&gt;</span><span class="function">SetWMain</span><span class="symbol">(</span><span class="keyword">this</span><span class="symbol">);</span>
+
+<span class="normal">    treebundle</span><span class="symbol">.</span><span class="normal">selected_type </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">    treebundle</span><span class="symbol">.</span><span class="normal">selected_slots </span><span class="symbol">=</span><span class="normal"> </span><span class="number">4</span><span class="symbol">;</span>
+<span class="normal">    treebundle</span><span class="symbol">.</span><span class="function">clearMarks</span><span class="symbol">();</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> WMain</span><span class="symbol">::</span><span class="function">UpdateViews</span><span class="symbol">()</span>
+<span class="cbracket">{</span>
+<span class="normal">    window_TreeDrawing</span><span class="symbol">-&gt;</span><span class="function">Refresh</span><span class="symbol">();</span>
+<span class="cbracket">}</span>
+
+<span class="comment">// *** Insert Operation</span>
+
+<span class="keyword">struct</span><span class="normal"> </span><span class="classname">BTreeOp_Insert</span>
+<span class="cbracket">{</span>
+<span class="normal">    BTreeBundle</span><span class="symbol">&amp;</span><span class="normal">	treebundle</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">wxString</span><span class="normal">		inputkey</span><span class="symbol">,</span><span class="normal"> inputdata</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal">	</span><span class="usertype">wxString</span><span class="normal">	result_type</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opInteger</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span><span class="normal">	</span>
+<span class="normal">	</span><span class="type">long</span><span class="normal"> key</span><span class="symbol">,</span><span class="normal"> data</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">inputkey</span><span class="symbol">.</span><span class="function">ToLong</span><span class="symbol">(&amp;</span><span class="normal">key</span><span class="symbol">))</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Could not interpret key string as integer."</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">inputdata</span><span class="symbol">.</span><span class="function">ToLong</span><span class="symbol">(&amp;</span><span class="normal">data</span><span class="symbol">))</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Could not interpret data string as integer."</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	std</span><span class="symbol">::</span><span class="usertype">pair&lt;typename BTreeType::iterator, bool&gt;</span><span class="normal"> inres </span><span class="symbol">=</span><span class="normal"> bt</span><span class="symbol">.</span><span class="function">insert2</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">,</span><span class="normal"> data</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">inres</span><span class="symbol">.</span><span class="normal">second</span><span class="symbol">)</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Insert returned false: key already exists."</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">else</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    treebundle</span><span class="symbol">.</span><span class="function">setMark1</span><span class="symbol">(</span><span class="normal">inres</span><span class="symbol">.</span><span class="normal">first</span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Insert succeeded."</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opIntegerMulti</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span><span class="normal">	</span>
+<span class="normal">	</span><span class="type">long</span><span class="normal"> key</span><span class="symbol">,</span><span class="normal"> data</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">inputkey</span><span class="symbol">.</span><span class="function">ToLong</span><span class="symbol">(&amp;</span><span class="normal">key</span><span class="symbol">))</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Could not interpret key string as integer."</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">inputdata</span><span class="symbol">.</span><span class="function">ToLong</span><span class="symbol">(&amp;</span><span class="normal">data</span><span class="symbol">))</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Could not interpret data string as integer."</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">::</span><span class="usertype">iterator</span><span class="normal"> iter </span><span class="symbol">=</span><span class="normal"> bt</span><span class="symbol">.</span><span class="function">insert2</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">,</span><span class="normal"> data</span><span class="symbol">);</span>
+
+<span class="normal">	treebundle</span><span class="symbol">.</span><span class="function">setMark1</span><span class="symbol">(</span><span class="normal">iter</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Insert succeeded."</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opString</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	std</span><span class="symbol">::</span><span class="usertype">pair&lt;typename BTreeType::iterator, bool&gt;</span><span class="normal"> inres </span><span class="symbol">=</span><span class="normal"> bt</span><span class="symbol">.</span><span class="function">insert2</span><span class="symbol">(</span><span class="normal">inputkey</span><span class="symbol">,</span><span class="normal"> inputdata</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">inres</span><span class="symbol">.</span><span class="normal">second</span><span class="symbol">)</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Insert returned false: key already exists."</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">else</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    treebundle</span><span class="symbol">.</span><span class="function">setMark1</span><span class="symbol">(</span><span class="normal">inres</span><span class="symbol">.</span><span class="normal">first</span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Insert succeeded."</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opStringMulti</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">::</span><span class="usertype">iterator</span><span class="normal"> iter </span><span class="symbol">=</span><span class="normal"> bt</span><span class="symbol">.</span><span class="function">insert2</span><span class="symbol">(</span><span class="normal">inputkey</span><span class="symbol">,</span><span class="normal"> inputdata</span><span class="symbol">);</span>
+
+<span class="normal">	treebundle</span><span class="symbol">.</span><span class="function">setMark1</span><span class="symbol">(</span><span class="normal">iter</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Insert succeeded."</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="type">void</span><span class="normal"> WMain</span><span class="symbol">::</span><span class="function">OnButtonInsert</span><span class="symbol">(</span><span class="normal">wxCommandEvent </span><span class="symbol">&amp;)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">BTreeOp_Insert</span><span class="normal"> op </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> treebundle </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">    op</span><span class="symbol">.</span><span class="normal">inputkey </span><span class="symbol">=</span><span class="normal"> textctrl_Key</span><span class="symbol">-&gt;</span><span class="function">GetValue</span><span class="symbol">();</span>
+<span class="normal">    op</span><span class="symbol">.</span><span class="normal">inputdata </span><span class="symbol">=</span><span class="normal"> textctrl_Data</span><span class="symbol">-&gt;</span><span class="function">GetValue</span><span class="symbol">();</span>
+
+<span class="normal">    </span><span class="usertype">wxString</span><span class="normal"> result </span><span class="symbol">=</span><span class="normal"> treebundle</span><span class="symbol">.</span><span class="function">run</span><span class="symbol">(</span><span class="normal">op</span><span class="symbol">);</span>
+<span class="normal">    textctrl_OpResult</span><span class="symbol">-&gt;</span><span class="function">SetValue</span><span class="symbol">(</span><span class="normal">result</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="function">UpdateViews</span><span class="symbol">();</span>
+<span class="cbracket">}</span>
+
+<span class="comment">// *** Erase Operation</span>
+
+<span class="keyword">struct</span><span class="normal"> </span><span class="classname">BTreeOp_Erase</span>
+<span class="cbracket">{</span>
+<span class="normal">    BTreeBundle</span><span class="symbol">&amp;</span><span class="normal">	treebundle</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">wxString</span><span class="normal">		inputkey</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal">	</span><span class="usertype">wxString</span><span class="normal">	result_type</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opInteger</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span><span class="normal">	</span>
+<span class="normal">	</span><span class="type">long</span><span class="normal"> key</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">inputkey</span><span class="symbol">.</span><span class="function">ToLong</span><span class="symbol">(&amp;</span><span class="normal">key</span><span class="symbol">))</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Could not interpret key string as integer."</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">bt</span><span class="symbol">.</span><span class="function">erase</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">))</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Erase returned false: key does not exist."</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">else</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    treebundle</span><span class="symbol">.</span><span class="function">clearMarks</span><span class="symbol">();</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Erase succeeded."</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opIntegerMulti</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="function">opInteger</span><span class="symbol">(</span><span class="normal">bt</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opString</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span><span class="normal">	</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">bt</span><span class="symbol">.</span><span class="function">erase</span><span class="symbol">(</span><span class="normal">inputkey</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Erase returned false: key does not exist."</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">else</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    treebundle</span><span class="symbol">.</span><span class="function">clearMarks</span><span class="symbol">();</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Erase succeeded."</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opStringMulti</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="function">opString</span><span class="symbol">(</span><span class="normal">bt</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="type">void</span><span class="normal"> WMain</span><span class="symbol">::</span><span class="function">OnButtonErase</span><span class="symbol">(</span><span class="normal">wxCommandEvent </span><span class="symbol">&amp;)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">BTreeOp_Erase</span><span class="normal"> op </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> treebundle </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">    op</span><span class="symbol">.</span><span class="normal">inputkey </span><span class="symbol">=</span><span class="normal"> textctrl_Key</span><span class="symbol">-&gt;</span><span class="function">GetValue</span><span class="symbol">();</span>
+
+<span class="normal">    </span><span class="usertype">wxString</span><span class="normal"> result </span><span class="symbol">=</span><span class="normal"> treebundle</span><span class="symbol">.</span><span class="function">run</span><span class="symbol">(</span><span class="normal">op</span><span class="symbol">);</span>
+<span class="normal">    textctrl_OpResult</span><span class="symbol">-&gt;</span><span class="function">SetValue</span><span class="symbol">(</span><span class="normal">result</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="function">UpdateViews</span><span class="symbol">();</span>
+<span class="cbracket">}</span>
+
+<span class="comment">// *** Insert Random Operation</span>
+
+<span class="type">void</span><span class="normal"> WMain</span><span class="symbol">::</span><span class="function">OnButtonInsertRandom</span><span class="symbol">(</span><span class="normal">wxCommandEvent </span><span class="symbol">&amp;)</span>
+<span class="cbracket">{</span>
+<span class="normal">    wxMenu</span><span class="symbol">*</span><span class="normal"> menu </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> wxMenu</span><span class="symbol">;</span>
+<span class="normal">    </span>
+<span class="normal">    menu</span><span class="symbol">-&gt;</span><span class="function">Append</span><span class="symbol">(</span><span class="number">500</span><span class="symbol">,</span><span class="normal">	</span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Insert 10 Random Integer Pairs"</span><span class="symbol">));</span>
+<span class="normal">    menu</span><span class="symbol">-&gt;</span><span class="function">Append</span><span class="symbol">(</span><span class="number">501</span><span class="symbol">,</span><span class="normal">	</span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Insert 20 Random Integer Pairs"</span><span class="symbol">));</span>
+<span class="normal">    menu</span><span class="symbol">-&gt;</span><span class="function">Append</span><span class="symbol">(</span><span class="number">502</span><span class="symbol">,</span><span class="normal">	</span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Insert 50 Random Integer Pairs"</span><span class="symbol">));</span>
+<span class="normal">    menu</span><span class="symbol">-&gt;</span><span class="function">Append</span><span class="symbol">(</span><span class="number">503</span><span class="symbol">,</span><span class="normal">	</span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Insert 100 Random Integer Pairs"</span><span class="symbol">));</span>
+<span class="normal">    menu</span><span class="symbol">-&gt;</span><span class="function">Append</span><span class="symbol">(</span><span class="number">504</span><span class="symbol">,</span><span class="normal">	</span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Insert 200 Random Integer Pairs"</span><span class="symbol">));</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">treebundle</span><span class="symbol">.</span><span class="function">isStringType</span><span class="symbol">())</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	menu</span><span class="symbol">-&gt;</span><span class="function">AppendSeparator</span><span class="symbol">();</span>
+<span class="normal">	menu</span><span class="symbol">-&gt;</span><span class="function">Append</span><span class="symbol">(</span><span class="number">510</span><span class="symbol">,</span><span class="normal">	</span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Insert 10 Random 1 Letter String Pairs"</span><span class="symbol">));</span>
+<span class="normal">	menu</span><span class="symbol">-&gt;</span><span class="function">Append</span><span class="symbol">(</span><span class="number">511</span><span class="symbol">,</span><span class="normal">	</span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Insert 10 Random 2 Letter String Pairs"</span><span class="symbol">));</span>
+<span class="normal">	menu</span><span class="symbol">-&gt;</span><span class="function">Append</span><span class="symbol">(</span><span class="number">512</span><span class="symbol">,</span><span class="normal">	</span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Insert 25 Random 2 Letter String Pairs"</span><span class="symbol">));</span>
+<span class="normal">	menu</span><span class="symbol">-&gt;</span><span class="function">Append</span><span class="symbol">(</span><span class="number">513</span><span class="symbol">,</span><span class="normal">	</span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Insert 50 Random 2 Letter String Pairs"</span><span class="symbol">));</span>
+<span class="normal">	menu</span><span class="symbol">-&gt;</span><span class="function">Append</span><span class="symbol">(</span><span class="number">514</span><span class="symbol">,</span><span class="normal">	</span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Insert 10 Random 3 Letter String Pairs"</span><span class="symbol">));</span>
+<span class="normal">	menu</span><span class="symbol">-&gt;</span><span class="function">Append</span><span class="symbol">(</span><span class="number">515</span><span class="symbol">,</span><span class="normal">	</span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Insert 25 Random 3 Letter String Pairs"</span><span class="symbol">));</span>
+<span class="normal">	menu</span><span class="symbol">-&gt;</span><span class="function">Append</span><span class="symbol">(</span><span class="number">516</span><span class="symbol">,</span><span class="normal">	</span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Insert 50 Random 3 Letter String Pairs"</span><span class="symbol">));</span>
+<span class="normal">	menu</span><span class="symbol">-&gt;</span><span class="function">Append</span><span class="symbol">(</span><span class="number">517</span><span class="symbol">,</span><span class="normal">	</span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Insert 100 Random 3 Letter String Pairs"</span><span class="symbol">));</span>
+<span class="normal">	menu</span><span class="symbol">-&gt;</span><span class="function">Append</span><span class="symbol">(</span><span class="number">518</span><span class="symbol">,</span><span class="normal">	</span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Insert 200 Random 3 Letter String Pairs"</span><span class="symbol">));</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="function">PopupMenu</span><span class="symbol">(</span><span class="normal">menu</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="keyword">struct</span><span class="normal"> </span><span class="classname">BTreeOp_InsertRandomInteger</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal">		num</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal">	</span><span class="usertype">wxString</span><span class="normal">	result_type</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opInteger</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span><span class="normal">	</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> count </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> num</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">bt</span><span class="symbol">.</span><span class="function">insert2</span><span class="symbol">(</span><span class="function">rand</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">%</span><span class="normal"> </span><span class="number">1000</span><span class="symbol">,</span><span class="normal"> </span><span class="function">rand</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">%</span><span class="normal"> </span><span class="number">1000</span><span class="symbol">).</span><span class="normal">second</span><span class="symbol">)</span>
+<span class="normal">		count</span><span class="symbol">++;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> wxString</span><span class="symbol">::</span><span class="function">Format</span><span class="symbol">(</span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Inserted %d random integers."</span><span class="symbol">),</span><span class="normal"> count</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opIntegerMulti</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span><span class="normal">	</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> num</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    bt</span><span class="symbol">.</span><span class="function">insert2</span><span class="symbol">(</span><span class="function">rand</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">%</span><span class="normal"> </span><span class="number">1000</span><span class="symbol">,</span><span class="normal"> </span><span class="function">rand</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">%</span><span class="normal"> </span><span class="number">1000</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> wxString</span><span class="symbol">::</span><span class="function">Format</span><span class="symbol">(</span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Inserted %d random integers."</span><span class="symbol">),</span><span class="normal"> num</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opString</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span><span class="normal">	</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> count </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> num</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="usertype">wxString</span><span class="normal"> key</span><span class="symbol">,</span><span class="normal"> val</span><span class="symbol">;</span>
+<span class="normal">	    key </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="function">rand</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">%</span><span class="normal"> </span><span class="number">1000</span><span class="symbol">;</span>
+<span class="normal">	    val </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="function">rand</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">%</span><span class="normal"> </span><span class="number">1000</span><span class="symbol">;</span>
+
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">bt</span><span class="symbol">.</span><span class="function">insert2</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">,</span><span class="normal"> val</span><span class="symbol">).</span><span class="normal">second</span><span class="symbol">)</span>
+<span class="normal">		count</span><span class="symbol">++;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> wxString</span><span class="symbol">::</span><span class="function">Format</span><span class="symbol">(</span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Inserted %d random integer strings."</span><span class="symbol">),</span><span class="normal"> count</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opStringMulti</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span><span class="normal">	</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> num</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="usertype">wxString</span><span class="normal"> key</span><span class="symbol">,</span><span class="normal"> val</span><span class="symbol">;</span>
+<span class="normal">	    key </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="function">rand</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">%</span><span class="normal"> </span><span class="number">1000</span><span class="symbol">;</span>
+<span class="normal">	    val </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="function">rand</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">%</span><span class="normal"> </span><span class="number">1000</span><span class="symbol">;</span>
+
+<span class="normal">	    bt</span><span class="symbol">.</span><span class="function">insert2</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">,</span><span class="normal"> val</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> wxString</span><span class="symbol">::</span><span class="function">Format</span><span class="symbol">(</span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Inserted %d random integer strings."</span><span class="symbol">),</span><span class="normal"> num</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="keyword">struct</span><span class="normal"> </span><span class="classname">BTreeOp_InsertRandomString</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal">		len</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal">		num</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal">	</span><span class="usertype">wxString</span><span class="normal">	result_type</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opInteger</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Cannot insert strings into integer tree"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opIntegerMulti</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="function">opInteger</span><span class="symbol">(</span><span class="normal">bt</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opString</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> letters</span><span class="symbol">[</span><span class="number">27</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="string">"abcdefghijklmnopqrstuvwxyz"</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="type">int</span><span class="normal"> count </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> num</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="usertype">wxString</span><span class="normal"> key</span><span class="symbol">,</span><span class="normal"> val</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="keyword">for</span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> l </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> l </span><span class="symbol">&lt;</span><span class="normal"> len</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">l</span><span class="symbol">)</span>
+<span class="normal">	    </span><span class="cbracket">{</span>
+<span class="normal">		key </span><span class="symbol">+=</span><span class="normal"> letters</span><span class="symbol">[</span><span class="function">rand</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">%</span><span class="normal"> </span><span class="number">26</span><span class="symbol">];</span>
+<span class="normal">		val </span><span class="symbol">+=</span><span class="normal"> letters</span><span class="symbol">[</span><span class="function">rand</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">%</span><span class="normal"> </span><span class="number">26</span><span class="symbol">];</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">bt</span><span class="symbol">.</span><span class="function">insert2</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">,</span><span class="normal"> val</span><span class="symbol">).</span><span class="normal">second</span><span class="symbol">)</span>
+<span class="normal">		count</span><span class="symbol">++;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> wxString</span><span class="symbol">::</span><span class="function">Format</span><span class="symbol">(</span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Inserted %d random strings."</span><span class="symbol">),</span><span class="normal"> count</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opStringMulti</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> letters</span><span class="symbol">[</span><span class="number">27</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="string">"abcdefghijklmnopqrstuvwxyz"</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">for</span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> num</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="usertype">wxString</span><span class="normal"> key</span><span class="symbol">,</span><span class="normal"> val</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="keyword">for</span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> l </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> l </span><span class="symbol">&lt;</span><span class="normal"> len</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">l</span><span class="symbol">)</span>
+<span class="normal">	    </span><span class="cbracket">{</span>
+<span class="normal">		key </span><span class="symbol">+=</span><span class="normal"> letters</span><span class="symbol">[</span><span class="function">rand</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">%</span><span class="normal"> </span><span class="number">26</span><span class="symbol">];</span>
+<span class="normal">		val </span><span class="symbol">+=</span><span class="normal"> letters</span><span class="symbol">[</span><span class="function">rand</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">%</span><span class="normal"> </span><span class="number">26</span><span class="symbol">];</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+
+<span class="normal">	    bt</span><span class="symbol">.</span><span class="function">insert2</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">,</span><span class="normal"> val</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> wxString</span><span class="symbol">::</span><span class="function">Format</span><span class="symbol">(</span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Inserted %d random strings."</span><span class="symbol">),</span><span class="normal"> num</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="type">void</span><span class="normal"> WMain</span><span class="symbol">::</span><span class="function">OnMenuInsertRandom</span><span class="symbol">(</span><span class="usertype">wxCommandEvent</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">ce</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">srand</span><span class="symbol">(</span><span class="function">time</span><span class="symbol">(</span><span class="normal">NULL</span><span class="symbol">));</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ce</span><span class="symbol">.</span><span class="function">GetId</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">500</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">BTreeOp_InsertRandomInteger</span><span class="normal"> op </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span><span class="number">10</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">	textctrl_OpResult</span><span class="symbol">-&gt;</span><span class="function">SetValue</span><span class="symbol">(</span><span class="normal"> treebundle</span><span class="symbol">.</span><span class="function">run</span><span class="symbol">(</span><span class="normal">op</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ce</span><span class="symbol">.</span><span class="function">GetId</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">501</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">BTreeOp_InsertRandomInteger</span><span class="normal"> op </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span><span class="number">20</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">	textctrl_OpResult</span><span class="symbol">-&gt;</span><span class="function">SetValue</span><span class="symbol">(</span><span class="normal"> treebundle</span><span class="symbol">.</span><span class="function">run</span><span class="symbol">(</span><span class="normal">op</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ce</span><span class="symbol">.</span><span class="function">GetId</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">502</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">BTreeOp_InsertRandomInteger</span><span class="normal"> op </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span><span class="number">50</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">	textctrl_OpResult</span><span class="symbol">-&gt;</span><span class="function">SetValue</span><span class="symbol">(</span><span class="normal"> treebundle</span><span class="symbol">.</span><span class="function">run</span><span class="symbol">(</span><span class="normal">op</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ce</span><span class="symbol">.</span><span class="function">GetId</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">503</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">BTreeOp_InsertRandomInteger</span><span class="normal"> op </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span><span class="number">100</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">	textctrl_OpResult</span><span class="symbol">-&gt;</span><span class="function">SetValue</span><span class="symbol">(</span><span class="normal"> treebundle</span><span class="symbol">.</span><span class="function">run</span><span class="symbol">(</span><span class="normal">op</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ce</span><span class="symbol">.</span><span class="function">GetId</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">504</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">BTreeOp_InsertRandomInteger</span><span class="normal"> op </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span><span class="number">200</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">	textctrl_OpResult</span><span class="symbol">-&gt;</span><span class="function">SetValue</span><span class="symbol">(</span><span class="normal"> treebundle</span><span class="symbol">.</span><span class="function">run</span><span class="symbol">(</span><span class="normal">op</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ce</span><span class="symbol">.</span><span class="function">GetId</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">510</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">BTreeOp_InsertRandomString</span><span class="normal"> op </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="number">10</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">	textctrl_OpResult</span><span class="symbol">-&gt;</span><span class="function">SetValue</span><span class="symbol">(</span><span class="normal"> treebundle</span><span class="symbol">.</span><span class="function">run</span><span class="symbol">(</span><span class="normal">op</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ce</span><span class="symbol">.</span><span class="function">GetId</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">511</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">BTreeOp_InsertRandomString</span><span class="normal"> op </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span><span class="number">2</span><span class="symbol">,</span><span class="normal"> </span><span class="number">10</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">	textctrl_OpResult</span><span class="symbol">-&gt;</span><span class="function">SetValue</span><span class="symbol">(</span><span class="normal"> treebundle</span><span class="symbol">.</span><span class="function">run</span><span class="symbol">(</span><span class="normal">op</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ce</span><span class="symbol">.</span><span class="function">GetId</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">512</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">BTreeOp_InsertRandomString</span><span class="normal"> op </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span><span class="number">2</span><span class="symbol">,</span><span class="normal"> </span><span class="number">25</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">	textctrl_OpResult</span><span class="symbol">-&gt;</span><span class="function">SetValue</span><span class="symbol">(</span><span class="normal"> treebundle</span><span class="symbol">.</span><span class="function">run</span><span class="symbol">(</span><span class="normal">op</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ce</span><span class="symbol">.</span><span class="function">GetId</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">513</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">BTreeOp_InsertRandomString</span><span class="normal"> op </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span><span class="number">2</span><span class="symbol">,</span><span class="normal"> </span><span class="number">50</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">	textctrl_OpResult</span><span class="symbol">-&gt;</span><span class="function">SetValue</span><span class="symbol">(</span><span class="normal"> treebundle</span><span class="symbol">.</span><span class="function">run</span><span class="symbol">(</span><span class="normal">op</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ce</span><span class="symbol">.</span><span class="function">GetId</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">514</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">BTreeOp_InsertRandomString</span><span class="normal"> op </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">10</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">	textctrl_OpResult</span><span class="symbol">-&gt;</span><span class="function">SetValue</span><span class="symbol">(</span><span class="normal"> treebundle</span><span class="symbol">.</span><span class="function">run</span><span class="symbol">(</span><span class="normal">op</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ce</span><span class="symbol">.</span><span class="function">GetId</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">515</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">BTreeOp_InsertRandomString</span><span class="normal"> op </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">25</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">	textctrl_OpResult</span><span class="symbol">-&gt;</span><span class="function">SetValue</span><span class="symbol">(</span><span class="normal"> treebundle</span><span class="symbol">.</span><span class="function">run</span><span class="symbol">(</span><span class="normal">op</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ce</span><span class="symbol">.</span><span class="function">GetId</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">516</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">BTreeOp_InsertRandomString</span><span class="normal"> op </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">50</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">	textctrl_OpResult</span><span class="symbol">-&gt;</span><span class="function">SetValue</span><span class="symbol">(</span><span class="normal"> treebundle</span><span class="symbol">.</span><span class="function">run</span><span class="symbol">(</span><span class="normal">op</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ce</span><span class="symbol">.</span><span class="function">GetId</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">517</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">BTreeOp_InsertRandomString</span><span class="normal"> op </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">100</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">	textctrl_OpResult</span><span class="symbol">-&gt;</span><span class="function">SetValue</span><span class="symbol">(</span><span class="normal"> treebundle</span><span class="symbol">.</span><span class="function">run</span><span class="symbol">(</span><span class="normal">op</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ce</span><span class="symbol">.</span><span class="function">GetId</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">518</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">BTreeOp_InsertRandomString</span><span class="normal"> op </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">200</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">	textctrl_OpResult</span><span class="symbol">-&gt;</span><span class="function">SetValue</span><span class="symbol">(</span><span class="normal"> treebundle</span><span class="symbol">.</span><span class="function">run</span><span class="symbol">(</span><span class="normal">op</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="function">UpdateViews</span><span class="symbol">();</span>
+<span class="cbracket">}</span>
+
+<span class="comment">// *** Find Key Operation</span>
+
+<span class="keyword">struct</span><span class="normal"> </span><span class="classname">BTreeOp_FindKey</span>
+<span class="cbracket">{</span>
+<span class="normal">    BTreeBundle</span><span class="symbol">&amp;</span><span class="normal">	treebundle</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">wxString</span><span class="normal">		inputkey</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal">	</span><span class="usertype">wxString</span><span class="normal">	result_type</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opInteger</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span><span class="normal">	</span>
+<span class="normal">	</span><span class="type">long</span><span class="normal"> key</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">inputkey</span><span class="symbol">.</span><span class="function">ToLong</span><span class="symbol">(&amp;</span><span class="normal">key</span><span class="symbol">))</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Could not interpret key string as integer."</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">::</span><span class="usertype">const_iterator</span><span class="normal"> bti </span><span class="symbol">=</span><span class="normal"> bt</span><span class="symbol">.</span><span class="function">find</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">bti </span><span class="symbol">==</span><span class="normal"> bt</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">())</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    treebundle</span><span class="symbol">.</span><span class="function">clearMarks</span><span class="symbol">();</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Find Key failed: key does not exist."</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">else</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    treebundle</span><span class="symbol">.</span><span class="function">setMark1</span><span class="symbol">(</span><span class="normal">bti</span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Find Key succeeded."</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opIntegerMulti</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="function">opInteger</span><span class="symbol">(</span><span class="normal">bt</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opString</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">::</span><span class="usertype">const_iterator</span><span class="normal"> bti </span><span class="symbol">=</span><span class="normal"> bt</span><span class="symbol">.</span><span class="function">find</span><span class="symbol">(</span><span class="normal">inputkey</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">bti </span><span class="symbol">==</span><span class="normal"> bt</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">())</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    treebundle</span><span class="symbol">.</span><span class="function">clearMarks</span><span class="symbol">();</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Find Key failed: key does not exist."</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">else</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    treebundle</span><span class="symbol">.</span><span class="function">setMark1</span><span class="symbol">(</span><span class="normal">bti</span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Find Key succeeded."</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opStringMulti</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="function">opString</span><span class="symbol">(</span><span class="normal">bt</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="type">void</span><span class="normal"> WMain</span><span class="symbol">::</span><span class="function">OnButtonFindKey</span><span class="symbol">(</span><span class="normal">wxCommandEvent </span><span class="symbol">&amp;)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">BTreeOp_FindKey</span><span class="normal"> op </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> treebundle</span><span class="symbol">,</span><span class="normal"> textctrl_Key</span><span class="symbol">-&gt;</span><span class="function">GetValue</span><span class="symbol">()</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="usertype">wxString</span><span class="normal"> result </span><span class="symbol">=</span><span class="normal"> treebundle</span><span class="symbol">.</span><span class="function">run</span><span class="symbol">(</span><span class="normal">op</span><span class="symbol">);</span>
+<span class="normal">    textctrl_OpResult</span><span class="symbol">-&gt;</span><span class="function">SetValue</span><span class="symbol">(</span><span class="normal">result</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="function">UpdateViews</span><span class="symbol">();</span>
+<span class="cbracket">}</span>
+
+<span class="comment">// *** Equal Range Operation</span>
+
+<span class="keyword">struct</span><span class="normal"> </span><span class="classname">BTreeOp_EqualRange</span>
+<span class="cbracket">{</span>
+<span class="normal">    BTreeBundle</span><span class="symbol">&amp;</span><span class="normal">	treebundle</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">wxString</span><span class="normal">		inputkey</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal">	</span><span class="usertype">wxString</span><span class="normal">	result_type</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opInteger</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span><span class="normal">	</span>
+<span class="normal">	</span><span class="type">long</span><span class="normal"> key</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">inputkey</span><span class="symbol">.</span><span class="function">ToLong</span><span class="symbol">(&amp;</span><span class="normal">key</span><span class="symbol">))</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Could not interpret key string as integer."</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span>
+<span class="normal">	std</span><span class="symbol">::</span><span class="normal">pair</span><span class="symbol">&lt;</span><span class="normal"> </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">::</span><span class="normal">const_iterator</span><span class="symbol">,</span><span class="normal">  </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">::</span><span class="normal">const_iterator </span><span class="symbol">&gt;</span>
+<span class="normal">	    btip </span><span class="symbol">=</span><span class="normal"> bt</span><span class="symbol">.</span><span class="function">equal_range</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">btip</span><span class="symbol">.</span><span class="normal">first </span><span class="symbol">==</span><span class="normal"> bt</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> btip</span><span class="symbol">.</span><span class="normal">second </span><span class="symbol">==</span><span class="normal"> bt</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">())</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    treebundle</span><span class="symbol">.</span><span class="function">clearMarks</span><span class="symbol">();</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Equal Range failed: key is beyond the maximum of the tree."</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">else</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    treebundle</span><span class="symbol">.</span><span class="function">setMark1</span><span class="symbol">(</span><span class="normal">btip</span><span class="symbol">.</span><span class="normal">first</span><span class="symbol">);</span>
+<span class="normal">	    treebundle</span><span class="symbol">.</span><span class="function">setMark2</span><span class="symbol">(</span><span class="normal">btip</span><span class="symbol">.</span><span class="normal">second</span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Equal Range succeeded."</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opIntegerMulti</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="function">opInteger</span><span class="symbol">(</span><span class="normal">bt</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opString</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	std</span><span class="symbol">::</span><span class="normal">pair</span><span class="symbol">&lt;</span><span class="normal"> </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">::</span><span class="normal">const_iterator</span><span class="symbol">,</span><span class="normal">  </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">::</span><span class="normal">const_iterator </span><span class="symbol">&gt;</span>
+<span class="normal">	    btip </span><span class="symbol">=</span><span class="normal"> bt</span><span class="symbol">.</span><span class="function">equal_range</span><span class="symbol">(</span><span class="normal">inputkey</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">btip</span><span class="symbol">.</span><span class="normal">first </span><span class="symbol">==</span><span class="normal"> bt</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> btip</span><span class="symbol">.</span><span class="normal">second </span><span class="symbol">==</span><span class="normal"> bt</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">())</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    treebundle</span><span class="symbol">.</span><span class="function">clearMarks</span><span class="symbol">();</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Equal Range failed: key is beyond the maximum of the tree."</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">else</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    treebundle</span><span class="symbol">.</span><span class="function">setMark1</span><span class="symbol">(</span><span class="normal">btip</span><span class="symbol">.</span><span class="normal">first</span><span class="symbol">);</span>
+<span class="normal">	    treebundle</span><span class="symbol">.</span><span class="function">setMark2</span><span class="symbol">(</span><span class="normal">btip</span><span class="symbol">.</span><span class="normal">second</span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Equal Range succeeded."</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opStringMulti</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="function">opString</span><span class="symbol">(</span><span class="normal">bt</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="type">void</span><span class="normal"> WMain</span><span class="symbol">::</span><span class="function">OnButtonEqualRange</span><span class="symbol">(</span><span class="normal">wxCommandEvent </span><span class="symbol">&amp;)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">BTreeOp_EqualRange</span><span class="normal"> op </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> treebundle</span><span class="symbol">,</span><span class="normal"> textctrl_Key</span><span class="symbol">-&gt;</span><span class="function">GetValue</span><span class="symbol">()</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="usertype">wxString</span><span class="normal"> result </span><span class="symbol">=</span><span class="normal"> treebundle</span><span class="symbol">.</span><span class="function">run</span><span class="symbol">(</span><span class="normal">op</span><span class="symbol">);</span>
+<span class="normal">    textctrl_OpResult</span><span class="symbol">-&gt;</span><span class="function">SetValue</span><span class="symbol">(</span><span class="normal">result</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="function">UpdateViews</span><span class="symbol">();</span>
+<span class="cbracket">}</span>
+
+<span class="comment">// *** Clear Tree Operation</span>
+
+<span class="keyword">struct</span><span class="normal"> </span><span class="classname">BTreeOp_Clear</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal">	</span><span class="usertype">wxString</span><span class="normal">	result_type</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opInteger</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span><span class="normal">	</span>
+<span class="normal">	bt</span><span class="symbol">.</span><span class="function">clear</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Tree cleared."</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opIntegerMulti</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="function">opInteger</span><span class="symbol">(</span><span class="normal">bt</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opString</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span><span class="normal">	</span>
+<span class="normal">	bt</span><span class="symbol">.</span><span class="function">clear</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Tree cleared."</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opStringMulti</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="function">opString</span><span class="symbol">(</span><span class="normal">bt</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="type">void</span><span class="normal"> WMain</span><span class="symbol">::</span><span class="function">OnButtonClear</span><span class="symbol">(</span><span class="normal">wxCommandEvent </span><span class="symbol">&amp;)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">BTreeOp_Clear</span><span class="normal"> op</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">wxString</span><span class="normal"> result </span><span class="symbol">=</span><span class="normal"> treebundle</span><span class="symbol">.</span><span class="function">run</span><span class="symbol">(</span><span class="normal">op</span><span class="symbol">);</span>
+<span class="normal">    textctrl_OpResult</span><span class="symbol">-&gt;</span><span class="function">SetValue</span><span class="symbol">(</span><span class="normal">result</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="function">UpdateViews</span><span class="symbol">();</span>
+<span class="cbracket">}</span>
+
+<span class="comment">// *** Load File Operation</span>
+
+<span class="keyword">struct</span><span class="normal"> </span><span class="classname">BTreeOp_LoadFile</span>
+<span class="cbracket">{</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">vector&lt; std::pair&lt;wxString,wxString&gt; &gt;</span><span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">invector</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal">	</span><span class="type">int</span><span class="normal">	result_type</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opInteger</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> btsizebefore </span><span class="symbol">=</span><span class="normal"> bt</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span>
+
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">std</span><span class="symbol">::</span><span class="normal">vector</span><span class="symbol">&lt;</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">pair</span><span class="symbol">&lt;</span><span class="normal">wxString</span><span class="symbol">,</span><span class="normal">wxString</span><span class="symbol">&gt;</span><span class="normal"> </span><span class="symbol">&gt;::</span><span class="usertype">const_iterator</span><span class="normal"> ci </span><span class="symbol">=</span><span class="normal"> invector</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">();</span>
+<span class="normal">	     ci </span><span class="symbol">!=</span><span class="normal"> invector</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">();</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">ci</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="type">long</span><span class="normal"> key</span><span class="symbol">,</span><span class="normal"> val</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci</span><span class="symbol">-&gt;</span><span class="normal">first</span><span class="symbol">.</span><span class="function">ToLong</span><span class="symbol">(&amp;</span><span class="normal">key</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> ci</span><span class="symbol">-&gt;</span><span class="normal">second</span><span class="symbol">.</span><span class="function">ToLong</span><span class="symbol">(&amp;</span><span class="normal">val</span><span class="symbol">))</span>
+<span class="normal">	    </span><span class="cbracket">{</span>
+<span class="normal">		bt</span><span class="symbol">.</span><span class="function">insert2</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">,</span><span class="normal"> val</span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> bt</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> btsizebefore</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opIntegerMulti</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="function">opInteger</span><span class="symbol">(</span><span class="normal">bt</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opString</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span><span class="normal">	</span>
+<span class="normal">	</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> btsizebefore </span><span class="symbol">=</span><span class="normal"> bt</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span>
+
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">std</span><span class="symbol">::</span><span class="normal">vector</span><span class="symbol">&lt;</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">pair</span><span class="symbol">&lt;</span><span class="normal">wxString</span><span class="symbol">,</span><span class="normal">wxString</span><span class="symbol">&gt;</span><span class="normal"> </span><span class="symbol">&gt;::</span><span class="usertype">const_iterator</span><span class="normal"> ci </span><span class="symbol">=</span><span class="normal"> invector</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">();</span>
+<span class="normal">	     ci </span><span class="symbol">!=</span><span class="normal"> invector</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">();</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">ci</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    bt</span><span class="symbol">.</span><span class="function">insert</span><span class="symbol">(*</span><span class="normal">ci</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> bt</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> btsizebefore</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opStringMulti</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="function">opString</span><span class="symbol">(</span><span class="normal">bt</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="type">void</span><span class="normal"> WMain</span><span class="symbol">::</span><span class="function">OnButtonLoadFile</span><span class="symbol">(</span><span class="normal">wxCommandEvent </span><span class="symbol">&amp;)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">wxFileDialog</span><span class="normal"> </span><span class="function">filedlg</span><span class="symbol">(</span><span class="keyword">this</span><span class="symbol">,</span>
+<span class="normal">			 </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Select text file containing key/data pairs."</span><span class="symbol">),</span>
+<span class="normal">			 </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">""</span><span class="symbol">),</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">""</span><span class="symbol">),</span>
+<span class="normal">			 </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Text files (*.txt)|*.txt|CSV files (*.csv)|*.csv|All files (*.*)|*.*"</span><span class="symbol">),</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">wxCHECK_VERSION</span><span class="symbol">(</span><span class="number">2</span><span class="symbol">,</span><span class="number">8</span><span class="symbol">,</span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">			 wxFD_OPEN </span><span class="symbol">|</span><span class="normal"> wxFD_FILE_MUST_EXIST</span><span class="symbol">);</span>
+<span class="preproc">#else</span>
+<span class="normal">			 wxOPEN </span><span class="symbol">|</span><span class="normal"> wxFILE_MUST_EXIST</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">filedlg</span><span class="symbol">.</span><span class="function">ShowModal</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> wxID_OK</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">return</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="usertype">wxTextFile</span><span class="normal"> </span><span class="function">text</span><span class="symbol">(</span><span class="normal">filedlg</span><span class="symbol">.</span><span class="function">GetPath</span><span class="symbol">());</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">text</span><span class="symbol">.</span><span class="function">Open</span><span class="symbol">())</span><span class="normal"> </span><span class="keyword">return</span><span class="symbol">;</span>
+
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">vector&lt; std::pair&lt;wxString,wxString&gt; &gt;</span><span class="normal">	datavector</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">wxString</span><span class="normal"> line </span><span class="symbol">=</span><span class="normal"> text</span><span class="symbol">.</span><span class="function">GetFirstLine</span><span class="symbol">();</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">text</span><span class="symbol">.</span><span class="function">Eof</span><span class="symbol">();</span><span class="normal"> line </span><span class="symbol">=</span><span class="normal"> text</span><span class="symbol">.</span><span class="function">GetNextLine</span><span class="symbol">())</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">wxStringTokenizer</span><span class="normal"> </span><span class="function">linetok</span><span class="symbol">(</span><span class="normal">line</span><span class="symbol">,</span><span class="normal"> </span><span class="function">wxT</span><span class="symbol">(</span><span class="string">" </span><span class="specialchar">\t</span><span class="string">:;,"</span><span class="symbol">));</span>
+
+<span class="normal">	</span><span class="usertype">wxString</span><span class="normal"> word1 </span><span class="symbol">=</span><span class="normal"> linetok</span><span class="symbol">.</span><span class="function">GetNextToken</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="usertype">wxString</span><span class="normal"> word2 </span><span class="symbol">=</span><span class="normal"> linetok</span><span class="symbol">.</span><span class="function">GetNextToken</span><span class="symbol">();</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">word1</span><span class="symbol">.</span><span class="function">IsEmpty</span><span class="symbol">())</span><span class="normal"> </span><span class="keyword">continue</span><span class="symbol">;</span>
+
+<span class="normal">	datavector</span><span class="symbol">.</span><span class="function">push_back</span><span class="symbol">(</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">pair</span><span class="symbol">&lt;</span><span class="normal">wxString</span><span class="symbol">,</span><span class="normal">wxString</span><span class="symbol">&gt;(</span><span class="normal">word1</span><span class="symbol">,</span><span class="normal"> word2</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="usertype">BTreeOp_LoadFile</span><span class="normal"> op </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> datavector </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal"> insize </span><span class="symbol">=</span><span class="normal"> treebundle</span><span class="symbol">.</span><span class="function">run</span><span class="symbol">(</span><span class="normal">op</span><span class="symbol">);</span>
+
+<span class="normal">    textctrl_OpResult</span><span class="symbol">-&gt;</span><span class="function">SetValue</span><span class="symbol">(</span><span class="normal">wxString</span><span class="symbol">::</span><span class="function">Format</span><span class="symbol">(</span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Loaded %lu data items into new tree"</span><span class="symbol">),</span><span class="normal"> insize</span><span class="symbol">));</span>
+
+<span class="normal">    </span><span class="function">UpdateViews</span><span class="symbol">();</span>
+<span class="cbracket">}</span>
+
+<span class="comment">// *** Tree Activation Operation</span>
+
+<span class="keyword">struct</span><span class="normal"> </span><span class="classname">BTreeOp_GetVector</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal">	std</span><span class="symbol">::</span><span class="usertype">pair&lt;wxString,wxString&gt;</span><span class="normal"> stringpair_type</span><span class="symbol">;</span>
+
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">vector&lt; std::pair&lt;wxString,wxString&gt; &gt;</span><span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">outvector</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal">	</span><span class="type">void</span><span class="normal">	result_type</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opInteger</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="symbol">(</span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">::</span><span class="usertype">const_iterator</span><span class="normal"> ci </span><span class="symbol">=</span><span class="normal"> bt</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">();</span><span class="normal"> ci </span><span class="symbol">!=</span><span class="normal"> bt</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">();</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">ci</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="usertype">wxString</span><span class="normal"> key</span><span class="symbol">,</span><span class="normal"> val</span><span class="symbol">;</span>
+<span class="normal">	    key </span><span class="symbol">&lt;&lt;</span><span class="normal"> ci</span><span class="symbol">-&gt;</span><span class="normal">first</span><span class="symbol">;</span>
+<span class="normal">	    val </span><span class="symbol">&lt;&lt;</span><span class="normal"> ci</span><span class="symbol">-&gt;</span><span class="normal">second</span><span class="symbol">;</span>
+
+<span class="normal">	    outvector</span><span class="symbol">.</span><span class="function">push_back</span><span class="symbol">(</span><span class="normal"> </span><span class="function">stringpair_type</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">,</span><span class="normal"> val</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	bt</span><span class="symbol">.</span><span class="function">clear</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opIntegerMulti</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="function">opInteger</span><span class="symbol">(</span><span class="normal">bt</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opString</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span><span class="normal">	</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="symbol">(</span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">::</span><span class="usertype">const_iterator</span><span class="normal"> ci </span><span class="symbol">=</span><span class="normal"> bt</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">();</span><span class="normal"> ci </span><span class="symbol">!=</span><span class="normal"> bt</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">();</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">ci</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    outvector</span><span class="symbol">.</span><span class="function">push_back</span><span class="symbol">(*</span><span class="normal">ci</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	bt</span><span class="symbol">.</span><span class="function">clear</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opStringMulti</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="function">opString</span><span class="symbol">(</span><span class="normal">bt</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="keyword">struct</span><span class="normal"> </span><span class="classname">BTreeOp_PutVector</span>
+<span class="cbracket">{</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">vector&lt; std::pair&lt;wxString,wxString&gt; &gt;</span><span class="normal">	</span><span class="symbol">&amp;</span><span class="normal">invector</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal">	</span><span class="type">int</span><span class="normal">	result_type</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opInteger</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	bt</span><span class="symbol">.</span><span class="function">clear</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">std</span><span class="symbol">::</span><span class="normal">vector</span><span class="symbol">&lt;</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">pair</span><span class="symbol">&lt;</span><span class="normal">wxString</span><span class="symbol">,</span><span class="normal">wxString</span><span class="symbol">&gt;</span><span class="normal"> </span><span class="symbol">&gt;::</span><span class="usertype">const_iterator</span><span class="normal"> ci </span><span class="symbol">=</span><span class="normal"> invector</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">();</span>
+<span class="normal">	     ci </span><span class="symbol">!=</span><span class="normal"> invector</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">();</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">ci</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="type">long</span><span class="normal"> key</span><span class="symbol">,</span><span class="normal"> val</span><span class="symbol">;</span>
+<span class="normal">	    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci</span><span class="symbol">-&gt;</span><span class="normal">first</span><span class="symbol">.</span><span class="function">ToLong</span><span class="symbol">(&amp;</span><span class="normal">key</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> ci</span><span class="symbol">-&gt;</span><span class="normal">second</span><span class="symbol">.</span><span class="function">ToLong</span><span class="symbol">(&amp;</span><span class="normal">val</span><span class="symbol">))</span>
+<span class="normal">	    </span><span class="cbracket">{</span>
+<span class="normal">		bt</span><span class="symbol">.</span><span class="function">insert2</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">,</span><span class="normal"> val</span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> bt</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opIntegerMulti</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="function">opInteger</span><span class="symbol">(</span><span class="normal">bt</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opString</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span><span class="normal">	</span>
+<span class="normal">	bt</span><span class="symbol">.</span><span class="function">clear</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">std</span><span class="symbol">::</span><span class="normal">vector</span><span class="symbol">&lt;</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">pair</span><span class="symbol">&lt;</span><span class="normal">wxString</span><span class="symbol">,</span><span class="normal">wxString</span><span class="symbol">&gt;</span><span class="normal"> </span><span class="symbol">&gt;::</span><span class="usertype">const_iterator</span><span class="normal"> ci </span><span class="symbol">=</span><span class="normal"> invector</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">();</span>
+<span class="normal">	     ci </span><span class="symbol">!=</span><span class="normal"> invector</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">();</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">ci</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	    bt</span><span class="symbol">.</span><span class="function">insert</span><span class="symbol">(*</span><span class="normal">ci</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> bt</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BTreeType</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">opStringMulti</span><span class="symbol">(</span><span class="usertype">BTreeType</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">bt</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="function">opString</span><span class="symbol">(</span><span class="normal">bt</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="type">void</span><span class="normal"> WMain</span><span class="symbol">::</span><span class="function">OnChoiceDataType</span><span class="symbol">(</span><span class="normal">wxCommandEvent </span><span class="symbol">&amp;)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal"> seltype </span><span class="symbol">=</span><span class="normal"> choice_DataType</span><span class="symbol">-&gt;</span><span class="function">GetSelection</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">seltype </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">2</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">return</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">treebundle</span><span class="symbol">.</span><span class="normal">selected_type </span><span class="symbol">==</span><span class="normal"> seltype</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">return</span><span class="symbol">;</span>
+
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">vector&lt; std::pair&lt;wxString,wxString&gt; &gt;</span><span class="normal">	datavector</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="usertype">BTreeOp_GetVector</span><span class="normal"> op1 </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> datavector </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">    treebundle</span><span class="symbol">.</span><span class="function">run</span><span class="symbol">(</span><span class="normal">op1</span><span class="symbol">);</span>
+
+<span class="normal">    treebundle</span><span class="symbol">.</span><span class="normal">selected_type </span><span class="symbol">=</span><span class="normal"> seltype</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="usertype">BTreeOp_PutVector</span><span class="normal"> op2 </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> datavector </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal"> btsize </span><span class="symbol">=</span><span class="normal"> treebundle</span><span class="symbol">.</span><span class="function">run</span><span class="symbol">(</span><span class="normal">op2</span><span class="symbol">);</span>
+
+<span class="normal">    textctrl_OpResult</span><span class="symbol">-&gt;</span><span class="function">SetValue</span><span class="symbol">(</span><span class="normal">wxString</span><span class="symbol">::</span><span class="function">Format</span><span class="symbol">(</span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Moved %lu data items into new tree"</span><span class="symbol">),</span><span class="normal"> btsize</span><span class="symbol">));</span>
+
+<span class="normal">    </span><span class="function">UpdateViews</span><span class="symbol">();</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> WMain</span><span class="symbol">::</span><span class="function">OnChoiceNodeSlots</span><span class="symbol">(</span><span class="normal">wxCommandEvent </span><span class="symbol">&amp;)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">int</span><span class="normal"> choice_NodeSlots_choices</span><span class="symbol">[]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="number">4</span><span class="symbol">,</span><span class="normal"> </span><span class="number">5</span><span class="symbol">,</span><span class="normal"> </span><span class="number">6</span><span class="symbol">,</span><span class="normal"> </span><span class="number">7</span><span class="symbol">,</span><span class="normal"> </span><span class="number">8</span><span class="symbol">,</span><span class="normal"> </span><span class="number">9</span><span class="symbol">,</span><span class="normal"> </span><span class="number">10</span><span class="symbol">,</span><span class="normal"> </span><span class="number">11</span><span class="symbol">,</span><span class="normal"> </span><span class="number">12</span><span class="symbol">,</span><span class="normal"> </span><span class="number">13</span><span class="symbol">,</span><span class="normal"> </span><span class="number">14</span><span class="symbol">,</span><span class="normal"> </span><span class="number">15</span><span class="symbol">,</span><span class="normal"> </span><span class="number">16</span><span class="symbol">,</span><span class="normal"> </span><span class="number">32</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="type">int</span><span class="normal"> selslot </span><span class="symbol">=</span><span class="normal"> choice_NodeSlots</span><span class="symbol">-&gt;</span><span class="function">GetSelection</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">selslot </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">choice_NodeSlots_choices</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">/</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">choice_NodeSlots_choices</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]))</span><span class="normal"> </span><span class="keyword">return</span><span class="symbol">;</span>
+
+<span class="normal">    selslot </span><span class="symbol">=</span><span class="normal"> choice_NodeSlots_choices</span><span class="symbol">[</span><span class="normal">selslot</span><span class="symbol">];</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">treebundle</span><span class="symbol">.</span><span class="normal">selected_slots </span><span class="symbol">==</span><span class="normal"> selslot</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">return</span><span class="symbol">;</span>
+
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">vector&lt; std::pair&lt;wxString,wxString&gt; &gt;</span><span class="normal">	datavector</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="usertype">BTreeOp_GetVector</span><span class="normal"> op1 </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> datavector </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">    treebundle</span><span class="symbol">.</span><span class="function">run</span><span class="symbol">(</span><span class="normal">op1</span><span class="symbol">);</span>
+
+<span class="normal">    treebundle</span><span class="symbol">.</span><span class="normal">selected_slots </span><span class="symbol">=</span><span class="normal"> selslot</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="usertype">BTreeOp_PutVector</span><span class="normal"> op2 </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> datavector </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal"> btsize </span><span class="symbol">=</span><span class="normal"> treebundle</span><span class="symbol">.</span><span class="function">run</span><span class="symbol">(</span><span class="normal">op2</span><span class="symbol">);</span>
+
+<span class="normal">    textctrl_OpResult</span><span class="symbol">-&gt;</span><span class="function">SetValue</span><span class="symbol">(</span><span class="normal">wxString</span><span class="symbol">::</span><span class="function">Format</span><span class="symbol">(</span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Moved %lu data items into new tree"</span><span class="symbol">),</span><span class="normal"> btsize</span><span class="symbol">));</span>
+
+<span class="normal">    </span><span class="function">UpdateViews</span><span class="symbol">();</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> WMain</span><span class="symbol">::</span><span class="function">OnCheckboxDuplicates</span><span class="symbol">(</span><span class="normal">wxCommandEvent </span><span class="symbol">&amp;)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="type">bool</span><span class="normal"> seldup </span><span class="symbol">=</span><span class="normal"> checkbox_Duplicates</span><span class="symbol">-&gt;</span><span class="function">GetValue</span><span class="symbol">();</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">treebundle</span><span class="symbol">.</span><span class="normal">selected_multimap </span><span class="symbol">==</span><span class="normal"> seldup</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">return</span><span class="symbol">;</span>
+
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">vector&lt; std::pair&lt;wxString,wxString&gt; &gt;</span><span class="normal">	datavector</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="usertype">BTreeOp_GetVector</span><span class="normal"> op1 </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> datavector </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">    treebundle</span><span class="symbol">.</span><span class="function">run</span><span class="symbol">(</span><span class="normal">op1</span><span class="symbol">);</span>
+
+<span class="normal">    treebundle</span><span class="symbol">.</span><span class="normal">selected_multimap </span><span class="symbol">=</span><span class="normal"> seldup</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="usertype">BTreeOp_PutVector</span><span class="normal"> op2 </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> datavector </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal"> btsize </span><span class="symbol">=</span><span class="normal"> treebundle</span><span class="symbol">.</span><span class="function">run</span><span class="symbol">(</span><span class="normal">op2</span><span class="symbol">);</span>
+
+<span class="normal">    textctrl_OpResult</span><span class="symbol">-&gt;</span><span class="function">SetValue</span><span class="symbol">(</span><span class="normal">wxString</span><span class="symbol">::</span><span class="function">Format</span><span class="symbol">(</span><span class="function">wxT</span><span class="symbol">(</span><span class="string">"Moved %lu data items into new tree"</span><span class="symbol">),</span><span class="normal"> btsize</span><span class="symbol">));</span>
+
+<span class="normal">    </span><span class="function">UpdateViews</span><span class="symbol">();</span>
+<span class="cbracket">}</span>
+
+<span class="function">BEGIN_EVENT_TABLE</span><span class="symbol">(</span><span class="normal">WMain</span><span class="symbol">,</span><span class="normal"> wxFrame</span><span class="symbol">)</span>
+
+<span class="normal">    </span><span class="function">EVT_CHOICE</span><span class="normal">	</span><span class="symbol">(</span><span class="normal">ID_CHOICE_DATATYPE</span><span class="symbol">,</span><span class="normal">		WMain</span><span class="symbol">::</span><span class="normal">OnChoiceDataType</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">EVT_CHOICE</span><span class="normal">	</span><span class="symbol">(</span><span class="normal">ID_CHOICE_NODESLOTS</span><span class="symbol">,</span><span class="normal">		WMain</span><span class="symbol">::</span><span class="normal">OnChoiceNodeSlots</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">EVT_CHECKBOX</span><span class="symbol">(</span><span class="normal">ID_CHECKBOX_DUPLICATES</span><span class="symbol">,</span><span class="normal">	WMain</span><span class="symbol">::</span><span class="normal">OnCheckboxDuplicates</span><span class="symbol">)</span>
+
+<span class="normal">    </span><span class="function">EVT_MENU_RANGE</span><span class="normal"> </span><span class="symbol">(</span><span class="number">500</span><span class="symbol">,</span><span class="normal"> </span><span class="number">520</span><span class="symbol">,</span><span class="normal">			WMain</span><span class="symbol">::</span><span class="normal">OnMenuInsertRandom</span><span class="symbol">)</span>
+
+<span class="normal">    </span><span class="function">EVT_BUTTON</span><span class="normal">	</span><span class="symbol">(</span><span class="normal">ID_BUTTON_INSERT</span><span class="symbol">,</span><span class="normal">		WMain</span><span class="symbol">::</span><span class="normal">OnButtonInsert</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">EVT_BUTTON</span><span class="normal">	</span><span class="symbol">(</span><span class="normal">ID_BUTTON_ERASE</span><span class="symbol">,</span><span class="normal">		WMain</span><span class="symbol">::</span><span class="normal">OnButtonErase</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">EVT_BUTTON</span><span class="normal">	</span><span class="symbol">(</span><span class="normal">ID_BUTTON_INSERTRANDOM</span><span class="symbol">,</span><span class="normal">	WMain</span><span class="symbol">::</span><span class="normal">OnButtonInsertRandom</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">EVT_BUTTON</span><span class="normal">	</span><span class="symbol">(</span><span class="normal">ID_BUTTON_FINDKEY</span><span class="symbol">,</span><span class="normal">		WMain</span><span class="symbol">::</span><span class="normal">OnButtonFindKey</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">EVT_BUTTON</span><span class="normal">	</span><span class="symbol">(</span><span class="normal">ID_BUTTON_EQUALRANGE</span><span class="symbol">,</span><span class="normal">		WMain</span><span class="symbol">::</span><span class="normal">OnButtonEqualRange</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">EVT_BUTTON</span><span class="normal">	</span><span class="symbol">(</span><span class="normal">ID_BUTTON_CLEAR</span><span class="symbol">,</span><span class="normal">		WMain</span><span class="symbol">::</span><span class="normal">OnButtonClear</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">EVT_BUTTON</span><span class="normal">	</span><span class="symbol">(</span><span class="normal">ID_BUTTON_LOADFILE</span><span class="symbol">,</span><span class="normal">		WMain</span><span class="symbol">::</span><span class="normal">OnButtonLoadFile</span><span class="symbol">)</span>
+
+<span class="function">END_EVENT_TABLE</span><span class="symbol">();</span>
+
+<span class="comment">// *** Main Application</span>
+
+<span class="keyword">class</span><span class="normal"> </span><span class="classname">AppBTreeDemo</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> </span><span class="keyword">public</span><span class="normal"> wxApp</span>
+<span class="cbracket">{</span>
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="type">bool</span><span class="normal"> 		</span><span class="function">OnInit</span><span class="symbol">();</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="function">IMPLEMENT_APP</span><span class="symbol">(</span><span class="normal">AppBTreeDemo</span><span class="symbol">)</span>
+
+<span class="type">bool</span><span class="normal"> AppBTreeDemo</span><span class="symbol">::</span><span class="function">OnInit</span><span class="symbol">()</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">wxInitAllImageHandlers</span><span class="symbol">();</span>
+
+<span class="normal">    WMain</span><span class="symbol">*</span><span class="normal"> wm </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="function">WMain</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="function">SetTopWindow</span><span class="symbol">(</span><span class="normal">wm</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">SetExitOnFrameDelete</span><span class="symbol">(</span><span class="keyword">true</span><span class="symbol">);</span>
+<span class="normal">    wm</span><span class="symbol">-&gt;</span><span class="function">Show</span><span class="symbol">();</span>
+
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

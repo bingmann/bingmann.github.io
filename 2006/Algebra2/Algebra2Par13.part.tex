@@ -1,0 +1,108 @@
+\section{Flache Moduln}
+
+\begin{Bem}
+  Für jeden $R$-Modul $M$ ist die Zuordnung $M \mapsto M \otimes_R N$ ein Funktor
+  \[\otimes_R N: \underline{R\mbox{-Mod}} \to \underline{R\mbox{-Mod}}\]
+\end{Bem}
+
+\begin{Bew} 
+  Ist $\varphi: M \to M'$ $R$-linear, so setzte $\varphi_N: M \otimes_R N \to M'
+  \otimes_R N, x \otimes y \mapsto \varphi(x) \otimes y$ und linear fortgesetzt: $\displaystyle
+  \sum_{i=0}^n a_i(x_i \otimes y_i) \mapsto \sum_{i=0}^n a_i(\varphi(x_i) \otimes y_i)$
+\end{Bew}
+
+\begin{Prop}
+\label{1.12}
+  Der Funktor $\otimes_R N$ ist rechtsexakt, d.h. ist $0 \to M'
+  \overset{\varphi}{\to} M \overset{\psi}{\to} M'' \to 0$ exakt,\\
+  so ist $ M' \otimes_R N \overset{\varphi_N}{\to} M \otimes_R N \overset{\psi_N}{\to} M'' \otimes_R N \to 0$ exakt.
+\end{Prop}
+
+\begin{nnBsp} 
+  $R = \mathbb{Z}, N = \mathbb{Z}/2 \mathbb{Z}$\\
+  $0 \to \mathbb{Z} \overset{ \cdot 2}{\to} \mathbb{Z} \to \mathbb{Z}/2
+  \mathbb{Z} \to 0$\\
+  $\varphi_N: \mathbb{Z}/2 \mathbb{Z} \to \mathbb{Z} / 2 \mathbb{Z}$ ($\cong
+  \mathbb{Z} \otimes_{\mathbb{Z}} \mathbb{Z} / 2 \mathbb{Z}$ nach 1.9a)
+  $\Rightarrow \varphi_N$ ist nicht surjektiv
+\end{nnBsp}
+
+\begin{Bew} 
+  \textbf{1. Schritt:} $\Bild(\varphi_N) \subseteq \Kern(\psi_N)$,
+  denn: $\psi_N(\varphi_N(x \otimes y)) = \psi_N(\varphi(x) \otimes y) =
+  \underset{=0}{\underbrace{\psi(\varphi}}(x)) \otimes y = 0$. Homomorphiesatz
+  liefert ein $\Psi: \FakRaum{M \otimes_R N}{\Bild(\varphi_N)} \to M'' \otimes_R N$\\
+  \textbf{2. Schritt:} $\Psi$ ist Isomorphismus.\\
+  Dann ist $\Psi$ und damit $\psi_N$ surjektiv und $\Kern(\psi_N) =
+  \Bild(\varphi_N)$.\\
+  Konstruiere Umkehrabbildung $\sigma: M'' \otimes_R N \to \bar{M} \defeqr \FakRaum{M
+  \otimes_R N}{\Bild(\varphi_N)}$.\\
+  Wähle zu jedem $x'' \in M''$ ein Urbild $\chi(x'') \in \psi^{-1}(x'') \subset M$.\\
+  Definiere $\tilde{\sigma}: M'' \times N \to \bar{M}$ durch $(x'', y) \mapsto
+  \chi(x'') \otimes y$\\
+  $\tilde{\sigma}$ wohldefiniert:
+  Sind $x_1,x_2 \in M$ mit $\psi(x_1) = \psi(x_2) = x''$, so ist $\underset{= \varphi(x')
+  }{\underbrace{x_1 - x_2}} \in \Bild(\varphi) \Rightarrow \overline{x_1
+  \otimes y} - \overline{x_2 \otimes y} = \underbrace{\overline{\varphi(x') \otimes y}}_{\in \Bild(\varphi_N)} = 0$\\
+  Rest klar!!
+\end{Bew}
+
+% ---
+
+\begin{DefProp}
+\label{1.13}
+  Sei $N$ ein $R$-Modul.
+  \begin{enumerate}
+    \item $N$ hei\ss t \emp{flach}\index{R-Modul!flacher}, wenn, wenn der Funktor $\otimes_R N$ exakt ist,
+    d.h. für jede kurze exakte Sequenz von $R$-Moduln 
+    $0\to M'\to M\to M''\to 0$
+    auch $0\to M'\otimes_R N\to M\otimes_R N\to M''\otimes_R N\to 0$ exakt ist.
+    \item $N$ ist genau dann flach, wenn für jeden $R$-Modul $M$ und jeden Untermodul $M'$ von $M$
+    die Abbildung $i:M'\otimes_R N\to M\otimes_R N$ injektiv ist.
+    \item Jeder projektive $R$-Modul ist flach.
+    \item Ist $R=K$ ein Körper, so ist jeder $R$-Modul flach.
+    \item Für jedes multiplikative Monoid $S$ ist $R_S$ flacher $R$-Modul.
+  \end{enumerate}
+\end{DefProp}
+
+\begin{Bew}
+\begin{enumerate}
+\item[(b)] folgt aus \myref{Prop}{1.12}
+\item[(e)] Sei $M$ ein $R$-Modul, $M'\subseteq M$, $R$-Untermodul.
+Nach Ü2A4 ist $M\otimes_R R_S \cong M_S$.\\
+Zu zeigen: Die Abbildung $M'_S\to M_S, \frac{a}{s}\mapsto \frac{a}{s}$ ist injektiv. \\
+Sei also $a\in M'$ und $\frac{a}{s}=0$ in $M_S$, d.h. in $M$ gilt: $t\cdot a=0$ für ein $t\in S$.
+$\Rightarrow t\cdot a = 0$ in $M'\Rightarrow \frac{a}{s}=0$ in $M'_S$.
+\item[(d)] folgt aus (c), weil jeder $K$-Modul frei ist, also projektiv.
+\item[(c)] Sei $N$ projektiv. Nach \myref{Prop.}{1.6} gibt es einen $R$-Modul
+$N'$, sodass $N \oplus N'\defeql F$ frei ist.
+
+\textbf{Beh. 1}: $F$ ist flach.\\
+Dann sei $M$ $R$-Modul, $M'\subseteq M$ Untermodul; dann ist $F\otimes_R M'\to F\otimes_R M$ injektiv.
+
+\textbf{Beh. 2}: Tensorprodukt vertauscht mit direkter Summe.\\
+$\begin{array}{lccccc}
+\textrm{Dann ist }  &   M'\otimes_R F & \cong M'\otimes_R(N\oplus N')   &\cong (M'\otimes_R N)&\oplus &(M'\otimes_R N') \\
+                    &   \downarrow &                                 &\downarrow               &   &\downarrow\\
+  \textrm{und}       &   M\otimes_R R &                               &\cong (M\otimes_R N)&\oplus &(M\otimes_R N')\\
+\end{array}$
+
+Die Abbildung $M' \otimes_R F \to M \otimes_R F$ bildet $M'\otimes_R N$ auf $M\otimes_R N$ ab, 
+$M'\otimes_R N\to M\otimes_R N$ ist also als Einschränkung einer injektiven Abbildung selbst injektiv.
+
+\textbf{Bew. 1}: Sei $\{e_i:i\in I\}$ Basis  von $F$, also $F=\bigoplus_{i\in I} R e_i\cong \bigoplus_{i\in I} R$.
+Wegen Beh. 2 ist $$M\otimes_R F\cong M\otimes_R \bigoplus_{i\in I}R\cong \bigoplus_{i\in I}(M\otimes_R R)=\bigoplus_{i\in I}M$$
+Genauso: $M' \otimes_R F\cong \bigoplus_{i\in I}M'$.
+
+Die Abbildung $M' \otimes_R F \to M\otimes_R F$ ist in jeder Komponente die Einbettung $M'\hookrightarrow M$, also injektiv.
+
+\textbf{Bew. 2}: Sei $M=\bigoplus_{i\in I} M_i$, zu zeigen: $M \otimes_R N \cong \bigoplus_{i\in I}(M_i\otimes_R N)$.
+
+Die Abbildung $M\times N \to \bigoplus_{i\in I} (M_i\otimes_R N), \left((x_i)_{i \in I}, y\right)\mapsto (x_i\otimes y)_{i\in I}$ ist bilinear, induziert
+also eine $R$-lineare Abbildung $\varphi: M\otimes_R N\to \bigoplus_{i\in I}(M_i\otimes_R N)$.
+
+Umgekehrt: Für jedes $i\in I$ induziert $M_i \hookrightarrow M$ $\psi_i : M_i \otimes_R N\to M\otimes_R N$;
+die $\psi_i$ induzieren $\psi: \bigoplus_{i\in I}(M_i\otimes_R N)\to M\otimes_R N$ (UAE der direkten Summe).
+,,Nachrechnen``: $\varphi$ und $\psi$ sind zueinander invers. 
+\end{enumerate}
+\end{Bew}

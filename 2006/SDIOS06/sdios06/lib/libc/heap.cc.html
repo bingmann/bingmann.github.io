@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2006/SDIOS06/sdios06/lib/libc/heap.cc - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal1.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2006/">2006</a> / <a href="/2006/SDIOS06/">SDIOS06</a> / <a href="/2006/SDIOS06/sdios06/">sdios06</a> / <a href="/2006/SDIOS06/sdios06/lib/">lib</a> / <a href="/2006/SDIOS06/sdios06/lib/libc/">libc</a> / <a href="/2006/SDIOS06/sdios06/lib/libc/heap.cc.html">heap.cc</a> (<a href="/2006/SDIOS06/sdios06/lib/libc/heap.cc">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">/*</span>
+<span class="comment"> * $Id$</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#undef</span><span class="normal"> DEBUG_MALLOC</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;config.h&gt;</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;assert.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;stdlib.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;stdio.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;stdint.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;string.h&gt;</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;sdi/panic.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;sdi/util.h&gt;</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> TESTHEAP</span>
+
+<span class="preproc">#define</span><span class="normal"> </span><span class="usertype">malloc</span><span class="normal"> sdi_malloc</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="usertype">free</span><span class="normal"> sdi_free</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="usertype">realloc</span><span class="normal"> sdi_realloc</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="usertype">sbrk</span><span class="normal"> sdi_sbrk</span>
+
+<span class="preproc">#else</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;idl4glue.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;if/ifmemory.h&gt;</span>
+
+<span class="preproc">#endif</span>
+
+<span class="comment">/* Heap Managment</span>
+<span class="comment"> * </span>
+<span class="comment"> * Datastructures:</span>
+<span class="comment"> * Space on the heap is divided into blocks which are all prefixed with the</span>
+<span class="comment"> * MemoryBlock struct as header. Additionally free blocks are kept in a linked</span>
+<span class="comment"> * list...</span>
+<span class="comment"> * </span>
+<span class="comment"> * </span><span class="todo">TODO:</span><span class="comment"> call sbrk and shrink memory area on free...</span>
+<span class="comment"> * </span><span class="todo">TODO:</span><span class="comment"> Not threadsafe yet</span>
+<span class="comment"> */</span>
+<span class="keyword">extern</span><span class="normal"> </span><span class="string">"C"</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span>
+<span class="comment">// define if you want slower but error detecting heap management</span>
+<span class="comment">//#define DEBUG_HEAP</span>
+<span class="comment">// define if you want to see what allocation decisions are taken</span>
+<span class="comment">//#define SHOW_INFO</span>
+
+<span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">uint32_t</span><span class="normal"> FREE_MAGIC </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0x7f8a</span><span class="symbol">;</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">uint32_t</span><span class="normal"> ALLOCATED_MAGIC </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0x9ea6</span><span class="symbol">;</span>
+
+<span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> FREE_FILLBYTE </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xea</span><span class="symbol">;</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> ALLOCATED_FILLBYTE </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0xbf</span><span class="symbol">;</span>
+<span class="normal">	</span>
+<span class="keyword">struct</span><span class="normal"> </span><span class="classname">MemoryBlock</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="comment">/// should be FREE_MAGIC or ALLOCATED_MAGIC</span>
+<span class="normal">	</span><span class="usertype">uint32_t</span><span class="normal"> magic</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="comment">/// size of the block (including this header structure)</span>
+<span class="normal">	</span><span class="usertype">size_t</span><span class="normal"> size</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="comment">/// used as pointer to next free block</span>
+<span class="normal">	MemoryBlock</span><span class="symbol">*</span><span class="normal"> next</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="comment">/// used as pointer to previous free block (for allocated blocks</span>
+<span class="normal">	</span><span class="comment">/// this points to imediate free block before the allocated block if there</span>
+<span class="normal">	</span><span class="comment">/// is any</span>
+<span class="normal">	MemoryBlock</span><span class="symbol">*</span><span class="normal"> prev</span><span class="symbol">;</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="keyword">extern</span><span class="normal"> </span><span class="type">char</span><span class="symbol">*</span><span class="normal"> __heap_start_ptr</span><span class="symbol">;</span>
+
+<span class="keyword">static</span><span class="normal"> </span><span class="type">char</span><span class="symbol">*</span><span class="normal"> heap_start</span><span class="symbol">;</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="type">char</span><span class="symbol">*</span><span class="normal"> heap_end</span><span class="symbol">;</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> DEBUG_HEAP</span>
+<span class="type">bool</span><span class="normal"> heap_initialized </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="preproc">#endif</span>
+<span class="normal">MemoryBlock</span><span class="symbol">*</span><span class="normal"> firstFreeBlock </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+
+<span class="type">void</span><span class="normal"> </span><span class="function">show_heap_structure</span><span class="symbol">();</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> TESTHEAP</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">sbrk</span><span class="symbol">(</span><span class="type">char</span><span class="symbol">*</span><span class="normal"> new_heap_end</span><span class="symbol">);</span>
+<span class="preproc">#else</span>
+
+<span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">sbrk</span><span class="symbol">(</span><span class="type">char</span><span class="symbol">*</span><span class="normal"> new_heap_end</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">L4_Word_t</span><span class="normal"> addr </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">reinterpret_cast</span><span class="symbol">&lt;</span><span class="normal">L4_Word_t</span><span class="symbol">&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">new_heap_end</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="usertype">CORBA_Environment</span><span class="normal"> </span><span class="function">env</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">idl4_default_environment</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">IF_MEMORY_brk</span><span class="symbol">(</span><span class="function">L4_Pager</span><span class="symbol">(),</span><span class="normal"> addr</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">env</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">env</span><span class="symbol">.</span><span class="normal">_major </span><span class="symbol">!=</span><span class="normal"> CORBA_NO_EXCEPTION</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"No heap left! ABORTING</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="function">abort</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="type">void</span><span class="normal"> </span><span class="function">__init_heap</span><span class="symbol">()</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">L4_Word_t</span><span class="normal"> addr </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">reinterpret_cast</span><span class="symbol">&lt;</span><span class="normal">L4_Word_t</span><span class="symbol">&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">__heap_start_ptr</span><span class="symbol">);</span>
+<span class="normal">	heap_start </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">reinterpret_cast</span><span class="symbol">&lt;</span><span class="type">char</span><span class="symbol">*&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="function">aroundUp</span><span class="symbol">(</span><span class="normal">addr</span><span class="symbol">,</span><span class="normal"> </span><span class="number">4096</span><span class="symbol">));</span>
+<span class="preproc">#ifdef</span><span class="normal"> SHOW_INFO</span>
+<span class="normal">	</span><span class="function">printf</span><span class="symbol">(</span><span class="string">"ElfEnd %p Heapstart %p</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> __heap_start_ptr</span><span class="symbol">,</span><span class="normal"> heap_start</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="comment">// Get 4k initial heap</span>
+<span class="normal">	heap_end </span><span class="symbol">=</span><span class="normal"> heap_start </span><span class="symbol">+</span><span class="normal"> </span><span class="number">4096</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="function">sbrk</span><span class="symbol">(</span><span class="normal">heap_end</span><span class="symbol">);</span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="usertype">size_t</span><span class="normal"> heap_size </span><span class="symbol">=</span><span class="normal"> heap_end </span><span class="symbol">-</span><span class="normal"> heap_start</span><span class="symbol">;</span>
+<span class="preproc">#ifdef</span><span class="normal"> SHOW_INFO</span>
+<span class="normal">	</span><span class="function">printf</span><span class="symbol">(</span><span class="string">"Initializing HeapManager, start: %p end: %p (Size %u)</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span>
+<span class="normal">	       heap_start</span><span class="symbol">,</span><span class="normal"> heap_end</span><span class="symbol">,</span><span class="normal"> heap_size</span><span class="symbol">);</span><span class="normal">	</span>
+<span class="preproc">#endif</span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="comment">// to be extra sure...</span>
+<span class="normal">	</span><span class="function">assert</span><span class="symbol">(</span><span class="normal">heap_size </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">MemoryBlock</span><span class="symbol">));</span>
+<span class="normal">	</span>
+<span class="preproc">#ifdef</span><span class="normal"> DEBUG_HEAP</span>
+<span class="normal">	</span><span class="function">memset</span><span class="symbol">(</span><span class="normal">heap_start</span><span class="symbol">,</span><span class="normal"> FREE_FILLBYTE</span><span class="symbol">,</span><span class="normal"> heap_size</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="normal">	</span>
+<span class="normal">	firstFreeBlock </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">reinterpret_cast</span><span class="symbol">&lt;</span><span class="normal">MemoryBlock</span><span class="symbol">*&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">heap_start</span><span class="symbol">);</span>
+<span class="normal">	firstFreeBlock</span><span class="symbol">-&gt;</span><span class="normal">magic </span><span class="symbol">=</span><span class="normal"> FREE_MAGIC</span><span class="symbol">;</span>
+<span class="normal">	firstFreeBlock</span><span class="symbol">-&gt;</span><span class="normal">size </span><span class="symbol">=</span><span class="normal"> heap_size</span><span class="symbol">;</span>
+<span class="normal">	firstFreeBlock</span><span class="symbol">-&gt;</span><span class="normal">next </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">	firstFreeBlock</span><span class="symbol">-&gt;</span><span class="normal">prev </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> DEBUG_HEAP</span>
+<span class="normal">	heap_initialized </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="preproc">#endif</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Increases heap size so that the last free memory block in the heap has at</span>
+<span class="comment"> * least size_needed bytes. Returns this last memory block</span>
+<span class="comment"> */</span>
+<span class="keyword">static</span><span class="normal"> MemoryBlock</span><span class="symbol">*</span><span class="normal"> </span><span class="function">increase_heap_size</span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> size_needed</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="comment">// search free block that is last in heap</span>
+<span class="normal">	MemoryBlock</span><span class="symbol">*</span><span class="normal"> last</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="symbol">(</span><span class="normal">last </span><span class="symbol">=</span><span class="normal"> firstFreeBlock</span><span class="symbol">;</span><span class="normal"> last </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">;</span><span class="normal"> last </span><span class="symbol">=</span><span class="normal"> last</span><span class="symbol">-&gt;</span><span class="normal">next</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="type">char</span><span class="symbol">*</span><span class="normal"> addr </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">reinterpret_cast</span><span class="symbol">&lt;</span><span class="type">char</span><span class="symbol">*&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">last</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">addr </span><span class="symbol">+</span><span class="normal"> last</span><span class="symbol">-&gt;</span><span class="normal">size </span><span class="symbol">&gt;=</span><span class="normal"> heap_end</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">assert</span><span class="symbol">(</span><span class="normal">addr </span><span class="symbol">+</span><span class="normal"> last</span><span class="symbol">-&gt;</span><span class="normal">size </span><span class="symbol">==</span><span class="normal"> heap_end</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">		</span>
+<span class="normal">	</span><span class="usertype">size_t</span><span class="normal"> freeatend </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">last </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		freeatend </span><span class="symbol">=</span><span class="normal"> last</span><span class="symbol">-&gt;</span><span class="normal">size</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">		</span>
+<span class="normal">	</span><span class="usertype">size_t</span><span class="normal"> additional_heap_needed </span><span class="symbol">=</span><span class="normal"> size_needed </span><span class="symbol">-</span><span class="normal"> freeatend</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="usertype">L4_Word_t</span><span class="normal"> addr </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">reinterpret_cast</span><span class="symbol">&lt;</span><span class="normal">L4_Word_t</span><span class="symbol">&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">heap_end</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> additional_heap_needed</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="type">char</span><span class="symbol">*</span><span class="normal"> new_heap_end </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">reinterpret_cast</span><span class="symbol">&lt;</span><span class="type">char</span><span class="symbol">*&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="function">aroundUp</span><span class="symbol">(</span><span class="normal">addr</span><span class="symbol">,</span><span class="normal"> </span><span class="number">16384</span><span class="symbol">));</span>
+<span class="normal">	</span>
+<span class="preproc">#ifdef</span><span class="normal"> SHOW_INFO</span>
+<span class="normal">	</span><span class="function">printf</span><span class="symbol">(</span><span class="string">"Increasing heap end from %p to %p</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> heap_end</span><span class="symbol">,</span><span class="normal"> new_heap_end</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="normal">	</span><span class="function">sbrk</span><span class="symbol">(</span><span class="normal">new_heap_end</span><span class="symbol">);</span>
+<span class="normal">		</span>
+<span class="normal">	</span><span class="usertype">size_t</span><span class="normal"> newspace_size </span><span class="symbol">=</span><span class="normal"> new_heap_end </span><span class="symbol">-</span><span class="normal"> heap_end</span><span class="symbol">;</span>
+<span class="preproc">#ifdef</span><span class="normal"> DEBUG_HEAP</span>
+<span class="normal">	</span><span class="function">memset</span><span class="symbol">(</span><span class="normal">heap_end</span><span class="symbol">,</span><span class="normal"> FREE_FILLBYTE</span><span class="symbol">,</span><span class="normal"> newspace_size</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+
+<span class="normal">	MemoryBlock</span><span class="symbol">*</span><span class="normal"> result</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">last </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		last</span><span class="symbol">-&gt;</span><span class="normal">size </span><span class="symbol">+=</span><span class="normal"> newspace_size</span><span class="symbol">;</span>
+<span class="normal">		result </span><span class="symbol">=</span><span class="normal"> last</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		result </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">reinterpret_cast</span><span class="symbol">&lt;</span><span class="normal">MemoryBlock</span><span class="symbol">*&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">heap_end</span><span class="symbol">);</span>
+<span class="normal">		result</span><span class="symbol">-&gt;</span><span class="normal">magic </span><span class="symbol">=</span><span class="normal"> FREE_MAGIC</span><span class="symbol">;</span>
+<span class="normal">		result</span><span class="symbol">-&gt;</span><span class="normal">size </span><span class="symbol">=</span><span class="normal"> newspace_size</span><span class="symbol">;</span>
+<span class="normal">		result</span><span class="symbol">-&gt;</span><span class="normal">next </span><span class="symbol">=</span><span class="normal"> firstFreeBlock</span><span class="symbol">;</span>
+<span class="normal">		result</span><span class="symbol">-&gt;</span><span class="normal">prev </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">		firstFreeBlock </span><span class="symbol">=</span><span class="normal"> result</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span>
+<span class="normal">	heap_end </span><span class="symbol">=</span><span class="normal"> new_heap_end</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> result</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="symbol">*</span><span class="normal"> </span><span class="function">malloc</span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> size</span><span class="symbol">)</span>
+<span class="cbracket">{</span><span class="normal">    </span>
+<span class="preproc">#ifdef</span><span class="normal"> DEBUG_HEAP</span>
+<span class="normal">	</span><span class="function">assert</span><span class="symbol">(</span><span class="normal">heap_initialized</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">size </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> NULL</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="comment">// align size to 4 bytes so that we only give out aligned memory blocks</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">size </span><span class="symbol">%</span><span class="normal"> </span><span class="number">4</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">		size </span><span class="symbol">+=</span><span class="normal"> </span><span class="number">4</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">size </span><span class="symbol">%</span><span class="normal"> </span><span class="number">4</span><span class="symbol">);</span><span class="normal">		</span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="comment">// split free block as soon as we have more than 8 bytes too much</span>
+<span class="normal">	</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">size_t</span><span class="normal"> SPLIT_SIZE </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">MemoryBlock</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">8</span><span class="symbol">;</span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="comment">// we need size bytes and the space for the header</span>
+<span class="normal">	</span><span class="usertype">size_t</span><span class="normal"> size_needed </span><span class="symbol">=</span><span class="normal"> size </span><span class="symbol">+</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">MemoryBlock</span><span class="symbol">);</span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="comment">// search for a memory block with enough free space</span>
+<span class="normal">	MemoryBlock</span><span class="symbol">*</span><span class="normal"> block</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="symbol">(</span><span class="normal">block </span><span class="symbol">=</span><span class="normal"> firstFreeBlock</span><span class="symbol">;</span><span class="normal"> block </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">;</span><span class="normal"> block </span><span class="symbol">=</span><span class="normal"> block</span><span class="symbol">-&gt;</span><span class="normal">next</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">assert</span><span class="symbol">(</span><span class="normal">block</span><span class="symbol">-&gt;</span><span class="normal">magic </span><span class="symbol">==</span><span class="normal"> FREE_MAGIC</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">block</span><span class="symbol">-&gt;</span><span class="normal">size </span><span class="symbol">&gt;=</span><span class="normal"> size_needed</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">block </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		block </span><span class="symbol">=</span><span class="normal"> </span><span class="function">increase_heap_size</span><span class="symbol">(</span><span class="normal">size_needed</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="comment">// this is the start of the memory block</span>
+<span class="normal">	</span><span class="type">char</span><span class="symbol">*</span><span class="normal"> memory </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">reinterpret_cast</span><span class="symbol">&lt;</span><span class="type">char</span><span class="symbol">*&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">block</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="comment">// should we use the whole free block or split it?</span>
+<span class="normal">	MemoryBlock</span><span class="symbol">*</span><span class="normal"> next_free_block</span><span class="symbol">;</span>
+<span class="normal">	MemoryBlock</span><span class="symbol">*</span><span class="normal"> old_next </span><span class="symbol">=</span><span class="normal"> block</span><span class="symbol">-&gt;</span><span class="normal">next</span><span class="symbol">;</span>
+<span class="normal">	MemoryBlock</span><span class="symbol">*</span><span class="normal"> old_prev </span><span class="symbol">=</span><span class="normal"> block</span><span class="symbol">-&gt;</span><span class="normal">prev</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="usertype">size_t</span><span class="normal"> old_size </span><span class="symbol">=</span><span class="normal"> block</span><span class="symbol">-&gt;</span><span class="normal">size</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">block</span><span class="symbol">-&gt;</span><span class="normal">size </span><span class="symbol">-</span><span class="normal"> size_needed </span><span class="symbol">&gt;=</span><span class="normal"> SPLIT_SIZE</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		next_free_block </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">reinterpret_cast</span><span class="symbol">&lt;</span><span class="normal">MemoryBlock</span><span class="symbol">*&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">memory </span><span class="symbol">+</span><span class="normal"> size_needed</span><span class="symbol">);</span>
+<span class="normal">		next_free_block</span><span class="symbol">-&gt;</span><span class="normal">magic </span><span class="symbol">=</span><span class="normal"> FREE_MAGIC</span><span class="symbol">;</span>
+<span class="normal">		next_free_block</span><span class="symbol">-&gt;</span><span class="normal">size </span><span class="symbol">=</span><span class="normal"> old_size </span><span class="symbol">-</span><span class="normal"> size_needed</span><span class="symbol">;</span>
+<span class="normal">		next_free_block</span><span class="symbol">-&gt;</span><span class="normal">next </span><span class="symbol">=</span><span class="normal"> old_next</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">old_next </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">			old_next</span><span class="symbol">-&gt;</span><span class="normal">prev </span><span class="symbol">=</span><span class="normal"> next_free_block</span><span class="symbol">;</span>
+<span class="preproc">#ifdef</span><span class="normal"> SHOW_INFO</span>
+<span class="normal">		</span><span class="function">printf</span><span class="symbol">(</span><span class="string">"Splitting free block at %p (size %u) to new free block %p size %u</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span>
+<span class="normal">			memory</span><span class="symbol">,</span><span class="normal"> old_size</span><span class="symbol">,</span><span class="normal"> next_free_block</span><span class="symbol">,</span><span class="normal"> next_free_block</span><span class="symbol">-&gt;</span><span class="normal">size</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="preproc">#ifdef</span><span class="normal"> SHOW_INFO</span>
+<span class="normal">		</span><span class="function">printf</span><span class="symbol">(</span><span class="string">"Reusing memory at %p (size %u) for allocation of size %u</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span>
+<span class="normal">				memory</span><span class="symbol">,</span><span class="normal"> old_size</span><span class="symbol">,</span><span class="normal"> size</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="normal">		next_free_block </span><span class="symbol">=</span><span class="normal"> old_next</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="comment">// modify freelist</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">old_prev </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		firstFreeBlock </span><span class="symbol">=</span><span class="normal"> next_free_block</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">next_free_block </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">			next_free_block</span><span class="symbol">-&gt;</span><span class="normal">prev </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		old_prev</span><span class="symbol">-&gt;</span><span class="normal">next </span><span class="symbol">=</span><span class="normal"> next_free_block</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">next_free_block </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">			next_free_block</span><span class="symbol">-&gt;</span><span class="normal">prev </span><span class="symbol">=</span><span class="normal"> old_prev</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="comment">// adjust prev pointer in allocated block after us</span>
+<span class="normal">	</span><span class="type">char</span><span class="symbol">*</span><span class="normal"> after </span><span class="symbol">=</span><span class="normal"> memory </span><span class="symbol">+</span><span class="normal"> old_size</span><span class="symbol">;</span>
+<span class="normal">	MemoryBlock</span><span class="symbol">*</span><span class="normal"> after_block </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">reinterpret_cast</span><span class="symbol">&lt;</span><span class="normal">MemoryBlock</span><span class="symbol">*&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">after</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">after </span><span class="symbol">&lt;</span><span class="normal"> heap_end</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">assert</span><span class="symbol">(</span><span class="normal">after_block</span><span class="symbol">-&gt;</span><span class="normal">magic </span><span class="symbol">==</span><span class="normal"> ALLOCATED_MAGIC</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">next_free_block </span><span class="symbol">==</span><span class="normal"> old_next</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="comment">// we used the whole free block so there is no free block in</span>
+<span class="normal">			</span><span class="comment">// front of this allocated block anymore</span>
+<span class="normal">			after_block</span><span class="symbol">-&gt;</span><span class="normal">prev </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="comment">// there's still a free block (but with a different address) in</span>
+<span class="normal">			</span><span class="comment">// front of this allocated block</span>
+<span class="normal">			after_block</span><span class="symbol">-&gt;</span><span class="normal">prev </span><span class="symbol">=</span><span class="normal"> next_free_block</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span>
+<span class="preproc">#ifdef</span><span class="normal"> DEBUG_HEAP</span>
+<span class="normal">	</span><span class="comment">// make sure noone has written into our free memory</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="symbol">(</span><span class="type">char</span><span class="symbol">*</span><span class="normal"> p </span><span class="symbol">=</span><span class="normal"> memory </span><span class="symbol">+</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">MemoryBlock</span><span class="symbol">);</span><span class="normal"> p </span><span class="symbol">&lt;</span><span class="normal"> memory </span><span class="symbol">+</span><span class="normal"> size_needed</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">p</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="comment">// if you hit this assert, then you have probably written into</span>
+<span class="normal">		</span><span class="comment">// unallocated heap memory</span>
+<span class="normal">		</span><span class="function">assert</span><span class="symbol">(*</span><span class="normal">p </span><span class="symbol">==</span><span class="normal"> FREE_FILLBYTE</span><span class="symbol">);</span><span class="normal">	</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="comment">// clear memory (because this helps detecting bugs), should be disabled</span>
+<span class="normal">	</span><span class="comment">// if this is a performance problem later</span>
+<span class="normal">	</span><span class="function">memset</span><span class="symbol">(</span><span class="normal">memory</span><span class="symbol">,</span><span class="normal"> ALLOCATED_FILLBYTE</span><span class="symbol">,</span><span class="normal"> size_needed</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+
+<span class="normal">	</span><span class="comment">// Construct AllocateMemoryBlock structure</span>
+<span class="normal">	MemoryBlock</span><span class="symbol">*</span><span class="normal"> alloc_block </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">reinterpret_cast</span><span class="symbol">&lt;</span><span class="normal">MemoryBlock</span><span class="symbol">*&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">memory</span><span class="symbol">);</span>
+<span class="normal">	alloc_block</span><span class="symbol">-&gt;</span><span class="normal">magic </span><span class="symbol">=</span><span class="normal"> ALLOCATED_MAGIC</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">next_free_block </span><span class="symbol">==</span><span class="normal"> old_next</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="comment">// reusing a slightly bigger block?</span>
+<span class="normal">		alloc_block</span><span class="symbol">-&gt;</span><span class="normal">size </span><span class="symbol">=</span><span class="normal"> old_size</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="comment">// splitted a bigger free block</span>
+<span class="normal">		alloc_block</span><span class="symbol">-&gt;</span><span class="normal">size </span><span class="symbol">=</span><span class="normal"> size_needed</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="comment">// there is no free block in front of the allocated block (yet)</span>
+<span class="normal">	alloc_block</span><span class="symbol">-&gt;</span><span class="normal">next </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">	alloc_block</span><span class="symbol">-&gt;</span><span class="normal">prev </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="comment">// that's it</span>
+<span class="normal">	</span><span class="type">char</span><span class="symbol">*</span><span class="normal"> result </span><span class="symbol">=</span><span class="normal"> memory </span><span class="symbol">+</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">MemoryBlock</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> result</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> </span><span class="function">free</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">*</span><span class="normal"> freeptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="preproc">#ifdef</span><span class="normal"> DEBUG_HEAP</span>
+<span class="normal">	</span><span class="function">assert</span><span class="symbol">(</span><span class="normal">heap_initialized</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">freeptr </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="type">char</span><span class="symbol">*</span><span class="normal"> memory </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">static_cast</span><span class="symbol">&lt;</span><span class="type">char</span><span class="symbol">*&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">freeptr</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">MemoryBlock</span><span class="symbol">);</span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="comment">// the allocation header should be a few bytes in front of our block</span>
+<span class="normal">	MemoryBlock</span><span class="symbol">*</span><span class="normal"> alloc_block </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">reinterpret_cast</span><span class="symbol">&lt;</span><span class="normal">MemoryBlock</span><span class="symbol">*&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">memory</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="comment">// if you hit this assert, then you probably tried to free an already</span>
+<span class="normal">	</span><span class="comment">// freed memory block or some random invalid pointer</span>
+<span class="normal">	</span><span class="function">assert</span><span class="symbol">(</span><span class="normal">alloc_block</span><span class="symbol">-&gt;</span><span class="normal">magic </span><span class="symbol">==</span><span class="normal"> ALLOCATED_MAGIC</span><span class="symbol">);</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> SHOW_INFO</span>
+<span class="normal">	</span><span class="function">printf</span><span class="symbol">(</span><span class="string">"Freeing memory at %p (blocksize %u)</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> memory</span><span class="symbol">,</span><span class="normal"> alloc_block</span><span class="symbol">-&gt;</span><span class="normal">size</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="usertype">size_t</span><span class="normal"> blocksize </span><span class="symbol">=</span><span class="normal"> alloc_block</span><span class="symbol">-&gt;</span><span class="normal">size</span><span class="symbol">;</span>
+<span class="normal">	MemoryBlock</span><span class="symbol">*</span><span class="normal"> prev_block </span><span class="symbol">=</span><span class="normal"> alloc_block</span><span class="symbol">-&gt;</span><span class="normal">prev</span><span class="symbol">;</span>
+<span class="normal">	</span>
+<span class="normal">	MemoryBlock</span><span class="symbol">*</span><span class="normal"> free_block </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">reinterpret_cast</span><span class="symbol">&lt;</span><span class="normal">MemoryBlock</span><span class="symbol">*&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">memory</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="comment">// do we have a free block before us?</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">prev_block </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="comment">// merge with that block before us</span>
+<span class="normal">		free_block </span><span class="symbol">=</span><span class="normal"> prev_block</span><span class="symbol">;</span>
+<span class="normal">		free_block</span><span class="symbol">-&gt;</span><span class="normal">size </span><span class="symbol">+=</span><span class="normal"> blocksize</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="comment">// create a new block</span>
+<span class="normal">		free_block</span><span class="symbol">-&gt;</span><span class="normal">magic </span><span class="symbol">=</span><span class="normal"> FREE_MAGIC</span><span class="symbol">;</span>
+<span class="normal">		free_block</span><span class="symbol">-&gt;</span><span class="normal">size </span><span class="symbol">=</span><span class="normal"> blocksize</span><span class="symbol">;</span>
+<span class="normal">		free_block</span><span class="symbol">-&gt;</span><span class="normal">next </span><span class="symbol">=</span><span class="normal"> firstFreeBlock</span><span class="symbol">;</span>
+<span class="normal">		free_block</span><span class="symbol">-&gt;</span><span class="normal">prev </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">		</span>
+<span class="normal">		firstFreeBlock</span><span class="symbol">-&gt;</span><span class="normal">prev </span><span class="symbol">=</span><span class="normal"> free_block</span><span class="symbol">;</span>
+<span class="normal">		firstFreeBlock </span><span class="symbol">=</span><span class="normal"> free_block</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="comment">// look at the block after us</span>
+<span class="normal">	</span><span class="type">char</span><span class="symbol">*</span><span class="normal"> after </span><span class="symbol">=</span><span class="normal"> memory </span><span class="symbol">+</span><span class="normal"> blocksize</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">after </span><span class="symbol">&lt;</span><span class="normal"> heap_end</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		MemoryBlock</span><span class="symbol">*</span><span class="normal"> after_block </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">reinterpret_cast</span><span class="symbol">&lt;</span><span class="normal">MemoryBlock</span><span class="symbol">*&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">after</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">after_block</span><span class="symbol">-&gt;</span><span class="normal">magic </span><span class="symbol">==</span><span class="normal"> FREE_MAGIC</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="comment">// there's a free memory block behind us, merge with it</span>
+<span class="normal">			free_block</span><span class="symbol">-&gt;</span><span class="normal">size </span><span class="symbol">+=</span><span class="normal"> after_block</span><span class="symbol">-&gt;</span><span class="normal">size</span><span class="symbol">;</span>
+
+<span class="normal">			</span><span class="comment">// remove that after_block from the list...</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">after_block</span><span class="symbol">-&gt;</span><span class="normal">prev </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				after_block</span><span class="symbol">-&gt;</span><span class="normal">prev</span><span class="symbol">-&gt;</span><span class="normal">next </span><span class="symbol">=</span><span class="normal"> after_block</span><span class="symbol">-&gt;</span><span class="normal">next</span><span class="symbol">;</span>
+<span class="normal">				</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">after_block</span><span class="symbol">-&gt;</span><span class="normal">next </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">					after_block</span><span class="symbol">-&gt;</span><span class="normal">next</span><span class="symbol">-&gt;</span><span class="normal">prev </span><span class="symbol">=</span><span class="normal"> after_block</span><span class="symbol">-&gt;</span><span class="normal">prev</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				firstFreeBlock </span><span class="symbol">=</span><span class="normal"> after_block</span><span class="symbol">-&gt;</span><span class="normal">next</span><span class="symbol">;</span>
+<span class="normal">				firstFreeBlock</span><span class="symbol">-&gt;</span><span class="normal">prev </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+
+<span class="normal">			</span><span class="comment">// adjust the allocated block behind that block</span>
+<span class="normal">			after </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">reinterpret_cast</span><span class="symbol">&lt;</span><span class="type">char</span><span class="symbol">*&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">free_block</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> free_block</span><span class="symbol">-&gt;</span><span class="normal">size</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">after </span><span class="symbol">&lt;</span><span class="normal"> heap_end</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				after_block </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">reinterpret_cast</span><span class="symbol">&lt;</span><span class="normal">MemoryBlock</span><span class="symbol">*&gt;(</span><span class="normal">after</span><span class="symbol">);</span>
+<span class="normal">				</span><span class="function">assert</span><span class="symbol">(</span><span class="normal">after_block</span><span class="symbol">-&gt;</span><span class="normal">magic </span><span class="symbol">==</span><span class="normal"> ALLOCATED_MAGIC</span><span class="symbol">);</span>
+<span class="normal">				after_block</span><span class="symbol">-&gt;</span><span class="normal">prev </span><span class="symbol">=</span><span class="normal"> free_block</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">after_block</span><span class="symbol">-&gt;</span><span class="normal">magic </span><span class="symbol">==</span><span class="normal"> ALLOCATED_MAGIC</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">assert</span><span class="symbol">(</span><span class="normal">after_block</span><span class="symbol">-&gt;</span><span class="normal">prev </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="comment">// an allocated block behind us, we become the free block before it</span>
+<span class="normal">			after_block</span><span class="symbol">-&gt;</span><span class="normal">prev </span><span class="symbol">=</span><span class="normal"> free_block</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="comment">// corrupted heap... neither free nor allocated block behind us</span>
+<span class="normal">			</span><span class="function">assert</span><span class="symbol">(</span><span class="keyword">false</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="comment">// clear memory (to catch bugs) disable if the performance hit is too</span>
+<span class="normal">	</span><span class="comment">// big for you</span>
+<span class="preproc">#ifdef</span><span class="normal"> DEBUG_HEAP</span>
+<span class="normal">	memory </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">reinterpret_cast</span><span class="symbol">&lt;</span><span class="type">char</span><span class="symbol">*&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">free_block</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">memset</span><span class="symbol">(</span><span class="normal">memory </span><span class="symbol">+</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">MemoryBlock</span><span class="symbol">),</span><span class="normal"> FREE_FILLBYTE</span><span class="symbol">,</span>
+<span class="normal">	       free_block</span><span class="symbol">-&gt;</span><span class="normal">size </span><span class="symbol">-</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">MemoryBlock</span><span class="symbol">));</span>
+<span class="preproc">#endif</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="symbol">*</span><span class="normal"> </span><span class="function">realloc</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">*</span><span class="normal"> ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">size_t</span><span class="normal"> size</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">ptr </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> </span><span class="function">malloc</span><span class="symbol">(</span><span class="normal">size</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="symbol">*</span><span class="normal"> mem </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">reinterpret_cast</span><span class="symbol">&lt;</span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="symbol">*&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ptr</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">const</span><span class="normal"> MemoryBlock</span><span class="symbol">*</span><span class="normal"> block </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">reinterpret_cast</span><span class="symbol">&lt;</span><span class="keyword">const</span><span class="normal"> MemoryBlock</span><span class="symbol">*&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">mem </span><span class="symbol">-</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">MemoryBlock</span><span class="symbol">));</span>
+<span class="normal">	</span><span class="function">assert</span><span class="symbol">(</span><span class="normal">block</span><span class="symbol">-&gt;</span><span class="normal">magic </span><span class="symbol">==</span><span class="normal"> ALLOCATED_MAGIC</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">assert</span><span class="symbol">(</span><span class="normal">block</span><span class="symbol">-&gt;</span><span class="normal">size </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">MemoryBlock</span><span class="symbol">));</span>
+
+<span class="normal">	</span><span class="comment">// poor mans realloc for now... improve later	</span>
+<span class="normal">	</span><span class="type">void</span><span class="symbol">*</span><span class="normal"> newbuffer </span><span class="symbol">=</span><span class="normal"> </span><span class="function">malloc</span><span class="symbol">(</span><span class="normal">size</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">memcpy</span><span class="symbol">(</span><span class="normal">newbuffer</span><span class="symbol">,</span><span class="normal"> ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="function">min</span><span class="symbol">(</span><span class="normal">size</span><span class="symbol">,</span><span class="normal"> block</span><span class="symbol">-&gt;</span><span class="normal">size </span><span class="symbol">-</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">MemoryBlock</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">free</span><span class="symbol">(</span><span class="normal">ptr</span><span class="symbol">);</span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> newbuffer</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="symbol">*</span><span class="normal"> </span><span class="function">calloc</span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> nmemb</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">size_t</span><span class="normal"> size</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">size_t</span><span class="normal"> complete_size </span><span class="symbol">=</span><span class="normal"> nmemb </span><span class="symbol">*</span><span class="normal"> size</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="type">void</span><span class="symbol">*</span><span class="normal"> result </span><span class="symbol">=</span><span class="normal"> </span><span class="function">malloc</span><span class="symbol">(</span><span class="normal">complete_size</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">result </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="function">memset</span><span class="symbol">(</span><span class="normal">result</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> complete_size</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> result</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/**</span>
+<span class="comment"> * debugging function that displays and verifies heap structure</span>
+<span class="comment"> */</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">show_heap_structure</span><span class="symbol">()</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="type">char</span><span class="symbol">*</span><span class="normal"> memory </span><span class="symbol">=</span><span class="normal"> heap_start</span><span class="symbol">;</span>
+<span class="normal">	MemoryBlock</span><span class="symbol">*</span><span class="normal"> last_free </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="keyword">while</span><span class="symbol">(</span><span class="normal">memory </span><span class="symbol">&lt;</span><span class="normal"> heap_end</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		MemoryBlock</span><span class="symbol">*</span><span class="normal"> block </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">reinterpret_cast</span><span class="symbol">&lt;</span><span class="normal">MemoryBlock</span><span class="symbol">*&gt;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">memory</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">block</span><span class="symbol">-&gt;</span><span class="normal">magic </span><span class="symbol">==</span><span class="normal"> ALLOCATED_MAGIC</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="comment">//printf("%p - %p Allocated Block of size %u, next %p, prev %p\n", memory, memory + block-&gt;size, block-&gt;size, block-&gt;next, block-&gt;prev);</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">block</span><span class="symbol">-&gt;</span><span class="normal">prev </span><span class="symbol">!=</span><span class="normal"> last_free</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="function">printf</span><span class="symbol">(</span><span class="string">"Invalid prev link set %p (should be %p)</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span>
+<span class="normal">						block</span><span class="symbol">-&gt;</span><span class="normal">prev</span><span class="symbol">,</span><span class="normal"> last_free</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">			last_free </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">block</span><span class="symbol">-&gt;</span><span class="normal">magic </span><span class="symbol">==</span><span class="normal"> FREE_MAGIC</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="comment">//printf("%p - %p Free Block of size %u, next %p, prev %p\n", memory, memory + block-&gt;size, block-&gt;size, block-&gt;next, block-&gt;prev);</span>
+<span class="normal">			last_free </span><span class="symbol">=</span><span class="normal"> block</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">printf</span><span class="symbol">(</span><span class="string">"Corrupted heap (neither allocated nor free block) at address %p</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> memory</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="function">printf</span><span class="symbol">(</span><span class="string">"giving up</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="keyword">return</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		memory </span><span class="symbol">+=</span><span class="normal"> block</span><span class="symbol">-&gt;</span><span class="normal">size</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="comment">/*printf("Verifying freelist...");</span>
+<span class="comment">	fflush(stdout);*/</span>
+<span class="normal">	MemoryBlock</span><span class="symbol">*</span><span class="normal"> block </span><span class="symbol">=</span><span class="normal"> firstFreeBlock</span><span class="symbol">;</span>
+<span class="normal">	MemoryBlock</span><span class="symbol">*</span><span class="normal"> last </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">while</span><span class="symbol">(</span><span class="normal">block </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">block</span><span class="symbol">-&gt;</span><span class="normal">magic </span><span class="symbol">!=</span><span class="normal"> FREE_MAGIC</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">printf</span><span class="symbol">(</span><span class="string">"Bad magic %x for block at %p pointed to by %p</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span>
+<span class="normal">			       block</span><span class="symbol">-&gt;</span><span class="normal">magic</span><span class="symbol">,</span><span class="normal"> block</span><span class="symbol">,</span><span class="normal"> last</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="function">printf</span><span class="symbol">(</span><span class="string">"aborting</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="keyword">return</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">block</span><span class="symbol">-&gt;</span><span class="normal">prev </span><span class="symbol">!=</span><span class="normal"> last</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">printf</span><span class="symbol">(</span><span class="string">"prev link corrupted at block %p, prev %p should be %p</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span>
+<span class="normal">			       block</span><span class="symbol">,</span><span class="normal"> block</span><span class="symbol">-&gt;</span><span class="normal">prev</span><span class="symbol">,</span><span class="normal"> last</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="keyword">return</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		last </span><span class="symbol">=</span><span class="normal"> block</span><span class="symbol">;</span>
+<span class="normal">		block </span><span class="symbol">=</span><span class="normal"> block</span><span class="symbol">-&gt;</span><span class="normal">next</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="comment">//printf("ok\n");</span>
+<span class="cbracket">}</span>
+
+<span class="comment">// *** Some replacement functions to debug programs</span>
+
+<span class="type">void</span><span class="symbol">*</span><span class="normal"> </span><span class="function">malloc_debug</span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> size</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="symbol">*</span><span class="normal"> function</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="symbol">*</span><span class="normal"> file</span><span class="symbol">,</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> line</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="function">printf</span><span class="symbol">(</span><span class="string">"malloc(%8u) called by %s (%s:%u)</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> size</span><span class="symbol">,</span><span class="normal"> function</span><span class="symbol">,</span><span class="normal"> file</span><span class="symbol">,</span><span class="normal"> line</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="type">void</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">mem </span><span class="symbol">=</span><span class="normal"> </span><span class="function">malloc</span><span class="symbol">(</span><span class="normal">size</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">printf</span><span class="symbol">(</span><span class="string">"malloc(%8u) returns %p</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> size</span><span class="symbol">,</span><span class="normal"> mem</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">show_heap_structure</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> mem</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="symbol">*</span><span class="normal"> </span><span class="function">calloc_debug</span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> nmemb</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">size_t</span><span class="normal"> size</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="symbol">*</span><span class="normal"> function</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="symbol">*</span><span class="normal"> file</span><span class="symbol">,</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> line</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="function">printf</span><span class="symbol">(</span><span class="string">"calloc(%8u, %8u) called by %s (%s:%u)</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> nmemb</span><span class="symbol">,</span><span class="normal"> size</span><span class="symbol">,</span><span class="normal"> function</span><span class="symbol">,</span><span class="normal"> file</span><span class="symbol">,</span><span class="normal"> line</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="type">void</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">mem </span><span class="symbol">=</span><span class="normal"> </span><span class="function">calloc</span><span class="symbol">(</span><span class="normal">nmemb</span><span class="symbol">,</span><span class="normal"> size</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">printf</span><span class="symbol">(</span><span class="string">"calloc(%8u, %8u) returns %p"</span><span class="symbol">,</span><span class="normal"> nmemb</span><span class="symbol">,</span><span class="normal"> size</span><span class="symbol">,</span><span class="normal"> mem</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">show_heap_structure</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> mem</span><span class="symbol">;</span>
+
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> </span><span class="function">free_debug</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">*</span><span class="normal"> ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="symbol">*</span><span class="normal"> function</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="symbol">*</span><span class="normal"> file</span><span class="symbol">,</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> line</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="function">printf</span><span class="symbol">(</span><span class="string">"free(%p) called by %s (%s:%u)</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> ptr</span><span class="symbol">,</span><span class="normal"> function</span><span class="symbol">,</span><span class="normal"> file</span><span class="symbol">,</span><span class="normal"> line</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">free</span><span class="symbol">(</span><span class="normal">ptr</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">show_heap_structure</span><span class="symbol">();</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="symbol">*</span><span class="normal"> </span><span class="function">realloc_debug</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">*</span><span class="normal"> ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">size_t</span><span class="normal"> size</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="symbol">*</span><span class="normal"> function</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="symbol">*</span><span class="normal"> file</span><span class="symbol">,</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> line</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="function">printf</span><span class="symbol">(</span><span class="string">"realloc(%p,%8u) called by %s (%s:%u)</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> ptr</span><span class="symbol">,</span><span class="normal"> size</span><span class="symbol">,</span><span class="normal"> function</span><span class="symbol">,</span><span class="normal"> file</span><span class="symbol">,</span><span class="normal"> line</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="type">void</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">mem </span><span class="symbol">=</span><span class="normal"> </span><span class="function">realloc</span><span class="symbol">(</span><span class="normal">ptr</span><span class="symbol">,</span><span class="normal"> size</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">printf</span><span class="symbol">(</span><span class="string">"realloc(%p,%8u) returns %p</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> ptr</span><span class="symbol">,</span><span class="normal"> size</span><span class="symbol">,</span><span class="normal"> mem</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">show_heap_structure</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> mem</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="cbracket">}</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

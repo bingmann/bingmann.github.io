@@ -1,0 +1,141 @@
+\section{Der de Rham-Komplex}
+
+$A$ (kommutative) $R$-Algebra.
+
+$\Omega_A := \Omega_{A/R}$, $\Omega^i_A := \Lambda^i\Omega_A$ für $i \geq 0$.
+
+\begin{SatzDef}
+\begin{enumerate}
+\item[a)] Für jedes $i \geq 0$ gibt es eine eindeutig bestimmte $R$-lineare Abbildung $d_i : \Omega^i_A \rightarrow \Omega^{i+1}_A$ mit
+\begin{enumerate}
+\item[(i)] $d_i(f \cdot \omega) = df \wedge \omega + f d_i(\omega)$ für alle $f \in A, \omega \in \Omega^i_A$
+\item[(ii)] $d_{i+1} \circ d_i = 0$
+\end{enumerate}
+
+\item[b)]
+Die Sequenz $\Omega^\bullet_A$:
+$$A \overset{d_0}{\rightarrow} \Omega_A \overset{d_1}{\rightarrow} \Omega^2_A \overset{d_2}{\rightarrow} \cdots \overset{d_{n-1}}{\rightarrow} \Omega^n_A  \overset{d_n}{\rightarrow} \cdots$$
+heißt \emp{de Rham-Komplex}\index{de Rahm-Komplex} zu $A$.
+
+\item[c)]
+Für jedes $i\geq 0$ hei\ss t $H_{dR}^i(A)\defeqr \FakRaum{\Kern(d_i)}{\Bild(d_{i-1})}$ ($R$-Modul)
+der $i$-te de Rahm-Kohomologie-Modul von $A$. Dabei sei $d_{-1}=0$, d.h. $H_{dR}^0(A)=\Kern(d)=R$.
+
+\end{enumerate}
+
+\begin{Bew}
+\textbf{1. Fall} $A = R[X_1, \ldots X_n]$
+
+Dann ist $\Omega^k_A$ freier $A$-Modul mit Basis $d X_{i_1} \wedge \cdots \wedge d X_{i_k}$, $1 \leq i_1 < \cdots < i_k \leq n$
+
+für $f \in A$ ist $df = d_A f = d_0 f = \sum_{i=1}^n \partial_i f d X_i$
+
+Setze: $d_1(\sum_{i=1}^n f_i d X_i) = \sum_{i=1}^n d f_i \wedge d X_i \in \Omega^2_A$
+
+konkretes Beispiel: $d_1(f_1 dX_1 + f_2 dX_2)$
+
+$= (\frac{\partial f_1}{\partial x_1} dX_1 + \frac{\partial f_1}{\partial x_2} dX_2) \wedge dX_1 + (\frac{\partial f_2}{\partial x_1} dX_1 + \frac{\partial f_2}{\partial x_2} dX_2) \wedge dX_2 = (\frac{\partial f_2}{\partial x_1} - \frac{\partial f_1}{\partial x_2}) dX_1 \wedge dX_2$
+
+Erklärung: $dX_1 \wedge dX_1 = 0$, $dX_2 \wedge dX_1 = - dX_1 \wedge dX_2$
+
+allgemein setze $d_k$:
+
+$d_k(\displaystyle\sum_{1 \leq i_1 < \cdots < i_k \leq n} f_{i_1 \ldots i_k} dX_{i_1} \wedge \cdots \wedge dX_{i_k}) = \sum_{1 \leq i_1 < \cdots < i_k \leq n} d(f_{i_1 \ldots i_k}) \wedge dX_{i_1} \wedge \cdots \wedge dX_{i_k}$
+
+Diese $d_k$ erfüllen (i):
+
+Sei $\omega = \sum_{\underline{i}} f_{\underline{i}} dX_{i_1} \wedge \cdots \wedge dX_{i_k} \in \Omega^k_A$, $f \in A$.
+
+$\Rightarrow$ $d_k(f \omega) = \sum_{\underline{i}} d(f f_{\underline{i}}) \wedge dX_{i_1} \wedge \cdots \wedge dX_{i_k}$
+
+$= \underbrace{ \sum_{\underline{i}} f df_{\underline{i}} \wedge dX_{i_1} \wedge \cdots \wedge dX_{i_k} }_{= f \cdot d_k(\omega)} + \underbrace{ \sum_{\underline{i}} f_{\underline{i}} df \wedge dX_{i_1} \wedge \cdots \wedge dX_{i_k} }_{d f \wedge \omega}$
+
+(ii) folgt zwingend aus: $d_k(dX_{i_1}\wedge \cdots \wedge dX_{i_k}) = 0$ (Induktion über $k$)
+
+Eindeutigkeit der $d_k$: $d_0=d$ ist vorgegeben.\\
+$d_1$: wegen (ii) ist $d_1(dX_i)=0$ für alle $i=1, \ldots, n$\\
+wegen (i) ist $d_1(fdX_i)=df\wedge dX_i+f\underbrace{d_1(dX_i)}_{=0}$
+
+$d_2$: zeige: $d_2(dX_{i_1}\wedge dX_{i_2})=0$ folgt aus (ii),\\
+da $dX_1\wedge dX_2=d_1(X_1 dX_2)=d_1(-X_2dX_1)$\\
+wegen (i) ist $d_2(fdX_1\wedge dX_2)=df\wedge dX_1+dX_2$\\
+(Induktion)
+
+Zu zeigen: $d_{k+1}\circ d_k(f\underbrace{dX_{i_1}\wedge \cdots \wedge dX_{i_k}}_{\defeql \omega})=0$ für alle $f\in A, 1\leq i_1<\dots<i_k\leq n$\\
+$d_{k+1}\circ d_k(f\omega)
+\stackrel{(ii)\ \textrm{für}\ d_k}{=}d_{k+1}(df\wedge \omega +fd_k\omega)
+\stackrel{\textrm{Eind.}}{=}d_{k+1}(df\wedge \omega) 
+=d_{k+1}\left(\left(\sum_{i=1}^{n}\partial f_i dX_i\right)\wedge \omega\right)
+\stackrel{(*)}{=}\sum_{i=1}^{n}d(\partial_if\wedge dX_i\wedge \omega)
+=\sum_{i=1}^n \sum_{j=1}^n \partial_j (\partial_i f)dX_j\wedge dX_{i}\wedge \omega = 0$,
+denn es ist $\partial_j(\partial_i f) = \partial_i(\partial_j f)$ für alle $i$ und $j$
+und $dX_i\wedge dX_j=-dX_j\wedge dX_i$ für alle $i$ und $j$.
+
+\textbf{2. Fall} $A$ beliebige $R$-Algebra.
+
+Schreibe $A$ als Faktoralgebra eines Polynomrings $P$ (in eventuell unendlich vielen Variablen).\\
+vornehm: Es gibt einen surjektiven $R$-Algebren-Homomorphismus $\varphi:P\to A$.\\
+$\Omega$ ist Funktor, $\Lambda^i$ auch, $\varphi$ induziert also einen Homomorphismus 
+$\varphi_i: \Omega_P^{i}\to \Omega_A^{i}$.
+
+\[
+\begin{xy}
+\xymatrix{
+\Omega_P^i\ar[rr]^{d_{i,P}}\ar[d]^{\varphi_i}&&\Omega_P^{i+1}\ar[d]^{\varphi_{i+1}}\\
+\Omega_A^i\ar@{-->}[rr]^{d_{i,A}}&&\Omega_A^{i+1}\\
+}
+\end{xy}
+\]
+
+Es gilt: 
+\begin{itemize}
+\item $\Kern(\varphi_i)\subseteq \Kern(\varphi_{i+1}\circ d_{i,P})$
+\item $\varphi_i$ surjektiv (Ü4A3a für $i=1$)
+\end{itemize}
+
+Dann induziert $d_{i,P}$ eine Abbildung $d_{i,A}: \Omega_A^{i}\to \Omega_A^{i+1}$.\\
+Die Eigenschaften (i) und (ii) werden ,,vererbt``.
+
+\end{Bew}
+\end{SatzDef}
+
+\begin{nnBsp}
+%% kein Label!!!
+$A=K[X_1, \ldots, X_n]$, $\textrm{char}(K)=0$.
+
+\textbf{Beh.}: $H_{dR}^i(A) = 0$ für alle $i>0$.\\
+\textbf{Bew.: } $i=n$: Ü4A2\\
+$i>n$: $\Omega_A^i=0$\\
+$i=1$: Sei $\omega=\sum_{\nu=1}^nf dX_\nu\in \Kern(d_1)$, also:
+$0=\sum_{\nu=1}^n df_\nu \wedge dX_\nu=\sum_{\nu=1}^n\sum_{\mu=1}^n\frac{\partial f_\nu}{\partial X_\mu}dX_\mu\wedge dX_\nu$\\
+Für alle $\nu\neq \mu$ ist also $\frac{\partial f_\nu}{\partial X_\mu}=\frac{\partial f_\mu}{\partial X_\nu}$ 
+(da $dX_\mu\wedge dX_\nu = -dX_\nu\wedge dX_\mu$).\\
+Zu zeigen: $\omega = df$ für ein $f\in A$, d.h. $f_\nu=\frac{\partial f}{\partial X_\nu}$, $\nu=1, \ldots, n$.\\
+Schreibe $f_\nu=\sum_{\underline{i}} a_{\underline{i}}^{(\nu)}X_1^{i_1}\cdots X_n^{i_n}$.\\
+Ansatz: $f=\sum_{\underline{i}} a_{\underline{i}} X_1^{i_1}\cdots X_n^{i_n}$.
+$\Rightarrow \frac{\partial f}{\partial X_\nu}
+=\sum_{\underline{i}=(i_1, \cdots, i_n), i\nu\geq 1}a_{\underline{i}} X_1^{i_1}\cdots X_n^{i_n}$
+
+Wähle also $a_{\underline{i}}$ so, dass $i_\nu\cdot a_{\underline{i}} = a_{\underline{i}-\underline{e_\nu}}^{(\nu)}$, 
+$e_\nu=(0,\ldots,0,\underbrace{1}_{\nu},0,\ldots, 0)$
+
+Es bleibt zu zeigen: $\frac{1}{i_\nu} a_{\underline{i}-\underline{e_\nu}}^{(\nu)}
+=\frac{1}{i_\mu} a_{\underline{i}-e_\mu}^{(\mu)}$ für alle $\nu\neq \mu$.
+
+Äquivalent: ($\ast$) $i_\mu\cdot a_{\underline{i}-e_{\nu}}^{(\nu)}=i_\nu \cdot a_{\underline{i}-\underline{e_\mu}}^{(\mu)}$
+
+Beweis von ($\ast$): $\sum_{\underline{i}} i_\mu a_{\underline{i}-\underline{e_\nu}}X^{i-e_\mu-e_\nu}$
+$= \sum_{\underline{i}, i_\mu\geq 1} i_\mu a_{i}^{(\nu)} X^{i-e_\mu}$
+$= \sum_{\underline{i}, i_\nu\geq 1}i_\nu a_{\underline{i}}^{(\mu)}X^{\underline{i}-\underline{e_\nu}}$\\
+$= \sum_{\underline{i}} i_\nu a_{\underline{i}-e_\nu}^{(\mu)}X^{\underline{i}-\underline{e_\nu}-\underline{e_\mu}}$,
+da $\frac{\partial f_\nu}{\partial X_\mu} = \frac{\partial f_\mu}{\partial X_\nu}$.
+\end{nnBsp}
+
+\begin{nnBsp}
+%% kein Label !!!
+$A=K[X, X^{-1}]=K[X,Y]/(XY-1)=\{f=\sum_{\nu=-n_0}^{n_1} a_\nu X^\nu: a_\nu\in K, n_0, n_1\in \mathbb{N}\}$
+
+$\Omega_A=AdX$, $df=(\sum_{\nu\neq 0}\nu a_\nu X^{\nu-1})dX$
+$\Rightarrow \Omega^2 = 0 \Rightarrow \Bild(d)=\{fdx:f\in A, a_{-1}=0\}$,
+d.h. $H_{dR}^{1}(A) = K\frac{dx}{x}$
+\end{nnBsp}

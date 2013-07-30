@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - cold boot</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;POST - Cold Boot / Power On Self Test Activities</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- power supply starts Clock Generator (8284) with Power<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Good signal on BUS<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- CPU reset line is pulsed resetting CPU<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- DS, ES, and SS are cleared to zero<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Cold and Warm Boot both execute the following sequence</span><br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- CS:IP are set to FFFF:0000 (address of ROM POST code)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- jump to CS:IP &nbsp;(execute POST, Power On Self test)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- interrupts are disabled<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- CPU flags are set, read/write/read test of CPU registers<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- checksum test of ROM BIOS<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- Initialize DMA (verify/init 8237 timer, begin DMA RAM refresh)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- save reset flag then read/write test the first 32K of memory<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- Initialize the Programmable Interrupt Controller (8259)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;and set 8 major BIOS <a href="">interrupt</a>&nbsp;vectors (interrupts 10h-17h)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- determine and set configuration information<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- initialize/test CRT controller &amp; test video memory (unless 1234h<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;found in reset word)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- test <a href="hw-8259.html">8259</a>&nbsp;Programmable Interrupt Controller<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- test Programmable Interrupt Timer (<a href="hw-8253.html">8253</a>)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- reset/enable keyboard, verify scan code (AAh), clear keyboard,<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;check for stuck keys, setup interrupt vector lookup table<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- hardware interrupt vectors are set<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- test for expansion box, test additional RAM<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- read/write memory above 32K (unless 1234h found in reset word)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- addresses C800:0 through F400:0 are scanned in 2Kb blocks in<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;search of valid ROM. &nbsp;If found, a far call to byte 3 of the ROM<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;is executed.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- test ROM cassette BASIC (checksum test)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- test for installed diskette drives &amp; <a href="hw-765.html">FDC</a>&nbsp;recalibration &amp; seek<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- test printer and RS-232 ports. &nbsp;store printer port addresses<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;at 400h and RS-232 port addresses at 408h. &nbsp;store printer<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;time-out values at 478h and Serial time-out values at 47Ch.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- NMI interrupts are enabled<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- perform <a href="int-int_19.html">INT 19</a>&nbsp;(bootstrap loader), pass control to boot record<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;or cassette BASIC if no bootable disk found<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- <a href="misc-warm_boot.html">WARM BOOT</a>&nbsp;procedure is now executed<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see &nbsp; <a href="hw-diagnostic_codes.html">DIAGNOSTIC CODES</a><br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">cold boot</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

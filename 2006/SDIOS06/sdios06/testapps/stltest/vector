@@ -1,0 +1,212 @@
+#ifndef VECTOR_
+#define VECTOR_
+
+#include <assert.h>
+#include <stdlib.h>
+
+#include "new"
+#include "helpers/iterator.h"
+
+namespace std {
+
+	/* 
+	 * Minimal and incomplete version of STL vector class
+	 * Note that the current implementation never shrinks the memory allocation
+	 */
+	template<typename T>
+	class vector
+	{
+	public:
+		typedef size_t size_type;
+		typedef private_stuff::iterator_base<T> iterator;
+		typedef private_stuff::iterator_base<const T> const_iterator;
+		typedef private_stuff::reverse_iterator_base<T> reverse_iterator;
+		typedef private_stuff::reverse_iterator_base<const T> const_reverse_iterator;
+		
+		vector()
+		{
+			begin_ptr = NULL,
+			end_ptr = NULL;
+			end_of_storage_ptr = NULL;
+		}
+		
+		vector(const vector& other)
+		{
+			begin_ptr = NULL;
+			end_ptr = NULL;
+			end_of_storage_ptr = NULL;
+
+			// crude...
+			for(const_iterator i = other.begin(); i != other.end(); ++i)
+				push_back(*i);
+		}
+		
+		~vector()
+		{
+			clear();
+			free(begin_ptr);
+		}
+		
+		void push_back(const T& val)
+		{
+			if(end_ptr == end_of_storage_ptr) {
+				size_t current_size = size();
+				size_t new_storage_size = current_size > 0 ? current_size * 2 + 1 : 4;
+				
+				begin_ptr = reinterpret_cast<T*> (realloc(begin_ptr, new_storage_size * sizeof(T)));
+				end_ptr = begin_ptr + current_size;
+				end_of_storage_ptr = begin_ptr + new_storage_size;
+			}
+			
+			// placement new to construct object
+			new(end_ptr) T(val);
+			end_ptr++;
+		}
+		
+		iterator erase(iterator pos)
+		{	
+			assert(!empty());
+			
+			// destruct object
+			pos.p->~T();
+			
+			size_t move_count = end() - pos;
+			assert(move_count <= size());
+			memmove(pos.p, pos.p + 1, (move_count - 1) * sizeof(T));
+			end_ptr--;
+			
+			// TODO shrink allocation
+			
+			return pos;
+		}
+		
+		void pop_back()
+		{
+			assert(size() > 0);
+			--end_ptr;
+			// destruct object
+			end_ptr->~T();
+		}
+		
+		void clear()
+		{
+			for(T* p = begin_ptr; p != end_ptr; ++p) {
+				p->~T();	
+			}
+			end_ptr = begin_ptr;
+		}
+
+		void resize(size_type newsize, const T& val = T())
+		{
+			if(newsize < size()) {
+				for(T* i = begin_ptr + newsize; i < end_ptr; ++i) {
+					i->~T();
+				}
+				end_ptr = begin_ptr + newsize;
+			} else if(newsize > size()) {
+				for(size_t t = newsize - size(); t > 0; --t) {
+					push_back(val);
+				}
+			}
+		}
+		
+		T& back()
+		{
+			return *(end_ptr - 1);
+		}
+		
+		const T& back() const
+		{
+			return *(end_ptr - 1);
+		}
+		
+		T& front()
+		{
+			return *begin_ptr;
+		}
+		
+		const T& front() const
+		{
+			return *begin_ptr;
+		}
+		
+		size_type size() const
+		{
+			return size_type(end_ptr - begin_ptr);	
+		}
+		
+		size_type capacity() const
+		{
+			return end_of_storage_ptr - begin_ptr;
+		}
+		
+		bool empty() const
+		{
+			return begin_ptr == end_ptr;
+		}
+		
+		T& operator[] (size_type idx)
+		{
+			T* p = begin_ptr + idx;
+			assert(p < end_ptr);
+			return *p;	
+		}
+		
+		const T& operator[] (size_type idx) const
+		{
+			T* p = begin_ptr + idx;
+			assert(p < end_ptr);
+			return *p;	
+		}			
+		
+		iterator begin()
+		{
+			return iterator(begin_ptr);
+		}
+		
+		const_iterator begin() const
+		{
+			return const_iterator(begin_ptr);
+		}
+		
+		iterator end()
+		{
+			return iterator(end_ptr);
+		}
+		
+		const_iterator end() const
+		{
+			return const_iterator(end_ptr);
+		}
+		
+		reverse_iterator rbegin()
+		{
+			return reverse_iterator(end_ptr-1);
+		}
+		
+		reverse_iterator rend()
+		{
+			return reverse_iterator(begin_ptr-1);
+		}
+		
+		const reverse_iterator rbegin() const
+		{
+			return const_reverse_iterator(end_ptr-1);
+		}
+		
+		const_reverse_iterator rend() const
+		{
+			return const_reverse_iterator(begin_ptr-1);
+		}		
+		
+	private:
+		// copy constructor not supported yet
+		void operator=(const vector& other);
+	
+		T* begin_ptr;
+		T* end_ptr;
+		T* end_of_storage_ptr;		
+	};
+}
+
+#endif 

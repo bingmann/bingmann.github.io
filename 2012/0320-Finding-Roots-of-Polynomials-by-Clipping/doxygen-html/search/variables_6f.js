@@ -1,0 +1,1 @@
+var searchData=[["output_5flatex",["output_latex",["../clipper_8cc.html#a752a1c5576b980151d9a2cb5a92b41f2",1,"clipper.cc"]]]];

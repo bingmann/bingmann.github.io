@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - int 21,34</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;INT 21,34 - Get Address to DOS Critical Flag</span><br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; INDOS &nbsp;(Undocumented DOS 2.0+)</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AH = 34h<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;on return:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;ES:BX = address of a byte indicating whether a DOS call is<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;in progress. &nbsp;No DOS calls should be made if set.<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- AKA the INDOS flag, this critical section flag may be checked from<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;within an interrupt handler before requesting a DOS service. It is<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;a semaphore that is non-zero when DOS is busy, and zero otherwise.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- though this flag indicates whether a DOS interrupt is active, it<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;should not be used alone to determine DOS is safe for re-entry;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Here's the standard rule for safe DOS entry: if <a href="int-int_28.html">INT 28</a>&nbsp;is active<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;or this flag and the critical error flag are clear then it is safe<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;to call DOS<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- this interrupt should be used only during TSR initialization;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;the returned pointer should be used thereafter<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- this flag is cleared after a critical error (<a href="int-int_24.html">INT 24</a>)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- ES:BX-1 points to the critical error flag for DOS 3.x+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ES:BX+1 points to the critical error flag for DOS 2.x<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ES:BX-1AA points to the critical error flag for COMPAQ DOS 3.0<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a href="int-int_21_5d.html">INT 21,5D</a> in DOS 3.x+ can be used to locate the critical<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;error flag<br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">int 21,34</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>LCOV - STX CBTreeDB Testsuite - testsuite/test_crc32.cc</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+        <tr>
+          <td width="5%"></td>
+          <td width="10%" class="headerItem">Current view:</td>
+          <td width="35%" class="headerValue"><a href="../index.html">directory</a> - <a href="index.html">testsuite</a> - test_crc32.cc (source / <a href="test_crc32.cc.func.html">functions</a>)</td>
+          <td width="10%"></td>
+          <td width="10%" class="headerCovTableHead">Found</td>
+          <td width="10%" class="headerCovTableHead">Hit</td>
+          <td width="15%" class="headerCovTableHead">Coverage</td>
+          <td width="5%"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="headerItem">Test:</td>
+          <td class="headerValue">STX CBTreeDB Testsuite</td>
+          <td class="headerItem">Lines:</td>
+          <td class="headerCovTableEntry">9</td>
+          <td class="headerCovTableEntry">9</td>
+          <td class="headerCovTableEntryHi">100.0 %</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="headerItem">Date:</td>
+          <td class="headerValue">2010-04-14</td>
+          <td class="headerItem">Functions:</td>
+          <td class="headerCovTableEntry">4</td>
+          <td class="headerCovTableEntry">4</td>
+          <td class="headerCovTableEntryHi">100.0 %</td>
+        </tr>
+                <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td><pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                : // -*- mode: c++; fill-column: 79 -*-</a>
+<span class="lineNum">       2 </span>                : // $Id: test_crc32.cc 2 2010-04-14 07:34:58Z tb $
+<span class="lineNum">       3 </span>                : 
+<span class="lineNum">       4 </span>                : /*
+<span class="lineNum">       5 </span>                :  * STX Constant B-Tree Database Template Classes v0.7.0
+<span class="lineNum">       6 </span>                :  * Copyright (C) 2010 Timo Bingmann
+<span class="lineNum">       7 </span>                :  *
+<span class="lineNum">       8 </span>                :  * This library is free software; you can redistribute it and/or modify it
+<span class="lineNum">       9 </span>                :  * under the terms of the GNU Lesser General Public License as published by the
+<span class="lineNum">      10 </span>                :  * Free Software Foundation; either version 2.1 of the License, or (at your
+<span class="lineNum">      11 </span>                :  * option) any later version.
+<span class="lineNum">      12 </span>                :  *
+<span class="lineNum">      13 </span>                :  * This library is distributed in the hope that it will be useful, but WITHOUT
+<span class="lineNum">      14 </span>                :  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+<span class="lineNum">      15 </span>                :  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
+<span class="lineNum">      16 </span>                :  * for more details.
+<span class="lineNum">      17 </span>                :  *
+<span class="lineNum">      18 </span>                :  * You should have received a copy of the GNU Lesser General Public License
+<span class="lineNum">      19 </span>                :  * along with this library; if not, write to the Free Software Foundation,
+<span class="lineNum">      20 </span>                :  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+<span class="lineNum">      21 </span>                :  */
+<span class="lineNum">      22 </span>                : 
+<span class="lineNum">      23 </span>                : /*
+<span class="lineNum">      24 </span>                :  * Test CRC32 class by calculating and comparing a few checksums.
+<span class="lineNum">      25 </span>                :  */
+<span class="lineNum">      26 </span>                : 
+<span class="lineNum">      27 </span>                : #define CBTREEDB_SELF_VERIFY
+<span class="lineNum">      28 </span>                : #include &quot;stx-cbtreedb.h&quot;
+<span class="lineNum">      29 </span>                : 
+<span class="lineNum">      30 </span>                : #include &lt;assert.h&gt;
+<span class="lineNum">      31 </span>                : 
+<span class="lineNum">      32 </span>                : // simple method to access the protected CRC32 class
+<span class="lineNum">      33 </span>                : class CBTreeDBTest : public stx::CBTreeDB&lt;&gt;
+<span class="lineNum">      34 </span>                : {
+<a name="35"><span class="lineNum">      35 </span>                : public:</a>
+<span class="lineNum">      36 </span>                : 
+<span class="lineNum">      37 </span><span class="lineCov">              4 :     static uint32_t CRC32_digest(const std::string&amp; str)</span>
+<span class="lineNum">      38 </span>                :     {
+<span class="lineNum">      39 </span><span class="lineCov">              4 :         return CRC32::digest(str);</span>
+<span class="lineNum">      40 </span>                :     }
+<a name="41"><span class="lineNum">      41 </span>                : };</a>
+<span class="lineNum">      42 </span>                : 
+<span class="lineNum">      43 </span><span class="lineCov">              1 : int main()</span>
+<span class="lineNum">      44 </span>                : {
+<span class="lineNum">      45 </span><span class="lineCov">              1 :     assert( CBTreeDBTest::CRC32_digest(&quot;&quot;) == 0x00000000 );</span>
+<span class="lineNum">      46 </span>                : 
+<span class="lineNum">      47 </span><span class="lineCov">              2 :     assert( CBTreeDBTest::CRC32_digest(&quot;test string&quot;) == 0x13471545 );</span>
+<span class="lineNum">      48 </span>                : 
+<span class="lineNum">      49 </span><span class="lineCov">              2 :     assert( CBTreeDBTest::CRC32_digest(&quot;0123456789012345678901234567890123456789&quot;) == 0xA6463C49 );</span>
+<span class="lineNum">      50 </span>                : 
+<span class="lineNum">      51 </span><span class="lineCov">              2 :     assert( CBTreeDBTest::CRC32_digest(&quot;wYHemLvD4RCdRZJc0ac42WAL1SIjaRdd8OxLeAjtOc&quot;) == 0x1CFCEA07 );</span>
+<a name="52"><span class="lineNum">      52 </span>                : </a>
+<span class="lineNum">      53 </span><span class="lineCov">              1 :     return 0;</span>
+<span class="lineNum">      54 </span><span class="lineCov">              3 : }</span>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+  <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.7</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

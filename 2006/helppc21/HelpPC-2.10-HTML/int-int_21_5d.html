@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - int 21,5d</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;INT 21,5D - Critical Error Information &nbsp;(Undocumented, DOS 3.x+)</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;See second reference below for more information about this interrupt</span><br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;information presented here is incomplete</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AH = 5D<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;AL = 00 &nbsp;server function call &nbsp;(DOS 3.1+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 01 &nbsp;commit all files &nbsp;(DOS 3.1+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 02 &nbsp;SHARE: close file by name &nbsp;(DOS 3.1+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 03 &nbsp;SHARE: close all files for given computer &nbsp;(DOS 3.1+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 04 &nbsp;SHARE: close all files for given process &nbsp;(DOS 3.1+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 05 &nbsp;SHARE: get open file list entry &nbsp;(DOS 3.1+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 06 &nbsp;get address of DOS swappable area into DS:SI &nbsp;(DOS 3.0+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 07 &nbsp;get network redirected printer mode &nbsp;(DOS 3.1+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 08 &nbsp;set network redirected printer mode &nbsp;(DOS 3.1+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 09 &nbsp;flush network redirected printer output &nbsp;(DOS 3.1+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 0A &nbsp;set extended error information &nbsp;(DOS 3.1+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 0B &nbsp;get DOS swappable data areas &nbsp;(DOS 4.x+)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;DS:DX = pointer to 18 byte DOS Parameter List (DPL, if AL=00)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= pointer to 9 byte data block of the form (AL=0A):<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Offset Size &nbsp; &nbsp; &nbsp; Description</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;00 &nbsp; word &nbsp; extended error code to set<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;02 &nbsp; dword &nbsp;pointer to driver address to set<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;06 &nbsp; byte &nbsp; action code to set<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;07 &nbsp; byte &nbsp; class code to set<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;08 &nbsp; byte &nbsp; locus code to set<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;on return:<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;DS:SI = (if AL was 6) address of critical flag of the form:<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Offset Size &nbsp; &nbsp; &nbsp;Description</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;00 &nbsp; word &nbsp; extended error code<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;02 &nbsp; byte &nbsp; action code<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;03 &nbsp; byte &nbsp; class code<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;04 &nbsp; byte &nbsp; pointer to driver address<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- function 0 copies 18 bytes from DS:SI to the DOS internal<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;register-save area; &nbsp;this data will be placed in the registers<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;when DOS returns to the caller thereby circumventing the DOS<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;register save logic<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- may be used by a TSR to prevent accidental changing of an error<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;code and causing problems in the foreground process<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see <a href="misc-Bibliography.html">bibliography</a>&nbsp;references for "Undocumented DOS" and "DOS<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Programmers Reference"<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see &nbsp; <a href="int-int_21_59.html">INT 21,59</a><br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">int 21,5d</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

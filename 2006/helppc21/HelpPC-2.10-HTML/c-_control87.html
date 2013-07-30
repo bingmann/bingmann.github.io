@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - _control87</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;MSC: unsigned _control87( unsigned new, unsigned mask )</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- prototype in float.h<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- used to change floating point handling and exception masking<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- new = contains corresponding bit values for any bit set in "mask"<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;to be moved into the coprocessor control word<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- mask &nbsp;= zero; gets floating-point coprocessor control word<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= non-zero; if any bit is set, the corresponding bit in<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;"new" is moved into the coprocessor control word<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- returns floating-point coprocessor control word<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- default control word is the logical OR of: IC_AFFINE, RC_NEAR,<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;PC_64, EM_DENORMAL, EM_UNDERFLOW, EM_INEXACT<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Control Word Mask and Bits</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;MCW_EM &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;interrupt exception control<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;MCW_IC &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;infinity control<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;MCW_RC &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;rounding control<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;MCW_PC &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;precision control<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Exception Masks</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;EM_INVALID &nbsp; &nbsp; &nbsp;invalid<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;EM_DENORMAL &nbsp; &nbsp; denormal<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;EM_ZERODIVIDE &nbsp; zero divide<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;EM_OVERFLOW &nbsp; &nbsp; overflow<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;EM_UNDERFLOW &nbsp; &nbsp;underflow<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;EM_INEXACT &nbsp; &nbsp; &nbsp;inexact (precision)<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Infinity Control</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;IC_AFFINE &nbsp; &nbsp; &nbsp; affine<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;IC_PROJECTIVE &nbsp; projective<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Rounding Control</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;RC_CHOP &nbsp; &nbsp; &nbsp; &nbsp; truncate<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;RC_UP &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; round up<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;RC_DOWN &nbsp; &nbsp; &nbsp; &nbsp; round down<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;RC_NEAR &nbsp; &nbsp; &nbsp; &nbsp; near<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Precision Control</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;PC_24 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 24 bits precision<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;PC_53 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 53 bits precision<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;PC_64 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 64 bits precision<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;User Status Word Bits</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;SW_INVALID &nbsp; &nbsp; &nbsp;invalid<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;SW_DENORMAL &nbsp; &nbsp; denormal<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;SW_ZERODIVIDE &nbsp; zero divide<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;SW_OVERFLOW &nbsp; &nbsp; overflow<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;SW_UNDERFLOW &nbsp; &nbsp;underflow<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;SW_INEXACT &nbsp; &nbsp; &nbsp;inexact precision<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Invalid Subconditions (if SW_INVALID)</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;SW_UNEMULATED &nbsp; unemulated instruction<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;SW_SQRTNEG &nbsp; &nbsp; &nbsp;square root of a neg number<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;SW_STACKOVERFLOW &nbsp;FP stack overflow<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;SW_STACKUNDERFLOW FP stack underflow<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Floating Point Errors</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;FPE_INVALID<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;FPE_DENORMAL<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;FPE_ZERODIVIDE<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;FPE_OVERFLOW<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;FPE_UNDERFLOW<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;FPE_INEXACT<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;FPE_UNEMULATED<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;FPE_SQRTNEG<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;FPE_STACKOVERFLOW<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;FPE_STACKUNDERFLOW<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;FPE_EXPLICITGEN<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see &nbsp; <a href="c-_clear87.html">_clear87</a>() &nbsp; <a href="c-_status87.html">_status87</a>()<br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">_control87</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

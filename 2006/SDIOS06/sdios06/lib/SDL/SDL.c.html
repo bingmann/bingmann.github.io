@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2006/SDIOS06/sdios06/lib/SDL/SDL.c - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal4.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2006/">2006</a> / <a href="/2006/SDIOS06/">SDIOS06</a> / <a href="/2006/SDIOS06/sdios06/">sdios06</a> / <a href="/2006/SDIOS06/sdios06/lib/">lib</a> / <a href="/2006/SDIOS06/sdios06/lib/SDL/">SDL</a> / <a href="/2006/SDIOS06/sdios06/lib/SDL/SDL.c.html">SDL.c</a> (<a href="/2006/SDIOS06/sdios06/lib/SDL/SDL.c">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">/*</span>
+<span class="comment">    SDL - Simple DirectMedia Layer</span>
+<span class="comment">    Copyright (C) 1997-2006 Sam Lantinga</span>
+
+<span class="comment">    This library is free software; you can redistribute it and/or</span>
+<span class="comment">    modify it under the terms of the GNU Lesser General Public</span>
+<span class="comment">    License as published by the Free Software Foundation; either</span>
+<span class="comment">    version 2.1 of the License, or (at your option) any later version.</span>
+
+<span class="comment">    This library is distributed in the hope that it will be useful,</span>
+<span class="comment">    but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="comment">    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU</span>
+<span class="comment">    Lesser General Public License for more details.</span>
+
+<span class="comment">    You should have received a copy of the GNU Lesser General Public</span>
+<span class="comment">    License along with this library; if not, write to the Free Software</span>
+<span class="comment">    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA</span>
+
+<span class="comment">    Sam Lantinga</span>
+<span class="comment">    </span><span class="url">slouken@libsdl.org</span>
+<span class="comment">*/</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"SDL_config.h"</span>
+
+<span class="comment">/* Initialization code for SDL */</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"SDL.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"SDL_fatal.h"</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_VIDEO_DISABLED</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"video/SDL_leaks.h"</span>
+<span class="preproc">#endif</span>
+
+<span class="preproc">#if</span><span class="normal"> SDL_THREAD_PTH</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;pth.h&gt;</span>
+<span class="preproc">#endif</span>
+
+<span class="comment">/* Initialization/Cleanup routines */</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_JOYSTICK_DISABLED</span>
+<span class="keyword">extern</span><span class="normal"> </span><span class="type">int</span><span class="normal">  </span><span class="function">SDL_JoystickInit</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">);</span>
+<span class="keyword">extern</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">SDL_JoystickQuit</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_CDROM_DISABLED</span>
+<span class="keyword">extern</span><span class="normal"> </span><span class="type">int</span><span class="normal">  </span><span class="function">SDL_CDROMInit</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">);</span>
+<span class="keyword">extern</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">SDL_CDROMQuit</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_TIMERS_DISABLED</span>
+<span class="keyword">extern</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">SDL_StartTicks</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">);</span>
+<span class="keyword">extern</span><span class="normal"> </span><span class="type">int</span><span class="normal">  </span><span class="function">SDL_TimerInit</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">);</span>
+<span class="keyword">extern</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">SDL_TimerQuit</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+
+<span class="comment">/* The current SDL version */</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="usertype">SDL_version</span><span class="normal"> version </span><span class="symbol">=</span><span class="normal"> </span>
+<span class="normal">	</span><span class="cbracket">{</span><span class="normal"> SDL_MAJOR_VERSION</span><span class="symbol">,</span><span class="normal"> SDL_MINOR_VERSION</span><span class="symbol">,</span><span class="normal"> SDL_PATCHLEVEL </span><span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="comment">/* The initialized subsystems */</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="usertype">Uint32</span><span class="normal"> SDL_initialized </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="usertype">Uint32</span><span class="normal"> ticks_started </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> CHECK_LEAKS</span>
+<span class="type">int</span><span class="normal"> surfaces_allocated </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="preproc">#endif</span>
+
+<span class="type">int</span><span class="normal"> </span><span class="function">SDL_InitSubSystem</span><span class="symbol">(</span><span class="usertype">Uint32</span><span class="normal"> flags</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_VIDEO_DISABLED</span>
+<span class="normal">	</span><span class="comment">/* Initialize the video/event subsystem */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">flags </span><span class="symbol">&amp;</span><span class="normal"> SDL_INIT_VIDEO</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!(</span><span class="normal">SDL_initialized </span><span class="symbol">&amp;</span><span class="normal"> SDL_INIT_VIDEO</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="function">SDL_VideoInit</span><span class="symbol">(</span><span class="function">SDL_getenv</span><span class="symbol">(</span><span class="string">"SDL_VIDEODRIVER"</span><span class="symbol">),</span>
+<span class="normal">		                   </span><span class="symbol">(</span><span class="normal">flags</span><span class="symbol">&amp;</span><span class="normal">SDL_INIT_EVENTTHREAD</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		SDL_initialized </span><span class="symbol">|=</span><span class="normal"> SDL_INIT_VIDEO</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="preproc">#else</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> flags </span><span class="symbol">&amp;</span><span class="normal"> SDL_INIT_VIDEO </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_SetError</span><span class="symbol">(</span><span class="string">"SDL not built with video support"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_AUDIO_DISABLED</span>
+<span class="normal">	</span><span class="comment">/* Initialize the audio subsystem */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">flags </span><span class="symbol">&amp;</span><span class="normal"> SDL_INIT_AUDIO</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!(</span><span class="normal">SDL_initialized </span><span class="symbol">&amp;</span><span class="normal"> SDL_INIT_AUDIO</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="function">SDL_AudioInit</span><span class="symbol">(</span><span class="function">SDL_getenv</span><span class="symbol">(</span><span class="string">"SDL_AUDIODRIVER"</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		SDL_initialized </span><span class="symbol">|=</span><span class="normal"> SDL_INIT_AUDIO</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="preproc">#else</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> flags </span><span class="symbol">&amp;</span><span class="normal"> SDL_INIT_AUDIO </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_SetError</span><span class="symbol">(</span><span class="string">"SDL not built with audio support"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_TIMERS_DISABLED</span>
+<span class="normal">	</span><span class="comment">/* Initialize the timer subsystem */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">!</span><span class="normal"> ticks_started </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_StartTicks</span><span class="symbol">();</span>
+<span class="normal">		ticks_started </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">flags </span><span class="symbol">&amp;</span><span class="normal"> SDL_INIT_TIMER</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!(</span><span class="normal">SDL_initialized </span><span class="symbol">&amp;</span><span class="normal"> SDL_INIT_TIMER</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="function">SDL_TimerInit</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		SDL_initialized </span><span class="symbol">|=</span><span class="normal"> SDL_INIT_TIMER</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="preproc">#else</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> flags </span><span class="symbol">&amp;</span><span class="normal"> SDL_INIT_TIMER </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_SetError</span><span class="symbol">(</span><span class="string">"SDL not built with timer support"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_JOYSTICK_DISABLED</span>
+<span class="normal">	</span><span class="comment">/* Initialize the joystick subsystem */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">flags </span><span class="symbol">&amp;</span><span class="normal"> SDL_INIT_JOYSTICK</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span>
+<span class="normal">	     </span><span class="symbol">!(</span><span class="normal">SDL_initialized </span><span class="symbol">&amp;</span><span class="normal"> SDL_INIT_JOYSTICK</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="function">SDL_JoystickInit</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		SDL_initialized </span><span class="symbol">|=</span><span class="normal"> SDL_INIT_JOYSTICK</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="preproc">#else</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> flags </span><span class="symbol">&amp;</span><span class="normal"> SDL_INIT_JOYSTICK </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_SetError</span><span class="symbol">(</span><span class="string">"SDL not built with joystick support"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_CDROM_DISABLED</span>
+<span class="normal">	</span><span class="comment">/* Initialize the CD-ROM subsystem */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">flags </span><span class="symbol">&amp;</span><span class="normal"> SDL_INIT_CDROM</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!(</span><span class="normal">SDL_initialized </span><span class="symbol">&amp;</span><span class="normal"> SDL_INIT_CDROM</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="function">SDL_CDROMInit</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		SDL_initialized </span><span class="symbol">|=</span><span class="normal"> SDL_INIT_CDROM</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="preproc">#else</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> flags </span><span class="symbol">&amp;</span><span class="normal"> SDL_INIT_CDROM </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_SetError</span><span class="symbol">(</span><span class="string">"SDL not built with cdrom support"</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="type">int</span><span class="normal"> </span><span class="function">SDL_Init</span><span class="symbol">(</span><span class="usertype">Uint32</span><span class="normal"> flags</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_THREADS_DISABLED </span><span class="symbol">&amp;&amp;</span><span class="normal"> SDL_THREAD_PTH</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="function">pth_init</span><span class="symbol">())</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+
+<span class="normal">	</span><span class="comment">/* Clear the error message */</span>
+<span class="normal">	</span><span class="function">SDL_ClearError</span><span class="symbol">();</span>
+
+<span class="normal">	</span><span class="comment">/* Initialize the desired subsystems */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="function">SDL_InitSubSystem</span><span class="symbol">(</span><span class="normal">flags</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">(-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="comment">/* Everything is initialized */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">!(</span><span class="normal">flags </span><span class="symbol">&amp;</span><span class="normal"> SDL_INIT_NOPARACHUTE</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_InstallParachute</span><span class="symbol">();</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> </span><span class="function">SDL_QuitSubSystem</span><span class="symbol">(</span><span class="usertype">Uint32</span><span class="normal"> flags</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="comment">/* Shut down requested initialized subsystems */</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_CDROM_DISABLED</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">flags </span><span class="symbol">&amp;</span><span class="normal"> SDL_initialized </span><span class="symbol">&amp;</span><span class="normal"> SDL_INIT_CDROM</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_CDROMQuit</span><span class="symbol">();</span>
+<span class="normal">		SDL_initialized </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="symbol">~</span><span class="normal">SDL_INIT_CDROM</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_JOYSTICK_DISABLED</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">flags </span><span class="symbol">&amp;</span><span class="normal"> SDL_initialized </span><span class="symbol">&amp;</span><span class="normal"> SDL_INIT_JOYSTICK</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_JoystickQuit</span><span class="symbol">();</span>
+<span class="normal">		SDL_initialized </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="symbol">~</span><span class="normal">SDL_INIT_JOYSTICK</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_TIMERS_DISABLED</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">flags </span><span class="symbol">&amp;</span><span class="normal"> SDL_initialized </span><span class="symbol">&amp;</span><span class="normal"> SDL_INIT_TIMER</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_TimerQuit</span><span class="symbol">();</span>
+<span class="normal">		SDL_initialized </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="symbol">~</span><span class="normal">SDL_INIT_TIMER</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_AUDIO_DISABLED</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">flags </span><span class="symbol">&amp;</span><span class="normal"> SDL_initialized </span><span class="symbol">&amp;</span><span class="normal"> SDL_INIT_AUDIO</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_AudioQuit</span><span class="symbol">();</span>
+<span class="normal">		SDL_initialized </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="symbol">~</span><span class="normal">SDL_INIT_AUDIO</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_VIDEO_DISABLED</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">flags </span><span class="symbol">&amp;</span><span class="normal"> SDL_initialized </span><span class="symbol">&amp;</span><span class="normal"> SDL_INIT_VIDEO</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">SDL_VideoQuit</span><span class="symbol">();</span>
+<span class="normal">		SDL_initialized </span><span class="symbol">&amp;=</span><span class="normal"> </span><span class="symbol">~</span><span class="normal">SDL_INIT_VIDEO</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+<span class="cbracket">}</span>
+
+<span class="usertype">Uint32</span><span class="normal"> </span><span class="function">SDL_WasInit</span><span class="symbol">(</span><span class="usertype">Uint32</span><span class="normal"> flags</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">!</span><span class="normal"> flags </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		flags </span><span class="symbol">=</span><span class="normal"> SDL_INIT_EVERYTHING</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">SDL_initialized</span><span class="symbol">&amp;</span><span class="normal">flags</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> </span><span class="function">SDL_Quit</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="comment">/* Quit all subsystems */</span>
+<span class="preproc">#ifdef</span><span class="normal"> DEBUG_BUILD</span>
+<span class="normal">  </span><span class="function">printf</span><span class="symbol">(</span><span class="string">"[SDL_Quit] : Enter! Calling QuitSubSystem()</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">);</span><span class="normal"> </span><span class="function">fflush</span><span class="symbol">(</span><span class="normal">stdout</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="normal">	</span><span class="function">SDL_QuitSubSystem</span><span class="symbol">(</span><span class="normal">SDL_INIT_EVERYTHING</span><span class="symbol">);</span>
+
+<span class="preproc">#ifdef</span><span class="normal"> CHECK_LEAKS</span>
+<span class="preproc">#ifdef</span><span class="normal"> DEBUG_BUILD</span>
+<span class="normal">  </span><span class="function">printf</span><span class="symbol">(</span><span class="string">"[SDL_Quit] : CHECK_LEAKS</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">);</span><span class="normal"> </span><span class="function">fflush</span><span class="symbol">(</span><span class="normal">stdout</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+
+<span class="normal">	</span><span class="comment">/* Print the number of surfaces not freed */</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> surfaces_allocated </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"SDL Warning: %d SDL surfaces extant</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span>
+<span class="normal">							surfaces_allocated</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#ifdef</span><span class="normal"> DEBUG_BUILD</span>
+<span class="normal">  </span><span class="function">printf</span><span class="symbol">(</span><span class="string">"[SDL_Quit] : SDL_UninstallParachute()</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">);</span><span class="normal"> </span><span class="function">fflush</span><span class="symbol">(</span><span class="normal">stdout</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+
+<span class="normal">	</span><span class="comment">/* Uninstall any parachute signal handlers */</span>
+<span class="normal">	</span><span class="function">SDL_UninstallParachute</span><span class="symbol">();</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">SDL_THREADS_DISABLED </span><span class="symbol">&amp;&amp;</span><span class="normal"> SDL_THREAD_PTH</span>
+<span class="normal">	</span><span class="function">pth_kill</span><span class="symbol">();</span>
+<span class="preproc">#endif</span>
+<span class="preproc">#ifdef</span><span class="normal"> DEBUG_BUILD</span>
+<span class="normal">  </span><span class="function">printf</span><span class="symbol">(</span><span class="string">"[SDL_Quit] : Returning!</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">);</span><span class="normal"> </span><span class="function">fflush</span><span class="symbol">(</span><span class="normal">stdout</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+
+<span class="cbracket">}</span>
+
+<span class="comment">/* Return the library version number */</span>
+<span class="keyword">const</span><span class="normal"> SDL_version </span><span class="symbol">*</span><span class="normal"> </span><span class="function">SDL_Linked_Version</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="symbol">(&amp;</span><span class="normal">version</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">__OS2__</span><span class="symbol">)</span>
+<span class="comment">/* Building for OS/2 */</span>
+<span class="preproc">#ifdef</span><span class="normal"> __WATCOMC__</span>
+
+<span class="preproc">#define</span><span class="normal"> INCL_DOSERRORS</span>
+<span class="preproc">#define</span><span class="normal"> INCL_DOSEXCEPTIONS</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;os2.h&gt;</span>
+
+<span class="comment">/* Exception handler to prevent the Audio thread hanging, making a zombie process! */</span>
+<span class="normal">ULONG </span><span class="usertype">_System</span><span class="normal"> </span><span class="function">SDL_Main_ExceptionHandler</span><span class="symbol">(</span><span class="usertype">PEXCEPTIONREPORTRECORD</span><span class="normal"> pERepRec</span><span class="symbol">,</span>
+<span class="normal">                                        </span><span class="usertype">PEXCEPTIONREGISTRATIONRECORD</span><span class="normal"> pERegRec</span><span class="symbol">,</span>
+<span class="normal">                                        </span><span class="usertype">PCONTEXTRECORD</span><span class="normal"> pCtxRec</span><span class="symbol">,</span>
+<span class="normal">                                        </span><span class="usertype">PVOID</span><span class="normal"> p</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">pERepRec</span><span class="symbol">-&gt;</span><span class="normal">fHandlerFlags </span><span class="symbol">&amp;</span><span class="normal"> EH_EXIT_UNWIND</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> XCPT_CONTINUE_SEARCH</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">pERepRec</span><span class="symbol">-&gt;</span><span class="normal">fHandlerFlags </span><span class="symbol">&amp;</span><span class="normal"> EH_UNWINDING</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> XCPT_CONTINUE_SEARCH</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">pERepRec</span><span class="symbol">-&gt;</span><span class="normal">fHandlerFlags </span><span class="symbol">&amp;</span><span class="normal"> EH_NESTED_CALL</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> XCPT_CONTINUE_SEARCH</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Do cleanup at every fatal exception! */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(((</span><span class="normal">pERepRec</span><span class="symbol">-&gt;</span><span class="normal">ExceptionNum </span><span class="symbol">&amp;</span><span class="normal"> XCPT_SEVERITY_CODE</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> XCPT_FATAL_EXCEPTION</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span>
+<span class="normal">      </span><span class="symbol">(</span><span class="normal">pERepRec</span><span class="symbol">-&gt;</span><span class="normal">ExceptionNum </span><span class="symbol">!=</span><span class="normal"> XCPT_BREAKPOINT</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span>
+<span class="normal">      </span><span class="symbol">(</span><span class="normal">pERepRec</span><span class="symbol">-&gt;</span><span class="normal">ExceptionNum </span><span class="symbol">!=</span><span class="normal"> XCPT_SINGLE_STEP</span><span class="symbol">)</span>
+<span class="normal">     </span><span class="symbol">)</span>
+<span class="normal">  </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">SDL_initialized </span><span class="symbol">&amp;</span><span class="normal"> SDL_INIT_AUDIO</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="comment">/* This removes the zombie audio thread in case of emergency. */</span>
+<span class="preproc">#ifdef</span><span class="normal"> DEBUG_BUILD</span>
+<span class="normal">      </span><span class="function">printf</span><span class="symbol">(</span><span class="string">"[SDL_Main_ExceptionHandler] : Calling SDL_CloseAudio()!</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="normal">      </span><span class="function">SDL_CloseAudio</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">XCPT_CONTINUE_SEARCH</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+
+<span class="usertype">EXCEPTIONREGISTRATIONRECORD</span><span class="normal"> SDL_Main_xcpthand </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> SDL_Main_ExceptionHandler</span><span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="comment">/* The main DLL entry for DLL Initialization and Uninitialization: */</span>
+<span class="type">unsigned</span><span class="normal"> </span><span class="usertype">_System</span><span class="normal"> </span><span class="function">LibMain</span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> hmod</span><span class="symbol">,</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> termination</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">termination</span><span class="symbol">)</span>
+<span class="normal">  </span><span class="cbracket">{</span>
+<span class="preproc">#ifdef</span><span class="normal"> DEBUG_BUILD</span>
+<span class="comment">/*    printf("[SDL DLL Unintialization] : Removing exception handler\n"); */</span>
+<span class="preproc">#endif</span>
+<span class="normal">    </span><span class="function">DosUnsetExceptionHandler</span><span class="symbol">(&amp;</span><span class="normal">SDL_Main_xcpthand</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span>
+<span class="normal">  </span><span class="cbracket">{</span>
+<span class="preproc">#ifdef</span><span class="normal"> DEBUG_BUILD</span>
+<span class="normal">    </span><span class="comment">/* Make stdout and stderr unbuffered! */</span>
+<span class="normal">    </span><span class="function">setbuf</span><span class="symbol">(</span><span class="normal">stdout</span><span class="symbol">,</span><span class="normal"> NULL</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">setbuf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="normal"> NULL</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="normal">    </span><span class="comment">/* Fire up exception handler */</span>
+<span class="preproc">#ifdef</span><span class="normal"> DEBUG_BUILD</span>
+<span class="comment">/*    printf("[SDL DLL Initialization] : Setting exception handler\n"); */</span>
+<span class="preproc">#endif</span>
+<span class="normal">    </span><span class="comment">/* Set exception handler */</span>
+<span class="normal">    </span><span class="function">DosSetExceptionHandler</span><span class="symbol">(&amp;</span><span class="normal">SDL_Main_xcpthand</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* __WATCOMC__ */</span>
+
+<span class="preproc">#elif</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">__WIN32__</span><span class="symbol">)</span>
+
+<span class="preproc">#if</span><span class="normal"> </span><span class="symbol">!</span><span class="function">defined</span><span class="symbol">(</span><span class="normal">HAVE_LIBC</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">(</span><span class="function">defined</span><span class="symbol">(</span><span class="normal">__WATCOMC__</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="function">defined</span><span class="symbol">(</span><span class="normal">BUILD_DLL</span><span class="symbol">))</span>
+<span class="comment">/* Need to include DllMain() on Watcom C for some reason.. */</span>
+<span class="preproc">#define</span><span class="normal"> WIN32_LEAN_AND_MEAN</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;windows.h&gt;</span>
+
+<span class="usertype">BOOL</span><span class="normal"> </span><span class="usertype">APIENTRY</span><span class="normal"> </span><span class="function">_DllMainCRTStartup</span><span class="symbol">(</span><span class="normal"> </span><span class="usertype">HANDLE</span><span class="normal"> hModule</span><span class="symbol">,</span><span class="normal"> </span>
+<span class="normal">                       </span><span class="usertype">DWORD</span><span class="normal">  ul_reason_for_call</span><span class="symbol">,</span><span class="normal"> </span>
+<span class="normal">                       </span><span class="usertype">LPVOID</span><span class="normal"> lpReserved </span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">switch</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ul_reason_for_call</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> DLL_PROCESS_ATTACH</span><span class="symbol">:</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> DLL_THREAD_ATTACH</span><span class="symbol">:</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> DLL_THREAD_DETACH</span><span class="symbol">:</span>
+<span class="normal">		</span><span class="keyword">case</span><span class="normal"> DLL_PROCESS_DETACH</span><span class="symbol">:</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> TRUE</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* building DLL with Watcom C */</span>
+
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">/* OS/2 elif __WIN32__ */</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

@@ -1,0 +1,278 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>LCOV - STX B+ Tree Testsuite - testsuite/BoundTest.cc</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">testsuite</a> - BoundTest.cc<span style="font-size: 80%;"> (source / <a href="BoundTest.cc.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">STX B+ Tree Testsuite</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">76</td>
+            <td class="headerCovTableEntry">80</td>
+            <td class="headerCovTableEntryHi">95.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2011-05-18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">10</td>
+            <td class="headerCovTableEntry">11</td>
+            <td class="headerCovTableEntryHi">90.9 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+            | Branches:
+            <span class="coverLegendCov">+</span> taken
+            <span class="coverLegendNoCov">-</span> not taken
+            <span class="coverLegendNoCov">#</span> not executed
+</td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">37</td>
+            <td class="headerCovTableEntry">52</td>
+            <td class="headerCovTableEntryLo">71.2 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                :            : // $Id: BoundTest.cc 128 2011-05-18 07:23:35Z tb $</a>
+<span class="lineNum">       2 </span>                :            : 
+<span class="lineNum">       3 </span>                :            : /*
+<span class="lineNum">       4 </span>                :            :  * STX B+ Tree Template Classes v0.8.6
+<span class="lineNum">       5 </span>                :            :  * Copyright (C) 2008-2011 Timo Bingmann
+<span class="lineNum">       6 </span>                :            :  *
+<span class="lineNum">       7 </span>                :            :  * This library is free software; you can redistribute it and/or modify it
+<span class="lineNum">       8 </span>                :            :  * under the terms of the GNU Lesser General Public License as published by the
+<span class="lineNum">       9 </span>                :            :  * Free Software Foundation; either version 2.1 of the License, or (at your
+<span class="lineNum">      10 </span>                :            :  * option) any later version.
+<span class="lineNum">      11 </span>                :            :  *
+<span class="lineNum">      12 </span>                :            :  * This library is distributed in the hope that it will be useful, but WITHOUT
+<span class="lineNum">      13 </span>                :            :  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+<span class="lineNum">      14 </span>                :            :  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
+<span class="lineNum">      15 </span>                :            :  * for more details.
+<span class="lineNum">      16 </span>                :            :  *
+<span class="lineNum">      17 </span>                :            :  * You should have received a copy of the GNU Lesser General Public License
+<span class="lineNum">      18 </span>                :            :  * along with this library; if not, write to the Free Software Foundation,
+<span class="lineNum">      19 </span>                :            :  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+<span class="lineNum">      20 </span>                :            :  */
+<span class="lineNum">      21 </span>                :            : 
+<span class="lineNum">      22 </span>                :            : #include &lt;cppunit/extensions/HelperMacros.h&gt;
+<span class="lineNum">      23 </span>                :            : 
+<span class="lineNum">      24 </span>                :            : #include &lt;stdlib.h&gt;
+<span class="lineNum">      25 </span>                :            : 
+<span class="lineNum">      26 </span>                :            : #include &lt;stx/btree_multimap.h&gt;
+<span class="lineNum">      27 </span>                :            : #include &lt;set&gt;
+<a name="28"><span class="lineNum">      28 </span>                :            : </a>
+<a name="29"><span class="lineNum">      29 </span>                :            : class BoundTest : public CPPUNIT_NS::TestFixture</a>
+<span class="lineNum">      30 </span>[<span class="branchCov" title="Branch 2 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>]:<span class="lineCov">          4 : {</span>
+<span class="lineNum">      31 </span>[<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          2 :     CPPUNIT_TEST_SUITE( BoundTest );</span>
+<span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 8 was not executed"> # </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
+<a name="32"><span class="lineNum">      32 </span>                :<span class="lineCov">          1 :     CPPUNIT_TEST(test_3200_10);</span></a>
+<span class="lineNum">      33 </span>                :<span class="lineCov">          1 :     CPPUNIT_TEST(test_320_1000);</span>
+<span class="lineNum">      34 </span>                :<span class="lineCov">          2 :     CPPUNIT_TEST_SUITE_END();</span>
+<span class="lineNum">      35 </span>                :            : 
+<span class="lineNum">      36 </span>                :            : protected:
+<span class="lineNum">      37 </span>                :            : 
+<span class="lineNum">      38 </span>                :            :     struct traits_nodebug
+<span class="lineNum">      39 </span>                :            :     {
+<span class="lineNum">      40 </span>                :            :         static const bool       selfverify = true;
+<span class="lineNum">      41 </span>                :            :         static const bool       debug = false;
+<span class="lineNum">      42 </span>                :            : 
+<span class="lineNum">      43 </span>                :            :         static const int        leafslots = 8;
+<span class="lineNum">      44 </span>                :            :         static const int        innerslots = 8;
+<a name="45"><span class="lineNum">      45 </span>                :            :     };</a>
+<span class="lineNum">      46 </span>                :            : 
+<span class="lineNum">      47 </span>                :<span class="lineCov">          2 :     void test_multi(const unsigned int insnum, const int modulo)</span>
+<span class="lineNum">      48 </span>                :            :     {
+<span class="lineNum">      49 </span>                :            :         typedef stx::btree_multimap&lt;unsigned int, unsigned int, std::less&lt;unsigned int&gt;, struct traits_nodebug&gt; btree_type;
+<span class="lineNum">      50 </span>                :<span class="lineCov">          2 :         btree_type bt;</span>
+<span class="lineNum">      51 </span>                :            : 
+<span class="lineNum">      52 </span>                :            :         typedef std::multiset&lt;unsigned int&gt; multiset_type;
+<span class="lineNum">      53 </span>                :<span class="lineCov">          2 :         multiset_type set;</span>
+<span class="lineNum">      54 </span>                :            : 
+<span class="lineNum">      55 </span>                :            :         // *** insert
+<span class="lineNum">      56 </span>                :<span class="lineCov">          2 :         srand(34234235);</span>
+<span class="lineNum">      57 </span>        [<span class="branchCov" title="Branch 0 was taken 3520 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">       3522 :         for(unsigned int i = 0; i &lt; insnum; i++)</span>
+<span class="lineNum">      58 </span>                :            :         {
+<span class="lineNum">      59 </span>                :<span class="lineCov">       3520 :             unsigned int k = rand() % modulo;</span>
+<span class="lineNum">      60 </span>                :<span class="lineCov">       3520 :             unsigned int v = 234;</span>
+<span class="lineNum">      61 </span>                :            : 
+<span class="lineNum">      62 </span>                :<span class="lineCov">       3520 :             CPPUNIT_ASSERT( bt.size() == set.size() );</span>
+<span class="lineNum">      63 </span>                :<span class="lineCov">       3520 :             bt.insert2(k, v);</span>
+<span class="lineNum">      64 </span>                :<span class="lineCov">       3520 :             set.insert(k);</span>
+<span class="lineNum">      65 </span>                :<span class="lineCov">       3520 :             CPPUNIT_ASSERT( bt.count(k) == set.count(k) );</span>
+<span class="lineNum">      66 </span>                :            : 
+<span class="lineNum">      67 </span>                :<span class="lineCov">       3520 :             CPPUNIT_ASSERT( bt.size() == set.size() );</span>
+<span class="lineNum">      68 </span>                :            :         }
+<span class="lineNum">      69 </span>                :            : 
+<span class="lineNum">      70 </span>                :<span class="lineCov">          2 :         CPPUNIT_ASSERT( bt.size() == insnum );</span>
+<span class="lineNum">      71 </span>                :            : 
+<span class="lineNum">      72 </span>                :            :         // *** iterate
+<span class="lineNum">      73 </span>                :            :         {
+<span class="lineNum">      74 </span>                :<span class="lineCov">          2 :             btree_type::iterator bi = bt.begin();</span>
+<span class="lineNum">      75 </span>                :<span class="lineCov">          2 :             multiset_type::const_iterator si = set.begin();</span>
+<span class="lineNum">      76 </span>[<span class="branchCov" title="Branch 4 was taken 3520 times"> + </span><span class="branchCov" title="Branch 5 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 8 was taken 3520 times"> + </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span>]:<span class="lineCov">       3522 :             for(; bi != bt.end() &amp;&amp; si != set.end(); ++bi, ++si)</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 10 was taken 3520 times"> + </span><span class="branchCov" title="Branch 11 was taken 2 times"> + </span>]
+<span class="lineNum">      77 </span>                :            :             {
+<span class="lineNum">      78 </span>                :<span class="lineCov">       3520 :                 CPPUNIT_ASSERT( *si == bi.key() );</span>
+<span class="lineNum">      79 </span>                :            :             }
+<span class="lineNum">      80 </span>                :<span class="lineCov">          2 :             CPPUNIT_ASSERT( bi == bt.end() );</span>
+<span class="lineNum">      81 </span>                :<span class="lineCov">          2 :             CPPUNIT_ASSERT( si == set.end() );</span>
+<span class="lineNum">      82 </span>                :            :         }
+<span class="lineNum">      83 </span>                :            : 
+<span class="lineNum">      84 </span>                :            :         // *** existance
+<span class="lineNum">      85 </span>                :<span class="lineCov">          2 :         srand(34234235);</span>
+<span class="lineNum">      86 </span>        [<span class="branchCov" title="Branch 0 was taken 3520 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">       3522 :         for(unsigned int i = 0; i &lt; insnum; i++)</span>
+<span class="lineNum">      87 </span>                :            :         {
+<span class="lineNum">      88 </span>                :<span class="lineCov">       3520 :             unsigned int k = rand() % modulo;</span>
+<span class="lineNum">      89 </span>                :            : 
+<span class="lineNum">      90 </span>                :<span class="lineCov">       3520 :             CPPUNIT_ASSERT( bt.exists(k) );</span>
+<span class="lineNum">      91 </span>                :            :         }
+<span class="lineNum">      92 </span>                :            : 
+<span class="lineNum">      93 </span>                :            :         // *** counting
+<span class="lineNum">      94 </span>                :<span class="lineCov">          2 :         srand(34234235);</span>
+<span class="lineNum">      95 </span>        [<span class="branchCov" title="Branch 0 was taken 3520 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">       3522 :         for(unsigned int i = 0; i &lt; insnum; i++)</span>
+<span class="lineNum">      96 </span>                :            :         {
+<span class="lineNum">      97 </span>                :<span class="lineCov">       3520 :             unsigned int k = rand() % modulo;</span>
+<span class="lineNum">      98 </span>                :            : 
+<span class="lineNum">      99 </span>                :<span class="lineCov">       3520 :             CPPUNIT_ASSERT( bt.count(k) == set.count(k) );</span>
+<span class="lineNum">     100 </span>                :            :         }
+<span class="lineNum">     101 </span>                :            : 
+<span class="lineNum">     102 </span>                :            :         // *** lower_bound
+<span class="lineNum">     103 </span>        [<span class="branchCov" title="Branch 0 was taken 1210 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">       1212 :         for(int k = 0; k &lt; modulo + 100; k++)</span>
+<span class="lineNum">     104 </span>                :            :         {
+<span class="lineNum">     105 </span>                :<span class="lineCov">       1210 :             multiset_type::const_iterator si = set.lower_bound(k);</span>
+<span class="lineNum">     106 </span>                :<span class="lineCov">       1210 :             btree_type::const_iterator bi = bt.lower_bound(k);</span>
+<span class="lineNum">     107 </span>                :            : 
+<span class="lineNum">     108 </span>        [<span class="branchCov" title="Branch 3 was taken 203 times"> + </span><span class="branchCov" title="Branch 4 was taken 1007 times"> + </span>]:<span class="lineCov">       1210 :             if ( bi == bt.end() )</span>
+<span class="lineNum">     109 </span>                :<span class="lineCov">        203 :                 CPPUNIT_ASSERT( si == set.end() );</span>
+<span class="lineNum">     110 </span>        [<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1007 times"> + </span>]:<span class="lineCov">       1007 :             else if ( si == set.end() )</span>
+<span class="lineNum">     111 </span>                :<span class="lineNoCov">          0 :                 CPPUNIT_ASSERT( bi == bt.end() );</span>
+<span class="lineNum">     112 </span>                :            :             else
+<span class="lineNum">     113 </span>                :<span class="lineCov">       1007 :                 CPPUNIT_ASSERT( *si == bi.key() );</span>
+<span class="lineNum">     114 </span>                :            :         }
+<span class="lineNum">     115 </span>                :            : 
+<span class="lineNum">     116 </span>                :            :         // *** upper_bound
+<span class="lineNum">     117 </span>        [<span class="branchCov" title="Branch 0 was taken 1210 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">       1212 :         for(int k = 0; k &lt; modulo + 100; k++)</span>
+<span class="lineNum">     118 </span>                :            :         {
+<span class="lineNum">     119 </span>                :<span class="lineCov">       1210 :             multiset_type::const_iterator si = set.upper_bound(k);</span>
+<span class="lineNum">     120 </span>                :<span class="lineCov">       1210 :             btree_type::const_iterator bi = bt.upper_bound(k);</span>
+<span class="lineNum">     121 </span>                :            : 
+<span class="lineNum">     122 </span>        [<span class="branchCov" title="Branch 3 was taken 205 times"> + </span><span class="branchCov" title="Branch 4 was taken 1005 times"> + </span>]:<span class="lineCov">       1210 :             if ( bi == bt.end() )</span>
+<span class="lineNum">     123 </span>                :<span class="lineCov">        205 :                 CPPUNIT_ASSERT( si == set.end() );</span>
+<span class="lineNum">     124 </span>        [<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1005 times"> + </span>]:<span class="lineCov">       1005 :             else if ( si == set.end() )</span>
+<span class="lineNum">     125 </span>                :<span class="lineNoCov">          0 :                 CPPUNIT_ASSERT( bi == bt.end() );</span>
+<span class="lineNum">     126 </span>                :            :             else
+<span class="lineNum">     127 </span>                :<span class="lineCov">       1005 :                 CPPUNIT_ASSERT( *si == bi.key() );</span>
+<span class="lineNum">     128 </span>                :            :         }
+<span class="lineNum">     129 </span>                :            : 
+<span class="lineNum">     130 </span>                :            :         // *** equal_range
+<span class="lineNum">     131 </span>        [<span class="branchCov" title="Branch 0 was taken 1210 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">       1212 :         for(int k = 0; k &lt; modulo + 100; k++)</span>
+<span class="lineNum">     132 </span>                :            :         {
+<span class="lineNum">     133 </span>                :<span class="lineCov">       1210 :             std::pair&lt;multiset_type::const_iterator, multiset_type::const_iterator&gt; si = set.equal_range(k);</span>
+<span class="lineNum">     134 </span>                :<span class="lineCov">       1210 :             std::pair&lt;btree_type::const_iterator, btree_type::const_iterator&gt; bi = bt.equal_range(k);</span>
+<span class="lineNum">     135 </span>                :            : 
+<span class="lineNum">     136 </span>        [<span class="branchCov" title="Branch 3 was taken 203 times"> + </span><span class="branchCov" title="Branch 4 was taken 1007 times"> + </span>]:<span class="lineCov">       1210 :             if ( bi.first == bt.end() )</span>
+<span class="lineNum">     137 </span>                :<span class="lineCov">        203 :                 CPPUNIT_ASSERT( si.first == set.end() );</span>
+<span class="lineNum">     138 </span>        [<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1007 times"> + </span>]:<span class="lineCov">       1007 :             else if ( si.first == set.end() )</span>
+<span class="lineNum">     139 </span>                :<span class="lineNoCov">          0 :                 CPPUNIT_ASSERT( bi.first == bt.end() );</span>
+<span class="lineNum">     140 </span>                :            :             else
+<span class="lineNum">     141 </span>                :<span class="lineCov">       1007 :                 CPPUNIT_ASSERT( *si.first == bi.first.key() );</span>
+<span class="lineNum">     142 </span>                :            : 
+<span class="lineNum">     143 </span>        [<span class="branchCov" title="Branch 3 was taken 205 times"> + </span><span class="branchCov" title="Branch 4 was taken 1005 times"> + </span>]:<span class="lineCov">       1210 :             if ( bi.second == bt.end() )</span>
+<span class="lineNum">     144 </span>                :<span class="lineCov">        205 :                 CPPUNIT_ASSERT( si.second == set.end() );</span>
+<span class="lineNum">     145 </span>        [<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1005 times"> + </span>]:<span class="lineCov">       1005 :             else if ( si.second == set.end() )</span>
+<span class="lineNum">     146 </span>                :<span class="lineNoCov">          0 :                 CPPUNIT_ASSERT( bi.second == bt.end() );</span>
+<span class="lineNum">     147 </span>                :            :             else
+<span class="lineNum">     148 </span>                :<span class="lineCov">       1005 :                 CPPUNIT_ASSERT( *si.second == bi.second.key() );</span>
+<span class="lineNum">     149 </span>                :            :         }
+<span class="lineNum">     150 </span>                :            : 
+<span class="lineNum">     151 </span>                :            :         // *** deletion
+<span class="lineNum">     152 </span>                :<span class="lineCov">          2 :         srand(34234235);</span>
+<span class="lineNum">     153 </span>        [<span class="branchCov" title="Branch 0 was taken 3520 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">       3522 :         for(unsigned int i = 0; i &lt; insnum; i++)</span>
+<span class="lineNum">     154 </span>                :            :         {
+<span class="lineNum">     155 </span>                :<span class="lineCov">       3520 :             unsigned int k = rand() % modulo;</span>
+<span class="lineNum">     156 </span>                :            : 
+<span class="lineNum">     157 </span>        [<span class="branchCov" title="Branch 3 was taken 3520 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">       3520 :             if (set.find(k) != set.end())</span>
+<span class="lineNum">     158 </span>                :            :             {
+<span class="lineNum">     159 </span>                :<span class="lineCov">       3520 :                 CPPUNIT_ASSERT( bt.size() == set.size() );</span>
+<span class="lineNum">     160 </span>                :            : 
+<span class="lineNum">     161 </span>                :<span class="lineCov">       3520 :                 CPPUNIT_ASSERT( bt.exists(k) );</span>
+<span class="lineNum">     162 </span>                :<span class="lineCov">       3520 :                 CPPUNIT_ASSERT( bt.erase_one(k) );</span>
+<span class="lineNum">     163 </span>                :<span class="lineCov">       3520 :                 set.erase( set.find(k) );</span>
+<span class="lineNum">     164 </span>                :            : 
+<span class="lineNum">     165 </span>                :<span class="lineCov">       3520 :                 CPPUNIT_ASSERT( bt.size() == set.size() );</span>
+<span class="lineNum">     166 </span>                :            :             }
+<span class="lineNum">     167 </span>                :            :         }
+<span class="lineNum">     168 </span>                :            : 
+<span class="lineNum">     169 </span>                :<span class="lineCov">          2 :         CPPUNIT_ASSERT( bt.empty() );</span>
+<span class="lineNum">     170 </span>                :<span class="lineCov">          2 :         CPPUNIT_ASSERT( set.empty() );</span>
+<a name="171"><span class="lineNum">     171 </span>                :<span class="lineCov">          2 :     }</span></a>
+<span class="lineNum">     172 </span>                :            : 
+<span class="lineNum">     173 </span>                :<span class="lineCov">          1 :     void test_3200_10()</span>
+<span class="lineNum">     174 </span>                :            :     {
+<span class="lineNum">     175 </span>                :<span class="lineCov">          1 :         test_multi(3200, 10);</span>
+<a name="176"><span class="lineNum">     176 </span>                :<span class="lineCov">          1 :     }</span></a>
+<span class="lineNum">     177 </span>                :            : 
+<span class="lineNum">     178 </span>                :<span class="lineCov">          1 :     void test_320_1000()</span>
+<span class="lineNum">     179 </span>                :            :     {
+<span class="lineNum">     180 </span>                :<span class="lineCov">          1 :         test_multi(320, 1000);</span>
+<span class="lineNum">     181 </span>                :<span class="lineCov">          1 :     }</span>
+<a name="182"><span class="lineNum">     182 </span>                :            : };</a>
+<span class="lineNum">     183 </span>                :            : 
+<span class="lineNum">     184 </span>[<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          3 : CPPUNIT_TEST_SUITE_REGISTRATION( BoundTest );</span>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.9</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

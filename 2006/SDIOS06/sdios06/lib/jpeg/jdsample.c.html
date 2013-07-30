@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2006/SDIOS06/sdios06/lib/jpeg/jdsample.c - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal4.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 12pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 9pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 10pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 9pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2006/">2006</a> / <a href="/2006/SDIOS06/">SDIOS06</a> / <a href="/2006/SDIOS06/sdios06/">sdios06</a> / <a href="/2006/SDIOS06/sdios06/lib/">lib</a> / <a href="/2006/SDIOS06/sdios06/lib/jpeg/">jpeg</a> / <a href="/2006/SDIOS06/sdios06/lib/jpeg/jdsample.c.html">jdsample.c</a> (<a href="/2006/SDIOS06/sdios06/lib/jpeg/jdsample.c">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">/*</span>
+<span class="comment"> * jdsample.c</span>
+<span class="comment"> *</span>
+<span class="comment"> * Copyright (C) 1991-1996, Thomas G. Lane.</span>
+<span class="comment"> * This file is part of the Independent JPEG Group's software.</span>
+<span class="comment"> * For conditions of distribution and use, see the accompanying README file.</span>
+<span class="comment"> *</span>
+<span class="comment"> * This file contains upsampling routines.</span>
+<span class="comment"> *</span>
+<span class="comment"> * Upsampling input data is counted in "row groups".  A row group</span>
+<span class="comment"> * is defined to be (v_samp_factor * DCT_scaled_size / min_DCT_scaled_size)</span>
+<span class="comment"> * sample rows of each component.  Upsampling will normally produce</span>
+<span class="comment"> * max_v_samp_factor pixel rows from each row group (but this could vary</span>
+<span class="comment"> * if the upsampler is applying a scale factor of its own).</span>
+<span class="comment"> *</span>
+<span class="comment"> * An excellent reference for image resampling is</span>
+<span class="comment"> *   Digital Image Warping, George Wolberg, 1990.</span>
+<span class="comment"> *   Pub. by IEEE Computer Society Press, Los Alamitos, CA. ISBN 0-8186-8944-7.</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#define</span><span class="normal"> JPEG_INTERNALS</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"jinclude.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"jpeglib.h"</span>
+
+
+<span class="comment">/* Pointer to routine to upsample a single component */</span>
+<span class="keyword">typedef</span><span class="normal"> </span><span class="function">JMETHOD</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">,</span><span class="normal"> upsample1_ptr</span><span class="symbol">,</span>
+<span class="normal">		</span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> jpeg_component_info </span><span class="symbol">*</span><span class="normal"> compptr</span><span class="symbol">,</span>
+<span class="normal">		 </span><span class="usertype">JSAMPARRAY</span><span class="normal"> input_data</span><span class="symbol">,</span><span class="normal"> JSAMPARRAY </span><span class="symbol">*</span><span class="normal"> output_data_ptr</span><span class="symbol">));</span>
+
+<span class="comment">/* Private subobject */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">jpeg_upsampler</span><span class="normal"> pub</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* public fields */</span>
+
+<span class="normal">  </span><span class="comment">/* Color conversion buffer.  When using separate upsampling and color</span>
+<span class="comment">   * conversion steps, this buffer holds one upsampled row group until it</span>
+<span class="comment">   * has been color converted and output.</span>
+<span class="comment">   * Note: we do not allocate any storage for component(s) which are full-size,</span>
+<span class="comment">   * ie do not need rescaling.  The corresponding entry of color_buf[] is</span>
+<span class="comment">   * simply set to point to the input data array, thereby avoiding copying.</span>
+<span class="comment">   */</span>
+<span class="normal">  </span><span class="usertype">JSAMPARRAY</span><span class="normal"> color_buf</span><span class="symbol">[</span><span class="normal">MAX_COMPONENTS</span><span class="symbol">];</span>
+
+<span class="normal">  </span><span class="comment">/* Per-component upsampling method pointers */</span>
+<span class="normal">  </span><span class="usertype">upsample1_ptr</span><span class="normal"> methods</span><span class="symbol">[</span><span class="normal">MAX_COMPONENTS</span><span class="symbol">];</span>
+
+<span class="normal">  </span><span class="type">int</span><span class="normal"> next_row_out</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* counts rows emitted from color_buf */</span>
+<span class="normal">  </span><span class="usertype">JDIMENSION</span><span class="normal"> rows_to_go</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* counts rows remaining in image */</span>
+
+<span class="normal">  </span><span class="comment">/* Height of an input row group for each component. */</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> rowgroup_height</span><span class="symbol">[</span><span class="normal">MAX_COMPONENTS</span><span class="symbol">];</span>
+
+<span class="normal">  </span><span class="comment">/* These arrays save pixel expansion factors so that int_expand need not</span>
+<span class="comment">   * recompute them each time.  They are unused for other upsampling methods.</span>
+<span class="comment">   */</span>
+<span class="normal">  </span><span class="usertype">UINT8</span><span class="normal"> h_expand</span><span class="symbol">[</span><span class="normal">MAX_COMPONENTS</span><span class="symbol">];</span>
+<span class="normal">  </span><span class="usertype">UINT8</span><span class="normal"> v_expand</span><span class="symbol">[</span><span class="normal">MAX_COMPONENTS</span><span class="symbol">];</span>
+<span class="cbracket">}</span><span class="normal"> my_upsampler</span><span class="symbol">;</span>
+
+<span class="keyword">typedef</span><span class="normal"> my_upsampler </span><span class="symbol">*</span><span class="normal"> my_upsample_ptr</span><span class="symbol">;</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Initialize for an upsampling pass.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">start_pass_upsample</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_upsample_ptr</span><span class="normal"> upsample </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_upsample_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">upsample</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Mark the conversion buffer empty */</span>
+<span class="normal">  upsample</span><span class="symbol">-&gt;</span><span class="normal">next_row_out </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_v_samp_factor</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="comment">/* Initialize total-height counter for detecting bottom of image */</span>
+<span class="normal">  upsample</span><span class="symbol">-&gt;</span><span class="normal">rows_to_go </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">output_height</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Control routine to do upsampling (and color conversion).</span>
+<span class="comment"> *</span>
+<span class="comment"> * In this version we upsample each component independently.</span>
+<span class="comment"> * We upsample one row group into the conversion buffer, then apply</span>
+<span class="comment"> * color conversion a row at a time.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">sep_upsample</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span>
+<span class="normal">	      </span><span class="usertype">JSAMPIMAGE</span><span class="normal"> input_buf</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">JDIMENSION</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">in_row_group_ctr</span><span class="symbol">,</span>
+<span class="normal">	      </span><span class="usertype">JDIMENSION</span><span class="normal"> in_row_groups_avail</span><span class="symbol">,</span>
+<span class="normal">	      </span><span class="usertype">JSAMPARRAY</span><span class="normal"> output_buf</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">JDIMENSION</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">out_row_ctr</span><span class="symbol">,</span>
+<span class="normal">	      </span><span class="usertype">JDIMENSION</span><span class="normal"> out_rows_avail</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_upsample_ptr</span><span class="normal"> upsample </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_upsample_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">upsample</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> ci</span><span class="symbol">;</span>
+<span class="normal">  jpeg_component_info </span><span class="symbol">*</span><span class="normal"> compptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JDIMENSION</span><span class="normal"> num_rows</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Fill the conversion buffer, if it's empty */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">upsample</span><span class="symbol">-&gt;</span><span class="normal">next_row_out </span><span class="symbol">&gt;=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_v_samp_factor</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> compptr </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">comp_info</span><span class="symbol">;</span><span class="normal"> ci </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components</span><span class="symbol">;</span>
+<span class="normal">	 ci</span><span class="symbol">++,</span><span class="normal"> compptr</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="comment">/* Invoke per-component upsample method.  Notice we pass a POINTER</span>
+<span class="comment">       * to color_buf[ci], so that fullsize_upsample can change it.</span>
+<span class="comment">       */</span>
+<span class="normal">      </span><span class="symbol">(*</span><span class="normal">upsample</span><span class="symbol">-&gt;</span><span class="normal">methods</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">])</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> compptr</span><span class="symbol">,</span>
+<span class="normal">	input_buf</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">in_row_group_ctr </span><span class="symbol">*</span><span class="normal"> upsample</span><span class="symbol">-&gt;</span><span class="normal">rowgroup_height</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">]),</span>
+<span class="normal">	upsample</span><span class="symbol">-&gt;</span><span class="normal">color_buf </span><span class="symbol">+</span><span class="normal"> ci</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    upsample</span><span class="symbol">-&gt;</span><span class="normal">next_row_out </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="comment">/* Color-convert and emit rows */</span>
+
+<span class="normal">  </span><span class="comment">/* How many we have in the buffer: */</span>
+<span class="normal">  num_rows </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_v_samp_factor </span><span class="symbol">-</span><span class="normal"> upsample</span><span class="symbol">-&gt;</span><span class="normal">next_row_out</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="comment">/* Not more than the distance to the end of the image.  Need this test</span>
+<span class="comment">   * in case the image height is not a multiple of max_v_samp_factor:</span>
+<span class="comment">   */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">num_rows </span><span class="symbol">&gt;</span><span class="normal"> upsample</span><span class="symbol">-&gt;</span><span class="normal">rows_to_go</span><span class="symbol">)</span><span class="normal"> </span>
+<span class="normal">    num_rows </span><span class="symbol">=</span><span class="normal"> upsample</span><span class="symbol">-&gt;</span><span class="normal">rows_to_go</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="comment">/* And not more than what the client can accept: */</span>
+<span class="normal">  out_rows_avail </span><span class="symbol">-=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">out_row_ctr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">num_rows </span><span class="symbol">&gt;</span><span class="normal"> out_rows_avail</span><span class="symbol">)</span>
+<span class="normal">    num_rows </span><span class="symbol">=</span><span class="normal"> out_rows_avail</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">cconvert</span><span class="symbol">-&gt;</span><span class="normal">color_convert</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> upsample</span><span class="symbol">-&gt;</span><span class="normal">color_buf</span><span class="symbol">,</span>
+<span class="normal">				     </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span><span class="normal"> upsample</span><span class="symbol">-&gt;</span><span class="normal">next_row_out</span><span class="symbol">,</span>
+<span class="normal">				     output_buf </span><span class="symbol">+</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">out_row_ctr</span><span class="symbol">,</span>
+<span class="normal">				     </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> num_rows</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* Adjust counts */</span>
+<span class="normal">  </span><span class="symbol">*</span><span class="normal">out_row_ctr </span><span class="symbol">+=</span><span class="normal"> num_rows</span><span class="symbol">;</span>
+<span class="normal">  upsample</span><span class="symbol">-&gt;</span><span class="normal">rows_to_go </span><span class="symbol">-=</span><span class="normal"> num_rows</span><span class="symbol">;</span>
+<span class="normal">  upsample</span><span class="symbol">-&gt;</span><span class="normal">next_row_out </span><span class="symbol">+=</span><span class="normal"> num_rows</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="comment">/* When the buffer is emptied, declare this input row group consumed */</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">upsample</span><span class="symbol">-&gt;</span><span class="normal">next_row_out </span><span class="symbol">&gt;=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_v_samp_factor</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="symbol">(*</span><span class="normal">in_row_group_ctr</span><span class="symbol">)++;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * These are the routines invoked by sep_upsample to upsample pixel values</span>
+<span class="comment"> * of a single component.  One row group is processed per call.</span>
+<span class="comment"> */</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * For full-size components, we just make color_buf[ci] point at the</span>
+<span class="comment"> * input buffer, and thus avoid copying any data.  Note that this is</span>
+<span class="comment"> * safe only because sep_upsample doesn't declare the input row group</span>
+<span class="comment"> * "consumed" until we are done color converting and emitting it.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">fullsize_upsample</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> jpeg_component_info </span><span class="symbol">*</span><span class="normal"> compptr</span><span class="symbol">,</span>
+<span class="normal">		   </span><span class="usertype">JSAMPARRAY</span><span class="normal"> input_data</span><span class="symbol">,</span><span class="normal"> JSAMPARRAY </span><span class="symbol">*</span><span class="normal"> output_data_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="symbol">*</span><span class="normal">output_data_ptr </span><span class="symbol">=</span><span class="normal"> input_data</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * This is a no-op version used for "uninteresting" components.</span>
+<span class="comment"> * These components will not be referenced by color conversion.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">noop_upsample</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> jpeg_component_info </span><span class="symbol">*</span><span class="normal"> compptr</span><span class="symbol">,</span>
+<span class="normal">	       </span><span class="usertype">JSAMPARRAY</span><span class="normal"> input_data</span><span class="symbol">,</span><span class="normal"> JSAMPARRAY </span><span class="symbol">*</span><span class="normal"> output_data_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="symbol">*</span><span class="normal">output_data_ptr </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* safety check */</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * This version handles any integral sampling ratios.</span>
+<span class="comment"> * This is not used for typical JPEG files, so it need not be fast.</span>
+<span class="comment"> * Nor, for that matter, is it particularly accurate: the algorithm is</span>
+<span class="comment"> * simple replication of the input pixel onto the corresponding output</span>
+<span class="comment"> * pixels.  The hi-falutin sampling literature refers to this as a</span>
+<span class="comment"> * "box filter".  A box filter tends to introduce visible artifacts,</span>
+<span class="comment"> * so if you are actually going to use 3:1 or 4:1 sampling ratios</span>
+<span class="comment"> * you would be well advised to improve this code.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">int_upsample</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> jpeg_component_info </span><span class="symbol">*</span><span class="normal"> compptr</span><span class="symbol">,</span>
+<span class="normal">	      </span><span class="usertype">JSAMPARRAY</span><span class="normal"> input_data</span><span class="symbol">,</span><span class="normal"> JSAMPARRAY </span><span class="symbol">*</span><span class="normal"> output_data_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_upsample_ptr</span><span class="normal"> upsample </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_upsample_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">upsample</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JSAMPARRAY</span><span class="normal"> output_data </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">output_data_ptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JSAMPROW</span><span class="normal"> inptr</span><span class="symbol">,</span><span class="normal"> outptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JSAMPLE</span><span class="normal"> invalue</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="type">int</span><span class="normal"> h</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JSAMPROW</span><span class="normal"> outend</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> h_expand</span><span class="symbol">,</span><span class="normal"> v_expand</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> inrow</span><span class="symbol">,</span><span class="normal"> outrow</span><span class="symbol">;</span>
+
+<span class="normal">  h_expand </span><span class="symbol">=</span><span class="normal"> upsample</span><span class="symbol">-&gt;</span><span class="normal">h_expand</span><span class="symbol">[</span><span class="normal">compptr</span><span class="symbol">-&gt;</span><span class="normal">component_index</span><span class="symbol">];</span>
+<span class="normal">  v_expand </span><span class="symbol">=</span><span class="normal"> upsample</span><span class="symbol">-&gt;</span><span class="normal">v_expand</span><span class="symbol">[</span><span class="normal">compptr</span><span class="symbol">-&gt;</span><span class="normal">component_index</span><span class="symbol">];</span>
+
+<span class="normal">  inrow </span><span class="symbol">=</span><span class="normal"> outrow </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">outrow </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_v_samp_factor</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">/* Generate one output row with proper horizontal expansion */</span>
+<span class="normal">    inptr </span><span class="symbol">=</span><span class="normal"> input_data</span><span class="symbol">[</span><span class="normal">inrow</span><span class="symbol">];</span>
+<span class="normal">    outptr </span><span class="symbol">=</span><span class="normal"> output_data</span><span class="symbol">[</span><span class="normal">outrow</span><span class="symbol">];</span>
+<span class="normal">    outend </span><span class="symbol">=</span><span class="normal"> outptr </span><span class="symbol">+</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">output_width</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">outptr </span><span class="symbol">&lt;</span><span class="normal"> outend</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      invalue </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">inptr</span><span class="symbol">++;</span><span class="normal">	</span><span class="comment">/* don't need GETJSAMPLE() here */</span>
+<span class="normal">      </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">h </span><span class="symbol">=</span><span class="normal"> h_expand</span><span class="symbol">;</span><span class="normal"> h </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> h</span><span class="symbol">--)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="symbol">*</span><span class="normal">outptr</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> invalue</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="comment">/* Generate any additional output rows by duplicating the first one */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">v_expand </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">jcopy_sample_rows</span><span class="symbol">(</span><span class="normal">output_data</span><span class="symbol">,</span><span class="normal"> outrow</span><span class="symbol">,</span><span class="normal"> output_data</span><span class="symbol">,</span><span class="normal"> outrow</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">,</span>
+<span class="normal">			v_expand</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">output_width</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    inrow</span><span class="symbol">++;</span>
+<span class="normal">    outrow </span><span class="symbol">+=</span><span class="normal"> v_expand</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Fast processing for the common case of 2:1 horizontal and 1:1 vertical.</span>
+<span class="comment"> * It's still a box filter.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">h2v1_upsample</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> jpeg_component_info </span><span class="symbol">*</span><span class="normal"> compptr</span><span class="symbol">,</span>
+<span class="normal">	       </span><span class="usertype">JSAMPARRAY</span><span class="normal"> input_data</span><span class="symbol">,</span><span class="normal"> JSAMPARRAY </span><span class="symbol">*</span><span class="normal"> output_data_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">JSAMPARRAY</span><span class="normal"> output_data </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">output_data_ptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JSAMPROW</span><span class="normal"> inptr</span><span class="symbol">,</span><span class="normal"> outptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JSAMPLE</span><span class="normal"> invalue</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JSAMPROW</span><span class="normal"> outend</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> inrow</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">inrow </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> inrow </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_v_samp_factor</span><span class="symbol">;</span><span class="normal"> inrow</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    inptr </span><span class="symbol">=</span><span class="normal"> input_data</span><span class="symbol">[</span><span class="normal">inrow</span><span class="symbol">];</span>
+<span class="normal">    outptr </span><span class="symbol">=</span><span class="normal"> output_data</span><span class="symbol">[</span><span class="normal">inrow</span><span class="symbol">];</span>
+<span class="normal">    outend </span><span class="symbol">=</span><span class="normal"> outptr </span><span class="symbol">+</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">output_width</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">outptr </span><span class="symbol">&lt;</span><span class="normal"> outend</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      invalue </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">inptr</span><span class="symbol">++;</span><span class="normal">	</span><span class="comment">/* don't need GETJSAMPLE() here */</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">outptr</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> invalue</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">outptr</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> invalue</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Fast processing for the common case of 2:1 horizontal and 2:1 vertical.</span>
+<span class="comment"> * It's still a box filter.</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">h2v2_upsample</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> jpeg_component_info </span><span class="symbol">*</span><span class="normal"> compptr</span><span class="symbol">,</span>
+<span class="normal">	       </span><span class="usertype">JSAMPARRAY</span><span class="normal"> input_data</span><span class="symbol">,</span><span class="normal"> JSAMPARRAY </span><span class="symbol">*</span><span class="normal"> output_data_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">JSAMPARRAY</span><span class="normal"> output_data </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">output_data_ptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JSAMPROW</span><span class="normal"> inptr</span><span class="symbol">,</span><span class="normal"> outptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JSAMPLE</span><span class="normal"> invalue</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">JSAMPROW</span><span class="normal"> outend</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> inrow</span><span class="symbol">,</span><span class="normal"> outrow</span><span class="symbol">;</span>
+
+<span class="normal">  inrow </span><span class="symbol">=</span><span class="normal"> outrow </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">outrow </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_v_samp_factor</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    inptr </span><span class="symbol">=</span><span class="normal"> input_data</span><span class="symbol">[</span><span class="normal">inrow</span><span class="symbol">];</span>
+<span class="normal">    outptr </span><span class="symbol">=</span><span class="normal"> output_data</span><span class="symbol">[</span><span class="normal">outrow</span><span class="symbol">];</span>
+<span class="normal">    outend </span><span class="symbol">=</span><span class="normal"> outptr </span><span class="symbol">+</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">output_width</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">outptr </span><span class="symbol">&lt;</span><span class="normal"> outend</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      invalue </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">inptr</span><span class="symbol">++;</span><span class="normal">	</span><span class="comment">/* don't need GETJSAMPLE() here */</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">outptr</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> invalue</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">outptr</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> invalue</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="function">jcopy_sample_rows</span><span class="symbol">(</span><span class="normal">output_data</span><span class="symbol">,</span><span class="normal"> outrow</span><span class="symbol">,</span><span class="normal"> output_data</span><span class="symbol">,</span><span class="normal"> outrow</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">,</span>
+<span class="normal">		      </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">output_width</span><span class="symbol">);</span>
+<span class="normal">    inrow</span><span class="symbol">++;</span>
+<span class="normal">    outrow </span><span class="symbol">+=</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Fancy processing for the common case of 2:1 horizontal and 1:1 vertical.</span>
+<span class="comment"> *</span>
+<span class="comment"> * The upsampling algorithm is linear interpolation between pixel centers,</span>
+<span class="comment"> * also known as a "triangle filter".  This is a good compromise between</span>
+<span class="comment"> * speed and visual quality.  The centers of the output pixels are 1/4 and 3/4</span>
+<span class="comment"> * of the way between input pixel centers.</span>
+<span class="comment"> *</span>
+<span class="comment"> * A note about the "bias" calculations: when rounding fractional values to</span>
+<span class="comment"> * integer, we do not want to always round 0.5 up to the next integer.</span>
+<span class="comment"> * If we did that, we'd introduce a noticeable bias towards larger values.</span>
+<span class="comment"> * Instead, this code is arranged so that 0.5 will be rounded up or down at</span>
+<span class="comment"> * alternate pixel locations (a simple ordered dither pattern).</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">h2v1_fancy_upsample</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> jpeg_component_info </span><span class="symbol">*</span><span class="normal"> compptr</span><span class="symbol">,</span>
+<span class="normal">		     </span><span class="usertype">JSAMPARRAY</span><span class="normal"> input_data</span><span class="symbol">,</span><span class="normal"> JSAMPARRAY </span><span class="symbol">*</span><span class="normal"> output_data_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">JSAMPARRAY</span><span class="normal"> output_data </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">output_data_ptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JSAMPROW</span><span class="normal"> inptr</span><span class="symbol">,</span><span class="normal"> outptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="type">int</span><span class="normal"> invalue</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JDIMENSION</span><span class="normal"> colctr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> inrow</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">inrow </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> inrow </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_v_samp_factor</span><span class="symbol">;</span><span class="normal"> inrow</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    inptr </span><span class="symbol">=</span><span class="normal"> input_data</span><span class="symbol">[</span><span class="normal">inrow</span><span class="symbol">];</span>
+<span class="normal">    outptr </span><span class="symbol">=</span><span class="normal"> output_data</span><span class="symbol">[</span><span class="normal">inrow</span><span class="symbol">];</span>
+<span class="normal">    </span><span class="comment">/* Special case for first column */</span>
+<span class="normal">    invalue </span><span class="symbol">=</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(*</span><span class="normal">inptr</span><span class="symbol">++);</span>
+<span class="normal">    </span><span class="symbol">*</span><span class="normal">outptr</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">)</span><span class="normal"> invalue</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="symbol">*</span><span class="normal">outptr</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">invalue </span><span class="symbol">*</span><span class="normal"> </span><span class="number">3</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(*</span><span class="normal">inptr</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">2</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&gt;&gt;</span><span class="normal"> </span><span class="number">2</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">colctr </span><span class="symbol">=</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">downsampled_width </span><span class="symbol">-</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span><span class="normal"> colctr </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> colctr</span><span class="symbol">--)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="comment">/* General case: 3/4 * nearer pixel + 1/4 * further pixel */</span>
+<span class="normal">      invalue </span><span class="symbol">=</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(*</span><span class="normal">inptr</span><span class="symbol">++)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="number">3</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">outptr</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">invalue </span><span class="symbol">+</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(</span><span class="normal">inptr</span><span class="symbol">[-</span><span class="number">2</span><span class="symbol">])</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&gt;&gt;</span><span class="normal"> </span><span class="number">2</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">outptr</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">invalue </span><span class="symbol">+</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(*</span><span class="normal">inptr</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">2</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&gt;&gt;</span><span class="normal"> </span><span class="number">2</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/* Special case for last column */</span>
+<span class="normal">    invalue </span><span class="symbol">=</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(*</span><span class="normal">inptr</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="symbol">*</span><span class="normal">outptr</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">invalue </span><span class="symbol">*</span><span class="normal"> </span><span class="number">3</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(</span><span class="normal">inptr</span><span class="symbol">[-</span><span class="number">1</span><span class="symbol">])</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&gt;&gt;</span><span class="normal"> </span><span class="number">2</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="symbol">*</span><span class="normal">outptr</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">)</span><span class="normal"> invalue</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Fancy processing for the common case of 2:1 horizontal and 2:1 vertical.</span>
+<span class="comment"> * Again a triangle filter; see comments for h2v1 case, above.</span>
+<span class="comment"> *</span>
+<span class="comment"> * It is OK for us to reference the adjacent input rows because we demanded</span>
+<span class="comment"> * context from the main buffer controller (see initialization code).</span>
+<span class="comment"> */</span>
+
+<span class="function">METHODDEF</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">h2v2_fancy_upsample</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> jpeg_component_info </span><span class="symbol">*</span><span class="normal"> compptr</span><span class="symbol">,</span>
+<span class="normal">		     </span><span class="usertype">JSAMPARRAY</span><span class="normal"> input_data</span><span class="symbol">,</span><span class="normal"> JSAMPARRAY </span><span class="symbol">*</span><span class="normal"> output_data_ptr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">JSAMPARRAY</span><span class="normal"> output_data </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">output_data_ptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JSAMPROW</span><span class="normal"> inptr0</span><span class="symbol">,</span><span class="normal"> inptr1</span><span class="symbol">,</span><span class="normal"> outptr</span><span class="symbol">;</span>
+<span class="preproc">#if</span><span class="normal"> BITS_IN_JSAMPLE </span><span class="symbol">==</span><span class="normal"> </span><span class="number">8</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="type">int</span><span class="normal"> thiscolsum</span><span class="symbol">,</span><span class="normal"> lastcolsum</span><span class="symbol">,</span><span class="normal"> nextcolsum</span><span class="symbol">;</span>
+<span class="preproc">#else</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">INT32</span><span class="normal"> thiscolsum</span><span class="symbol">,</span><span class="normal"> lastcolsum</span><span class="symbol">,</span><span class="normal"> nextcolsum</span><span class="symbol">;</span>
+<span class="preproc">#endif</span>
+<span class="normal">  </span><span class="keyword">register</span><span class="normal"> </span><span class="usertype">JDIMENSION</span><span class="normal"> colctr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> inrow</span><span class="symbol">,</span><span class="normal"> outrow</span><span class="symbol">,</span><span class="normal"> v</span><span class="symbol">;</span>
+
+<span class="normal">  inrow </span><span class="symbol">=</span><span class="normal"> outrow </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">outrow </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_v_samp_factor</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">v </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> v </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span><span class="normal"> v</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="comment">/* inptr0 points to nearest input row, inptr1 points to next nearest */</span>
+<span class="normal">      inptr0 </span><span class="symbol">=</span><span class="normal"> input_data</span><span class="symbol">[</span><span class="normal">inrow</span><span class="symbol">];</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">v </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal">		</span><span class="comment">/* next nearest is row above */</span>
+<span class="normal">	inptr1 </span><span class="symbol">=</span><span class="normal"> input_data</span><span class="symbol">[</span><span class="normal">inrow</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">];</span>
+<span class="normal">      </span><span class="keyword">else</span><span class="normal">			</span><span class="comment">/* next nearest is row below */</span>
+<span class="normal">	inptr1 </span><span class="symbol">=</span><span class="normal"> input_data</span><span class="symbol">[</span><span class="normal">inrow</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">];</span>
+<span class="normal">      outptr </span><span class="symbol">=</span><span class="normal"> output_data</span><span class="symbol">[</span><span class="normal">outrow</span><span class="symbol">++];</span>
+
+<span class="normal">      </span><span class="comment">/* Special case for first column */</span>
+<span class="normal">      thiscolsum </span><span class="symbol">=</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(*</span><span class="normal">inptr0</span><span class="symbol">++)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="number">3</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(*</span><span class="normal">inptr1</span><span class="symbol">++);</span>
+<span class="normal">      nextcolsum </span><span class="symbol">=</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(*</span><span class="normal">inptr0</span><span class="symbol">++)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="number">3</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(*</span><span class="normal">inptr1</span><span class="symbol">++);</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">outptr</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">thiscolsum </span><span class="symbol">*</span><span class="normal"> </span><span class="number">4</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">8</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&gt;&gt;</span><span class="normal"> </span><span class="number">4</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">outptr</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">thiscolsum </span><span class="symbol">*</span><span class="normal"> </span><span class="number">3</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> nextcolsum </span><span class="symbol">+</span><span class="normal"> </span><span class="number">7</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&gt;&gt;</span><span class="normal"> </span><span class="number">4</span><span class="symbol">);</span>
+<span class="normal">      lastcolsum </span><span class="symbol">=</span><span class="normal"> thiscolsum</span><span class="symbol">;</span><span class="normal"> thiscolsum </span><span class="symbol">=</span><span class="normal"> nextcolsum</span><span class="symbol">;</span>
+
+<span class="normal">      </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">colctr </span><span class="symbol">=</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">downsampled_width </span><span class="symbol">-</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span><span class="normal"> colctr </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> colctr</span><span class="symbol">--)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="comment">/* General case: 3/4 * nearer pixel + 1/4 * further pixel in each */</span>
+<span class="normal">	</span><span class="comment">/* dimension, thus 9/16, 3/16, 3/16, 1/16 overall */</span>
+<span class="normal">	nextcolsum </span><span class="symbol">=</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(*</span><span class="normal">inptr0</span><span class="symbol">++)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="number">3</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="function">GETJSAMPLE</span><span class="symbol">(*</span><span class="normal">inptr1</span><span class="symbol">++);</span>
+<span class="normal">	</span><span class="symbol">*</span><span class="normal">outptr</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">thiscolsum </span><span class="symbol">*</span><span class="normal"> </span><span class="number">3</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> lastcolsum </span><span class="symbol">+</span><span class="normal"> </span><span class="number">8</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&gt;&gt;</span><span class="normal"> </span><span class="number">4</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="symbol">*</span><span class="normal">outptr</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">thiscolsum </span><span class="symbol">*</span><span class="normal"> </span><span class="number">3</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> nextcolsum </span><span class="symbol">+</span><span class="normal"> </span><span class="number">7</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&gt;&gt;</span><span class="normal"> </span><span class="number">4</span><span class="symbol">);</span>
+<span class="normal">	lastcolsum </span><span class="symbol">=</span><span class="normal"> thiscolsum</span><span class="symbol">;</span><span class="normal"> thiscolsum </span><span class="symbol">=</span><span class="normal"> nextcolsum</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+
+<span class="normal">      </span><span class="comment">/* Special case for last column */</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">outptr</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">thiscolsum </span><span class="symbol">*</span><span class="normal"> </span><span class="number">3</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> lastcolsum </span><span class="symbol">+</span><span class="normal"> </span><span class="number">8</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&gt;&gt;</span><span class="normal"> </span><span class="number">4</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="symbol">*</span><span class="normal">outptr</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">JSAMPLE</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">thiscolsum </span><span class="symbol">*</span><span class="normal"> </span><span class="number">4</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">7</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&gt;&gt;</span><span class="normal"> </span><span class="number">4</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    inrow</span><span class="symbol">++;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Module initialization routine for upsampling.</span>
+<span class="comment"> */</span>
+
+<span class="function">GLOBAL</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="function">jinit_upsampler</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">j_decompress_ptr</span><span class="normal"> cinfo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">my_upsample_ptr</span><span class="normal"> upsample</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> ci</span><span class="symbol">;</span>
+<span class="normal">  jpeg_component_info </span><span class="symbol">*</span><span class="normal"> compptr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">boolean</span><span class="normal"> need_buffer</span><span class="symbol">,</span><span class="normal"> do_fancy</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> h_in_group</span><span class="symbol">,</span><span class="normal"> v_in_group</span><span class="symbol">,</span><span class="normal"> h_out_group</span><span class="symbol">,</span><span class="normal"> v_out_group</span><span class="symbol">;</span>
+
+<span class="normal">  upsample </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_upsample_ptr</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">mem</span><span class="symbol">-&gt;</span><span class="normal">alloc_small</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> JPOOL_IMAGE</span><span class="symbol">,</span>
+<span class="normal">				</span><span class="function">SIZEOF</span><span class="symbol">(</span><span class="normal">my_upsampler</span><span class="symbol">));</span>
+<span class="normal">  cinfo</span><span class="symbol">-&gt;</span><span class="normal">upsample </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">jpeg_upsampler</span><span class="normal"> </span><span class="symbol">*)</span><span class="normal"> upsample</span><span class="symbol">;</span>
+<span class="normal">  upsample</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">start_pass </span><span class="symbol">=</span><span class="normal"> start_pass_upsample</span><span class="symbol">;</span>
+<span class="normal">  upsample</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">upsample </span><span class="symbol">=</span><span class="normal"> sep_upsample</span><span class="symbol">;</span>
+<span class="normal">  upsample</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">need_context_rows </span><span class="symbol">=</span><span class="normal"> FALSE</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* until we find out differently */</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">CCIR601_sampling</span><span class="symbol">)</span><span class="normal">	</span><span class="comment">/* this isn't supported */</span>
+<span class="normal">    </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_CCIR601_NOTIMPL</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">/* jdmainct.c doesn't support context rows when min_DCT_scaled_size = 1,</span>
+<span class="comment">   * so don't ask for it.</span>
+<span class="comment">   */</span>
+<span class="normal">  do_fancy </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">do_fancy_upsampling </span><span class="symbol">&amp;&amp;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">min_DCT_scaled_size </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="comment">/* Verify we can handle the sampling factors, select per-component methods,</span>
+<span class="comment">   * and create storage as needed.</span>
+<span class="comment">   */</span>
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ci </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> compptr </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">comp_info</span><span class="symbol">;</span><span class="normal"> ci </span><span class="symbol">&lt;</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">num_components</span><span class="symbol">;</span>
+<span class="normal">       ci</span><span class="symbol">++,</span><span class="normal"> compptr</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">/* Compute size of an "input group" after IDCT scaling.  This many samples</span>
+<span class="comment">     * are to be converted to max_h_samp_factor * max_v_samp_factor pixels.</span>
+<span class="comment">     */</span>
+<span class="normal">    h_in_group </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">compptr</span><span class="symbol">-&gt;</span><span class="normal">h_samp_factor </span><span class="symbol">*</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">DCT_scaled_size</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">/</span>
+<span class="normal">		 cinfo</span><span class="symbol">-&gt;</span><span class="normal">min_DCT_scaled_size</span><span class="symbol">;</span>
+<span class="normal">    v_in_group </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">compptr</span><span class="symbol">-&gt;</span><span class="normal">v_samp_factor </span><span class="symbol">*</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">DCT_scaled_size</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">/</span>
+<span class="normal">		 cinfo</span><span class="symbol">-&gt;</span><span class="normal">min_DCT_scaled_size</span><span class="symbol">;</span>
+<span class="normal">    h_out_group </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_h_samp_factor</span><span class="symbol">;</span>
+<span class="normal">    v_out_group </span><span class="symbol">=</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_v_samp_factor</span><span class="symbol">;</span>
+<span class="normal">    upsample</span><span class="symbol">-&gt;</span><span class="normal">rowgroup_height</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> v_in_group</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* save for use later */</span>
+<span class="normal">    need_buffer </span><span class="symbol">=</span><span class="normal"> TRUE</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">component_needed</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="comment">/* Don't bother to upsample an uninteresting component. */</span>
+<span class="normal">      upsample</span><span class="symbol">-&gt;</span><span class="normal">methods</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> noop_upsample</span><span class="symbol">;</span>
+<span class="normal">      need_buffer </span><span class="symbol">=</span><span class="normal"> FALSE</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">h_in_group </span><span class="symbol">==</span><span class="normal"> h_out_group </span><span class="symbol">&amp;&amp;</span><span class="normal"> v_in_group </span><span class="symbol">==</span><span class="normal"> v_out_group</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="comment">/* Fullsize components can be processed without any work. */</span>
+<span class="normal">      upsample</span><span class="symbol">-&gt;</span><span class="normal">methods</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> fullsize_upsample</span><span class="symbol">;</span>
+<span class="normal">      need_buffer </span><span class="symbol">=</span><span class="normal"> FALSE</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">h_in_group </span><span class="symbol">*</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> h_out_group </span><span class="symbol">&amp;&amp;</span>
+<span class="normal">	       v_in_group </span><span class="symbol">==</span><span class="normal"> v_out_group</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="comment">/* Special cases for 2h1v upsampling */</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">do_fancy </span><span class="symbol">&amp;&amp;</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">downsampled_width </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">2</span><span class="symbol">)</span>
+<span class="normal">	upsample</span><span class="symbol">-&gt;</span><span class="normal">methods</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> h2v1_fancy_upsample</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">else</span>
+<span class="normal">	upsample</span><span class="symbol">-&gt;</span><span class="normal">methods</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> h2v1_upsample</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">h_in_group </span><span class="symbol">*</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> h_out_group </span><span class="symbol">&amp;&amp;</span>
+<span class="normal">	       v_in_group </span><span class="symbol">*</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> v_out_group</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="comment">/* Special cases for 2h2v upsampling */</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">do_fancy </span><span class="symbol">&amp;&amp;</span><span class="normal"> compptr</span><span class="symbol">-&gt;</span><span class="normal">downsampled_width </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">2</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	upsample</span><span class="symbol">-&gt;</span><span class="normal">methods</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> h2v2_fancy_upsample</span><span class="symbol">;</span>
+<span class="normal">	upsample</span><span class="symbol">-&gt;</span><span class="normal">pub</span><span class="symbol">.</span><span class="normal">need_context_rows </span><span class="symbol">=</span><span class="normal"> TRUE</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span>
+<span class="normal">	upsample</span><span class="symbol">-&gt;</span><span class="normal">methods</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> h2v2_upsample</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">h_out_group </span><span class="symbol">%</span><span class="normal"> h_in_group</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span>
+<span class="normal">	       </span><span class="symbol">(</span><span class="normal">v_out_group </span><span class="symbol">%</span><span class="normal"> v_in_group</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="comment">/* Generic integral-factors upsampling method */</span>
+<span class="normal">      upsample</span><span class="symbol">-&gt;</span><span class="normal">methods</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> int_upsample</span><span class="symbol">;</span>
+<span class="normal">      upsample</span><span class="symbol">-&gt;</span><span class="normal">h_expand</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">UINT8</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">h_out_group </span><span class="symbol">/</span><span class="normal"> h_in_group</span><span class="symbol">);</span>
+<span class="normal">      upsample</span><span class="symbol">-&gt;</span><span class="normal">v_expand</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">UINT8</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">v_out_group </span><span class="symbol">/</span><span class="normal"> v_in_group</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span>
+<span class="normal">      </span><span class="function">ERREXIT</span><span class="symbol">(</span><span class="normal">cinfo</span><span class="symbol">,</span><span class="normal"> JERR_FRACT_SAMPLE_NOTIMPL</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">need_buffer</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      upsample</span><span class="symbol">-&gt;</span><span class="normal">color_buf</span><span class="symbol">[</span><span class="normal">ci</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">cinfo</span><span class="symbol">-&gt;</span><span class="normal">mem</span><span class="symbol">-&gt;</span><span class="normal">alloc_sarray</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="symbol">((</span><span class="normal">j_common_ptr</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">,</span><span class="normal"> JPOOL_IMAGE</span><span class="symbol">,</span>
+<span class="normal">	 </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span><span class="normal"> </span><span class="function">jround_up</span><span class="symbol">((</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">output_width</span><span class="symbol">,</span>
+<span class="normal">				</span><span class="symbol">(</span><span class="type">long</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_h_samp_factor</span><span class="symbol">),</span>
+<span class="normal">	 </span><span class="symbol">(</span><span class="normal">JDIMENSION</span><span class="symbol">)</span><span class="normal"> cinfo</span><span class="symbol">-&gt;</span><span class="normal">max_v_samp_factor</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div></body></html>

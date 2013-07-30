@@ -1,0 +1,58 @@
+* asynchronous pipelining 
+  (currently being developed in branch parallel_pipelining_integration)
+
+* replace build system, something with '$LIBNAME-config --libs --cflags ...' would be nice
+
+* if the stxxl disk files have been enlarged because more external memory
+  was requested by the program, resize them afterwards to
+  max(size_at_program_start, configured_size)
+  https://sourceforge.net/forum/message.php?msg_id=4925158
+
+* integrate unordered_map branch
+
+* allocation strategies: provide a method get_num_disks()
+  and don't use stxxl::config::get_instance()->disks_number() inappropriately
+
+* implement recursion in stable_ksort and do not assume random key
+  distribution, do sampling instead
+  as a start, at least abort early if the expected size of a bucket is larger
+  than the memory available to sort it
+
+* debug stable_ksort in depth, there are still some crashing cases left
+
+* continue using the new approach for STXXL_VERBOSE:
+  $(CXX) -DSTXXL_VERBOSE_FOO=STXXL_VERBOSEx
+
+* check+fix all sorted_runs() calls to not cause write I/Os
+
+* on disk destruction, check whether all blocks had been deallocated before,
+  i.e. free_bytes == disk_size
+
+* implement an allocator which looks at the available free space on disks
+  when distributing blocks to disks, or does load-balancing depending
+  on the given speed of the disks
+
+* implement new disk queuing strategy that supports NCQ,
+  which is now widely available in HDDs/SSDs; 
+  probably most interesting for rather small block sizes 
+  (currently begin developed in branch kernelaio)
+
+* allow configuration of the block-managed disks using API calls, 
+  not only through the configuration file.
+
+* separate library sources and tests/benchmarks
+  (e. g. to top level directories src/ and tests/)
+
+* abstract away block manager so every container can attach to a file.
+
+* overhead: stream::sorted_runs (which may be rather big) is copied into stream_runs_merger
+
+* overhead: stream::sorted_runs is copy-initialized from locally created runs
+
+* retry incomplete I/Os for all file types (currently only syscall)
+
+* iostats: add support for splitting I/Os and truncating reads at EOF
+
+* do not specify marginal properties such as allocation strategy as part of the template type.
+  instead, make such properties dynamically configurable using run-time polymorphism, 
+  which would incur only a negligible running time overhead (one virtual function call per block).

@@ -1,0 +1,1 @@
+var searchData=[["page_5fsize",["page_size",["../classstxxl_1_1vector.html#aa4c379b5d2bd26fdd36a45e02971486daa922900dec1bef296a4e922ade54401d",1,"stxxl::vector"]]]];

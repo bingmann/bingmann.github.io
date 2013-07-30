@@ -1,0 +1,1 @@
+var searchData=[["ltx",["ltx",["../clipper_8cc.html#a822d2379a554eb6de276491500115589",1,"clipper.cc"]]]];

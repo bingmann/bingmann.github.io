@@ -1,0 +1,27 @@
+/*
+ * $Id$
+ */
+#include <types.idl>
+
+[uuid(IF_BLOCKDEV_ID)]
+interface IF_BLOCKDEV {
+
+	/**
+	 * Returns the blocksize of the device (typically a multiple of 512)
+	 */
+	void GetBlockSize(in objectid_t devhandle, out idlsize_t blocksize)
+		raises(no_such_device);
+
+	/**
+	 * Reads a block from the device
+	 */
+	void ReadBlock(in objectid_t devhandle, in uint32_t block, [prealloc] out buffer_t buffer)
+		raises(no_such_device, invalid_parameter);
+	
+	/**
+	 * Writes a block to the device
+	 */
+	void WriteBlock(in objectid_t devhandle, in uint32_t block, in buffer_t buffer)
+		raises(no_such_device, invalid_parameter);
+
+};

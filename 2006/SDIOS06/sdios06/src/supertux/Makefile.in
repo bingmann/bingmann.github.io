@@ -1,0 +1,70 @@
+##
+## $Id$
+##
+
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
+top_builddir = @top_builddir@
+
+include $(top_srcdir)/Mk/l4.base.mk
+
+PROGRAM = supertux
+PROGRAM_DEPS = \
+	$(top_builddir)/lib/l4/libl4.a \
+	$(top_builddir)/lib/io/libio.a \
+	$(top_builddir)/lib/sdi/libsdi.a \
+	$(top_builddir)/lib/libc/libc.a \
+	$(top_builddir)/lib/libstdc++/libstdc++.a \
+	$(top_builddir)/lib/SDL_image/libSDL_image.a \
+	$(top_builddir)/lib/zlib/libz.a \
+	$(top_builddir)/lib/png/libpng.a \
+	$(top_builddir)/lib/SDL/libSDL.a \
+	$(top_srcdir)/include/$(ARCH)/sdi.ld
+
+SRCS = \
+	../$(ARCH)-crt0.S \
+	badguy.cpp \
+	bitmask.cpp \
+	button.cpp \
+	collision.cpp \
+	configfile.cpp \
+	gameloop.cpp \
+	gameobjs.cpp \
+	globals.cpp \
+	high_scores.cpp \
+	intro.cpp \
+	level.cpp \
+	leveleditor.cpp \
+	lispreader.cpp \
+	menu.cpp \
+	mousecursor.cpp \
+	music_manager.cpp \
+	musicref.cpp \
+	particlesystem.cpp \
+	physic.cpp \
+	player.cpp \
+	resources.cpp \
+	scene.cpp \
+	screen.cpp \
+	setup.cpp \
+	sound.cpp \
+	special.cpp \
+	sprite.cpp \
+	sprite_manager.cpp \
+	supertux.cpp \
+	text.cpp \
+	texture.cpp \
+	tile.cpp \
+	timer.cpp \
+	title.cpp \
+	type.cpp \
+	world.cpp \
+	worldmap.cpp
+
+IDLS =           
+
+LIBS += -lSDL_image -lpng -ljpeg -lz -lSDL -lstdc++ -lc -lsdi -ll4 -lio -lsupc++ -lgcc_eh -lc
+LDFLAGS += $(PROGRAM_LDFLAGS) -T $(top_builddir)/include/$(ARCH)/sdi.ld
+CPPFLAGS += -I$(top_srcdir)/include/SDL -DNOOPENGL -DNO_SDLMIXER -DNO_EDITOR -DDATA_PREFIX=\"/minixfs0/supertux\"
+
+include $(top_srcdir)/Mk/l4.prog.mk

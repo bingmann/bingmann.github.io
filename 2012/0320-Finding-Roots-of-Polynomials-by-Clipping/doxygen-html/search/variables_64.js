@@ -1,0 +1,1 @@
+var searchData=[["debug_5fmore",["debug_more",["../clipper_8cc.html#af4f8f3da7dfb09f681586e53cc108c1a",1,"clipper.cc"]]]];

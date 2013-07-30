@@ -1,0 +1,326 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>LCOV - STX CBTreeDB Testsuite - testsuite/test_format.cc</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+        <tr>
+          <td width="5%"></td>
+          <td width="10%" class="headerItem">Current view:</td>
+          <td width="35%" class="headerValue"><a href="../index.html">directory</a> - <a href="index.html">testsuite</a> - test_format.cc (source / <a href="test_format.cc.func.html">functions</a>)</td>
+          <td width="10%"></td>
+          <td width="10%" class="headerCovTableHead">Found</td>
+          <td width="10%" class="headerCovTableHead">Hit</td>
+          <td width="15%" class="headerCovTableHead">Coverage</td>
+          <td width="5%"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="headerItem">Test:</td>
+          <td class="headerValue">STX CBTreeDB Testsuite</td>
+          <td class="headerItem">Lines:</td>
+          <td class="headerCovTableEntry">86</td>
+          <td class="headerCovTableEntry">71</td>
+          <td class="headerCovTableEntryHi">82.6 %</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="headerItem">Date:</td>
+          <td class="headerValue">2010-04-14</td>
+          <td class="headerItem">Functions:</td>
+          <td class="headerCovTableEntry">19</td>
+          <td class="headerCovTableEntry">13</td>
+          <td class="headerCovTableEntryLo">68.4 %</td>
+        </tr>
+                <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td><pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                : // -*- mode: c++; fill-column: 79 -*-</a>
+<span class="lineNum">       2 </span>                : // $Id: test_format.cc 2 2010-04-14 07:34:58Z tb $
+<span class="lineNum">       3 </span>                : 
+<span class="lineNum">       4 </span>                : /*
+<span class="lineNum">       5 </span>                :  * STX Constant B-Tree Database Template Classes v0.7.0
+<span class="lineNum">       6 </span>                :  * Copyright (C) 2010 Timo Bingmann
+<span class="lineNum">       7 </span>                :  *
+<span class="lineNum">       8 </span>                :  * This library is free software; you can redistribute it and/or modify it
+<span class="lineNum">       9 </span>                :  * under the terms of the GNU Lesser General Public License as published by the
+<span class="lineNum">      10 </span>                :  * Free Software Foundation; either version 2.1 of the License, or (at your
+<span class="lineNum">      11 </span>                :  * option) any later version.
+<span class="lineNum">      12 </span>                :  *
+<span class="lineNum">      13 </span>                :  * This library is distributed in the hope that it will be useful, but WITHOUT
+<span class="lineNum">      14 </span>                :  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+<span class="lineNum">      15 </span>                :  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
+<span class="lineNum">      16 </span>                :  * for more details.
+<span class="lineNum">      17 </span>                :  *
+<span class="lineNum">      18 </span>                :  * You should have received a copy of the GNU Lesser General Public License
+<span class="lineNum">      19 </span>                :  * along with this library; if not, write to the Free Software Foundation,
+<span class="lineNum">      20 </span>                :  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+<span class="lineNum">      21 </span>                :  */
+<span class="lineNum">      22 </span>                : 
+<span class="lineNum">      23 </span>                : /*
+<span class="lineNum">      24 </span>                :  * Freeze database format. Two databases are frozen and included with
+<span class="lineNum">      25 </span>                :  * this test case. Both class configurations are reproduced and the
+<span class="lineNum">      26 </span>                :  * same items inserted. The resulting databases are compared against
+<span class="lineNum">      27 </span>                :  * the frozen database files, both Writer and WriterSequential must
+<span class="lineNum">      28 </span>                :  * produce databases equal to the frozen reference files. Also test
+<span class="lineNum">      29 </span>                :  * error checking in Open() by attempting to load incompatible files.
+<span class="lineNum">      30 </span>                :  */
+<span class="lineNum">      31 </span>                : 
+<span class="lineNum">      32 </span>                : #define CBTREEDB_SELF_VERIFY
+<span class="lineNum">      33 </span>                : #include &quot;stx-cbtreedb.h&quot;
+<span class="lineNum">      34 </span>                : 
+<span class="lineNum">      35 </span>                : #include &lt;iostream&gt;
+<span class="lineNum">      36 </span>                : #include &lt;sstream&gt;
+<span class="lineNum">      37 </span>                : #include &lt;fstream&gt;
+<span class="lineNum">      38 </span>                : #include &lt;assert.h&gt;
+<span class="lineNum">      39 </span>                : #include &lt;stdlib.h&gt;
+<span class="lineNum">      40 </span>                : 
+<span class="lineNum">      41 </span>                : static const unsigned int items = 10000;
+<a name="42"><span class="lineNum">      42 </span>                : </a>
+<span class="lineNum">      43 </span>                : template &lt;typename cbtreedb&gt;
+<span class="lineNum">      44 </span><span class="lineCov">              2 : void run_test_random(const std::string&amp; dbname)</span>
+<span class="lineNum">      45 </span>                : {
+<span class="lineNum">      46 </span><span class="lineCov">              2 :     std::cout &lt;&lt; &quot;Creating test database using random writer.&quot; &lt;&lt; std::endl;</span>
+<span class="lineNum">      47 </span>                : 
+<span class="lineNum">      48 </span><span class="lineCov">              2 :     typename cbtreedb::Writer writer;</span>
+<span class="lineNum">      49 </span><span class="lineCov">              2 :     writer.SetSignature(&quot;cbtestdb&quot;);</span>
+<span class="lineNum">      50 </span>                : 
+<span class="lineNum">      51 </span><span class="lineCov">          20004 :     for(unsigned int i = 0; i &lt;= items; ++i)</span>
+<span class="lineNum">      52 </span>                :     {
+<span class="lineNum">      53 </span><span class="lineCov">          20002 :         writer.Add(2*i, &amp;i, sizeof(i));</span>
+<span class="lineNum">      54 </span>                :     }
+<span class="lineNum">      55 </span>                : 
+<span class="lineNum">      56 </span>                :     // write new database into string object
+<span class="lineNum">      57 </span>                : 
+<span class="lineNum">      58 </span><span class="lineCov">              2 :     std::ostringstream testdb;</span>
+<span class="lineNum">      59 </span><span class="lineCov">              2 :     writer.Write(testdb);</span>
+<span class="lineNum">      60 </span>                : 
+<span class="lineNum">      61 </span><span class="lineCov">              2 :     std::string testdbstr = testdb.str();</span>
+<span class="lineNum">      62 </span>                :     // std::cout &lt;&lt; &quot;dbsize &quot; &lt;&lt; testdbstr.size() &lt;&lt; std::endl;
+<span class="lineNum">      63 </span>                : 
+<span class="lineNum">      64 </span>                :     // read reference database from file
+<span class="lineNum">      65 </span>                :       
+<span class="lineNum">      66 </span><span class="lineCov">              2 :     std::string refdbstr;</span>
+<span class="lineNum">      67 </span>                : 
+<span class="lineNum">      68 </span>                :     {
+<span class="lineNum">      69 </span><span class="lineCov">              2 :         std::ifstream ifdb((AM_TOP_SRCDIR &quot;/testsuite/&quot; + dbname).c_str());</span>
+<span class="lineNum">      70 </span>                : 
+<span class="lineNum">      71 </span><span class="lineCov">              2 :         if (!ifdb.good()) {</span>
+<span class="lineNum">      72 </span><span class="lineNoCov">              0 :             ifdb.open((&quot;testsuite/&quot; + dbname).c_str());</span>
+<span class="lineNum">      73 </span>                :         }
+<span class="lineNum">      74 </span>                : 
+<span class="lineNum">      75 </span>                :         char buffer[32*1024];
+<span class="lineNum">      76 </span><span class="lineCov">             10 :         do</span>
+<span class="lineNum">      77 </span>                :         {
+<span class="lineNum">      78 </span><span class="lineCov">             10 :             ifdb.read(buffer, sizeof(buffer));</span>
+<span class="lineNum">      79 </span><span class="lineCov">             12 :             refdbstr.append(buffer, ifdb.gcount());</span>
+<span class="lineNum">      80 </span>                :         }
+<span class="lineNum">      81 </span>                :         while ( ifdb.good() &amp;&amp; !ifdb.eof() );
+<span class="lineNum">      82 </span>                :     }
+<span class="lineNum">      83 </span>                : 
+<span class="lineNum">      84 </span>                :     // compare reference db and created db
+<span class="lineNum">      85 </span>                : 
+<span class="lineNum">      86 </span><span class="lineCov">              2 :     if (testdbstr != refdbstr)</span>
+<span class="lineNum">      87 </span>                :     {
+<span class="lineNum">      88 </span><span class="lineNoCov">              0 :         std::cout &lt;&lt; &quot;Reference database does not match!&quot; &lt;&lt; std::endl;</span>
+<span class="lineNum">      89 </span>                : 
+<span class="lineNum">      90 </span><span class="lineNoCov">              0 :         std::ofstream ofdb((dbname + &quot;-new&quot;).c_str());</span>
+<span class="lineNum">      91 </span><span class="lineNoCov">              0 :         ofdb &lt;&lt; testdbstr;</span>
+<span class="lineNum">      92 </span><span class="lineNoCov">              0 :         ofdb.close();</span>
+<span class="lineNum">      93 </span>                : 
+<span class="lineNum">      94 </span><span class="lineNoCov">              0 :         assert( testdbstr == refdbstr );</span>
+<span class="lineNum">      95 </span>                :     }
+<span class="lineNum">      96 </span><span class="lineCov">              2 : }</span>
+<a name="97"><span class="lineNum">      97 </span>                : </a>
+<span class="lineNum">      98 </span>                : template &lt;typename cbtreedb&gt;
+<span class="lineNum">      99 </span><span class="lineCov">              2 : void run_test_sequential(const std::string&amp; dbname)</span>
+<span class="lineNum">     100 </span>                : {
+<span class="lineNum">     101 </span><span class="lineCov">              2 :     std::cout &lt;&lt; &quot;Creating test database using sequential writer.&quot; &lt;&lt; std::endl;</span>
+<span class="lineNum">     102 </span>                : 
+<span class="lineNum">     103 </span><span class="lineCov">              2 :     typename cbtreedb::WriterSequential writer;</span>
+<span class="lineNum">     104 </span><span class="lineCov">              2 :     writer.SetSignature(&quot;cbtestdb&quot;);</span>
+<span class="lineNum">     105 </span>                : 
+<span class="lineNum">     106 </span><span class="lineCov">          20004 :     for(unsigned int i = 0; i &lt;= items; ++i)</span>
+<span class="lineNum">     107 </span>                :     {
+<span class="lineNum">     108 </span>                :         // phase 1: declare key and valuesize mappings.
+<span class="lineNum">     109 </span><span class="lineCov">          20002 :         writer.Add(2*i, sizeof(i));</span>
+<span class="lineNum">     110 </span>                :     }
+<span class="lineNum">     111 </span>                : 
+<span class="lineNum">     112 </span><span class="lineCov">              2 :     std::ostringstream testdb;</span>
+<span class="lineNum">     113 </span>                :     
+<span class="lineNum">     114 </span><span class="lineCov">              2 :     writer.WriteHeader(testdb); // write header and btree</span>
+<span class="lineNum">     115 </span>                : 
+<span class="lineNum">     116 </span><span class="lineCov">          20004 :     for(unsigned int i = 0; i &lt;= items; ++i)</span>
+<span class="lineNum">     117 </span>                :     {
+<span class="lineNum">     118 </span>                :         // phase 2: write value objects
+<span class="lineNum">     119 </span><span class="lineCov">          20002 :         writer.WriteValue(2*i, &amp;i, sizeof(i));</span>
+<span class="lineNum">     120 </span>                :     }
+<span class="lineNum">     121 </span>                : 
+<span class="lineNum">     122 </span><span class="lineCov">              2 :     writer.WriteFinalize();</span>
+<span class="lineNum">     123 </span>                : 
+<span class="lineNum">     124 </span><span class="lineCov">              2 :     std::string testdbstr = testdb.str();</span>
+<span class="lineNum">     125 </span>                :     // std::cout &lt;&lt; &quot;dbsize &quot; &lt;&lt; testdbstr.size() &lt;&lt; std::endl;
+<span class="lineNum">     126 </span>                : 
+<span class="lineNum">     127 </span>                :     // read reference database from file
+<span class="lineNum">     128 </span>                :       
+<span class="lineNum">     129 </span><span class="lineCov">              2 :     std::string refdbstr;</span>
+<span class="lineNum">     130 </span>                : 
+<span class="lineNum">     131 </span>                :     {
+<span class="lineNum">     132 </span><span class="lineCov">              2 :         std::ifstream ifdb((AM_TOP_SRCDIR &quot;/testsuite/&quot; + dbname).c_str());</span>
+<span class="lineNum">     133 </span>                : 
+<span class="lineNum">     134 </span><span class="lineCov">              2 :         if (!ifdb.good()) {</span>
+<span class="lineNum">     135 </span><span class="lineNoCov">              0 :             ifdb.open((&quot;testsuite/&quot; + dbname).c_str());</span>
+<span class="lineNum">     136 </span>                :         }
+<span class="lineNum">     137 </span>                : 
+<span class="lineNum">     138 </span>                :         char buffer[32*1024];
+<span class="lineNum">     139 </span><span class="lineCov">             10 :         do</span>
+<span class="lineNum">     140 </span>                :         {
+<span class="lineNum">     141 </span><span class="lineCov">             10 :             ifdb.read(buffer, sizeof(buffer));</span>
+<span class="lineNum">     142 </span><span class="lineCov">             12 :             refdbstr.append(buffer, ifdb.gcount());</span>
+<span class="lineNum">     143 </span>                :         }
+<span class="lineNum">     144 </span>                :         while ( ifdb.good() &amp;&amp; !ifdb.eof() );
+<span class="lineNum">     145 </span>                :     }
+<span class="lineNum">     146 </span>                : 
+<span class="lineNum">     147 </span>                :     // compare reference db and created db
+<span class="lineNum">     148 </span>                : 
+<span class="lineNum">     149 </span><span class="lineCov">              2 :     if (testdbstr != refdbstr)</span>
+<span class="lineNum">     150 </span>                :     {
+<span class="lineNum">     151 </span><span class="lineNoCov">              0 :         std::cout &lt;&lt; &quot;Reference database does not match!&quot; &lt;&lt; std::endl;</span>
+<span class="lineNum">     152 </span>                : 
+<span class="lineNum">     153 </span><span class="lineNoCov">              0 :         std::ofstream ofdb((dbname + &quot;-new&quot;).c_str());</span>
+<span class="lineNum">     154 </span><span class="lineNoCov">              0 :         ofdb &lt;&lt; testdbstr;</span>
+<span class="lineNum">     155 </span><span class="lineNoCov">              0 :         ofdb.close();</span>
+<span class="lineNum">     156 </span>                : 
+<span class="lineNum">     157 </span><span class="lineNoCov">              0 :         assert( testdbstr == refdbstr );</span>
+<span class="lineNum">     158 </span>                :     }
+<span class="lineNum">     159 </span><span class="lineCov">              2 : }</span>
+<a name="160"><span class="lineNum">     160 </span>                : </a>
+<span class="lineNum">     161 </span>                : template &lt;typename cbtreedb&gt;
+<span class="lineNum">     162 </span><span class="lineCov">              8 : void run_test_open(const std::string&amp; dbname, const std::string&amp; expectederrorstring)</span>
+<span class="lineNum">     163 </span>                : {
+<span class="lineNum">     164 </span>                :     // read database from file
+<span class="lineNum">     165 </span>                :       
+<span class="lineNum">     166 </span><span class="lineCov">              8 :     std::string dbstr;</span>
+<span class="lineNum">     167 </span>                : 
+<span class="lineNum">     168 </span>                :     {
+<span class="lineNum">     169 </span><span class="lineCov">              8 :         std::ifstream ifdb((AM_TOP_SRCDIR &quot;/testsuite/&quot; + dbname).c_str());</span>
+<span class="lineNum">     170 </span>                : 
+<span class="lineNum">     171 </span><span class="lineCov">              8 :         if (!ifdb.good()) {</span>
+<span class="lineNum">     172 </span><span class="lineNoCov">              0 :             ifdb.open((&quot;testsuite/&quot; + dbname).c_str());</span>
+<span class="lineNum">     173 </span>                :         }
+<span class="lineNum">     174 </span>                : 
+<span class="lineNum">     175 </span>                :         char buffer[32*1024];
+<span class="lineNum">     176 </span><span class="lineCov">             40 :         do</span>
+<span class="lineNum">     177 </span>                :         {
+<span class="lineNum">     178 </span><span class="lineCov">             40 :             ifdb.read(buffer, sizeof(buffer));</span>
+<span class="lineNum">     179 </span><span class="lineCov">             48 :             dbstr.append(buffer, ifdb.gcount());</span>
+<span class="lineNum">     180 </span>                :         }
+<span class="lineNum">     181 </span>                :         while ( ifdb.good() &amp;&amp; !ifdb.eof() );
+<span class="lineNum">     182 </span>                :     }
+<span class="lineNum">     183 </span>                : 
+<span class="lineNum">     184 </span><span class="lineCov">              8 :     assert(dbstr.size());</span>
+<span class="lineNum">     185 </span>                :     // std::cout &lt;&lt; &quot;dbsize &quot; &lt;&lt; dbstr.size() &lt;&lt; std::endl;
+<span class="lineNum">     186 </span>                : 
+<span class="lineNum">     187 </span>                :     // create reader object
+<span class="lineNum">     188 </span>                : 
+<span class="lineNum">     189 </span><span class="lineCov">              8 :     typename cbtreedb::Reader reader;</span>
+<span class="lineNum">     190 </span><span class="lineCov">              8 :     reader.SetSignature(&quot;cbtestdb&quot;);</span>
+<span class="lineNum">     191 </span>                : 
+<span class="lineNum">     192 </span><span class="lineCov">              8 :     typename cbtreedb::PageCache cache(128);</span>
+<span class="lineNum">     193 </span><span class="lineCov">              8 :     reader.SetPageCache(&amp;cache);</span>
+<span class="lineNum">     194 </span>                : 
+<span class="lineNum">     195 </span><span class="lineCov">              8 :     std::istringstream testdb(dbstr);</span>
+<span class="lineNum">     196 </span><span class="lineCov">              8 :     std::string errorstring;</span>
+<span class="lineNum">     197 </span>                : 
+<span class="lineNum">     198 </span><span class="lineCov">              8 :     if (! reader.Open(testdb,&amp;errorstring) )</span>
+<span class="lineNum">     199 </span>                :     {
+<span class="lineNum">     200 </span><span class="lineCov">              6 :         if (errorstring != expectederrorstring)</span>
+<span class="lineNum">     201 </span>                :         {
+<span class="lineNum">     202 </span><span class="lineNoCov">              0 :             std::cout &lt;&lt; &quot;Open errorstring mismatched: &quot; &lt;&lt; std::endl</span>
+<span class="lineNum">     203 </span>                :                       &lt;&lt; &quot;Got: &quot; &lt;&lt; errorstring &lt;&lt; std::endl
+<span class="lineNum">     204 </span>                :                       &lt;&lt; &quot;Expected: &quot; &lt;&lt; expectederrorstring &lt;&lt; std::endl;
+<span class="lineNum">     205 </span><span class="lineNoCov">              0 :             abort();            </span>
+<span class="lineNum">     206 </span>                :         }
+<span class="lineNum">     207 </span><span class="lineCov">              6 :         return;</span>
+<span class="lineNum">     208 </span>                :     }
+<span class="lineNum">     209 </span>                : 
+<span class="lineNum">     210 </span><span class="lineCov">              2 :     assert( reader.Verify() );</span>
+<span class="lineNum">     211 </span><span class="lineCov">              2 :     assert( reader.Size() == items+1 );</span>
+<a name="212"><span class="lineNum">     212 </span>                : }</a>
+<span class="lineNum">     213 </span>                : 
+<span class="lineNum">     214 </span><span class="lineCov">              1 : int main()</span>
+<span class="lineNum">     215 </span>                : {
+<span class="lineNum">     216 </span>                :     // check binary format compatibility with two common configurations
+<span class="lineNum">     217 </span>                : 
+<span class="lineNum">     218 </span><span class="lineCov">              1 :     run_test_random&lt; stx::CBTreeDB&lt;uint32_t, std::less&lt;uint32_t&gt;, 1024&gt; &gt;(&quot;test_format1.db&quot;);</span>
+<span class="lineNum">     219 </span><span class="lineCov">              2 :     run_test_sequential&lt; stx::CBTreeDB&lt;uint32_t, std::less&lt;uint32_t&gt;, 1024&gt; &gt;(&quot;test_format1.db&quot;);</span>
+<span class="lineNum">     220 </span>                : 
+<span class="lineNum">     221 </span><span class="lineCov">              2 :     run_test_random&lt; stx::CBTreeDB&lt;uint64_t, std::less&lt;uint64_t&gt;, 2048&gt; &gt;(&quot;test_format2.db&quot;);</span>
+<span class="lineNum">     222 </span><span class="lineCov">              2 :     run_test_sequential&lt; stx::CBTreeDB&lt;uint64_t, std::less&lt;uint64_t&gt;, 2048&gt; &gt;(&quot;test_format2.db&quot;);</span>
+<span class="lineNum">     223 </span>                : 
+<span class="lineNum">     224 </span>                :     // check error when opening database with wrong configurations
+<span class="lineNum">     225 </span>                : 
+<span class="lineNum">     226 </span>                :     run_test_open&lt; stx::CBTreeDB&lt;uint32_t, std::less&lt;uint32_t&gt;, 1024&gt; &gt;
+<span class="lineNum">     227 </span><span class="lineCov">              2 :         (&quot;test_format1.db&quot;, &quot;&quot;);</span>
+<span class="lineNum">     228 </span>                : 
+<span class="lineNum">     229 </span>                :     run_test_open&lt; stx::CBTreeDB&lt;uint32_t, std::less&lt;uint32_t&gt;, 2048&gt; &gt;
+<span class="lineNum">     230 </span><span class="lineCov">              2 :         (&quot;test_format1.db&quot;, &quot;Database not compatible with this reader: page sizes mismatch.&quot;);</span>
+<span class="lineNum">     231 </span>                : 
+<span class="lineNum">     232 </span>                :     run_test_open&lt; stx::CBTreeDB&lt;uint64_t, std::less&lt;uint64_t&gt;, 1024&gt; &gt;
+<span class="lineNum">     233 </span><span class="lineCov">              2 :         (&quot;test_format1.db&quot;, &quot;Database not compatible with this reader: key sizes mismatch.&quot;);</span>
+<span class="lineNum">     234 </span>                : 
+<span class="lineNum">     235 </span>                :     run_test_open&lt; stx::CBTreeDB&lt;uint32_t, std::greater&lt;uint32_t&gt;, 1024&gt; &gt;
+<span class="lineNum">     236 </span><span class="lineCov">              2 :         (&quot;test_format1.db&quot;, &quot;Database not compatible with this reader: root keys order mismatches.&quot;);</span>
+<span class="lineNum">     237 </span>                : 
+<span class="lineNum">     238 </span>                : 
+<span class="lineNum">     239 </span>                :     run_test_open&lt; stx::CBTreeDB&lt;uint64_t, std::less&lt;uint64_t&gt;, 2048&gt; &gt;
+<span class="lineNum">     240 </span><span class="lineCov">              2 :         (&quot;test_format2.db&quot;, &quot;&quot;);</span>
+<span class="lineNum">     241 </span>                : 
+<span class="lineNum">     242 </span>                :     run_test_open&lt; stx::CBTreeDB&lt;uint64_t, std::less&lt;uint64_t&gt;, 1024&gt; &gt;
+<span class="lineNum">     243 </span><span class="lineCov">              2 :         (&quot;test_format2.db&quot;, &quot;Database not compatible with this reader: page sizes mismatch.&quot;);</span>
+<span class="lineNum">     244 </span>                : 
+<span class="lineNum">     245 </span>                :     run_test_open&lt; stx::CBTreeDB&lt;uint32_t, std::less&lt;uint32_t&gt;, 2048&gt; &gt;
+<span class="lineNum">     246 </span><span class="lineCov">              2 :         (&quot;test_format2.db&quot;, &quot;Database not compatible with this reader: key sizes mismatch.&quot;);</span>
+<span class="lineNum">     247 </span>                : 
+<span class="lineNum">     248 </span>                :     run_test_open&lt; stx::CBTreeDB&lt;uint64_t, std::greater&lt;uint64_t&gt;, 2048&gt; &gt;
+<span class="lineNum">     249 </span><span class="lineCov">              2 :         (&quot;test_format2.db&quot;, &quot;Database not compatible with this reader: root keys order mismatches.&quot;);</span>
+<a name="250"><span class="lineNum">     250 </span>                : </a>
+<span class="lineNum">     251 </span><span class="lineCov">              1 :     return 0;</span>
+<span class="lineNum">     252 </span><span class="lineCov">              3 : }</span>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+  <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.7</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

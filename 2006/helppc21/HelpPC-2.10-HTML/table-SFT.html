@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - SFT</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; System File Table &nbsp;(Undocumented)</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;DOS 2.x System File Table Format</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; Offset Size &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Description</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;00 &nbsp; dword &nbsp; &nbsp; &nbsp;pointer to next system file table; offset of ffffh<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;indicates last table in chain<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;04 &nbsp; word &nbsp; &nbsp; &nbsp; number of file descriptors in table<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;06 &nbsp;nbytes &nbsp; &nbsp; &nbsp;file descriptor table of the format (40 bytes each):<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; Offset Size &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Description</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;00 &nbsp; byte &nbsp; &nbsp; &nbsp; count of handles referring to this file or<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;zero if file is no longer open<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;01 &nbsp; byte &nbsp; &nbsp; &nbsp; open mode<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;02 &nbsp; byte &nbsp; &nbsp; &nbsp; file attribute<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;03 &nbsp; byte &nbsp; &nbsp; &nbsp; drive (1=A, 2=B:, ..., 0=char device)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;04 11bytes &nbsp; &nbsp; &nbsp;filename in <a href="table-FCB.html">FCB</a>&nbsp;format<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0F &nbsp; word &nbsp; &nbsp; &nbsp; unknown<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;11 &nbsp; word &nbsp; &nbsp; &nbsp; unknown<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;13 &nbsp; dword &nbsp; &nbsp; &nbsp;file size<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;17 &nbsp; word &nbsp; &nbsp; &nbsp; file date<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;19 &nbsp; word &nbsp; &nbsp; &nbsp; file time<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1B &nbsp; byte &nbsp; &nbsp; &nbsp; device attribute<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1C &nbsp; word &nbsp; &nbsp; &nbsp; starting cluster of file (block device)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dword &nbsp; &nbsp; &nbsp;pointer to device driver (if char device)<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1E &nbsp; word &nbsp; &nbsp; &nbsp; if block device, relative cluster within file of<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;the last cluster read; zero if file has never<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;been read or written<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;20 &nbsp; word &nbsp; &nbsp; &nbsp; absolute cluster number of current cluster<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;22 &nbsp; word &nbsp; &nbsp; &nbsp; unknown<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;24 &nbsp; dword &nbsp; &nbsp; &nbsp;current file position<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; DOS 3.x System File Table and FCB Table Format</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; Offset Size &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Description</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;00 &nbsp; dword &nbsp; &nbsp; &nbsp;pointer to next system file table; offset of ffffh<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;indicates last table in chain<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;04 &nbsp; word &nbsp; &nbsp; &nbsp; number of file descriptors in table<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;06 &nbsp;nbytes &nbsp; &nbsp; &nbsp;file descriptor table of the format (53 bytes each):<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; Offset Size &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Description</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;00 &nbsp; word &nbsp; &nbsp; &nbsp; count of handles referring to this file or<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;zero if file is no longer open<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;02 &nbsp; word &nbsp; &nbsp; &nbsp; open mode, bit 15 set if file id opened via FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;04 &nbsp; byte &nbsp; &nbsp; &nbsp; file attribute<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;05 &nbsp; word &nbsp; &nbsp; &nbsp; device info word<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;07 &nbsp; dword &nbsp; &nbsp; &nbsp;if char device pointer to device driver header<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if block device pointer to DOS Device Control Block<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0B &nbsp; word &nbsp; &nbsp; &nbsp; starting cluster of file<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0D &nbsp; word &nbsp; &nbsp; &nbsp; file time<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0F &nbsp; word &nbsp; &nbsp; &nbsp; file date<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;11 &nbsp; dword &nbsp; &nbsp; &nbsp;file size<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;15 &nbsp; dword &nbsp; &nbsp; &nbsp;current file position<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;19 &nbsp; word &nbsp; &nbsp; &nbsp; if block device, relative cluster within file of<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;the last cluster read<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1B &nbsp; word &nbsp; &nbsp; &nbsp; absolute cluster number of last cluster read<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;zero if file has never been read or written<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1D &nbsp; word &nbsp; &nbsp; &nbsp; sector number containing the directory entry<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1F &nbsp; byte &nbsp; &nbsp; &nbsp; number of dir entry within sector<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;20 11bytes &nbsp; &nbsp; &nbsp;filename in <a href="table-FCB.html">FCB</a>&nbsp;format<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;2B &nbsp; dword &nbsp; &nbsp; &nbsp;SHARE pointer to previous <a href="table-SFT.html">SFT</a>&nbsp;sharing same file<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;2F &nbsp; word &nbsp; &nbsp; &nbsp; SHARE number of network machine opening file<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;31 &nbsp; word &nbsp; &nbsp; &nbsp; PSP segment of file owner<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;33 &nbsp; word &nbsp; &nbsp; &nbsp; offset within SHARE code segment of sharing record<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0000h = none<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;DOS 4.0+ System File Table and FCB Table</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; Offset Size &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Description</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;00 &nbsp; dword &nbsp; &nbsp; &nbsp;pointer to next system file table; offset of ffffh<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;indicates last table in chain<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;04 &nbsp; word &nbsp; &nbsp; &nbsp; number of file descriptors in table<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;06 &nbsp;nbytes &nbsp; &nbsp; &nbsp;file descriptor table of the format (59 bytes each):<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; Offset Size &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Description</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;00 &nbsp; word &nbsp; &nbsp; &nbsp; count of handles referring to this file or<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;zero if file is no longer open<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;02 &nbsp; word &nbsp; &nbsp; &nbsp; open mode, bit 15 set if file id opened via FCB<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;04 &nbsp; byte &nbsp; &nbsp; &nbsp; file attribute<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;05 &nbsp; word &nbsp; &nbsp; &nbsp; device info word<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;07 &nbsp; dword &nbsp; &nbsp; &nbsp;if char device pointer to device driver header<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if block device pointer to DOS Device Control Block<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;or REDIR data<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0B &nbsp; word &nbsp; &nbsp; &nbsp; starting cluster of file<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0D &nbsp; word &nbsp; &nbsp; &nbsp; file time<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;0F &nbsp; word &nbsp; &nbsp; &nbsp; file date<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;11 &nbsp; dword &nbsp; &nbsp; &nbsp;file size<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;15 &nbsp; dword &nbsp; &nbsp; &nbsp;current file position<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;19 &nbsp; dword &nbsp; &nbsp; &nbsp;if network redirector, pointer to REDIRIFS record<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; word &nbsp; &nbsp; &nbsp; if local block dev, relative cluster within file<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;of the last cluster read<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1B &nbsp; dword &nbsp; &nbsp; &nbsp;if local, sector number of directory entry<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;1F &nbsp; byte &nbsp; &nbsp; &nbsp; if local, number of directory entry within sector<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;20 &nbsp;11bytes &nbsp; &nbsp; filename in <a href="table-FCB.html">FCB</a>&nbsp;format<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;2B &nbsp; dword &nbsp; &nbsp; &nbsp;SHARE pointer to previous <a href="table-SFT.html">SFT</a>&nbsp;sharing same file<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;2F &nbsp; word &nbsp; &nbsp; &nbsp; SHARE number of network machine opening file<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;31 &nbsp; word &nbsp; &nbsp; &nbsp; PSP segment of file owner<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;33 &nbsp; word &nbsp; &nbsp; &nbsp; offset within SHARE code seg of sharing record<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0000h = none<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;35 &nbsp; word &nbsp; &nbsp; &nbsp; absolute cluster number of last cluster read<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;zero if file has never been read or written<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;37 &nbsp; dword &nbsp; &nbsp; &nbsp;pointer to file IFS driver, NULL if native DOS<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- these structures are allocated by DOS during the scanning of the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;CONFIG.SYS file<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- <a href="int-int_21_67.html">INT 21,67</a>&nbsp;can be used to allow an application to have more than<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;20 file handles; &nbsp;the total number of handles is limited still to<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;the value of FILES=n in CONFIG.SYS<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- the structure of these fields is undocumented; &nbsp;I do not recommend<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;relying on any of this information, instead use it as an aid in<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;debugging<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see <a href="misc-Bibliography.html">Bibliography</a>&nbsp;references to Bernd Schemmer and "Data Structures<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Used in IBM PC Compatibles and the PS/2".<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see &nbsp; <a href="int-int_21_52.html">INT 21,52</a><br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">SFT</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

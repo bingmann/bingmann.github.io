@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>HelpPC 2.10 - Instruction Timing</title>
+  <link type="text/css" rel="stylesheet" href="nostalgic.css" title="nostalgic" />
+</head>
+<body>
+<!-- Converted from the original text files by helppc21-convert.pl by Timo Bingmann - http://idlebox.net/ -->
+<table class="bodytable" summary="">
+  <tr class="top">
+    <td class="unimono" style="text-align: left; width: 30%"><a class="menuplain" href="index.html">HelpPC 2.10</a></td>
+    <td class="unimono" style="text-align: center; width: 30%"><a class="menuplain" href="index.html">Quick Reference Utility</a></td>
+    <td class="unimono" style="text-align: right; width: 40%">Copyright 1991 David Jurgens</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <table style="margin-left: auto; margin-right: auto" summary="">
+        <tr>
+          <td class="unimono">
+            <br /><span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Instruction Clock Cycle Calculation</span><br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Some instructions require additional clock cycles due to a "Next<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Instruction Component" identified by a "+m" in the instruction<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;clock cycle listings. &nbsp;This is due to the prefetch queue being<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;purge on a control transfers. &nbsp; Below is the general rule for<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;calculating "m":<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;88/86 not applicable<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;286 &nbsp;"m" is the number of bytes in the next instruction<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;386 &nbsp;"m" is the number of components in the next instruction<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(the instruction coding (each byte), plus the data and<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;the displacement are all considered components)<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 8088/8086 &nbsp;Effective Address (EA) Calculation</span><br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Description &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Clock Cycles</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Displacement &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;6<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Base or Index (BX,BP,SI,DI) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Displacement+(Base or Index) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;9<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Base+Index (BP+DI,BX+SI) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;7<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Base+Index (BP+SI,BX+DI) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;8<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Base+Index+Displacement (BP+DI,BX+SI) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;11<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;Base+Index+Displacement (BP+SI+disp,BX+DI+disp) &nbsp; &nbsp; &nbsp; &nbsp;12<br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- add 4 cycles for word operands at odd addresses<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- add 2 cycles for segment override<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- 80188/80186 timings differ from those of the 8088/8086/80286<br />
+<br />
+<br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Task State Calculation</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;"TS" is defined as switching from VM/486 or 80286 TSS to one of<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;the following:<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9474; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; New Task &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9474;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9500;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9516;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9516;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9516;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9516;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9508;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;&#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9508;486 TSS&#9474;486 TSS&#9474;386 TSS&#9474;386 TSS&#9474;286 TSS&#9474;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;&#9474; &nbsp; Old Task &nbsp; &nbsp;&#9474; (VM=0)&#9474; (VM=1)&#9474; (VM=0)&#9474; (VM=1)&#9474; &nbsp; &nbsp; &nbsp; &#9474;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;&#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9532;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9532;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9532;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9532;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9532;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9508;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;386 TSS (VM=0) &nbsp;&#9474; &nbsp; &nbsp; &nbsp; &#9474; &nbsp; &nbsp; &nbsp; &#9474; &nbsp;309 &nbsp;&#9474; &nbsp;226 &nbsp;&#9474; &nbsp;282 &nbsp;&#9474;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9500;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9532;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9532;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9532;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9532;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9508;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;386 TSS (VM=1) &nbsp;&#9474; &nbsp; &nbsp; &nbsp; &#9474; &nbsp; &nbsp; &nbsp; &#9474; &nbsp;314 &nbsp;&#9474; &nbsp;231 &nbsp;&#9474; &nbsp;287 &nbsp;&#9474;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9500;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9532;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9532;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9532;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9532;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9508;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;386 CPU/286 TSS &#9474; &nbsp; &nbsp; &nbsp; &#9474; &nbsp; &nbsp; &nbsp; &#9474; &nbsp;307 &nbsp;&#9474; &nbsp;224 &nbsp;&#9474; &nbsp;280 &nbsp;&#9474;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9500;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9532;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9532;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9532;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9532;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9508;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;486 CPU/286 TSS &#9474; &nbsp;199 &nbsp;&#9474; &nbsp;177 &nbsp;&#9474; &nbsp; &nbsp; &nbsp; &#9474; &nbsp; &nbsp; &nbsp; &#9474; &nbsp;180 &nbsp;&#9474;<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp;Miscellaneous</span><br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- all timings are for best case and do not take into account wait<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;states, instruction alignment, the state of the prefetch queue,<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;DMA refresh cycles, cache hits/misses or exception processing.<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- to convert clocks to nanoseconds divide one microsecond by the<br />
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;processor speed in MegaHertz:<br />
+ &nbsp; <br />
+<span class="highlight"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (1000MHz/(n MHz)) = X nanoseconds</span><br />
+<br />
+<br />
+ &nbsp; &nbsp; &nbsp; &nbsp;- see &nbsp; <a href="asm-8086_architecture.html">8086 Architecture</a><br />
+<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="bottom">
+    <td class="unimono" style="text-align: left; width: 30%">Esc or Alt-X to exit</td>
+    <td class="unimono" style="text-align: center; width: 40%">Instruction Timing</td>
+    <td class="unimono" style="text-align: right; width: 30%">Home/PgUp/PgDn/End &#8592;&#8593;&#8595;&#8594;</td>
+  </tr>
+</table>
+<div class="converter"><a href="http://idlebox.net/2006/helppc21/">Converted to HTML in 2006 by Timo Bingmann</a></div>
+</body>
+</html>

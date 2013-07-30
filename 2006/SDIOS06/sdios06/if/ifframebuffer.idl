@@ -1,0 +1,28 @@
+/*
+ * $Id$
+ */
+#include <types.idl>
+
+exception bad_mode {};
+exception not_initialized {};
+exception invalid_card {};
+
+[uuid(IF_FRAMEBUFFER_ID)]
+interface IF_FRAMEBUFFER {
+
+	// TODO how to ensure exclusive access to this resource?
+	void SetMode(in objectid_t card, in int width, in int height, in int bpp)
+		raises(bad_mode, invalid_card);
+
+	void MapFrameBuffer(in objectid_t card, out fpage f, out idlsize_t fbsize)
+		raises(not_initialized, invalid_card);
+
+	void Update(in objectid_t card)
+		raises(not_initialized, invalid_card);
+		
+	void GetInfos(in objectid_t card, out int width, out int height, out int bpp,
+	              out idlsize_t fboffset, out idlsize_t pitch,
+	              out uint32_t redmask, out uint32_t greenmask, out uint32_t bluemask)
+		raises(not_initialized, invalid_card);
+
+};

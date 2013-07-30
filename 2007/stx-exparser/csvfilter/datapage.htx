@@ -1,0 +1,127 @@
+[% WRAPPER fulllayout
+   pagecharset = "UTF-8"
+   title = "STX Expression Parser Example - CSV Data Filter - " _ dataname
+   norightbar = 1
+ %]
+
+<h1><a href="/2007/stx-exparser/csvfilter/">CSV Data Filter</a> - [% dataname %]</h1>
+
+<div style="text-align: center">
+<table class="center thinframe" style="text-align: left">
+  <tr><td>Datafile:</td><td><code>[% datafile %]</code></td></tr>
+  <tr><td>Filter:</td><td><code>[% filter %]</code></td></tr>
+  <tr><td>Sort Column:</td><td><code>[% order %]</code></td></tr>
+</table>
+</div>
+<br />
+
+[% IF header.size %]
+<div style="text-align: center">
+<table class="center thinframe" style="text-align: center">
+<thead>
+  <tr>
+    [% FOREACH h = header %]
+    <td class="thinheader">
+      [% IF order == h;
+           sortref = "!" _ h;
+           arrowsym = " &darr;";
+         ELSIF order == "!" _ h;
+           sortref = h;
+           arrowsym = " &uarr;";
+         ELSE;
+           sortref = h;
+           arrowsym = "";
+         END # IF;
+       %]
+      [% h %][% arrowsym %]
+    </td>
+    [% END # FOREACH %]
+  </tr>
+</thead>
+
+[% datalinks = "" %]
+
+[% pageoffset = 0; %]
+[% datalinks = [] %]
+[% WHILE pageoffset < datasize %]
+  [% lasturl = baseuri _ pageoffset _ ".html" %]
+  [% datalinks.push( "<a href=\"$lasturl\">$pageoffset</a>" ) %]
+  [% pageoffset = pageoffset + 1000 %]
+[% END # WHILE %]
+
+[% IF datalinks %]
+<tfoot>
+  <tr>
+    <td class="thinfooter" colspan="[% header.size %]">Offsets: [% datalinks.join(" ") %]</td>
+  </tr>
+</tfoot>
+[% END # IF %]
+
+<tbody>
+[% IF data.size() %]
+  [% FOREACH row = data %]
+    <tr>
+      [% FOREACH d = row %]<td>[% d %]</td>[% END # FOREACH %]
+    </tr>
+  [% END # FOREACH %]
+[% ELSE %]
+  <tr>
+    <td colspan="[% header.size %]">No rows in result set.</td>
+  </tr>
+[% END # IF data.size() %]
+</tbody>
+
+</table>
+</div>
+
+[% IF outbase.match("^cia-world-factbook") %]
+<br />
+<div style="text-align: center">
+<table class="center thinframe">
+  <tr>
+  <td style="text-align: left">
+    Data in the table was imported from the <a href="https://www.cia.gov/library/publications/the-world-factbook/">CIA World Factbook</a>.<br />It was extracted from the HTML pages using the <a href="http://wfb2sql.sourceforge.net/">Perl script wfb2sql</a>.
+  </td>
+  <td style="text-align: right; padding-left: 6px">
+    <a href="https://www.cia.gov/library/publications/the-world-factbook/"><img src="/2007/stx-exparser/cia-world-factbook-thumb.jpg" alt="CIA World Factbook" width="61" height="80" /></a>
+  </td>
+  </tr>
+</table>
+</div>
+[% END # IF cia-factbook %]
+
+[% IF outbase.match("^geonames-") %]
+<br />
+<div style="text-align: center">
+<div class="thinframe" style="width: 60%; margin: 0 auto; padding: 6px">
+<div style="float: right; padding-left: 6px"><a href="http://creativecommons.org/licenses/by/3.0/"><img src="/img/creative-commons-30-by-88x31.png" alt="Creative Commons Attribution 3.0" width="88" height="31" /></a></div>
+Data in the table was imported from <a href="http://www.geonames.org/">geonames.org</a>. The data is licensed under the <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 License</a>.
+</div>
+</div>
+[% END # IF geonames %]
+
+[% IF outbase.match("^mysql-world-") %]
+<br />
+<div style="text-align: center">
+<table class="center">
+  <tr><td class="thinframe" style="text-align: left">
+    Data in the table was imported from <a href="http://dev.mysql.com/doc/world-setup/en/world-setup.html">MySQL's sample world database</a>. The data in table is originally copyright <a href="http://www.stat.fi/worldinfigures/">Statistics Finland</a>.
+  </td></tr>
+</table>
+</div>
+[% END # IF mysql %]
+
+[% IF outbase.match("^opengeodb") %]
+<br />
+<div style="text-align: center">
+<table class="center">
+  <tr><td class="thinframe" style="text-align: left">
+    Data in the table was imported from <a href="http://opengeodb.hoppe-media.com/">the OpenGeoDB project</a>.
+  </td></tr>
+</table>
+</div>
+[% END # IF opengeodb %]
+
+[% END # IF header.size %]
+
+[% END # WRAPPER %]
