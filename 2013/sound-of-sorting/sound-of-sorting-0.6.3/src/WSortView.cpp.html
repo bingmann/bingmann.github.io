@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2013/sound-of-sorting/sound-of-sorting-0.6.3/src/WSortView.cpp - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal6.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 13pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 10pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 11pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 10pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 15pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2013/">2013</a> / <a href="/2013/sound-of-sorting/">sound-of-sorting</a> / <a href="/2013/sound-of-sorting/sound-of-sorting-0.6.3/">sound-of-sorting-0.6.3</a> / <a href="/2013/sound-of-sorting/sound-of-sorting-0.6.3/src/">src</a> / <a href="/2013/sound-of-sorting/sound-of-sorting-0.6.3/src/WSortView.cpp.html">WSortView.cpp</a> (<a href="/2013/sound-of-sorting/sound-of-sorting-0.6.3/src/WSortView.cpp">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">/******************************************************************************</span>
+<span class="comment"> * src/WSortView.cpp</span>
+<span class="comment"> *</span>
+<span class="comment"> * WSortView contains both the instrumentated array operators and draws the</span>
+<span class="comment"> * displayed visualization.</span>
+<span class="comment"> *</span>
+<span class="comment"> ******************************************************************************</span>
+<span class="comment"> * Copyright (C) 2013 Timo Bingmann </span><span class="url">&lt;tb@panthema.net&gt;</span>
+<span class="comment"> *</span>
+<span class="comment"> * This program is free software: you can redistribute it and/or modify it</span>
+<span class="comment"> * under the terms of the GNU General Public License as published by the Free</span>
+<span class="comment"> * Software Foundation, either version 3 of the License, or (at your option)</span>
+<span class="comment"> * any later version.</span>
+<span class="comment"> *</span>
+<span class="comment"> * This program is distributed in the hope that it will be useful, but WITHOUT</span>
+<span class="comment"> * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or</span>
+<span class="comment"> * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for</span>
+<span class="comment"> * more details.</span>
+<span class="comment"> *</span>
+<span class="comment"> * You should have received a copy of the GNU General Public License along with</span>
+<span class="comment"> * this program.  If not, see </span><span class="url">&lt;http://www.gnu.org/licenses/&gt;</span><span class="comment">.</span>
+<span class="comment"> *****************************************************************************/</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"WSortView.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"SortAlgo.h"</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"WMain.h"</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;wx/dcbuffer.h&gt;</span>
+
+<span class="comment">// ****************************************************************************</span>
+<span class="comment">// *** Comparisons of ArrayItems</span>
+
+<span class="usertype">size_t</span><span class="normal"> g_compare_count </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="usertype">size_t</span><span class="normal"> g_access_count </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="type">void</span><span class="normal"> ArrayItem</span><span class="symbol">::</span><span class="function">OnAccess</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> ArrayItem</span><span class="symbol">&amp;</span><span class="normal"> a</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">SoundAccess</span><span class="symbol">(</span><span class="normal">a</span><span class="symbol">.</span><span class="function">get_direct</span><span class="symbol">());</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> ArrayItem</span><span class="symbol">::</span><span class="function">OnComparison</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> ArrayItem</span><span class="symbol">&amp;</span><span class="normal"> a</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> ArrayItem</span><span class="symbol">&amp;</span><span class="normal"> b</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="symbol">++</span><span class="normal">g_compare_count</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="function">SoundAccess</span><span class="symbol">(</span><span class="normal">a</span><span class="symbol">.</span><span class="function">get_direct</span><span class="symbol">());</span>
+<span class="normal">    </span><span class="function">SoundAccess</span><span class="symbol">(</span><span class="normal">b</span><span class="symbol">.</span><span class="function">get_direct</span><span class="symbol">());</span>
+<span class="cbracket">}</span>
+
+<span class="comment">// ****************************************************************************</span>
+<span class="comment">// *** WSortView</span>
+
+<span class="type">double</span><span class="normal"> g_delay </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="type">bool</span><span class="normal"> g_algo_running </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+
+<span class="usertype">wxString</span><span class="normal"> g_algo_name</span><span class="symbol">;</span>
+
+<span class="normal">WSortView</span><span class="symbol">::</span><span class="function">WSortView</span><span class="symbol">(</span><span class="usertype">wxWindow</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">parent</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> id</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">WMain_wxg</span><span class="symbol">*</span><span class="normal"> wmain</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="symbol">:</span><span class="normal"> </span><span class="function">wxPanel</span><span class="symbol">(</span><span class="normal">parent</span><span class="symbol">,</span><span class="normal"> id</span><span class="symbol">),</span>
+<span class="normal">      </span><span class="function">wmain</span><span class="symbol">(</span><span class="keyword">reinterpret_cast</span><span class="symbol">&lt;</span><span class="normal">WMain</span><span class="symbol">*&gt;(</span><span class="normal">wmain</span><span class="symbol">))</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">SetBackgroundStyle</span><span class="symbol">(</span><span class="normal">wxBG_STYLE_CUSTOM</span><span class="symbol">);</span>
+
+<span class="normal">    m_stepwise </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="normal">WSortView</span><span class="symbol">::~</span><span class="function">WSortView</span><span class="symbol">()</span>
+<span class="cbracket">{</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> WSortView</span><span class="symbol">::</span><span class="function">ResetArray</span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> size</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    m_array</span><span class="symbol">.</span><span class="function">resize</span><span class="symbol">(</span><span class="normal">size</span><span class="symbol">,</span><span class="normal"> </span><span class="function">ArrayItem</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">));</span>
+<span class="normal">    m_mark</span><span class="symbol">.</span><span class="function">resize</span><span class="symbol">(</span><span class="normal">size</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> WSortView</span><span class="symbol">::</span><span class="function">FinishFill</span><span class="symbol">()</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">ASSERT</span><span class="symbol">(</span><span class="normal">m_array</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="comment">// calculate max value in array</span>
+<span class="normal">    m_array_max </span><span class="symbol">=</span><span class="normal"> m_array</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">].</span><span class="function">get_direct</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="function">size</span><span class="symbol">();</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">m_array_max </span><span class="symbol">&lt;</span><span class="normal"> m_array</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">].</span><span class="function">get_direct</span><span class="symbol">())</span>
+<span class="normal">            m_array_max </span><span class="symbol">=</span><span class="normal"> m_array</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">].</span><span class="function">get_direct</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">// reset access markers</span>
+<span class="normal">    </span><span class="function">unmark_all</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="function">unwatch_all</span><span class="symbol">();</span>
+
+<span class="normal">    </span><span class="comment">// reset counters and info</span>
+<span class="normal">    m_is_sorted </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">    g_access_count </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">    g_compare_count </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> WSortView</span><span class="symbol">::</span><span class="function">FillInputlist</span><span class="symbol">(</span><span class="normal">wxControlWithItems</span><span class="symbol">*</span><span class="normal"> list</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    list</span><span class="symbol">-&gt;</span><span class="function">Append</span><span class="symbol">(</span><span class="function">_</span><span class="symbol">(</span><span class="string">"Random Shuffle"</span><span class="symbol">));</span>
+<span class="normal">    list</span><span class="symbol">-&gt;</span><span class="function">Append</span><span class="symbol">(</span><span class="function">_</span><span class="symbol">(</span><span class="string">"Ascending"</span><span class="symbol">));</span>
+<span class="normal">    list</span><span class="symbol">-&gt;</span><span class="function">Append</span><span class="symbol">(</span><span class="function">_</span><span class="symbol">(</span><span class="string">"Descending"</span><span class="symbol">));</span>
+<span class="normal">    list</span><span class="symbol">-&gt;</span><span class="function">Append</span><span class="symbol">(</span><span class="function">_</span><span class="symbol">(</span><span class="string">"Shuffled Cubic"</span><span class="symbol">));</span>
+<span class="normal">    list</span><span class="symbol">-&gt;</span><span class="function">Append</span><span class="symbol">(</span><span class="function">_</span><span class="symbol">(</span><span class="string">"Shuffled Quintic"</span><span class="symbol">));</span>
+<span class="normal">    list</span><span class="symbol">-&gt;</span><span class="function">Append</span><span class="symbol">(</span><span class="function">_</span><span class="symbol">(</span><span class="string">"Shuffled n-2 Equal"</span><span class="symbol">));</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> WSortView</span><span class="symbol">::</span><span class="function">FillData</span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> schema</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">size_t</span><span class="normal"> arraysize</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">arraysize </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> arraysize </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="function">ResetArray</span><span class="symbol">(</span><span class="normal">arraysize</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">schema </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="comment">// Shuffle of [1,n]</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> m_array</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">            m_array</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="function">ArrayItem</span><span class="symbol">(</span><span class="normal">i</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">);</span>
+
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">random_shuffle</span><span class="symbol">(</span><span class="normal">m_array</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">(),</span><span class="normal"> m_array</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">());</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">schema </span><span class="symbol">==</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="comment">// Ascending [1,n]</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> m_array</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">            m_array</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="function">ArrayItem</span><span class="symbol">(</span><span class="normal">i</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">schema </span><span class="symbol">==</span><span class="normal"> </span><span class="number">2</span><span class="symbol">)</span><span class="normal"> </span><span class="comment">// Descending [1,n]</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> m_array</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">            m_array</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="function">ArrayItem</span><span class="symbol">(</span><span class="normal">m_array</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> i</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">schema </span><span class="symbol">==</span><span class="normal"> </span><span class="number">3</span><span class="symbol">)</span><span class="normal"> </span><span class="comment">// Cubic skew of [1,n]</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> m_array</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="comment">// normalize to [-1,+1]</span>
+<span class="normal">            </span><span class="type">double</span><span class="normal"> x </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="number">2.0</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="symbol">(</span><span class="type">double</span><span class="symbol">)</span><span class="normal">i </span><span class="symbol">/</span><span class="normal"> m_array</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">())</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1.0</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="comment">// calculate x^3</span>
+<span class="normal">            </span><span class="type">double</span><span class="normal"> v </span><span class="symbol">=</span><span class="normal"> x </span><span class="symbol">*</span><span class="normal"> x </span><span class="symbol">*</span><span class="normal"> x</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="comment">// normalize to array size</span>
+<span class="normal">            </span><span class="type">double</span><span class="normal"> w </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">v </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1.0</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">/</span><span class="normal"> </span><span class="number">2.0</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> arraysize </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="comment">// decrease resolution for more equal values</span>
+<span class="normal">            w </span><span class="symbol">/=</span><span class="normal"> </span><span class="number">3.0</span><span class="symbol">;</span>
+<span class="normal">            m_array</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="function">ArrayItem</span><span class="symbol">(</span><span class="normal">w </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">random_shuffle</span><span class="symbol">(</span><span class="normal">m_array</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">(),</span><span class="normal"> m_array</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">());</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">schema </span><span class="symbol">==</span><span class="normal"> </span><span class="number">4</span><span class="symbol">)</span><span class="normal"> </span><span class="comment">// Quintic skew of [1,n]</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> m_array</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="comment">// normalize to [-1,+1]</span>
+<span class="normal">            </span><span class="type">double</span><span class="normal"> x </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="number">2.0</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="symbol">(</span><span class="type">double</span><span class="symbol">)</span><span class="normal">i </span><span class="symbol">/</span><span class="normal"> m_array</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">())</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1.0</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="comment">// calculate x^5</span>
+<span class="normal">            </span><span class="type">double</span><span class="normal"> v </span><span class="symbol">=</span><span class="normal"> x </span><span class="symbol">*</span><span class="normal"> x </span><span class="symbol">*</span><span class="normal"> x </span><span class="symbol">*</span><span class="normal"> x </span><span class="symbol">*</span><span class="normal"> x</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="comment">// normalize to array size</span>
+<span class="normal">            </span><span class="type">double</span><span class="normal"> w </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">v </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1.0</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">/</span><span class="normal"> </span><span class="number">2.0</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> arraysize </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="comment">// decrease resolution for more equal values</span>
+<span class="normal">            w </span><span class="symbol">/=</span><span class="normal"> </span><span class="number">3.0</span><span class="symbol">;</span>
+<span class="normal">            m_array</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="function">ArrayItem</span><span class="symbol">(</span><span class="normal">w </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">random_shuffle</span><span class="symbol">(</span><span class="normal">m_array</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">(),</span><span class="normal"> m_array</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">());</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">schema </span><span class="symbol">==</span><span class="normal"> </span><span class="number">5</span><span class="symbol">)</span><span class="normal"> </span><span class="comment">// shuffled n-2 equal values in [1,n]</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        m_array</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="function">ArrayItem</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> m_array</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">()-</span><span class="number">1</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            m_array</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="function">ArrayItem</span><span class="symbol">(</span><span class="normal"> arraysize </span><span class="symbol">/</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        m_array</span><span class="symbol">[</span><span class="normal">m_array</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">()-</span><span class="number">1</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="function">ArrayItem</span><span class="symbol">(</span><span class="normal">arraysize</span><span class="symbol">);</span>
+
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">random_shuffle</span><span class="symbol">(</span><span class="normal">m_array</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">(),</span><span class="normal"> m_array</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">());</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="comment">// fallback</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="function">FillData</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> arraysize</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="function">FinishFill</span><span class="symbol">();</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> WSortView</span><span class="symbol">::</span><span class="function">DoDelay</span><span class="symbol">(</span><span class="type">double</span><span class="normal"> delay</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">// must be called by the algorithm thread</span>
+<span class="normal">    </span><span class="function">ASSERT</span><span class="symbol">(</span><span class="normal">wmain</span><span class="symbol">-&gt;</span><span class="normal">m_thread</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">ASSERT</span><span class="symbol">(</span><span class="normal">wxThread</span><span class="symbol">::</span><span class="function">GetCurrentId</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> wmain</span><span class="symbol">-&gt;</span><span class="normal">m_thread</span><span class="symbol">-&gt;</span><span class="function">GetId</span><span class="symbol">());</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">wmain</span><span class="symbol">-&gt;</span><span class="normal">m_thread_terminate</span><span class="symbol">)</span>
+<span class="normal">        wmain</span><span class="symbol">-&gt;</span><span class="normal">m_thread</span><span class="symbol">-&gt;</span><span class="function">Exit</span><span class="symbol">();</span>
+
+<span class="normal">    </span><span class="comment">// idle until main thread signals a condition</span>
+<span class="normal">    </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">m_stepwise</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="usertype">wxSemaError</span><span class="normal"> se </span><span class="symbol">=</span><span class="normal"> m_step_semaphore</span><span class="symbol">.</span><span class="function">WaitTimeout</span><span class="symbol">(</span><span class="number">200</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">se </span><span class="symbol">==</span><span class="normal"> wxSEMA_NO_ERROR</span><span class="symbol">)</span>
+<span class="normal">            </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="comment">// else timeout, recheck m_stepwise and loop</span>
+<span class="normal">        wmain</span><span class="symbol">-&gt;</span><span class="normal">m_thread</span><span class="symbol">-&gt;</span><span class="function">TestDestroy</span><span class="symbol">();</span>
+<span class="normal">        wmain</span><span class="symbol">-&gt;</span><span class="normal">m_thread</span><span class="symbol">-&gt;</span><span class="function">Yield</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    wmain</span><span class="symbol">-&gt;</span><span class="normal">m_thread</span><span class="symbol">-&gt;</span><span class="function">TestDestroy</span><span class="symbol">();</span>
+
+<span class="preproc">#if</span><span class="normal"> __WXGTK__</span>
+<span class="normal">    </span><span class="function">wxMicroSleep</span><span class="symbol">(</span><span class="normal">delay </span><span class="symbol">*</span><span class="normal"> </span><span class="number">1000.0</span><span class="symbol">);</span>
+<span class="preproc">#else</span>
+<span class="normal">    </span><span class="comment">// wxMSW does not have a high resolution timer, maybe others do?</span>
+<span class="normal">    </span><span class="function">wxMilliSleep</span><span class="symbol">(</span><span class="normal">delay</span><span class="symbol">);</span>
+<span class="preproc">#endif</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> WSortView</span><span class="symbol">::</span><span class="function">DoStepwise</span><span class="symbol">()</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">wxSemaError</span><span class="normal"> se </span><span class="symbol">=</span><span class="normal"> m_step_semaphore</span><span class="symbol">.</span><span class="function">Post</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">se </span><span class="symbol">!=</span><span class="normal"> wxSEMA_NO_ERROR</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="function">wxLogError</span><span class="symbol">(</span><span class="function">_T</span><span class="symbol">(</span><span class="string">"Error posting to semaphore: %d"</span><span class="symbol">),</span><span class="normal"> se</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> WSortView</span><span class="symbol">::</span><span class="function">OnAccess</span><span class="symbol">()</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="symbol">++</span><span class="normal">g_access_count</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="function">DoDelay</span><span class="symbol">(</span><span class="normal">g_delay</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> WSortView</span><span class="symbol">::</span><span class="function">CheckSorted</span><span class="symbol">()</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">unmark_all</span><span class="symbol">();</span>
+
+<span class="normal">    </span><span class="usertype">ArrayItem</span><span class="normal"> prev </span><span class="symbol">=</span><span class="normal"> </span><span class="function">get_nocount</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">mark</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="function">size</span><span class="symbol">();</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="usertype">ArrayItem</span><span class="normal"> key </span><span class="symbol">=</span><span class="normal"> </span><span class="function">get_nocount</span><span class="symbol">(</span><span class="normal">i</span><span class="symbol">);</span>
+<span class="normal">        g_compare_count</span><span class="symbol">--;</span><span class="normal"> </span><span class="comment">// dont count the following comparison</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!(</span><span class="normal">prev </span><span class="symbol">&lt;=</span><span class="normal"> key</span><span class="symbol">))</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">wxLogError</span><span class="symbol">(</span><span class="function">_T</span><span class="symbol">(</span><span class="string">"Result of sorting algorithm is incorrect!"</span><span class="symbol">));</span>
+<span class="normal">            </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="function">mark</span><span class="symbol">(</span><span class="normal">i</span><span class="symbol">);</span>
+<span class="normal">        prev </span><span class="symbol">=</span><span class="normal"> key</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="function">unmark_all</span><span class="symbol">();</span>
+
+<span class="normal">    m_is_sorted </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> WSortView</span><span class="symbol">::</span><span class="function">RepaintNow</span><span class="symbol">()</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="function">IsShownOnScreen</span><span class="symbol">())</span><span class="normal"> </span><span class="keyword">return</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="usertype">wxClientDC</span><span class="normal"> </span><span class="function">dc</span><span class="symbol">(</span><span class="keyword">this</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="usertype">wxBufferedDC</span><span class="normal"> </span><span class="function">bdc</span><span class="symbol">(&amp;</span><span class="normal">dc</span><span class="symbol">,</span><span class="normal"> </span><span class="function">GetSize</span><span class="symbol">(),</span><span class="normal"> wxBUFFER_CLIENT_AREA</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">paint</span><span class="symbol">(</span><span class="normal">bdc</span><span class="symbol">,</span><span class="normal"> </span><span class="function">GetSize</span><span class="symbol">());</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> WSortView</span><span class="symbol">::</span><span class="function">OnPaint</span><span class="symbol">(</span><span class="normal">wxPaintEvent</span><span class="symbol">&amp;)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">wxAutoBufferedPaintDC</span><span class="normal"> </span><span class="function">dc</span><span class="symbol">(</span><span class="keyword">this</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="comment">// on wxMSW, wxAutoBufferedPaintDC holds a bitmap. The bitmaps size =</span>
+<span class="normal">    </span><span class="comment">// wxDC's size may not match the window size, thus we pass the window size</span>
+<span class="normal">    </span><span class="comment">// explicitly.</span>
+<span class="normal">    </span><span class="function">paint</span><span class="symbol">(</span><span class="normal">dc</span><span class="symbol">,</span><span class="normal"> </span><span class="function">GetSize</span><span class="symbol">());</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> WSortView</span><span class="symbol">::</span><span class="function">OnSize</span><span class="symbol">(</span><span class="normal">wxSizeEvent</span><span class="symbol">&amp;)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">// full redraw on resize</span>
+<span class="normal">    </span><span class="function">Refresh</span><span class="symbol">(</span><span class="keyword">false</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">Vector</span><span class="symbol">&gt;</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="keyword">inline</span><span class="normal"> </span><span class="type">bool</span><span class="normal"> </span><span class="function">InList</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> Vector</span><span class="symbol">&amp;</span><span class="normal"> vec</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">Vector</span><span class="symbol">::</span><span class="normal">value_type</span><span class="symbol">&amp;</span><span class="normal"> v</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">Vector</span><span class="symbol">::</span><span class="usertype">const_iterator</span><span class="normal"> it </span><span class="symbol">=</span><span class="normal"> vec</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">();</span>
+<span class="normal">         it </span><span class="symbol">!=</span><span class="normal"> vec</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">();</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">it</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">it </span><span class="symbol">==</span><span class="normal"> v</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="type">unsigned</span><span class="normal"> </span><span class="type">char</span><span class="normal"> WSortView</span><span class="symbol">::</span><span class="function">InWatchList</span><span class="symbol">(</span><span class="usertype">ssize_t</span><span class="normal"> idx</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> m_watch</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">m_watch</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">].</span><span class="normal">first </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">continue</span><span class="symbol">;</span>
+
+<span class="normal">        </span><span class="comment">// compare watched value</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">m_watch</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">].</span><span class="normal">first </span><span class="symbol">!=</span><span class="normal"> idx</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">continue</span><span class="symbol">;</span>
+
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> m_watch</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">].</span><span class="normal">second</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> WSortView</span><span class="symbol">::</span><span class="function">paint</span><span class="symbol">(</span><span class="normal">wxDC</span><span class="symbol">&amp;</span><span class="normal"> dc</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> wxSize</span><span class="symbol">&amp;</span><span class="normal"> dcsize</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    dc</span><span class="symbol">.</span><span class="function">SetBackground</span><span class="symbol">(*</span><span class="normal">wxBLACK_BRUSH</span><span class="symbol">);</span>
+<span class="normal">    dc</span><span class="symbol">.</span><span class="function">Clear</span><span class="symbol">();</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">size</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">return</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="usertype">size_t</span><span class="normal"> fwidth </span><span class="symbol">=</span><span class="normal"> dcsize</span><span class="symbol">.</span><span class="function">GetWidth</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="usertype">size_t</span><span class="normal"> fheight </span><span class="symbol">=</span><span class="normal"> dcsize</span><span class="symbol">.</span><span class="function">GetHeight</span><span class="symbol">();</span>
+
+<span class="normal">    </span><span class="usertype">size_t</span><span class="normal"> width </span><span class="symbol">=</span><span class="normal"> fwidth </span><span class="symbol">-</span><span class="normal"> </span><span class="number">20</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">size_t</span><span class="normal"> height </span><span class="symbol">=</span><span class="normal"> fheight </span><span class="symbol">-</span><span class="normal"> </span><span class="number">20</span><span class="symbol">;</span>
+
+<span class="normal">    dc</span><span class="symbol">.</span><span class="function">SetDeviceOrigin</span><span class="symbol">(</span><span class="number">10</span><span class="symbol">,</span><span class="number">10</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="comment">// *** draw array element bars</span>
+
+<span class="normal">    </span><span class="comment">// draw | | | |  bars: each bar is width w, separation is w/2</span>
+<span class="normal">    </span><span class="comment">// thus n bars need n * w + (n-1) * w/2 width</span>
+
+<span class="normal">    </span><span class="comment">// 1st variant: space is 0.5 of bar size</span>
+<span class="normal">    </span><span class="comment">//double wbar = width / (size() + (size()-1) / 2.0);</span>
+<span class="normal">    </span><span class="comment">//double bstep = 1.5 * wbar;</span>
+
+<span class="normal">    </span><span class="comment">// 2nd variant: one pixel between bars</span>
+<span class="normal">    </span><span class="type">double</span><span class="normal"> wbar </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">width </span><span class="symbol">-</span><span class="normal"> </span><span class="symbol">(</span><span class="function">size</span><span class="symbol">()-</span><span class="number">1</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">/</span><span class="normal"> </span><span class="symbol">(</span><span class="type">double</span><span class="symbol">)</span><span class="function">size</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">width </span><span class="symbol">&lt;=</span><span class="normal"> </span><span class="symbol">(</span><span class="function">size</span><span class="symbol">()-</span><span class="number">1</span><span class="symbol">))</span><span class="normal"> wbar </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0.0</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="type">double</span><span class="normal"> bstep </span><span class="symbol">=</span><span class="normal"> wbar </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1.0</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">// special case for bstep = 2 pixel -&gt; draw 2 pixel bars instead of 1px</span>
+<span class="normal">    </span><span class="comment">// bar/1px gaps.</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="function">fabs</span><span class="symbol">(</span><span class="normal">wbar </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1.0</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0.1</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="function">fabs</span><span class="symbol">(</span><span class="normal">bstep </span><span class="symbol">-</span><span class="normal"> </span><span class="number">2.0</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0.1</span><span class="normal"> </span><span class="symbol">)</span><span class="normal"> wbar </span><span class="symbol">=</span><span class="normal"> </span><span class="number">2</span><span class="symbol">,</span><span class="normal"> bstep </span><span class="symbol">=</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">wxPen</span><span class="normal"> pens</span><span class="symbol">[]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="symbol">*</span><span class="normal">wxWHITE_PEN</span><span class="symbol">,</span>
+<span class="normal">        </span><span class="symbol">*</span><span class="normal">wxGREEN_PEN</span><span class="symbol">,</span>
+<span class="normal">        </span><span class="symbol">*</span><span class="normal">wxCYAN_PEN</span><span class="symbol">,</span>
+<span class="normal">        </span><span class="function">wxPen</span><span class="symbol">(</span><span class="function">wxColour</span><span class="symbol">(</span><span class="number">255</span><span class="symbol">,</span><span class="number">255</span><span class="symbol">,</span><span class="number">0</span><span class="symbol">)),</span><span class="normal"> </span><span class="comment">// yellow</span>
+<span class="normal">        </span><span class="function">wxPen</span><span class="symbol">(</span><span class="function">wxColour</span><span class="symbol">(</span><span class="number">255</span><span class="symbol">,</span><span class="number">0</span><span class="symbol">,</span><span class="number">255</span><span class="symbol">)),</span><span class="normal"> </span><span class="comment">// magenta</span>
+<span class="normal">        </span><span class="function">wxPen</span><span class="symbol">(</span><span class="function">wxColour</span><span class="symbol">(</span><span class="number">255</span><span class="symbol">,</span><span class="number">192</span><span class="symbol">,</span><span class="number">128</span><span class="symbol">)),</span><span class="normal"> </span><span class="comment">// orange</span>
+<span class="normal">        </span><span class="function">wxPen</span><span class="symbol">(</span><span class="function">wxColour</span><span class="symbol">(</span><span class="number">255</span><span class="symbol">,</span><span class="number">128</span><span class="symbol">,</span><span class="number">192</span><span class="symbol">)),</span><span class="normal"> </span><span class="comment">// pink</span>
+<span class="normal">        </span><span class="function">wxPen</span><span class="symbol">(</span><span class="function">wxColour</span><span class="symbol">(</span><span class="number">128</span><span class="symbol">,</span><span class="number">192</span><span class="symbol">,</span><span class="number">255</span><span class="symbol">)),</span><span class="normal"> </span><span class="comment">// darker cyan</span>
+<span class="normal">        </span><span class="function">wxPen</span><span class="symbol">(</span><span class="function">wxColour</span><span class="symbol">(</span><span class="number">192</span><span class="symbol">,</span><span class="number">255</span><span class="symbol">,</span><span class="number">128</span><span class="symbol">)),</span><span class="normal"> </span><span class="comment">// darker green</span>
+<span class="normal">        </span><span class="function">wxPen</span><span class="symbol">(</span><span class="function">wxColour</span><span class="symbol">(</span><span class="number">192</span><span class="symbol">,</span><span class="number">128</span><span class="symbol">,</span><span class="number">255</span><span class="symbol">)),</span><span class="normal"> </span><span class="comment">// purple</span>
+<span class="normal">        </span><span class="function">wxPen</span><span class="symbol">(</span><span class="function">wxColour</span><span class="symbol">(</span><span class="number">128</span><span class="symbol">,</span><span class="number">255</span><span class="symbol">,</span><span class="number">192</span><span class="symbol">)),</span><span class="normal"> </span><span class="comment">// light green</span>
+<span class="normal">        </span><span class="function">wxPen</span><span class="symbol">(</span><span class="function">wxColour</span><span class="symbol">(</span><span class="number">128</span><span class="symbol">,</span><span class="number">128</span><span class="symbol">,</span><span class="number">255</span><span class="symbol">)),</span><span class="normal"> </span><span class="comment">// blue</span>
+<span class="normal">        </span><span class="function">wxPen</span><span class="symbol">(</span><span class="function">wxColour</span><span class="symbol">(</span><span class="number">192</span><span class="symbol">,</span><span class="number">128</span><span class="symbol">,</span><span class="number">192</span><span class="symbol">)),</span><span class="normal"> </span><span class="comment">// dark purple</span>
+<span class="normal">        </span><span class="function">wxPen</span><span class="symbol">(</span><span class="function">wxColour</span><span class="symbol">(</span><span class="number">128</span><span class="symbol">,</span><span class="number">192</span><span class="symbol">,</span><span class="number">192</span><span class="symbol">)),</span><span class="normal"> </span><span class="comment">// dark cyan</span>
+<span class="normal">        </span><span class="function">wxPen</span><span class="symbol">(</span><span class="function">wxColour</span><span class="symbol">(</span><span class="number">192</span><span class="symbol">,</span><span class="number">192</span><span class="symbol">,</span><span class="number">128</span><span class="symbol">)),</span><span class="normal"> </span><span class="comment">// dark yellow</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">wxBrush</span><span class="normal"> brushes</span><span class="symbol">[]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="symbol">*</span><span class="normal">wxWHITE_BRUSH</span><span class="symbol">,</span>
+<span class="normal">        </span><span class="symbol">*</span><span class="normal">wxGREEN_BRUSH</span><span class="symbol">,</span>
+<span class="normal">        </span><span class="symbol">*</span><span class="normal">wxCYAN_BRUSH</span><span class="symbol">,</span>
+<span class="normal">        </span><span class="function">wxBrush</span><span class="symbol">(</span><span class="function">wxColour</span><span class="symbol">(</span><span class="number">255</span><span class="symbol">,</span><span class="number">255</span><span class="symbol">,</span><span class="number">0</span><span class="symbol">)),</span><span class="normal"> </span><span class="comment">// yellow</span>
+<span class="normal">        </span><span class="function">wxBrush</span><span class="symbol">(</span><span class="function">wxColour</span><span class="symbol">(</span><span class="number">255</span><span class="symbol">,</span><span class="number">0</span><span class="symbol">,</span><span class="number">255</span><span class="symbol">)),</span><span class="normal"> </span><span class="comment">// magenta</span>
+<span class="normal">        </span><span class="function">wxBrush</span><span class="symbol">(</span><span class="function">wxColour</span><span class="symbol">(</span><span class="number">255</span><span class="symbol">,</span><span class="number">192</span><span class="symbol">,</span><span class="number">128</span><span class="symbol">)),</span><span class="normal"> </span><span class="comment">// orange</span>
+<span class="normal">        </span><span class="function">wxBrush</span><span class="symbol">(</span><span class="function">wxColour</span><span class="symbol">(</span><span class="number">255</span><span class="symbol">,</span><span class="number">128</span><span class="symbol">,</span><span class="number">192</span><span class="symbol">)),</span><span class="normal"> </span><span class="comment">// pink</span>
+<span class="normal">        </span><span class="function">wxBrush</span><span class="symbol">(</span><span class="function">wxColour</span><span class="symbol">(</span><span class="number">128</span><span class="symbol">,</span><span class="number">192</span><span class="symbol">,</span><span class="number">255</span><span class="symbol">)),</span><span class="normal"> </span><span class="comment">// darker cyan</span>
+<span class="normal">        </span><span class="function">wxBrush</span><span class="symbol">(</span><span class="function">wxColour</span><span class="symbol">(</span><span class="number">192</span><span class="symbol">,</span><span class="number">255</span><span class="symbol">,</span><span class="number">128</span><span class="symbol">)),</span><span class="normal"> </span><span class="comment">// darker green</span>
+<span class="normal">        </span><span class="function">wxBrush</span><span class="symbol">(</span><span class="function">wxColour</span><span class="symbol">(</span><span class="number">192</span><span class="symbol">,</span><span class="number">128</span><span class="symbol">,</span><span class="number">255</span><span class="symbol">)),</span><span class="normal"> </span><span class="comment">// purple</span>
+<span class="normal">        </span><span class="function">wxBrush</span><span class="symbol">(</span><span class="function">wxColour</span><span class="symbol">(</span><span class="number">128</span><span class="symbol">,</span><span class="number">255</span><span class="symbol">,</span><span class="number">192</span><span class="symbol">)),</span><span class="normal"> </span><span class="comment">// light green</span>
+<span class="normal">        </span><span class="function">wxBrush</span><span class="symbol">(</span><span class="function">wxColour</span><span class="symbol">(</span><span class="number">128</span><span class="symbol">,</span><span class="number">128</span><span class="symbol">,</span><span class="number">255</span><span class="symbol">)),</span><span class="normal"> </span><span class="comment">// blue</span>
+<span class="normal">        </span><span class="function">wxBrush</span><span class="symbol">(</span><span class="function">wxColour</span><span class="symbol">(</span><span class="number">192</span><span class="symbol">,</span><span class="number">128</span><span class="symbol">,</span><span class="number">192</span><span class="symbol">)),</span><span class="normal"> </span><span class="comment">// dark purple</span>
+<span class="normal">        </span><span class="function">wxBrush</span><span class="symbol">(</span><span class="function">wxColour</span><span class="symbol">(</span><span class="number">128</span><span class="symbol">,</span><span class="number">192</span><span class="symbol">,</span><span class="number">192</span><span class="symbol">)),</span><span class="normal"> </span><span class="comment">// dark cyan</span>
+<span class="normal">        </span><span class="function">wxBrush</span><span class="symbol">(</span><span class="function">wxColour</span><span class="symbol">(</span><span class="number">192</span><span class="symbol">,</span><span class="number">192</span><span class="symbol">,</span><span class="number">128</span><span class="symbol">)),</span><span class="normal"> </span><span class="comment">// dark yellow</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="usertype">wxMutexLocker</span><span class="normal"> </span><span class="function">lock</span><span class="symbol">(</span><span class="normal">m_mutex</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">ASSERT</span><span class="symbol">(</span><span class="normal">lock</span><span class="symbol">.</span><span class="function">IsOk</span><span class="symbol">());</span>
+
+<span class="normal">    </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">char</span><span class="normal"> clr</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="function">size</span><span class="symbol">();</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">==</span><span class="normal"> m_access1 </span><span class="symbol">||</span><span class="normal"> i </span><span class="symbol">==</span><span class="normal"> m_access2</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            dc</span><span class="symbol">.</span><span class="function">SetPen</span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">wxRED_PEN </span><span class="symbol">);</span>
+<span class="normal">            dc</span><span class="symbol">.</span><span class="function">SetBrush</span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">wxRED_BRUSH </span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">clr </span><span class="symbol">=</span><span class="normal"> </span><span class="function">InWatchList</span><span class="symbol">(</span><span class="normal">i</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">ASSERT</span><span class="symbol">(</span><span class="normal">clr </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">brushes</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">/</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">brushes</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]));</span>
+<span class="normal">            dc</span><span class="symbol">.</span><span class="function">SetPen</span><span class="symbol">(</span><span class="normal"> pens</span><span class="symbol">[</span><span class="normal">clr</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">            dc</span><span class="symbol">.</span><span class="function">SetBrush</span><span class="symbol">(</span><span class="normal"> brushes</span><span class="symbol">[</span><span class="normal">clr</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">m_mark</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">ASSERT</span><span class="symbol">(</span><span class="normal">m_mark</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">brushes</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">/</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">brushes</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]));</span>
+<span class="normal">            dc</span><span class="symbol">.</span><span class="function">SetPen</span><span class="symbol">(</span><span class="normal"> pens</span><span class="symbol">[</span><span class="normal">m_mark</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]]</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">            dc</span><span class="symbol">.</span><span class="function">SetBrush</span><span class="symbol">(</span><span class="normal"> brushes</span><span class="symbol">[</span><span class="normal">m_mark</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]]</span><span class="normal"> </span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">InList</span><span class="symbol">(</span><span class="normal">m_access_list</span><span class="symbol">,</span><span class="normal"> i</span><span class="symbol">))</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            dc</span><span class="symbol">.</span><span class="function">SetPen</span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">wxRED_PEN </span><span class="symbol">);</span>
+<span class="normal">            dc</span><span class="symbol">.</span><span class="function">SetBrush</span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">wxRED_BRUSH </span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="keyword">else</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            dc</span><span class="symbol">.</span><span class="function">SetPen</span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">wxWHITE_PEN </span><span class="symbol">);</span>
+<span class="normal">            dc</span><span class="symbol">.</span><span class="function">SetBrush</span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">wxWHITE_BRUSH </span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        dc</span><span class="symbol">.</span><span class="function">DrawRectangle</span><span class="symbol">(</span><span class="normal">i</span><span class="symbol">*</span><span class="normal">bstep</span><span class="symbol">,</span><span class="normal"> height</span><span class="symbol">,</span>
+<span class="normal">                         </span><span class="function">wxMax</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="comment">// draw at least 1 pixel</span>
+<span class="normal">                               </span><span class="symbol">(</span><span class="function">wxCoord</span><span class="symbol">((</span><span class="normal">i</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">)*</span><span class="normal">bstep</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> </span><span class="function">wxCoord</span><span class="symbol">(</span><span class="normal">i</span><span class="symbol">*</span><span class="normal">bstep</span><span class="symbol">))</span><span class="normal"> </span><span class="comment">// integral gap to next bar</span>
+<span class="normal">                               </span><span class="symbol">-</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">bstep </span><span class="symbol">-</span><span class="normal"> wbar</span><span class="symbol">)</span><span class="normal">    </span><span class="comment">// space between bars</span>
+<span class="normal">                             </span><span class="symbol">),</span>
+<span class="normal">                         </span><span class="symbol">-(</span><span class="type">double</span><span class="symbol">)</span><span class="normal">height </span><span class="symbol">*</span><span class="normal"> m_array</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">].</span><span class="function">get_direct</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">/</span><span class="normal"> m_array_max</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    m_access_list</span><span class="symbol">.</span><span class="function">clear</span><span class="symbol">();</span>
+<span class="cbracket">}</span>
+
+<span class="function">BEGIN_EVENT_TABLE</span><span class="symbol">(</span><span class="normal">WSortView</span><span class="symbol">,</span><span class="normal"> wxWindow</span><span class="symbol">)</span>
+
+<span class="normal">    </span><span class="function">EVT_PAINT</span><span class="normal">		</span><span class="symbol">(</span><span class="normal">WSortView</span><span class="symbol">::</span><span class="normal">OnPaint</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="function">EVT_SIZE</span><span class="normal">            </span><span class="symbol">(</span><span class="normal">WSortView</span><span class="symbol">::</span><span class="normal">OnSize</span><span class="symbol">)</span>
+
+<span class="function">END_EVENT_TABLE</span><span class="symbol">()</span>
+
+<span class="comment">// ****************************************************************************</span>
+<span class="comment">// *** Threading</span>
+
+<span class="normal">SortAlgoThread</span><span class="symbol">::</span><span class="function">SortAlgoThread</span><span class="symbol">(</span><span class="normal">WMain</span><span class="symbol">*</span><span class="normal"> wmain</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">WSortView</span><span class="symbol">&amp;</span><span class="normal"> array</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">size_t</span><span class="normal"> algo</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="symbol">:</span><span class="normal"> </span><span class="function">wxThread</span><span class="symbol">(</span><span class="normal">wxTHREAD_JOINABLE</span><span class="symbol">),</span>
+<span class="normal">      </span><span class="function">m_wmain</span><span class="symbol">(</span><span class="normal">wmain</span><span class="symbol">),</span>
+<span class="normal">      </span><span class="function">m_array</span><span class="symbol">(</span><span class="normal">array</span><span class="symbol">),</span>
+<span class="normal">      </span><span class="function">m_algo</span><span class="symbol">(</span><span class="normal">algo</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="symbol">*</span><span class="normal"> SortAlgoThread</span><span class="symbol">::</span><span class="function">Entry</span><span class="symbol">()</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">ASSERT</span><span class="symbol">(</span><span class="normal">m_algo </span><span class="symbol">&lt;</span><span class="normal"> g_algolist_size</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">const</span><span class="normal"> AlgoEntry</span><span class="symbol">&amp;</span><span class="normal"> ae </span><span class="symbol">=</span><span class="normal"> g_algolist</span><span class="symbol">[</span><span class="normal">m_algo</span><span class="symbol">];</span>
+
+<span class="normal">    ae</span><span class="symbol">.</span><span class="function">func</span><span class="symbol">(</span><span class="normal">m_array</span><span class="symbol">);</span>
+
+<span class="normal">    m_array</span><span class="symbol">.</span><span class="function">CheckSorted</span><span class="symbol">();</span>
+
+<span class="normal">    </span><span class="usertype">wxCommandEvent</span><span class="normal"> </span><span class="function">evt</span><span class="symbol">(</span><span class="normal">wxEVT_COMMAND_BUTTON_CLICKED</span><span class="symbol">,</span><span class="normal"> WMain</span><span class="symbol">::</span><span class="normal">ID_RUN_FINISHED</span><span class="symbol">);</span>
+<span class="normal">    m_wmain</span><span class="symbol">-&gt;</span><span class="function">GetEventHandler</span><span class="symbol">()-&gt;</span><span class="function">AddPendingEvent</span><span class="symbol">(</span><span class="normal">evt</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> SortAlgoThread</span><span class="symbol">::</span><span class="function">Exit</span><span class="symbol">()</span>
+<span class="cbracket">{</span>
+<span class="normal">    wxThread</span><span class="symbol">::</span><span class="function">Exit</span><span class="symbol">();</span>
+<span class="cbracket">}</span>
+
+<span class="comment">// ****************************************************************************</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div><script type="text/javascript">var _paq = _paq || []; _paq.push(["trackPageView"]); _paq.push(["enableLinkTracking"]);(function() {var u=(("https:" == document.location.protocol) ? "https" : "http") + "://panthema.net/wik-331/"; _paq.push(["setTrackerUrl", u+"js/"]); _paq.push(["setSiteId", "2"]);var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";g.defer=true; g.async=true; g.src=u+"js/"; s.parentNode.insertBefore(g,s);})();</script><noscript><p><img src="http://panthema.net/wik-331/js/?idsite=2&amp;rec=1" style="border:0" alt="" /></p></noscript></body></html>
