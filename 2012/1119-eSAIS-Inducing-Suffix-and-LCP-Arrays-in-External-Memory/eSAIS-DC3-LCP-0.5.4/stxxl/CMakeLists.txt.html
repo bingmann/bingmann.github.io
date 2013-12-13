@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/eSAIS-DC3-LCP-0.5.4/stxxl/CMakeLists.txt - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal2.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 13pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 10pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 11pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 10pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 15pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2012/">2012</a> / <a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory</a> / <a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/eSAIS-DC3-LCP-0.5.4/">eSAIS-DC3-LCP-0.5.4</a> / <a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/eSAIS-DC3-LCP-0.5.4/stxxl/">stxxl</a> / <a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/eSAIS-DC3-LCP-0.5.4/stxxl/CMakeLists.txt.html">CMakeLists.txt</a> (<a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/eSAIS-DC3-LCP-0.5.4/stxxl/CMakeLists.txt">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="normal">############################################################################</span>
+<span class="normal">#  CMakeLists.txt</span>
+<span class="normal">#</span>
+<span class="normal">#  Base CMake file for building stxxl with different options.</span>
+<span class="normal">#</span>
+<span class="normal">#  Part of the STXXL. See http://stxxl.sourceforge.net</span>
+<span class="normal">#</span>
+<span class="normal">#  Copyright (C) 2013 Timo Bingmann &lt;tb@panthema.net&gt;</span>
+<span class="normal">#</span>
+<span class="normal">#  Distributed under the Boost Software License, Version 1.0.</span>
+<span class="normal">#  (See accompanying file LICENSE_1_0.txt or copy at</span>
+<span class="normal">#  http://www.boost.org/LICENSE_1_0.txt)</span>
+<span class="normal">############################################################################</span>
+
+<span class="normal">set(CMAKE_LEGACY_CYGWIN_WIN32 0) # needed to silence warning on cygwin</span>
+
+<span class="normal"># require cmake 2.6.2 (but please use 2.8.x)</span>
+<span class="normal">cmake_minimum_required(VERSION 2.6.2 FATAL_ERROR)</span>
+
+<span class="normal"># the STXXL project</span>
+<span class="normal">project(stxxl)</span>
+
+<span class="normal"># for additional cmake scripts</span>
+<span class="normal">set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/misc/cmake)</span>
+
+<span class="normal"># prohibit in-source builds</span>
+<span class="normal">if("${PROJECT_SOURCE_DIR}" STREQUAL "${PROJECT_BINARY_DIR}")</span>
+<span class="normal">  message(SEND_ERROR "In-source builds are not allowed.")</span>
+<span class="normal">endif()</span>
+
+<span class="normal"># default to Debug building for single-config generators</span>
+<span class="normal">if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)</span>
+<span class="normal">  message("Defaulting CMAKE_BUILD_TYPE to Debug")</span>
+<span class="normal">  set(CMAKE_BUILD_TYPE "Debug")</span>
+<span class="normal">endif()</span>
+
+<span class="normal"># STXXL version string</span>
+<span class="normal">set(STXXL_VERSION_MAJOR "1")</span>
+<span class="normal">set(STXXL_VERSION_MINOR "4")</span>
+<span class="normal">set(STXXL_VERSION_PATCH "0")</span>
+<span class="normal">set(STXXL_VERSION_STRING "${STXXL_VERSION_MAJOR}.${STXXL_VERSION_MINOR}.${STXXL_VERSION_PATCH}")</span>
+<span class="normal">set(STXXL_VERSION_PHASE "prerelease/${CMAKE_BUILD_TYPE}")</span>
+
+<span class="normal"># read .git directory (if it exists) and find git sha</span>
+<span class="normal">include(GetGitRevisionDescription)</span>
+<span class="normal">get_git_head_revision(STXXL_VERSION_GIT_REFSPEC STXXL_VERSION_GIT_SHA1)</span>
+<span class="normal">if(STXXL_VERSION_GIT_REFSPEC)</span>
+<span class="normal">  message(STATUS "Detected git refspec ${STXXL_VERSION_GIT_REFSPEC} sha ${STXXL_VERSION_GIT_SHA1}")</span>
+<span class="normal">endif()</span>
+
+<span class="normal">###############################################################################</span>
+<span class="normal"># compilation options</span>
+
+<span class="normal"># please document all build options in doc/install.doc:install_build_options</span>
+
+<span class="normal">option(BUILD_EXAMPLES "Build all stxxl examples" OFF)</span>
+
+<span class="normal">option(BUILD_TESTS "Build all stxxl test programs" OFF)</span>
+<span class="normal">if(BUILD_TESTS)</span>
+<span class="normal">  set(BUILD_EXAMPLES ON)</span>
+<span class="normal">endif()</span>
+
+<span class="normal">option(BUILD_EXTRAS "Build all extra stxxl tests and tool programs" OFF)</span>
+
+<span class="normal">if(MSVC_VERSION LESS 1700)</span>
+<span class="normal">  # require boost for Visual C++ versions older than VC11 = MSVS 2012</span>
+<span class="normal">  set(USE_BOOST ON)</span>
+<span class="normal">else()</span>
+<span class="normal">  option(USE_BOOST "Use Boost libraries for threads,config,filesystem,random and date_time" OFF)</span>
+<span class="normal">endif()</span>
+
+<span class="normal">if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")</span>
+<span class="normal">  option(USE_GNU_PARALLEL "Use GNU parallel extensions for multi-core parallelism" ON)</span>
+<span class="normal">endif()</span>
+
+<span class="normal">option(TRY_COMPILE_HEADERS "Test stxxl header files for self-sufficiency: try to compile them." OFF)</span>
+
+<span class="normal">if(NOT MSVC)</span>
+<span class="normal">  option(USE_STD_THREADS "Force usage of C++ standard library thread support." OFF)</span>
+<span class="normal">endif()</span>
+
+<span class="normal">option(NO_CXX11 "Build without C++11 flags" OFF)</span>
+
+<span class="normal">option(USE_VALGRIND "Run tests with valgrind, pre-initialize some memory buffers." OFF)</span>
+
+<span class="normal">option(USE_GCOV "Compile and run tests with gcov for coverage analysis." OFF)</span>
+
+<span class="normal">### building shared and/or static libraries</span>
+
+<span class="normal"># by default we currently only build a static library, since we do not aim to</span>
+<span class="normal"># keep a stable binary interface.</span>
+<span class="normal">option(BUILD_STATIC_LIBS "Build static library version of libstxxl" ON)</span>
+<span class="normal">option(BUILD_SHARED_LIBS "Build shared library version of libstxxl" OFF)</span>
+
+<span class="normal">### allow user to specify other installation paths</span>
+
+<span class="normal">set(INSTALL_BIN_DIR "bin" CACHE PATH "Installation directory for executables")</span>
+<span class="normal">set(INSTALL_LIB_DIR "lib" CACHE PATH "Installation directory for libraries")</span>
+<span class="normal">set(INSTALL_INCLUDE_DIR "include" CACHE PATH "Installation directory for header files")</span>
+<span class="normal">set(INSTALL_PKGCONFIG_DIR "lib/pkgconfig" CACHE PATH "Installation directory for pkg-config file")</span>
+
+<span class="normal">if(WIN32 AND NOT CYGWIN)</span>
+<span class="normal">  set(DEF_INSTALL_CMAKE_DIR "CMake")</span>
+<span class="normal">else()</span>
+<span class="normal">  set(DEF_INSTALL_CMAKE_DIR "lib/cmake/stxxl")</span>
+<span class="normal">endif()</span>
+<span class="normal">set(INSTALL_CMAKE_DIR "${DEF_INSTALL_CMAKE_DIR}" CACHE PATH "Installation directory for cmake files")</span>
+
+<span class="normal">###############################################################################</span>
+<span class="normal"># enable use of "make test"</span>
+
+<span class="normal">enable_testing()</span>
+
+<span class="normal">include(CTest)</span>
+<span class="normal">set(CTEST_PROJECT_NAME "STXXL")</span>
+
+<span class="normal">if(USE_VALGRIND)</span>
+<span class="normal">  set(STXXL_WITH_VALGRIND 1)</span>
+<span class="normal">  set(VALGRIND_OPTS --leak-check=full --error-exitcode=1 --suppressions=${PROJECT_SOURCE_DIR}/misc/valgrind.supp)</span>
+<span class="normal">endif()</span>
+
+<span class="normal">###############################################################################</span>
+<span class="normal"># enable use of "make package"</span>
+
+<span class="normal"># general package settings</span>
+<span class="normal">set(CPACK_PACKAGE_VENDOR "STXXL Maintainer Team")</span>
+<span class="normal">set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Library of external memory algorithms")</span>
+<span class="normal">set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README")</span>
+<span class="normal">set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE_1_0.txt")</span>
+<span class="normal">set(CPACK_PACKAGE_VERSION_MAJOR "${STXXL_VERSION_MAJOR}")</span>
+<span class="normal">set(CPACK_PACKAGE_VERSION_MINOR "${STXXL_VERSION_MINOR}")</span>
+<span class="normal">set(CPACK_PACKAGE_VERSION_PATCH "${STXXL_VERSION_PATCH}")</span>
+
+<span class="normal"># source packaging</span>
+<span class="normal">set(CPACK_SOURCE_GENERATOR "TGZ")</span>
+<span class="normal">set(CPACK_SOURCE_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}-${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}")</span>
+<span class="normal">set(CPACK_SOURCE_IGNORE_FILES "/\\\\..*$;/build;${CPACK_SOURCE_IGNORE_FILES}")</span>
+
+<span class="normal"># binary packaging</span>
+<span class="normal">set(CPACK_GENERATOR "TGZ")</span>
+
+<span class="normal">include(CPack)</span>
+
+<span class="normal">###############################################################################</span>
+<span class="normal"># check platform</span>
+
+<span class="normal">if(WIN32 OR WIN64 OR MINGW)</span>
+<span class="normal">  set(STXXL_WINDOWS "1")</span>
+<span class="normal">endif()</span>
+
+<span class="normal">if(MSVC)</span>
+<span class="normal">  set(STXXL_MSVC ${MSVC_VERSION})</span>
+<span class="normal">endif()</span>
+
+<span class="normal">###############################################################################</span>
+<span class="normal"># enable warnings</span>
+
+<span class="normal">if(MSVC)</span>
+<span class="normal">  # Force to always compile with W4</span>
+<span class="normal">  if(CMAKE_CXX_FLAGS MATCHES "/W[0-4]")</span>
+<span class="normal">    string(REGEX REPLACE "/W[0-4]" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")</span>
+<span class="normal">  else()</span>
+<span class="normal">    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")</span>
+<span class="normal">  endif()</span>
+<span class="normal">  ### disable verbose warnings:</span>
+<span class="normal">  # warning C4127: conditional expression is constant</span>
+<span class="normal">  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4127")</span>
+<span class="normal">  # warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)</span>
+<span class="normal">  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4290")</span>
+<span class="normal">  # warning C4250: '...' : inherits '...' via dominance</span>
+<span class="normal">  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4250")</span>
+<span class="normal">  # warning C4512: assignment operator could not be generated (contains const members)</span>
+<span class="normal">  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4512")</span>
+<span class="normal">  # warning C4355: 'this' : used in base member initializer list</span>
+<span class="normal">  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4355")</span>
+<span class="normal">  # disable lots of warnings about "unsecure" C runtime function</span>
+<span class="normal">  add_definitions(-D_CRT_SECURE_NO_WARNINGS)</span>
+<span class="normal">  # disable lots of warnings about deprecated POSIX function names</span>
+<span class="normal">  add_definitions(-D_CRT_NONSTDC_NO_DEPRECATE)</span>
+<span class="normal">  # disable lots of warnings about "unsecure" STL functions</span>
+<span class="normal">  add_definitions(-D_SCL_SECURE_NO_WARNINGS)</span>
+<span class="normal">else()</span>
+<span class="normal">  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W -Wall -pedantic -Wno-long-long")</span>
+<span class="normal">  # detect -Wextra</span>
+<span class="normal">  include(CheckCXXCompilerFlag)</span>
+<span class="normal">  check_cxx_compiler_flag(-Wextra CXX_HAS_FLAGS_WEXTRA)</span>
+<span class="normal">  if(CXX_HAS_FLAGS_WEXTRA)</span>
+<span class="normal">    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra")</span>
+<span class="normal">  endif()</span>
+<span class="normal">endif()</span>
+
+<span class="normal">###############################################################################</span>
+<span class="normal"># enable C++11 and more compiler features</span>
+
+<span class="normal"># more template depth for some tests and compilers</span>
+<span class="normal">include(CheckCXXCompilerFlag)</span>
+<span class="normal">check_cxx_compiler_flag(-ftemplate-depth=1024 CXX_HAS_TEMPLATE_DEPTH)</span>
+<span class="normal">if(CXX_HAS_TEMPLATE_DEPTH)</span>
+<span class="normal">  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ftemplate-depth=1024")</span>
+<span class="normal">endif()</span>
+
+<span class="normal"># enable C++11</span>
+<span class="normal">if(MSVC)</span>
+<span class="normal">  # MSVC 11 or greater has C++11 automatically enabled</span>
+<span class="normal">elseif(CYGWIN)</span>
+<span class="normal">  # C++11 is very restrictive on Cygwin</span>
+<span class="normal">elseif(NOT NO_CXX11)</span>
+<span class="normal">  # try -std= flags to enable C++11</span>
+<span class="normal">  check_cxx_compiler_flag(-std=c++11 CXX_HAS_STD_CXX11)</span>
+<span class="normal">  if(CXX_HAS_STD_CXX11)</span>
+<span class="normal">    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")</span>
+<span class="normal">  else()</span>
+<span class="normal">    check_cxx_compiler_flag(-std=c++0x CXX_HAS_STD_CXX0X)</span>
+<span class="normal">    if(CXX_HAS_STD_CXX0X)</span>
+<span class="normal">      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")</span>
+<span class="normal">    endif()</span>
+<span class="normal">  endif()</span>
+<span class="normal">endif()</span>
+
+<span class="normal"># check C++ compiler for C++11 features</span>
+
+<span class="normal">include(CheckCXXSourceCompiles)</span>
+<span class="normal">check_cxx_source_compiles(</span>
+<span class="normal">  "#include &lt;vector&gt;</span>
+<span class="normal">   int main() { std::vector&lt;int&gt; v(42); for (auto i : v) { ++i; } return 0; }"</span>
+<span class="normal">  STXXL_HAVE_CXX11_RANGE_FOR_LOOP)</span>
+
+<span class="normal">###############################################################################</span>
+<span class="normal"># enable gcov coverage analysis with gcc</span>
+
+<span class="normal">if(USE_GCOV)</span>
+<span class="normal">  # find programs</span>
+<span class="normal">  find_program(GENHTML genhtml)</span>
+<span class="normal">  find_program(LCOV lcov)</span>
+
+<span class="normal">  if(NOT LCOV OR NOT GENHTML)</span>
+<span class="normal">    message(SEND_ERROR "Coverage analysis requires lcov and genhtml programs.")</span>
+<span class="normal">  endif()</span>
+
+<span class="normal">  # add coverage anaylsis compile and link flags</span>
+<span class="normal">  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fprofile-arcs -ftest-coverage")</span>
+<span class="normal">  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")</span>
+<span class="normal">  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lgcov")</span>
+
+<span class="normal">  # custom target to run before tests</span>
+<span class="normal">  add_custom_target(lcov-reset</span>
+<span class="normal">    COMMAND ${LCOV} -q --directory ${CMAKE_BINARY_DIR} --zerocounters</span>
+<span class="normal">    COMMENT "Resetting code coverage counters")</span>
+
+<span class="normal">  # custom lcov target to run tests</span>
+<span class="normal">  add_custom_target(lcov-runtests</span>
+<span class="normal">    COMMAND ${CMAKE_CTEST_COMMAND} \${ARGS}</span>
+<span class="normal">    DEPENDS ${ALL_TESTS} lcov-reset</span>
+<span class="normal">    COMMENT "Running all unit tests")</span>
+
+<span class="normal">  # get git version description</span>
+<span class="normal">  execute_process(COMMAND git describe --tags</span>
+<span class="normal">    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}</span>
+<span class="normal">    OUTPUT_VARIABLE GITDESC</span>
+<span class="normal">    OUTPUT_STRIP_TRAILING_WHITESPACE)</span>
+
+<span class="normal">  # command sequence to gather, clean and generate HTML coverage report</span>
+<span class="normal">  add_custom_target(lcov-html</span>
+<span class="normal">    COMMAND ${LCOV} -q --directory . --capture --output-file lcov.info</span>
+<span class="normal">    COMMAND ${LCOV} -q --remove lcov.info 'tests/*' 'examples/*' '/usr/*' --output-file lcov-clean.info</span>
+<span class="normal">    COMMAND ${GENHTML} -q -o coverage --title "STXXL ${GITDESC}" --prefix ${PROJECT_SOURCE_DIR} --legend lcov-clean.info</span>
+<span class="normal">    COMMENT "Capturing code coverage counters and create HTML coverage report"</span>
+<span class="normal">    WORKING_DIRECTORY ${CMAKE_BINARY_DIR})</span>
+
+<span class="normal">  # top-level target to run tests and generate coverage report</span>
+<span class="normal">  add_custom_target(test-coverage</span>
+<span class="normal">    COMMENT "Generate HTML coverage report "</span>
+<span class="normal">    DEPENDS lcov-runtests lcov-html)</span>
+
+<span class="normal">endif(USE_GCOV)</span>
+
+<span class="normal">###############################################################################</span>
+<span class="normal"># find thread and random library</span>
+
+<span class="normal"># for testing for c++ system include files</span>
+<span class="normal">include(CheckIncludeFileCXX)</span>
+
+<span class="normal">if(MSVC OR USE_STD_THREADS)</span>
+
+<span class="normal">  check_include_file_cxx(thread HAVE_STD_THREAD_H)</span>
+<span class="normal">  check_include_file_cxx(mutex HAVE_STD_MUTEX_H)</span>
+
+<span class="normal">  if(HAVE_STD_THREAD_H AND HAVE_STD_MUTEX_H)</span>
+<span class="normal">    set(STXXL_STD_THREADS "1")</span>
+<span class="normal">  endif()</span>
+
+<span class="normal">  # using &lt;thread&gt; also requires -pthread on gcc</span>
+<span class="normal">  if(CMAKE_COMPILER_IS_GNUCXX)</span>
+<span class="normal">    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")</span>
+<span class="normal">  endif()</span>
+
+<span class="normal">  # also check for &lt;random&gt;</span>
+<span class="normal">  check_include_file_cxx(random STXXL_STD_RANDOM)</span>
+
+<span class="normal">else()</span>
+<span class="normal">  find_package(Threads REQUIRED)</span>
+<span class="normal">  set(STXXL_POSIX_THREADS "1")</span>
+<span class="normal">endif()</span>
+
+<span class="normal">###############################################################################</span>
+<span class="normal"># determine large file support</span>
+<span class="normal">#     note: these flags need not be exported, all file operations must be</span>
+<span class="normal">#     encapsulated within the library!</span>
+
+<span class="normal">include(TestLargeFiles)</span>
+<span class="normal">test_large_files(HAVE_LARGEFILES)</span>
+
+<span class="normal">if (HAVE_LARGEFILES)</span>
+<span class="normal">  add_definitions(-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES)</span>
+<span class="normal">else (NOT HAVE_LARGEFILES)</span>
+<span class="normal">  message(FATAL_ERROR "Large file support was not detectable.")</span>
+<span class="normal">endif (HAVE_LARGEFILES)</span>
+
+<span class="normal">###############################################################################</span>
+<span class="normal"># check for O_DIRECT flag</span>
+
+<span class="normal">if(CYGWIN)</span>
+<span class="normal">  #-tb O_DIRECT messes up cygwin</span>
+<span class="normal">  set(STXXL_DIRECT_IO_OFF 1)</span>
+<span class="normal">elseif(MSVC)</span>
+<span class="normal">  # have FILE_FLAG_NO_BUFFERING on Windows</span>
+<span class="normal">  set(STXXL_DIRECT_IO_OFF 0)</span>
+<span class="normal">elseif(APPLE)</span>
+<span class="normal">  # we do not have to test anything, all is well.</span>
+<span class="normal">  set(STXXL_DIRECT_IO_OFF 0)</span>
+<span class="normal">else()</span>
+
+<span class="normal">  include(CheckCXXSourceCompiles)</span>
+<span class="normal">  check_cxx_source_compiles("</span>
+<span class="normal">#include &lt;unistd.h&gt;</span>
+<span class="normal">#include &lt;fcntl.h&gt;</span>
+<span class="normal">int main(int argc, char * argv[]) { argc = O_DIRECT; }</span>
+<span class="normal">" STXXL_HAVE_O_DIRECT)</span>
+
+<span class="normal">  if (STXXL_HAVE_O_DIRECT)</span>
+<span class="normal">    set(STXXL_DIRECT_IO_OFF 0)</span>
+<span class="normal">  else()</span>
+<span class="normal">    set(STXXL_DIRECT_IO_OFF 1)</span>
+<span class="normal">  endif()</span>
+
+<span class="normal">endif()</span>
+
+<span class="normal">if(STXXL_DIRECT_IO_OFF)</span>
+<span class="normal">  message(WARNING</span>
+<span class="normal">    "The open() flag O_DIRECT was disabled!\n"</span>
+<span class="normal">    "This means that STXXL cannot bypass the system cache on your system, which may degrade performance.")</span>
+<span class="normal">endif()</span>
+
+<span class="normal">###############################################################################</span>
+<span class="normal"># check for mmap() function in sys/mman.h</span>
+
+<span class="normal">include(CheckSymbolExists)</span>
+<span class="normal">check_symbol_exists(mmap "sys/mman.h" STXXL_HAVE_MMAP_FILE)</span>
+
+<span class="normal">###############################################################################</span>
+<span class="normal"># check for an atomic add-and-fetch intrinsic for counting_ptr</span>
+
+<span class="normal">include(CheckCXXSourceCompiles)</span>
+<span class="normal">check_cxx_source_compiles(</span>
+<span class="normal">  "int main() { int x; __sync_add_and_fetch(&amp;x, +1); return 0; }"</span>
+<span class="normal">  STXXL_HAVE_SYNC_ADD_AND_FETCH)</span>
+
+<span class="normal">###############################################################################</span>
+<span class="normal"># optional Boost libraries</span>
+
+<span class="normal">if(USE_BOOST)</span>
+
+<span class="normal">  set(Boost_USE_MULTITHREADED ON)</span>
+
+<span class="normal">  if(WIN32)</span>
+<span class="normal">    set(Boost_USE_STATIC_LIBS ON)</span>
+<span class="normal">  endif(WIN32)</span>
+
+<span class="normal">  # first try to find the version</span>
+<span class="normal">  find_package(Boost 1.34.1 REQUIRED)</span>
+
+<span class="normal">  if(Boost_VERSION GREATER 104699)</span>
+<span class="normal">    #-tb Boost &gt;= 1.47.0 found, we must also link with libboost_chrono for MSVC to work.</span>
+<span class="normal">    find_package(Boost 1.47.0 REQUIRED COMPONENTS thread date_time chrono iostreams system filesystem)</span>
+<span class="normal">  elseif(Boost_VERSION GREATER 103499)</span>
+<span class="normal">    #-tb Boost &gt;= 1.35.0 found, we must also link with libboost_system for MSVC to work.</span>
+<span class="normal">    find_package(Boost 1.35.0 REQUIRED COMPONENTS thread date_time iostreams system filesystem)</span>
+<span class="normal">  else()</span>
+<span class="normal">    find_package(Boost 1.34.1 REQUIRED COMPONENTS thread date_time iostreams filesystem)</span>
+<span class="normal">  endif()</span>
+
+<span class="normal">  # force caching of variables to display them to the user</span>
+<span class="normal">  set(BOOST_ROOT "${BOOST_ROOT}" CACHE PATH "Boost installation root." FORCE)</span>
+
+<span class="normal">  if(Boost_FOUND)</span>
+<span class="normal">    # globally add boost include directories</span>
+<span class="normal">    include_directories(${Boost_INCLUDE_DIRS})</span>
+<span class="normal">    # set defines in &lt;stxxl/bits/config.h&gt;</span>
+<span class="normal">    set(STXXL_BOOST_CONFIG "1")</span>
+<span class="normal">    set(STXXL_BOOST_FILESYSTEM "1")</span>
+<span class="normal">    set(STXXL_BOOST_RANDOM "1")</span>
+<span class="normal">    set(STXXL_BOOST_THREADS "1")</span>
+<span class="normal">    set(STXXL_BOOST_TIMESTAMP "1")</span>
+<span class="normal">  elseif(MSVC_VERSION LESS 1700)</span>
+<span class="normal">    message(FATAL_ERROR "Boost libraries are required for MSVC &lt; 2012.")</span>
+<span class="normal">  else()</span>
+<span class="normal">    message(FATAL_ERROR "Boost libraries not found. Try compilation without them.")</span>
+<span class="normal">  endif()</span>
+
+<span class="normal">endif(USE_BOOST)</span>
+
+<span class="normal">###############################################################################</span>
+<span class="normal"># optional GNU parallel STL mode</span>
+
+<span class="normal">if(USE_GNU_PARALLEL)</span>
+
+<span class="normal">  include(FindOpenMP)</span>
+
+<span class="normal">  if(NOT OPENMP_FOUND)</span>
+<span class="normal">    message(FATAL_ERROR "OpenMP not found. Try compilation without GNU parallel mode.")</span>
+<span class="normal">  else()</span>
+<span class="normal">    check_include_file_cxx(parallel/algorithm HAVE_PARALLEL_ALGORITHM_H)</span>
+
+<span class="normal">    if (NOT HAVE_PARALLEL_ALGORITHM_H)</span>
+<span class="normal">      message(FATAL_ERROR "GNU parallel mode header not found. Try compilation without parallel mode.")</span>
+<span class="normal">    else()</span>
+<span class="normal">      set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")</span>
+<span class="normal">      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")</span>
+<span class="normal">      set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")</span>
+
+<span class="normal">      set(STXXL_PARALLEL_MODE_EXPLICIT "1")</span>
+
+<span class="normal">    endif()</span>
+<span class="normal">  endif()</span>
+
+<span class="normal">endif(USE_GNU_PARALLEL)</span>
+
+<span class="normal">###############################################################################</span>
+<span class="normal"># check if one thread and random library is available</span>
+
+<span class="normal">if(STXXL_STD_THREADS)</span>
+<span class="normal">  message(STATUS "Using std::thread and other C++11 library functions.")</span>
+<span class="normal">  set(STXXL_BOOST_THREADS 0)</span>
+<span class="normal">  set(STXXL_POSIX_THREADS 0)</span>
+<span class="normal">elseif(STXXL_BOOST_THREADS)</span>
+<span class="normal">  message(STATUS "Using boost::thread library functions.")</span>
+<span class="normal">  set(STXXL_STD_THREADS 0)</span>
+<span class="normal">  set(STXXL_POSIX_THREADS 0)</span>
+<span class="normal">elseif(STXXL_POSIX_THREADS)</span>
+<span class="normal">  message(STATUS "Using POSIX pthread library functions.")</span>
+<span class="normal">  set(STXXL_STD_THREADS 0)</span>
+<span class="normal">  set(STXXL_BOOST_THREADS 0)</span>
+<span class="normal">else()</span>
+<span class="normal">  message(SEND_ERROR "Could not detect a thread library. Check the compilation documentation.")</span>
+<span class="normal">endif()</span>
+
+<span class="normal">###############################################################################</span>
+<span class="normal"># test for additional includes and features used by some stxxl_tool components</span>
+
+<span class="normal">include(CheckSymbolExists)</span>
+<span class="normal">check_symbol_exists(mallinfo "malloc.h" STXXL_HAVE_MALLINFO_PROTO)</span>
+<span class="normal">check_symbol_exists(mlock "sys/mman.h" STXXL_HAVE_MLOCK_PROTO)</span>
+
+<span class="normal">###############################################################################</span>
+<span class="normal"># configure environment for building</span>
+
+<span class="normal"># create config.h with define switches _inside binary dir_!</span>
+<span class="normal">configure_file(${PROJECT_SOURCE_DIR}/include/stxxl/bits/config.h.in ${PROJECT_BINARY_DIR}/include/stxxl/bits/config.h)</span>
+
+<span class="normal"># CXX_FLAGS required for compilation</span>
+<span class="normal">set(STXXL_CXX_FLAGS ${OpenMP_CXX_FLAGS})</span>
+
+<span class="normal"># globally adds top-level include directories</span>
+<span class="normal">set(STXXL_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/include/ ${PROJECT_BINARY_DIR}/include/)</span>
+<span class="normal">include_directories(${STXXL_INCLUDE_DIRS})</span>
+
+<span class="normal"># for targets using stxxl library</span>
+<span class="normal">set(STXXL_EXTRA_LIBRARIES ${Boost_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})</span>
+<span class="normal">set(STXXL_LIBRARIES stxxl ${STXXL_EXTRA_LIBRARIES})</span>
+
+<span class="normal"># export STXXL_INCLUDE_DIRS and STXXL_LIBRARIES to global CACHE</span>
+<span class="normal">set(STXXL_CXX_FLAGS "${STXXL_CXX_FLAGS}" CACHE STRING "Compiler flags for STXXL")</span>
+<span class="normal">set(STXXL_INCLUDE_DIRS "${STXXL_INCLUDE_DIRS}" CACHE STRING "Include paths for STXXL")</span>
+<span class="normal">set(STXXL_LIBRARIES "${STXXL_LIBRARIES}" CACHE STRING "Libraries to link for STXXL")</span>
+
+<span class="normal"># build libstxxl in /lib</span>
+<span class="normal">add_subdirectory(lib)</span>
+
+<span class="normal">###############################################################################</span>
+<span class="normal"># macros for building stxxl programs and tests</span>
+
+<span class="normal"># macro for building stxxl programs</span>
+<span class="normal">macro(stxxl_build_tool PROGNAME)</span>
+
+<span class="normal">  add_executable(${PROGNAME} ${PROGNAME}.cpp ${ARGN})</span>
+<span class="normal">  target_link_libraries(${PROGNAME} ${STXXL_LIBRARIES})</span>
+
+<span class="normal">endmacro(stxxl_build_tool)</span>
+
+<span class="normal"># macro for building stxxl examples</span>
+<span class="normal">macro(stxxl_build_example TESTNAME)</span>
+
+<span class="normal">  if(BUILD_EXAMPLES)</span>
+<span class="normal">    stxxl_build_tool(${TESTNAME} ${ARGN})</span>
+<span class="normal">  endif(BUILD_EXAMPLES)</span>
+
+<span class="normal">endmacro(stxxl_build_example)</span>
+
+<span class="normal"># macro for building stxxl tests</span>
+<span class="normal">macro(stxxl_build_test TESTNAME)</span>
+
+<span class="normal">  if(BUILD_TESTS)</span>
+<span class="normal">    stxxl_build_tool(${TESTNAME} ${ARGN})</span>
+<span class="normal">  endif(BUILD_TESTS)</span>
+
+<span class="normal">endmacro(stxxl_build_test)</span>
+
+<span class="normal"># macro for registering stxxl tests</span>
+<span class="normal">macro(stxxl_test TESTNAME)</span>
+
+<span class="normal">  if(BUILD_TESTS)</span>
+<span class="normal">    set(TESTFULLNAME ${TESTNAME} ${ARGN})</span>
+<span class="normal">    string(REPLACE ";" "_" TESTFULLNAME "${TESTFULLNAME}") # stringify list</span>
+
+<span class="normal">    if(USE_VALGRIND)</span>
+<span class="normal">      # prepend valgrind call</span>
+<span class="normal">      add_test(${TESTFULLNAME} /usr/bin/valgrind ${VALGRIND_OPTS} ./${TESTNAME} ${ARGN})</span>
+<span class="normal">      set_tests_properties(${TESTFULLNAME} PROPERTIES TIMEOUT 7200)</span>
+<span class="normal">    else()</span>
+<span class="normal">      add_test(${TESTFULLNAME} ${TESTNAME} ${ARGN})</span>
+<span class="normal">      set_tests_properties(${TESTFULLNAME} PROPERTIES TIMEOUT 3600)</span>
+<span class="normal">    endif()</span>
+
+<span class="normal">  endif(BUILD_TESTS)</span>
+
+<span class="normal">endmacro(stxxl_test)</span>
+
+<span class="normal"># macro for building stxxl extra program</span>
+<span class="normal">macro(stxxl_build_extra_tool)</span>
+
+<span class="normal">  if(BUILD_EXTRAS)</span>
+<span class="normal">    stxxl_build_tool(${ARGN})</span>
+<span class="normal">  endif(BUILD_EXTRAS)</span>
+
+<span class="normal">endmacro(stxxl_build_extra_tool)</span>
+
+<span class="normal"># macro for registering extra stxxl tests</span>
+<span class="normal">macro(stxxl_extra_test)</span>
+
+<span class="normal">  if(BUILD_EXTRAS)</span>
+<span class="normal">    stxxl_test(${ARGN})</span>
+<span class="normal">  endif(BUILD_EXTRAS)</span>
+
+<span class="normal">endmacro(stxxl_extra_test)</span>
+
+<span class="normal"># macro for setting additional defines for targets</span>
+<span class="normal">macro(add_define PROGNAME)</span>
+
+<span class="normal">  if(TARGET ${PROGNAME})</span>
+<span class="normal">    set_property(TARGET ${PROGNAME} APPEND PROPERTY COMPILE_DEFINITIONS ${ARGN})</span>
+<span class="normal">  else()</span>
+<span class="normal">    if(BUILD_TESTS)</span>
+<span class="normal">      message("Ignoring add_define(${PROGNAME} ${ARGN}) for unknown target ${PROGNAME}")</span>
+<span class="normal">    endif(BUILD_TESTS)</span>
+<span class="normal">  endif()</span>
+
+<span class="normal">endmacro (add_define TESTNAME)</span>
+
+<span class="normal">###############################################################################</span>
+<span class="normal"># cmake script TRY_COMPILE all stxxl header files</span>
+
+<span class="normal">if(TRY_COMPILE_HEADERS)</span>
+
+<span class="normal">  include(CheckCXXSourceCompiles)</span>
+<span class="normal">  set(CMAKE_REQUIRED_INCLUDES ${STXXL_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})</span>
+<span class="normal">  set(CMAKE_REQUIRED_LIBRARIES ${Boost_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})</span>
+
+<span class="normal">  file(GLOB_RECURSE header_files FOLLOW_SYMLINKS "include/*")</span>
+<span class="normal">  list(REMOVE_ITEM header_files "${PROJECT_SOURCE_DIR}/include/stxxl/bits/config.h.in")</span>
+<span class="normal">  list(SORT header_files)</span>
+
+<span class="normal">  foreach(file ${header_files})</span>
+<span class="normal">    check_cxx_source_compiles(</span>
+<span class="normal">      "#include \"${file}\"</span>
+<span class="normal">      int main() { return 0; }" IsSelfContained-${file})</span>
+
+<span class="normal">    if(NOT IsSelfContained-${file})</span>
+<span class="normal">      message(SEND_ERROR "Compilation FAILED for ${file}\n\nCompiler output:\n${OUTPUT}")</span>
+<span class="normal">    endif()</span>
+<span class="normal">  endforeach()</span>
+
+<span class="normal">endif(TRY_COMPILE_HEADERS)</span>
+
+<span class="normal">###############################################################################</span>
+<span class="normal"># figure out STXXL_TMPDIR for tests</span>
+
+<span class="normal">if(BUILD_TESTS)</span>
+
+<span class="normal">  if(DEFINED ENV{STXXL_TMPDIR})</span>
+<span class="normal">    set(STXXL_TMPDIR "$ENV{STXXL_TMPDIR}")</span>
+<span class="normal">  elseif(NOT DEFINED STXXL_TMPDIR)</span>
+<span class="normal">    set(STXXL_TMPDIR ".")</span>
+<span class="normal">  endif()</span>
+
+<span class="normal">  message(STATUS "Using STXXL_TMPDIR ${STXXL_TMPDIR} for tests")</span>
+
+<span class="normal">endif(BUILD_TESTS)</span>
+
+<span class="normal">###############################################################################</span>
+<span class="normal"># install header files</span>
+
+<span class="normal">install(FILES include/stxxl.h DESTINATION ${INSTALL_INCLUDE_DIR})</span>
+<span class="normal">install(DIRECTORY include/stxxl DESTINATION ${INSTALL_INCLUDE_DIR})</span>
+
+<span class="normal"># also copy the config file with build options!</span>
+<span class="normal">install(FILES ${PROJECT_BINARY_DIR}/include/stxxl/bits/config.h</span>
+<span class="normal">  DESTINATION ${INSTALL_INCLUDE_DIR}/stxxl/bits/)</span>
+
+<span class="normal">###############################################################################</span>
+<span class="normal"># prepare pkg-config file</span>
+
+<span class="normal">configure_file(misc/cmake/stxxl.pc</span>
+<span class="normal">  "${PROJECT_BINARY_DIR}/${STXXL_LIBNAME}.pc" @ONLY)</span>
+
+<span class="normal"># copy the stxxl.pc file into lib/pkgconfig</span>
+<span class="normal">if(INSTALL_PKGCONFIG_DIR)</span>
+<span class="normal">  install(FILES ${PROJECT_BINARY_DIR}/${STXXL_LIBNAME}.pc</span>
+<span class="normal">    DESTINATION ${INSTALL_PKGCONFIG_DIR})</span>
+<span class="normal">endif()</span>
+
+<span class="normal">###############################################################################</span>
+<span class="normal"># export targets to cmake project config file</span>
+
+<span class="normal">if(${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} GREATER 2.6)</span>
+<span class="normal">  # register package for use from the global CMake-registry</span>
+<span class="normal">  export(PACKAGE stxxl)</span>
+<span class="normal">endif()</span>
+
+<span class="normal"># add stxxl library targets to the build tree export set</span>
+<span class="normal">export(TARGETS ${STXXL_EXPORTED_LIBS} FILE "${PROJECT_BINARY_DIR}/stxxl-targets.cmake")</span>
+
+<span class="normal"># calculate absolute install paths</span>
+<span class="normal">foreach(dir LIB BIN INCLUDE CMAKE)</span>
+<span class="normal">  set(ABS_INSTALL_${dir}_DIR "${INSTALL_${dir}_DIR}")</span>
+<span class="normal">  if(NOT IS_ABSOLUTE "${ABS_INSTALL_${dir}_DIR}")</span>
+<span class="normal">    set(ABS_INSTALL_${dir}_DIR "${CMAKE_INSTALL_PREFIX}/${ABS_INSTALL_${dir}_DIR}")</span>
+<span class="normal">  endif()</span>
+<span class="normal">endforeach()</span>
+
+<span class="normal"># calculate final installed include path relative to cmake install path</span>
+<span class="normal">file(RELATIVE_PATH REL_INCLUDE_DIR "${ABS_INSTALL_CMAKE_DIR}" "${ABS_INSTALL_INCLUDE_DIR}")</span>
+
+<span class="normal"># create common stxxl-config.cmake file</span>
+<span class="normal">configure_file(misc/cmake/stxxl-version.cmake.in</span>
+<span class="normal">  "${PROJECT_BINARY_DIR}/stxxl-version.cmake" @ONLY)</span>
+
+<span class="normal"># create stxxl-version.cmake file for the build tree</span>
+<span class="normal">set(CONF_INCLUDE_DIRS "${STXXL_INCLUDE_DIRS}")</span>
+<span class="normal">configure_file(misc/cmake/stxxl-config.cmake.in</span>
+<span class="normal">  "${PROJECT_BINARY_DIR}/stxxl-config.cmake" @ONLY)</span>
+
+<span class="normal"># create stxxl-version.cmake file for the install tree</span>
+<span class="normal">set(CONF_INCLUDE_DIRS "\${STXXL_CMAKE_DIR}/${REL_INCLUDE_DIR}")</span>
+<span class="normal">configure_file(misc/cmake/stxxl-config.cmake.in</span>
+<span class="normal">  "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/stxxl-config.cmake" @ONLY)</span>
+
+<span class="normal"># install the stxxl-config.cmake and stxxl-version.cmake</span>
+<span class="normal">install(FILES</span>
+<span class="normal">  "${PROJECT_BINARY_DIR}/stxxl-version.cmake"</span>
+<span class="normal">  "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/stxxl-config.cmake"</span>
+<span class="normal">  DESTINATION "${INSTALL_CMAKE_DIR}")</span>
+
+<span class="normal"># Install the export set for use with the install-tree</span>
+<span class="normal">install(EXPORT stxxl-targets DESTINATION "${INSTALL_CMAKE_DIR}")</span>
+
+<span class="normal">###############################################################################</span>
+<span class="normal"># build tests and tools</span>
+
+<span class="normal">add_subdirectory(tools)</span>
+<span class="normal">add_subdirectory(examples)</span>
+<span class="normal">add_subdirectory(tests)</span>
+<span class="normal">add_subdirectory(local)</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div><script type="text/javascript">var _paq = _paq || []; _paq.push(["trackPageView"]); _paq.push(["enableLinkTracking"]);(function() {var u=(("https:" == document.location.protocol) ? "https" : "http") + "://panthema.net/wik-331/"; _paq.push(["setTrackerUrl", u+"js/"]); _paq.push(["setSiteId", "2"]);var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";g.defer=true; g.async=true; g.src=u+"js/"; s.parentNode.insertBefore(g,s);})();</script><noscript><p><img src="http://panthema.net/wik-331/js/?idsite=2&amp;rec=1" style="border:0" alt="" /></p></noscript></body></html>

@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/eSAIS-DC3-LCP-0.5.4/src/tools/lp_hash_table.h - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal5.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 13pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 10pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 11pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 10pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 15pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2012/">2012</a> / <a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory</a> / <a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/eSAIS-DC3-LCP-0.5.4/">eSAIS-DC3-LCP-0.5.4</a> / <a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/eSAIS-DC3-LCP-0.5.4/src/">src</a> / <a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/eSAIS-DC3-LCP-0.5.4/src/tools/">tools</a> / <a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/eSAIS-DC3-LCP-0.5.4/src/tools/lp_hash_table.h.html">lp_hash_table.h</a> (<a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/eSAIS-DC3-LCP-0.5.4/src/tools/lp_hash_table.h">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">/******************************************************************************</span>
+<span class="comment"> * src/tools/lp_hash_table.h</span>
+<span class="comment"> *</span>
+<span class="comment"> * A size bounded hash table with linear probing.</span>
+<span class="comment"> *</span>
+<span class="comment"> * The complete structure uses only a limited amount of memory, thus inserted</span>
+<span class="comment"> * key/value pairs may be discarded when the table gets too full. If it is</span>
+<span class="comment"> * discarded, then for future gets the hash table will indicate that an pair</span>
+<span class="comment"> * may have been discarded. This indication can have false positives.</span>
+<span class="comment"> *</span>
+<span class="comment"> ******************************************************************************</span>
+<span class="comment"> * Copyright (C) 2013 Timo Bingmann </span><span class="url">&lt;tb@panthema.net&gt;</span>
+<span class="comment"> *</span>
+<span class="comment"> * This program is free software: you can redistribute it and/or modify it</span>
+<span class="comment"> * under the terms of the GNU General Public License as published by the Free</span>
+<span class="comment"> * Software Foundation, either version 3 of the License, or (at your option)</span>
+<span class="comment"> * any later version.</span>
+<span class="comment"> *</span>
+<span class="comment"> * This program is distributed in the hope that it will be useful, but WITHOUT</span>
+<span class="comment"> * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or</span>
+<span class="comment"> * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for</span>
+<span class="comment"> * more details.</span>
+<span class="comment"> *</span>
+<span class="comment"> * You should have received a copy of the GNU General Public License along with</span>
+<span class="comment"> * this program.  If not, see </span><span class="url">&lt;http://www.gnu.org/licenses/&gt;</span><span class="comment">.</span>
+<span class="comment"> *****************************************************************************/</span>
+
+<span class="preproc">#ifndef</span><span class="normal"> LP_HASH_TABLE_H_</span>
+<span class="preproc">#define</span><span class="normal"> LP_HASH_TABLE_H_</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;vector&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;iostream&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;stdint.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;stdlib.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;assert.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;math.h&gt;</span>
+
+<span class="keyword">namespace</span><span class="normal"> lp_hash_table </span><span class="cbracket">{</span>
+
+<span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">KeyType</span><span class="symbol">&gt;</span>
+<span class="keyword">inline</span><span class="normal"> </span><span class="usertype">size_t</span><span class="normal"> </span><span class="function">hash</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> KeyType</span><span class="symbol">&amp;</span><span class="normal"> key</span><span class="symbol">,</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> i</span><span class="symbol">);</span>
+
+<span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">KeyType</span><span class="symbol">&gt;</span>
+<span class="keyword">inline</span><span class="normal"> </span><span class="usertype">size_t</span><span class="normal"> </span><span class="function">hash</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> KeyType</span><span class="symbol">&amp;</span><span class="normal"> key</span><span class="symbol">);</span>
+
+<span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;&gt;</span>
+<span class="keyword">inline</span><span class="normal"> </span><span class="usertype">size_t</span><span class="normal"> </span><span class="function">hash</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> uint32_t</span><span class="symbol">&amp;</span><span class="normal"> key</span><span class="symbol">,</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> i</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">uint32_t</span><span class="normal"> factor</span><span class="symbol">[]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="number">2654435769u</span><span class="symbol">,</span><span class="normal"> </span><span class="comment">// -phi</span>
+<span class="normal">        </span><span class="number">3474701532u</span><span class="symbol">,</span><span class="normal"> </span><span class="comment">// hat{phi}</span>
+<span class="normal">        </span><span class="number">3373259426u</span><span class="symbol">,</span><span class="normal"> </span><span class="comment">// pi</span>
+<span class="normal">        </span><span class="number">2918732888u</span><span class="symbol">,</span><span class="normal"> </span><span class="comment">// e</span>
+<span class="normal">        </span><span class="number">3037000499u</span><span class="symbol">,</span><span class="normal"> </span><span class="comment">// sqrt(2)</span>
+<span class="normal">        </span><span class="number">3719550786u</span><span class="symbol">,</span><span class="normal"> </span><span class="comment">// sqrt(3)</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">key </span><span class="symbol">*</span><span class="normal"> factor</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]);</span>
+<span class="cbracket">}</span>
+
+<span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;&gt;</span>
+<span class="keyword">inline</span><span class="normal"> </span><span class="usertype">size_t</span><span class="normal"> </span><span class="function">hash</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> uint32_t</span><span class="symbol">&amp;</span><span class="normal"> key</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">hash</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">,</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;&gt;</span>
+<span class="keyword">inline</span><span class="normal"> </span><span class="usertype">size_t</span><span class="normal"> </span><span class="function">hash</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> uint64_t</span><span class="symbol">&amp;</span><span class="normal"> key</span><span class="symbol">,</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> i</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">uint64_t</span><span class="normal"> factor</span><span class="symbol">[]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        11400714819323198485llu</span><span class="symbol">,</span><span class="normal"> </span><span class="comment">// -phi</span>
+<span class="normal">        14923729446516375050llu</span><span class="symbol">,</span><span class="normal"> </span><span class="comment">// hat{phi}</span>
+<span class="normal">        14488038916154245684llu</span><span class="symbol">,</span><span class="normal"> </span><span class="comment">// pi</span>
+<span class="normal">        12535862302449814170llu</span><span class="symbol">,</span><span class="normal"> </span><span class="comment">// e</span>
+<span class="normal">        13043817825332782212llu</span><span class="symbol">,</span><span class="normal"> </span><span class="comment">// sqrt(2)</span>
+<span class="normal">        15975348984942515101llu</span><span class="symbol">,</span><span class="normal"> </span><span class="comment">// sqrt(3)</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">key </span><span class="symbol">*</span><span class="normal"> factor</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]);</span>
+<span class="cbracket">}</span>
+
+<span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;&gt;</span>
+<span class="keyword">inline</span><span class="normal"> </span><span class="usertype">size_t</span><span class="normal"> </span><span class="function">hash</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> uint64_t</span><span class="symbol">&amp;</span><span class="normal"> key</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="function">hash</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">,</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/**</span>
+<span class="comment"> * Class for a simple Bloom fiter.</span>
+<span class="comment"> */</span>
+<span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">KeyType</span><span class="symbol">&gt;</span>
+<span class="keyword">class</span><span class="normal"> </span><span class="classname">BloomFilter</span>
+<span class="cbracket">{</span>
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">/// the key type of the Bloom filter</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">KeyType</span><span class="normal">     key_type</span><span class="symbol">;</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+
+<span class="normal">    </span><span class="comment">// approximate false positive rate:</span>
+<span class="normal">    </span><span class="comment">// (1 - exp(- kn/m))^k</span>
+
+<span class="normal">    </span><span class="comment">// the optimal k for m/n is</span>
+<span class="normal">    </span><span class="comment">// k = ln(2) * m/n</span>
+
+<span class="normal">    </span><span class="comment">// with this k, bit array size m depending on probability p:</span>
+<span class="normal">    </span><span class="comment">// m  = - 2 n ln p</span>
+
+<span class="normal">    </span><span class="comment">/// bit array size m</span>
+<span class="normal">    </span><span class="usertype">size_t</span><span class="normal">      m_M</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// number of hash functions k</span>
+<span class="normal">    </span><span class="type">int</span><span class="normal">         m_K</span><span class="symbol">;</span>
+
+<span class="keyword">protected</span><span class="symbol">:</span>
+
+<span class="normal">    </span><span class="comment">/// the bit array, represented as size_ts</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">vector&lt;size_t&gt;</span><span class="normal"> m_bits</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// set the b-th bit in the array</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">set_bit</span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> b</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> off </span><span class="symbol">=</span><span class="normal"> b </span><span class="symbol">/</span><span class="normal"> </span><span class="symbol">(</span><span class="number">8</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">size_t</span><span class="symbol">));</span>
+<span class="normal">        </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> sht </span><span class="symbol">=</span><span class="normal"> b </span><span class="symbol">%</span><span class="normal"> </span><span class="symbol">(</span><span class="number">8</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">size_t</span><span class="symbol">));</span>
+<span class="normal">        </span>
+<span class="normal">        m_bits</span><span class="symbol">[</span><span class="normal">off</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">|=</span><span class="normal"> </span><span class="symbol">(((</span><span class="normal">size_t</span><span class="symbol">)</span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> sht</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span>
+<span class="normal">    </span><span class="comment">/// return the b-th bit in the array (for != 0 comparisons)</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="usertype">size_t</span><span class="normal"> </span><span class="function">get_bit</span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> b</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> off </span><span class="symbol">=</span><span class="normal"> b </span><span class="symbol">/</span><span class="normal"> </span><span class="symbol">(</span><span class="number">8</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">size_t</span><span class="symbol">));</span>
+<span class="normal">        </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> sht </span><span class="symbol">=</span><span class="normal"> b </span><span class="symbol">%</span><span class="normal"> </span><span class="symbol">(</span><span class="number">8</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">size_t</span><span class="symbol">));</span>
+<span class="normal">        </span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">m_bits</span><span class="symbol">[</span><span class="normal">off</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="symbol">(((</span><span class="normal">size_t</span><span class="symbol">)</span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> sht</span><span class="symbol">));</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+
+<span class="normal">    </span><span class="comment">/// Create Bloom filter with M bits and K hash functions, its memory usage</span>
+<span class="normal">    </span><span class="comment">/// is M/8 + O(1) bytes.</span>
+<span class="normal">    </span><span class="keyword">explicit</span><span class="normal"> </span><span class="function">BloomFilter</span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> M</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> K</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="symbol">:</span><span class="normal"> </span><span class="function">m_M</span><span class="symbol">(</span><span class="normal">M</span><span class="symbol">),</span>
+<span class="normal">          </span><span class="function">m_K</span><span class="symbol">(</span><span class="normal">K</span><span class="symbol">),</span>
+<span class="normal">          </span><span class="function">m_bits</span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">M</span><span class="symbol">/</span><span class="number">8</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">size_t</span><span class="symbol">)-</span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">/</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">size_t</span><span class="symbol">),</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Clear Bloom filter</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">clear</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">fill</span><span class="symbol">(</span><span class="normal">m_bits</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">(),</span><span class="normal"> m_bits</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">(),</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Mark the given key in the Bloom filter</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">set</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> key_type</span><span class="symbol">&amp;</span><span class="normal"> key</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> k </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> k </span><span class="symbol">&lt;</span><span class="normal"> m_K</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">k</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">set_bit</span><span class="symbol">(</span><span class="normal"> </span><span class="function">hash</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">,</span><span class="normal">k</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">%</span><span class="normal"> m_M </span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Retreive whether the key was marked in the filter - with the probabilty</span>
+<span class="normal">    </span><span class="comment">/// of false positives!</span>
+<span class="normal">    </span><span class="keyword">inline</span><span class="normal"> </span><span class="type">bool</span><span class="normal"> </span><span class="function">get</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> key_type</span><span class="symbol">&amp;</span><span class="normal"> key</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> k </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> k </span><span class="symbol">&lt;</span><span class="normal"> m_K</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">k</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="function">get_bit</span><span class="symbol">(</span><span class="normal"> </span><span class="function">hash</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">,</span><span class="normal">k</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">%</span><span class="normal"> m_M </span><span class="symbol">))</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="comment">/// Enumeration indicating result of hash table lookup</span>
+<span class="keyword">enum</span><span class="normal"> result_type </span><span class="cbracket">{</span>
+<span class="normal">    FOUND </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> NOT_FOUND </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> UNKNOWN </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="comment">/**</span>
+<span class="comment"> * A size bounded hash table with linear probing.</span>
+<span class="comment"> *</span>
+<span class="comment"> * The complete structure uses only a limited amount of memory, thus inserted</span>
+<span class="comment"> * key/value pairs may be discarded when the table gets too full. If it is</span>
+<span class="comment"> * discarded, then for future gets the hash table will indicate that an pair</span>
+<span class="comment"> * may have been discarded. This indication can have false positives.</span>
+<span class="comment"> *</span>
+<span class="comment"> * By using timestamps, the clear() operations is very fast.</span>
+<span class="comment"> */</span>
+<span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">KeyType</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">ValueType</span><span class="symbol">&gt;</span>
+<span class="keyword">class</span><span class="normal"> </span><span class="classname">LPHashTable</span>
+<span class="cbracket">{</span>
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">/// The key type</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">KeyType</span><span class="normal">     key_type</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// The value type</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">ValueType</span><span class="normal">   value_type</span><span class="symbol">;</span>
+
+<span class="keyword">protected</span><span class="symbol">:</span>
+<span class="normal">    </span>
+<span class="normal">    </span><span class="comment">/// The type of all timestamps in the hash table</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">uint32_t</span><span class="normal">    ts_type</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// Structure of the cells in the hash table.    </span>
+<span class="normal">    </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">Cell</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="usertype">key_type</span><span class="normal">        key</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="usertype">value_type</span><span class="normal">      value</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="usertype">ts_type</span><span class="normal">         ts</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// simple Bloom filter to indicate discarded keys (with false positives)</span>
+<span class="normal">    </span><span class="usertype">BloomFilter&lt;key_type&gt;</span><span class="normal">   m_bloom</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// The array of hash table cells</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">vector&lt;Cell&gt;</span><span class="normal">   m_cell</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// All cells with timestamp &lt;= are considered invalid (set after last clear())</span>
+<span class="normal">    </span><span class="usertype">ts_type</span><span class="normal">             m_invalid_ts</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// Current timestamp of previous insertion</span>
+<span class="normal">    </span><span class="usertype">ts_type</span><span class="normal">             m_curr_ts</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// Length of the linear probing</span>
+<span class="normal">    </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal">        m_probe_length</span><span class="symbol">;</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+
+<span class="normal">    </span><span class="comment">/// Count number of insertions</span>
+<span class="normal">    </span><span class="usertype">size_t</span><span class="normal">              m_count_insert</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// Count number of evictions</span>
+<span class="normal">    </span><span class="usertype">size_t</span><span class="normal">              m_count_eviction</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// Count number of successful lookups</span>
+<span class="normal">    </span><span class="usertype">size_t</span><span class="normal">              m_count_found</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// Count number of unsuccessful lookups</span>
+<span class="normal">    </span><span class="usertype">size_t</span><span class="normal">              m_count_notfound</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/// Count number of unknown lookups</span>
+<span class="normal">    </span><span class="usertype">size_t</span><span class="normal">              m_count_unknown</span><span class="symbol">;</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+
+<span class="normal">    </span><span class="comment">/// Construct a hash table with associated Bloom filter of maximum size M.</span>
+<span class="normal">    </span><span class="comment">/// Allocate 1/8 of M for the bloom filter, and the rest to the hash table cells.</span>
+<span class="normal">    </span><span class="keyword">explicit</span><span class="normal"> </span><span class="function">LPHashTable</span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> M</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="symbol">:</span><span class="normal"> </span><span class="function">m_bloom</span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">M </span><span class="symbol">*</span><span class="normal"> </span><span class="number">1</span><span class="symbol">/</span><span class="number">8</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="number">8</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="normal"> </span><span class="symbol">),</span><span class="normal">                   </span><span class="comment">// 1/8 of mem for bloom filter</span>
+<span class="normal">          </span><span class="function">m_cell</span><span class="symbol">(</span><span class="normal">  </span><span class="symbol">(</span><span class="normal">M </span><span class="symbol">*</span><span class="normal"> </span><span class="number">7</span><span class="symbol">/</span><span class="number">8</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">/</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">Cell</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">),</span><span class="normal">           </span><span class="comment">// 7/8 of mem for cells</span>
+<span class="normal">          </span><span class="function">m_invalid_ts</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">),</span><span class="normal"> </span><span class="function">m_curr_ts</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">),</span>
+<span class="normal">          </span><span class="function">m_probe_length</span><span class="symbol">(</span><span class="normal"> </span><span class="function">sqrt</span><span class="symbol">(</span><span class="normal">m_cell</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">())</span><span class="normal"> </span><span class="symbol">),</span><span class="normal">        </span><span class="comment">// sqrt(n) probes</span>
+<span class="normal">          </span><span class="function">m_count_insert</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">),</span><span class="normal"> </span><span class="function">m_count_found</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">),</span>
+<span class="normal">          </span><span class="function">m_count_notfound</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">),</span><span class="normal"> </span><span class="function">m_count_unknown</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="comment">// clear timestamps</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> m_cell</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">            m_cell</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">].</span><span class="normal">ts </span><span class="symbol">=</span><span class="normal"> m_invalid_ts</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Clear the data structure by raising the minimum valid timestamp</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">clear</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        m_invalid_ts </span><span class="symbol">=</span><span class="normal"> m_curr_ts</span><span class="symbol">;</span>
+<span class="normal">        m_bloom</span><span class="symbol">.</span><span class="function">clear</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Insert a key-&gt;value pair in the hash table.</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">set</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> key_type</span><span class="symbol">&amp;</span><span class="normal"> key</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> value_type</span><span class="symbol">&amp;</span><span class="normal"> value</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="symbol">++</span><span class="normal">m_count_insert</span><span class="symbol">;</span>
+
+<span class="normal">        </span><span class="usertype">size_t</span><span class="normal"> idx </span><span class="symbol">=</span><span class="normal"> </span><span class="function">hash</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">%</span><span class="normal"> m_cell</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span>
+
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">m_curr_ts </span><span class="symbol">==</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">numeric_limits</span><span class="symbol">&lt;</span><span class="normal">ts_type</span><span class="symbol">&gt;::</span><span class="function">max</span><span class="symbol">())</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="comment">// timestamp wrapped: set all to one and reset timestamp counters</span>
+<span class="normal">            </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> m_cell</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">                m_cell</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">].</span><span class="normal">ts </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">// first valid timestamp</span>
+<span class="normal">            m_invalid_ts </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">            m_curr_ts </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal">      </span><span class="comment">// all timestamps 1 are "one insert"</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        </span><span class="symbol">++</span><span class="normal">m_curr_ts</span><span class="symbol">;</span><span class="normal">    </span><span class="comment">// increment timestamp for this insert</span>
+
+<span class="normal">        </span><span class="usertype">ts_type</span><span class="normal"> chain_min_ts </span><span class="symbol">=</span><span class="normal"> m_curr_ts</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="usertype">size_t</span><span class="normal"> chain_min_idx </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span>
+
+<span class="normal">        </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> probes </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="normal">        </span><span class="comment">// look for identical key or a free place.</span>
+<span class="normal">        </span><span class="keyword">while</span><span class="symbol">(</span>
+<span class="normal">            </span><span class="comment">// found a free cell in linear chain</span>
+<span class="normal">            </span><span class="symbol">(</span><span class="normal">m_cell</span><span class="symbol">[</span><span class="normal">idx</span><span class="symbol">].</span><span class="normal">ts </span><span class="symbol">&gt;</span><span class="normal"> m_invalid_ts</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span>
+<span class="normal">            </span><span class="comment">// found key in linear chain</span>
+<span class="normal">            </span><span class="symbol">(</span><span class="normal">m_cell</span><span class="symbol">[</span><span class="normal">idx</span><span class="symbol">].</span><span class="normal">key </span><span class="symbol">!=</span><span class="normal"> key</span><span class="symbol">)</span>
+<span class="normal">            </span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="comment">// sufficiently many chain cells probed -&gt; displace min_idx</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(++</span><span class="normal">probes </span><span class="symbol">&gt;</span><span class="normal"> m_probe_length</span><span class="symbol">)</span>
+<span class="normal">            </span><span class="cbracket">{</span>
+<span class="normal">                </span><span class="function">assert</span><span class="symbol">(</span><span class="normal">chain_min_idx </span><span class="symbol">!=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">size_t</span><span class="symbol">)-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">                idx </span><span class="symbol">=</span><span class="normal"> chain_min_idx</span><span class="symbol">;</span>
+
+<span class="normal">                </span><span class="function">assert</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">                </span><span class="symbol">++</span><span class="normal">m_count_eviction</span><span class="symbol">;</span>
+<span class="normal">                m_bloom</span><span class="symbol">.</span><span class="function">set</span><span class="symbol">(</span><span class="normal"> m_cell</span><span class="symbol">[</span><span class="normal">idx</span><span class="symbol">].</span><span class="normal">key </span><span class="symbol">);</span>
+<span class="normal">                </span><span class="function">assert</span><span class="symbol">(</span><span class="normal"> m_bloom</span><span class="symbol">.</span><span class="function">get</span><span class="symbol">(</span><span class="normal">m_cell</span><span class="symbol">[</span><span class="normal">idx</span><span class="symbol">].</span><span class="normal">key</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">);</span>
+
+<span class="normal">                </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+
+<span class="normal">            </span><span class="comment">// save minimum ts in chain</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">m_cell</span><span class="symbol">[</span><span class="normal">idx</span><span class="symbol">].</span><span class="normal">ts </span><span class="symbol">&lt;</span><span class="normal"> chain_min_ts</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">                chain_min_ts </span><span class="symbol">=</span><span class="normal"> m_cell</span><span class="symbol">[</span><span class="normal">idx</span><span class="symbol">].</span><span class="normal">ts</span><span class="symbol">;</span>
+<span class="normal">                chain_min_idx </span><span class="symbol">=</span><span class="normal"> idx</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+
+<span class="normal">            </span><span class="comment">// continue to next entry in chain</span>
+<span class="normal">            </span><span class="symbol">++</span><span class="normal">idx</span><span class="symbol">;</span>
+<span class="normal">            idx </span><span class="symbol">%=</span><span class="normal"> m_cell</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        </span><span class="comment">// fill, update or displace idx</span>
+<span class="normal">        m_cell</span><span class="symbol">[</span><span class="normal">idx</span><span class="symbol">].</span><span class="normal">key </span><span class="symbol">=</span><span class="normal"> key</span><span class="symbol">;</span>
+<span class="normal">        m_cell</span><span class="symbol">[</span><span class="normal">idx</span><span class="symbol">].</span><span class="normal">value </span><span class="symbol">=</span><span class="normal"> value</span><span class="symbol">;</span>
+<span class="normal">        m_cell</span><span class="symbol">[</span><span class="normal">idx</span><span class="symbol">].</span><span class="normal">ts </span><span class="symbol">=</span><span class="normal"> m_curr_ts</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/// Lookup a key, if found return 1 and copy the value. If never added,</span>
+<span class="normal">    </span><span class="comment">/// return -1. If unknown, return 0.</span>
+<span class="normal">    </span><span class="usertype">result_type</span><span class="normal"> </span><span class="function">get</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> key_type</span><span class="symbol">&amp;</span><span class="normal"> key</span><span class="symbol">,</span><span class="normal"> value_type</span><span class="symbol">&amp;</span><span class="normal"> value</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="usertype">size_t</span><span class="normal"> idx </span><span class="symbol">=</span><span class="normal"> </span><span class="function">hash</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">%</span><span class="normal"> m_cell</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span>
+<span class="normal">        </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> probes </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="normal">        </span><span class="keyword">while</span><span class="symbol">(</span>
+<span class="normal">            </span><span class="comment">// found a free m_cell in linear chain</span>
+<span class="normal">            </span><span class="symbol">(</span><span class="normal">m_cell</span><span class="symbol">[</span><span class="normal">idx</span><span class="symbol">].</span><span class="normal">ts </span><span class="symbol">&gt;</span><span class="normal"> m_invalid_ts</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span>
+<span class="normal">            </span><span class="comment">// found key in linear chain</span>
+<span class="normal">            </span><span class="symbol">(</span><span class="normal">m_cell</span><span class="symbol">[</span><span class="normal">idx</span><span class="symbol">].</span><span class="normal">key </span><span class="symbol">!=</span><span class="normal"> key</span><span class="symbol">)</span>
+<span class="normal">            </span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="comment">// sufficiently many chain m_cells probed -&gt; not found</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(++</span><span class="normal">probes </span><span class="symbol">&gt;</span><span class="normal"> m_probe_length</span><span class="symbol">)</span><span class="normal"> </span>
+<span class="normal">                </span><span class="keyword">break</span><span class="symbol">;</span>
+
+<span class="normal">            </span><span class="comment">// continue to next entry in chain</span>
+<span class="normal">            </span><span class="symbol">++</span><span class="normal">idx</span><span class="symbol">;</span>
+<span class="normal">            idx </span><span class="symbol">%=</span><span class="normal"> m_cell</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">m_cell</span><span class="symbol">[</span><span class="normal">idx</span><span class="symbol">].</span><span class="normal">key </span><span class="symbol">==</span><span class="normal"> key </span><span class="symbol">&amp;&amp;</span>
+<span class="normal">            m_cell</span><span class="symbol">[</span><span class="normal">idx</span><span class="symbol">].</span><span class="normal">ts </span><span class="symbol">&gt;</span><span class="normal"> m_invalid_ts</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            value </span><span class="symbol">=</span><span class="normal"> m_cell</span><span class="symbol">[</span><span class="normal">idx</span><span class="symbol">].</span><span class="normal">value</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="symbol">++</span><span class="normal">m_count_found</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="keyword">return</span><span class="normal"> FOUND</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="keyword">else</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="comment">// bloom filter marks those keys, for which an entry was dropped. </span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">m_bloom</span><span class="symbol">.</span><span class="function">get</span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">))</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">                </span><span class="symbol">++</span><span class="normal">m_count_unknown</span><span class="symbol">;</span>
+<span class="normal">                </span><span class="keyword">return</span><span class="normal"> UNKNOWN</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">            </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">                </span><span class="symbol">++</span><span class="normal">m_count_notfound</span><span class="symbol">;</span>
+<span class="normal">                </span><span class="keyword">return</span><span class="normal"> NOT_FOUND</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="keyword">static</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="function">testmain</span><span class="symbol">()</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">LPHashTable&lt;uint32_t,uint32_t&gt;</span><span class="normal"> </span><span class="function">ht</span><span class="symbol">(</span><span class="number">2</span><span class="symbol">*</span><span class="number">1024</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="function">srand</span><span class="symbol">(</span><span class="number">2344234</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="keyword">for</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">1000</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> k </span><span class="symbol">=</span><span class="normal"> i</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">// rand() % 2000;</span>
+<span class="normal">        ht</span><span class="symbol">.</span><span class="function">set</span><span class="symbol">(</span><span class="normal">k</span><span class="symbol">,</span><span class="normal">i</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="function">srand</span><span class="symbol">(</span><span class="number">2344234</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="keyword">for</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">2000</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> k </span><span class="symbol">=</span><span class="normal"> i</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">// rand() % 2000;</span>
+<span class="normal">        </span><span class="usertype">uint32_t</span><span class="normal"> out</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="usertype">result_type</span><span class="normal"> r </span><span class="symbol">=</span><span class="normal"> ht</span><span class="symbol">.</span><span class="function">get</span><span class="symbol">(</span><span class="normal">k</span><span class="symbol">,</span><span class="normal">out</span><span class="symbol">);</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="normal">cout </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">"i = "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> i </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">" - "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> r </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">"</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">1000</span><span class="symbol">)</span>
+<span class="normal">            </span><span class="function">assert</span><span class="symbol">(</span><span class="normal"> r </span><span class="symbol">==</span><span class="normal"> FOUND </span><span class="symbol">||</span><span class="normal"> r </span><span class="symbol">==</span><span class="normal"> UNKNOWN </span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">else</span>
+<span class="normal">            </span><span class="function">assert</span><span class="symbol">(</span><span class="normal"> r </span><span class="symbol">==</span><span class="normal"> NOT_FOUND </span><span class="symbol">||</span><span class="normal"> r </span><span class="symbol">==</span><span class="normal"> UNKNOWN </span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="cbracket">}</span><span class="normal"> </span><span class="comment">// namespace lp_hash_table</span>
+
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">// LP_HASH_TABLE_H_</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div><script type="text/javascript">var _paq = _paq || []; _paq.push(["trackPageView"]); _paq.push(["enableLinkTracking"]);(function() {var u=(("https:" == document.location.protocol) ? "https" : "http") + "://panthema.net/wik-331/"; _paq.push(["setTrackerUrl", u+"js/"]); _paq.push(["setSiteId", "2"]);var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";g.defer=true; g.async=true; g.src=u+"js/"; s.parentNode.insertBefore(g,s);})();</script><noscript><p><img src="http://panthema.net/wik-331/js/?idsite=2&amp;rec=1" style="border:0" alt="" /></p></noscript></body></html>

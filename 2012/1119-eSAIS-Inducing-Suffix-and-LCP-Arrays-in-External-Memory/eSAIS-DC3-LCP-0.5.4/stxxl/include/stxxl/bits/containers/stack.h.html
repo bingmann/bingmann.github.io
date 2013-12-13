@@ -1,0 +1,1075 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/eSAIS-DC3-LCP-0.5.4/stxxl/include/stxxl/bits/containers/stack.h - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/pt.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal3.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 13pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 10pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 11pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 10pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 15pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"><a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li class="nt"><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"><a class="ni" href="/about/timo.html">About Me</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2012/">2012</a> / <a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory</a> / <a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/eSAIS-DC3-LCP-0.5.4/">eSAIS-DC3-LCP-0.5.4</a> / <a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/eSAIS-DC3-LCP-0.5.4/stxxl/">stxxl</a> / <a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/eSAIS-DC3-LCP-0.5.4/stxxl/include/">include</a> / <a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/eSAIS-DC3-LCP-0.5.4/stxxl/include/stxxl/">stxxl</a> / <a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/eSAIS-DC3-LCP-0.5.4/stxxl/include/stxxl/bits/">bits</a> / <a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/eSAIS-DC3-LCP-0.5.4/stxxl/include/stxxl/bits/containers/">containers</a> / <a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/eSAIS-DC3-LCP-0.5.4/stxxl/include/stxxl/bits/containers/stack.h.html">stack.h</a> (<a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/eSAIS-DC3-LCP-0.5.4/stxxl/include/stxxl/bits/containers/stack.h">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">/***************************************************************************</span>
+<span class="comment"> *  include/stxxl/bits/containers/stack.h</span>
+<span class="comment"> *</span>
+<span class="comment"> *  Part of the STXXL. See </span><span class="url">http://stxxl.sourceforge.net</span>
+<span class="comment"> *</span>
+<span class="comment"> *  Copyright (C) 2003-2004 Roman Dementiev </span><span class="url">&lt;dementiev@mpi-sb.mpg.de&gt;</span>
+<span class="comment"> *  Copyright (C) 2009, 2010 Andreas Beckmann </span><span class="url">&lt;beckmann@cs.uni-frankfurt.de&gt;</span>
+<span class="comment"> *</span>
+<span class="comment"> *  Distributed under the Boost Software License, Version 1.0.</span>
+<span class="comment"> *  (See accompanying file LICENSE_1_0.txt or copy at</span>
+<span class="comment"> *  </span><span class="url">http://www.boost.org/LICENSE_1_0.txt</span><span class="comment">)</span>
+<span class="comment"> **************************************************************************/</span>
+
+<span class="preproc">#ifndef</span><span class="normal"> STXXL_CONTAINERS_STACK_HEADER</span>
+<span class="preproc">#define</span><span class="normal"> STXXL_CONTAINERS_STACK_HEADER</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;stack&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;vector&gt;</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;stxxl/bits/deprecated.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;stxxl/bits/io/request_operations.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;stxxl/bits/mng/block_manager.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;stxxl/bits/mng/typed_block.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;stxxl/bits/common/simple_vector.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;stxxl/bits/common/tmeta.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;stxxl/bits/common/error_handling.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;stxxl/bits/mng/read_write_pool.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;stxxl/bits/mng/write_pool.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;stxxl/bits/mng/prefetch_pool.h&gt;</span>
+
+
+<span class="normal">STXXL_BEGIN_NAMESPACE</span>
+
+<span class="comment">//! \defgroup stlcont_stack stack</span>
+<span class="comment">//! \ingroup stlcont</span>
+<span class="comment">//! External stack implementations</span>
+<span class="comment">//! \{</span>
+
+<span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">ValueType</span><span class="symbol">,</span>
+<span class="normal">          </span><span class="type">unsigned</span><span class="normal"> BlocksPerPage </span><span class="symbol">=</span><span class="normal"> </span><span class="number">4</span><span class="symbol">,</span>
+<span class="normal">          </span><span class="type">unsigned</span><span class="normal"> BlockSize </span><span class="symbol">=</span><span class="normal"> </span><span class="function">STXXL_DEFAULT_BLOCK_SIZE</span><span class="symbol">(</span><span class="normal">ValueType</span><span class="symbol">),</span>
+<span class="normal">          </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">AllocStr</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> STXXL_DEFAULT_ALLOC_STRATEGY</span><span class="symbol">,</span>
+<span class="normal">          </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">SizeType</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> stxxl</span><span class="symbol">::</span><span class="normal">int64</span><span class="symbol">&gt;</span>
+<span class="keyword">struct</span><span class="normal"> </span><span class="classname">stack_config_generator</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">ValueType</span><span class="normal"> value_type</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">enum</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> blocks_per_page </span><span class="symbol">=</span><span class="normal"> BlocksPerPage </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">AllocStr</span><span class="normal"> alloc_strategy</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">enum</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> block_size </span><span class="symbol">=</span><span class="normal"> BlockSize </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">SizeType</span><span class="normal"> size_type</span><span class="symbol">;</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+
+<span class="comment">//! External stack container.</span>
+<span class="comment">//! &lt;b&gt; Introduction &lt;/b&gt; to stack container: see \ref tutorial_stack tutorial. \n</span>
+<span class="comment">//! &lt;b&gt; Design and Internals &lt;/b&gt; of stack container: see \ref design_stack</span>
+<span class="comment">//! Conservative implementation. Fits best if your access pattern consists of irregularly mixed</span>
+<span class="comment">//! push'es and pop's.</span>
+<span class="comment">//! For semantics of the methods see documentation of the STL \c std::stack. &lt;BR&gt;</span>
+<span class="comment">//! To gain full bandwidth of disks \c StackConfig::BlocksPerPage must &gt;= number of disks &lt;BR&gt;</span>
+<span class="comment">//! \internal</span>
+<span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">StackConfig</span><span class="symbol">&gt;</span>
+<span class="keyword">class</span><span class="normal"> </span><span class="classname">normal_stack</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> </span><span class="keyword">private</span><span class="normal"> noncopyable</span>
+<span class="cbracket">{</span>
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">StackConfig</span><span class="normal"> cfg</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">//! type of the elements stored in the stack</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">cfg</span><span class="symbol">::</span><span class="usertype">value_type</span><span class="normal"> value_type</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">cfg</span><span class="symbol">::</span><span class="usertype">alloc_strategy</span><span class="normal"> alloc_strategy_type</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">//! type for sizes (64-bit)</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">cfg</span><span class="symbol">::</span><span class="usertype">size_type</span><span class="normal"> size_type</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">enum</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        blocks_per_page </span><span class="symbol">=</span><span class="normal"> cfg</span><span class="symbol">::</span><span class="normal">blocks_per_page</span><span class="symbol">,</span>
+<span class="normal">        block_size </span><span class="symbol">=</span><span class="normal"> cfg</span><span class="symbol">::</span><span class="normal">block_size</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">//! type of block used in disk-memory transfers</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">typed_block&lt;block_size, value_type&gt;</span><span class="normal"> block_type</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">BID&lt;block_size&gt;</span><span class="normal"> bid_type</span><span class="symbol">;</span>
+
+<span class="keyword">private</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="usertype">size_type</span><span class="normal"> m_size</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">unsigned_type</span><span class="normal"> cache_offset</span><span class="symbol">;</span>
+<span class="normal">    value_type</span><span class="symbol">*</span><span class="normal"> current_element</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">simple_vector&lt;block_type&gt;</span><span class="normal"> cache</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">simple_vector</span><span class="symbol">&lt;</span><span class="normal">block_type</span><span class="symbol">&gt;::</span><span class="usertype">iterator</span><span class="normal"> front_page</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">simple_vector</span><span class="symbol">&lt;</span><span class="normal">block_type</span><span class="symbol">&gt;::</span><span class="usertype">iterator</span><span class="normal"> back_page</span><span class="symbol">;</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">vector&lt;bid_type&gt;</span><span class="normal"> bids</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">alloc_strategy_type</span><span class="normal"> alloc_strategy</span><span class="symbol">;</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">//! \name Constructors/Destructors</span>
+<span class="normal">    </span><span class="comment">//! \{</span>
+
+<span class="normal">    </span><span class="comment">//! Default constructor: creates empty stack.</span>
+<span class="normal">    </span><span class="function">normal_stack</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">:</span>
+<span class="normal">        </span><span class="function">m_size</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">),</span>
+<span class="normal">        </span><span class="function">cache_offset</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">),</span>
+<span class="normal">        </span><span class="function">current_element</span><span class="symbol">(</span><span class="normal">NULL</span><span class="symbol">),</span>
+<span class="normal">        </span><span class="function">cache</span><span class="symbol">(</span><span class="normal">blocks_per_page </span><span class="symbol">*</span><span class="normal"> </span><span class="number">2</span><span class="symbol">),</span>
+<span class="normal">        </span><span class="function">front_page</span><span class="symbol">(</span><span class="normal">cache</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> blocks_per_page</span><span class="symbol">),</span>
+<span class="normal">        </span><span class="function">back_page</span><span class="symbol">(</span><span class="normal">cache</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">()),</span>
+<span class="normal">        </span><span class="function">bids</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        bids</span><span class="symbol">.</span><span class="function">reserve</span><span class="symbol">(</span><span class="normal">blocks_per_page</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! \name Accessor Functions</span>
+<span class="normal">    </span><span class="comment">//! \{</span>
+
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">swap</span><span class="symbol">(</span><span class="normal">normal_stack</span><span class="symbol">&amp;</span><span class="normal"> obj</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">m_size</span><span class="symbol">,</span><span class="normal"> obj</span><span class="symbol">.</span><span class="normal">m_size</span><span class="symbol">);</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">cache_offset</span><span class="symbol">,</span><span class="normal"> obj</span><span class="symbol">.</span><span class="normal">cache_offset</span><span class="symbol">);</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">current_element</span><span class="symbol">,</span><span class="normal"> obj</span><span class="symbol">.</span><span class="normal">current_element</span><span class="symbol">);</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">cache</span><span class="symbol">,</span><span class="normal"> obj</span><span class="symbol">.</span><span class="normal">cache</span><span class="symbol">);</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">front_page</span><span class="symbol">,</span><span class="normal"> obj</span><span class="symbol">.</span><span class="normal">front_page</span><span class="symbol">);</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">back_page</span><span class="symbol">,</span><span class="normal"> obj</span><span class="symbol">.</span><span class="normal">back_page</span><span class="symbol">);</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">bids</span><span class="symbol">,</span><span class="normal"> obj</span><span class="symbol">.</span><span class="normal">bids</span><span class="symbol">);</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">alloc_strategy</span><span class="symbol">,</span><span class="normal"> obj</span><span class="symbol">.</span><span class="normal">alloc_strategy</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! \}</span>
+
+<span class="normal">    </span><span class="comment">//! \name Constructors/Destructors</span>
+<span class="normal">    </span><span class="comment">//! \{</span>
+
+<span class="normal">    </span><span class="comment">//! Copy-construction from a another stack of any type.</span>
+<span class="normal">    </span><span class="comment">//! \param stack_ stack object (could be external or internal, important is that it must</span>
+<span class="normal">    </span><span class="comment">//! have a copy constructor, \c top() and \c pop() methods )</span>
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">stack_type</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="function">normal_stack</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> stack_type</span><span class="symbol">&amp;</span><span class="normal"> stack_</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">:</span>
+<span class="normal">        </span><span class="function">m_size</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">),</span>
+<span class="normal">        </span><span class="function">cache_offset</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">),</span>
+<span class="normal">        </span><span class="function">current_element</span><span class="symbol">(</span><span class="normal">NULL</span><span class="symbol">),</span>
+<span class="normal">        </span><span class="function">cache</span><span class="symbol">(</span><span class="normal">blocks_per_page </span><span class="symbol">*</span><span class="normal"> </span><span class="number">2</span><span class="symbol">),</span>
+<span class="normal">        </span><span class="function">front_page</span><span class="symbol">(</span><span class="normal">cache</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> blocks_per_page</span><span class="symbol">),</span>
+<span class="normal">        </span><span class="function">back_page</span><span class="symbol">(</span><span class="normal">cache</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">()),</span>
+<span class="normal">        </span><span class="function">bids</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        bids</span><span class="symbol">.</span><span class="function">reserve</span><span class="symbol">(</span><span class="normal">blocks_per_page</span><span class="symbol">);</span>
+
+<span class="normal">        </span><span class="usertype">stack_type</span><span class="normal"> stack_copy </span><span class="symbol">=</span><span class="normal"> stack_</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">size_type</span><span class="normal"> sz </span><span class="symbol">=</span><span class="normal"> stack_copy</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span>
+<span class="normal">        </span><span class="usertype">size_type</span><span class="normal"> i</span><span class="symbol">;</span>
+
+<span class="normal">        std</span><span class="symbol">::</span><span class="usertype">vector&lt;value_type&gt;</span><span class="normal"> </span><span class="function">tmp</span><span class="symbol">(</span><span class="normal">sz</span><span class="symbol">);</span>
+
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> sz</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            tmp</span><span class="symbol">[</span><span class="normal">sz </span><span class="symbol">-</span><span class="normal"> i </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> stack_copy</span><span class="symbol">.</span><span class="function">top</span><span class="symbol">();</span>
+<span class="normal">            stack_copy</span><span class="symbol">.</span><span class="function">pop</span><span class="symbol">();</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> sz</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">            </span><span class="keyword">this</span><span class="symbol">-&gt;</span><span class="function">push</span><span class="symbol">(</span><span class="normal">tmp</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">virtual</span><span class="normal"> </span><span class="symbol">~</span><span class="function">normal_stack</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">STXXL_VERBOSE</span><span class="symbol">(</span><span class="normal">STXXL_PRETTY_FUNCTION_NAME</span><span class="symbol">);</span>
+<span class="normal">        block_manager</span><span class="symbol">::</span><span class="function">get_instance</span><span class="symbol">()-&gt;</span><span class="function">delete_blocks</span><span class="symbol">(</span><span class="normal">bids</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">(),</span><span class="normal"> bids</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">());</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! \}</span>
+
+<span class="normal">    </span><span class="comment">//! \name Capacity</span>
+<span class="normal">    </span><span class="comment">//! \{</span>
+
+<span class="normal">    </span><span class="comment">//! Returns the number of elements contained in the stack</span>
+<span class="normal">    </span><span class="usertype">size_type</span><span class="normal"> </span><span class="function">size</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> m_size</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! Returns true if the stack is empty.</span>
+<span class="normal">    </span><span class="type">bool</span><span class="normal"> </span><span class="function">empty</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">m_size</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! \}</span>
+
+<span class="normal">    </span><span class="comment">//! \name Accessor Functions</span>
+<span class="normal">    </span><span class="comment">//! \{</span>
+
+<span class="normal">    </span><span class="comment">//! Return mutable reference to the element at the top of the</span>
+<span class="normal">    </span><span class="comment">//! stack. Precondition: stack is not empty().</span>
+<span class="normal">    value_type </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="function">top</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">(</span><span class="normal">m_size </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">current_element</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! Return constant reference to the element at the top of the</span>
+<span class="normal">    </span><span class="comment">//! stack. Precondition: stack is not empty().</span>
+<span class="normal">    </span><span class="keyword">const</span><span class="normal"> value_type </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="function">top</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">(</span><span class="normal">m_size </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">current_element</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! Inserts an element at the top of the stack. Postconditions: size() is</span>
+<span class="normal">    </span><span class="comment">//! incremented by 1, and top() is the inserted element.</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">push</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> value_type</span><span class="symbol">&amp;</span><span class="normal"> val</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">(</span><span class="normal">cache_offset </span><span class="symbol">&lt;=</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> blocks_per_page </span><span class="symbol">*</span><span class="normal"> block_type</span><span class="symbol">::</span><span class="normal">size</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="comment">//assert(cache_offset &gt;= 0);</span>
+
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">UNLIKELY</span><span class="symbol">(</span><span class="normal">cache_offset </span><span class="symbol">==</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> blocks_per_page </span><span class="symbol">*</span><span class="normal"> block_type</span><span class="symbol">::</span><span class="normal">size</span><span class="symbol">))</span><span class="normal">  </span><span class="comment">// cache overflow</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">STXXL_VERBOSE2</span><span class="symbol">(</span><span class="string">"growing, size: "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> m_size</span><span class="symbol">);</span>
+
+<span class="normal">            bids</span><span class="symbol">.</span><span class="function">resize</span><span class="symbol">(</span><span class="normal">bids</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> blocks_per_page</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">std</span><span class="symbol">::</span><span class="normal">vector</span><span class="symbol">&lt;</span><span class="normal">bid_type</span><span class="symbol">&gt;::</span><span class="usertype">iterator</span><span class="normal"> cur_bid </span><span class="symbol">=</span><span class="normal"> bids</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> blocks_per_page</span><span class="symbol">;</span>
+<span class="normal">            block_manager</span><span class="symbol">::</span><span class="function">get_instance</span><span class="symbol">()-&gt;</span><span class="function">new_blocks</span><span class="symbol">(</span><span class="normal">alloc_strategy</span><span class="symbol">,</span><span class="normal"> cur_bid</span><span class="symbol">,</span><span class="normal"> bids</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">(),</span><span class="normal"> cur_bid </span><span class="symbol">-</span><span class="normal"> bids</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">());</span>
+
+<span class="normal">            </span><span class="usertype">simple_vector&lt;request_ptr&gt;</span><span class="normal"> </span><span class="function">requests</span><span class="symbol">(</span><span class="normal">blocks_per_page</span><span class="symbol">);</span>
+
+<span class="normal">            </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> blocks_per_page</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">cur_bid</span><span class="symbol">)</span>
+<span class="normal">            </span><span class="cbracket">{</span>
+<span class="normal">                requests</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">back_page </span><span class="symbol">+</span><span class="normal"> i</span><span class="symbol">)-&gt;</span><span class="function">write</span><span class="symbol">(*</span><span class="normal">cur_bid</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+
+
+<span class="normal">            std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">back_page</span><span class="symbol">,</span><span class="normal"> front_page</span><span class="symbol">);</span>
+
+<span class="normal">            bids</span><span class="symbol">.</span><span class="function">reserve</span><span class="symbol">(</span><span class="normal">bids</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> blocks_per_page</span><span class="symbol">);</span>
+
+<span class="normal">            cache_offset </span><span class="symbol">=</span><span class="normal"> blocks_per_page </span><span class="symbol">*</span><span class="normal"> block_type</span><span class="symbol">::</span><span class="normal">size </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">            current_element </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">&amp;((*</span><span class="normal">front_page</span><span class="symbol">)[</span><span class="number">0</span><span class="symbol">]);</span>
+<span class="normal">            </span><span class="symbol">++</span><span class="normal">m_size</span><span class="symbol">;</span>
+
+<span class="normal">            </span><span class="function">wait_all</span><span class="symbol">(</span><span class="normal">requests</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">(),</span><span class="normal"> blocks_per_page</span><span class="symbol">);</span>
+
+<span class="normal">            </span><span class="symbol">*</span><span class="normal">current_element </span><span class="symbol">=</span><span class="normal"> val</span><span class="symbol">;</span>
+
+<span class="normal">            </span><span class="keyword">return</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        current_element </span><span class="symbol">=</span><span class="normal"> </span><span class="function">element</span><span class="symbol">(</span><span class="normal">cache_offset</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="symbol">*</span><span class="normal">current_element </span><span class="symbol">=</span><span class="normal"> val</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="symbol">++</span><span class="normal">m_size</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="symbol">++</span><span class="normal">cache_offset</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! Removes the element at the top of the stack. Precondition: stack is not</span>
+<span class="normal">    </span><span class="comment">//! empty(). Postcondition: size() is decremented.</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">pop</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">(</span><span class="normal">cache_offset </span><span class="symbol">&lt;=</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> blocks_per_page </span><span class="symbol">*</span><span class="normal"> block_type</span><span class="symbol">::</span><span class="normal">size</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">(</span><span class="normal">cache_offset </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">(</span><span class="normal">m_size </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">UNLIKELY</span><span class="symbol">(</span><span class="normal">cache_offset </span><span class="symbol">==</span><span class="normal"> </span><span class="number">1</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> bids</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">&gt;=</span><span class="normal"> blocks_per_page</span><span class="symbol">))</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">STXXL_VERBOSE2</span><span class="symbol">(</span><span class="string">"shrinking, size: "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> m_size</span><span class="symbol">);</span>
+
+<span class="normal">            </span><span class="usertype">simple_vector&lt;request_ptr&gt;</span><span class="normal"> </span><span class="function">requests</span><span class="symbol">(</span><span class="normal">blocks_per_page</span><span class="symbol">);</span>
+
+<span class="normal">            </span><span class="cbracket">{</span>
+<span class="normal">                </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">std</span><span class="symbol">::</span><span class="normal">vector</span><span class="symbol">&lt;</span><span class="normal">bid_type</span><span class="symbol">&gt;::</span><span class="usertype">const_iterator</span><span class="normal"> cur_bid </span><span class="symbol">=</span><span class="normal"> bids</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">();</span>
+<span class="normal">                </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> blocks_per_page </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">--</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">                </span><span class="cbracket">{</span>
+<span class="normal">                    requests</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">front_page </span><span class="symbol">+</span><span class="normal"> i</span><span class="symbol">)-&gt;</span><span class="function">read</span><span class="symbol">(*(--</span><span class="normal">cur_bid</span><span class="symbol">));</span>
+<span class="normal">                </span><span class="cbracket">}</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+
+<span class="normal">            std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">front_page</span><span class="symbol">,</span><span class="normal"> back_page</span><span class="symbol">);</span>
+
+<span class="normal">            cache_offset </span><span class="symbol">=</span><span class="normal"> blocks_per_page </span><span class="symbol">*</span><span class="normal"> block_type</span><span class="symbol">::</span><span class="normal">size</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="symbol">--</span><span class="normal">m_size</span><span class="symbol">;</span>
+<span class="normal">            current_element </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">&amp;((*(</span><span class="normal">back_page </span><span class="symbol">+</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">blocks_per_page </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)))[</span><span class="normal">block_type</span><span class="symbol">::</span><span class="normal">size </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">]);</span>
+
+<span class="normal">            </span><span class="function">wait_all</span><span class="symbol">(</span><span class="normal">requests</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">(),</span><span class="normal"> blocks_per_page</span><span class="symbol">);</span>
+
+<span class="normal">            block_manager</span><span class="symbol">::</span><span class="function">get_instance</span><span class="symbol">()-&gt;</span><span class="function">delete_blocks</span><span class="symbol">(</span><span class="normal">bids</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> blocks_per_page</span><span class="symbol">,</span><span class="normal"> bids</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">());</span>
+<span class="normal">            bids</span><span class="symbol">.</span><span class="function">resize</span><span class="symbol">(</span><span class="normal">bids</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> blocks_per_page</span><span class="symbol">);</span>
+
+<span class="normal">            </span><span class="keyword">return</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        </span><span class="symbol">--</span><span class="normal">m_size</span><span class="symbol">;</span>
+
+<span class="normal">        current_element </span><span class="symbol">=</span><span class="normal"> </span><span class="function">element</span><span class="symbol">((--</span><span class="normal">cache_offset</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! \}</span>
+
+<span class="keyword">private</span><span class="symbol">:</span>
+<span class="normal">    value_type </span><span class="symbol">*</span><span class="normal"> </span><span class="function">element</span><span class="symbol">(</span><span class="usertype">unsigned_type</span><span class="normal"> offset</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">offset </span><span class="symbol">&lt;</span><span class="normal"> blocks_per_page </span><span class="symbol">*</span><span class="normal"> block_type</span><span class="symbol">::</span><span class="normal">size</span><span class="symbol">)</span>
+<span class="normal">            </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">&amp;((*(</span><span class="normal">back_page </span><span class="symbol">+</span><span class="normal"> offset </span><span class="symbol">/</span><span class="normal"> block_type</span><span class="symbol">::</span><span class="normal">size</span><span class="symbol">))[</span><span class="normal">offset </span><span class="symbol">%</span><span class="normal"> block_type</span><span class="symbol">::</span><span class="normal">size</span><span class="symbol">]);</span>
+
+
+<span class="normal">        </span><span class="usertype">unsigned_type</span><span class="normal"> unbiased_offset </span><span class="symbol">=</span><span class="normal"> offset </span><span class="symbol">-</span><span class="normal"> blocks_per_page </span><span class="symbol">*</span><span class="normal"> block_type</span><span class="symbol">::</span><span class="normal">size</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">&amp;((*(</span><span class="normal">front_page </span><span class="symbol">+</span><span class="normal"> unbiased_offset </span><span class="symbol">/</span><span class="normal"> block_type</span><span class="symbol">::</span><span class="normal">size</span><span class="symbol">))[</span><span class="normal">unbiased_offset </span><span class="symbol">%</span><span class="normal"> block_type</span><span class="symbol">::</span><span class="normal">size</span><span class="symbol">]);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+
+<span class="comment">//! Efficient implementation that uses prefetching and overlapping using internal buffers.</span>
+<span class="comment">//!</span>
+<span class="comment">//! Use it if your access pattern consists of many repeated push'es and pop's</span>
+<span class="comment">//! For semantics of the methods see documentation of the STL \c std::stack.</span>
+<span class="comment">//! \warning The amortized complexity of operation is not O(1/DB), rather O(DB)</span>
+<span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">StackConfig</span><span class="symbol">&gt;</span>
+<span class="keyword">class</span><span class="normal"> </span><span class="classname">grow_shrink_stack</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> </span><span class="keyword">private</span><span class="normal"> noncopyable</span>
+<span class="cbracket">{</span>
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">StackConfig</span><span class="normal"> cfg</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">//! type of the elements stored in the stack</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">cfg</span><span class="symbol">::</span><span class="usertype">value_type</span><span class="normal"> value_type</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">cfg</span><span class="symbol">::</span><span class="usertype">alloc_strategy</span><span class="normal"> alloc_strategy_type</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">//! type for sizes (64-bit)</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">cfg</span><span class="symbol">::</span><span class="usertype">size_type</span><span class="normal"> size_type</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">enum</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        blocks_per_page </span><span class="symbol">=</span><span class="normal"> cfg</span><span class="symbol">::</span><span class="normal">blocks_per_page</span><span class="symbol">,</span>
+<span class="normal">        block_size </span><span class="symbol">=</span><span class="normal"> cfg</span><span class="symbol">::</span><span class="normal">block_size</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">//! type of block used in disk-memory transfers</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">typed_block&lt;block_size, value_type&gt;</span><span class="normal"> block_type</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">BID&lt;block_size&gt;</span><span class="normal"> bid_type</span><span class="symbol">;</span>
+
+<span class="keyword">private</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="usertype">size_type</span><span class="normal"> m_size</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">unsigned_type</span><span class="normal"> cache_offset</span><span class="symbol">;</span>
+<span class="normal">    value_type</span><span class="symbol">*</span><span class="normal"> current_element</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">simple_vector&lt;block_type&gt;</span><span class="normal"> cache</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">simple_vector</span><span class="symbol">&lt;</span><span class="normal">block_type</span><span class="symbol">&gt;::</span><span class="usertype">iterator</span><span class="normal"> cache_buffers</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">simple_vector</span><span class="symbol">&lt;</span><span class="normal">block_type</span><span class="symbol">&gt;::</span><span class="usertype">iterator</span><span class="normal"> overlap_buffers</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">simple_vector&lt;request_ptr&gt;</span><span class="normal"> requests</span><span class="symbol">;</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">vector&lt;bid_type&gt;</span><span class="normal"> bids</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">alloc_strategy_type</span><span class="normal"> alloc_strategy</span><span class="symbol">;</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">//! \name Constructors/Destructor</span>
+<span class="normal">    </span><span class="comment">//! \{</span>
+
+<span class="normal">    </span><span class="comment">//! Default constructor: creates empty stack.</span>
+<span class="normal">    </span><span class="function">grow_shrink_stack</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">:</span>
+<span class="normal">        </span><span class="function">m_size</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">),</span>
+<span class="normal">        </span><span class="function">cache_offset</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">),</span>
+<span class="normal">        </span><span class="function">current_element</span><span class="symbol">(</span><span class="normal">NULL</span><span class="symbol">),</span>
+<span class="normal">        </span><span class="function">cache</span><span class="symbol">(</span><span class="normal">blocks_per_page </span><span class="symbol">*</span><span class="normal"> </span><span class="number">2</span><span class="symbol">),</span>
+<span class="normal">        </span><span class="function">cache_buffers</span><span class="symbol">(</span><span class="normal">cache</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">()),</span>
+<span class="normal">        </span><span class="function">overlap_buffers</span><span class="symbol">(</span><span class="normal">cache</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> blocks_per_page</span><span class="symbol">),</span>
+<span class="normal">        </span><span class="function">requests</span><span class="symbol">(</span><span class="normal">blocks_per_page</span><span class="symbol">),</span>
+<span class="normal">        </span><span class="function">bids</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        bids</span><span class="symbol">.</span><span class="function">reserve</span><span class="symbol">(</span><span class="normal">blocks_per_page</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! \}</span>
+
+<span class="normal">    </span><span class="comment">//! \name Accessor Functions</span>
+<span class="normal">    </span><span class="comment">//! \{</span>
+
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">swap</span><span class="symbol">(</span><span class="normal">grow_shrink_stack</span><span class="symbol">&amp;</span><span class="normal"> obj</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">m_size</span><span class="symbol">,</span><span class="normal"> obj</span><span class="symbol">.</span><span class="normal">m_size</span><span class="symbol">);</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">cache_offset</span><span class="symbol">,</span><span class="normal"> obj</span><span class="symbol">.</span><span class="normal">cache_offset</span><span class="symbol">);</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">current_element</span><span class="symbol">,</span><span class="normal"> obj</span><span class="symbol">.</span><span class="normal">current_element</span><span class="symbol">);</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">cache</span><span class="symbol">,</span><span class="normal"> obj</span><span class="symbol">.</span><span class="normal">cache</span><span class="symbol">);</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">cache_buffers</span><span class="symbol">,</span><span class="normal"> obj</span><span class="symbol">.</span><span class="normal">cache_buffers</span><span class="symbol">);</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">overlap_buffers</span><span class="symbol">,</span><span class="normal"> obj</span><span class="symbol">.</span><span class="normal">overlap_buffers</span><span class="symbol">);</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">requests</span><span class="symbol">,</span><span class="normal"> obj</span><span class="symbol">.</span><span class="normal">requests</span><span class="symbol">);</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">bids</span><span class="symbol">,</span><span class="normal"> obj</span><span class="symbol">.</span><span class="normal">bids</span><span class="symbol">);</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">alloc_strategy</span><span class="symbol">,</span><span class="normal"> obj</span><span class="symbol">.</span><span class="normal">alloc_strategy</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! \}</span>
+
+<span class="normal">    </span><span class="comment">//! \name Constructors/Destructors</span>
+<span class="normal">    </span><span class="comment">//! \{</span>
+
+<span class="normal">    </span><span class="comment">//! Copy-construction from a another stack of any type.</span>
+<span class="normal">    </span><span class="comment">//! \param stack_ stack object (could be external or internal, important is that it must</span>
+<span class="normal">    </span><span class="comment">//! have a copy constructor, \c top() and \c pop() methods )</span>
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">stack_type</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="function">grow_shrink_stack</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> stack_type</span><span class="symbol">&amp;</span><span class="normal"> stack_</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">:</span>
+<span class="normal">        </span><span class="function">m_size</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">),</span>
+<span class="normal">        </span><span class="function">cache_offset</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">),</span>
+<span class="normal">        </span><span class="function">current_element</span><span class="symbol">(</span><span class="normal">NULL</span><span class="symbol">),</span>
+<span class="normal">        </span><span class="function">cache</span><span class="symbol">(</span><span class="normal">blocks_per_page </span><span class="symbol">*</span><span class="normal"> </span><span class="number">2</span><span class="symbol">),</span>
+<span class="normal">        </span><span class="function">cache_buffers</span><span class="symbol">(</span><span class="normal">cache</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">()),</span>
+<span class="normal">        </span><span class="function">overlap_buffers</span><span class="symbol">(</span><span class="normal">cache</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> blocks_per_page</span><span class="symbol">),</span>
+<span class="normal">        </span><span class="function">requests</span><span class="symbol">(</span><span class="normal">blocks_per_page</span><span class="symbol">),</span>
+<span class="normal">        </span><span class="function">bids</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        bids</span><span class="symbol">.</span><span class="function">reserve</span><span class="symbol">(</span><span class="normal">blocks_per_page</span><span class="symbol">);</span>
+
+<span class="normal">        </span><span class="usertype">stack_type</span><span class="normal"> stack_copy </span><span class="symbol">=</span><span class="normal"> stack_</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">size_type</span><span class="normal"> sz </span><span class="symbol">=</span><span class="normal"> stack_copy</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span>
+<span class="normal">        </span><span class="usertype">size_type</span><span class="normal"> i</span><span class="symbol">;</span>
+
+<span class="normal">        std</span><span class="symbol">::</span><span class="usertype">vector&lt;value_type&gt;</span><span class="normal"> </span><span class="function">tmp</span><span class="symbol">(</span><span class="normal">sz</span><span class="symbol">);</span>
+
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> sz</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            tmp</span><span class="symbol">[</span><span class="normal">sz </span><span class="symbol">-</span><span class="normal"> i </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> stack_copy</span><span class="symbol">.</span><span class="function">top</span><span class="symbol">();</span>
+<span class="normal">            stack_copy</span><span class="symbol">.</span><span class="function">pop</span><span class="symbol">();</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> sz</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">            </span><span class="keyword">this</span><span class="symbol">-&gt;</span><span class="function">push</span><span class="symbol">(</span><span class="normal">tmp</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">virtual</span><span class="normal"> </span><span class="symbol">~</span><span class="function">grow_shrink_stack</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">STXXL_VERBOSE</span><span class="symbol">(</span><span class="normal">STXXL_PRETTY_FUNCTION_NAME</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">try</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">requests</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">].</span><span class="function">get</span><span class="symbol">())</span>
+<span class="normal">                </span><span class="function">wait_all</span><span class="symbol">(</span><span class="normal">requests</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">(),</span><span class="normal"> blocks_per_page</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="keyword">catch</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> io_error</span><span class="symbol">&amp;)</span>
+<span class="normal">        </span><span class="cbracket">{</span><span class="normal"> </span><span class="cbracket">}</span>
+<span class="normal">        block_manager</span><span class="symbol">::</span><span class="function">get_instance</span><span class="symbol">()-&gt;</span><span class="function">delete_blocks</span><span class="symbol">(</span><span class="normal">bids</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">(),</span><span class="normal"> bids</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">());</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! \}</span>
+
+<span class="normal">    </span><span class="comment">//! \name Capacity</span>
+<span class="normal">    </span><span class="comment">//! \{</span>
+
+<span class="normal">    </span><span class="comment">//! Returns the number of elements contained in the stack</span>
+<span class="normal">    </span><span class="usertype">size_type</span><span class="normal"> </span><span class="function">size</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> m_size</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="comment">//! Returns true if the stack is empty.</span>
+<span class="normal">    </span><span class="type">bool</span><span class="normal"> </span><span class="function">empty</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">m_size</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! \}</span>
+
+<span class="normal">    </span><span class="comment">//! \name Accessor Functions</span>
+<span class="normal">    </span><span class="comment">//! \{</span>
+
+<span class="normal">    </span><span class="comment">//! Return mutable reference to the element at the top of the</span>
+<span class="normal">    </span><span class="comment">//! stack. Precondition: stack is not empty().</span>
+<span class="normal">    value_type </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="function">top</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">(</span><span class="normal">m_size </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">current_element</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! Return constant reference to the element at the top of the</span>
+<span class="normal">    </span><span class="comment">//! stack. Precondition: stack is not empty().</span>
+<span class="normal">    </span><span class="keyword">const</span><span class="normal"> value_type </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="function">top</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">(</span><span class="normal">m_size </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">current_element</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! Inserts an element at the top of the stack. Postconditions: size() is</span>
+<span class="normal">    </span><span class="comment">//! incremented by 1, and top() is the inserted element.</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">push</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> value_type</span><span class="symbol">&amp;</span><span class="normal"> val</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">(</span><span class="normal">cache_offset </span><span class="symbol">&lt;=</span><span class="normal"> blocks_per_page </span><span class="symbol">*</span><span class="normal"> block_type</span><span class="symbol">::</span><span class="normal">size</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="comment">//assert(cache_offset &gt;= 0);</span>
+
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">UNLIKELY</span><span class="symbol">(</span><span class="normal">cache_offset </span><span class="symbol">==</span><span class="normal"> blocks_per_page </span><span class="symbol">*</span><span class="normal"> block_type</span><span class="symbol">::</span><span class="normal">size</span><span class="symbol">))</span><span class="normal">  </span><span class="comment">// cache overflow</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">STXXL_VERBOSE2</span><span class="symbol">(</span><span class="string">"growing, size: "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> m_size</span><span class="symbol">);</span>
+
+<span class="normal">            bids</span><span class="symbol">.</span><span class="function">resize</span><span class="symbol">(</span><span class="normal">bids</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> blocks_per_page</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">std</span><span class="symbol">::</span><span class="normal">vector</span><span class="symbol">&lt;</span><span class="normal">bid_type</span><span class="symbol">&gt;::</span><span class="usertype">iterator</span><span class="normal"> cur_bid </span><span class="symbol">=</span><span class="normal"> bids</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> blocks_per_page</span><span class="symbol">;</span>
+<span class="normal">            block_manager</span><span class="symbol">::</span><span class="function">get_instance</span><span class="symbol">()-&gt;</span><span class="function">new_blocks</span><span class="symbol">(</span><span class="normal">alloc_strategy</span><span class="symbol">,</span><span class="normal"> cur_bid</span><span class="symbol">,</span><span class="normal"> bids</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">(),</span><span class="normal"> cur_bid </span><span class="symbol">-</span><span class="normal"> bids</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">());</span>
+
+<span class="normal">            </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> blocks_per_page</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">cur_bid</span><span class="symbol">)</span>
+<span class="normal">            </span><span class="cbracket">{</span>
+<span class="normal">                </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">requests</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">].</span><span class="function">get</span><span class="symbol">())</span>
+<span class="normal">                    requests</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]-&gt;</span><span class="function">wait</span><span class="symbol">();</span>
+
+<span class="normal">                requests</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cache_buffers </span><span class="symbol">+</span><span class="normal"> i</span><span class="symbol">)-&gt;</span><span class="function">write</span><span class="symbol">(*</span><span class="normal">cur_bid</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+
+<span class="normal">            std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">cache_buffers</span><span class="symbol">,</span><span class="normal"> overlap_buffers</span><span class="symbol">);</span>
+
+<span class="normal">            bids</span><span class="symbol">.</span><span class="function">reserve</span><span class="symbol">(</span><span class="normal">bids</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> blocks_per_page</span><span class="symbol">);</span>
+
+<span class="normal">            cache_offset </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">            current_element </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">&amp;((*</span><span class="normal">cache_buffers</span><span class="symbol">)[</span><span class="number">0</span><span class="symbol">]);</span>
+<span class="normal">            </span><span class="symbol">++</span><span class="normal">m_size</span><span class="symbol">;</span>
+
+<span class="normal">            </span><span class="symbol">*</span><span class="normal">current_element </span><span class="symbol">=</span><span class="normal"> val</span><span class="symbol">;</span>
+
+<span class="normal">            </span><span class="keyword">return</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        current_element </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">&amp;((*(</span><span class="normal">cache_buffers </span><span class="symbol">+</span><span class="normal"> cache_offset </span><span class="symbol">/</span><span class="normal"> block_type</span><span class="symbol">::</span><span class="normal">size</span><span class="symbol">))[</span><span class="normal">cache_offset </span><span class="symbol">%</span><span class="normal"> block_type</span><span class="symbol">::</span><span class="normal">size</span><span class="symbol">]);</span>
+<span class="normal">        </span><span class="symbol">*</span><span class="normal">current_element </span><span class="symbol">=</span><span class="normal"> val</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="symbol">++</span><span class="normal">m_size</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="symbol">++</span><span class="normal">cache_offset</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! Removes the element at the top of the stack. Precondition: stack is not</span>
+<span class="normal">    </span><span class="comment">//! empty(). Postcondition: size() is decremented.</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">pop</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">(</span><span class="normal">cache_offset </span><span class="symbol">&lt;=</span><span class="normal"> blocks_per_page </span><span class="symbol">*</span><span class="normal"> block_type</span><span class="symbol">::</span><span class="normal">size</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">(</span><span class="normal">cache_offset </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">(</span><span class="normal">m_size </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">UNLIKELY</span><span class="symbol">(</span><span class="normal">cache_offset </span><span class="symbol">==</span><span class="normal"> </span><span class="number">1</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> bids</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">&gt;=</span><span class="normal"> blocks_per_page</span><span class="symbol">))</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">STXXL_VERBOSE2</span><span class="symbol">(</span><span class="string">"shrinking, size: "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> m_size</span><span class="symbol">);</span>
+
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">requests</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">].</span><span class="function">get</span><span class="symbol">())</span>
+<span class="normal">                </span><span class="function">wait_all</span><span class="symbol">(</span><span class="normal">requests</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">(),</span><span class="normal"> blocks_per_page</span><span class="symbol">);</span>
+
+
+<span class="normal">            std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">cache_buffers</span><span class="symbol">,</span><span class="normal"> overlap_buffers</span><span class="symbol">);</span>
+
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">bids</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">&gt;</span><span class="normal"> blocks_per_page</span><span class="symbol">)</span>
+<span class="normal">            </span><span class="cbracket">{</span>
+<span class="normal">                </span><span class="function">STXXL_VERBOSE2</span><span class="symbol">(</span><span class="string">"prefetching, size: "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> m_size</span><span class="symbol">);</span>
+<span class="normal">                </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">std</span><span class="symbol">::</span><span class="normal">vector</span><span class="symbol">&lt;</span><span class="normal">bid_type</span><span class="symbol">&gt;::</span><span class="usertype">const_iterator</span><span class="normal"> cur_bid </span><span class="symbol">=</span><span class="normal"> bids</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> blocks_per_page</span><span class="symbol">;</span>
+<span class="normal">                </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> blocks_per_page </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">--</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">                    requests</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">overlap_buffers </span><span class="symbol">+</span><span class="normal"> i</span><span class="symbol">)-&gt;</span><span class="function">read</span><span class="symbol">(*(--</span><span class="normal">cur_bid</span><span class="symbol">));</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+
+<span class="normal">            block_manager</span><span class="symbol">::</span><span class="function">get_instance</span><span class="symbol">()-&gt;</span><span class="function">delete_blocks</span><span class="symbol">(</span><span class="normal">bids</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> blocks_per_page</span><span class="symbol">,</span><span class="normal"> bids</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">());</span>
+<span class="normal">            bids</span><span class="symbol">.</span><span class="function">resize</span><span class="symbol">(</span><span class="normal">bids</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> blocks_per_page</span><span class="symbol">);</span>
+
+<span class="normal">            cache_offset </span><span class="symbol">=</span><span class="normal"> blocks_per_page </span><span class="symbol">*</span><span class="normal"> block_type</span><span class="symbol">::</span><span class="normal">size</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="symbol">--</span><span class="normal">m_size</span><span class="symbol">;</span>
+<span class="normal">            current_element </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">&amp;((*(</span><span class="normal">cache_buffers </span><span class="symbol">+</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">blocks_per_page </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)))[</span><span class="normal">block_type</span><span class="symbol">::</span><span class="normal">size </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">]);</span>
+
+<span class="normal">            </span><span class="keyword">return</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        </span><span class="symbol">--</span><span class="normal">m_size</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="usertype">unsigned_type</span><span class="normal"> cur_offset </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(--</span><span class="normal">cache_offset</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">        current_element </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">&amp;((*(</span><span class="normal">cache_buffers </span><span class="symbol">+</span><span class="normal"> cur_offset </span><span class="symbol">/</span><span class="normal"> block_type</span><span class="symbol">::</span><span class="normal">size</span><span class="symbol">))[</span><span class="normal">cur_offset </span><span class="symbol">%</span><span class="normal"> block_type</span><span class="symbol">::</span><span class="normal">size</span><span class="symbol">]);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! \}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="comment">//! Efficient implementation that uses prefetching and overlapping using (shared) buffers pools.</span>
+<span class="comment">//! \warning This is a single buffer stack! Each direction change (push() followed by pop() or vice versa) may cause one I/O.</span>
+<span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">StackConfig</span><span class="symbol">&gt;</span>
+<span class="keyword">class</span><span class="normal"> </span><span class="classname">grow_shrink_stack2</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> </span><span class="keyword">private</span><span class="normal"> noncopyable</span>
+<span class="cbracket">{</span>
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">StackConfig</span><span class="normal"> cfg</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">//! type of the elements stored in the stack</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">cfg</span><span class="symbol">::</span><span class="usertype">value_type</span><span class="normal"> value_type</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">cfg</span><span class="symbol">::</span><span class="usertype">alloc_strategy</span><span class="normal"> alloc_strategy_type</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">//! type for sizes (64-bit)</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">cfg</span><span class="symbol">::</span><span class="usertype">size_type</span><span class="normal"> size_type</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">enum</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        blocks_per_page </span><span class="symbol">=</span><span class="normal"> cfg</span><span class="symbol">::</span><span class="normal">blocks_per_page</span><span class="symbol">,</span><span class="normal">     </span><span class="comment">// stack of this type has only one page</span>
+<span class="normal">        block_size </span><span class="symbol">=</span><span class="normal"> cfg</span><span class="symbol">::</span><span class="normal">block_size</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">//! type of block used in disk-memory transfers</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">typed_block&lt;block_size, value_type&gt;</span><span class="normal"> block_type</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">BID&lt;block_size&gt;</span><span class="normal"> bid_type</span><span class="symbol">;</span>
+
+<span class="keyword">private</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">read_write_pool&lt;block_type&gt;</span><span class="normal"> pool_type</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="usertype">size_type</span><span class="normal"> m_size</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">unsigned_type</span><span class="normal"> cache_offset</span><span class="symbol">;</span>
+<span class="normal">    block_type</span><span class="symbol">*</span><span class="normal"> cache</span><span class="symbol">;</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">vector&lt;bid_type&gt;</span><span class="normal"> bids</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">alloc_strategy_type</span><span class="normal"> alloc_strategy</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">unsigned_type</span><span class="normal"> pref_aggr</span><span class="symbol">;</span>
+<span class="normal">    pool_type</span><span class="symbol">*</span><span class="normal"> owned_pool</span><span class="symbol">;</span>
+<span class="normal">    pool_type</span><span class="symbol">*</span><span class="normal"> pool</span><span class="symbol">;</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">//! \name Constructors/Destructors</span>
+<span class="normal">    </span><span class="comment">//! \{</span>
+
+<span class="normal">    </span><span class="comment">//! Default constructor: creates empty stack. The stack will use the</span>
+<span class="normal">    </span><span class="comment">//! read_write_pool for prefetching and buffered writing.</span>
+<span class="normal">    </span><span class="comment">//! \param pool_ block write/prefetch pool</span>
+<span class="normal">    </span><span class="comment">//! \param prefetch_aggressiveness number of blocks that will be used from prefetch pool</span>
+<span class="normal">    </span><span class="function">grow_shrink_stack2</span><span class="symbol">(</span>
+<span class="normal">        pool_type</span><span class="symbol">&amp;</span><span class="normal"> pool_</span><span class="symbol">,</span>
+<span class="normal">        </span><span class="usertype">unsigned_type</span><span class="normal"> prefetch_aggressiveness </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="symbol">:</span><span class="normal"> </span><span class="function">m_size</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">),</span>
+<span class="normal">          </span><span class="function">cache_offset</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">),</span>
+<span class="normal">          </span><span class="function">cache</span><span class="symbol">(</span><span class="keyword">new</span><span class="normal"> block_type</span><span class="symbol">),</span>
+<span class="normal">          </span><span class="function">pref_aggr</span><span class="symbol">(</span><span class="normal">prefetch_aggressiveness</span><span class="symbol">),</span>
+<span class="normal">          </span><span class="function">owned_pool</span><span class="symbol">(</span><span class="normal">NULL</span><span class="symbol">),</span>
+<span class="normal">          </span><span class="function">pool</span><span class="symbol">(&amp;</span><span class="normal">pool_</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">STXXL_VERBOSE2</span><span class="symbol">(</span><span class="string">"grow_shrink_stack2::grow_shrink_stack2(...)"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! Default constructor: creates empty stack. The stack will use the pair</span>
+<span class="normal">    </span><span class="comment">//! of prefetch_pool and write_pool for prefetching and buffered writing.</span>
+<span class="normal">    </span><span class="comment">//! This constructor is deprecated in favor of the read_write_pool</span>
+<span class="normal">    </span><span class="comment">//! constructor.</span>
+<span class="normal">    </span><span class="comment">//!</span>
+<span class="normal">    </span><span class="comment">//! \param p_pool_ prefetch pool, that will be used for block prefetching</span>
+<span class="normal">    </span><span class="comment">//! \param w_pool_ write pool, that will be used for block writing</span>
+<span class="normal">    </span><span class="comment">//! \param prefetch_aggressiveness number of blocks that will be used from prefetch pool</span>
+<span class="normal">    </span><span class="function">STXXL_DEPRECATED</span><span class="symbol">(</span>
+<span class="normal">        </span><span class="function">grow_shrink_stack2</span><span class="symbol">(</span>
+<span class="normal">            prefetch_pool</span><span class="symbol">&lt;</span><span class="normal">block_type</span><span class="symbol">&gt;&amp;</span><span class="normal"> p_pool_</span><span class="symbol">,</span>
+<span class="normal">            write_pool</span><span class="symbol">&lt;</span><span class="normal">block_type</span><span class="symbol">&gt;&amp;</span><span class="normal"> w_pool_</span><span class="symbol">,</span>
+<span class="normal">            </span><span class="usertype">unsigned_type</span><span class="normal"> prefetch_aggressiveness </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">:</span>
+<span class="normal">        </span><span class="function">m_size</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">),</span>
+<span class="normal">        </span><span class="function">cache_offset</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">),</span>
+<span class="normal">        </span><span class="function">cache</span><span class="symbol">(</span><span class="keyword">new</span><span class="normal"> block_type</span><span class="symbol">),</span>
+<span class="normal">        </span><span class="function">pref_aggr</span><span class="symbol">(</span><span class="normal">prefetch_aggressiveness</span><span class="symbol">),</span>
+<span class="normal">        </span><span class="function">owned_pool</span><span class="symbol">(</span><span class="keyword">new</span><span class="normal"> </span><span class="function">pool_type</span><span class="symbol">(</span><span class="normal">p_pool_</span><span class="symbol">,</span><span class="normal"> w_pool_</span><span class="symbol">)),</span>
+<span class="normal">        </span><span class="function">pool</span><span class="symbol">(</span><span class="normal">owned_pool</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">STXXL_VERBOSE2</span><span class="symbol">(</span><span class="string">"grow_shrink_stack2::grow_shrink_stack2(...)"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! \}</span>
+
+<span class="normal">    </span><span class="comment">//! \name Accessor Functions</span>
+<span class="normal">    </span><span class="comment">//! \{</span>
+
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">swap</span><span class="symbol">(</span><span class="normal">grow_shrink_stack2</span><span class="symbol">&amp;</span><span class="normal"> obj</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">m_size</span><span class="symbol">,</span><span class="normal"> obj</span><span class="symbol">.</span><span class="normal">m_size</span><span class="symbol">);</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">cache_offset</span><span class="symbol">,</span><span class="normal"> obj</span><span class="symbol">.</span><span class="normal">cache_offset</span><span class="symbol">);</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">cache</span><span class="symbol">,</span><span class="normal"> obj</span><span class="symbol">.</span><span class="normal">cache</span><span class="symbol">);</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">bids</span><span class="symbol">,</span><span class="normal"> obj</span><span class="symbol">.</span><span class="normal">bids</span><span class="symbol">);</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">alloc_strategy</span><span class="symbol">,</span><span class="normal"> obj</span><span class="symbol">.</span><span class="normal">alloc_strategy</span><span class="symbol">);</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">pref_aggr</span><span class="symbol">,</span><span class="normal"> obj</span><span class="symbol">.</span><span class="normal">pref_aggr</span><span class="symbol">);</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">owned_pool</span><span class="symbol">,</span><span class="normal"> obj</span><span class="symbol">.</span><span class="normal">owned_pool</span><span class="symbol">);</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">pool</span><span class="symbol">,</span><span class="normal"> obj</span><span class="symbol">.</span><span class="normal">pool</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! \}</span>
+
+<span class="normal">    </span><span class="comment">//! \name Constructors/Destructors</span>
+<span class="normal">    </span><span class="comment">//! \{</span>
+
+<span class="normal">    </span><span class="keyword">virtual</span><span class="normal"> </span><span class="symbol">~</span><span class="function">grow_shrink_stack2</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">try</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">STXXL_VERBOSE2</span><span class="symbol">(</span><span class="string">"grow_shrink_stack2::~grow_shrink_stack2()"</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">int_type</span><span class="normal"> bids_size </span><span class="symbol">=</span><span class="normal"> bids</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span>
+<span class="normal">            </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">int_type</span><span class="normal"> last_pref </span><span class="symbol">=</span><span class="normal"> </span><span class="function">STXXL_MAX</span><span class="symbol">(</span><span class="function">int_type</span><span class="symbol">(</span><span class="normal">bids_size</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> </span><span class="function">int_type</span><span class="symbol">(</span><span class="normal">pref_aggr</span><span class="symbol">),</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">int_type</span><span class="symbol">)</span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="usertype">int_type</span><span class="normal"> i</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> bids_size </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&gt;=</span><span class="normal"> last_pref</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">--</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">            </span><span class="cbracket">{</span>
+<span class="normal">                </span><span class="comment">// clean the prefetch buffer</span>
+<span class="normal">                pool</span><span class="symbol">-&gt;</span><span class="function">invalidate</span><span class="symbol">(</span><span class="normal">bids</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]);</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">            </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">std</span><span class="symbol">::</span><span class="normal">vector</span><span class="symbol">&lt;</span><span class="normal">bid_type</span><span class="symbol">&gt;::</span><span class="usertype">iterator</span><span class="normal"> cur </span><span class="symbol">=</span><span class="normal"> bids</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">();</span>
+<span class="normal">            </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">std</span><span class="symbol">::</span><span class="normal">vector</span><span class="symbol">&lt;</span><span class="normal">bid_type</span><span class="symbol">&gt;::</span><span class="usertype">const_iterator</span><span class="normal"> end </span><span class="symbol">=</span><span class="normal"> bids</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">();</span>
+<span class="normal">            </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"> </span><span class="symbol">;</span><span class="normal"> cur </span><span class="symbol">!=</span><span class="normal"> end</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">cur</span><span class="symbol">)</span>
+<span class="normal">            </span><span class="cbracket">{</span>
+<span class="normal">                </span><span class="comment">// FIXME: read_write_pool needs something like cancel_write(bid)</span>
+<span class="normal">                block_type</span><span class="symbol">*</span><span class="normal"> b </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span><span class="normal">   </span><span class="comment">// w_pool.steal(*cur);</span>
+<span class="normal">                </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">b</span><span class="symbol">)</span>
+<span class="normal">                </span><span class="cbracket">{</span>
+<span class="normal">                    pool</span><span class="symbol">-&gt;</span><span class="function">add</span><span class="symbol">(</span><span class="normal">cache</span><span class="symbol">);</span><span class="normal">   </span><span class="comment">// return buffer</span>
+<span class="normal">                    cache </span><span class="symbol">=</span><span class="normal"> b</span><span class="symbol">;</span>
+<span class="normal">                </span><span class="cbracket">}</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">            </span><span class="keyword">delete</span><span class="normal"> cache</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="keyword">catch</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> io_error</span><span class="symbol">&amp;)</span>
+<span class="normal">        </span><span class="cbracket">{</span><span class="normal"> </span><span class="cbracket">}</span>
+<span class="normal">        block_manager</span><span class="symbol">::</span><span class="function">get_instance</span><span class="symbol">()-&gt;</span><span class="function">delete_blocks</span><span class="symbol">(</span><span class="normal">bids</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">(),</span><span class="normal"> bids</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">());</span>
+<span class="normal">        </span><span class="keyword">delete</span><span class="normal"> owned_pool</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! \}</span>
+
+<span class="normal">    </span><span class="comment">//! \name Capacity</span>
+<span class="normal">    </span><span class="comment">//! \{</span>
+
+<span class="normal">    </span><span class="comment">//! Returns the number of elements contained in the stack</span>
+<span class="normal">    </span><span class="usertype">size_type</span><span class="normal"> </span><span class="function">size</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> m_size</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="comment">//! Returns true if the stack is empty.</span>
+<span class="normal">    </span><span class="type">bool</span><span class="normal"> </span><span class="function">empty</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">m_size</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! \}</span>
+
+<span class="normal">    </span><span class="comment">//! \name Accessor Functions</span>
+<span class="normal">    </span><span class="comment">//! \{</span>
+
+<span class="normal">    </span><span class="comment">//! Inserts an element at the top of the stack. Postconditions: size() is</span>
+<span class="normal">    </span><span class="comment">//! incremented by 1, and top() is the inserted element.</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">push</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> value_type</span><span class="symbol">&amp;</span><span class="normal"> val</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">STXXL_VERBOSE3</span><span class="symbol">(</span><span class="string">"grow_shrink_stack2::push("</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> val </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">")"</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">(</span><span class="normal">cache_offset </span><span class="symbol">&lt;=</span><span class="normal"> block_type</span><span class="symbol">::</span><span class="normal">size</span><span class="symbol">);</span>
+
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">UNLIKELY</span><span class="symbol">(</span><span class="normal">cache_offset </span><span class="symbol">==</span><span class="normal"> block_type</span><span class="symbol">::</span><span class="normal">size</span><span class="symbol">))</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">STXXL_VERBOSE2</span><span class="symbol">(</span><span class="string">"grow_shrink_stack2::push("</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> val </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">") growing, size: "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> m_size</span><span class="symbol">);</span>
+
+<span class="normal">            bids</span><span class="symbol">.</span><span class="function">resize</span><span class="symbol">(</span><span class="normal">bids</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">std</span><span class="symbol">::</span><span class="normal">vector</span><span class="symbol">&lt;</span><span class="normal">bid_type</span><span class="symbol">&gt;::</span><span class="usertype">iterator</span><span class="normal"> cur_bid </span><span class="symbol">=</span><span class="normal"> bids</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">            block_manager</span><span class="symbol">::</span><span class="function">get_instance</span><span class="symbol">()-&gt;</span><span class="function">new_blocks</span><span class="symbol">(</span><span class="normal">alloc_strategy</span><span class="symbol">,</span><span class="normal"> cur_bid</span><span class="symbol">,</span><span class="normal"> bids</span><span class="symbol">.</span><span class="function">end</span><span class="symbol">(),</span><span class="normal"> cur_bid </span><span class="symbol">-</span><span class="normal"> bids</span><span class="symbol">.</span><span class="function">begin</span><span class="symbol">());</span>
+<span class="normal">            pool</span><span class="symbol">-&gt;</span><span class="function">write</span><span class="symbol">(</span><span class="normal">cache</span><span class="symbol">,</span><span class="normal"> bids</span><span class="symbol">.</span><span class="function">back</span><span class="symbol">());</span>
+<span class="normal">            cache </span><span class="symbol">=</span><span class="normal"> pool</span><span class="symbol">-&gt;</span><span class="function">steal</span><span class="symbol">();</span>
+<span class="normal">            </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">int_type</span><span class="normal"> bids_size </span><span class="symbol">=</span><span class="normal"> bids</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span>
+<span class="normal">            </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">int_type</span><span class="normal"> last_pref </span><span class="symbol">=</span><span class="normal"> </span><span class="function">STXXL_MAX</span><span class="symbol">(</span><span class="function">int_type</span><span class="symbol">(</span><span class="normal">bids_size</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> </span><span class="function">int_type</span><span class="symbol">(</span><span class="normal">pref_aggr</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">int_type</span><span class="symbol">)</span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">int_type</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> bids_size </span><span class="symbol">-</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&gt;=</span><span class="normal"> last_pref</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">--</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">            </span><span class="cbracket">{</span>
+<span class="normal">                </span><span class="comment">// clean prefetch buffers</span>
+<span class="normal">                pool</span><span class="symbol">-&gt;</span><span class="function">invalidate</span><span class="symbol">(</span><span class="normal">bids</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]);</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">            cache_offset </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="symbol">(*</span><span class="normal">cache</span><span class="symbol">)[</span><span class="normal">cache_offset</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> val</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="symbol">++</span><span class="normal">m_size</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="symbol">++</span><span class="normal">cache_offset</span><span class="symbol">;</span>
+
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">(</span><span class="normal">cache_offset </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">(</span><span class="normal">cache_offset </span><span class="symbol">&lt;=</span><span class="normal"> block_type</span><span class="symbol">::</span><span class="normal">size</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! Return mutable reference to the element at the top of the</span>
+<span class="normal">    </span><span class="comment">//! stack. Precondition: stack is not empty().</span>
+<span class="normal">    value_type </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="function">top</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">(</span><span class="normal">m_size </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">(</span><span class="normal">cache_offset </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">(</span><span class="normal">cache_offset </span><span class="symbol">&lt;=</span><span class="normal"> block_type</span><span class="symbol">::</span><span class="normal">size</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">cache</span><span class="symbol">)[</span><span class="normal">cache_offset </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">];</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! Return constant reference to the element at the top of the</span>
+<span class="normal">    </span><span class="comment">//! stack. Precondition: stack is not empty().</span>
+<span class="normal">    </span><span class="keyword">const</span><span class="normal"> value_type </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="function">top</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">(</span><span class="normal">m_size </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">(</span><span class="normal">cache_offset </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">(</span><span class="normal">cache_offset </span><span class="symbol">&lt;=</span><span class="normal"> block_type</span><span class="symbol">::</span><span class="normal">size</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">cache</span><span class="symbol">)[</span><span class="normal">cache_offset </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">];</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! Removes the element at the top of the stack. Precondition: stack is not</span>
+<span class="normal">    </span><span class="comment">//! empty(). Postcondition: size() is decremented.</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">pop</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">STXXL_VERBOSE3</span><span class="symbol">(</span><span class="string">"grow_shrink_stack2::pop()"</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">(</span><span class="normal">m_size </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">(</span><span class="normal">cache_offset </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">(</span><span class="normal">cache_offset </span><span class="symbol">&lt;=</span><span class="normal"> block_type</span><span class="symbol">::</span><span class="normal">size</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">UNLIKELY</span><span class="symbol">(</span><span class="normal">cache_offset </span><span class="symbol">==</span><span class="normal"> </span><span class="number">1</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">bids</span><span class="symbol">.</span><span class="function">empty</span><span class="symbol">())))</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">STXXL_VERBOSE2</span><span class="symbol">(</span><span class="string">"grow_shrink_stack2::pop() shrinking, size = "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> m_size</span><span class="symbol">);</span>
+
+<span class="normal">            </span><span class="usertype">bid_type</span><span class="normal"> last_block </span><span class="symbol">=</span><span class="normal"> bids</span><span class="symbol">.</span><span class="function">back</span><span class="symbol">();</span>
+<span class="normal">            bids</span><span class="symbol">.</span><span class="function">pop_back</span><span class="symbol">();</span>
+<span class="normal">            pool</span><span class="symbol">-&gt;</span><span class="function">read</span><span class="symbol">(</span><span class="normal">cache</span><span class="symbol">,</span><span class="normal"> last_block</span><span class="symbol">)-&gt;</span><span class="function">wait</span><span class="symbol">();</span>
+<span class="normal">            block_manager</span><span class="symbol">::</span><span class="function">get_instance</span><span class="symbol">()-&gt;</span><span class="function">delete_block</span><span class="symbol">(</span><span class="normal">last_block</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="function">rehint</span><span class="symbol">();</span>
+<span class="normal">            cache_offset </span><span class="symbol">=</span><span class="normal"> block_type</span><span class="symbol">::</span><span class="normal">size </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        </span><span class="symbol">--</span><span class="normal">cache_offset</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="symbol">--</span><span class="normal">m_size</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! \}</span>
+
+<span class="normal">    </span><span class="comment">//! \name Miscellaneous</span>
+<span class="normal">    </span><span class="comment">//! \{</span>
+
+<span class="normal">    </span><span class="comment">//! Sets level of prefetch aggressiveness (number of blocks from the</span>
+<span class="normal">    </span><span class="comment">//! prefetch pool used for prefetching).</span>
+<span class="normal">    </span><span class="comment">//! \param new_p new value for the prefetch aggressiveness</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">set_prefetch_aggr</span><span class="symbol">(</span><span class="usertype">unsigned_type</span><span class="normal"> new_p</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">pref_aggr </span><span class="symbol">&gt;</span><span class="normal"> new_p</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">int_type</span><span class="normal"> bids_size </span><span class="symbol">=</span><span class="normal"> bids</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span>
+<span class="normal">            </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">int_type</span><span class="normal"> last_pref </span><span class="symbol">=</span><span class="normal"> </span><span class="function">STXXL_MAX</span><span class="symbol">(</span><span class="function">int_type</span><span class="symbol">(</span><span class="normal">bids_size</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> </span><span class="function">int_type</span><span class="symbol">(</span><span class="normal">pref_aggr</span><span class="symbol">),</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">int_type</span><span class="symbol">)</span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">int_type</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> bids_size </span><span class="symbol">-</span><span class="normal"> new_p </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&gt;=</span><span class="normal"> last_pref</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">--</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">            </span><span class="cbracket">{</span>
+<span class="normal">                </span><span class="comment">// clean prefetch buffers</span>
+<span class="normal">                pool</span><span class="symbol">-&gt;</span><span class="function">invalidate</span><span class="symbol">(</span><span class="normal">bids</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]);</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        pref_aggr </span><span class="symbol">=</span><span class="normal"> new_p</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="function">rehint</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! Returns number of blocks used for prefetching.</span>
+<span class="normal">    </span><span class="usertype">unsigned_type</span><span class="normal"> </span><span class="function">get_prefetch_aggr</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> pref_aggr</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! \}</span>
+
+<span class="keyword">private</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">//! hint the last pref_aggr external blocks.</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">rehint</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">int_type</span><span class="normal"> bids_size </span><span class="symbol">=</span><span class="normal"> bids</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span>
+<span class="normal">        </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">int_type</span><span class="normal"> last_pref </span><span class="symbol">=</span><span class="normal"> </span><span class="function">STXXL_MAX</span><span class="symbol">(</span><span class="function">int_type</span><span class="symbol">(</span><span class="normal">bids_size</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> </span><span class="function">int_type</span><span class="symbol">(</span><span class="normal">pref_aggr</span><span class="symbol">),</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">int_type</span><span class="symbol">)</span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">int_type</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> bids_size </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&gt;=</span><span class="normal"> last_pref</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">--</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            pool</span><span class="symbol">-&gt;</span><span class="function">hint</span><span class="symbol">(</span><span class="normal">bids</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]);</span><span class="normal">  </span><span class="comment">// prefetch</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+
+<span class="comment">//! A stack that migrates from internal memory to external when its size exceeds a certain threshold.</span>
+<span class="comment">//!</span>
+<span class="comment">//! For semantics of the methods see documentation of the STL \c std::stack.</span>
+<span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="usertype">unsigned_type</span><span class="normal"> CritSize</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">ExternalStack</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">InternalStack</span><span class="symbol">&gt;</span>
+<span class="keyword">class</span><span class="normal"> </span><span class="classname">migrating_stack</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> </span><span class="keyword">private</span><span class="normal"> noncopyable</span>
+<span class="cbracket">{</span>
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">ExternalStack</span><span class="symbol">::</span><span class="usertype">cfg</span><span class="normal"> cfg</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">//! type of the elements stored in the stack</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">cfg</span><span class="symbol">::</span><span class="usertype">value_type</span><span class="normal"> value_type</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">//! type for sizes (64-bit)</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">cfg</span><span class="symbol">::</span><span class="usertype">size_type</span><span class="normal"> size_type</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">enum</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        blocks_per_page </span><span class="symbol">=</span><span class="normal"> cfg</span><span class="symbol">::</span><span class="normal">blocks_per_page</span><span class="symbol">,</span>
+<span class="normal">        block_size </span><span class="symbol">=</span><span class="normal"> cfg</span><span class="symbol">::</span><span class="normal">block_size</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">InternalStack</span><span class="normal"> int_stack_type</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">ExternalStack</span><span class="normal"> ext_stack_type</span><span class="symbol">;</span>
+
+<span class="keyword">private</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="keyword">enum</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> critical_size </span><span class="symbol">=</span><span class="normal"> CritSize </span><span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="normal">    int_stack_type</span><span class="symbol">*</span><span class="normal"> int_impl</span><span class="symbol">;</span>
+<span class="normal">    ext_stack_type</span><span class="symbol">*</span><span class="normal"> ext_impl</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">//! Copy-construction from a another stack of any type.</span>
+<span class="normal">    </span><span class="comment">//! \warning not implemented yet!</span>
+<span class="normal">    </span><span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">stack_type</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="function">migrating_stack</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> stack_type</span><span class="symbol">&amp;</span><span class="normal"> stack_</span><span class="symbol">);</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">//! \name Constructors/Destructors</span>
+<span class="normal">    </span><span class="comment">//! \{</span>
+
+<span class="normal">    </span><span class="comment">//! Default constructor: creates empty stack.</span>
+<span class="normal">    </span><span class="function">migrating_stack</span><span class="symbol">()</span>
+<span class="normal">        </span><span class="symbol">:</span><span class="normal"> </span><span class="function">int_impl</span><span class="symbol">(</span><span class="keyword">new</span><span class="normal"> </span><span class="function">int_stack_type</span><span class="symbol">()),</span><span class="normal"> </span><span class="function">ext_impl</span><span class="symbol">(</span><span class="normal">NULL</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span><span class="normal"> </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">virtual</span><span class="normal"> </span><span class="symbol">~</span><span class="function">migrating_stack</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">delete</span><span class="normal"> int_impl</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="keyword">delete</span><span class="normal"> ext_impl</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! \}</span>
+
+<span class="normal">    </span><span class="comment">//! \name Accessor Functions</span>
+<span class="normal">    </span><span class="comment">//! \{</span>
+
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">swap</span><span class="symbol">(</span><span class="normal">migrating_stack</span><span class="symbol">&amp;</span><span class="normal"> obj</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">int_impl</span><span class="symbol">,</span><span class="normal"> obj</span><span class="symbol">.</span><span class="normal">int_impl</span><span class="symbol">);</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">ext_impl</span><span class="symbol">,</span><span class="normal"> obj</span><span class="symbol">.</span><span class="normal">ext_impl</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! \}</span>
+
+<span class="normal">    </span><span class="comment">//! \name Miscellaneous</span>
+<span class="normal">    </span><span class="comment">//! \{</span>
+
+<span class="normal">    </span><span class="comment">//! Returns true if current implementation is internal, otherwise false.</span>
+<span class="normal">    </span><span class="type">bool</span><span class="normal"> </span><span class="function">internal</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">((</span><span class="normal">int_impl </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">ext_impl</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">int_impl </span><span class="symbol">&amp;&amp;</span><span class="normal"> ext_impl</span><span class="symbol">));</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">int_impl </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="comment">//! Returns true if current implementation is external, otherwise false.</span>
+<span class="normal">    </span><span class="type">bool</span><span class="normal"> </span><span class="function">external</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">((</span><span class="normal">int_impl </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">ext_impl</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">int_impl </span><span class="symbol">&amp;&amp;</span><span class="normal"> ext_impl</span><span class="symbol">));</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ext_impl </span><span class="symbol">!=</span><span class="normal"> NULL</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! \}</span>
+
+<span class="normal">    </span><span class="comment">//! \name Capacity</span>
+<span class="normal">    </span><span class="comment">//! \{</span>
+
+<span class="normal">    </span><span class="comment">//! Returns true if the stack is empty.</span>
+<span class="normal">    </span><span class="type">bool</span><span class="normal"> </span><span class="function">empty</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">((</span><span class="normal">int_impl </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">ext_impl</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">int_impl </span><span class="symbol">&amp;&amp;</span><span class="normal"> ext_impl</span><span class="symbol">));</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">int_impl</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">?</span><span class="normal"> int_impl</span><span class="symbol">-&gt;</span><span class="function">empty</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> ext_impl</span><span class="symbol">-&gt;</span><span class="function">empty</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="comment">//! Returns the number of elements contained in the stack</span>
+<span class="normal">    </span><span class="usertype">size_type</span><span class="normal"> </span><span class="function">size</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">((</span><span class="normal">int_impl </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">ext_impl</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">int_impl </span><span class="symbol">&amp;&amp;</span><span class="normal"> ext_impl</span><span class="symbol">));</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">int_impl</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">?</span><span class="normal"> </span><span class="function">size_type</span><span class="symbol">(</span><span class="normal">int_impl</span><span class="symbol">-&gt;</span><span class="function">size</span><span class="symbol">())</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> ext_impl</span><span class="symbol">-&gt;</span><span class="function">size</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! \}</span>
+
+<span class="normal">    </span><span class="comment">//! \name Accessor Functions</span>
+<span class="normal">    </span><span class="comment">//! \{</span>
+
+<span class="normal">    </span><span class="comment">//! Return mutable reference to the element at the top of the</span>
+<span class="normal">    </span><span class="comment">//! stack. Precondition: stack is not empty().</span>
+<span class="normal">    value_type </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="function">top</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">((</span><span class="normal">int_impl </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">ext_impl</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">int_impl </span><span class="symbol">&amp;&amp;</span><span class="normal"> ext_impl</span><span class="symbol">));</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">int_impl</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">?</span><span class="normal"> int_impl</span><span class="symbol">-&gt;</span><span class="function">top</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> ext_impl</span><span class="symbol">-&gt;</span><span class="function">top</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! Return constant reference to the element at the top of the</span>
+<span class="normal">    </span><span class="comment">//! stack. Precondition: stack is not empty().</span>
+<span class="normal">    </span><span class="keyword">const</span><span class="normal"> value_type </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="function">top</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">((</span><span class="normal">int_impl </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">ext_impl</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">int_impl </span><span class="symbol">&amp;&amp;</span><span class="normal"> ext_impl</span><span class="symbol">));</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">int_impl</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">?</span><span class="normal"> int_impl</span><span class="symbol">-&gt;</span><span class="function">top</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> ext_impl</span><span class="symbol">-&gt;</span><span class="function">top</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! Inserts an element at the top of the stack. Postconditions: size() is</span>
+<span class="normal">    </span><span class="comment">//! incremented by 1, and top() is the inserted element.</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">push</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> value_type</span><span class="symbol">&amp;</span><span class="normal"> val</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">((</span><span class="normal">int_impl </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">ext_impl</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">int_impl </span><span class="symbol">&amp;&amp;</span><span class="normal"> ext_impl</span><span class="symbol">));</span>
+
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">int_impl</span><span class="symbol">)</span>
+<span class="normal">        </span><span class="cbracket">{</span>
+<span class="normal">            int_impl</span><span class="symbol">-&gt;</span><span class="function">push</span><span class="symbol">(</span><span class="normal">val</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">UNLIKELY</span><span class="symbol">(</span><span class="normal">int_impl</span><span class="symbol">-&gt;</span><span class="function">size</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> critical_size</span><span class="symbol">))</span>
+<span class="normal">            </span><span class="cbracket">{</span>
+<span class="normal">                </span><span class="comment">// migrate to external stack</span>
+<span class="normal">                ext_impl </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="function">ext_stack_type</span><span class="symbol">(*</span><span class="normal">int_impl</span><span class="symbol">);</span>
+<span class="normal">                </span><span class="keyword">delete</span><span class="normal"> int_impl</span><span class="symbol">;</span>
+<span class="normal">                int_impl </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="keyword">else</span>
+<span class="normal">            ext_impl</span><span class="symbol">-&gt;</span><span class="function">push</span><span class="symbol">(</span><span class="normal">val</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! Removes the element at the top of the stack. Precondition: stack is not</span>
+<span class="normal">    </span><span class="comment">//! empty(). Postcondition: size() is decremented.</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">pop</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">((</span><span class="normal">int_impl </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">ext_impl</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">int_impl </span><span class="symbol">&amp;&amp;</span><span class="normal"> ext_impl</span><span class="symbol">));</span>
+
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">int_impl</span><span class="symbol">)</span>
+<span class="normal">            int_impl</span><span class="symbol">-&gt;</span><span class="function">pop</span><span class="symbol">();</span>
+<span class="normal">        </span><span class="keyword">else</span>
+<span class="normal">            ext_impl</span><span class="symbol">-&gt;</span><span class="function">pop</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! \}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="keyword">enum</span><span class="normal"> stack_externality </span><span class="cbracket">{</span><span class="normal"> external</span><span class="symbol">,</span><span class="normal"> migrating</span><span class="symbol">,</span><span class="normal"> internal </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="keyword">enum</span><span class="normal"> stack_behaviour </span><span class="cbracket">{</span><span class="normal"> normal</span><span class="symbol">,</span><span class="normal"> grow_shrink</span><span class="symbol">,</span><span class="normal"> grow_shrink2 </span><span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="comment">//! \brief Stack type generator \n</span>
+<span class="comment">//! &lt;b&gt; Introduction &lt;/b&gt; to stack container: see \ref tutorial_stack tutorial. \n</span>
+<span class="comment">//! &lt;b&gt; Design and Internals &lt;/b&gt; of stack container: see \ref design_stack.</span>
+<span class="comment">//!</span>
+<span class="comment">//! \tparam ValueType type of contained objects (POD with no references to internal memory)</span>
+<span class="comment">//!</span>
+<span class="comment">//! \tparam Externality selects stack implementation, default: \b external. One of</span>
+<span class="comment">//!   - \c external, external container, implementation is chosen according to \c Behaviour parameter.</span>
+<span class="comment">//!   - \c migrating, migrates from internal implementation given by \c IntStackType parameter</span>
+<span class="comment">//!     to external implementation given by \c Behaviour parameter when size exceeds \c MigrCritSize</span>
+<span class="comment">//!   - \c internal, choses \c IntStackType implementation</span>
+<span class="comment">//!</span>
+<span class="comment">//! \tparam Behaviour chooses \b external implementation, default: \b stxxl::normal_stack. One of:</span>
+<span class="comment">//!   - \c normal, conservative version, implemented in \c stxxl::normal_stack</span>
+<span class="comment">//!   - \c grow_shrink, efficient version, implemented in \c stxxl::grow_shrink_stack</span>
+<span class="comment">//!   - \c grow_shrink2, efficient version, implemented in \c stxxl::grow_shrink_stack2</span>
+<span class="comment">//!</span>
+<span class="comment">//! \tparam BlocksPerPage defines how many blocks has one page of internal cache of an</span>
+<span class="comment">//!      \b external implementation, default is \b 4. All \b external implementations have</span>
+<span class="comment">//!      \b two pages.</span>
+<span class="comment">//!</span>
+<span class="comment">//! \tparam BlockSize external block size in bytes, default is &lt;b&gt;2 MiB&lt;/b&gt;.</span>
+<span class="comment">//!</span>
+<span class="comment">//! \tparam IntStackType type of internal stack used for some implementations, default: \b std::stack.</span>
+<span class="comment">//!</span>
+<span class="comment">//! \tparam MigrCritSize threshold value for number of elements when</span>
+<span class="comment">//!   stxxl::migrating_stack migrates to the external memory, default: &lt;b&gt;2 x BlocksPerPage x BlockSize&lt;/b&gt;.</span>
+<span class="comment">//!</span>
+<span class="comment">//! \tparam AllocStr one of allocation strategies: striping, RC, SR, or FR. Default is \b RC.</span>
+<span class="comment">//!</span>
+<span class="comment">//! \tparam SizeType size type, default is \b stxxl::int64.</span>
+<span class="comment">//!</span>
+<span class="comment">//! The configured stack type is available as STACK_GENERATOR&lt;&gt;::result.</span>
+<span class="comment">//!</span>
+<span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span>
+<span class="normal">    </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">ValueType</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="usertype">stack_externality</span><span class="normal"> Externality </span><span class="symbol">=</span><span class="normal"> external</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="usertype">stack_behaviour</span><span class="normal"> Behaviour </span><span class="symbol">=</span><span class="normal"> normal</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="type">unsigned</span><span class="normal"> BlocksPerPage </span><span class="symbol">=</span><span class="normal"> </span><span class="number">4</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="type">unsigned</span><span class="normal"> BlockSize </span><span class="symbol">=</span><span class="normal"> </span><span class="function">STXXL_DEFAULT_BLOCK_SIZE</span><span class="symbol">(</span><span class="normal">ValueType</span><span class="symbol">),</span>
+
+<span class="normal">    </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">IntStackType</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">stack</span><span class="symbol">&lt;</span><span class="normal">ValueType</span><span class="symbol">&gt;,</span>
+<span class="normal">    </span><span class="usertype">unsigned_type</span><span class="normal"> MigrCritSize </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="number">2</span><span class="symbol">*</span><span class="normal"> BlocksPerPage</span><span class="symbol">*</span><span class="normal"> BlockSize</span><span class="symbol">),</span>
+
+<span class="normal">    </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">AllocStr</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> STXXL_DEFAULT_ALLOC_STRATEGY</span><span class="symbol">,</span>
+<span class="normal">    </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">SizeType</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> stxxl</span><span class="symbol">::</span><span class="normal">int64</span>
+<span class="normal">    </span><span class="symbol">&gt;</span>
+<span class="keyword">class</span><span class="normal"> </span><span class="classname">STACK_GENERATOR</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="usertype">stack_config_generator&lt;ValueType, BlocksPerPage, BlockSize, AllocStr, SizeType&gt;</span><span class="normal"> cfg</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">IF</span><span class="symbol">&lt;</span><span class="normal">Behaviour </span><span class="symbol">==</span><span class="normal"> grow_shrink</span><span class="symbol">,</span>
+<span class="normal">                        grow_shrink_stack</span><span class="symbol">&lt;</span><span class="normal">cfg</span><span class="symbol">&gt;,</span>
+<span class="normal">                        grow_shrink_stack2</span><span class="symbol">&lt;</span><span class="normal">cfg</span><span class="symbol">&gt;</span><span class="normal"> </span><span class="symbol">&gt;::</span><span class="usertype">result</span><span class="normal"> GrShrTp</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">IF</span><span class="symbol">&lt;</span><span class="normal">Behaviour </span><span class="symbol">==</span><span class="normal"> normal</span><span class="symbol">,</span><span class="normal"> normal_stack</span><span class="symbol">&lt;</span><span class="normal">cfg</span><span class="symbol">&gt;,</span><span class="normal"> GrShrTp</span><span class="symbol">&gt;::</span><span class="usertype">result</span><span class="normal"> ExtStackType</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">IF</span><span class="symbol">&lt;</span><span class="normal">Externality </span><span class="symbol">==</span><span class="normal"> migrating</span><span class="symbol">,</span>
+<span class="normal">                        migrating_stack</span><span class="symbol">&lt;</span><span class="normal">MigrCritSize</span><span class="symbol">,</span><span class="normal"> ExtStackType</span><span class="symbol">,</span><span class="normal"> IntStackType</span><span class="symbol">&gt;,</span><span class="normal"> ExtStackType</span><span class="symbol">&gt;::</span><span class="usertype">result</span><span class="normal"> MigrOrNotStackType</span><span class="symbol">;</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">typename</span><span class="normal"> </span><span class="classname">IF</span><span class="symbol">&lt;</span><span class="normal">Externality </span><span class="symbol">==</span><span class="normal"> internal</span><span class="symbol">,</span><span class="normal"> IntStackType</span><span class="symbol">,</span><span class="normal"> MigrOrNotStackType</span><span class="symbol">&gt;::</span><span class="usertype">result</span><span class="normal"> result</span><span class="symbol">;</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="comment">//! \}</span>
+
+<span class="normal">STXXL_END_NAMESPACE</span>
+
+
+<span class="keyword">namespace</span><span class="normal"> std </span><span class="cbracket">{</span>
+
+<span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">StackConfig</span><span class="symbol">&gt;</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">swap</span><span class="symbol">(</span><span class="normal">stxxl</span><span class="symbol">::</span><span class="normal">normal_stack</span><span class="symbol">&lt;</span><span class="normal">StackConfig</span><span class="symbol">&gt;&amp;</span><span class="normal"> a</span><span class="symbol">,</span>
+<span class="normal">          stxxl</span><span class="symbol">::</span><span class="normal">normal_stack</span><span class="symbol">&lt;</span><span class="normal">StackConfig</span><span class="symbol">&gt;&amp;</span><span class="normal"> b</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    a</span><span class="symbol">.</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">b</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">StackConfig</span><span class="symbol">&gt;</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">swap</span><span class="symbol">(</span><span class="normal">stxxl</span><span class="symbol">::</span><span class="normal">grow_shrink_stack</span><span class="symbol">&lt;</span><span class="normal">StackConfig</span><span class="symbol">&gt;&amp;</span><span class="normal"> a</span><span class="symbol">,</span>
+<span class="normal">          stxxl</span><span class="symbol">::</span><span class="normal">grow_shrink_stack</span><span class="symbol">&lt;</span><span class="normal">StackConfig</span><span class="symbol">&gt;&amp;</span><span class="normal"> b</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    a</span><span class="symbol">.</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">b</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="keyword">class</span><span class="normal"> </span><span class="classname">StackConfig</span><span class="symbol">&gt;</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">swap</span><span class="symbol">(</span><span class="normal">stxxl</span><span class="symbol">::</span><span class="normal">grow_shrink_stack2</span><span class="symbol">&lt;</span><span class="normal">StackConfig</span><span class="symbol">&gt;&amp;</span><span class="normal"> a</span><span class="symbol">,</span>
+<span class="normal">          stxxl</span><span class="symbol">::</span><span class="normal">grow_shrink_stack2</span><span class="symbol">&lt;</span><span class="normal">StackConfig</span><span class="symbol">&gt;&amp;</span><span class="normal"> b</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    a</span><span class="symbol">.</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">b</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="keyword">template</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal">stxxl</span><span class="symbol">::</span><span class="usertype">unsigned_type</span><span class="normal"> CritSize</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">ExternalStack</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">InternalStack</span><span class="symbol">&gt;</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">swap</span><span class="symbol">(</span><span class="normal">stxxl</span><span class="symbol">::</span><span class="normal">migrating_stack</span><span class="symbol">&lt;</span><span class="normal">CritSize</span><span class="symbol">,</span><span class="normal"> ExternalStack</span><span class="symbol">,</span><span class="normal"> InternalStack</span><span class="symbol">&gt;&amp;</span><span class="normal"> a</span><span class="symbol">,</span>
+<span class="normal">          stxxl</span><span class="symbol">::</span><span class="normal">migrating_stack</span><span class="symbol">&lt;</span><span class="normal">CritSize</span><span class="symbol">,</span><span class="normal"> ExternalStack</span><span class="symbol">,</span><span class="normal"> InternalStack</span><span class="symbol">&gt;&amp;</span><span class="normal"> b</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    a</span><span class="symbol">.</span><span class="function">swap</span><span class="symbol">(</span><span class="normal">b</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="cbracket">}</span><span class="normal"> </span><span class="comment">// namespace std</span>
+
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">// !STXXL_CONTAINERS_STACK_HEADER</span>
+<span class="comment">// vim: et:ts=4:sw=4</span>
+</tt></pre></div><div style="text-align: left; padding: 8pt"><a href="/xmlfeed/weblog-rss20.xml"><img src="/img/xmlfeed-rss20.png" alt="RSS 2.0 Weblog Feed" height="15" width="80" /></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="/img/xmlfeed-atom10.png" alt="Atom 1.0 Weblog Feed" height="15" width="80" /></a> <a href="http://validator.w3.org/check?uri=referer"><img src="/img/w3c-xhtml10.png" alt="Valid XHTML 1.1" height="15" width="80" /></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/img/w3c-css.png" alt="Valid CSS (2.1)" height="15" width="80" /></a></div><script type="text/javascript">var _paq = _paq || []; _paq.push(["trackPageView"]); _paq.push(["enableLinkTracking"]);(function() {var u=(("https:" == document.location.protocol) ? "https" : "http") + "://panthema.net/wik-331/"; _paq.push(["setTrackerUrl", u+"js/"]); _paq.push(["setSiteId", "2"]);var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";g.defer=true; g.async=true; g.src=u+"js/"; s.parentNode.insertBefore(g,s);})();</script><noscript><p><img src="http://panthema.net/wik-331/js/?idsite=2&amp;rec=1" style="border:0" alt="" /></p></noscript></body></html>
