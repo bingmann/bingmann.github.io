@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2009/cryptote/cryptote-0.5.390/libstc/scintilla/src/PerLine.cxx - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/js/base.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal2.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li class="nt"><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li><li class="ns"><a href="/search.html">Search</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 13pt" href="/tags/frontpage.html">frontpage</a> <a style="font-size: 13pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 10pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 11pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 10pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 10pt" href="/tags/stxxl.html">stxxl</a> <a style="font-size: 15pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"> <a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px;" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="nt"><a href="/2013/1212-stxxl-1.4.0/">STXXL 1.4</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"> <a class="ni" href="#">Research</a> <ul style="margin-left: -16em; margin-top: 4px" class="nx"> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP - External Memory Suffix Sorting</a></li> <li><a href="/2013/parallel-string-sorting/">pS5 - Parallel String Sorting</a></li> <li><a href="/tags/stxxl.html">STXXL - External Memory Algorithms</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"> <a class="ni" href="/about/">About</a> <ul style="margin-left: -6em; margin-top: 4px" class="nx"> <li><a href="/about/">Timo Bingmann</a></li> <li><a href="/about/impressum.html">Impressum</a></li> </ul></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2009/">2009</a> / <a href="/2009/cryptote/">cryptote</a> / <a href="/2009/cryptote/cryptote-0.5.390/">cryptote-0.5.390</a> / <a href="/2009/cryptote/cryptote-0.5.390/libstc/">libstc</a> / <a href="/2009/cryptote/cryptote-0.5.390/libstc/scintilla/">scintilla</a> / <a href="/2009/cryptote/cryptote-0.5.390/libstc/scintilla/src/">src</a> / <a href="/2009/cryptote/cryptote-0.5.390/libstc/scintilla/src/PerLine.cxx.html">PerLine.cxx</a> (<a href="/2009/cryptote/cryptote-0.5.390/libstc/scintilla/src/PerLine.cxx">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt>// Scintilla source code edit control
+/** @file PerLine.cxx
+ ** Manages data associated with each line of the document
+ **/
+// Copyright 1998-2009 by Neil Hodgson &lt;neilh@scintilla.org&gt;
+// The License.txt file describes the conditions under which this software may be distributed.
+
+#include &lt;string.h&gt;
+
+#include &quot;Platform.h&quot;
+
+#include &quot;Scintilla.h&quot;
+#include &quot;SplitVector.h&quot;
+#include &quot;Partitioning.h&quot;
+#include &quot;CellBuffer.h&quot;
+#include &quot;PerLine.h&quot;
+
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
+
+MarkerHandleSet::MarkerHandleSet() {
+	root = 0;
+}
+
+MarkerHandleSet::~MarkerHandleSet() {
+	MarkerHandleNumber *mhn = root;
+	while (mhn) {
+		MarkerHandleNumber *mhnToFree = mhn;
+		mhn = mhn-&gt;next;
+		delete mhnToFree;
+	}
+	root = 0;
+}
+
+int MarkerHandleSet::Length() const {
+	int c = 0;
+	MarkerHandleNumber *mhn = root;
+	while (mhn) {
+		c++;
+		mhn = mhn-&gt;next;
+	}
+	return c;
+}
+
+int MarkerHandleSet::NumberFromHandle(int handle) const {
+	MarkerHandleNumber *mhn = root;
+	while (mhn) {
+		if (mhn-&gt;handle == handle) {
+			return mhn-&gt;number;
+		}
+		mhn = mhn-&gt;next;
+	}
+	return - 1;
+}
+
+int MarkerHandleSet::MarkValue() const {
+	unsigned int m = 0;
+	MarkerHandleNumber *mhn = root;
+	while (mhn) {
+		m |= (1 &lt;&lt; mhn-&gt;number);
+		mhn = mhn-&gt;next;
+	}
+	return m;
+}
+
+bool MarkerHandleSet::Contains(int handle) const {
+	MarkerHandleNumber *mhn = root;
+	while (mhn) {
+		if (mhn-&gt;handle == handle) {
+			return true;
+		}
+		mhn = mhn-&gt;next;
+	}
+	return false;
+}
+
+bool MarkerHandleSet::InsertHandle(int handle, int markerNum) {
+	MarkerHandleNumber *mhn = new MarkerHandleNumber;
+	if (!mhn)
+		return false;
+	mhn-&gt;handle = handle;
+	mhn-&gt;number = markerNum;
+	mhn-&gt;next = root;
+	root = mhn;
+	return true;
+}
+
+void MarkerHandleSet::RemoveHandle(int handle) {
+	MarkerHandleNumber **pmhn = &amp;root;
+	while (*pmhn) {
+		MarkerHandleNumber *mhn = *pmhn;
+		if (mhn-&gt;handle == handle) {
+			*pmhn = mhn-&gt;next;
+			delete mhn;
+			return;
+		}
+		pmhn = &amp;((*pmhn)-&gt;next);
+	}
+}
+
+bool MarkerHandleSet::RemoveNumber(int markerNum) {
+	bool performedDeletion = false;
+	MarkerHandleNumber **pmhn = &amp;root;
+	while (*pmhn) {
+		MarkerHandleNumber *mhn = *pmhn;
+		if (mhn-&gt;number == markerNum) {
+			*pmhn = mhn-&gt;next;
+			delete mhn;
+			performedDeletion = true;
+		} else {
+			pmhn = &amp;((*pmhn)-&gt;next);
+		}
+	}
+	return performedDeletion;
+}
+
+void MarkerHandleSet::CombineWith(MarkerHandleSet *other) {
+	MarkerHandleNumber **pmhn = &amp;root;
+	while (*pmhn) {
+		pmhn = &amp;((*pmhn)-&gt;next);
+	}
+	*pmhn = other-&gt;root;
+	other-&gt;root = 0;
+}
+
+LineMarkers::~LineMarkers() {
+	Init();
+}
+
+void LineMarkers::Init() {
+	for (int line = 0; line &lt; markers.Length(); line++) {
+		delete markers[line];
+		markers[line] = 0;
+	}
+	markers.DeleteAll();
+}
+
+void LineMarkers::InsertLine(int line) {
+	if (markers.Length()) {
+		markers.Insert(line, 0);
+	}
+}
+
+void LineMarkers::RemoveLine(int line) {
+	// Retain the markers from the deleted line by oring them into the previous line
+	if (markers.Length()) {
+		if (line &gt; 0) {
+			MergeMarkers(line - 1);
+		}
+		markers.Delete(line);
+	}
+}
+
+int LineMarkers::LineFromHandle(int markerHandle) {
+	if (markers.Length()) {
+		for (int line = 0; line &lt; markers.Length(); line++) {
+			if (markers[line]) {
+				if (markers[line]-&gt;Contains(markerHandle)) {
+					return line;
+				}
+			}
+		}
+	}
+	return -1;
+}
+
+void LineMarkers::MergeMarkers(int pos) {
+	if (markers[pos + 1] != NULL) {
+		if (markers[pos] == NULL)
+			markers[pos] = new MarkerHandleSet;
+		markers[pos]-&gt;CombineWith(markers[pos + 1]);
+		delete markers[pos + 1];
+		markers[pos + 1] = NULL;
+	}
+}
+
+int LineMarkers::MarkValue(int line) {
+	if (markers.Length() &amp;&amp; (line &gt;= 0) &amp;&amp; (line &lt; markers.Length()) &amp;&amp; markers[line])
+		return markers[line]-&gt;MarkValue();
+	else
+		return 0;
+}
+
+int LineMarkers::AddMark(int line, int markerNum, int lines) {
+	handleCurrent++;
+	if (!markers.Length()) {
+		// No existing markers so allocate one element per line
+		markers.InsertValue(0, lines, 0);
+	}
+	if (!markers[line]) {
+		// Need new structure to hold marker handle
+		markers[line] = new MarkerHandleSet();
+		if (!markers[line])
+			return - 1;
+	}
+	markers[line]-&gt;InsertHandle(handleCurrent, markerNum);
+
+	return handleCurrent;
+}
+
+void LineMarkers::DeleteMark(int line, int markerNum, bool all) {
+	if (markers.Length() &amp;&amp; (line &gt;= 0) &amp;&amp; (line &lt; markers.Length()) &amp;&amp; markers[line]) {
+		if (markerNum == -1) {
+			delete markers[line];
+			markers[line] = NULL;
+		} else {
+			bool performedDeletion = markers[line]-&gt;RemoveNumber(markerNum);
+			while (all &amp;&amp; performedDeletion) {
+				performedDeletion = markers[line]-&gt;RemoveNumber(markerNum);
+			}
+			if (markers[line]-&gt;Length() == 0) {
+				delete markers[line];
+				markers[line] = NULL;
+			}
+		}
+	}
+}
+
+void LineMarkers::DeleteMarkFromHandle(int markerHandle) {
+	int line = LineFromHandle(markerHandle);
+	if (line &gt;= 0) {
+		markers[line]-&gt;RemoveHandle(markerHandle);
+		if (markers[line]-&gt;Length() == 0) {
+			delete markers[line];
+			markers[line] = NULL;
+		}
+	}
+}
+
+LineLevels::~LineLevels() {
+}
+
+void LineLevels::Init() {
+	levels.DeleteAll();
+}
+
+void LineLevels::InsertLine(int line) {
+	if (levels.Length()) {
+		int level = SC_FOLDLEVELBASE;
+		if ((line &gt; 0) &amp;&amp; (line &lt; levels.Length())) {	
+			level = levels[line-1] &amp; ~SC_FOLDLEVELWHITEFLAG;
+		}
+		levels.InsertValue(line, 1, level);
+	}
+}
+
+void LineLevels::RemoveLine(int line) {
+	if (levels.Length()) {
+		// Move up following lines but merge header flag from this line
+		// to line before to avoid a temporary disappearence causing expansion.
+		int firstHeader = levels[line] &amp; SC_FOLDLEVELHEADERFLAG;
+		levels.Delete(line);
+		if (line == levels.Length()-1) // Last line loses the header flag
+			levels[line-1] &amp;= ~SC_FOLDLEVELHEADERFLAG;
+		else if (line &gt; 0)
+			levels[line-1] |= firstHeader;
+	}
+}
+
+void LineLevels::ExpandLevels(int sizeNew) {
+	levels.InsertValue(levels.Length(), sizeNew - levels.Length(), SC_FOLDLEVELBASE);
+}
+
+void LineLevels::ClearLevels() {
+	levels.DeleteAll();
+}
+
+int LineLevels::SetLevel(int line, int level, int lines) {
+	int prev = 0;
+	if ((line &gt;= 0) &amp;&amp; (line &lt; lines)) {
+		if (!levels.Length()) {
+			ExpandLevels(lines + 1);
+		}
+		prev = levels[line];
+		if (prev != level) {
+			levels[line] = level;
+		}
+	}
+	return prev;
+}
+
+int LineLevels::GetLevel(int line) {
+	if (levels.Length() &amp;&amp; (line &gt;= 0) &amp;&amp; (line &lt; levels.Length())) {
+		return levels[line];
+	} else {
+		return SC_FOLDLEVELBASE;
+	}
+}
+
+LineState::~LineState() {
+}
+
+void LineState::Init() {
+	lineStates.DeleteAll();
+}
+
+void LineState::InsertLine(int line) {
+	if (lineStates.Length()) {
+		lineStates.EnsureLength(line);
+		lineStates.Insert(line, 0);
+	}
+}
+
+void LineState::RemoveLine(int line) {
+	if (lineStates.Length() &gt; line) {
+		lineStates.Delete(line);
+	}
+}
+
+int LineState::SetLineState(int line, int state) {
+	lineStates.EnsureLength(line + 1);
+	int stateOld = lineStates[line];
+	lineStates[line] = state;
+	return stateOld;
+}
+
+int LineState::GetLineState(int line) {
+	lineStates.EnsureLength(line + 1);
+	return lineStates[line];
+}
+
+int LineState::GetMaxLineState() {
+	return lineStates.Length();
+}
+
+static int NumberLines(const char *text) {
+	if (text) {
+		int newLines = 0;
+		while (*text) {
+			if (*text == &apos;\n&apos;)
+				newLines++;
+			text++;
+		}
+		return newLines+1;
+	} else {
+		return 0;
+	}
+}
+
+// Each allocated LineAnnotation is a char array which starts with an AnnotationHeader
+// and then has text and optional styles.
+
+static const int IndividualStyles = 0x100;
+
+struct AnnotationHeader {
+	short style;	// Style IndividualStyles implies array of styles
+	short lines;
+	int length;
+};
+
+LineAnnotation::~LineAnnotation() {
+	ClearAll();
+}
+
+void LineAnnotation::Init() {
+	ClearAll();
+}
+
+void LineAnnotation::InsertLine(int line) {
+	if (annotations.Length()) {
+		annotations.Insert(line, 0);
+	}
+}
+
+void LineAnnotation::RemoveLine(int line) {
+	if (annotations.Length() &amp;&amp; (line &lt; annotations.Length())) {
+		delete []annotations[line];
+		annotations.Delete(line);
+	}
+}
+
+bool LineAnnotation::AnySet() const {
+	return annotations.Length() &gt; 0;
+}
+
+bool LineAnnotation::MultipleStyles(int line) const {
+	if (annotations.Length() &amp;&amp; (line &lt; annotations.Length()) &amp;&amp; annotations[line])
+		return reinterpret_cast&lt;AnnotationHeader *&gt;(annotations[line])-&gt;style == IndividualStyles;
+	else
+		return 0;
+}
+
+int LineAnnotation::Style(int line) {
+	if (annotations.Length() &amp;&amp; (line &lt; annotations.Length()) &amp;&amp; annotations[line])
+		return reinterpret_cast&lt;AnnotationHeader *&gt;(annotations[line])-&gt;style;
+	else
+		return 0;
+}
+
+const char *LineAnnotation::Text(int line) const {
+	if (annotations.Length() &amp;&amp; (line &lt; annotations.Length()) &amp;&amp; annotations[line])
+		return annotations[line]+sizeof(AnnotationHeader);
+	else
+		return 0;
+}
+
+const unsigned char *LineAnnotation::Styles(int line) const {
+	if (annotations.Length() &amp;&amp; (line &lt; annotations.Length()) &amp;&amp; annotations[line] &amp;&amp; MultipleStyles(line))
+		return reinterpret_cast&lt;unsigned char *&gt;(annotations[line] + sizeof(AnnotationHeader) + Length(line));
+	else
+		return 0;
+}
+
+static char *AllocateAnnotation(int length, int style) {
+	size_t len = sizeof(AnnotationHeader) + length + ((style == IndividualStyles) ? length : 0);
+	char *ret = new char[len];
+	memset(ret, 0, len);
+	return ret;
+}
+
+void LineAnnotation::SetText(int line, const char *text) {
+	if (text) {
+		annotations.EnsureLength(line+1);
+		int style = Style(line);
+		if (annotations[line]) {
+			delete []annotations[line];
+		}
+		annotations[line] = AllocateAnnotation(strlen(text), style);
+		AnnotationHeader *pah = reinterpret_cast&lt;AnnotationHeader*&gt;(annotations[line]);
+		pah-&gt;style = static_cast&lt;short&gt;(style);
+		pah-&gt;length = strlen(text);
+		pah-&gt;lines = static_cast&lt;short&gt;(NumberLines(text));
+		memcpy(annotations[line]+sizeof(AnnotationHeader), text, pah-&gt;length);
+	} else {
+		if (annotations.Length() &amp;&amp; (line &lt; annotations.Length()) &amp;&amp; annotations[line]) {
+			delete []annotations[line];
+			annotations[line] = 0;
+		}
+	}
+}
+
+void LineAnnotation::ClearAll() {
+	for (int line = 0; line &lt; annotations.Length(); line++) {
+		delete []annotations[line];
+		annotations[line] = 0;
+	}
+	annotations.DeleteAll();
+}
+
+void LineAnnotation::SetStyle(int line, int style) {
+	annotations.EnsureLength(line+1);
+	if (!annotations[line]) {
+		annotations[line] = AllocateAnnotation(0, style);
+	}
+	reinterpret_cast&lt;AnnotationHeader *&gt;(annotations[line])-&gt;style = static_cast&lt;short&gt;(style);
+}
+
+void LineAnnotation::SetStyles(int line, const unsigned char *styles) {
+	annotations.EnsureLength(line+1);
+	if (!annotations[line]) {
+		annotations[line] = AllocateAnnotation(0, IndividualStyles);
+	} else {
+		AnnotationHeader *pahSource = reinterpret_cast&lt;AnnotationHeader *&gt;(annotations[line]);
+		if (pahSource-&gt;style != IndividualStyles) {
+			char *allocation = AllocateAnnotation(pahSource-&gt;length, IndividualStyles);
+			AnnotationHeader *pahAlloc = reinterpret_cast&lt;AnnotationHeader *&gt;(allocation);
+			pahAlloc-&gt;length = pahSource-&gt;length;
+			pahAlloc-&gt;lines = pahSource-&gt;lines;
+			memcpy(allocation + sizeof(AnnotationHeader), annotations[line] + sizeof(AnnotationHeader), pahSource-&gt;length);
+			delete []annotations[line];
+			annotations[line] = allocation;
+		}
+	}
+	AnnotationHeader *pah = reinterpret_cast&lt;AnnotationHeader *&gt;(annotations[line]);
+	pah-&gt;style = IndividualStyles;
+	memcpy(annotations[line] + sizeof(AnnotationHeader) + pah-&gt;length, styles, pah-&gt;length);
+}
+
+int LineAnnotation::Length(int line) const {
+	if (annotations.Length() &amp;&amp; (line &lt; annotations.Length()) &amp;&amp; annotations[line])
+		return reinterpret_cast&lt;AnnotationHeader *&gt;(annotations[line])-&gt;length;
+	else
+		return 0;
+}
+
+int LineAnnotation::Lines(int line) const {
+	if (annotations.Length() &amp;&amp; (line &lt; annotations.Length()) &amp;&amp; annotations[line])
+		return reinterpret_cast&lt;AnnotationHeader *&gt;(annotations[line])-&gt;lines;
+	else
+		return 0;
+}
+</tt></pre></div><div style="text-align: right; padding: 8pt; font-size: 12px"><a href="/xmlfeed/weblog-rss20.xml"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPAgMAAAAOp6AcAAAADFBMVEVmZmb/ZgD///+JjnlbTUWmAAAACXBIWXMAAABIAAAASABGyWs+AAAACXZwQWcAAABQAAAADwCexKkxAAAAWUlEQVQYlWNgwAa0VmGAFQyqoSCQ/x8J/CBFMCt0ZdTU/F/7/+1HEkydFpoKVPn+93sUlUujQvP/7UcRTAuNDJ2a//s/imDqtKVZofm/1qGYSZk7sfodGwAAiobBJtffoNAAAAAASUVORK5CYII=" alt="RSS 2.0 Weblog Feed" width="80" height="15"/></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPAgMAAAAOp6AcAAAADFBMVEVmZmb/ZgD///+JjnlbTUWmAAAAaklEQVQYlWNgwAa0VmGAFQyqoSCQ/x8J/CBFMDV16rTQ/H/7V//69+//v/3/9oMEI6cuAwr+fv/+/b5d///v//0eJBgWOhMo+Gs9UPAdXDBy6lSYyn9wQZCZS0GCYDPXQcykzJ1Y/Y4NAABKvL80wyoMPgAAAABJRU5ErkJggg==" alt="Atom 1.0 Weblog Feed" width="80" height="15"/></a> <a href="http://validator.w3.org/check?uri=referer"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAB1FBMVEUHQIgIRY0MN4QNRYoSRYsXUpIYVJQeUpUhWpgjUJMjWpgmU5QnXJkuYZ0uYpwwV5YyZJ4zaKM3ZaA5aaI6aqM6a6E8ZqA8Z6BAbaRBbqdCbaVHd61KSkpKcaZQUFBUf69UgbBVVVVXfq9Yg7NZhbJZh7RagrNeXVxeh7RfjLdgYGBiiLZmZmZnZ2doirhpkbt0m8F3m8B3ncJ5lb55ocR+ocSDgX+Do8eEpMqGhoaHp8iIpMeJjnmJpseKqMeOqsqPsdCQrcyVlZWVsM2Zs9CZtNCfu9ahoaGhuNShudSivNSjtMWjvNSmpqWnpqSrw9qvxNqyxdmyxdyzsK6zs7Ozx9y0xt21yN22tra4y+K80eK/v7/AwMDExMTEy9DH2ejK2+jM2ujN3uvP0dLR0NDR3uvS3uvS3+zU4u3V1dXY2dnY4u7Y4+3b5e/d3d3d5u/d5/De3t7f39/h4uLj4uHj6/Ll7PXm7fTn7/Xo7/Tp7/bq7Ozr6unr8ffw8PDw9vvx9fny+P7z8/Pz9vnz9vv3+fv4+vz5+vz6+vr6+/36/P36///7+/77/Pz7/f37/f78/Pz8/f38/f79/f39/f79/f/9/v79///+/v7+/v////3///+tYR2LAAABKklEQVQ4y2PQoTJg0JlNVYDPQBsyAMTAqaFes8tdsmdPCtA3MDStr3GKKK6myMAprgJ9pcpWs/MlRExYJBvNZLR0sigycHYOV1S7mtjsQJ4gf+HIFPXoWMs6qIGzIRiKZs9GFoEaMRuZhhrYqqJXy8uZYauRxC/VHew7e3YTPAxnI5swG6JxNrKBNjB1EFmIgV0+HA6C8pqqzhXG7BbJJROQIwViMYQ7G2oDQQNn57JyG7kxiCfObrBmS5+BHMuYLkTzMnYDm5WY4lOZZRPKZocxes+aPbuwCFsYohiICLvZsKBAMrDTQ7K/StveU8icTzrOL8JdLpOyWJ49u8Bx9ozw8DY7UYW03hhdxZAOSg2c3jN79rSJs1vSKmfOnpFXNJmynELlvExlAADnaZpLFGEC2wAAAABJRU5ErkJggg==" alt="Valid XHTML 1.1" width="80" height="15"/></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAB1FBMVEUHQIgIRY0MN4QNRYoSRYsXUpIYVJQeUpUhWpgjUJMjWpgmU5QnXJkuYZ0uYpwwV5YyZJ4zaKM3ZaA5aaI6aqM6a6E8ZqA8Z6BAbaRBbqdCbaVHd61KSkpKcaZQUFBUf69UgbBVVVVXfq9Yg7NZhbJZh7RagrNeXVxeh7RfjLdgYGBiiLZmZmZnZ2doirhpkbt0m8F3m8B3ncJ5lb55ocR+ocSDgX+Do8eEpMqGhoaHp8iIpMeJjnmJpseKqMeOqsqPsdCQrcyVlZWVsM2Zs9CZtNCfu9ahoaGhuNShudSivNSjtMWjvNSmpqWnpqSrw9qvxNqyxdmyxdyzsK6zs7Ozx9y0xt21yN22tra4y+K80eK/v7/AwMDExMTEy9DH2ejK2+jM2ujN3uvP0dLR0NDR3uvS3uvS3+zU4u3V1dXY2dnY4u7Y4+3b5e/d3d3d5u/d5/De3t7f39/h4uLj4uHj6/Ll7PXm7fTn7/Xo7/Tp7/bq7Ozr6unr8ffw8PDw9vvx9fny+P7z8/Pz9vnz9vv3+fv4+vz5+vz6+vr6+/36/P36///7+/77/Pz7/f37/f78/Pz8/f38/f79/f39/f79/f/9/v79///+/v7+/v////3///+tYR2LAAABEUlEQVQ4y2PQoTJg0JlNVYDPQBsyAMTAqaFes8tdsmdPCtA3MDStr3GKKK6myMAprgJ9pcpWs/MlRExYJBvNZLR0sigycHYOV1S7mtjsQJ4gf+HIFPXoWMs6mIEQCsIjwhKoga0qerW8nBm2Gkn8Ut3BvrNnN8HCcDYM2cBIogzs8uFwEJTXVHWuMGa3SC6ZgIgUqCEwdxJr4OxcVm4jNwbxxNkN1mzpM2ajGIjsPGK9PLtZiSk+lVk2oWx2GKP3rNmzC4tQwpDoIIQb2Okh2V+lbe8pZM4nHecX4S6XSVksz55d4Dh7Rnh4m52oQlpvjK5iSAelBk7vmT172sTZLWmVM2fPyCuaTFlOoXJepjIAANlljDGY/l5pAAAAAElFTkSuQmCC" alt="Valid CSS (2.1)" width="80" height="15"/></a><br/>Copyright 2005-2013 <a href="/about/">Timo Bingmann</a> - <a href="/about/impressum.html">Impressum</a></div><script type="text/javascript">var _paq = _paq || []; _paq.push(["trackPageView"]); _paq.push(["enableLinkTracking"]);(function() {var u=(("https:" == document.location.protocol) ? "https" : "http") + "://panthema.net/wik-331/"; _paq.push(["setTrackerUrl", u+"js/"]); _paq.push(["setSiteId", "2"]);var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";g.defer=true; g.async=true; g.src=u+"js/"; s.parentNode.insertBefore(g,s);})();</script><noscript><p><img src="http://panthema.net/wik-331/js/?idsite=2&amp;rec=1" style="border:0" alt="" /></p></noscript></body></html>
