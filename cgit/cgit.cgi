@@ -1,1 +1,0 @@
-/home/git/cgit/cgit

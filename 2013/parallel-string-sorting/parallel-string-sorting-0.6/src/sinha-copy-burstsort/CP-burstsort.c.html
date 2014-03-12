@@ -1,0 +1,748 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2013/parallel-string-sorting/parallel-string-sorting-0.6/src/sinha-copy-burstsort/CP-burstsort.c - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/js/base.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal6.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li class="nt"><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li><li class="ns"><a href="/search.html">Search</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 13pt" href="/tags/frontpage.html">frontpage</a> <a style="font-size: 13pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 9pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 10pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 11pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 10pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 10pt" href="/tags/stxxl.html">stxxl</a> <a style="font-size: 15pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"> <a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px;" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="nt"><a href="/2013/1212-stxxl-1.4.0/">STXXL 1.4</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"> <a class="ni" href="#">Research</a> <ul style="margin-left: -16em; margin-top: 4px" class="nx"> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP - External Memory Suffix Sorting</a></li> <li><a href="/2013/parallel-string-sorting/">pS5 - Parallel String Sorting</a></li> <li><a href="/tags/stxxl.html">STXXL - External Memory Algorithms</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"> <a class="ni" href="/about/">About</a> <ul style="margin-left: -6em; margin-top: 4px" class="nx"> <li><a href="/about/">Timo Bingmann</a></li> <li><a href="/about/impressum.html">Impressum</a></li> </ul></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2013/">2013</a> / <a href="/2013/parallel-string-sorting/">parallel-string-sorting</a> / <a href="/2013/parallel-string-sorting/parallel-string-sorting-0.6/">parallel-string-sorting-0.6</a> / <a href="/2013/parallel-string-sorting/parallel-string-sorting-0.6/src/">src</a> / <a href="/2013/parallel-string-sorting/parallel-string-sorting-0.6/src/sinha-copy-burstsort/">sinha-copy-burstsort</a> / <a href="/2013/parallel-string-sorting/parallel-string-sorting-0.6/src/sinha-copy-burstsort/CP-burstsort.c.html">CP-burstsort.c</a> (<a href="/2013/parallel-string-sorting/parallel-string-sorting-0.6/src/sinha-copy-burstsort/CP-burstsort.c">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">/* -*- tab-width: 8 -*- */</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">"copy.h"</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Run a specified number of interations of CP-burstsort.</span>
+<span class="comment"> * This version of copying burstsort stably sorts records</span>
+<span class="comment"> * indexed by string keys. The 'r' prefix refers to nick-</span>
+<span class="comment"> * name "record" burstsort. Only CP-specific code details</span>
+<span class="comment"> * are commented here; refer to C-burstsort for comments </span>
+<span class="comment"> * on shared code.</span>
+<span class="comment"> *</span>
+<span class="comment"> */</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">rbdo</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> nr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">string</span><span class="normal"> fp</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="function">ton</span><span class="symbol">(</span><span class="normal">tr</span><span class="symbol">);</span><span class="normal"> ALLOCATED </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> </span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="comment">/* Load data from source file into char array INBUF. */</span>
+<span class="normal">	</span><span class="function">getkeys</span><span class="symbol">(</span><span class="normal">fp</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">REP </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> REP </span><span class="symbol">&lt;</span><span class="normal"> nr</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">REP</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">ton</span><span class="symbol">(</span><span class="normal">tx</span><span class="symbol">);</span>
+
+<span class="normal">		TAILSIZE </span><span class="symbol">=</span><span class="normal"> NODES </span><span class="symbol">=</span><span class="normal"> BINS </span><span class="symbol">=</span><span class="normal"> NULLBINS </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">		MAXALLOCATED </span><span class="symbol">=</span><span class="normal"> ALLOCATED</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="function">listinputs</span><span class="symbol">();</span>
+
+<span class="normal">		</span><span class="function">ton</span><span class="symbol">(</span><span class="normal">ti</span><span class="symbol">);</span><span class="normal"> </span>
+<span class="normal">		</span>
+<span class="normal">		</span><span class="comment">/* Run CP-burstsort. */</span>
+<span class="normal">		</span><span class="function">rbs</span><span class="symbol">(</span><span class="normal">INBUF</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="symbol">--</span><span class="normal">INBUF</span><span class="symbol">;</span><span class="normal"> </span><span class="function">FREE</span><span class="symbol">(</span><span class="normal">INBUF</span><span class="symbol">,</span><span class="normal"> MAXBYTES </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span><span class="normal"> </span><span class="function">ton</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Sort buffer ib, containing records indexed by string</span>
+<span class="comment"> * keys.</span>
+<span class="comment"> *</span>
+<span class="comment"> */</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">rbs</span><span class="symbol">(</span><span class="usertype">string</span><span class="normal"> ib</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">NODE1</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">rt</span><span class="symbol">;</span>
+<span class="normal">	</span>
+<span class="normal">	rt </span><span class="symbol">=</span><span class="normal"> </span><span class="function">GETNODE</span><span class="symbol">(</span><span class="normal">NODE1</span><span class="symbol">);</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">NODES</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">SAMPLERATE</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">ton</span><span class="symbol">(</span><span class="normal">ts</span><span class="symbol">);</span><span class="normal"> </span><span class="function">rsample</span><span class="symbol">(</span><span class="normal">ib</span><span class="symbol">,</span><span class="normal"> rt</span><span class="symbol">,</span><span class="normal"> NKEYS </span><span class="symbol">/</span><span class="normal"> SAMPLERATE</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="function">clear</span><span class="symbol">(</span><span class="normal">rt</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="function">ton</span><span class="symbol">(</span><span class="normal">ti</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="function">radd</span><span class="symbol">(</span><span class="normal">ib</span><span class="symbol">,</span><span class="normal"> NKEYS</span><span class="symbol">,</span><span class="normal"> rt</span><span class="symbol">);</span>
+
+<span class="normal">	UPDATEMEM</span><span class="symbol">;</span><span class="normal"> FREEBURSTS </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> </span><span class="function">ton</span><span class="symbol">(</span><span class="normal">tc</span><span class="symbol">);</span><span class="normal"> </span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="function">rtraverse</span><span class="symbol">(</span><span class="normal">rt</span><span class="symbol">);</span><span class="normal"> UPDATEMEM</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">WRITEFILE</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">ton</span><span class="symbol">(</span><span class="normal">tw</span><span class="symbol">);</span><span class="normal"> </span><span class="function">savetrie</span><span class="symbol">(</span><span class="normal">rt</span><span class="symbol">,</span><span class="normal"> OUTPUTDIR</span><span class="symbol">,</span><span class="normal"> DATANAME</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="function">ton</span><span class="symbol">(</span><span class="normal">tk</span><span class="symbol">);</span><span class="normal"> </span><span class="function">rkill</span><span class="symbol">(</span><span class="normal">rt</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Build model burst trie using sample of n random keys;</span>
+<span class="comment"> * except that we don't used a segmented buffer, sampling</span>
+<span class="comment"> * is almost identical to that in C-burstsort; since the</span>
+<span class="comment"> * sample trie will be cleared before use, we don't</span>
+<span class="comment"> * bother to keep record pointers until the main insertion</span>
+<span class="comment"> * in radd() below.</span>
+<span class="comment"> * </span>
+<span class="comment"> */</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">rsample</span><span class="symbol">(</span><span class="usertype">string</span><span class="normal"> b0</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">NODE1</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">rt</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> n</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">NODE1</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">t</span><span class="symbol">;</span><span class="normal"> </span><span class="usertype">NODE1</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">bn</span><span class="symbol">;</span><span class="normal"> </span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> ct</span><span class="symbol">;</span><span class="normal"> </span>
+<span class="normal">	</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">char</span><span class="normal"> c</span><span class="symbol">;</span><span class="normal"> </span>
+<span class="normal">	</span><span class="usertype">string</span><span class="normal"> b</span><span class="symbol">,</span><span class="normal"> s</span><span class="symbol">,</span><span class="normal"> lim</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="function">srand</span><span class="symbol">(</span><span class="function">clock</span><span class="symbol">());</span><span class="normal"> </span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="comment">/* Set upper limit of input buffer to the total number</span>
+<span class="comment">		of bytes read. */</span>
+<span class="normal">	lim </span><span class="symbol">=</span><span class="normal"> b0 </span><span class="symbol">+</span><span class="normal"> NBYTES</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">n</span><span class="symbol">--)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="comment">/* Choose a random offset into the input buffer. */</span>
+<span class="normal">		b </span><span class="symbol">=</span><span class="normal"> b0 </span><span class="symbol">+</span><span class="normal"> </span><span class="function">rand</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">%</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">NBYTES</span><span class="symbol">);</span>
+
+<span class="normal">		</span><span class="comment">/* Back up until a null terminator is found; then</span>
+<span class="comment">			move one byte forward to the first byte of a</span>
+<span class="comment">			key.	The NULL placed before the input buffer in</span>
+<span class="comment">			getbytes() ensures that this loop will terminate</span>
+<span class="comment">			when b == b0 - 1, and allows a simpler test. */</span>
+<span class="normal">		</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">b</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">--</span><span class="normal">b</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">b</span><span class="symbol">;</span>
+<span class="normal">		</span>
+<span class="normal">		</span><span class="comment">/* Without the sentinel value, a double test</span>
+<span class="comment">			would be needed:</span>
+<span class="comment">		</span>
+<span class="comment">		while (*b &amp;&amp; (b &gt; b0)) --b; if (b &gt; b0) ++b;</span>
+<span class="comment">		</span>
+<span class="comment">		*/</span>
+
+<span class="normal">		bn </span><span class="symbol">=</span><span class="normal"> rt </span><span class="symbol">+</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">c </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">b</span><span class="symbol">++);</span>
+<span class="normal">		</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">bn </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">ct </span><span class="symbol">==</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			t </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">NODE1</span><span class="symbol">*)</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">bp</span><span class="symbol">;</span>
+<span class="normal">			bn </span><span class="symbol">=</span><span class="normal"> t </span><span class="symbol">+</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">c </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">b</span><span class="symbol">++);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">c </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">continue</span><span class="symbol">;</span>
+<span class="normal">		</span>
+<span class="normal">		ct </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">bn</span><span class="symbol">-&gt;</span><span class="normal">ct</span><span class="symbol">;</span>
+
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ct </span><span class="symbol">==</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="symbol">++</span><span class="normal">BINS</span><span class="symbol">;</span>
+<span class="normal">			s </span><span class="symbol">=</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">bp </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">string</span><span class="symbol">)</span><span class="normal"> </span><span class="function">MALLOC</span><span class="symbol">(</span><span class="normal">BINSIZE0</span><span class="symbol">);</span>
+<span class="normal">			bn</span><span class="symbol">-&gt;</span><span class="normal">lp </span><span class="symbol">=</span><span class="normal"> s </span><span class="symbol">+</span><span class="normal"> LIMSIZE0</span><span class="symbol">;</span>
+
+<span class="normal">			</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">((*</span><span class="normal">s</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">b</span><span class="symbol">++)</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">;</span>
+<span class="normal">			bn</span><span class="symbol">-&gt;</span><span class="normal">ap </span><span class="symbol">=</span><span class="normal"> s</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="keyword">else</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			s </span><span class="symbol">=</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">ap</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">((*</span><span class="normal">s</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">b</span><span class="symbol">++)</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">;</span>
+<span class="normal">			bn</span><span class="symbol">-&gt;</span><span class="normal">ap </span><span class="symbol">=</span><span class="normal"> s</span><span class="symbol">;</span>
+<span class="normal">			</span>
+<span class="normal">			</span><span class="comment">/* The same samburst() function used in C-</span>
+<span class="comment">				burstsort works fine in CP-burstsort;</span>
+<span class="comment">				similarly, there is no need for a separate</span>
+<span class="comment">				version of clear(). */</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">s </span><span class="symbol">&gt;</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">lp</span><span class="symbol">)</span><span class="normal"> </span><span class="function">samburst</span><span class="symbol">(</span><span class="normal">bn</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Main routine called by rbs() to insert string keys into the burst</span>
+<span class="comment"> * trie starting at rt.	 The main differences between radd() and sadd()</span>
+<span class="comment"> * involve record pointers.  While C-burstsort copies each string tail</span>
+<span class="comment"> * in a bin immediately after the last, CP-burstsort puts a four byte</span>
+<span class="comment"> * record pointer before each tail.	 This pointer is used to access or </span>
+<span class="comment"> * output records in order once their keys have been sorted.</span>
+<span class="comment"> *</span>
+<span class="comment"> */</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">radd</span><span class="symbol">(</span><span class="usertype">string</span><span class="normal"> b</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> n</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">NODE1</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">rt</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">NODE1</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">bn</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">nd</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="usertype">string</span><span class="normal"> rp</span><span class="symbol">,</span><span class="normal"> s</span><span class="symbol">,</span><span class="normal"> t</span><span class="symbol">,</span><span class="normal"> bp</span><span class="symbol">,</span><span class="normal"> ap</span><span class="symbol">,</span><span class="normal"> lp</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> c</span><span class="symbol">,</span><span class="normal"> ct</span><span class="symbol">,</span><span class="normal"> sz</span><span class="symbol">,</span><span class="normal"> sz2</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">n</span><span class="symbol">--)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="comment">/* Set record pointer rp to the first byte of the string key </span>
+<span class="comment">			(which CP-burstsort assumes to be the first byte of the record).</span>
+<span class="comment">			If the key is not the first field of the record, a modified</span>
+<span class="comment">			version of CP- using information on the key offset may be</span>
+<span class="comment">			needed. */</span><span class="normal">			</span>
+<span class="normal">		rp </span><span class="symbol">=</span><span class="normal"> b</span><span class="symbol">;</span>
+<span class="normal">		</span>
+<span class="normal">		bn </span><span class="symbol">=</span><span class="normal"> rt </span><span class="symbol">+</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">c </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">b</span><span class="symbol">++);</span>
+<span class="normal">		</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">bn </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">ct </span><span class="symbol">==</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			nd </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">NODE1</span><span class="symbol">*)</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">bp</span><span class="symbol">;</span><span class="normal"> </span>
+<span class="normal">			bn </span><span class="symbol">=</span><span class="normal"> nd </span><span class="symbol">+</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">c </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">b</span><span class="symbol">++);</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		ct </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">bn</span><span class="symbol">-&gt;</span><span class="normal">ct</span><span class="symbol">;</span>
+
+<span class="normal">		</span><span class="comment">/* In C-burstsort, a NULLBIN is just a count of exhausted strings, </span>
+<span class="comment">			and has no container (char array) since there are no string </span>
+<span class="comment">			tails to put in it.	In contrast, CP-burstsort needs to store</span>
+<span class="comment">			a record pointer for each exhausted string, so a real container</span>
+<span class="comment">			is needed, even though there are no tails to put in it. */</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">c </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ct </span><span class="symbol">==</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">			</span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="symbol">++</span><span class="normal">NULLBINS</span><span class="symbol">;</span>
+<span class="normal">				s </span><span class="symbol">=</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">bp </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">string</span><span class="symbol">)</span><span class="normal"> </span><span class="function">MALLOC</span><span class="symbol">(</span><span class="normal">BINSIZE0</span><span class="symbol">);</span>
+<span class="normal">				</span>
+<span class="normal">				</span><span class="comment">/* This NULLBIN will fill with four byte record pointers</span>
+<span class="comment">					only, and BINSIZE0 should always be a multiple of the</span>
+<span class="comment">					system pointer size, so we can set the limit at the</span>
+<span class="comment">					full size of the bin's container. */</span>
+<span class="normal">					</span>
+<span class="normal">				bn</span><span class="symbol">-&gt;</span><span class="normal">lp </span><span class="symbol">=</span><span class="normal"> s </span><span class="symbol">+</span><span class="normal"> BINSIZE0</span><span class="symbol">;</span>
+<span class="normal">				</span><span class="comment">/* Macro RP() inserts the record pointer and castes it as</span>
+<span class="comment">					string bytes preceding the string tail (which in this</span>
+<span class="comment">					does not exist, since we're handling exhausted keys). */</span>
+<span class="normal">				</span><span class="function">RP</span><span class="symbol">(</span><span class="normal">s</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> rp</span><span class="symbol">;</span><span class="normal"> </span>
+<span class="normal">				</span>
+<span class="normal">				</span><span class="comment">/* Having inserted the record pointer, we then set the bin's</span>
+<span class="comment">				active pointer to the following byte. */</span>
+<span class="normal">				bn</span><span class="symbol">-&gt;</span><span class="normal">ap </span><span class="symbol">=</span><span class="normal"> s </span><span class="symbol">+</span><span class="normal"> RPSIZE</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">			</span><span class="keyword">else</span>
+<span class="normal">			</span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="function">RP</span><span class="symbol">(</span><span class="normal">bn</span><span class="symbol">-&gt;</span><span class="normal">ap</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> rp</span><span class="symbol">;</span><span class="normal"> </span>
+<span class="normal">				s </span><span class="symbol">=</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">ap </span><span class="symbol">+=</span><span class="normal"> RPSIZE</span><span class="symbol">;</span>
+<span class="normal">				</span>
+<span class="normal">				</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">s </span><span class="symbol">==</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">lp</span><span class="symbol">)</span>
+<span class="normal">				</span><span class="cbracket">{</span>
+<span class="normal">					sz </span><span class="symbol">=</span><span class="normal"> s </span><span class="symbol">-</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">bp</span><span class="symbol">;</span><span class="normal"> </span>
+<span class="normal">					sz2 </span><span class="symbol">=</span><span class="normal"> sz</span><span class="symbol">&lt;&lt;</span><span class="number">1</span><span class="symbol">;</span><span class="normal"> ALLOCATED </span><span class="symbol">+=</span><span class="normal"> sz</span><span class="symbol">;</span>
+<span class="normal">					bp </span><span class="symbol">=</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">bp </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">string</span><span class="symbol">)</span><span class="function">realloc</span><span class="symbol">(</span><span class="normal">bn</span><span class="symbol">-&gt;</span><span class="normal">bp</span><span class="symbol">,</span><span class="normal"> sz2</span><span class="symbol">);</span>
+<span class="normal">					bn</span><span class="symbol">-&gt;</span><span class="normal">lp </span><span class="symbol">=</span><span class="normal"> bp </span><span class="symbol">+</span><span class="normal"> sz2</span><span class="symbol">;</span>
+<span class="normal">					bn</span><span class="symbol">-&gt;</span><span class="normal">ap </span><span class="symbol">=</span><span class="normal"> bp </span><span class="symbol">+</span><span class="normal"> sz</span><span class="symbol">;</span>
+<span class="normal">				</span><span class="cbracket">}</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="keyword">else</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">bp </span><span class="symbol">=</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">bp</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">			</span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="symbol">++</span><span class="normal">BINS</span><span class="symbol">;</span>
+<span class="normal">				s </span><span class="symbol">=</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">bp </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">string</span><span class="symbol">)</span><span class="normal"> </span><span class="function">MALLOC</span><span class="symbol">(</span><span class="normal">BINSIZE0</span><span class="symbol">);</span>
+<span class="normal">				bn</span><span class="symbol">-&gt;</span><span class="normal">lp </span><span class="symbol">=</span><span class="normal"> s </span><span class="symbol">+</span><span class="normal"> LIMSIZE0</span><span class="symbol">;</span>
+
+<span class="normal">				</span><span class="function">RP</span><span class="symbol">(</span><span class="normal">s</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> rp</span><span class="symbol">;</span><span class="normal"> s </span><span class="symbol">+=</span><span class="normal"> RPSIZE</span><span class="symbol">;</span>
+<span class="normal">				</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">((*</span><span class="normal">s</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">b</span><span class="symbol">++)</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">;</span><span class="normal"> </span>
+<span class="normal">				bn</span><span class="symbol">-&gt;</span><span class="normal">ap </span><span class="symbol">=</span><span class="normal"> s</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">			</span><span class="keyword">else</span>
+<span class="normal">			</span><span class="cbracket">{</span>
+<span class="normal">				s </span><span class="symbol">=</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">ap</span><span class="symbol">;</span><span class="normal"> </span>
+<span class="normal">				</span><span class="function">RP</span><span class="symbol">(</span><span class="normal">s</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> rp</span><span class="symbol">;</span><span class="normal"> s </span><span class="symbol">+=</span><span class="normal"> RPSIZE</span><span class="symbol">;</span>
+<span class="normal">				</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">((*</span><span class="normal">s</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">b</span><span class="symbol">++)</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">;</span><span class="normal"> </span>
+<span class="normal">				bn</span><span class="symbol">-&gt;</span><span class="normal">ap </span><span class="symbol">=</span><span class="normal"> s</span><span class="symbol">;</span>
+
+<span class="normal">				</span><span class="comment">/* The code handling full bins here is identical</span>
+<span class="comment">					to that in C-burstsort. */</span>
+<span class="normal">				</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">s </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">lp </span><span class="symbol">=</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">lp</span><span class="symbol">))</span>
+<span class="normal">				</span><span class="cbracket">{</span>
+<span class="normal">					sz </span><span class="symbol">=</span><span class="normal"> lp </span><span class="symbol">+</span><span class="normal"> MAXKEYLEN </span><span class="symbol">-</span><span class="normal"> bp</span><span class="symbol">;</span>
+<span class="normal">					</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">FREEBURSTS </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> sz </span><span class="symbol">==</span><span class="normal"> CACHESIZE</span><span class="symbol">)</span>
+<span class="normal">					</span><span class="cbracket">{</span>
+<span class="normal">						</span><span class="function">ton</span><span class="symbol">(</span><span class="normal">tb</span><span class="symbol">);</span><span class="normal"> </span><span class="function">rburst</span><span class="symbol">(</span><span class="normal">bn</span><span class="symbol">);</span>
+<span class="normal">					</span><span class="cbracket">}</span>
+<span class="normal">					</span><span class="keyword">else</span>
+<span class="normal">					</span><span class="cbracket">{</span>
+<span class="normal">						</span><span class="function">ton</span><span class="symbol">(</span><span class="normal">tg</span><span class="symbol">);</span><span class="normal"> </span>
+<span class="normal">						sz2 </span><span class="symbol">=</span><span class="normal"> sz</span><span class="symbol">&lt;&lt;</span><span class="number">1</span><span class="symbol">;</span><span class="normal"> ALLOCATED </span><span class="symbol">+=</span><span class="normal"> sz</span><span class="symbol">;</span>
+<span class="normal">						ap </span><span class="symbol">=</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">bp </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">string</span><span class="symbol">)</span><span class="normal"> </span><span class="function">malloc</span><span class="symbol">(</span><span class="normal">sz2</span><span class="symbol">);</span>
+<span class="normal">						bn</span><span class="symbol">-&gt;</span><span class="normal">lp </span><span class="symbol">=</span><span class="normal"> ap </span><span class="symbol">+</span><span class="normal"> sz2 </span><span class="symbol">-</span><span class="normal"> MAXKEYLEN</span><span class="symbol">;</span>
+<span class="normal">						t </span><span class="symbol">=</span><span class="normal"> bp</span><span class="symbol">;</span><span class="normal"> </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">t </span><span class="symbol">&lt;</span><span class="normal"> s</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">ap</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">t</span><span class="symbol">++;</span>
+<span class="normal">						</span><span class="function">free</span><span class="symbol">(</span><span class="normal">bp</span><span class="symbol">);</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">ap </span><span class="symbol">=</span><span class="normal"> ap</span><span class="symbol">;</span>
+<span class="normal">					</span><span class="cbracket">}</span>
+<span class="normal">					</span><span class="function">ton</span><span class="symbol">(</span><span class="normal">ti</span><span class="symbol">);</span>
+<span class="normal">				</span><span class="cbracket">}</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Convert a full terminal bin to a branched node / subtrie.</span>
+<span class="comment"> *</span>
+<span class="comment"> */</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">rburst</span><span class="symbol">(</span><span class="usertype">NODE1</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">bn</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">NODE1</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">rt</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">nd</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="usertype">string</span><span class="normal"> b</span><span class="symbol">,</span><span class="normal"> b0</span><span class="symbol">,</span><span class="normal"> s</span><span class="symbol">,</span><span class="normal"> t</span><span class="symbol">,</span><span class="normal"> bp</span><span class="symbol">,</span><span class="normal"> ap</span><span class="symbol">,</span><span class="normal"> lp</span><span class="symbol">,</span><span class="normal"> rp</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> c</span><span class="symbol">,</span><span class="normal"> ct</span><span class="symbol">,</span><span class="normal"> n</span><span class="symbol">,</span><span class="normal"> nc</span><span class="symbol">,</span><span class="normal"> nn</span><span class="symbol">,</span><span class="normal"> sz0</span><span class="symbol">,</span><span class="normal"> sz</span><span class="symbol">,</span><span class="normal"> sz2</span><span class="symbol">;</span>
+
+<span class="normal">	nc </span><span class="symbol">=</span><span class="normal"> BINS</span><span class="symbol">;</span><span class="normal"> nn </span><span class="symbol">=</span><span class="normal"> NULLBINS</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">do</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		b </span><span class="symbol">=</span><span class="normal"> b0 </span><span class="symbol">=</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">bp</span><span class="symbol">;</span>
+<span class="normal">		sz0 </span><span class="symbol">=</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">lp </span><span class="symbol">+</span><span class="normal"> MAXKEYLEN </span><span class="symbol">-</span><span class="normal"> b</span><span class="symbol">;</span><span class="normal"> n </span><span class="symbol">=</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">ct</span><span class="symbol">;</span>
+<span class="normal">		</span>
+<span class="normal">		bn</span><span class="symbol">-&gt;</span><span class="normal">ct </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">		rt </span><span class="symbol">=</span><span class="normal"> </span><span class="function">GETNODE</span><span class="symbol">(</span><span class="normal">NODE1</span><span class="symbol">);</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">NODES</span><span class="symbol">;</span>
+<span class="normal">		bn</span><span class="symbol">-&gt;</span><span class="normal">bp </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">string</span><span class="symbol">)</span><span class="normal"> rt</span><span class="symbol">;</span>
+
+<span class="normal">		</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">n</span><span class="symbol">--)</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="comment">/* During a burst, we are reading from a previous bin</span>
+<span class="comment">				rather than the original record, so (a) we need to</span>
+<span class="comment">				copy the existing record pointer and (b) we need</span>
+<span class="comment">				to skip over its bytes and use only the remaining</span>
+<span class="comment">				tail bytes in building the subtrie structure. */</span>
+<span class="normal">			rp </span><span class="symbol">=</span><span class="normal"> </span><span class="function">RP</span><span class="symbol">(</span><span class="normal">b</span><span class="symbol">);</span><span class="normal"> b </span><span class="symbol">+=</span><span class="normal"> RPSIZE</span><span class="symbol">;</span>
+<span class="normal">			</span>
+<span class="normal">			bn </span><span class="symbol">=</span><span class="normal"> rt </span><span class="symbol">+</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">c </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">b</span><span class="symbol">++);</span>
+<span class="normal">			</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">bn </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">ct </span><span class="symbol">==</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">			</span><span class="cbracket">{</span>
+<span class="normal">				nd </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">NODE1</span><span class="symbol">*)</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">bp</span><span class="symbol">;</span>
+<span class="normal">				bn </span><span class="symbol">=</span><span class="normal"> nd </span><span class="symbol">+</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">c </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">b</span><span class="symbol">++);</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">			ct </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">bn</span><span class="symbol">-&gt;</span><span class="normal">ct</span><span class="symbol">;</span>
+
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">c </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">			</span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ct </span><span class="symbol">==</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">				</span><span class="cbracket">{</span>
+<span class="normal">					</span><span class="symbol">++</span><span class="normal">NULLBINS</span><span class="symbol">;</span>
+<span class="normal">					s </span><span class="symbol">=</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">bp </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">string</span><span class="symbol">)</span><span class="normal"> </span><span class="function">MALLOC</span><span class="symbol">(</span><span class="normal">BINSIZE0</span><span class="symbol">);</span>
+<span class="normal">					bn</span><span class="symbol">-&gt;</span><span class="normal">lp </span><span class="symbol">=</span><span class="normal"> s </span><span class="symbol">+</span><span class="normal"> BINSIZE0</span><span class="symbol">;</span>
+<span class="normal">					</span><span class="function">RP</span><span class="symbol">(</span><span class="normal">s</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> rp</span><span class="symbol">;</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">ap </span><span class="symbol">=</span><span class="normal"> s </span><span class="symbol">+</span><span class="normal"> RPSIZE</span><span class="symbol">;</span>
+<span class="normal">				</span><span class="cbracket">}</span>
+<span class="normal">				</span><span class="keyword">else</span>
+<span class="normal">				</span><span class="cbracket">{</span>
+<span class="normal">					s </span><span class="symbol">=</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">ap</span><span class="symbol">;</span><span class="normal"> </span>
+<span class="normal">					</span><span class="function">RP</span><span class="symbol">(</span><span class="normal">s</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> rp</span><span class="symbol">;</span><span class="normal"> s </span><span class="symbol">+=</span><span class="normal"> RPSIZE</span><span class="symbol">;</span><span class="normal"> </span>
+<span class="normal">					bn</span><span class="symbol">-&gt;</span><span class="normal">ap </span><span class="symbol">=</span><span class="normal"> s</span><span class="symbol">;</span>
+<span class="normal">					</span>
+<span class="normal">					</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">s </span><span class="symbol">==</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">lp</span><span class="symbol">)</span>
+<span class="normal">					</span><span class="cbracket">{</span>
+<span class="normal">						sz </span><span class="symbol">=</span><span class="normal"> s </span><span class="symbol">-</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">bp</span><span class="symbol">;</span><span class="normal"> </span>
+<span class="normal">						sz2 </span><span class="symbol">=</span><span class="normal"> sz</span><span class="symbol">&lt;&lt;</span><span class="number">1</span><span class="symbol">;</span><span class="normal"> ALLOCATED </span><span class="symbol">+=</span><span class="normal"> sz</span><span class="symbol">;</span>
+<span class="normal">						bp </span><span class="symbol">=</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">bp </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">string</span><span class="symbol">)</span><span class="function">realloc</span><span class="symbol">(</span><span class="normal">bn</span><span class="symbol">-&gt;</span><span class="normal">bp</span><span class="symbol">,</span><span class="normal"> sz2</span><span class="symbol">);</span>
+<span class="normal">						bn</span><span class="symbol">-&gt;</span><span class="normal">lp </span><span class="symbol">=</span><span class="normal"> bp </span><span class="symbol">+</span><span class="normal"> sz2</span><span class="symbol">;</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">ap </span><span class="symbol">=</span><span class="normal"> bp </span><span class="symbol">+</span><span class="normal"> sz</span><span class="symbol">;</span><span class="normal"> </span>
+<span class="normal">					</span><span class="cbracket">}</span>
+<span class="normal">				</span><span class="cbracket">}</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">			</span><span class="keyword">else</span>
+<span class="normal">			</span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">bp </span><span class="symbol">=</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">bp</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">				</span><span class="cbracket">{</span>
+<span class="normal">					</span><span class="symbol">++</span><span class="normal">BINS</span><span class="symbol">;</span>
+<span class="normal">					s </span><span class="symbol">=</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">bp </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">string</span><span class="symbol">)</span><span class="normal"> </span><span class="function">MALLOC</span><span class="symbol">(</span><span class="normal">BINSIZE0</span><span class="symbol">);</span>
+<span class="normal">					bn</span><span class="symbol">-&gt;</span><span class="normal">lp </span><span class="symbol">=</span><span class="normal"> s </span><span class="symbol">+</span><span class="normal"> LIMSIZE0</span><span class="symbol">;</span>
+<span class="normal">					</span><span class="function">RP</span><span class="symbol">(</span><span class="normal">s</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> rp</span><span class="symbol">;</span><span class="normal"> s </span><span class="symbol">+=</span><span class="normal"> RPSIZE</span><span class="symbol">;</span>
+
+<span class="normal">					</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">((*</span><span class="normal">s</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">b</span><span class="symbol">++)</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">;</span>
+<span class="normal">					bn</span><span class="symbol">-&gt;</span><span class="normal">ap </span><span class="symbol">=</span><span class="normal"> s</span><span class="symbol">;</span>
+<span class="normal">				</span><span class="cbracket">}</span>
+<span class="normal">				</span><span class="keyword">else</span>
+<span class="normal">				</span><span class="cbracket">{</span>
+<span class="normal">					s </span><span class="symbol">=</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">ap</span><span class="symbol">;</span><span class="normal"> </span>
+<span class="normal">					</span><span class="function">RP</span><span class="symbol">(</span><span class="normal">s</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> rp</span><span class="symbol">;</span><span class="normal"> s </span><span class="symbol">+=</span><span class="normal"> RPSIZE</span><span class="symbol">;</span>
+<span class="normal">					</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">((*</span><span class="normal">s</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">b</span><span class="symbol">++)</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">;</span>
+<span class="normal">					bn</span><span class="symbol">-&gt;</span><span class="normal">ap </span><span class="symbol">=</span><span class="normal"> s</span><span class="symbol">;</span>
+
+<span class="normal">					</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">s </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">lp </span><span class="symbol">=</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">lp</span><span class="symbol">))</span>
+<span class="normal">					</span><span class="cbracket">{</span>
+<span class="normal">						sz </span><span class="symbol">=</span><span class="normal"> lp </span><span class="symbol">+</span><span class="normal"> MAXKEYLEN </span><span class="symbol">-</span><span class="normal"> bp</span><span class="symbol">;</span><span class="normal"> </span>
+<span class="normal">						sz2 </span><span class="symbol">=</span><span class="normal"> sz</span><span class="symbol">&lt;&lt;</span><span class="number">1</span><span class="symbol">;</span><span class="normal"> ALLOCATED </span><span class="symbol">+=</span><span class="normal"> sz</span><span class="symbol">;</span>
+<span class="normal">						ap </span><span class="symbol">=</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">bp </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">string</span><span class="symbol">)</span><span class="normal"> </span><span class="function">malloc</span><span class="symbol">(</span><span class="normal">sz2</span><span class="symbol">);</span>
+<span class="normal">						bn</span><span class="symbol">-&gt;</span><span class="normal">lp </span><span class="symbol">=</span><span class="normal"> ap </span><span class="symbol">+</span><span class="normal"> sz2 </span><span class="symbol">-</span><span class="normal"> MAXKEYLEN</span><span class="symbol">;</span>
+<span class="normal">						t </span><span class="symbol">=</span><span class="normal"> bp</span><span class="symbol">;</span><span class="normal"> </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">t </span><span class="symbol">&lt;</span><span class="normal"> s</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">ap</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">t</span><span class="symbol">++;</span>
+<span class="normal">						</span><span class="function">free</span><span class="symbol">(</span><span class="normal">bp</span><span class="symbol">);</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">ap </span><span class="symbol">=</span><span class="normal"> ap</span><span class="symbol">;</span>
+<span class="normal">					</span><span class="cbracket">}</span>
+<span class="normal">				</span><span class="cbracket">}</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span>
+<span class="normal">		UPDATEMEM</span><span class="symbol">;</span><span class="normal"> </span><span class="function">FREE</span><span class="symbol">(</span><span class="normal">b0</span><span class="symbol">,</span><span class="normal"> sz0</span><span class="symbol">);</span><span class="normal"> </span><span class="symbol">--</span><span class="normal">BINS</span><span class="symbol">;</span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">BINS </span><span class="symbol">==</span><span class="normal"> nc </span><span class="symbol">&amp;&amp;</span><span class="normal"> NULLBINS </span><span class="symbol">==</span><span class="normal"> nn</span><span class="symbol">);</span><span class="normal"> </span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="symbol">--</span><span class="normal">FREEBURSTS</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Traverse the trie and sort each container of string tails with an</span>
+<span class="comment"> * appropriate helper sort.</span>
+<span class="comment"> *</span>
+<span class="comment"> */</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">rtraverse</span><span class="symbol">(</span><span class="usertype">NODE1</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">nd</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> c</span><span class="symbol">,</span><span class="normal"> ct</span><span class="symbol">,</span><span class="normal"> tpsz</span><span class="symbol">;</span><span class="normal"> </span>
+<span class="normal">	</span><span class="usertype">NODE1</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">bn</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="usertype">string</span><span class="normal"> s</span><span class="symbol">,</span><span class="normal"> bp</span><span class="symbol">,</span><span class="normal"> ap</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">tp</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">tp0</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">c </span><span class="symbol">=</span><span class="normal"> LOCHAR</span><span class="symbol">;</span><span class="normal"> c </span><span class="symbol">&lt;=</span><span class="normal"> HICHAR</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">c</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		bn </span><span class="symbol">=</span><span class="normal"> nd </span><span class="symbol">+</span><span class="normal"> c</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">bn </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ct </span><span class="symbol">=</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">ct</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="function">rtraverse</span><span class="symbol">((</span><span class="normal">NODE1</span><span class="symbol">*)</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">bp</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ct </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">continue</span><span class="symbol">;</span>
+
+<span class="normal">		tpsz </span><span class="symbol">=</span><span class="normal"> ct </span><span class="symbol">*</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">string</span><span class="symbol">*);</span>
+<span class="normal">		s </span><span class="symbol">=</span><span class="normal"> bp </span><span class="symbol">=</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">bp</span><span class="symbol">;</span><span class="normal"> ap </span><span class="symbol">=</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">ap</span><span class="symbol">;</span>
+
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ap </span><span class="symbol">+</span><span class="normal"> tpsz </span><span class="symbol">&gt;</span><span class="normal"> bp </span><span class="symbol">+</span><span class="normal"> CACHESIZE</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="function">ton</span><span class="symbol">(</span><span class="normal">tb</span><span class="symbol">);</span><span class="normal"> </span><span class="function">rburst</span><span class="symbol">(</span><span class="normal">bn</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="function">ton</span><span class="symbol">(</span><span class="normal">tc</span><span class="symbol">);</span><span class="normal"> </span><span class="function">rtraverse</span><span class="symbol">((</span><span class="normal">NODE1</span><span class="symbol">*)</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">bp</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="keyword">continue</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">		tp </span><span class="symbol">=</span><span class="normal"> tp0 </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">string</span><span class="symbol">*)</span><span class="normal"> </span><span class="function">MALLOC</span><span class="symbol">(</span><span class="normal">tpsz</span><span class="symbol">);</span>
+<span class="normal">		bn</span><span class="symbol">-&gt;</span><span class="normal">ap </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">string</span><span class="symbol">)</span><span class="normal"> tp0</span><span class="symbol">;</span>
+<span class="normal">		</span>
+<span class="normal">		</span><span class="comment">/* We set the sorting pointers to point to the tails </span>
+<span class="comment">			rather than the record pointers that precede them. */</span>
+<span class="normal">		</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">s </span><span class="symbol">&lt;</span><span class="normal"> ap</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="comment">/* Skip over the record pointer. */</span>
+<span class="normal">			s </span><span class="symbol">+=</span><span class="normal"> RPSIZE</span><span class="symbol">;</span><span class="normal"> </span>
+<span class="normal">			</span><span class="comment">/* Set the tail pointer. */</span>
+<span class="normal">			</span><span class="symbol">*</span><span class="normal">tp</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> s</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="comment">/* Scan thru the rest of the tail. */</span>
+<span class="normal">			</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">s</span><span class="symbol">++)</span><span class="normal"> </span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">		</span><span class="comment">/* mkqsorts() (q.v.) is a stable version of mkqsort(). */</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ct </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="function">mkqsorts</span><span class="symbol">(</span><span class="normal">tp0</span><span class="symbol">,</span><span class="normal"> ct</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">		</span>
+<span class="normal">		</span><span class="comment">/* After sorting, we replace each tail pointer with the</span>
+<span class="comment">			record pointer of the corresponding tail; this puts</span>
+<span class="comment">			the records pointers in order in a minimal contiguous</span>
+<span class="comment">			block, and we can then release the char array that held</span>
+<span class="comment">			the interspersed record pointers and tails. */</span>
+<span class="normal">		</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">tp </span><span class="symbol">=</span><span class="normal"> tp0</span><span class="symbol">;</span><span class="normal"> ct</span><span class="symbol">--</span><span class="normal"> </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">tp</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">tp </span><span class="symbol">=</span><span class="normal"> </span><span class="function">RP</span><span class="symbol">(*</span><span class="normal">tp </span><span class="symbol">-</span><span class="normal"> RPSIZE</span><span class="symbol">);</span>
+
+<span class="normal">		UPDATEMEM</span><span class="symbol">;</span><span class="normal"> ALLOCATED </span><span class="symbol">-=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">MAXKEYLEN </span><span class="symbol">+</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">lp </span><span class="symbol">-</span><span class="normal"> bp</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="function">free</span><span class="symbol">(</span><span class="normal">bp</span><span class="symbol">);</span><span class="normal"> </span><span class="symbol">--</span><span class="normal">BINS</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * De-allocate trie or subtrie.</span>
+<span class="comment"> *</span>
+<span class="comment"> */</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">rkill</span><span class="symbol">(</span><span class="usertype">NODE1</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">nd</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> c</span><span class="symbol">,</span><span class="normal"> ct</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="usertype">NODE1</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">bn</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">c </span><span class="symbol">=</span><span class="normal"> LOCHAR</span><span class="symbol">;</span><span class="normal"> c </span><span class="symbol">&lt;=</span><span class="normal"> HICHAR</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">c</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		bn </span><span class="symbol">=</span><span class="normal"> nd </span><span class="symbol">+</span><span class="normal"> c</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">bn </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ct </span><span class="symbol">=</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">ct</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="function">rkill</span><span class="symbol">((</span><span class="normal">NODE1</span><span class="symbol">*)</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">bp</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ct</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="comment">/* At this point in CP-burstsort, we've already freed</span>
+<span class="comment">				the bin's original container at bp, but we need to</span>
+<span class="comment">				free the sorted record pointers at ap. */</span>
+<span class="normal">                    </span><span class="function">FREE</span><span class="symbol">(</span><span class="normal">bn</span><span class="symbol">-&gt;</span><span class="normal">ap</span><span class="symbol">,</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">ct </span><span class="symbol">*</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">string</span><span class="symbol">*));</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">nd</span><span class="symbol">-&gt;</span><span class="normal">ct</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="symbol">--</span><span class="normal">NULLBINS</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="function">FREE</span><span class="symbol">(</span><span class="normal">nd</span><span class="symbol">-&gt;</span><span class="normal">bp</span><span class="symbol">,</span><span class="normal"> nd</span><span class="symbol">-&gt;</span><span class="normal">lp</span><span class="symbol">-</span><span class="normal">nd</span><span class="symbol">-&gt;</span><span class="normal">bp</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="function">FREE</span><span class="symbol">(</span><span class="normal">nd</span><span class="symbol">,</span><span class="normal"> </span><span class="number">256</span><span class="symbol">*</span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">NODE1</span><span class="symbol">));</span><span class="normal"> </span><span class="symbol">--</span><span class="normal">NODES</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Output a sorted file of records.</span>
+<span class="comment"> *</span>
+<span class="comment"> */</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">savetrie</span><span class="symbol">(</span><span class="usertype">NODE1</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">nd</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="symbol">*</span><span class="normal"> path</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="symbol">*</span><span class="normal"> dset</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">FILE</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">f</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="type">char</span><span class="symbol">*</span><span class="normal"> s</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">f </span><span class="symbol">=</span><span class="normal"> </span><span class="function">fopen</span><span class="symbol">(</span><span class="normal">s </span><span class="symbol">=</span><span class="normal"> </span><span class="function">fp</span><span class="symbol">(</span><span class="normal">path</span><span class="symbol">,</span><span class="normal"> dset</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"cp-burstsort"</span><span class="symbol">),</span><span class="normal"> </span><span class="string">"w+"</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> NULL</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">say</span><span class="symbol">(</span><span class="string">"could not open "</span><span class="symbol">);</span><span class="normal"> </span><span class="function">brp</span><span class="symbol">(</span><span class="normal">s</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">else</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">puttrie</span><span class="symbol">(</span><span class="normal">nd</span><span class="symbol">,</span><span class="normal"> f</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="function">fflush</span><span class="symbol">(</span><span class="normal">f</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="function">fclose</span><span class="symbol">(</span><span class="normal">f</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Append sorted records to a file.</span>
+<span class="comment"> *</span>
+<span class="comment"> */</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">puttrie</span><span class="symbol">(</span><span class="usertype">NODE1</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">nd</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">FILE</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">f</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> ct</span><span class="symbol">,</span><span class="normal"> c</span><span class="symbol">;</span><span class="normal"> </span><span class="usertype">string</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">tp</span><span class="symbol">;</span><span class="normal"> </span><span class="usertype">NODE1</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">bn</span><span class="symbol">;</span>
+
+<span class="normal">	ct </span><span class="symbol">=</span><span class="normal"> nd</span><span class="symbol">-&gt;</span><span class="normal">ct</span><span class="symbol">;</span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="comment">/* While sputtrie() had to reconstruct a prefix from</span>
+<span class="comment">		traversed chars, puttrie() can simply use a record</span>
+<span class="comment">		pointer to retrieve the original key.	This version</span>
+<span class="comment">		just outputs the key; to output the whole record, </span>
+<span class="comment">		puttrie() would need to know about the fields of </span>
+<span class="comment">		the record and how they are delimited. */</span>
+<span class="normal">	tp </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">string</span><span class="symbol">*)</span><span class="normal"> nd</span><span class="symbol">-&gt;</span><span class="normal">bp</span><span class="symbol">;</span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="comment">/* Output any exhausted keys. */</span>
+<span class="normal">	</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ct</span><span class="symbol">--)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">                </span><span class="function">fputs</span><span class="symbol">((</span><span class="type">char</span><span class="symbol">*)*</span><span class="normal">tp</span><span class="symbol">++,</span><span class="normal"> f</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="function">fputc</span><span class="symbol">(</span><span class="string">'</span><span class="specialchar">\n</span><span class="string">'</span><span class="symbol">,</span><span class="normal"> f</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">c </span><span class="symbol">=</span><span class="normal"> LOCHAR</span><span class="symbol">;</span><span class="normal"> c </span><span class="symbol">&lt;=</span><span class="normal"> HICHAR</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">c</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		bn </span><span class="symbol">=</span><span class="normal"> nd </span><span class="symbol">+</span><span class="normal"> c</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">bn </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ct </span><span class="symbol">=</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">ct</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">			</span><span class="function">puttrie</span><span class="symbol">((</span><span class="normal">NODE1</span><span class="symbol">*)</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">bp</span><span class="symbol">,</span><span class="normal"> f</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ct</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			tp </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">string</span><span class="symbol">*)</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">ap</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ct</span><span class="symbol">--)</span>
+<span class="normal">			</span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="function">fputs</span><span class="symbol">((</span><span class="type">char</span><span class="symbol">*)*</span><span class="normal">tp</span><span class="symbol">++,</span><span class="normal"> f</span><span class="symbol">);</span>
+<span class="normal">				</span><span class="function">fputc</span><span class="symbol">(</span><span class="string">'</span><span class="specialchar">\n</span><span class="string">'</span><span class="symbol">,</span><span class="normal"> f</span><span class="symbol">);</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/** Added by Timo Bingmann to output the trie to a string pointer array */</span>
+
+<span class="normal">string</span><span class="symbol">*</span><span class="normal"> puttrie_strout</span><span class="symbol">;</span><span class="normal">        </span><span class="comment">/* string pointer output iterator */</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Append sorted records to a file.</span>
+<span class="comment"> *</span>
+<span class="comment"> */</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">tb_puttrie</span><span class="symbol">(</span><span class="usertype">NODE1</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">nd</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> ct</span><span class="symbol">,</span><span class="normal"> c</span><span class="symbol">;</span><span class="normal"> </span><span class="usertype">string</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">tp</span><span class="symbol">;</span><span class="normal"> </span><span class="usertype">NODE1</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">bn</span><span class="symbol">;</span>
+
+<span class="normal">	ct </span><span class="symbol">=</span><span class="normal"> nd</span><span class="symbol">-&gt;</span><span class="normal">ct</span><span class="symbol">;</span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="comment">/* While sputtrie() had to reconstruct a prefix from</span>
+<span class="comment">		traversed chars, puttrie() can simply use a record</span>
+<span class="comment">		pointer to retrieve the original key.	This version</span>
+<span class="comment">		just outputs the key; to output the whole record, </span>
+<span class="comment">		puttrie() would need to know about the fields of </span>
+<span class="comment">		the record and how they are delimited. */</span>
+<span class="normal">	tp </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">string</span><span class="symbol">*)</span><span class="normal"> nd</span><span class="symbol">-&gt;</span><span class="normal">bp</span><span class="symbol">;</span>
+<span class="normal">	</span>
+<span class="normal">	</span><span class="comment">/* Output any exhausted keys. */</span>
+<span class="normal">	</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ct</span><span class="symbol">--)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">                </span><span class="symbol">*</span><span class="normal">puttrie_strout</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">tp</span><span class="symbol">++;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">c </span><span class="symbol">=</span><span class="normal"> LOCHAR</span><span class="symbol">;</span><span class="normal"> c </span><span class="symbol">&lt;=</span><span class="normal"> HICHAR</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">c</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		bn </span><span class="symbol">=</span><span class="normal"> nd </span><span class="symbol">+</span><span class="normal"> c</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">bn </span><span class="symbol">!=</span><span class="normal"> NULL </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ct </span><span class="symbol">=</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">ct</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">			</span><span class="function">tb_puttrie</span><span class="symbol">((</span><span class="normal">NODE1</span><span class="symbol">*)</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">bp</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ct</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			tp </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">string</span><span class="symbol">*)</span><span class="normal"> bn</span><span class="symbol">-&gt;</span><span class="normal">ap</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ct</span><span class="symbol">--)</span>
+<span class="normal">			</span><span class="cbracket">{</span>
+<span class="normal">                                </span><span class="symbol">*</span><span class="normal">puttrie_strout</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">tp</span><span class="symbol">++;</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Output a sorted file of records.</span>
+<span class="comment"> */</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">tb_savetrie</span><span class="symbol">(</span><span class="usertype">NODE1</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">nd</span><span class="symbol">,</span><span class="normal"> string</span><span class="symbol">*</span><span class="normal"> strout</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">        puttrie_strout </span><span class="symbol">=</span><span class="normal"> strout</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="function">tb_puttrie</span><span class="symbol">(</span><span class="normal">nd</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * A version of insertion sort that can restore stability to</span>
+<span class="comment"> * data after partial sorting with an unstable helper sort;</span>
+<span class="comment"> * </span>
+<span class="comment"> *</span>
+<span class="comment"> */</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">inssorts</span><span class="symbol">(</span><span class="usertype">string</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">tp</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> n</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> d</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">string</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">rp</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">lp</span><span class="symbol">,</span><span class="normal"> ls</span><span class="symbol">,</span><span class="normal"> rs</span><span class="symbol">,</span><span class="normal"> rd</span><span class="symbol">,</span><span class="normal"> ld</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">rp </span><span class="symbol">=</span><span class="normal"> tp </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">--</span><span class="normal">n </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">rp</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">rs </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">rp</span><span class="symbol">,</span><span class="normal"> lp </span><span class="symbol">=</span><span class="normal"> rp</span><span class="symbol">;</span><span class="normal"> lp </span><span class="symbol">&gt;</span><span class="normal"> tp</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">--</span><span class="normal">lp</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			  ls </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*(</span><span class="normal">lp </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">			  rd </span><span class="symbol">=</span><span class="normal"> rs </span><span class="symbol">+</span><span class="normal"> d</span><span class="symbol">;</span>
+<span class="normal">			  ld </span><span class="symbol">=</span><span class="normal"> ls </span><span class="symbol">+</span><span class="normal"> d</span><span class="symbol">;</span>
+
+<span class="normal">			  </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">ld </span><span class="symbol">==</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">rd </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">rd </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">			  </span><span class="cbracket">{</span>
+<span class="normal">					</span><span class="symbol">++</span><span class="normal">ld</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">rd</span><span class="symbol">;</span>
+<span class="normal">			  </span><span class="cbracket">}</span>
+
+<span class="normal">				</span><span class="comment">/* The re-stabilization occurs here; if tails are </span>
+<span class="comment">					equal, we just ensure that final order matches </span>
+<span class="comment">					the order of the tails in the bin, which reflects </span>
+<span class="comment">					their original order of insertion.*/</span>
+<span class="normal">			  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">rd </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">ld </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">rd </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> rs </span><span class="symbol">&lt;</span><span class="normal"> ls</span><span class="symbol">))</span><span class="normal"> </span>
+<span class="normal">				  </span><span class="symbol">*</span><span class="normal">lp </span><span class="symbol">=</span><span class="normal"> ls</span><span class="symbol">;</span>
+<span class="normal">			  </span><span class="keyword">else</span>
+<span class="normal">				  </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="symbol">*</span><span class="normal">lp </span><span class="symbol">=</span><span class="normal"> rs</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Stabilize sorting by otherwise unstable helper sorts such</span>
+<span class="comment"> * as multikey quicksort or displacing forward radix sort; this</span>
+<span class="comment"> * routine is used with CP- and CPL-burstsort and works by</span>
+<span class="comment"> * ordering a run of equal key tails according to the position</span>
+<span class="comment"> * of those tails within the bin (which preserves the original</span>
+<span class="comment"> * order in which they were inserted.</span>
+<span class="comment"> *</span>
+<span class="comment"> */</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">stabilize</span><span class="symbol">(</span><span class="usertype">string</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">tp</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> n</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> n1</span><span class="symbol">,</span><span class="normal"> n2</span><span class="symbol">,</span><span class="normal"> n3</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="usertype">string</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">l</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">m</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">r</span><span class="symbol">,</span><span class="normal"> pv</span><span class="symbol">,</span><span class="normal"> t</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">n </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">13</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		 </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">r </span><span class="symbol">=</span><span class="normal"> tp </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">--</span><span class="normal">n </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">r</span><span class="symbol">)</span>
+<span class="normal">		 </span><span class="cbracket">{</span>
+<span class="normal">			 pv </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">r</span><span class="symbol">;</span>
+<span class="normal">			 </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">l </span><span class="symbol">=</span><span class="normal"> r</span><span class="symbol">;</span><span class="normal"> l </span><span class="symbol">&gt;</span><span class="normal"> tp</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">--</span><span class="normal">l</span><span class="symbol">)</span>
+<span class="normal">			 </span><span class="cbracket">{</span>
+<span class="normal">				 t </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*(</span><span class="normal">l </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">				 </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">pv </span><span class="symbol">&lt;</span><span class="normal"> t</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">l </span><span class="symbol">=</span><span class="normal"> t</span><span class="symbol">;</span>
+<span class="normal">				 </span><span class="keyword">else</span>
+<span class="normal">					 </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">			 </span><span class="cbracket">}</span>
+<span class="normal">			 </span><span class="symbol">*</span><span class="normal">l </span><span class="symbol">=</span><span class="normal"> pv</span><span class="symbol">;</span>
+<span class="normal">		 </span><span class="cbracket">}</span>
+<span class="normal">		 </span><span class="keyword">return</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	n1 </span><span class="symbol">=</span><span class="normal"> n</span><span class="symbol">&gt;&gt;</span><span class="number">1</span><span class="symbol">;</span><span class="normal"> n2 </span><span class="symbol">=</span><span class="normal"> n1</span><span class="symbol">&gt;&gt;</span><span class="number">1</span><span class="symbol">;</span><span class="normal"> n3 </span><span class="symbol">=</span><span class="normal"> n2</span><span class="symbol">&gt;&gt;</span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">	l </span><span class="symbol">=</span><span class="normal"> tp</span><span class="symbol">;</span><span class="normal"> m </span><span class="symbol">=</span><span class="normal"> tp </span><span class="symbol">+</span><span class="normal"> n1</span><span class="symbol">;</span><span class="normal"> r </span><span class="symbol">=</span><span class="normal"> tp </span><span class="symbol">+</span><span class="normal"> n </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">n </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">31</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		l </span><span class="symbol">=</span><span class="normal"> </span><span class="function">med3s</span><span class="symbol">(</span><span class="normal">l</span><span class="symbol">,</span><span class="normal"> l </span><span class="symbol">+</span><span class="normal"> n3</span><span class="symbol">,</span><span class="normal"> l </span><span class="symbol">+</span><span class="normal"> n2</span><span class="symbol">);</span>
+<span class="normal">		m </span><span class="symbol">=</span><span class="normal"> </span><span class="function">med3s</span><span class="symbol">(</span><span class="normal">m </span><span class="symbol">-</span><span class="normal"> n3</span><span class="symbol">,</span><span class="normal"> m</span><span class="symbol">,</span><span class="normal"> m </span><span class="symbol">+</span><span class="normal"> n3</span><span class="symbol">);</span>
+<span class="normal">		r </span><span class="symbol">=</span><span class="normal"> </span><span class="function">med3s</span><span class="symbol">(</span><span class="normal">r </span><span class="symbol">-</span><span class="normal"> n2</span><span class="symbol">,</span><span class="normal"> r </span><span class="symbol">-</span><span class="normal"> n3</span><span class="symbol">,</span><span class="normal"> r</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	m </span><span class="symbol">=</span><span class="normal"> </span><span class="function">med3s</span><span class="symbol">(</span><span class="normal">l</span><span class="symbol">,</span><span class="normal"> m</span><span class="symbol">,</span><span class="normal"> r</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">PSWAP</span><span class="symbol">(</span><span class="normal">tp</span><span class="symbol">,</span><span class="normal"> m</span><span class="symbol">,</span><span class="normal"> t</span><span class="symbol">);</span>
+<span class="normal">	pv </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">tp</span><span class="symbol">;</span>
+<span class="normal">	l </span><span class="symbol">=</span><span class="normal"> tp </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal"> r </span><span class="symbol">=</span><span class="normal"> tp </span><span class="symbol">+</span><span class="normal"> n </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(;;)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">l </span><span class="symbol">&lt;=</span><span class="normal"> r </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">l </span><span class="symbol">&lt;</span><span class="normal"> pv</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">l</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">l </span><span class="symbol">&lt;=</span><span class="normal"> r </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">r </span><span class="symbol">&gt;</span><span class="normal"> pv</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">--</span><span class="normal">r</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">l </span><span class="symbol">&gt;</span><span class="normal"> r</span><span class="symbol">)</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="function">PSWAP</span><span class="symbol">(</span><span class="normal">l</span><span class="symbol">,</span><span class="normal"> r</span><span class="symbol">,</span><span class="normal"> t</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="symbol">++</span><span class="normal">l</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">--</span><span class="normal">r</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="function">PSWAP</span><span class="symbol">(</span><span class="normal">tp</span><span class="symbol">,</span><span class="normal"> r</span><span class="symbol">,</span><span class="normal"> t</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="symbol">--</span><span class="normal">r</span><span class="symbol">;</span><span class="normal"> n1 </span><span class="symbol">=</span><span class="normal"> l </span><span class="symbol">-</span><span class="normal"> tp</span><span class="symbol">;</span><span class="normal"> n2 </span><span class="symbol">=</span><span class="normal"> n </span><span class="symbol">-</span><span class="normal"> n1</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">n1 </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="function">stabilize</span><span class="symbol">(</span><span class="normal">tp</span><span class="symbol">,</span><span class="normal"> n1</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">n2 </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="function">stabilize</span><span class="symbol">(</span><span class="normal">tp </span><span class="symbol">+</span><span class="normal"> n1</span><span class="symbol">,</span><span class="normal"> n2</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * This version of mkqsort restores stability by calling </span>
+<span class="comment"> * stabilize() to handle runs of equal keys and by passing</span>
+<span class="comment"> * short runs to inssorts();</span>
+<span class="comment"> *</span>
+<span class="comment"> */</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">mkqsorts</span><span class="symbol">(</span><span class="usertype">string</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">tp</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> n</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> d</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> k</span><span class="symbol">,</span><span class="normal"> nl</span><span class="symbol">,</span><span class="normal"> ne</span><span class="symbol">,</span><span class="normal"> nr</span><span class="symbol">,</span><span class="normal"> pv</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="usertype">string</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">ol</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">il</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">ir</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">_or</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">l</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">m</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">r</span><span class="symbol">,</span><span class="normal"> t</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">n </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">13</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">inssorts</span><span class="symbol">(</span><span class="normal">tp</span><span class="symbol">,</span><span class="normal"> n</span><span class="symbol">,</span><span class="normal"> d</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">return</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	l </span><span class="symbol">=</span><span class="normal"> tp</span><span class="symbol">;</span><span class="normal"> m </span><span class="symbol">=</span><span class="normal"> tp </span><span class="symbol">+</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">n</span><span class="symbol">&gt;&gt;</span><span class="number">1</span><span class="symbol">);</span><span class="normal"> r </span><span class="symbol">=</span><span class="normal"> tp </span><span class="symbol">+</span><span class="normal"> n </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">n </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">31</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		k </span><span class="symbol">=</span><span class="normal"> n</span><span class="symbol">&gt;&gt;</span><span class="number">3</span><span class="symbol">;</span>
+<span class="normal">		l </span><span class="symbol">=</span><span class="normal"> </span><span class="function">med3</span><span class="symbol">(</span><span class="normal">l</span><span class="symbol">,</span><span class="normal"> l </span><span class="symbol">+</span><span class="normal"> k</span><span class="symbol">,</span><span class="normal"> l </span><span class="symbol">+</span><span class="normal"> k </span><span class="symbol">*</span><span class="normal"> </span><span class="number">2</span><span class="symbol">,</span><span class="normal"> d</span><span class="symbol">);</span>
+<span class="normal">		m </span><span class="symbol">=</span><span class="normal"> </span><span class="function">med3</span><span class="symbol">(</span><span class="normal">m </span><span class="symbol">-</span><span class="normal"> k</span><span class="symbol">,</span><span class="normal"> m</span><span class="symbol">,</span><span class="normal"> m </span><span class="symbol">+</span><span class="normal"> k</span><span class="symbol">,</span><span class="normal"> d</span><span class="symbol">);</span>
+<span class="normal">		r </span><span class="symbol">=</span><span class="normal"> </span><span class="function">med3</span><span class="symbol">(</span><span class="normal">r </span><span class="symbol">-</span><span class="normal"> k </span><span class="symbol">*</span><span class="normal"> </span><span class="number">2</span><span class="symbol">,</span><span class="normal"> r </span><span class="symbol">-</span><span class="normal"> k</span><span class="symbol">,</span><span class="normal"> r</span><span class="symbol">,</span><span class="normal"> d</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	m </span><span class="symbol">=</span><span class="normal"> </span><span class="function">med3</span><span class="symbol">(</span><span class="normal">l</span><span class="symbol">,</span><span class="normal"> m</span><span class="symbol">,</span><span class="normal"> r</span><span class="symbol">,</span><span class="normal"> d</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">PSWAP</span><span class="symbol">(</span><span class="normal">tp</span><span class="symbol">,</span><span class="normal"> m</span><span class="symbol">,</span><span class="normal"> t</span><span class="symbol">);</span>
+<span class="normal">	pv</span><span class="symbol">=</span><span class="function">P2C</span><span class="symbol">(</span><span class="normal">tp</span><span class="symbol">,</span><span class="normal"> d</span><span class="symbol">);</span>
+<span class="normal">	r </span><span class="symbol">=</span><span class="normal"> tp </span><span class="symbol">+</span><span class="normal"> n</span><span class="symbol">;</span><span class="normal"> ol </span><span class="symbol">=</span><span class="normal"> il </span><span class="symbol">=</span><span class="normal">tp </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal"> ir </span><span class="symbol">=</span><span class="normal"> _or </span><span class="symbol">=</span><span class="normal"> r </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">il </span><span class="symbol">&lt;=</span><span class="normal"> ir </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="function">P2C</span><span class="symbol">(</span><span class="normal">il</span><span class="symbol">,</span><span class="normal"> d</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> pv</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="symbol">++</span><span class="normal">ol</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">il</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">il </span><span class="symbol">&lt;=</span><span class="normal"> ir </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="function">P2C</span><span class="symbol">(</span><span class="normal">ir</span><span class="symbol">,</span><span class="normal"> d</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> pv</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="symbol">--</span><span class="normal">_or</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">--</span><span class="normal">ir</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(;;)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">il </span><span class="symbol">&lt;=</span><span class="normal"> ir </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">k </span><span class="symbol">=</span><span class="normal"> </span><span class="function">P2C</span><span class="symbol">(</span><span class="normal">il</span><span class="symbol">,</span><span class="normal"> d</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> pv</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&lt;=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">k </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">			</span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="function">PSWAP</span><span class="symbol">(</span><span class="normal">ol</span><span class="symbol">,</span><span class="normal"> il</span><span class="symbol">,</span><span class="normal"> t</span><span class="symbol">);</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">ol</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">			</span><span class="symbol">++</span><span class="normal">il</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+<span class="normal">		</span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">il </span><span class="symbol">&lt;=</span><span class="normal"> ir </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">k </span><span class="symbol">=</span><span class="normal"> </span><span class="function">P2C</span><span class="symbol">(</span><span class="normal">ir</span><span class="symbol">,</span><span class="normal"> d</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> pv</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="cbracket">{</span>
+<span class="normal">			</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">k </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">			</span><span class="cbracket">{</span>
+<span class="normal">				</span><span class="function">PSWAP</span><span class="symbol">(</span><span class="normal">ir</span><span class="symbol">,</span><span class="normal"> _or</span><span class="symbol">,</span><span class="normal"> t</span><span class="symbol">);</span><span class="normal"> </span><span class="symbol">--</span><span class="normal">_or</span><span class="symbol">;</span>
+<span class="normal">			</span><span class="cbracket">}</span>
+<span class="normal">			</span><span class="symbol">--</span><span class="normal">ir</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="cbracket">}</span>
+
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">il </span><span class="symbol">&gt;</span><span class="normal"> ir</span><span class="symbol">)</span>
+<span class="normal">			</span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="function">PSWAP</span><span class="symbol">(</span><span class="normal">il</span><span class="symbol">,</span><span class="normal"> ir</span><span class="symbol">,</span><span class="normal"> t</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="symbol">++</span><span class="normal">il</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">--</span><span class="normal">ir</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	nl </span><span class="symbol">=</span><span class="normal"> il </span><span class="symbol">-</span><span class="normal"> ol</span><span class="symbol">;</span><span class="normal"> nr </span><span class="symbol">=</span><span class="normal"> _or </span><span class="symbol">-</span><span class="normal"> ir</span><span class="symbol">;</span><span class="normal"> ne </span><span class="symbol">=</span><span class="normal"> n </span><span class="symbol">-</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">nl </span><span class="symbol">+</span><span class="normal"> nr</span><span class="symbol">);</span>
+
+<span class="normal">	k </span><span class="symbol">=</span><span class="normal"> </span><span class="function">MIN</span><span class="symbol">(</span><span class="normal">ol </span><span class="symbol">-</span><span class="normal"> tp</span><span class="symbol">,</span><span class="normal"> nl</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">vswap</span><span class="symbol">(</span><span class="normal">tp</span><span class="symbol">,</span><span class="normal"> il </span><span class="symbol">-</span><span class="normal"> k</span><span class="symbol">,</span><span class="normal"> k</span><span class="symbol">);</span>
+<span class="normal">	k </span><span class="symbol">=</span><span class="normal"> </span><span class="function">MIN</span><span class="symbol">(</span><span class="normal">nr</span><span class="symbol">,</span><span class="normal"> r </span><span class="symbol">-</span><span class="normal"> _or </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">vswap</span><span class="symbol">(</span><span class="normal">r </span><span class="symbol">-</span><span class="normal"> k</span><span class="symbol">,</span><span class="normal"> il</span><span class="symbol">,</span><span class="normal"> k</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">ne </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">pv </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">			</span><span class="function">stabilize</span><span class="symbol">(</span><span class="normal">tp </span><span class="symbol">+</span><span class="normal"> nl</span><span class="symbol">,</span><span class="normal"> ne</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="keyword">else</span>
+<span class="normal">			 </span><span class="function">mkqsorts</span><span class="symbol">(</span><span class="normal">tp </span><span class="symbol">+</span><span class="normal"> nl</span><span class="symbol">,</span><span class="normal"> ne</span><span class="symbol">,</span><span class="normal"> d </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">nl </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="function">mkqsorts</span><span class="symbol">(</span><span class="normal">tp</span><span class="symbol">,</span><span class="normal"> nl</span><span class="symbol">,</span><span class="normal"> d</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">nr </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="function">mkqsorts</span><span class="symbol">(</span><span class="normal">r </span><span class="symbol">-</span><span class="normal"> nr</span><span class="symbol">,</span><span class="normal"> nr</span><span class="symbol">,</span><span class="normal"> d</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+</tt></pre></div><div style="text-align: right; padding: 8pt; font-size: 12px"><a href="/xmlfeed/weblog-rss20.xml"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPAgMAAAAOp6AcAAAADFBMVEVmZmb/ZgD///+JjnlbTUWmAAAACXBIWXMAAABIAAAASABGyWs+AAAACXZwQWcAAABQAAAADwCexKkxAAAAWUlEQVQYlWNgwAa0VmGAFQyqoSCQ/x8J/CBFMCt0ZdTU/F/7/+1HEkydFpoKVPn+93sUlUujQvP/7UcRTAuNDJ2a//s/imDqtKVZofm/1qGYSZk7sfodGwAAiobBJtffoNAAAAAASUVORK5CYII=" alt="RSS 2.0 Weblog Feed" width="80" height="15"/></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPAgMAAAAOp6AcAAAADFBMVEVmZmb/ZgD///+JjnlbTUWmAAAAaklEQVQYlWNgwAa0VmGAFQyqoSCQ/x8J/CBFMDV16rTQ/H/7V//69+//v/3/9oMEI6cuAwr+fv/+/b5d///v//0eJBgWOhMo+Gs9UPAdXDBy6lSYyn9wQZCZS0GCYDPXQcykzJ1Y/Y4NAABKvL80wyoMPgAAAABJRU5ErkJggg==" alt="Atom 1.0 Weblog Feed" width="80" height="15"/></a> <a href="http://validator.w3.org/check?uri=referer"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAB1FBMVEUHQIgIRY0MN4QNRYoSRYsXUpIYVJQeUpUhWpgjUJMjWpgmU5QnXJkuYZ0uYpwwV5YyZJ4zaKM3ZaA5aaI6aqM6a6E8ZqA8Z6BAbaRBbqdCbaVHd61KSkpKcaZQUFBUf69UgbBVVVVXfq9Yg7NZhbJZh7RagrNeXVxeh7RfjLdgYGBiiLZmZmZnZ2doirhpkbt0m8F3m8B3ncJ5lb55ocR+ocSDgX+Do8eEpMqGhoaHp8iIpMeJjnmJpseKqMeOqsqPsdCQrcyVlZWVsM2Zs9CZtNCfu9ahoaGhuNShudSivNSjtMWjvNSmpqWnpqSrw9qvxNqyxdmyxdyzsK6zs7Ozx9y0xt21yN22tra4y+K80eK/v7/AwMDExMTEy9DH2ejK2+jM2ujN3uvP0dLR0NDR3uvS3uvS3+zU4u3V1dXY2dnY4u7Y4+3b5e/d3d3d5u/d5/De3t7f39/h4uLj4uHj6/Ll7PXm7fTn7/Xo7/Tp7/bq7Ozr6unr8ffw8PDw9vvx9fny+P7z8/Pz9vnz9vv3+fv4+vz5+vz6+vr6+/36/P36///7+/77/Pz7/f37/f78/Pz8/f38/f79/f39/f79/f/9/v79///+/v7+/v////3///+tYR2LAAABKklEQVQ4y2PQoTJg0JlNVYDPQBsyAMTAqaFes8tdsmdPCtA3MDStr3GKKK6myMAprgJ9pcpWs/MlRExYJBvNZLR0sigycHYOV1S7mtjsQJ4gf+HIFPXoWMs6qIGzIRiKZs9GFoEaMRuZhhrYqqJXy8uZYauRxC/VHew7e3YTPAxnI5swG6JxNrKBNjB1EFmIgV0+HA6C8pqqzhXG7BbJJROQIwViMYQ7G2oDQQNn57JyG7kxiCfObrBmS5+BHMuYLkTzMnYDm5WY4lOZZRPKZocxes+aPbuwCFsYohiICLvZsKBAMrDTQ7K/StveU8icTzrOL8JdLpOyWJ49u8Bx9ozw8DY7UYW03hhdxZAOSg2c3jN79rSJs1vSKmfOnpFXNJmynELlvExlAADnaZpLFGEC2wAAAABJRU5ErkJggg==" alt="Valid XHTML 1.1" width="80" height="15"/></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAB1FBMVEUHQIgIRY0MN4QNRYoSRYsXUpIYVJQeUpUhWpgjUJMjWpgmU5QnXJkuYZ0uYpwwV5YyZJ4zaKM3ZaA5aaI6aqM6a6E8ZqA8Z6BAbaRBbqdCbaVHd61KSkpKcaZQUFBUf69UgbBVVVVXfq9Yg7NZhbJZh7RagrNeXVxeh7RfjLdgYGBiiLZmZmZnZ2doirhpkbt0m8F3m8B3ncJ5lb55ocR+ocSDgX+Do8eEpMqGhoaHp8iIpMeJjnmJpseKqMeOqsqPsdCQrcyVlZWVsM2Zs9CZtNCfu9ahoaGhuNShudSivNSjtMWjvNSmpqWnpqSrw9qvxNqyxdmyxdyzsK6zs7Ozx9y0xt21yN22tra4y+K80eK/v7/AwMDExMTEy9DH2ejK2+jM2ujN3uvP0dLR0NDR3uvS3uvS3+zU4u3V1dXY2dnY4u7Y4+3b5e/d3d3d5u/d5/De3t7f39/h4uLj4uHj6/Ll7PXm7fTn7/Xo7/Tp7/bq7Ozr6unr8ffw8PDw9vvx9fny+P7z8/Pz9vnz9vv3+fv4+vz5+vz6+vr6+/36/P36///7+/77/Pz7/f37/f78/Pz8/f38/f79/f39/f79/f/9/v79///+/v7+/v////3///+tYR2LAAABEUlEQVQ4y2PQoTJg0JlNVYDPQBsyAMTAqaFes8tdsmdPCtA3MDStr3GKKK6myMAprgJ9pcpWs/MlRExYJBvNZLR0sigycHYOV1S7mtjsQJ4gf+HIFPXoWMs6mIEQCsIjwhKoga0qerW8nBm2Gkn8Ut3BvrNnN8HCcDYM2cBIogzs8uFwEJTXVHWuMGa3SC6ZgIgUqCEwdxJr4OxcVm4jNwbxxNkN1mzpM2ajGIjsPGK9PLtZiSk+lVk2oWx2GKP3rNmzC4tQwpDoIIQb2Okh2V+lbe8pZM4nHecX4S6XSVksz55d4Dh7Rnh4m52oQlpvjK5iSAelBk7vmT172sTZLWmVM2fPyCuaTFlOoXJepjIAANlljDGY/l5pAAAAAElFTkSuQmCC" alt="Valid CSS (2.1)" width="80" height="15"/></a><br/>Copyright 2005-2014 <a href="/about/">Timo Bingmann</a> - <a href="/about/impressum.html">Impressum</a></div><script type="text/javascript">var _paq = _paq || []; _paq.push(["trackPageView"]); _paq.push(["enableLinkTracking"]);(function() {var u=(("https:" == document.location.protocol) ? "https" : "http") + "://panthema.net/wik-331/"; _paq.push(["setTrackerUrl", u+"js/"]); _paq.push(["setSiteId", "2"]);var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";g.defer=true; g.async=true; g.src=u+"js/"; s.parentNode.insertBefore(g,s);})();</script><noscript><p><img src="http://panthema.net/wik-331/js/?idsite=2&amp;rec=1" style="border:0" alt="" /></p></noscript></body></html>
