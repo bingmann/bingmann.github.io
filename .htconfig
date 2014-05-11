@@ -8,6 +8,9 @@ KeepAliveTimeout 	60
 <Location "/">
     Options		-Indexes
 </Location>
+<Location "/repo/">
+    Options		+Indexes
+</Location>
 
 # ErrorDocuments
 
@@ -29,9 +32,9 @@ RewriteRule	^(.*)$		http://panthema.net$1 [R=301,L]
 RewriteCond     %{SERVER_PORT}  !^443$
 RewriteRule     ^/(oc-42.*)$    https://%{HTTP_HOST}/$1 [NC,R=301,L]
 
-RewriteRule     ^/wik-331(.*)$  /home/www/panthema.net.piwik$1 [L]
-RewriteRule     ^/oc-42(.*)$    /home/www/panthema.net.owncloud$1 [L]
-RewriteRule     ^/cgit(.*)$     /home/www/panthema.net.cgit$1 [L]
+RewriteRule     ^/wik-331(.*)$  /srv/www/panthema.net.piwik$1 [L]
+RewriteRule     ^/oc-42(.*)$    /srv/www/panthema.net.owncloud$1 [L]
+RewriteRule     ^/cgit(.*)$     /srv/www/panthema.net.cgit$1 [L]
 
 # Expiration Control
 
@@ -50,30 +53,19 @@ ExpiresByType 		text/css 	"access plus 1 hour"
 
       AuthType	      Basic
       AuthName	      "cgit Interface"
-      AuthUserFile    /home/git/htpasswd      
+      AuthUserFile    /var/lib/gitolite/htpasswd
       Require	      valid-user
 </Location>
 
 # Subversion Repositories
 
-<Location /2006/hmtg/svn>
-	DAV svn
-	SVNPath /home/svn/hmtg
-
-	AuthType Basic
-	AuthName "Subversion Repository"
-	AuthUserFile /home/svn/hmtg/htpasswd
-
-	Require valid-user
-</Location>
-
 <Location /repo/svn>
 	DAV svn
-	SVNPath /home/svn/repo/
+	SVNPath /srv/svn/repo/
 
 	AuthType Basic
 	AuthName "panthema.net Repository Subversion"
-	AuthUserFile /home/svn/htpasswd
+	AuthUserFile /srv/svn/htpasswd
 
 	<LimitExcept GET PROPFIND OPTIONS REPORT>
 		Require valid-user
@@ -82,11 +74,11 @@ ExpiresByType 		text/css 	"access plus 1 hour"
 
 <Location /repo/gentoo>
 	DAV svn
-	SVNPath /home/svn/repo-gentoo/
+	SVNPath /srv/svn/repo-gentoo/
 
 	AuthType Basic
 	AuthName "panthema.net Gentoo Subversion Repository"
-	AuthUserFile /home/svn/htpasswd
+	AuthUserFile /srv/svn/htpasswd
 
 	<LimitExcept GET PROPFIND OPTIONS REPORT>
 		Require valid-user
