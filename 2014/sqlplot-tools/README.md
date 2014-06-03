@@ -30,6 +30,12 @@ Git repository: git clone [https://github.com/bingmann/sqlplottools.git](https:/
 
 Current git build and test suite status: [![Build Status](https://travis-ci.org/bingmann/sqlplot-tools.png?branch=master)](https://travis-ci.org/bingmann/sqlplot-tools)
 
+There are also some pre-compiled binaries available (without warranty) for:
+
+* Windows [[ sqlplottools-win32-20140603.zip ]] (32-bit)
+
+* Linux [[ sqlplottools-linux64-20140603.zip ]] (64-bit dynamic)
+
 SqlPlotTools is published under the [GNU General Public License v3 (GPL)](http://opensource.org/licenses/GPL-3.0), which can be found in the file COPYING.
 
 ## Compilation
