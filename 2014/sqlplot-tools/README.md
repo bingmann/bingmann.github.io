@@ -32,9 +32,9 @@ Current git build and test suite status: [![Build Status](https://travis-ci.org/
 
 There are also some pre-compiled binaries available (without warranty) for:
 
-* Windows [[ sqlplottools-win32-20140603.zip ]] (32-bit)
+* Windows [[ sqlplottools-win32-20140611.zip ]] (32-bit)
 
-* Linux [[ sqlplottools-linux64-20140603.zip ]] (64-bit dynamic)
+* Linux [[ sqlplottools-linux64-20140611.zip ]] (64-bit dynamic)
 
 SqlPlotTools is published under the [GNU General Public License v3 (GPL)](http://opensource.org/licenses/GPL-3.0), which can be found in the file COPYING.
 
