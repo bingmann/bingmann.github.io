@@ -1,0 +1,887 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2014/vncrec-rgb/vncrec-rgb-0.4/vncrec/sockets.c - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="stylesheet" type="text/css" href="/css/fonts.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/js/base.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal5.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2014/">2014</a></li><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li class="nt"><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li><li class="ns"><a href="/search.html">Search</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 13pt" href="/tags/frontpage.html">frontpage</a> <a style="font-size: 13pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 10pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 10pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 12pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 10pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 11pt" href="/tags/stxxl.html">stxxl</a> <a style="font-size: 16pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 10pt" href="/tags/vncrec.html">vncrec</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"> <a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px;" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2014/sqlplot-tools/">SqlPlotTools</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="nt"><a href="/2013/1212-stxxl-1.4.0/">STXXL 1.4</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"> <a class="ni" href="#">Research</a> <ul style="margin-left: -16em; margin-top: 4px" class="nx"> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP - External Memory Suffix Sorting</a></li> <li><a href="/2013/parallel-string-sorting/">Parallel String Sorting</a></li> <li><a href="/tags/stxxl.html">STXXL - External Memory Algorithms</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"> <a class="ni" href="/about/">About</a> <ul style="margin-left: -6em; margin-top: 4px" class="nx"> <li><a href="/about/">Timo Bingmann</a></li> <li><a href="/about/impressum.html">Impressum</a></li> </ul></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2014/">2014</a> / <a href="/2014/vncrec-rgb/">vncrec-rgb</a> / <a href="/2014/vncrec-rgb/vncrec-rgb-0.4/">vncrec-rgb-0.4</a> / <a href="/2014/vncrec-rgb/vncrec-rgb-0.4/vncrec/">vncrec</a> / <a href="/2014/vncrec-rgb/vncrec-rgb-0.4/vncrec/sockets.c.html">sockets.c</a> (<a href="/2014/vncrec-rgb/vncrec-rgb-0.4/vncrec/sockets.c">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">/*</span>
+<span class="comment"> *  Copyright (C) 1999 AT&amp;T Laboratories Cambridge.  All Rights Reserved.</span>
+<span class="comment"> *  Copyright (C) 2001 Yoshiki Hayashi </span><span class="url">&lt;yoshiki@xemacs.org&gt;</span>
+<span class="comment"> *  Copyright (C) 2006 Karel Kulhavy &lt;clock (at) twibright (dot) com&gt;</span>
+<span class="comment"> *</span>
+<span class="comment"> *  This is free software; you can redistribute it and/or modify</span>
+<span class="comment"> *  it under the terms of the GNU General Public License as published by</span>
+<span class="comment"> *  the Free Software Foundation; either version 2 of the License, or</span>
+<span class="comment"> *  (at your option) any later version.</span>
+<span class="comment"> *</span>
+<span class="comment"> *  This software is distributed in the hope that it will be useful,</span>
+<span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="comment"> *  GNU General Public License for more details.</span>
+<span class="comment"> *</span>
+<span class="comment"> *  You should have received a copy of the GNU General Public License</span>
+<span class="comment"> *  along with this software; if not, write to the Free Software</span>
+<span class="comment"> *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307,</span>
+<span class="comment"> *  USA.</span>
+<span class="comment"> */</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * sockets.c - functions to deal with sockets.</span>
+<span class="comment"> * Karel Kulhavy changed the XPM output to yuv4mpeg2 so it can be used easily</span>
+<span class="comment"> * to encode Theora (with the example libtheora encoder), Xvid and wmv (with</span>
+<span class="comment"> * transcode). Now it encodes at 85% video playback speed on Pentium M 1.5GHz</span>
+<span class="comment"> * which is way faster than the original XPM output.</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;unistd.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;sys/socket.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;sys/wait.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;errno.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;netinet/in.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;netinet/tcp.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;arpa/inet.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;netdb.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;fcntl.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;assert.h&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;vncviewer.h&gt;</span>
+
+<span class="type">void</span><span class="normal"> </span><span class="function">PrintInHex</span><span class="symbol">(</span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">buf</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> len</span><span class="symbol">);</span>
+
+<span class="usertype">Bool</span><span class="normal"> errorMessageOnReadFailure </span><span class="symbol">=</span><span class="normal"> True</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> BUF_SIZE </span><span class="number">8192</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="type">char</span><span class="normal"> buf</span><span class="symbol">[</span><span class="normal">BUF_SIZE</span><span class="symbol">];</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">bufoutptr </span><span class="symbol">=</span><span class="normal"> buf</span><span class="symbol">;</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="type">int</span><span class="normal"> buffered </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="usertype">Bool</span><span class="normal"> vncLogTimeStamp </span><span class="symbol">=</span><span class="normal"> False</span><span class="symbol">;</span>
+
+<span class="comment">/* Shifts to obtain the red, green, and blue value</span>
+<span class="comment"> * from a long loaded from the memory. These are initialized once before the</span>
+<span class="comment"> * first snapshot is taken. */</span>
+<span class="type">unsigned</span><span class="normal"> red_shift</span><span class="symbol">,</span><span class="normal"> green_shift</span><span class="symbol">,</span><span class="normal"> blue_shift</span><span class="symbol">;</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * ReadFromRFBServer is called whenever we want to read some data from the RFB</span>
+<span class="comment"> * server.  It is non-trivial for two reasons:</span>
+<span class="comment"> *</span>
+<span class="comment"> * 1. For efficiency it performs some intelligent buffering, avoiding invoking</span>
+<span class="comment"> *    the read() system call too often.  For small chunks of data, it simply</span>
+<span class="comment"> *    copies the data out of an internal buffer.  For large amounts of data it</span>
+<span class="comment"> *    reads directly into the buffer provided by the caller.</span>
+<span class="comment"> *</span>
+<span class="comment"> * 2. Whenever read() would block, it invokes the Xt event dispatching</span>
+<span class="comment"> *    mechanism to process X events.  In fact, this is the only place these</span>
+<span class="comment"> *    events are processed, as there is no XtAppMainLoop in the program.</span>
+<span class="comment"> */</span>
+
+<span class="keyword">static</span><span class="normal"> </span><span class="usertype">Bool</span><span class="normal"> rfbsockReady </span><span class="symbol">=</span><span class="normal"> False</span><span class="symbol">;</span>
+<span class="keyword">static</span><span class="normal"> </span><span class="type">void</span>
+<span class="function">rfbsockReadyCallback</span><span class="symbol">(</span><span class="usertype">XtPointer</span><span class="normal"> clientData</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">fd</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">XtInputId</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">id</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  rfbsockReady </span><span class="symbol">=</span><span class="normal"> True</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="function">XtRemoveInput</span><span class="symbol">(*</span><span class="normal">id</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="keyword">static</span><span class="normal"> </span><span class="type">void</span>
+<span class="function">ProcessXtEvents</span><span class="symbol">()</span>
+<span class="cbracket">{</span>
+<span class="normal">  rfbsockReady </span><span class="symbol">=</span><span class="normal"> False</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="function">XtAppAddInput</span><span class="symbol">(</span><span class="normal">appContext</span><span class="symbol">,</span><span class="normal"> rfbsock</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">XtPointer</span><span class="symbol">)</span><span class="normal">XtInputReadMask</span><span class="symbol">,</span>
+<span class="normal">		rfbsockReadyCallback</span><span class="symbol">,</span><span class="normal"> NULL</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">rfbsockReady</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">XtAppProcessEvent</span><span class="symbol">(</span><span class="normal">appContext</span><span class="symbol">,</span><span class="normal"> XtIMAll</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> </span><span class="function">my_fwrite</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">ptr</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">size_t</span><span class="normal"> size</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">size_t</span><span class="normal"> nmemb</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">FILE</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">stream</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">fwrite</span><span class="symbol">(</span><span class="normal">ptr</span><span class="symbol">,</span><span class="normal"> size</span><span class="symbol">,</span><span class="normal"> nmemb</span><span class="symbol">,</span><span class="normal"> stream</span><span class="symbol">)</span>
+<span class="normal">		</span><span class="symbol">!=</span><span class="normal">nmemb</span><span class="symbol">)</span><span class="cbracket">{</span>
+<span class="normal">		</span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"vncrec: Error occured writing %u bytes"</span>
+<span class="normal">			</span><span class="string">"into a file stream: "</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="type">unsigned</span><span class="symbol">)(</span><span class="normal">size</span><span class="symbol">*</span><span class="normal">nmemb</span><span class="symbol">));</span>
+<span class="normal">		</span><span class="function">perror</span><span class="symbol">(</span><span class="normal">NULL</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="function">exit</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="keyword">static</span><span class="normal"> </span><span class="type">void</span>
+<span class="function">writeLogHeader</span><span class="normal"> </span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">timeval</span><span class="normal"> tv</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">static</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> frame </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">vncLogTimeStamp</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="type">long</span><span class="normal"> tell </span><span class="symbol">=</span><span class="normal"> </span><span class="function">ftell</span><span class="symbol">(</span><span class="normal">vncLog</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> wframe </span><span class="symbol">=</span><span class="normal"> </span><span class="function">Swap32IfLE</span><span class="symbol">(</span><span class="normal">frame</span><span class="symbol">);</span>
+
+<span class="normal">      </span><span class="function">my_fwrite</span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">wframe</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">wframe</span><span class="symbol">),</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> vncLog</span><span class="symbol">);</span>
+
+<span class="normal">      </span><span class="function">gettimeofday</span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">tv</span><span class="symbol">,</span><span class="normal"> NULL</span><span class="symbol">);</span>
+
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">appData</span><span class="symbol">.</span><span class="normal">debugFrames</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">          </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"write frame %u at time %.3f @ offset %ld</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span>
+<span class="normal">                  frame</span><span class="symbol">,</span><span class="normal"> tv</span><span class="symbol">.</span><span class="normal">tv_sec </span><span class="symbol">+</span><span class="normal"> tv</span><span class="symbol">.</span><span class="normal">tv_usec </span><span class="symbol">/</span><span class="normal"> </span><span class="number">1e6</span><span class="symbol">,</span><span class="normal"> tell</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+
+<span class="normal">      tv</span><span class="symbol">.</span><span class="normal">tv_sec </span><span class="symbol">=</span><span class="normal"> </span><span class="function">Swap32IfLE</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">tv</span><span class="symbol">.</span><span class="normal">tv_sec</span><span class="symbol">);</span>
+<span class="normal">      tv</span><span class="symbol">.</span><span class="normal">tv_usec </span><span class="symbol">=</span><span class="normal"> </span><span class="function">Swap32IfLE</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">tv</span><span class="symbol">.</span><span class="normal">tv_usec</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="function">my_fwrite</span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">tv</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">timeval</span><span class="symbol">),</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> vncLog</span><span class="symbol">);</span>
+
+<span class="normal">      frame</span><span class="symbol">++;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="keyword">static</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">timeval</span>
+<span class="function">timeval_subtract</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">timeval</span><span class="normal"> x</span><span class="symbol">,</span>
+<span class="normal">		  </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">timeval</span><span class="normal"> y</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">timeval</span><span class="normal"> result</span><span class="symbol">;</span>
+
+<span class="normal">  result</span><span class="symbol">.</span><span class="normal">tv_sec </span><span class="symbol">=</span><span class="normal"> x</span><span class="symbol">.</span><span class="normal">tv_sec </span><span class="symbol">-</span><span class="normal"> y</span><span class="symbol">.</span><span class="normal">tv_sec</span><span class="symbol">;</span>
+<span class="normal">  result</span><span class="symbol">.</span><span class="normal">tv_usec </span><span class="symbol">=</span><span class="normal"> x</span><span class="symbol">.</span><span class="normal">tv_usec </span><span class="symbol">-</span><span class="normal"> y</span><span class="symbol">.</span><span class="normal">tv_usec</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">result</span><span class="symbol">.</span><span class="normal">tv_usec </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      result</span><span class="symbol">.</span><span class="normal">tv_sec</span><span class="symbol">--;</span>
+<span class="normal">      result</span><span class="symbol">.</span><span class="normal">tv_usec </span><span class="symbol">+=</span><span class="normal"> </span><span class="number">1000000</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="function">assert</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">result</span><span class="symbol">.</span><span class="normal">tv_usec </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="keyword">return</span><span class="normal"> result</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> </span><span class="function">scanline</span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">r</span><span class="symbol">,</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">g</span><span class="symbol">,</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">b</span><span class="symbol">,</span><span class="normal"> </span><span class="type">unsigned</span>
+<span class="normal">		</span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">src</span><span class="symbol">,</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> cycles</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">long</span><span class="normal"> v</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* This will probably work only on 32-bit</span>
+<span class="comment">			    architecture */</span>
+
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(;</span><span class="normal">cycles</span><span class="symbol">;</span><span class="normal">cycles</span><span class="symbol">--)</span><span class="cbracket">{</span>
+<span class="normal">		v</span><span class="symbol">=*(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">long</span><span class="normal"> </span><span class="symbol">*)(</span><span class="type">void</span><span class="normal"> </span><span class="symbol">*)</span><span class="normal">src</span><span class="symbol">;</span>
+
+<span class="normal">		</span><span class="symbol">*</span><span class="normal">r</span><span class="symbol">++=</span><span class="normal">v</span><span class="symbol">&gt;&gt;</span><span class="normal">red_shift</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="symbol">*</span><span class="normal">g</span><span class="symbol">++=</span><span class="normal">v</span><span class="symbol">&gt;&gt;</span><span class="normal">green_shift</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="symbol">*</span><span class="normal">b</span><span class="symbol">++=</span><span class="normal">v</span><span class="symbol">&gt;&gt;</span><span class="normal">blue_shift</span><span class="symbol">;</span>
+
+<span class="normal">		src</span><span class="symbol">+=</span><span class="number">4</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/* Use on variable names only */</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">CLIP</span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">&lt;</span><span class="number">0</span><span class="symbol">)</span><span class="normal"> x</span><span class="symbol">=</span><span class="number">0</span><span class="symbol">;</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">&gt;</span><span class="number">255</span><span class="symbol">)</span><span class="normal"> x</span><span class="symbol">=</span><span class="number">255</span><span class="symbol">;</span>
+
+<span class="comment">/* Converts RGB to the "yuv" that is in yuv4mpeg.</span>
+<span class="comment"> * It looks like the unspecified "yuv" that is in yuv4mpeg2 is actually</span>
+<span class="comment"> * Y'CbCr, with all 3 components full range 0-255 as in JPEG. If</span>
+<span class="comment"> * the reduced range (16-240 etc.) is used here, the result looks washed out. */</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">rgb2yuv</span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">d</span><span class="symbol">,</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> plane</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">r</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">g</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">b</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> y</span><span class="symbol">,</span><span class="normal">u</span><span class="symbol">,</span><span class="normal">v</span><span class="symbol">;</span>
+
+<span class="normal">	r</span><span class="symbol">=</span><span class="normal">d</span><span class="symbol">;</span>
+<span class="normal">	g</span><span class="symbol">=</span><span class="normal">r</span><span class="symbol">+</span><span class="normal">plane</span><span class="symbol">;</span>
+<span class="normal">	b</span><span class="symbol">=</span><span class="normal">g</span><span class="symbol">+</span><span class="normal">plane</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(;</span><span class="normal">plane</span><span class="symbol">;</span><span class="normal">plane</span><span class="symbol">--)</span><span class="cbracket">{</span>
+<span class="normal">		y</span><span class="symbol">=((</span><span class="number">77</span><span class="symbol">**</span><span class="normal">r</span><span class="symbol">+</span><span class="number">150</span><span class="symbol">**</span><span class="normal">g</span><span class="symbol">+</span><span class="number">29</span><span class="symbol">**</span><span class="normal">b</span><span class="symbol">+</span><span class="number">0x80</span><span class="symbol">)&gt;&gt;</span><span class="number">8</span><span class="symbol">);</span>
+<span class="normal">		u</span><span class="symbol">=</span><span class="number">0x80</span><span class="symbol">+((-</span><span class="number">43</span><span class="symbol">**</span><span class="normal">r</span><span class="symbol">-</span><span class="number">85</span><span class="symbol">**</span><span class="normal">g</span><span class="symbol">+</span><span class="number">128</span><span class="symbol">**</span><span class="normal">b</span><span class="symbol">+</span><span class="number">0x7f</span><span class="symbol">)&gt;&gt;</span><span class="number">8</span><span class="symbol">);</span>
+<span class="normal">		v</span><span class="symbol">=</span><span class="number">0x80</span><span class="symbol">+((</span><span class="number">128</span><span class="symbol">**</span><span class="normal">r</span><span class="symbol">-</span><span class="number">107</span><span class="symbol">**</span><span class="normal">g</span><span class="symbol">-</span><span class="number">21</span><span class="symbol">**</span><span class="normal">b</span><span class="symbol">+</span><span class="number">0x7f</span><span class="symbol">)&gt;&gt;</span><span class="number">8</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="function">CLIP</span><span class="symbol">(</span><span class="normal">y</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="function">CLIP</span><span class="symbol">(</span><span class="normal">u</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="function">CLIP</span><span class="symbol">(</span><span class="normal">v</span><span class="symbol">);</span>
+<span class="normal">		</span><span class="symbol">*</span><span class="normal">r</span><span class="symbol">++=</span><span class="normal">y</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="symbol">*</span><span class="normal">g</span><span class="symbol">++=</span><span class="normal">u</span><span class="symbol">;</span>
+<span class="normal">		</span><span class="symbol">*</span><span class="normal">b</span><span class="symbol">++=</span><span class="normal">v</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/* Writes a frame of yuv4mpeg file to the stdout. Repeats writing</span>
+<span class="comment"> * the identical frame "times" times. */</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">dump_image</span><span class="symbol">(</span><span class="usertype">XImage</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">i</span><span class="symbol">,</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> times</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">char</span><span class="normal"> frame_header</span><span class="symbol">[]=</span><span class="string">"FRAME</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="type">unsigned</span><span class="normal"> w</span><span class="symbol">=</span><span class="normal">si</span><span class="symbol">.</span><span class="normal">framebufferWidth</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* Image size */</span>
+<span class="normal">    </span><span class="type">unsigned</span><span class="normal"> h</span><span class="symbol">=</span><span class="normal">si</span><span class="symbol">.</span><span class="normal">framebufferHeight</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">d</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* R'G'B' / Y'CbCr data buffer */</span>
+<span class="normal">    </span><span class="type">unsigned</span><span class="normal"> x</span><span class="symbol">,</span><span class="normal"> y</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* Counters */</span>
+<span class="normal">    </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">rptr</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">gptr</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">bptr</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* R'/Cr, green/get, B'/Cb pointer */</span>
+<span class="normal">    </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">wptr</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* Write ptr for moving the chroma samples</span>
+<span class="comment">                            together */</span>
+
+<span class="normal">    </span><span class="comment">/* Test that the image has 32-bit pixels */</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i</span><span class="symbol">-&gt;</span><span class="normal">bitmap_unit</span><span class="symbol">!=</span><span class="number">32</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"Sorry, only &gt;= 8 bits per channel colour "</span>
+<span class="normal">                </span><span class="string">"is supported. bitmap_unit=%u</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span>
+<span class="normal">                i</span><span class="symbol">-&gt;</span><span class="normal">bitmap_unit</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="function">exit</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/* Allocate a R'G'B' buffer (' values mean gamma-corrected so the</span>
+<span class="comment">     * numbers are linear to the electrical video signal. RGB would mean</span>
+<span class="comment">     * linear photometric space */</span>
+<span class="normal">    d </span><span class="symbol">=</span><span class="normal"> </span><span class="function">malloc</span><span class="symbol">(</span><span class="normal">w</span><span class="symbol">*</span><span class="normal">h</span><span class="symbol">*</span><span class="number">3</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">appData</span><span class="symbol">.</span><span class="normal">writeYUV</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="comment">// output frame as RGB8 data</span>
+
+<span class="normal">        </span><span class="comment">/* Read the data in from the image into the RGB buffer */</span>
+<span class="normal">        rptr </span><span class="symbol">=</span><span class="normal"> i</span><span class="symbol">-&gt;</span><span class="normal">data</span><span class="symbol">;</span>
+<span class="normal">        wptr </span><span class="symbol">=</span><span class="normal"> d</span><span class="symbol">;</span>
+
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">y</span><span class="symbol">=</span><span class="number">0</span><span class="symbol">;</span><span class="normal"> y</span><span class="symbol">&lt;</span><span class="normal">h</span><span class="symbol">;</span><span class="normal"> y</span><span class="symbol">++)</span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">=</span><span class="number">0</span><span class="symbol">;</span><span class="normal"> x</span><span class="symbol">&lt;</span><span class="normal">w</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">x</span><span class="symbol">)</span><span class="cbracket">{</span>
+<span class="normal">                </span><span class="type">int</span><span class="normal"> v</span><span class="symbol">;</span>
+
+<span class="normal">                v </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">long</span><span class="normal"> </span><span class="symbol">*)(</span><span class="type">void</span><span class="normal"> </span><span class="symbol">*)</span><span class="normal">rptr</span><span class="symbol">;</span>
+<span class="normal">                rptr </span><span class="symbol">+=</span><span class="normal"> </span><span class="number">4</span><span class="symbol">;</span>
+
+<span class="normal">                </span><span class="symbol">*</span><span class="normal">wptr</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> v </span><span class="symbol">&gt;&gt;</span><span class="normal"> red_shift</span><span class="symbol">;</span>
+<span class="normal">                </span><span class="symbol">*</span><span class="normal">wptr</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> v </span><span class="symbol">&gt;&gt;</span><span class="normal"> green_shift</span><span class="symbol">;</span>
+<span class="normal">                </span><span class="symbol">*</span><span class="normal">wptr</span><span class="symbol">++</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> v </span><span class="symbol">&gt;&gt;</span><span class="normal"> blue_shift</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        </span><span class="comment">/* Write out the frame, "times" times. */</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(;</span><span class="normal">times</span><span class="symbol">;</span><span class="normal">times</span><span class="symbol">--)</span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">my_fwrite</span><span class="symbol">(</span><span class="normal">d</span><span class="symbol">,</span><span class="normal"> w</span><span class="symbol">*</span><span class="normal">h</span><span class="symbol">*</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> stdout</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="comment">// output frame as YUV4MPEG data (as in vncrec-twibright)</span>
+
+<span class="normal">	</span><span class="comment">/* Read the data in from the image into the RGB buffer */</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">y</span><span class="symbol">=</span><span class="number">0</span><span class="symbol">;</span><span class="normal"> y</span><span class="symbol">&lt;</span><span class="normal">h</span><span class="symbol">;</span><span class="normal"> y</span><span class="symbol">++)</span><span class="cbracket">{</span>
+<span class="normal">            rptr</span><span class="symbol">=</span><span class="normal">d</span><span class="symbol">+</span><span class="normal">y</span><span class="symbol">*</span><span class="normal">w</span><span class="symbol">;</span>
+<span class="normal">            gptr</span><span class="symbol">=</span><span class="normal">rptr</span><span class="symbol">+</span><span class="normal">w</span><span class="symbol">*</span><span class="normal">h</span><span class="symbol">;</span>
+<span class="normal">            bptr</span><span class="symbol">=</span><span class="normal">gptr</span><span class="symbol">+</span><span class="normal">w</span><span class="symbol">*</span><span class="normal">h</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="function">scanline</span><span class="symbol">(</span><span class="normal">rptr</span><span class="symbol">,</span><span class="normal"> gptr</span><span class="symbol">,</span><span class="normal"> bptr</span><span class="symbol">,</span><span class="normal"> i</span><span class="symbol">-&gt;</span><span class="normal">data</span><span class="symbol">+</span><span class="normal">i</span><span class="symbol">-&gt;</span><span class="normal">bytes_per_line</span><span class="symbol">*</span><span class="normal">y</span><span class="symbol">,</span><span class="normal"> w</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="comment">/* Convert the R'G'B' buffer into an Y'CbCr buffer */</span>
+<span class="normal">	</span><span class="function">rgb2yuv</span><span class="symbol">(</span><span class="normal">d</span><span class="symbol">,</span><span class="normal"> w</span><span class="symbol">*</span><span class="normal">h</span><span class="symbol">);</span>
+
+<span class="normal">	</span><span class="comment">/* Decimate the chroma down to 4:2:0. This is mathematically incorrect,</span>
+<span class="comment">	 * but it's the customary way how to do it in TV technology. To be</span>
+<span class="comment">	 * mathematically correct, the decimation would have to take place in</span>
+<span class="comment">	 * linear photometric space. This way it generates the usual</span>
+<span class="comment">	 * chroma-bleeding artifacts on the edges in the colour monoscope */</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">y</span><span class="symbol">=</span><span class="number">0</span><span class="symbol">;</span><span class="normal">y</span><span class="symbol">&lt;</span><span class="normal">h</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span><span class="normal">y</span><span class="symbol">+=</span><span class="number">2</span><span class="symbol">)</span><span class="cbracket">{</span>
+<span class="normal">            bptr</span><span class="symbol">=</span><span class="normal">d</span><span class="symbol">+(</span><span class="normal">h</span><span class="symbol">+</span><span class="normal">y</span><span class="symbol">)*</span><span class="normal">w</span><span class="symbol">;</span>
+<span class="normal">            rptr</span><span class="symbol">=</span><span class="normal">bptr</span><span class="symbol">+</span><span class="normal">h</span><span class="symbol">*</span><span class="normal">w</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">=</span><span class="number">0</span><span class="symbol">;</span><span class="normal">x</span><span class="symbol">&lt;</span><span class="normal">w</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span><span class="normal">x</span><span class="symbol">+=</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> bptr</span><span class="symbol">+=</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> rptr</span><span class="symbol">+=</span><span class="number">2</span><span class="symbol">)</span><span class="cbracket">{</span>
+<span class="normal">                bptr</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]=(</span><span class="normal">bptr</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]+</span><span class="normal">bptr</span><span class="symbol">[</span><span class="number">1</span><span class="symbol">]+</span><span class="normal">bptr</span><span class="symbol">[</span><span class="normal">w</span><span class="symbol">]+</span><span class="normal">bptr</span><span class="symbol">[</span><span class="normal">w</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">])&gt;&gt;</span><span class="number">2</span><span class="symbol">;</span>
+<span class="normal">                rptr</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]=(</span><span class="normal">rptr</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]+</span><span class="normal">rptr</span><span class="symbol">[</span><span class="number">1</span><span class="symbol">]+</span><span class="normal">rptr</span><span class="symbol">[</span><span class="normal">w</span><span class="symbol">]+</span><span class="normal">rptr</span><span class="symbol">[</span><span class="normal">w</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">])&gt;&gt;</span><span class="number">2</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+
+<span class="normal">	</span><span class="comment">/* Shuffle the chroma so the data can be written out at once. */</span>
+<span class="normal">	bptr</span><span class="symbol">=</span><span class="normal">d</span><span class="symbol">+</span><span class="normal">w</span><span class="symbol">*</span><span class="normal">h</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* Cb */</span>
+<span class="normal">	rptr</span><span class="symbol">=</span><span class="normal">bptr</span><span class="symbol">+</span><span class="normal">w</span><span class="symbol">*</span><span class="normal">h</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* Cr */</span>
+<span class="normal">	wptr</span><span class="symbol">=</span><span class="normal">bptr</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">y</span><span class="symbol">=</span><span class="number">0</span><span class="symbol">;</span><span class="normal">y</span><span class="symbol">&lt;</span><span class="normal">h</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span><span class="normal">y</span><span class="symbol">+=</span><span class="number">2</span><span class="symbol">)</span><span class="cbracket">{</span>
+<span class="normal">            gptr</span><span class="symbol">=</span><span class="normal">bptr</span><span class="symbol">+</span><span class="normal">y</span><span class="symbol">*</span><span class="normal">w</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* gptr now doesn't mean green pointer,</span>
+<span class="comment">                              but get pointer. */</span>
+<span class="normal">            </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">=</span><span class="number">0</span><span class="symbol">;</span><span class="normal">x</span><span class="symbol">&lt;</span><span class="normal">w</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span><span class="normal">x</span><span class="symbol">+=</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> gptr</span><span class="symbol">+=</span><span class="number">2</span><span class="symbol">)</span>
+<span class="normal">                </span><span class="symbol">*</span><span class="normal">wptr</span><span class="symbol">++=*</span><span class="normal">gptr</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* Only subsampling, now the</span>
+<span class="comment">                                  decimation has already been</span>
+<span class="comment">                                  done. */</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">y</span><span class="symbol">=</span><span class="number">0</span><span class="symbol">;</span><span class="normal">y</span><span class="symbol">&lt;</span><span class="normal">h</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span><span class="normal">y</span><span class="symbol">+=</span><span class="number">2</span><span class="symbol">)</span><span class="cbracket">{</span>
+<span class="normal">            gptr</span><span class="symbol">=</span><span class="normal">rptr</span><span class="symbol">+</span><span class="normal">y</span><span class="symbol">*</span><span class="normal">w</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">=</span><span class="number">0</span><span class="symbol">;</span><span class="normal">x</span><span class="symbol">&lt;</span><span class="normal">w</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span><span class="normal">x</span><span class="symbol">+=</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> gptr</span><span class="symbol">+=</span><span class="number">2</span><span class="symbol">)</span>
+<span class="normal">                </span><span class="symbol">*</span><span class="normal">wptr</span><span class="symbol">++=*</span><span class="normal">gptr</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="comment">/* Now the data to be written begin at d and are wptr-d long. */</span>
+
+<span class="normal">	</span><span class="comment">/* Write out the frame, "times" times. */</span>
+<span class="normal">	</span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(;</span><span class="normal">times</span><span class="symbol">;</span><span class="normal">times</span><span class="symbol">--)</span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">my_fwrite</span><span class="symbol">(</span><span class="normal">frame_header</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">frame_header</span><span class="symbol">)-</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> stdout</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="function">my_fwrite</span><span class="symbol">(</span><span class="normal">d</span><span class="symbol">,</span><span class="normal"> wptr</span><span class="symbol">-</span><span class="normal">d</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> stdout</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/* Throw away the formerly R'G'B', now Y'CbCr buffer */</span>
+<span class="normal">    </span><span class="function">free</span><span class="symbol">(</span><span class="normal">d</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/* Returns MSBFirst for big endian and LSBFirst for little */</span>
+<span class="type">int</span><span class="normal"> </span><span class="function">test_endian</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="type">long</span><span class="normal"> a</span><span class="symbol">=</span><span class="number">1</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="symbol">*((</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*)(</span><span class="type">void</span><span class="normal"> </span><span class="symbol">*)&amp;</span><span class="normal">a</span><span class="symbol">)=</span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> a</span><span class="symbol">?</span><span class="normal">MSBFirst</span><span class="symbol">:</span><span class="normal">LSBFirst</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="type">unsigned</span><span class="normal"> </span><span class="function">mask2shift</span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">long</span><span class="normal"> in</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="type">unsigned</span><span class="normal"> shift</span><span class="symbol">=</span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">in</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="keyword">while</span><span class="symbol">(!(</span><span class="normal">in</span><span class="symbol">&amp;</span><span class="number">1</span><span class="symbol">))</span><span class="cbracket">{</span>
+<span class="normal">		in</span><span class="symbol">&gt;&gt;=</span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">		shift</span><span class="symbol">++;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> shift</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="comment">/* Sets the red_shift, green_shift and blue_shift variables. */</span>
+<span class="type">void</span><span class="normal"> </span><span class="function">examine_layout</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">	</span><span class="usertype">XWindowAttributes</span><span class="normal"> attr</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="usertype">Window</span><span class="normal"> rootwin</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="type">int</span><span class="normal"> dummy_i</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="type">unsigned</span><span class="normal"> dummy_u</span><span class="symbol">;</span>
+
+<span class="normal">	</span><span class="function">XGetGeometry</span><span class="symbol">(</span><span class="normal">dpy</span><span class="symbol">,</span><span class="normal"> desktopWin</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">rootwin</span><span class="symbol">,</span>
+<span class="normal">		</span><span class="symbol">&amp;</span><span class="normal">dummy_i</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">dummy_i</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">dummy_u</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">dummy_u</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">dummy_u</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">dummy_u</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">XGetWindowAttributes</span><span class="symbol">(</span><span class="normal">dpy</span><span class="symbol">,</span><span class="normal"> rootwin</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">attr</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"red_mask=%lx, green_mask=%lx, blue_mask=%lx, "</span>
+<span class="normal">			</span><span class="string">"CPU endian=%u, dpy endian=%u</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span>
+<span class="normal">			attr</span><span class="symbol">.</span><span class="normal">visual</span><span class="symbol">-&gt;</span><span class="normal">red_mask</span><span class="symbol">,</span>
+<span class="normal">			attr</span><span class="symbol">.</span><span class="normal">visual</span><span class="symbol">-&gt;</span><span class="normal">green_mask</span><span class="symbol">,</span>
+<span class="normal">			attr</span><span class="symbol">.</span><span class="normal">visual</span><span class="symbol">-&gt;</span><span class="normal">blue_mask</span><span class="symbol">,</span>
+<span class="normal">			</span><span class="function">test_endian</span><span class="symbol">(),</span>
+<span class="normal">			</span><span class="function">ImageByteOrder</span><span class="symbol">(</span><span class="normal">dpy</span><span class="symbol">));</span>
+<span class="normal">	red_shift</span><span class="symbol">=</span><span class="function">mask2shift</span><span class="symbol">(</span><span class="normal">attr</span><span class="symbol">.</span><span class="normal">visual</span><span class="symbol">-&gt;</span><span class="normal">red_mask</span><span class="symbol">);</span>
+<span class="normal">	green_shift</span><span class="symbol">=</span><span class="function">mask2shift</span><span class="symbol">(</span><span class="normal">attr</span><span class="symbol">.</span><span class="normal">visual</span><span class="symbol">-&gt;</span><span class="normal">green_mask</span><span class="symbol">);</span>
+<span class="normal">	blue_shift</span><span class="symbol">=</span><span class="function">mask2shift</span><span class="symbol">(</span><span class="normal">attr</span><span class="symbol">.</span><span class="normal">visual</span><span class="symbol">-&gt;</span><span class="normal">blue_mask</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">test_endian</span><span class="symbol">()!=</span><span class="function">ImageByteOrder</span><span class="symbol">(</span><span class="normal">dpy</span><span class="symbol">))</span><span class="cbracket">{</span>
+<span class="normal">		red_shift</span><span class="symbol">=</span><span class="number">24</span><span class="symbol">-</span><span class="normal">red_shift</span><span class="symbol">;</span>
+<span class="normal">		green_shift</span><span class="symbol">=</span><span class="number">24</span><span class="symbol">-</span><span class="normal">green_shift</span><span class="symbol">;</span>
+<span class="normal">		blue_shift</span><span class="symbol">=</span><span class="number">24</span><span class="symbol">-</span><span class="normal">blue_shift</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"Image dump color channel shifts: R=%u, G=%u, B=%u</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span>
+<span class="normal">			red_shift</span><span class="symbol">,</span><span class="normal"> green_shift</span><span class="symbol">,</span><span class="normal"> blue_shift</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="type">void</span><span class="normal"> </span><span class="function">print_movie_frames_up_to_time</span><span class="symbol">(</span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">timeval</span><span class="normal"> tv</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">static</span><span class="normal"> </span><span class="type">double</span><span class="normal"> framerate</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">static</span><span class="normal"> </span><span class="type">double</span><span class="normal"> start_time </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="type">double</span><span class="normal"> now </span><span class="symbol">=</span><span class="normal"> tv</span><span class="symbol">.</span><span class="normal">tv_sec </span><span class="symbol">+</span><span class="normal"> tv</span><span class="symbol">.</span><span class="normal">tv_usec </span><span class="symbol">/</span><span class="normal"> </span><span class="number">1e6</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">static</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> last_frame </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> this_frame </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">static</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> times</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">XImage</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">image</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">start_time </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal">  </span><span class="comment">// one-time initialization</span>
+<span class="normal">        framerate </span><span class="symbol">=</span><span class="normal"> </span><span class="function">getenv</span><span class="symbol">(</span><span class="string">"VNCREC_MOVIE_FRAMERATE"</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">?</span><span class="normal"> </span><span class="function">atoi</span><span class="symbol">(</span><span class="function">getenv</span><span class="symbol">(</span><span class="string">"VNCREC_MOVIE_FRAMERATE"</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">:</span><span class="normal"> </span><span class="number">25</span><span class="symbol">;</span>
+
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">appData</span><span class="symbol">.</span><span class="normal">ffInfo</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">appData</span><span class="symbol">.</span><span class="normal">writeYUV</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">                </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span>
+<span class="normal">                        </span><span class="string">"Error: -ffinfo and -writeYUV are mutually exclusive, "</span>
+<span class="normal">                        </span><span class="string">"use -f yuv4mpegpipe.</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">            </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">                </span><span class="function">printf</span><span class="symbol">(</span><span class="string">"-pixel_format rgb24 -video_size %ux%u -framerate %u</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span>
+<span class="normal">                       si</span><span class="symbol">.</span><span class="normal">framebufferWidth</span><span class="symbol">,</span>
+<span class="normal">                       si</span><span class="symbol">.</span><span class="normal">framebufferHeight</span><span class="symbol">,</span>
+<span class="normal">                       </span><span class="symbol">(</span><span class="type">unsigned</span><span class="symbol">)</span><span class="normal">framerate</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">            </span><span class="function">exit</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">appData</span><span class="symbol">.</span><span class="normal">writeYUV</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">printf</span><span class="symbol">(</span><span class="string">"YUV4MPEG2 W%u H%u F%u:1 Ip A0:0</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span>
+<span class="normal">                   si</span><span class="symbol">.</span><span class="normal">framebufferWidth</span><span class="symbol">,</span>
+<span class="normal">                   si</span><span class="symbol">.</span><span class="normal">framebufferHeight</span><span class="symbol">,</span>
+<span class="normal">                   </span><span class="symbol">(</span><span class="type">unsigned</span><span class="symbol">)</span><span class="normal">framerate</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"RGB8 W%u H%u F%u:1 Ip A0:0</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span>
+<span class="normal">                    si</span><span class="symbol">.</span><span class="normal">framebufferWidth</span><span class="symbol">,</span>
+<span class="normal">                    si</span><span class="symbol">.</span><span class="normal">framebufferHeight</span><span class="symbol">,</span>
+<span class="normal">                    </span><span class="symbol">(</span><span class="type">unsigned</span><span class="symbol">)</span><span class="normal">framerate</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        </span><span class="function">examine_layout</span><span class="symbol">();</span><span class="normal"> </span><span class="comment">/* Figure out red_shift, green_shift, blue_shift */</span>
+
+<span class="normal">        start_time </span><span class="symbol">=</span><span class="normal"> now</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    this_frame </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">unsigned</span><span class="symbol">)((</span><span class="normal">now </span><span class="symbol">-</span><span class="normal"> start_time</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> framerate</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">assert</span><span class="symbol">(</span><span class="normal">this_frame </span><span class="symbol">&gt;=</span><span class="normal"> last_frame</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">this_frame </span><span class="symbol">==</span><span class="normal"> last_frame</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">return</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* not time for the next frame yet. */</span>
+
+<span class="normal">    times </span><span class="symbol">=</span><span class="normal"> this_frame </span><span class="symbol">-</span><span class="normal"> last_frame</span><span class="symbol">;</span>
+<span class="normal">    last_frame </span><span class="symbol">=</span><span class="normal"> this_frame</span><span class="symbol">;</span>
+
+<span class="normal">    image </span><span class="symbol">=</span><span class="normal"> </span><span class="function">XGetImage</span><span class="symbol">(</span><span class="normal">dpy</span><span class="symbol">,</span><span class="normal"> desktopWin</span><span class="symbol">,</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> si</span><span class="symbol">.</span><span class="normal">framebufferWidth</span><span class="symbol">,</span>
+<span class="normal">                      si</span><span class="symbol">.</span><span class="normal">framebufferHeight</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0xffffffff</span><span class="symbol">,</span>
+<span class="normal">                      ZPixmap</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">assert</span><span class="symbol">(</span><span class="normal">image</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">times </span><span class="symbol">==</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"Dumping frame for time %.2f sec - %.6f.</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span>
+<span class="normal">                    times </span><span class="symbol">/</span><span class="normal"> framerate</span><span class="symbol">,</span><span class="normal"> now</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"Dumping %u frames for time %.2f sec - %.6f.</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span>
+<span class="normal">                    times</span><span class="symbol">,</span><span class="normal"> times </span><span class="symbol">/</span><span class="normal"> framerate</span><span class="symbol">,</span><span class="normal"> now</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">/* Print the frame(s) */</span>
+<span class="normal">    </span><span class="function">dump_image</span><span class="symbol">(</span><span class="normal">image</span><span class="symbol">,</span><span class="normal"> times</span><span class="symbol">);</span>
+
+<span class="normal">    </span><span class="function">XDestroyImage</span><span class="symbol">(</span><span class="normal">image</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="normal">Bool</span>
+<span class="function">ReadFromRFBServer</span><span class="symbol">(</span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">out</span><span class="symbol">,</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> n</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">appData</span><span class="symbol">.</span><span class="normal">play </span><span class="symbol">||</span><span class="normal"> appData</span><span class="symbol">.</span><span class="normal">movie</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="type">int</span><span class="normal"> i</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="type">char</span><span class="normal"> buf</span><span class="symbol">[</span><span class="number">1</span><span class="symbol">];</span>
+
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">vncLogTimeStamp</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">          </span><span class="type">long</span><span class="normal"> tell </span><span class="symbol">=</span><span class="normal"> </span><span class="function">ftell</span><span class="symbol">(</span><span class="normal">vncLog</span><span class="symbol">);</span>
+
+<span class="normal">          </span><span class="keyword">static</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">long</span><span class="normal"> rframe_curr </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">// frame counter for verification</span>
+<span class="normal">          </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> rframe</span><span class="symbol">;</span>
+
+<span class="normal">	  </span><span class="keyword">static</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">timeval</span><span class="normal"> prev</span><span class="symbol">;</span>
+<span class="normal">	  </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">timeval</span><span class="normal"> tv</span><span class="symbol">;</span>
+
+<span class="normal">	  i </span><span class="symbol">=</span><span class="normal"> </span><span class="function">fread</span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">rframe</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">rframe</span><span class="symbol">),</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> vncLog</span><span class="symbol">);</span>
+<span class="normal">	  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> False</span><span class="symbol">;</span>
+<span class="normal">          rframe </span><span class="symbol">=</span><span class="normal"> </span><span class="function">Swap32IfLE</span><span class="symbol">(</span><span class="normal">rframe</span><span class="symbol">);</span>
+
+<span class="normal">          </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">rframe </span><span class="symbol">!=</span><span class="normal"> rframe_curr</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">              </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"Frame number does not match! File desynced or corrupt!.</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">);</span>
+<span class="normal">              </span><span class="function">abort</span><span class="symbol">();</span>
+<span class="normal">          </span><span class="cbracket">}</span>
+<span class="normal">          </span><span class="symbol">++</span><span class="normal">rframe_curr</span><span class="symbol">;</span>
+
+<span class="normal">	  i </span><span class="symbol">=</span><span class="normal"> </span><span class="function">fread</span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">tv</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">timeval</span><span class="symbol">),</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> vncLog</span><span class="symbol">);</span>
+<span class="normal">	  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> False</span><span class="symbol">;</span>
+<span class="normal">	  tv</span><span class="symbol">.</span><span class="normal">tv_sec </span><span class="symbol">=</span><span class="normal"> </span><span class="function">Swap32IfLE</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">tv</span><span class="symbol">.</span><span class="normal">tv_sec</span><span class="symbol">);</span>
+<span class="normal">	  tv</span><span class="symbol">.</span><span class="normal">tv_usec </span><span class="symbol">=</span><span class="normal"> </span><span class="function">Swap32IfLE</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">tv</span><span class="symbol">.</span><span class="normal">tv_usec</span><span class="symbol">);</span>
+<span class="normal">	  </span><span class="comment">/* This looks like the best way to adjust time at the moment. */</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">appData</span><span class="symbol">.</span><span class="normal">movie </span><span class="symbol">&amp;&amp;</span><span class="normal">  </span><span class="comment">// print the movie frames as fast as possible</span>
+<span class="normal">	  prev</span><span class="symbol">.</span><span class="normal">tv_sec</span><span class="symbol">)</span>
+<span class="normal">	    </span><span class="cbracket">{</span>
+<span class="normal">	      </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">timeval</span><span class="normal"> diff </span><span class="symbol">=</span><span class="normal"> </span><span class="function">timeval_subtract</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">tv</span><span class="symbol">,</span><span class="normal"> prev</span><span class="symbol">);</span>
+<span class="normal">	      </span><span class="function">sleep</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">diff</span><span class="symbol">.</span><span class="normal">tv_sec</span><span class="symbol">);</span>
+<span class="normal">	      </span><span class="function">usleep</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">diff</span><span class="symbol">.</span><span class="normal">tv_usec</span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="cbracket">}</span>
+<span class="normal">	  prev </span><span class="symbol">=</span><span class="normal"> tv</span><span class="symbol">;</span>
+
+<span class="normal">          </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">appData</span><span class="symbol">.</span><span class="normal">debugFrames</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">              </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"read frame %u at time %.3f @ offset %ld</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span>
+<span class="normal">                      rframe</span><span class="symbol">,</span><span class="normal"> tv</span><span class="symbol">.</span><span class="normal">tv_sec </span><span class="symbol">+</span><span class="normal"> tv</span><span class="symbol">.</span><span class="normal">tv_usec </span><span class="symbol">/</span><span class="normal"> </span><span class="number">1e6</span><span class="symbol">,</span><span class="normal"> tell</span><span class="symbol">);</span>
+<span class="normal">          </span><span class="cbracket">}</span>
+
+<span class="normal">      </span><span class="keyword">if</span><span class="symbol">(</span><span class="normal">appData</span><span class="symbol">.</span><span class="normal">movie</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="function">print_movie_frames_up_to_time</span><span class="symbol">(</span><span class="normal">tv</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">      i </span><span class="symbol">=</span><span class="normal"> </span><span class="function">fread</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">out</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> n</span><span class="symbol">,</span><span class="normal"> vncLog</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> False</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="keyword">else</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> True</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">n </span><span class="symbol">&lt;=</span><span class="normal"> buffered</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">memcpy</span><span class="symbol">(</span><span class="normal">out</span><span class="symbol">,</span><span class="normal"> bufoutptr</span><span class="symbol">,</span><span class="normal"> n</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">appData</span><span class="symbol">.</span><span class="normal">record</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">writeLogHeader</span><span class="normal"> </span><span class="symbol">();</span><span class="normal"> </span><span class="comment">/* writes the timestamp */</span>
+<span class="normal">      </span><span class="function">fwrite</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">bufoutptr</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> n</span><span class="symbol">,</span><span class="normal"> vncLog</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    bufoutptr </span><span class="symbol">+=</span><span class="normal"> n</span><span class="symbol">;</span>
+<span class="normal">    buffered </span><span class="symbol">-=</span><span class="normal"> n</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> True</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="function">memcpy</span><span class="symbol">(</span><span class="normal">out</span><span class="symbol">,</span><span class="normal"> bufoutptr</span><span class="symbol">,</span><span class="normal"> buffered</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">appData</span><span class="symbol">.</span><span class="normal">record</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">writeLogHeader</span><span class="normal"> </span><span class="symbol">();</span><span class="normal"> </span><span class="comment">/* Writes the timestamp */</span>
+<span class="normal">      </span><span class="function">fwrite</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">bufoutptr</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> buffered</span><span class="symbol">,</span><span class="normal"> vncLog</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">  out </span><span class="symbol">+=</span><span class="normal"> buffered</span><span class="symbol">;</span>
+<span class="normal">  n </span><span class="symbol">-=</span><span class="normal"> buffered</span><span class="symbol">;</span>
+
+<span class="normal">  bufoutptr </span><span class="symbol">=</span><span class="normal"> buf</span><span class="symbol">;</span>
+<span class="normal">  buffered </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">n </span><span class="symbol">&lt;=</span><span class="normal"> BUF_SIZE</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+
+<span class="normal">    </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">buffered </span><span class="symbol">&lt;</span><span class="normal"> n</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="function">read</span><span class="symbol">(</span><span class="normal">rfbsock</span><span class="symbol">,</span><span class="normal"> buf </span><span class="symbol">+</span><span class="normal"> buffered</span><span class="symbol">,</span><span class="normal"> BUF_SIZE </span><span class="symbol">-</span><span class="normal"> buffered</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">&lt;=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">errno </span><span class="symbol">==</span><span class="normal"> EWOULDBLOCK </span><span class="symbol">||</span><span class="normal"> errno </span><span class="symbol">==</span><span class="normal"> EAGAIN</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="function">ProcessXtEvents</span><span class="symbol">();</span>
+<span class="normal">	    i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	  </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"%s"</span><span class="symbol">,</span><span class="normal">programName</span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="function">perror</span><span class="symbol">(</span><span class="string">": read"</span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> False</span><span class="symbol">;</span>
+<span class="normal">	  </span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">errorMessageOnReadFailure</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"%s: VNC server closed connection</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal">programName</span><span class="symbol">);</span>
+<span class="normal">	  </span><span class="cbracket">}</span>
+<span class="normal">	  </span><span class="keyword">return</span><span class="normal"> False</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">      buffered </span><span class="symbol">+=</span><span class="normal"> i</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="function">memcpy</span><span class="symbol">(</span><span class="normal">out</span><span class="symbol">,</span><span class="normal"> bufoutptr</span><span class="symbol">,</span><span class="normal"> n</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">appData</span><span class="symbol">.</span><span class="normal">record</span><span class="symbol">)</span>
+<span class="normal">      </span><span class="function">fwrite</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">bufoutptr</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> n</span><span class="symbol">,</span><span class="normal"> vncLog</span><span class="symbol">);</span>
+<span class="normal">    bufoutptr </span><span class="symbol">+=</span><span class="normal"> n</span><span class="symbol">;</span>
+<span class="normal">    buffered </span><span class="symbol">-=</span><span class="normal"> n</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> True</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+
+<span class="normal">    </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">n </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="function">read</span><span class="symbol">(</span><span class="normal">rfbsock</span><span class="symbol">,</span><span class="normal"> out</span><span class="symbol">,</span><span class="normal"> n</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">&lt;=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">errno </span><span class="symbol">==</span><span class="normal"> EWOULDBLOCK </span><span class="symbol">||</span><span class="normal"> errno </span><span class="symbol">==</span><span class="normal"> EAGAIN</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="function">ProcessXtEvents</span><span class="symbol">();</span>
+<span class="normal">	    i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	  </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"%s"</span><span class="symbol">,</span><span class="normal">programName</span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="function">perror</span><span class="symbol">(</span><span class="string">": read"</span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> False</span><span class="symbol">;</span>
+<span class="normal">	  </span><span class="cbracket">}</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">errorMessageOnReadFailure</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"%s: VNC server closed connection</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal">programName</span><span class="symbol">);</span>
+<span class="normal">	  </span><span class="cbracket">}</span>
+<span class="normal">	  </span><span class="keyword">return</span><span class="normal"> False</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="keyword">else</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">appData</span><span class="symbol">.</span><span class="normal">record</span><span class="symbol">)</span>
+<span class="normal">	    </span><span class="function">fwrite</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">out</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> i</span><span class="symbol">,</span><span class="normal"> vncLog</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">      out </span><span class="symbol">+=</span><span class="normal"> i</span><span class="symbol">;</span>
+<span class="normal">      n </span><span class="symbol">-=</span><span class="normal"> i</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> True</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Write an exact number of bytes, and don't return until you've sent them.</span>
+<span class="comment"> */</span>
+
+<span class="normal">Bool</span>
+<span class="function">WriteExact</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> sock</span><span class="symbol">,</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">buf</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> n</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">fd_set</span><span class="normal"> fds</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> j</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">appData</span><span class="symbol">.</span><span class="normal">play </span><span class="symbol">||</span><span class="normal"> appData</span><span class="symbol">.</span><span class="normal">movie</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> True</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">&lt;</span><span class="normal"> n</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    j </span><span class="symbol">=</span><span class="normal"> </span><span class="function">write</span><span class="symbol">(</span><span class="normal">sock</span><span class="symbol">,</span><span class="normal"> buf </span><span class="symbol">+</span><span class="normal"> i</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">n </span><span class="symbol">-</span><span class="normal"> i</span><span class="symbol">));</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">j </span><span class="symbol">&lt;=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">j </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">errno </span><span class="symbol">==</span><span class="normal"> EWOULDBLOCK </span><span class="symbol">||</span><span class="normal"> errno </span><span class="symbol">==</span><span class="normal"> EAGAIN</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	  </span><span class="function">FD_ZERO</span><span class="symbol">(&amp;</span><span class="normal">fds</span><span class="symbol">);</span>
+<span class="normal">	  </span><span class="function">FD_SET</span><span class="symbol">(</span><span class="normal">rfbsock</span><span class="symbol">,&amp;</span><span class="normal">fds</span><span class="symbol">);</span>
+
+<span class="normal">	  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">select</span><span class="symbol">(</span><span class="normal">rfbsock</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> NULL</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">fds</span><span class="symbol">,</span><span class="normal"> NULL</span><span class="symbol">,</span><span class="normal"> NULL</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&lt;=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	    </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"%s"</span><span class="symbol">,</span><span class="normal">programName</span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="function">perror</span><span class="symbol">(</span><span class="string">": select"</span><span class="symbol">);</span>
+<span class="normal">	    </span><span class="keyword">return</span><span class="normal"> False</span><span class="symbol">;</span>
+<span class="normal">	  </span><span class="cbracket">}</span>
+<span class="normal">	  j </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	  </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"%s"</span><span class="symbol">,</span><span class="normal">programName</span><span class="symbol">);</span>
+<span class="normal">	  </span><span class="function">perror</span><span class="symbol">(</span><span class="string">": write"</span><span class="symbol">);</span>
+<span class="normal">	  </span><span class="keyword">return</span><span class="normal"> False</span><span class="symbol">;</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">      </span><span class="cbracket">}</span><span class="normal"> </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"%s: write failed</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal">programName</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="keyword">return</span><span class="normal"> False</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">    i </span><span class="symbol">+=</span><span class="normal"> j</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="keyword">return</span><span class="normal"> True</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * ConnectToTcpAddr connects to the given TCP port.</span>
+<span class="comment"> */</span>
+
+<span class="type">int</span>
+<span class="function">ConnectToTcpAddr</span><span class="symbol">(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> host</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> port</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> sock</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">sockaddr_in</span><span class="normal"> addr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> one </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+
+<span class="normal">  addr</span><span class="symbol">.</span><span class="normal">sin_family </span><span class="symbol">=</span><span class="normal"> AF_INET</span><span class="symbol">;</span>
+<span class="normal">  addr</span><span class="symbol">.</span><span class="normal">sin_port </span><span class="symbol">=</span><span class="normal"> </span><span class="function">htons</span><span class="symbol">(</span><span class="normal">port</span><span class="symbol">);</span>
+<span class="normal">  addr</span><span class="symbol">.</span><span class="normal">sin_addr</span><span class="symbol">.</span><span class="normal">s_addr </span><span class="symbol">=</span><span class="normal"> host</span><span class="symbol">;</span>
+
+<span class="normal">  sock </span><span class="symbol">=</span><span class="normal"> </span><span class="function">socket</span><span class="symbol">(</span><span class="normal">AF_INET</span><span class="symbol">,</span><span class="normal"> SOCK_STREAM</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">sock </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"%s"</span><span class="symbol">,</span><span class="normal">programName</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">perror</span><span class="symbol">(</span><span class="string">": ConnectToTcpAddr: socket"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">connect</span><span class="symbol">(</span><span class="normal">sock</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">sockaddr</span><span class="normal"> </span><span class="symbol">*)&amp;</span><span class="normal">addr</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">addr</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"%s"</span><span class="symbol">,</span><span class="normal">programName</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">perror</span><span class="symbol">(</span><span class="string">": ConnectToTcpAddr: connect"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">close</span><span class="symbol">(</span><span class="normal">sock</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">setsockopt</span><span class="symbol">(</span><span class="normal">sock</span><span class="symbol">,</span><span class="normal"> IPPROTO_TCP</span><span class="symbol">,</span><span class="normal"> TCP_NODELAY</span><span class="symbol">,</span>
+<span class="normal">		 </span><span class="symbol">(</span><span class="type">char</span><span class="normal"> </span><span class="symbol">*)&amp;</span><span class="normal">one</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">one</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"%s"</span><span class="symbol">,</span><span class="normal">programName</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">perror</span><span class="symbol">(</span><span class="string">": ConnectToTcpAddr: setsockopt"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">close</span><span class="symbol">(</span><span class="normal">sock</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">return</span><span class="normal"> sock</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+
+<span class="comment">/*</span>
+<span class="comment"> * FindFreeTcpPort tries to find unused TCP port in the range</span>
+<span class="comment"> * (TUNNEL_PORT_OFFSET, TUNNEL_PORT_OFFSET + 99]. Returns 0 on failure.</span>
+<span class="comment"> */</span>
+
+<span class="type">int</span>
+<span class="function">FindFreeTcpPort</span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> sock</span><span class="symbol">,</span><span class="normal"> port</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">sockaddr_in</span><span class="normal"> addr</span><span class="symbol">;</span>
+
+<span class="normal">  addr</span><span class="symbol">.</span><span class="normal">sin_family </span><span class="symbol">=</span><span class="normal"> AF_INET</span><span class="symbol">;</span>
+<span class="normal">  addr</span><span class="symbol">.</span><span class="normal">sin_addr</span><span class="symbol">.</span><span class="normal">s_addr </span><span class="symbol">=</span><span class="normal"> INADDR_ANY</span><span class="symbol">;</span>
+
+<span class="normal">  sock </span><span class="symbol">=</span><span class="normal"> </span><span class="function">socket</span><span class="symbol">(</span><span class="normal">AF_INET</span><span class="symbol">,</span><span class="normal"> SOCK_STREAM</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">sock </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"%s"</span><span class="symbol">,</span><span class="normal">programName</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">perror</span><span class="symbol">(</span><span class="string">": FindFreeTcpPort: socket"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">port </span><span class="symbol">=</span><span class="normal"> TUNNEL_PORT_OFFSET </span><span class="symbol">+</span><span class="normal"> </span><span class="number">99</span><span class="symbol">;</span><span class="normal"> port </span><span class="symbol">&gt;</span><span class="normal"> TUNNEL_PORT_OFFSET</span><span class="symbol">;</span><span class="normal"> port</span><span class="symbol">--)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    addr</span><span class="symbol">.</span><span class="normal">sin_port </span><span class="symbol">=</span><span class="normal"> </span><span class="function">htons</span><span class="symbol">((</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">short</span><span class="symbol">)</span><span class="normal">port</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">bind</span><span class="symbol">(</span><span class="normal">sock</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">sockaddr</span><span class="normal"> </span><span class="symbol">*)&amp;</span><span class="normal">addr</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">addr</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="function">close</span><span class="symbol">(</span><span class="normal">sock</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">return</span><span class="normal"> port</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="function">close</span><span class="symbol">(</span><span class="normal">sock</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="keyword">return</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * ListenAtTcpPort starts listening at the given TCP port.</span>
+<span class="comment"> */</span>
+
+<span class="type">int</span>
+<span class="function">ListenAtTcpPort</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> port</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> sock</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">sockaddr_in</span><span class="normal"> addr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> one </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+
+<span class="normal">  addr</span><span class="symbol">.</span><span class="normal">sin_family </span><span class="symbol">=</span><span class="normal"> AF_INET</span><span class="symbol">;</span>
+<span class="normal">  addr</span><span class="symbol">.</span><span class="normal">sin_port </span><span class="symbol">=</span><span class="normal"> </span><span class="function">htons</span><span class="symbol">(</span><span class="normal">port</span><span class="symbol">);</span>
+<span class="normal">  addr</span><span class="symbol">.</span><span class="normal">sin_addr</span><span class="symbol">.</span><span class="normal">s_addr </span><span class="symbol">=</span><span class="normal"> INADDR_ANY</span><span class="symbol">;</span>
+
+<span class="normal">  sock </span><span class="symbol">=</span><span class="normal"> </span><span class="function">socket</span><span class="symbol">(</span><span class="normal">AF_INET</span><span class="symbol">,</span><span class="normal"> SOCK_STREAM</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">sock </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"%s"</span><span class="symbol">,</span><span class="normal">programName</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">perror</span><span class="symbol">(</span><span class="string">": ListenAtTcpPort: socket"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">setsockopt</span><span class="symbol">(</span><span class="normal">sock</span><span class="symbol">,</span><span class="normal"> SOL_SOCKET</span><span class="symbol">,</span><span class="normal"> SO_REUSEADDR</span><span class="symbol">,</span>
+<span class="normal">		 </span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*)&amp;</span><span class="normal">one</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">one</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"%s"</span><span class="symbol">,</span><span class="normal">programName</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">perror</span><span class="symbol">(</span><span class="string">": ListenAtTcpPort: setsockopt"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">close</span><span class="symbol">(</span><span class="normal">sock</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">bind</span><span class="symbol">(</span><span class="normal">sock</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">sockaddr</span><span class="normal"> </span><span class="symbol">*)&amp;</span><span class="normal">addr</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">addr</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"%s"</span><span class="symbol">,</span><span class="normal">programName</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">perror</span><span class="symbol">(</span><span class="string">": ListenAtTcpPort: bind"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">close</span><span class="symbol">(</span><span class="normal">sock</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">listen</span><span class="symbol">(</span><span class="normal">sock</span><span class="symbol">,</span><span class="normal"> </span><span class="number">5</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"%s"</span><span class="symbol">,</span><span class="normal">programName</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">perror</span><span class="symbol">(</span><span class="string">": ListenAtTcpPort: listen"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">close</span><span class="symbol">(</span><span class="normal">sock</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">return</span><span class="normal"> sock</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * AcceptTcpConnection accepts a TCP connection.</span>
+<span class="comment"> */</span>
+
+<span class="type">int</span>
+<span class="function">AcceptTcpConnection</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> listenSock</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> sock</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">sockaddr_in</span><span class="normal"> addr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> addrlen </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">addr</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> one </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+
+<span class="normal">  sock </span><span class="symbol">=</span><span class="normal"> </span><span class="function">accept</span><span class="symbol">(</span><span class="normal">listenSock</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">sockaddr</span><span class="normal"> </span><span class="symbol">*)</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">addr</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">addrlen</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">sock </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"%s"</span><span class="symbol">,</span><span class="normal">programName</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">perror</span><span class="symbol">(</span><span class="string">": AcceptTcpConnection: accept"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">setsockopt</span><span class="symbol">(</span><span class="normal">sock</span><span class="symbol">,</span><span class="normal"> IPPROTO_TCP</span><span class="symbol">,</span><span class="normal"> TCP_NODELAY</span><span class="symbol">,</span>
+<span class="normal">		 </span><span class="symbol">(</span><span class="type">char</span><span class="normal"> </span><span class="symbol">*)&amp;</span><span class="normal">one</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="normal">one</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"%s"</span><span class="symbol">,</span><span class="normal">programName</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">perror</span><span class="symbol">(</span><span class="string">": AcceptTcpConnection: setsockopt"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">close</span><span class="symbol">(</span><span class="normal">sock</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">return</span><span class="normal"> sock</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * SetNonBlocking sets a socket into non-blocking mode.</span>
+<span class="comment"> */</span>
+
+<span class="normal">Bool</span>
+<span class="function">SetNonBlocking</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> sock</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">fcntl</span><span class="symbol">(</span><span class="normal">sock</span><span class="symbol">,</span><span class="normal"> F_SETFL</span><span class="symbol">,</span><span class="normal"> O_NONBLOCK</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"%s"</span><span class="symbol">,</span><span class="normal">programName</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">perror</span><span class="symbol">(</span><span class="string">": AcceptTcpConnection: fcntl"</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> False</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="keyword">return</span><span class="normal"> True</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * StringToIPAddr - convert a host string to an IP address.</span>
+<span class="comment"> */</span>
+
+<span class="normal">Bool</span>
+<span class="function">StringToIPAddr</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">addr</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">hostent</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">hp</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">strcmp</span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">,</span><span class="string">""</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="symbol">*</span><span class="normal">addr </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">/* local */</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> True</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="symbol">*</span><span class="normal">addr </span><span class="symbol">=</span><span class="normal"> </span><span class="function">inet_addr</span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(*</span><span class="normal">addr </span><span class="symbol">!=</span><span class="normal"> </span><span class="symbol">-</span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> True</span><span class="symbol">;</span>
+
+<span class="normal">  hp </span><span class="symbol">=</span><span class="normal"> </span><span class="function">gethostbyname</span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">hp</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="symbol">*</span><span class="normal">addr </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">*(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="symbol">*)</span><span class="normal">hp</span><span class="symbol">-&gt;</span><span class="normal">h_addr</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> True</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="keyword">return</span><span class="normal"> False</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Test if the other end of a socket is on the same machine.</span>
+<span class="comment"> */</span>
+
+<span class="normal">Bool</span>
+<span class="function">SameMachine</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> sock</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">sockaddr_in</span><span class="normal"> peeraddr</span><span class="symbol">,</span><span class="normal"> myaddr</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> addrlen </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="symbol">(</span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">sockaddr_in</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">appData</span><span class="symbol">.</span><span class="normal">play </span><span class="symbol">||</span><span class="normal"> appData</span><span class="symbol">.</span><span class="normal">record </span><span class="symbol">||</span><span class="normal"> appData</span><span class="symbol">.</span><span class="normal">movie</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="keyword">return</span><span class="normal"> False</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="function">getpeername</span><span class="symbol">(</span><span class="normal">sock</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">sockaddr</span><span class="normal"> </span><span class="symbol">*)&amp;</span><span class="normal">peeraddr</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">addrlen</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function">getsockname</span><span class="symbol">(</span><span class="normal">sock</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">sockaddr</span><span class="normal"> </span><span class="symbol">*)&amp;</span><span class="normal">myaddr</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">addrlen</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">peeraddr</span><span class="symbol">.</span><span class="normal">sin_addr</span><span class="symbol">.</span><span class="normal">s_addr </span><span class="symbol">==</span><span class="normal"> myaddr</span><span class="symbol">.</span><span class="normal">sin_addr</span><span class="symbol">.</span><span class="normal">s_addr</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Print out the contents of a packet for debugging.</span>
+<span class="comment"> */</span>
+
+<span class="type">void</span>
+<span class="function">PrintInHex</span><span class="symbol">(</span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">buf</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> len</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="type">int</span><span class="normal"> i</span><span class="symbol">,</span><span class="normal"> j</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="type">char</span><span class="normal"> c</span><span class="symbol">,</span><span class="normal"> str</span><span class="symbol">[</span><span class="number">17</span><span class="symbol">];</span>
+
+<span class="normal">  str</span><span class="symbol">[</span><span class="number">16</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="normal">  </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"ReadExact: "</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> len</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">i </span><span class="symbol">%</span><span class="normal"> </span><span class="number">16</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">))</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">	</span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"           "</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">      c </span><span class="symbol">=</span><span class="normal"> buf</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span>
+<span class="normal">      str</span><span class="symbol">[</span><span class="normal">i </span><span class="symbol">%</span><span class="normal"> </span><span class="number">16</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(((</span><span class="normal">c </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">31</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">c </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">127</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">?</span><span class="normal"> c </span><span class="symbol">:</span><span class="normal"> </span><span class="string">'.'</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"%02x "</span><span class="symbol">,(</span><span class="type">unsigned</span><span class="normal"> </span><span class="type">char</span><span class="symbol">)</span><span class="normal">c</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">i </span><span class="symbol">%</span><span class="normal"> </span><span class="number">4</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">3</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">" "</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">i </span><span class="symbol">%</span><span class="normal"> </span><span class="number">16</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">15</span><span class="symbol">)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	  </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"%s</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal">str</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">i </span><span class="symbol">%</span><span class="normal"> </span><span class="number">16</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">j </span><span class="symbol">=</span><span class="normal"> i </span><span class="symbol">%</span><span class="normal"> </span><span class="number">16</span><span class="symbol">;</span><span class="normal"> j </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">16</span><span class="symbol">;</span><span class="normal"> j</span><span class="symbol">++)</span>
+<span class="normal">	</span><span class="cbracket">{</span>
+<span class="normal">	  </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"   "</span><span class="symbol">);</span>
+<span class="normal">	  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">j </span><span class="symbol">%</span><span class="normal"> </span><span class="number">4</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">3</span><span class="symbol">)</span><span class="normal"> </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">" "</span><span class="symbol">);</span>
+<span class="normal">	</span><span class="cbracket">}</span>
+<span class="normal">      str</span><span class="symbol">[</span><span class="normal">i </span><span class="symbol">%</span><span class="normal"> </span><span class="number">16</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">      </span><span class="function">fprintf</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">,</span><span class="string">"%s</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal">str</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">  </span><span class="function">fflush</span><span class="symbol">(</span><span class="normal">stderr</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+</tt></pre></div><div style="text-align: right; padding: 8pt; font-size: 12px"><a href="/xmlfeed/weblog-rss20.xml"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPAgMAAAAOp6AcAAAADFBMVEVmZmb/ZgD///+JjnlbTUWmAAAACXBIWXMAAABIAAAASABGyWs+AAAACXZwQWcAAABQAAAADwCexKkxAAAAWUlEQVQYlWNgwAa0VmGAFQyqoSCQ/x8J/CBFMCt0ZdTU/F/7/+1HEkydFpoKVPn+93sUlUujQvP/7UcRTAuNDJ2a//s/imDqtKVZofm/1qGYSZk7sfodGwAAiobBJtffoNAAAAAASUVORK5CYII=" alt="RSS 2.0 Weblog Feed" width="80" height="15"/></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPAgMAAAAOp6AcAAAADFBMVEVmZmb/ZgD///+JjnlbTUWmAAAAaklEQVQYlWNgwAa0VmGAFQyqoSCQ/x8J/CBFMDV16rTQ/H/7V//69+//v/3/9oMEI6cuAwr+fv/+/b5d///v//0eJBgWOhMo+Gs9UPAdXDBy6lSYyn9wQZCZS0GCYDPXQcykzJ1Y/Y4NAABKvL80wyoMPgAAAABJRU5ErkJggg==" alt="Atom 1.0 Weblog Feed" width="80" height="15"/></a> <a href="http://validator.w3.org/check?uri=referer"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAB1FBMVEUHQIgIRY0MN4QNRYoSRYsXUpIYVJQeUpUhWpgjUJMjWpgmU5QnXJkuYZ0uYpwwV5YyZJ4zaKM3ZaA5aaI6aqM6a6E8ZqA8Z6BAbaRBbqdCbaVHd61KSkpKcaZQUFBUf69UgbBVVVVXfq9Yg7NZhbJZh7RagrNeXVxeh7RfjLdgYGBiiLZmZmZnZ2doirhpkbt0m8F3m8B3ncJ5lb55ocR+ocSDgX+Do8eEpMqGhoaHp8iIpMeJjnmJpseKqMeOqsqPsdCQrcyVlZWVsM2Zs9CZtNCfu9ahoaGhuNShudSivNSjtMWjvNSmpqWnpqSrw9qvxNqyxdmyxdyzsK6zs7Ozx9y0xt21yN22tra4y+K80eK/v7/AwMDExMTEy9DH2ejK2+jM2ujN3uvP0dLR0NDR3uvS3uvS3+zU4u3V1dXY2dnY4u7Y4+3b5e/d3d3d5u/d5/De3t7f39/h4uLj4uHj6/Ll7PXm7fTn7/Xo7/Tp7/bq7Ozr6unr8ffw8PDw9vvx9fny+P7z8/Pz9vnz9vv3+fv4+vz5+vz6+vr6+/36/P36///7+/77/Pz7/f37/f78/Pz8/f38/f79/f39/f79/f/9/v79///+/v7+/v////3///+tYR2LAAABKklEQVQ4y2PQoTJg0JlNVYDPQBsyAMTAqaFes8tdsmdPCtA3MDStr3GKKK6myMAprgJ9pcpWs/MlRExYJBvNZLR0sigycHYOV1S7mtjsQJ4gf+HIFPXoWMs6qIGzIRiKZs9GFoEaMRuZhhrYqqJXy8uZYauRxC/VHew7e3YTPAxnI5swG6JxNrKBNjB1EFmIgV0+HA6C8pqqzhXG7BbJJROQIwViMYQ7G2oDQQNn57JyG7kxiCfObrBmS5+BHMuYLkTzMnYDm5WY4lOZZRPKZocxes+aPbuwCFsYohiICLvZsKBAMrDTQ7K/StveU8icTzrOL8JdLpOyWJ49u8Bx9ozw8DY7UYW03hhdxZAOSg2c3jN79rSJs1vSKmfOnpFXNJmynELlvExlAADnaZpLFGEC2wAAAABJRU5ErkJggg==" alt="Valid XHTML 1.1" width="80" height="15"/></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAB1FBMVEUHQIgIRY0MN4QNRYoSRYsXUpIYVJQeUpUhWpgjUJMjWpgmU5QnXJkuYZ0uYpwwV5YyZJ4zaKM3ZaA5aaI6aqM6a6E8ZqA8Z6BAbaRBbqdCbaVHd61KSkpKcaZQUFBUf69UgbBVVVVXfq9Yg7NZhbJZh7RagrNeXVxeh7RfjLdgYGBiiLZmZmZnZ2doirhpkbt0m8F3m8B3ncJ5lb55ocR+ocSDgX+Do8eEpMqGhoaHp8iIpMeJjnmJpseKqMeOqsqPsdCQrcyVlZWVsM2Zs9CZtNCfu9ahoaGhuNShudSivNSjtMWjvNSmpqWnpqSrw9qvxNqyxdmyxdyzsK6zs7Ozx9y0xt21yN22tra4y+K80eK/v7/AwMDExMTEy9DH2ejK2+jM2ujN3uvP0dLR0NDR3uvS3uvS3+zU4u3V1dXY2dnY4u7Y4+3b5e/d3d3d5u/d5/De3t7f39/h4uLj4uHj6/Ll7PXm7fTn7/Xo7/Tp7/bq7Ozr6unr8ffw8PDw9vvx9fny+P7z8/Pz9vnz9vv3+fv4+vz5+vz6+vr6+/36/P36///7+/77/Pz7/f37/f78/Pz8/f38/f79/f39/f79/f/9/v79///+/v7+/v////3///+tYR2LAAABEUlEQVQ4y2PQoTJg0JlNVYDPQBsyAMTAqaFes8tdsmdPCtA3MDStr3GKKK6myMAprgJ9pcpWs/MlRExYJBvNZLR0sigycHYOV1S7mtjsQJ4gf+HIFPXoWMs6mIEQCsIjwhKoga0qerW8nBm2Gkn8Ut3BvrNnN8HCcDYM2cBIogzs8uFwEJTXVHWuMGa3SC6ZgIgUqCEwdxJr4OxcVm4jNwbxxNkN1mzpM2ajGIjsPGK9PLtZiSk+lVk2oWx2GKP3rNmzC4tQwpDoIIQb2Okh2V+lbe8pZM4nHecX4S6XSVksz55d4Dh7Rnh4m52oQlpvjK5iSAelBk7vmT172sTZLWmVM2fPyCuaTFlOoXJepjIAANlljDGY/l5pAAAAAElFTkSuQmCC" alt="Valid CSS (2.1)" width="80" height="15"/></a><br/>Copyright 2005-2014 <a href="/about/">Timo Bingmann</a> - <a href="/about/impressum.html">Impressum</a></div><script type="text/javascript">var _paq = _paq || []; _paq.push(["trackPageView"]); _paq.push(["enableLinkTracking"]);(function() {var u=(("https:" == document.location.protocol) ? "https" : "http") + "://panthema.net/wik-331/"; _paq.push(["setTrackerUrl", u+"js/"]); _paq.push(["setSiteId", "2"]);var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";g.defer=true; g.async=true; g.src=u+"js/"; s.parentNode.insertBefore(g,s);})();</script><noscript><p><img src="http://panthema.net/wik-331/js/?idsite=2&amp;rec=1" style="border:0" alt="" /></p></noscript></body></html>

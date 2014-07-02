@@ -1,0 +1,1252 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><title>/2014/vncrec-rgb/vncrec-rgb-0.4/include/rfbproto.h - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="stylesheet" type="text/css" href="/css/fonts.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/js/base.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal7.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/">Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2014/">2014</a></li><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li class="nt"><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li><li class="ns"><a href="/search.html">Search</a></li></ul></li><li class="top"><a class="ni" href="/tags/">Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 13pt" href="/tags/frontpage.html">frontpage</a> <a style="font-size: 13pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 10pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 10pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 10pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 12pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 10pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 11pt" href="/tags/stxxl.html">stxxl</a> <a style="font-size: 16pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 10pt" href="/tags/vncrec.html">vncrec</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"> <a class="ni" href="#">Projects</a> <ul style="margin-left: -8em; margin-top: 4px;" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2014/sqlplot-tools/">SqlPlotTools</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li class="nt"><a href="/2013/1212-stxxl-1.4.0/">STXXL 1.4</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"> <a class="ni" href="#">Research</a> <ul style="margin-left: -16em; margin-top: 4px" class="nx"> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP - External Memory Suffix Sorting</a></li> <li><a href="/2013/parallel-string-sorting/">Parallel String Sorting</a></li> <li><a href="/tags/stxxl.html">STXXL - External Memory Algorithms</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"> <a class="ni" href="/about/">About</a> <ul style="margin-left: -6em; margin-top: 4px" class="nx"> <li><a href="/about/">Timo Bingmann</a></li> <li><a href="/about/impressum.html">Impressum</a></li> </ul></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2014/">2014</a> / <a href="/2014/vncrec-rgb/">vncrec-rgb</a> / <a href="/2014/vncrec-rgb/vncrec-rgb-0.4/">vncrec-rgb-0.4</a> / <a href="/2014/vncrec-rgb/vncrec-rgb-0.4/include/">include</a> / <a href="/2014/vncrec-rgb/vncrec-rgb-0.4/include/rfbproto.h.html">rfbproto.h</a> (<a href="/2014/vncrec-rgb/vncrec-rgb-0.4/include/rfbproto.h">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">/*</span>
+<span class="comment"> *  Copyright (C) 2000-2006 Constantin Kaplinsky. All Rights Reserved.</span>
+<span class="comment"> *  Copyright (C) 2000 Tridia Corporation. All Rights Reserved.</span>
+<span class="comment"> *  Copyright (C) 1999 AT&amp;T Laboratories Cambridge. All Rights Reserved.</span>
+<span class="comment"> *</span>
+<span class="comment"> *  This is free software; you can redistribute it and/or modify</span>
+<span class="comment"> *  it under the terms of the GNU General Public License as published by</span>
+<span class="comment"> *  the Free Software Foundation; either version 2 of the License, or</span>
+<span class="comment"> *  (at your option) any later version.</span>
+<span class="comment"> *</span>
+<span class="comment"> *  This software is distributed in the hope that it will be useful,</span>
+<span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="comment"> *  GNU General Public License for more details.</span>
+<span class="comment"> *</span>
+<span class="comment"> *  You should have received a copy of the GNU General Public License</span>
+<span class="comment"> *  along with this software; if not, write to the Free Software</span>
+<span class="comment"> *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307,</span>
+<span class="comment"> *  USA.</span>
+<span class="comment"> */</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * rfbproto.h - header file for the RFB protocol, versions 3.3, 3.7 and 3.7t,</span>
+<span class="comment"> * 3.8 and 3.8t ("t" suffix denotes TightVNC protocol extensions enabled)</span>
+<span class="comment"> *</span>
+<span class="comment"> * Uses types CARD&lt;n&gt; for an n-bit unsigned integer, INT&lt;n&gt; for an n-bit signed</span>
+<span class="comment"> * integer (for n = 8, 16 and 32).</span>
+<span class="comment"> *</span>
+<span class="comment"> * All multiple byte integers are in big endian (network) order (most</span>
+<span class="comment"> * significant byte first).  Unless noted otherwise there is no special</span>
+<span class="comment"> * alignment of protocol structures.</span>
+<span class="comment"> *</span>
+<span class="comment"> *</span>
+<span class="comment"> * Once the initial handshaking is done, all messages start with a type byte,</span>
+<span class="comment"> * (usually) followed by message-specific data.  The order of definitions in</span>
+<span class="comment"> * this file is as follows:</span>
+<span class="comment"> *</span>
+<span class="comment"> *  (1) Structures used in several types of message.</span>
+<span class="comment"> *  (2) Structures used in the initial handshaking.</span>
+<span class="comment"> *  (3) Message types.</span>
+<span class="comment"> *  (4) Encoding types.</span>
+<span class="comment"> *  (5) For each message type, the form of the data following the type byte.</span>
+<span class="comment"> *      Sometimes this is defined by a single structure but the more complex</span>
+<span class="comment"> *      messages have to be explained by comments.</span>
+<span class="comment"> */</span>
+
+
+<span class="comment">/*****************************************************************************</span>
+<span class="comment"> *</span>
+<span class="comment"> * Structures used in several messages</span>
+<span class="comment"> *</span>
+<span class="comment"> *****************************************************************************/</span>
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * Structure used to specify a rectangle.  This structure is a multiple of 4</span>
+<span class="comment"> * bytes so that it can be interspersed with 32-bit pixel data without</span>
+<span class="comment"> * affecting alignment.</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbRectangle</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> x</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> y</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> w</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> h</span><span class="symbol">;</span>
+<span class="cbracket">}</span><span class="normal"> rfbRectangle</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbRectangle </span><span class="number">8</span>
+
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * Structure used to specify pixel format.</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbPixelFormat</span><span class="normal"> </span><span class="cbracket">{</span>
+
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> bitsPerPixel</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* 8,16,32 only */</span>
+
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> depth</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* 8 to 32 */</span>
+
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> bigEndian</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* True if multi-byte pixels are interpreted</span>
+<span class="comment">				   as big endian, or if single-bit-per-pixel</span>
+<span class="comment">				   has most significant bit of the byte</span>
+<span class="comment">				   corresponding to first (leftmost) pixel. Of</span>
+<span class="comment">				   course this is meaningless for 8 bits/pix */</span>
+
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> trueColour</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* If false then we need a "colour map" to</span>
+<span class="comment">				   convert pixels to RGB.  If true, xxxMax and</span>
+<span class="comment">				   xxxShift specify bits used for red, green</span>
+<span class="comment">				   and blue */</span>
+
+<span class="normal">    </span><span class="comment">/* the following fields are only meaningful if trueColour is true */</span>
+
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> redMax</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* maximum red value (= 2^n - 1 where n is the</span>
+<span class="comment">				   number of bits used for red). Note this</span>
+<span class="comment">				   value is always in big endian order. */</span>
+
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> greenMax</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* similar for green */</span>
+
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> blueMax</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* and blue */</span>
+
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> redShift</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* number of shifts needed to get the red</span>
+<span class="comment">				   value in a pixel to the least significant</span>
+<span class="comment">				   bit. To find the red value from a given</span>
+<span class="comment">				   pixel, do the following:</span>
+<span class="comment">				   1) Swap pixel value according to bigEndian</span>
+<span class="comment">				      (e.g. if bigEndian is false and host byte</span>
+<span class="comment">				      order is big endian, then swap).</span>
+<span class="comment">				   2) Shift right by redShift.</span>
+<span class="comment">				   3) AND with redMax (in host byte order).</span>
+<span class="comment">				   4) You now have the red value between 0 and</span>
+<span class="comment">				      redMax. */</span>
+
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> greenShift</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* similar for green */</span>
+
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> blueShift</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* and blue */</span>
+
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> pad1</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> pad2</span><span class="symbol">;</span>
+
+<span class="cbracket">}</span><span class="normal"> rfbPixelFormat</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbPixelFormat </span><span class="number">16</span>
+
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * Structure used to describe protocol options such as tunneling methods,</span>
+<span class="comment"> * authentication schemes and message types (protocol versions 3.7t, 3.8t).</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbCapabilityInfo</span><span class="normal"> </span><span class="cbracket">{</span>
+
+<span class="normal">    </span><span class="usertype">CARD32</span><span class="normal"> code</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* numeric identifier */</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> vendorSignature</span><span class="symbol">[</span><span class="number">4</span><span class="symbol">];</span><span class="normal">	</span><span class="comment">/* vendor identification */</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> nameSignature</span><span class="symbol">[</span><span class="number">8</span><span class="symbol">];</span><span class="normal">	</span><span class="comment">/* abbreviated option name */</span>
+
+<span class="cbracket">}</span><span class="normal"> rfbCapabilityInfo</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbCapabilityInfoVendor </span><span class="number">4</span>
+<span class="preproc">#define</span><span class="normal"> sz_rfbCapabilityInfoName </span><span class="number">8</span>
+<span class="preproc">#define</span><span class="normal"> sz_rfbCapabilityInfo </span><span class="number">16</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Vendors known by TightVNC: standard VNC/RealVNC, TridiaVNC, and TightVNC.</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#define</span><span class="normal"> rfbStandardVendor </span><span class="string">"STDV"</span>
+<span class="preproc">#define</span><span class="normal"> rfbTridiaVncVendor </span><span class="string">"TRDV"</span>
+<span class="preproc">#define</span><span class="normal"> rfbTightVncVendor </span><span class="string">"TGHT"</span>
+
+
+<span class="comment">/*****************************************************************************</span>
+<span class="comment"> *</span>
+<span class="comment"> * Initial handshaking messages</span>
+<span class="comment"> *</span>
+<span class="comment"> *****************************************************************************/</span>
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * Protocol Version</span>
+<span class="comment"> *</span>
+<span class="comment"> * The server always sends 12 bytes to start which identifies the latest RFB</span>
+<span class="comment"> * protocol version number which it supports.  These bytes are interpreted</span>
+<span class="comment"> * as a string of 12 ASCII characters in the format "RFB xxx.yyy\n" where</span>
+<span class="comment"> * xxx and yyy are the major and minor version numbers (e.g. for version 3.8</span>
+<span class="comment"> * this is "RFB 003.008\n").</span>
+<span class="comment"> *</span>
+<span class="comment"> * The client then replies with a similar 12-byte message giving the version</span>
+<span class="comment"> * number of the protocol which should actually be used (which may be different</span>
+<span class="comment"> * to that quoted by the server).</span>
+<span class="comment"> *</span>
+<span class="comment"> * It is intended that both clients and servers may provide some level of</span>
+<span class="comment"> * backwards compatibility by this mechanism.  Servers in particular should</span>
+<span class="comment"> * attempt to provide backwards compatibility, and even forwards compatibility</span>
+<span class="comment"> * to some extent.  For example if a client demands version 3.1 of the</span>
+<span class="comment"> * protocol, a 3.0 server can probably assume that by ignoring requests for</span>
+<span class="comment"> * encoding types it doesn't understand, everything will still work OK.  This</span>
+<span class="comment"> * will probably not be the case for changes in the major version number.</span>
+<span class="comment"> *</span>
+<span class="comment"> * The format string below can be used in sprintf or sscanf to generate or</span>
+<span class="comment"> * decode the version string respectively.</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#define</span><span class="normal"> rfbProtocolVersionFormat </span><span class="string">"RFB %03d.%03d</span><span class="specialchar">\n</span><span class="string">"</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="type">char</span><span class="normal"> rfbProtocolVersionMsg</span><span class="symbol">[</span><span class="number">13</span><span class="symbol">];</span><span class="normal">	</span><span class="comment">/* allow extra byte for null */</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbProtocolVersionMsg </span><span class="number">12</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Negotiation of the security type (protocol versions 3.7, 3.8)</span>
+<span class="comment"> *</span>
+<span class="comment"> * Once the protocol version has been decided, the server either sends a list</span>
+<span class="comment"> * of supported security types, or informs the client about an error (when the</span>
+<span class="comment"> * number of security types is 0).  Security type rfbSecTypeTight is used to</span>
+<span class="comment"> * enable TightVNC-specific protocol extensions.  The value rfbSecTypeVncAuth</span>
+<span class="comment"> * stands for classic VNC authentication.</span>
+<span class="comment"> *</span>
+<span class="comment"> * The client selects a particular security type from the list provided by the</span>
+<span class="comment"> * server.</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#define</span><span class="normal"> rfbSecTypeInvalid </span><span class="number">0</span>
+<span class="preproc">#define</span><span class="normal"> rfbSecTypeNone </span><span class="number">1</span>
+<span class="preproc">#define</span><span class="normal"> rfbSecTypeVncAuth </span><span class="number">2</span>
+<span class="preproc">#define</span><span class="normal"> rfbSecTypeTight </span><span class="number">16</span>
+
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * Negotiation of Tunneling Capabilities (protocol versions 3.7t, 3.8t)</span>
+<span class="comment"> *</span>
+<span class="comment"> * If the chosen security type is rfbSecTypeTight, the server sends a list of</span>
+<span class="comment"> * supported tunneling methods ("tunneling" refers to any additional layer of</span>
+<span class="comment"> * data transformation, such as encryption or external compression.)</span>
+<span class="comment"> *</span>
+<span class="comment"> * nTunnelTypes specifies the number of following rfbCapabilityInfo structures</span>
+<span class="comment"> * that list all supported tunneling methods in the order of preference.</span>
+<span class="comment"> *</span>
+<span class="comment"> * NOTE: If nTunnelTypes is 0, that tells the client that no tunneling can be</span>
+<span class="comment"> * used, and the client should not send a response requesting a tunneling</span>
+<span class="comment"> * method.</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbTunnelingCapsMsg</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD32</span><span class="normal"> nTunnelTypes</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* followed by nTunnelTypes * rfbCapabilityInfo structures */</span>
+<span class="cbracket">}</span><span class="normal"> rfbTunnelingCapsMsg</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbTunnelingCapsMsg </span><span class="number">4</span>
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * Tunneling Method Request (protocol versions 3.7t, 3.8t)</span>
+<span class="comment"> *</span>
+<span class="comment"> * If the list of tunneling capabilities sent by the server was not empty, the</span>
+<span class="comment"> * client should reply with a 32-bit code specifying a particular tunneling</span>
+<span class="comment"> * method.  The following code should be used for no tunneling.</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#define</span><span class="normal"> rfbNoTunneling </span><span class="number">0</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbNoTunneling </span><span class="string">"NOTUNNEL"</span>
+
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * Negotiation of Authentication Capabilities (protocol versions 3.7t, 3.8t)</span>
+<span class="comment"> *</span>
+<span class="comment"> * After setting up tunneling, the server sends a list of supported</span>
+<span class="comment"> * authentication schemes.</span>
+<span class="comment"> *</span>
+<span class="comment"> * nAuthTypes specifies the number of following rfbCapabilityInfo structures</span>
+<span class="comment"> * that list all supported authentication schemes in the order of preference.</span>
+<span class="comment"> *</span>
+<span class="comment"> * NOTE: If nAuthTypes is 0, that tells the client that no authentication is</span>
+<span class="comment"> * necessary, and the client should not send a response requesting an</span>
+<span class="comment"> * authentication scheme.</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbAuthenticationCapsMsg</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD32</span><span class="normal"> nAuthTypes</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* followed by nAuthTypes * rfbCapabilityInfo structures */</span>
+<span class="cbracket">}</span><span class="normal"> rfbAuthenticationCapsMsg</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbAuthenticationCapsMsg </span><span class="number">4</span>
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * Authentication Scheme Request (protocol versions 3.7t, 3.8t)</span>
+<span class="comment"> *</span>
+<span class="comment"> * If the list of authentication capabilities sent by the server was not empty,</span>
+<span class="comment"> * the client should reply with a 32-bit code specifying a particular</span>
+<span class="comment"> * authentication scheme.  The following codes are supported.</span>
+<span class="comment"> */</span>
+
+<span class="comment">/* Standard authentication methods. */</span>
+<span class="preproc">#define</span><span class="normal"> rfbAuthNone </span><span class="number">1</span>
+<span class="preproc">#define</span><span class="normal"> rfbAuthVNC </span><span class="number">2</span>
+
+<span class="preproc">#define</span><span class="normal"> sig_rfbAuthNone </span><span class="string">"NOAUTH__"</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbAuthVNC </span><span class="string">"VNCAUTH_"</span>
+
+<span class="comment">/* These two are not used in the mainstream version. */</span>
+<span class="preproc">#define</span><span class="normal"> rfbAuthUnixLogin </span><span class="number">129</span>
+<span class="preproc">#define</span><span class="normal"> rfbAuthExternal </span><span class="number">130</span>
+
+<span class="preproc">#define</span><span class="normal"> sig_rfbAuthUnixLogin </span><span class="string">"ULGNAUTH"</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbAuthExternal </span><span class="string">"XTRNAUTH"</span>
+
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * Authentication result codes (all protocol versions, but rfbAuthTooMany is</span>
+<span class="comment"> * not used in protocol versions above 3.3)</span>
+<span class="comment"> *</span>
+<span class="comment"> * In the protocol version 3.8 and above, rfbAuthFailed is followed by a text</span>
+<span class="comment"> * string describing the reason of failure. The text string is preceded with a</span>
+<span class="comment"> * 32-bit counter of bytes in the string.</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#define</span><span class="normal"> rfbAuthOK </span><span class="number">0</span>
+<span class="preproc">#define</span><span class="normal"> rfbAuthFailed </span><span class="number">1</span>
+<span class="preproc">#define</span><span class="normal"> rfbAuthTooMany </span><span class="number">2</span>
+
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * Client Initialisation Message</span>
+<span class="comment"> *</span>
+<span class="comment"> * Once the client and server are sure that they're happy to talk to one</span>
+<span class="comment"> * another, the client sends an initialisation message.  At present this</span>
+<span class="comment"> * message only consists of a boolean indicating whether the server should try</span>
+<span class="comment"> * to share the desktop by leaving other clients connected, or give exclusive</span>
+<span class="comment"> * access to this client by disconnecting all other clients.</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbClientInitMsg</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> shared</span><span class="symbol">;</span>
+<span class="cbracket">}</span><span class="normal"> rfbClientInitMsg</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbClientInitMsg </span><span class="number">1</span>
+
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * Server Initialisation Message</span>
+<span class="comment"> *</span>
+<span class="comment"> * After the client initialisation message, the server sends one of its own.</span>
+<span class="comment"> * This tells the client the width and height of the server's framebuffer,</span>
+<span class="comment"> * its pixel format and the name associated with the desktop.</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbServerInitMsg</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> framebufferWidth</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> framebufferHeight</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">rfbPixelFormat</span><span class="normal"> format</span><span class="symbol">;</span><span class="normal">	</span><span class="comment">/* the server's preferred pixel format */</span>
+<span class="normal">    </span><span class="usertype">CARD32</span><span class="normal"> nameLength</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* followed by char name[nameLength] */</span>
+<span class="cbracket">}</span><span class="normal"> rfbServerInitMsg</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">sz_rfbServerInitMsg</span><span class="normal"> </span><span class="symbol">(</span><span class="number">8</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> sz_rfbPixelFormat</span><span class="symbol">)</span>
+
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * Server Interaction Capabilities Message (protocol versions 3.7t, 3.8t)</span>
+<span class="comment"> *</span>
+<span class="comment"> * If TightVNC protocol extensions are enabled, the server informs the client</span>
+<span class="comment"> * what message types it supports in addition to ones defined in the standard</span>
+<span class="comment"> * RFB protocol.</span>
+<span class="comment"> * Also, the server sends the list of all supported encodings (note that it's</span>
+<span class="comment"> * not necessary to advertise the "raw" encoding sinse it MUST be supported in</span>
+<span class="comment"> * RFB 3.x protocols).</span>
+<span class="comment"> *</span>
+<span class="comment"> * This data immediately follows the server initialisation message.</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbInteractionCapsMsg</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> nServerMessageTypes</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> nClientMessageTypes</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> nEncodingTypes</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> pad</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* reserved, must be 0 */</span>
+<span class="normal">    </span><span class="comment">/* followed by nServerMessageTypes * rfbCapabilityInfo structures */</span>
+<span class="normal">    </span><span class="comment">/* followed by nClientMessageTypes * rfbCapabilityInfo structures */</span>
+<span class="cbracket">}</span><span class="normal"> rfbInteractionCapsMsg</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbInteractionCapsMsg </span><span class="number">8</span>
+
+
+<span class="comment">/*</span>
+<span class="comment"> * Following the server initialisation message it's up to the client to send</span>
+<span class="comment"> * whichever protocol messages it wants.  Typically it will send a</span>
+<span class="comment"> * SetPixelFormat message and a SetEncodings message, followed by a</span>
+<span class="comment"> * FramebufferUpdateRequest.  From then on the server will send</span>
+<span class="comment"> * FramebufferUpdate messages in response to the client's</span>
+<span class="comment"> * FramebufferUpdateRequest messages.  The client should send</span>
+<span class="comment"> * FramebufferUpdateRequest messages with incremental set to true when it has</span>
+<span class="comment"> * finished processing one FramebufferUpdate and is ready to process another.</span>
+<span class="comment"> * With a fast client, the rate at which FramebufferUpdateRequests are sent</span>
+<span class="comment"> * should be regulated to avoid hogging the network.</span>
+<span class="comment"> */</span>
+
+
+
+<span class="comment">/*****************************************************************************</span>
+<span class="comment"> *</span>
+<span class="comment"> * Message types</span>
+<span class="comment"> *</span>
+<span class="comment"> *****************************************************************************/</span>
+
+<span class="comment">/* server -&gt; client */</span>
+
+<span class="preproc">#define</span><span class="normal"> rfbFramebufferUpdate </span><span class="number">0</span>
+<span class="preproc">#define</span><span class="normal"> rfbSetColourMapEntries </span><span class="number">1</span>
+<span class="preproc">#define</span><span class="normal"> rfbBell </span><span class="number">2</span>
+<span class="preproc">#define</span><span class="normal"> rfbServerCutText </span><span class="number">3</span>
+
+<span class="preproc">#define</span><span class="normal"> rfbFileListData </span><span class="number">130</span>
+<span class="preproc">#define</span><span class="normal"> rfbFileDownloadData </span><span class="number">131</span>
+<span class="preproc">#define</span><span class="normal"> rfbFileUploadCancel </span><span class="number">132</span>
+<span class="preproc">#define</span><span class="normal"> rfbFileDownloadFailed </span><span class="number">133</span>
+
+<span class="comment">/* signatures for non-standard messages */</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbFileListData </span><span class="string">"FTS_LSDT"</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbFileDownloadData </span><span class="string">"FTS_DNDT"</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbFileUploadCancel </span><span class="string">"FTS_UPCN"</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbFileDownloadFailed </span><span class="string">"FTS_DNFL"</span>
+
+
+<span class="comment">/* client -&gt; server */</span>
+
+<span class="preproc">#define</span><span class="normal"> rfbSetPixelFormat </span><span class="number">0</span>
+<span class="preproc">#define</span><span class="normal"> rfbFixColourMapEntries </span><span class="number">1</span><span class="normal">	</span><span class="comment">/* not currently supported */</span>
+<span class="preproc">#define</span><span class="normal"> rfbSetEncodings </span><span class="number">2</span>
+<span class="preproc">#define</span><span class="normal"> rfbFramebufferUpdateRequest </span><span class="number">3</span>
+<span class="preproc">#define</span><span class="normal"> rfbKeyEvent </span><span class="number">4</span>
+<span class="preproc">#define</span><span class="normal"> rfbPointerEvent </span><span class="number">5</span>
+<span class="preproc">#define</span><span class="normal"> rfbClientCutText </span><span class="number">6</span>
+
+<span class="preproc">#define</span><span class="normal"> rfbFileListRequest </span><span class="number">130</span>
+<span class="preproc">#define</span><span class="normal"> rfbFileDownloadRequest </span><span class="number">131</span>
+<span class="preproc">#define</span><span class="normal"> rfbFileUploadRequest </span><span class="number">132</span>
+<span class="preproc">#define</span><span class="normal"> rfbFileUploadData </span><span class="number">133</span>
+<span class="preproc">#define</span><span class="normal"> rfbFileDownloadCancel </span><span class="number">134</span>
+<span class="preproc">#define</span><span class="normal"> rfbFileUploadFailed </span><span class="number">135</span>
+<span class="preproc">#define</span><span class="normal"> rfbFileCreateDirRequest </span><span class="number">136</span>
+
+<span class="comment">/* signatures for non-standard messages */</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbFileListRequest </span><span class="string">"FTC_LSRQ"</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbFileDownloadRequest </span><span class="string">"FTC_DNRQ"</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbFileUploadRequest </span><span class="string">"FTC_UPRQ"</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbFileUploadData </span><span class="string">"FTC_UPDT"</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbFileDownloadCancel </span><span class="string">"FTC_DNCN"</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbFileUploadFailed </span><span class="string">"FTC_UPFL"</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbFileCreateDirRequest </span><span class="string">"FTC_FCDR"</span>
+
+<span class="comment">/*****************************************************************************</span>
+<span class="comment"> *</span>
+<span class="comment"> * Encoding types</span>
+<span class="comment"> *</span>
+<span class="comment"> *****************************************************************************/</span>
+
+<span class="preproc">#define</span><span class="normal"> rfbEncodingRaw       </span><span class="number">0</span>
+<span class="preproc">#define</span><span class="normal"> rfbEncodingCopyRect  </span><span class="number">1</span>
+<span class="preproc">#define</span><span class="normal"> rfbEncodingRRE       </span><span class="number">2</span>
+<span class="preproc">#define</span><span class="normal"> rfbEncodingCoRRE     </span><span class="number">4</span>
+<span class="preproc">#define</span><span class="normal"> rfbEncodingHextile   </span><span class="number">5</span>
+<span class="preproc">#define</span><span class="normal"> rfbEncodingZlib      </span><span class="number">6</span>
+<span class="preproc">#define</span><span class="normal"> rfbEncodingTight     </span><span class="number">7</span>
+<span class="preproc">#define</span><span class="normal"> rfbEncodingZlibHex   </span><span class="number">8</span>
+<span class="preproc">#define</span><span class="normal"> rfbEncodingZRLE     </span><span class="number">16</span>
+
+<span class="comment">/* signatures for basic encoding types */</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbEncodingRaw       </span><span class="string">"RAW_____"</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbEncodingCopyRect  </span><span class="string">"COPYRECT"</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbEncodingRRE       </span><span class="string">"RRE_____"</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbEncodingCoRRE     </span><span class="string">"CORRE___"</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbEncodingHextile   </span><span class="string">"HEXTILE_"</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbEncodingZlib      </span><span class="string">"ZLIB____"</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbEncodingTight     </span><span class="string">"TIGHT___"</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbEncodingZlibHex   </span><span class="string">"ZLIBHEX_"</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbEncodingZRLE      </span><span class="string">"ZRLE____"</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Special encoding numbers:</span>
+<span class="comment"> *   0xFFFFFF00 .. 0xFFFFFF0F -- encoding-specific compression levels;</span>
+<span class="comment"> *   0xFFFFFF10 .. 0xFFFFFF1F -- mouse cursor shape data;</span>
+<span class="comment"> *   0xFFFFFF20 .. 0xFFFFFF2F -- various protocol extensions;</span>
+<span class="comment"> *   0xFFFFFF30 .. 0xFFFFFFDF -- not allocated yet;</span>
+<span class="comment"> *   0xFFFFFFE0 .. 0xFFFFFFEF -- quality level for JPEG compressor;</span>
+<span class="comment"> *   0xFFFFFFF0 .. 0xFFFFFFFF -- not allocated yet.</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#define</span><span class="normal"> rfbEncodingCompressLevel0  </span><span class="number">0xFFFFFF00</span>
+<span class="preproc">#define</span><span class="normal"> rfbEncodingCompressLevel1  </span><span class="number">0xFFFFFF01</span>
+<span class="preproc">#define</span><span class="normal"> rfbEncodingCompressLevel2  </span><span class="number">0xFFFFFF02</span>
+<span class="preproc">#define</span><span class="normal"> rfbEncodingCompressLevel3  </span><span class="number">0xFFFFFF03</span>
+<span class="preproc">#define</span><span class="normal"> rfbEncodingCompressLevel4  </span><span class="number">0xFFFFFF04</span>
+<span class="preproc">#define</span><span class="normal"> rfbEncodingCompressLevel5  </span><span class="number">0xFFFFFF05</span>
+<span class="preproc">#define</span><span class="normal"> rfbEncodingCompressLevel6  </span><span class="number">0xFFFFFF06</span>
+<span class="preproc">#define</span><span class="normal"> rfbEncodingCompressLevel7  </span><span class="number">0xFFFFFF07</span>
+<span class="preproc">#define</span><span class="normal"> rfbEncodingCompressLevel8  </span><span class="number">0xFFFFFF08</span>
+<span class="preproc">#define</span><span class="normal"> rfbEncodingCompressLevel9  </span><span class="number">0xFFFFFF09</span>
+
+<span class="preproc">#define</span><span class="normal"> rfbEncodingXCursor         </span><span class="number">0xFFFFFF10</span>
+<span class="preproc">#define</span><span class="normal"> rfbEncodingRichCursor      </span><span class="number">0xFFFFFF11</span>
+<span class="preproc">#define</span><span class="normal"> rfbEncodingPointerPos      </span><span class="number">0xFFFFFF18</span>
+
+<span class="preproc">#define</span><span class="normal"> rfbEncodingLastRect        </span><span class="number">0xFFFFFF20</span>
+<span class="preproc">#define</span><span class="normal"> rfbEncodingNewFBSize       </span><span class="number">0xFFFFFF21</span>
+
+<span class="preproc">#define</span><span class="normal"> rfbEncodingQualityLevel0   </span><span class="number">0xFFFFFFE0</span>
+<span class="preproc">#define</span><span class="normal"> rfbEncodingQualityLevel1   </span><span class="number">0xFFFFFFE1</span>
+<span class="preproc">#define</span><span class="normal"> rfbEncodingQualityLevel2   </span><span class="number">0xFFFFFFE2</span>
+<span class="preproc">#define</span><span class="normal"> rfbEncodingQualityLevel3   </span><span class="number">0xFFFFFFE3</span>
+<span class="preproc">#define</span><span class="normal"> rfbEncodingQualityLevel4   </span><span class="number">0xFFFFFFE4</span>
+<span class="preproc">#define</span><span class="normal"> rfbEncodingQualityLevel5   </span><span class="number">0xFFFFFFE5</span>
+<span class="preproc">#define</span><span class="normal"> rfbEncodingQualityLevel6   </span><span class="number">0xFFFFFFE6</span>
+<span class="preproc">#define</span><span class="normal"> rfbEncodingQualityLevel7   </span><span class="number">0xFFFFFFE7</span>
+<span class="preproc">#define</span><span class="normal"> rfbEncodingQualityLevel8   </span><span class="number">0xFFFFFFE8</span>
+<span class="preproc">#define</span><span class="normal"> rfbEncodingQualityLevel9   </span><span class="number">0xFFFFFFE9</span>
+
+<span class="comment">/* signatures for "fake" encoding types */</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbEncodingCompressLevel0  </span><span class="string">"COMPRLVL"</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbEncodingXCursor         </span><span class="string">"X11CURSR"</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbEncodingRichCursor      </span><span class="string">"RCHCURSR"</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbEncodingPointerPos      </span><span class="string">"POINTPOS"</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbEncodingLastRect        </span><span class="string">"LASTRECT"</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbEncodingNewFBSize       </span><span class="string">"NEWFBSIZ"</span>
+<span class="preproc">#define</span><span class="normal"> sig_rfbEncodingQualityLevel0   </span><span class="string">"JPEGQLVL"</span>
+
+
+<span class="comment">/*****************************************************************************</span>
+<span class="comment"> *</span>
+<span class="comment"> * Server -&gt; client message definitions</span>
+<span class="comment"> *</span>
+<span class="comment"> *****************************************************************************/</span>
+
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * FramebufferUpdate - a block of rectangles to be copied to the framebuffer.</span>
+<span class="comment"> *</span>
+<span class="comment"> * This message consists of a header giving the number of rectangles of pixel</span>
+<span class="comment"> * data followed by the rectangles themselves.  The header is padded so that</span>
+<span class="comment"> * together with the type byte it is an exact multiple of 4 bytes (to help</span>
+<span class="comment"> * with alignment of 32-bit pixels):</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbFramebufferUpdateMsg</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> type</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* always rfbFramebufferUpdate */</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> pad</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> nRects</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* followed by nRects rectangles */</span>
+<span class="cbracket">}</span><span class="normal"> rfbFramebufferUpdateMsg</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbFramebufferUpdateMsg </span><span class="number">4</span>
+
+<span class="comment">/*</span>
+<span class="comment"> * Each rectangle of pixel data consists of a header describing the position</span>
+<span class="comment"> * and size of the rectangle and a type word describing the encoding of the</span>
+<span class="comment"> * pixel data, followed finally by the pixel data.  Note that if the client has</span>
+<span class="comment"> * not sent a SetEncodings message then it will only receive raw pixel data.</span>
+<span class="comment"> * Also note again that this structure is a multiple of 4 bytes.</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbFramebufferUpdateRectHeader</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">rfbRectangle</span><span class="normal"> r</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD32</span><span class="normal"> encoding</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* one of the encoding types rfbEncoding... */</span>
+<span class="cbracket">}</span><span class="normal"> rfbFramebufferUpdateRectHeader</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">sz_rfbFramebufferUpdateRectHeader</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">sz_rfbRectangle </span><span class="symbol">+</span><span class="normal"> </span><span class="number">4</span><span class="symbol">)</span>
+
+
+<span class="comment">/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span>
+<span class="comment"> * Raw Encoding.  Pixels are sent in top-to-bottom scanline order,</span>
+<span class="comment"> * left-to-right within a scanline with no padding in between.</span>
+<span class="comment"> */</span>
+
+
+<span class="comment">/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span>
+<span class="comment"> * CopyRect Encoding.  The pixels are specified simply by the x and y position</span>
+<span class="comment"> * of the source rectangle.</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbCopyRect</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> srcX</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> srcY</span><span class="symbol">;</span>
+<span class="cbracket">}</span><span class="normal"> rfbCopyRect</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbCopyRect </span><span class="number">4</span>
+
+
+<span class="comment">/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span>
+<span class="comment"> * RRE - Rise-and-Run-length Encoding.  We have an rfbRREHeader structure</span>
+<span class="comment"> * giving the number of subrectangles following.  Finally the data follows in</span>
+<span class="comment"> * the form [&lt;bgpixel&gt;&lt;subrect&gt;&lt;subrect&gt;...] where each &lt;subrect&gt; is</span>
+<span class="comment"> * [&lt;pixel&gt;&lt;rfbRectangle&gt;].</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbRREHeader</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD32</span><span class="normal"> nSubrects</span><span class="symbol">;</span>
+<span class="cbracket">}</span><span class="normal"> rfbRREHeader</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbRREHeader </span><span class="number">4</span>
+
+
+<span class="comment">/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span>
+<span class="comment"> * CoRRE - Compact RRE Encoding.  We have an rfbRREHeader structure giving</span>
+<span class="comment"> * the number of subrectangles following.  Finally the data follows in the form</span>
+<span class="comment"> * [&lt;bgpixel&gt;&lt;subrect&gt;&lt;subrect&gt;...] where each &lt;subrect&gt; is</span>
+<span class="comment"> * [&lt;pixel&gt;&lt;rfbCoRRERectangle&gt;].  This means that</span>
+<span class="comment"> * the whole rectangle must be at most 255x255 pixels.</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbCoRRERectangle</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> x</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> y</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> w</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> h</span><span class="symbol">;</span>
+<span class="cbracket">}</span><span class="normal"> rfbCoRRERectangle</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbCoRRERectangle </span><span class="number">4</span>
+
+
+<span class="comment">/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span>
+<span class="comment"> * Hextile Encoding.  The rectangle is divided up into "tiles" of 16x16 pixels,</span>
+<span class="comment"> * starting at the top left going in left-to-right, top-to-bottom order.  If</span>
+<span class="comment"> * the width of the rectangle is not an exact multiple of 16 then the width of</span>
+<span class="comment"> * the last tile in each row will be correspondingly smaller.  Similarly if the</span>
+<span class="comment"> * height is not an exact multiple of 16 then the height of each tile in the</span>
+<span class="comment"> * final row will also be smaller.  Each tile begins with a "subencoding" type</span>
+<span class="comment"> * byte, which is a mask made up of a number of bits.  If the Raw bit is set</span>
+<span class="comment"> * then the other bits are irrelevant; w*h pixel values follow (where w and h</span>
+<span class="comment"> * are the width and height of the tile).  Otherwise the tile is encoded in a</span>
+<span class="comment"> * similar way to RRE, except that the position and size of each subrectangle</span>
+<span class="comment"> * can be specified in just two bytes.  The other bits in the mask are as</span>
+<span class="comment"> * follows:</span>
+<span class="comment"> *</span>
+<span class="comment"> * BackgroundSpecified - if set, a pixel value follows which specifies</span>
+<span class="comment"> *    the background colour for this tile.  The first non-raw tile in a</span>
+<span class="comment"> *    rectangle must have this bit set.  If this bit isn't set then the</span>
+<span class="comment"> *    background is the same as the last tile.</span>
+<span class="comment"> *</span>
+<span class="comment"> * ForegroundSpecified - if set, a pixel value follows which specifies</span>
+<span class="comment"> *    the foreground colour to be used for all subrectangles in this tile.</span>
+<span class="comment"> *    If this bit is set then the SubrectsColoured bit must be zero.</span>
+<span class="comment"> *</span>
+<span class="comment"> * AnySubrects - if set, a single byte follows giving the number of</span>
+<span class="comment"> *    subrectangles following.  If not set, there are no subrectangles (i.e.</span>
+<span class="comment"> *    the whole tile is just solid background colour).</span>
+<span class="comment"> *</span>
+<span class="comment"> * SubrectsColoured - if set then each subrectangle is preceded by a pixel</span>
+<span class="comment"> *    value giving the colour of that subrectangle.  If not set, all</span>
+<span class="comment"> *    subrectangles are the same colour, the foreground colour;  if the</span>
+<span class="comment"> *    ForegroundSpecified bit wasn't set then the foreground is the same as</span>
+<span class="comment"> *    the last tile.</span>
+<span class="comment"> *</span>
+<span class="comment"> * The position and size of each subrectangle is specified in two bytes.  The</span>
+<span class="comment"> * Pack macros below can be used to generate the two bytes from x, y, w, h,</span>
+<span class="comment"> * and the Extract macros can be used to extract the x, y, w, h values from</span>
+<span class="comment"> * the two bytes.</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">rfbHextileRaw</span><span class="normal">			</span><span class="symbol">(</span><span class="number">1</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">rfbHextileBackgroundSpecified</span><span class="normal">	</span><span class="symbol">(</span><span class="number">1</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">rfbHextileForegroundSpecified</span><span class="normal">	</span><span class="symbol">(</span><span class="number">1</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="number">2</span><span class="symbol">)</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">rfbHextileAnySubrects</span><span class="normal">		</span><span class="symbol">(</span><span class="number">1</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="number">3</span><span class="symbol">)</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">rfbHextileSubrectsColoured</span><span class="normal">	</span><span class="symbol">(</span><span class="number">1</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="number">4</span><span class="symbol">)</span>
+
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">rfbHextilePackXY</span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">,</span><span class="normal">y</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(((</span><span class="normal">x</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="number">4</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">|</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">y</span><span class="symbol">))</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">rfbHextilePackWH</span><span class="symbol">(</span><span class="normal">w</span><span class="symbol">,</span><span class="normal">h</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((((</span><span class="normal">w</span><span class="symbol">)-</span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="number">4</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">|</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">h</span><span class="symbol">)-</span><span class="number">1</span><span class="symbol">))</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">rfbHextileExtractX</span><span class="symbol">(</span><span class="normal">byte</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">byte</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&gt;&gt;</span><span class="normal"> </span><span class="number">4</span><span class="symbol">)</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">rfbHextileExtractY</span><span class="symbol">(</span><span class="normal">byte</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">byte</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="number">0xf</span><span class="symbol">)</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">rfbHextileExtractW</span><span class="symbol">(</span><span class="normal">byte</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(((</span><span class="normal">byte</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&gt;&gt;</span><span class="normal"> </span><span class="number">4</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">rfbHextileExtractH</span><span class="symbol">(</span><span class="normal">byte</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(((</span><span class="normal">byte</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="number">0xf</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span>
+
+<span class="comment">/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span>
+<span class="comment"> * ZLIB - zlib compression Encoding.  We have an rfbZlibHeader structure</span>
+<span class="comment"> * giving the number of bytes to follow.  Finally the data follows in</span>
+<span class="comment"> * zlib compressed format.</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbZlibHeader</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD32</span><span class="normal"> nBytes</span><span class="symbol">;</span>
+<span class="cbracket">}</span><span class="normal"> rfbZlibHeader</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbZlibHeader </span><span class="number">4</span>
+
+
+<span class="comment">/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span>
+<span class="comment"> * Tight Encoding.</span>
+<span class="comment"> *</span>
+<span class="comment"> *-- The first byte of each Tight-encoded rectangle is a "compression control</span>
+<span class="comment"> *   byte". Its format is as follows (bit 0 is the least significant one):</span>
+<span class="comment"> *</span>
+<span class="comment"> *   bit 0:    if 1, then compression stream 0 should be reset;</span>
+<span class="comment"> *   bit 1:    if 1, then compression stream 1 should be reset;</span>
+<span class="comment"> *   bit 2:    if 1, then compression stream 2 should be reset;</span>
+<span class="comment"> *   bit 3:    if 1, then compression stream 3 should be reset;</span>
+<span class="comment"> *   bits 7-4: if 1000 (0x08), then the compression type is "fill",</span>
+<span class="comment"> *             if 1001 (0x09), then the compression type is "jpeg",</span>
+<span class="comment"> *             if 0xxx, then the compression type is "basic",</span>
+<span class="comment"> *             values greater than 1001 are not valid.</span>
+<span class="comment"> *</span>
+<span class="comment"> * If the compression type is "basic", then bits 6..4 of the</span>
+<span class="comment"> * compression control byte (those xxx in 0xxx) specify the following:</span>
+<span class="comment"> *</span>
+<span class="comment"> *   bits 5-4:  decimal representation is the index of a particular zlib</span>
+<span class="comment"> *              stream which should be used for decompressing the data;</span>
+<span class="comment"> *   bit 6:     if 1, then a "filter id" byte is following this byte.</span>
+<span class="comment"> *</span>
+<span class="comment"> *-- The data that follows after the compression control byte described</span>
+<span class="comment"> * above depends on the compression type ("fill", "jpeg" or "basic").</span>
+<span class="comment"> *</span>
+<span class="comment"> *-- If the compression type is "fill", then the only pixel value follows, in</span>
+<span class="comment"> * client pixel format (see NOTE 1). This value applies to all pixels of the</span>
+<span class="comment"> * rectangle.</span>
+<span class="comment"> *</span>
+<span class="comment"> *-- If the compression type is "jpeg", the following data stream looks like</span>
+<span class="comment"> * this:</span>
+<span class="comment"> *</span>
+<span class="comment"> *   1..3 bytes:  data size (N) in compact representation;</span>
+<span class="comment"> *   N bytes:     JPEG image.</span>
+<span class="comment"> *</span>
+<span class="comment"> * Data size is compactly represented in one, two or three bytes, according</span>
+<span class="comment"> * to the following scheme:</span>
+<span class="comment"> *</span>
+<span class="comment"> *  0xxxxxxx                    (for values 0..127)</span>
+<span class="comment"> *  1xxxxxxx 0yyyyyyy           (for values 128..16383)</span>
+<span class="comment"> *  1xxxxxxx 1yyyyyyy zzzzzzzz  (for values 16384..4194303)</span>
+<span class="comment"> *</span>
+<span class="comment"> * Here each character denotes one bit, xxxxxxx are the least significant 7</span>
+<span class="comment"> * bits of the value (bits 0-6), yyyyyyy are bits 7-13, and zzzzzzzz are the</span>
+<span class="comment"> * most significant 8 bits (bits 14-21). For example, decimal value 10000</span>
+<span class="comment"> * should be represented as two bytes: binary 10010000 01001110, or</span>
+<span class="comment"> * hexadecimal 90 4E.</span>
+<span class="comment"> *</span>
+<span class="comment"> *-- If the compression type is "basic" and bit 6 of the compression control</span>
+<span class="comment"> * byte was set to 1, then the next (second) byte specifies "filter id" which</span>
+<span class="comment"> * tells the decoder what filter type was used by the encoder to pre-process</span>
+<span class="comment"> * pixel data before the compression. The "filter id" byte can be one of the</span>
+<span class="comment"> * following:</span>
+<span class="comment"> *</span>
+<span class="comment"> *   0:  no filter ("copy" filter);</span>
+<span class="comment"> *   1:  "palette" filter;</span>
+<span class="comment"> *   2:  "gradient" filter.</span>
+<span class="comment"> *</span>
+<span class="comment"> *-- If bit 6 of the compression control byte is set to 0 (no "filter id"</span>
+<span class="comment"> * byte), or if the filter id is 0, then raw pixel values in the client</span>
+<span class="comment"> * format (see NOTE 1) will be compressed. See below details on the</span>
+<span class="comment"> * compression.</span>
+<span class="comment"> *</span>
+<span class="comment"> *-- The "gradient" filter pre-processes pixel data with a simple algorithm</span>
+<span class="comment"> * which converts each color component to a difference between a "predicted"</span>
+<span class="comment"> * intensity and the actual intensity. Such a technique does not affect</span>
+<span class="comment"> * uncompressed data size, but helps to compress photo-like images better. </span>
+<span class="comment"> * Pseudo-code for converting intensities to differences is the following:</span>
+<span class="comment"> *</span>
+<span class="comment"> *   P[i,j] := V[i-1,j] + V[i,j-1] - V[i-1,j-1];</span>
+<span class="comment"> *   if (P[i,j] &lt; 0) then P[i,j] := 0;</span>
+<span class="comment"> *   if (P[i,j] &gt; MAX) then P[i,j] := MAX;</span>
+<span class="comment"> *   D[i,j] := V[i,j] - P[i,j];</span>
+<span class="comment"> *</span>
+<span class="comment"> * Here V[i,j] is the intensity of a color component for a pixel at</span>
+<span class="comment"> * coordinates (i,j). MAX is the maximum value of intensity for a color</span>
+<span class="comment"> * component.</span>
+<span class="comment"> *</span>
+<span class="comment"> *-- The "palette" filter converts true-color pixel data to indexed colors</span>
+<span class="comment"> * and a palette which can consist of 2..256 colors. If the number of colors</span>
+<span class="comment"> * is 2, then each pixel is encoded in 1 bit, otherwise 8 bits is used to</span>
+<span class="comment"> * encode one pixel. 1-bit encoding is performed such way that the most</span>
+<span class="comment"> * significant bits correspond to the leftmost pixels, and each raw of pixels</span>
+<span class="comment"> * is aligned to the byte boundary. When "palette" filter is used, the</span>
+<span class="comment"> * palette is sent before the pixel data. The palette begins with an unsigned</span>
+<span class="comment"> * byte which value is the number of colors in the palette minus 1 (i.e. 1</span>
+<span class="comment"> * means 2 colors, 255 means 256 colors in the palette). Then follows the</span>
+<span class="comment"> * palette itself which consist of pixel values in client pixel format (see</span>
+<span class="comment"> * NOTE 1).</span>
+<span class="comment"> *</span>
+<span class="comment"> *-- The pixel data is compressed using the zlib library. But if the data</span>
+<span class="comment"> * size after applying the filter but before the compression is less then 12,</span>
+<span class="comment"> * then the data is sent as is, uncompressed. Four separate zlib streams</span>
+<span class="comment"> * (0..3) can be used and the decoder should read the actual stream id from</span>
+<span class="comment"> * the compression control byte (see NOTE 2).</span>
+<span class="comment"> *</span>
+<span class="comment"> * If the compression is not used, then the pixel data is sent as is,</span>
+<span class="comment"> * otherwise the data stream looks like this:</span>
+<span class="comment"> *</span>
+<span class="comment"> *   1..3 bytes:  data size (N) in compact representation;</span>
+<span class="comment"> *   N bytes:     zlib-compressed data.</span>
+<span class="comment"> *</span>
+<span class="comment"> * Data size is compactly represented in one, two or three bytes, just like</span>
+<span class="comment"> * in the "jpeg" compression method (see above).</span>
+<span class="comment"> *</span>
+<span class="comment"> *-- NOTE 1. If the color depth is 24, and all three color components are</span>
+<span class="comment"> * 8-bit wide, then one pixel in Tight encoding is always represented by</span>
+<span class="comment"> * three bytes, where the first byte is red component, the second byte is</span>
+<span class="comment"> * green component, and the third byte is blue component of the pixel color</span>
+<span class="comment"> * value. This applies to colors in palettes as well.</span>
+<span class="comment"> *</span>
+<span class="comment"> *-- NOTE 2. The decoder must reset compression streams' states before</span>
+<span class="comment"> * decoding the rectangle, if some of bits 0,1,2,3 in the compression control</span>
+<span class="comment"> * byte are set to 1. Note that the decoder must reset zlib streams even if</span>
+<span class="comment"> * the compression type is "fill" or "jpeg".</span>
+<span class="comment"> *</span>
+<span class="comment"> *-- NOTE 3. The "gradient" filter and "jpeg" compression may be used only</span>
+<span class="comment"> * when bits-per-pixel value is either 16 or 32, not 8.</span>
+<span class="comment"> *</span>
+<span class="comment"> *-- NOTE 4. The width of any Tight-encoded rectangle cannot exceed 2048</span>
+<span class="comment"> * pixels. If a rectangle is wider, it must be split into several rectangles</span>
+<span class="comment"> * and each one should be encoded separately.</span>
+<span class="comment"> *</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#define</span><span class="normal"> rfbTightExplicitFilter         </span><span class="number">0x04</span>
+<span class="preproc">#define</span><span class="normal"> rfbTightFill                   </span><span class="number">0x08</span>
+<span class="preproc">#define</span><span class="normal"> rfbTightJpeg                   </span><span class="number">0x09</span>
+<span class="preproc">#define</span><span class="normal"> rfbTightMaxSubencoding         </span><span class="number">0x09</span>
+
+<span class="comment">/* Filters to improve compression efficiency */</span>
+<span class="preproc">#define</span><span class="normal"> rfbTightFilterCopy             </span><span class="number">0x00</span>
+<span class="preproc">#define</span><span class="normal"> rfbTightFilterPalette          </span><span class="number">0x01</span>
+<span class="preproc">#define</span><span class="normal"> rfbTightFilterGradient         </span><span class="number">0x02</span>
+
+
+<span class="comment">/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span>
+<span class="comment"> * ZLIBHEX - zlib compressed Hextile Encoding.  Essentially, this is the</span>
+<span class="comment"> * hextile encoding with zlib compression on the tiles that can not be</span>
+<span class="comment"> * efficiently encoded with one of the other hextile subencodings.  The</span>
+<span class="comment"> * new zlib subencoding uses two bytes to specify the length of the</span>
+<span class="comment"> * compressed tile and then the compressed data follows.  As with the</span>
+<span class="comment"> * raw sub-encoding, the zlib subencoding invalidates the other</span>
+<span class="comment"> * values, if they are also set.</span>
+<span class="comment"> */</span>
+
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">rfbHextileZlibRaw</span><span class="normal">		</span><span class="symbol">(</span><span class="number">1</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="number">5</span><span class="symbol">)</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">rfbHextileZlibHex</span><span class="normal">		</span><span class="symbol">(</span><span class="number">1</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="number">6</span><span class="symbol">)</span>
+
+
+<span class="comment">/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span>
+<span class="comment"> * XCursor encoding. This is a special encoding used to transmit X-style</span>
+<span class="comment"> * cursor shapes from server to clients. Note that for this encoding,</span>
+<span class="comment"> * coordinates in rfbFramebufferUpdateRectHeader structure hold hotspot</span>
+<span class="comment"> * position (r.x, r.y) and cursor size (r.w, r.h). If (w * h != 0), two RGB</span>
+<span class="comment"> * samples are sent after header in the rfbXCursorColors structure. They</span>
+<span class="comment"> * denote foreground and background colors of the cursor. If a client</span>
+<span class="comment"> * supports only black-and-white cursors, it should ignore these colors and</span>
+<span class="comment"> * assume that foreground is black and background is white. Next, two bitmaps</span>
+<span class="comment"> * (1 bits per pixel) follow: first one with actual data (value 0 denotes</span>
+<span class="comment"> * background color, value 1 denotes foreground color), second one with</span>
+<span class="comment"> * transparency data (bits with zero value mean that these pixels are</span>
+<span class="comment"> * transparent). Both bitmaps represent cursor data in a byte stream, from</span>
+<span class="comment"> * left to right, from top to bottom, and each row is byte-aligned. Most</span>
+<span class="comment"> * significant bits correspond to leftmost pixels. The number of bytes in</span>
+<span class="comment"> * each row can be calculated as ((w + 7) / 8). If (w * h == 0), cursor</span>
+<span class="comment"> * should be hidden (or default local cursor should be set by the client).</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbXCursorColors</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> foreRed</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> foreGreen</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> foreBlue</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> backRed</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> backGreen</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> backBlue</span><span class="symbol">;</span>
+<span class="cbracket">}</span><span class="normal"> rfbXCursorColors</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbXCursorColors </span><span class="number">6</span>
+
+
+<span class="comment">/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span>
+<span class="comment"> * RichCursor encoding. This is a special encoding used to transmit cursor</span>
+<span class="comment"> * shapes from server to clients. It is similar to the XCursor encoding but</span>
+<span class="comment"> * uses client pixel format instead of two RGB colors to represent cursor</span>
+<span class="comment"> * image. For this encoding, coordinates in rfbFramebufferUpdateRectHeader</span>
+<span class="comment"> * structure hold hotspot position (r.x, r.y) and cursor size (r.w, r.h).</span>
+<span class="comment"> * After header, two pixmaps follow: first one with cursor image in current</span>
+<span class="comment"> * client pixel format (like in raw encoding), second with transparency data</span>
+<span class="comment"> * (1 bit per pixel, exactly the same format as used for transparency bitmap</span>
+<span class="comment"> * in the XCursor encoding). If (w * h == 0), cursor should be hidden (or</span>
+<span class="comment"> * default local cursor should be set by the client).</span>
+<span class="comment"> */</span>
+
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * SetColourMapEntries - these messages are only sent if the pixel</span>
+<span class="comment"> * format uses a "colour map" (i.e. trueColour false) and the client has not</span>
+<span class="comment"> * fixed the entire colour map using FixColourMapEntries.  In addition they</span>
+<span class="comment"> * will only start being sent after the client has sent its first</span>
+<span class="comment"> * FramebufferUpdateRequest.  So if the client always tells the server to use</span>
+<span class="comment"> * trueColour then it never needs to process this type of message.</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbSetColourMapEntriesMsg</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> type</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* always rfbSetColourMapEntries */</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> pad</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> firstColour</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> nColours</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/* Followed by nColours * 3 * CARD16</span>
+<span class="comment">       r1, g1, b1, r2, g2, b2, r3, g3, b3, ..., rn, bn, gn */</span>
+
+<span class="cbracket">}</span><span class="normal"> rfbSetColourMapEntriesMsg</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbSetColourMapEntriesMsg </span><span class="number">6</span>
+
+
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * Bell - ring a bell on the client if it has one.</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbBellMsg</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> type</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* always rfbBell */</span>
+<span class="cbracket">}</span><span class="normal"> rfbBellMsg</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbBellMsg </span><span class="number">1</span>
+
+
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * ServerCutText - the server has new text in its cut buffer.</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbServerCutTextMsg</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> type</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* always rfbServerCutText */</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> pad1</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> pad2</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD32</span><span class="normal"> length</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* followed by char text[length] */</span>
+<span class="cbracket">}</span><span class="normal"> rfbServerCutTextMsg</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbServerCutTextMsg </span><span class="number">8</span>
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * FileListData</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbFileListDataMsg</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> type</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> flags</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> numFiles</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> dataSize</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> compressedSize</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* Followed by SizeData[numFiles] */</span>
+<span class="normal">    </span><span class="comment">/* Followed by Filenames[compressedSize] */</span>
+<span class="cbracket">}</span><span class="normal"> rfbFileListDataMsg</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbFileListDataMsg </span><span class="number">8</span>
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * FileDownloadData</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbFileDownloadDataMsg</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> type</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> compressLevel</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> realSize</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> compressedSize</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* Followed by File[copressedSize], </span>
+<span class="comment">       but if (realSize = compressedSize = 0) followed by CARD32 modTime  */</span>
+<span class="cbracket">}</span><span class="normal"> rfbFileDownloadDataMsg</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbFileDownloadDataMsg </span><span class="number">6</span>
+
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * FileUploadCancel</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbFileUploadCancelMsg</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> type</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> unused</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> reasonLen</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* Followed by reason[reasonLen] */</span>
+<span class="cbracket">}</span><span class="normal"> rfbFileUploadCancelMsg</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbFileUploadCancelMsg </span><span class="number">4</span>
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * FileDownloadFailed</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbFileDownloadFailedMsg</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> type</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> unused</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> reasonLen</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* Followed by reason[reasonLen] */</span>
+<span class="cbracket">}</span><span class="normal"> rfbFileDownloadFailedMsg</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbFileDownloadFailedMsg </span><span class="number">4</span>
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * Union of all server-&gt;client messages.</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">union</span><span class="normal"> _rfbServerToClientMsg </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> type</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">rfbFramebufferUpdateMsg</span><span class="normal"> fu</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">rfbSetColourMapEntriesMsg</span><span class="normal"> scme</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">rfbBellMsg</span><span class="normal"> b</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">rfbServerCutTextMsg</span><span class="normal"> sct</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">rfbFileListDataMsg</span><span class="normal"> fld</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">rfbFileDownloadDataMsg</span><span class="normal"> fdd</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">rfbFileUploadCancelMsg</span><span class="normal"> fuc</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">rfbFileDownloadFailedMsg</span><span class="normal"> fdf</span><span class="symbol">;</span>
+<span class="cbracket">}</span><span class="normal"> rfbServerToClientMsg</span><span class="symbol">;</span>
+
+
+
+<span class="comment">/*****************************************************************************</span>
+<span class="comment"> *</span>
+<span class="comment"> * Message definitions (client -&gt; server)</span>
+<span class="comment"> *</span>
+<span class="comment"> *****************************************************************************/</span>
+
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * SetPixelFormat - tell the RFB server the format in which the client wants</span>
+<span class="comment"> * pixels sent.</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbSetPixelFormatMsg</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> type</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* always rfbSetPixelFormat */</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> pad1</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> pad2</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">rfbPixelFormat</span><span class="normal"> format</span><span class="symbol">;</span>
+<span class="cbracket">}</span><span class="normal"> rfbSetPixelFormatMsg</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">sz_rfbSetPixelFormatMsg</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">sz_rfbPixelFormat </span><span class="symbol">+</span><span class="normal"> </span><span class="number">4</span><span class="symbol">)</span>
+
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * FixColourMapEntries - when the pixel format uses a "colour map", fix</span>
+<span class="comment"> * read-only colour map entries.</span>
+<span class="comment"> *</span>
+<span class="comment"> *    ***************** NOT CURRENTLY SUPPORTED *****************</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbFixColourMapEntriesMsg</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> type</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* always rfbFixColourMapEntries */</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> pad</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> firstColour</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> nColours</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">/* Followed by nColours * 3 * CARD16</span>
+<span class="comment">       r1, g1, b1, r2, g2, b2, r3, g3, b3, ..., rn, bn, gn */</span>
+
+<span class="cbracket">}</span><span class="normal"> rfbFixColourMapEntriesMsg</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbFixColourMapEntriesMsg </span><span class="number">6</span>
+
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * SetEncodings - tell the RFB server which encoding types we accept.  Put them</span>
+<span class="comment"> * in order of preference, if we have any.  We may always receive raw</span>
+<span class="comment"> * encoding, even if we don't specify it here.</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbSetEncodingsMsg</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> type</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* always rfbSetEncodings */</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> pad</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> nEncodings</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* followed by nEncodings * CARD32 encoding types */</span>
+<span class="cbracket">}</span><span class="normal"> rfbSetEncodingsMsg</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbSetEncodingsMsg </span><span class="number">4</span>
+
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * FramebufferUpdateRequest - request for a framebuffer update.  If incremental</span>
+<span class="comment"> * is true then the client just wants the changes since the last update.  If</span>
+<span class="comment"> * false then it wants the whole of the specified rectangle.</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbFramebufferUpdateRequestMsg</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> type</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* always rfbFramebufferUpdateRequest */</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> incremental</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> x</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> y</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> w</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> h</span><span class="symbol">;</span>
+<span class="cbracket">}</span><span class="normal"> rfbFramebufferUpdateRequestMsg</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbFramebufferUpdateRequestMsg </span><span class="number">10</span>
+
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * KeyEvent - key press or release</span>
+<span class="comment"> *</span>
+<span class="comment"> * Keys are specified using the "keysym" values defined by the X Window System.</span>
+<span class="comment"> * For most ordinary keys, the keysym is the same as the corresponding ASCII</span>
+<span class="comment"> * value.  Other common keys are:</span>
+<span class="comment"> *</span>
+<span class="comment"> * BackSpace		0xff08</span>
+<span class="comment"> * Tab			0xff09</span>
+<span class="comment"> * Return or Enter	0xff0d</span>
+<span class="comment"> * Escape		0xff1b</span>
+<span class="comment"> * Insert		0xff63</span>
+<span class="comment"> * Delete		0xffff</span>
+<span class="comment"> * Home			0xff50</span>
+<span class="comment"> * End			0xff57</span>
+<span class="comment"> * Page Up		0xff55</span>
+<span class="comment"> * Page Down		0xff56</span>
+<span class="comment"> * Left			0xff51</span>
+<span class="comment"> * Up			0xff52</span>
+<span class="comment"> * Right		0xff53</span>
+<span class="comment"> * Down			0xff54</span>
+<span class="comment"> * F1			0xffbe</span>
+<span class="comment"> * F2			0xffbf</span>
+<span class="comment"> * ...			...</span>
+<span class="comment"> * F12			0xffc9</span>
+<span class="comment"> * Shift		0xffe1</span>
+<span class="comment"> * Control		0xffe3</span>
+<span class="comment"> * Meta			0xffe7</span>
+<span class="comment"> * Alt			0xffe9</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbKeyEventMsg</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> type</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* always rfbKeyEvent */</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> down</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* true if down (press), false if up */</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> pad</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD32</span><span class="normal"> key</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* key is specified as an X keysym */</span>
+<span class="cbracket">}</span><span class="normal"> rfbKeyEventMsg</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbKeyEventMsg </span><span class="number">8</span>
+
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * PointerEvent - mouse/pen move and/or button press.</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbPointerEventMsg</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> type</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* always rfbPointerEvent */</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> buttonMask</span><span class="symbol">;</span><span class="normal">		</span><span class="comment">/* bits 0-7 are buttons 1-8, 0=up, 1=down */</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> x</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> y</span><span class="symbol">;</span>
+<span class="cbracket">}</span><span class="normal"> rfbPointerEventMsg</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> rfbButton1Mask </span><span class="number">1</span>
+<span class="preproc">#define</span><span class="normal"> rfbButton2Mask </span><span class="number">2</span>
+<span class="preproc">#define</span><span class="normal"> rfbButton3Mask </span><span class="number">4</span>
+<span class="preproc">#define</span><span class="normal"> rfbButton4Mask </span><span class="number">8</span>
+<span class="preproc">#define</span><span class="normal"> rfbButton5Mask </span><span class="number">16</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbPointerEventMsg </span><span class="number">6</span>
+
+
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * ClientCutText - the client has new text in its cut buffer.</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbClientCutTextMsg</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> type</span><span class="symbol">;</span><span class="normal">			</span><span class="comment">/* always rfbClientCutText */</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> pad1</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> pad2</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD32</span><span class="normal"> length</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* followed by char text[length] */</span>
+<span class="cbracket">}</span><span class="normal"> rfbClientCutTextMsg</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbClientCutTextMsg </span><span class="number">8</span>
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * FileListRequest</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbFileListRequestMsg</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> type</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> flags</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> dirNameSize</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* Followed by char Dirname[dirNameSize] */</span>
+<span class="cbracket">}</span><span class="normal"> rfbFileListRequestMsg</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbFileListRequestMsg </span><span class="number">4</span>
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * FileDownloadRequest</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbFileDownloadRequestMsg</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> type</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> compressedLevel</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> fNameSize</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD32</span><span class="normal"> position</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* Followed by char Filename[fNameSize] */</span>
+<span class="cbracket">}</span><span class="normal"> rfbFileDownloadRequestMsg</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbFileDownloadRequestMsg </span><span class="number">8</span>
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * FileUploadRequest</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbFileUploadRequestMsg</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> type</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> compressedLevel</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> fNameSize</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD32</span><span class="normal"> position</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* Followed by char Filename[fNameSize] */</span>
+<span class="cbracket">}</span><span class="normal"> rfbFileUploadRequestMsg</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbFileUploadRequestMsg </span><span class="number">8</span>
+
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * FileUploadData</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbFileUploadDataMsg</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> type</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> compressedLevel</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> realSize</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> compressedSize</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* Followed by File[compressedSize], </span>
+<span class="comment">       but if (realSize = compressedSize = 0) followed by CARD32 modTime  */</span>
+<span class="cbracket">}</span><span class="normal"> rfbFileUploadDataMsg</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbFileUploadDataMsg </span><span class="number">6</span>
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * FileDownloadCancel</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbFileDownloadCancelMsg</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> type</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> unused</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> reasonLen</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* Followed by reason[reasonLen] */</span>
+<span class="cbracket">}</span><span class="normal"> rfbFileDownloadCancelMsg</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbFileDownloadCancelMsg </span><span class="number">4</span>
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * FileUploadFailed</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbFileUploadFailedMsg</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> type</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> unused</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> reasonLen</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* Followed by reason[reasonLen] */</span>
+<span class="cbracket">}</span><span class="normal"> rfbFileUploadFailedMsg</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbFileUploadFailedMsg </span><span class="number">4</span>
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * FileCreateDirRequest</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="classname">_rfbFileCreateDirRequestMsg</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> type</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> unused</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">CARD16</span><span class="normal"> dNameLen</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">/* Followed by dName[dNameLen] */</span>
+<span class="cbracket">}</span><span class="normal"> rfbFileCreateDirRequestMsg</span><span class="symbol">;</span>
+
+<span class="preproc">#define</span><span class="normal"> sz_rfbFileCreateDirRequestMsg </span><span class="number">4</span>
+
+<span class="comment">/*-----------------------------------------------------------------------------</span>
+<span class="comment"> * Union of all client-&gt;server messages.</span>
+<span class="comment"> */</span>
+
+<span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">union</span><span class="normal"> _rfbClientToServerMsg </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="usertype">CARD8</span><span class="normal"> type</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">rfbSetPixelFormatMsg</span><span class="normal"> spf</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">rfbFixColourMapEntriesMsg</span><span class="normal"> fcme</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">rfbSetEncodingsMsg</span><span class="normal"> se</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">rfbFramebufferUpdateRequestMsg</span><span class="normal"> fur</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">rfbKeyEventMsg</span><span class="normal"> ke</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">rfbPointerEventMsg</span><span class="normal"> pe</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">rfbClientCutTextMsg</span><span class="normal"> cct</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">rfbFileListRequestMsg</span><span class="normal"> flr</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">rfbFileDownloadRequestMsg</span><span class="normal"> fdr</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">rfbFileUploadRequestMsg</span><span class="normal"> fupr</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">rfbFileUploadDataMsg</span><span class="normal"> fud</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">rfbFileDownloadCancelMsg</span><span class="normal"> fdc</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">rfbFileUploadFailedMsg</span><span class="normal"> fuf</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="usertype">rfbFileCreateDirRequestMsg</span><span class="normal"> fcdr</span><span class="symbol">;</span>
+<span class="cbracket">}</span><span class="normal"> rfbClientToServerMsg</span><span class="symbol">;</span>
+</tt></pre></div><div style="text-align: right; padding: 8pt; font-size: 12px"><a href="/xmlfeed/weblog-rss20.xml"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPAgMAAAAOp6AcAAAADFBMVEVmZmb/ZgD///+JjnlbTUWmAAAACXBIWXMAAABIAAAASABGyWs+AAAACXZwQWcAAABQAAAADwCexKkxAAAAWUlEQVQYlWNgwAa0VmGAFQyqoSCQ/x8J/CBFMCt0ZdTU/F/7/+1HEkydFpoKVPn+93sUlUujQvP/7UcRTAuNDJ2a//s/imDqtKVZofm/1qGYSZk7sfodGwAAiobBJtffoNAAAAAASUVORK5CYII=" alt="RSS 2.0 Weblog Feed" width="80" height="15"/></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPAgMAAAAOp6AcAAAADFBMVEVmZmb/ZgD///+JjnlbTUWmAAAAaklEQVQYlWNgwAa0VmGAFQyqoSCQ/x8J/CBFMDV16rTQ/H/7V//69+//v/3/9oMEI6cuAwr+fv/+/b5d///v//0eJBgWOhMo+Gs9UPAdXDBy6lSYyn9wQZCZS0GCYDPXQcykzJ1Y/Y4NAABKvL80wyoMPgAAAABJRU5ErkJggg==" alt="Atom 1.0 Weblog Feed" width="80" height="15"/></a> <a href="http://validator.w3.org/check?uri=referer"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAB1FBMVEUHQIgIRY0MN4QNRYoSRYsXUpIYVJQeUpUhWpgjUJMjWpgmU5QnXJkuYZ0uYpwwV5YyZJ4zaKM3ZaA5aaI6aqM6a6E8ZqA8Z6BAbaRBbqdCbaVHd61KSkpKcaZQUFBUf69UgbBVVVVXfq9Yg7NZhbJZh7RagrNeXVxeh7RfjLdgYGBiiLZmZmZnZ2doirhpkbt0m8F3m8B3ncJ5lb55ocR+ocSDgX+Do8eEpMqGhoaHp8iIpMeJjnmJpseKqMeOqsqPsdCQrcyVlZWVsM2Zs9CZtNCfu9ahoaGhuNShudSivNSjtMWjvNSmpqWnpqSrw9qvxNqyxdmyxdyzsK6zs7Ozx9y0xt21yN22tra4y+K80eK/v7/AwMDExMTEy9DH2ejK2+jM2ujN3uvP0dLR0NDR3uvS3uvS3+zU4u3V1dXY2dnY4u7Y4+3b5e/d3d3d5u/d5/De3t7f39/h4uLj4uHj6/Ll7PXm7fTn7/Xo7/Tp7/bq7Ozr6unr8ffw8PDw9vvx9fny+P7z8/Pz9vnz9vv3+fv4+vz5+vz6+vr6+/36/P36///7+/77/Pz7/f37/f78/Pz8/f38/f79/f39/f79/f/9/v79///+/v7+/v////3///+tYR2LAAABKklEQVQ4y2PQoTJg0JlNVYDPQBsyAMTAqaFes8tdsmdPCtA3MDStr3GKKK6myMAprgJ9pcpWs/MlRExYJBvNZLR0sigycHYOV1S7mtjsQJ4gf+HIFPXoWMs6qIGzIRiKZs9GFoEaMRuZhhrYqqJXy8uZYauRxC/VHew7e3YTPAxnI5swG6JxNrKBNjB1EFmIgV0+HA6C8pqqzhXG7BbJJROQIwViMYQ7G2oDQQNn57JyG7kxiCfObrBmS5+BHMuYLkTzMnYDm5WY4lOZZRPKZocxes+aPbuwCFsYohiICLvZsKBAMrDTQ7K/StveU8icTzrOL8JdLpOyWJ49u8Bx9ozw8DY7UYW03hhdxZAOSg2c3jN79rSJs1vSKmfOnpFXNJmynELlvExlAADnaZpLFGEC2wAAAABJRU5ErkJggg==" alt="Valid XHTML 1.1" width="80" height="15"/></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAB1FBMVEUHQIgIRY0MN4QNRYoSRYsXUpIYVJQeUpUhWpgjUJMjWpgmU5QnXJkuYZ0uYpwwV5YyZJ4zaKM3ZaA5aaI6aqM6a6E8ZqA8Z6BAbaRBbqdCbaVHd61KSkpKcaZQUFBUf69UgbBVVVVXfq9Yg7NZhbJZh7RagrNeXVxeh7RfjLdgYGBiiLZmZmZnZ2doirhpkbt0m8F3m8B3ncJ5lb55ocR+ocSDgX+Do8eEpMqGhoaHp8iIpMeJjnmJpseKqMeOqsqPsdCQrcyVlZWVsM2Zs9CZtNCfu9ahoaGhuNShudSivNSjtMWjvNSmpqWnpqSrw9qvxNqyxdmyxdyzsK6zs7Ozx9y0xt21yN22tra4y+K80eK/v7/AwMDExMTEy9DH2ejK2+jM2ujN3uvP0dLR0NDR3uvS3uvS3+zU4u3V1dXY2dnY4u7Y4+3b5e/d3d3d5u/d5/De3t7f39/h4uLj4uHj6/Ll7PXm7fTn7/Xo7/Tp7/bq7Ozr6unr8ffw8PDw9vvx9fny+P7z8/Pz9vnz9vv3+fv4+vz5+vz6+vr6+/36/P36///7+/77/Pz7/f37/f78/Pz8/f38/f79/f39/f79/f/9/v79///+/v7+/v////3///+tYR2LAAABEUlEQVQ4y2PQoTJg0JlNVYDPQBsyAMTAqaFes8tdsmdPCtA3MDStr3GKKK6myMAprgJ9pcpWs/MlRExYJBvNZLR0sigycHYOV1S7mtjsQJ4gf+HIFPXoWMs6mIEQCsIjwhKoga0qerW8nBm2Gkn8Ut3BvrNnN8HCcDYM2cBIogzs8uFwEJTXVHWuMGa3SC6ZgIgUqCEwdxJr4OxcVm4jNwbxxNkN1mzpM2ajGIjsPGK9PLtZiSk+lVk2oWx2GKP3rNmzC4tQwpDoIIQb2Okh2V+lbe8pZM4nHecX4S6XSVksz55d4Dh7Rnh4m52oQlpvjK5iSAelBk7vmT172sTZLWmVM2fPyCuaTFlOoXJepjIAANlljDGY/l5pAAAAAElFTkSuQmCC" alt="Valid CSS (2.1)" width="80" height="15"/></a><br/>Copyright 2005-2014 <a href="/about/">Timo Bingmann</a> - <a href="/about/impressum.html">Impressum</a></div><script type="text/javascript">var _paq = _paq || []; _paq.push(["trackPageView"]); _paq.push(["enableLinkTracking"]);(function() {var u=(("https:" == document.location.protocol) ? "https" : "http") + "://panthema.net/wik-331/"; _paq.push(["setTrackerUrl", u+"js/"]); _paq.push(["setSiteId", "2"]);var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";g.defer=true; g.async=true; g.src=u+"js/"; s.parentNode.insertBefore(g,s);})();</script><noscript><p><img src="http://panthema.net/wik-331/js/?idsite=2&amp;rec=1" style="border:0" alt="" /></p></noscript></body></html>
