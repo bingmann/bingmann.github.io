@@ -35,9 +35,29 @@ RewriteRule	^(.*)$		http://panthema.net$1 [R=301,L]
 RewriteCond     %{SERVER_PORT}  !^443$
 RewriteRule     ^/(oc-42.*)$    https://%{HTTP_HOST}/$1 [NC,R=301,L]
 
+# Subprograms
+
 RewriteRule     ^/wik-331(.*)$  /srv/www/panthema.net.piwik$1 [L]
 RewriteRule     ^/oc-42(.*)$    /srv/www/panthema.net.owncloud$1 [L]
 RewriteRule     ^/cgit(.*)$     /srv/www/panthema.net.cgit$1 [L]
+
+<IfDefine !DEKA>
+
+RewriteCond	%{HTTPS}	!=on
+RewriteRule	^/unitkd/forum(.*)	https://%{SERVER_NAME}/unitkd/forum$1 [R=301,L]
+
+RewriteCond	%{HTTPS}	!=on
+RewriteRule	^/unitkd/wiki(.*)	https://%{SERVER_NAME}/unitkd/wiki$1 [R=301,L]
+
+RewriteRule	^/unitkd[/]?$		http://www.rz.uni-karlsruhe.de/~el51/ [R=302,L]
+
+RewriteRule	^/unitkd/wiki$          /srv/www/idlebox.net/unitkd/wik/phase3/index.php [L,QSA]
+RewriteRule	^/unitkd/wiki/(.*)$     /srv/www/idlebox.net/unitkd/wik/phase3/index.php?title=$1 [L,QSA]
+RewriteRule	^/unitkd/wik(.*)$       /srv/www/idlebox.net/unitkd/wik$1 [L,QSA]
+
+RewriteRule	^/unitkd/forum(.*)$     /srv/www/idlebox.net/unitkd/forum$1 [L,QSA]
+
+</IfDefine>
 
 # Expiration Control
 
