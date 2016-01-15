@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><meta name="viewport" content="initial-scale=1"><title>/2016/0114-diploma-thesis/bispanning-graph-framework-v0.5/src/thread_pool.hpp - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="stylesheet" type="text/css" href="/css/fonts.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/js/base.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal6.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/"><i class="icon-book"></i> Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2016/">2016</a></li><li><a href="/2015/">2015</a></li><li><a href="/2014/">2014</a></li><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li class="nt"><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li><li class="ns"><a href="/search.html">Search</a></li></ul></li><li class="top"><a class="ni" href="/tags/"><i class="icon-tags"></i> Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 16pt" href="/tags/frontpage.html">frontpage</a> <a style="font-size: 14pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 9pt" href="/tags/massive-sorting.html">massive-sorting</a> <a style="font-size: 11pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 10pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 13pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 14pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 10pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 14pt" href="/tags/stxxl.html">stxxl</a> <a style="font-size: 16pt" href="/tags/talk.html">talk</a> <a style="font-size: 10pt" href="/tags/thrill.html">thrill</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 10pt" href="/tags/vncrec.html">vncrec</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"> <a class="ni" href="#"><i class="icon-cubes"></i> Projects</a> <ul style="margin-left: -8em; margin-top: 4px;" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2014/sqlplot-tools/">SqlPlotTools</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li><a href="/tags/stxxl.html">STXXL 1.4</a></li> <li class="nt"><a href="/2014/vncrec-rgb/">VNCrec RGB 0.4</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"> <a class="ni" href="#"><i class="icon-graduation-cap"></i> Research</a> <ul style="margin-left: -16em; margin-top: 4px" class="nx"> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP - External Memory Suffix Sorting</a></li> <li><a href="/2013/parallel-string-sorting/">Parallel String Sorting</a></li> <li><a href="/tags/massive-sorting.html">Practical Massively Parallel Sorting</a></li> <li><a href="/tags/stxxl.html">STXXL - External Memory Algorithms</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"> <a class="ni" href="/about/"><i class="icon-info-circled"></i> About</a> <ul style="margin-left: -6em; margin-top: 4px" class="nx"> <li><a href="/about/">Timo Bingmann</a></li> <li><a href="/about/impressum.html">Impressum</a></li> </ul></li><li class="top"> <a class="ni" href="/subscribe.html"><i class="icon-rss-squared"></i> Subscribe</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2016/">2016</a> / <a href="/2016/0114-diploma-thesis/">0114-diploma-thesis</a> / <a href="/2016/0114-diploma-thesis/bispanning-graph-framework-v0.5/">bispanning-graph-framework-v0.5</a> / <a href="/2016/0114-diploma-thesis/bispanning-graph-framework-v0.5/src/">src</a> / <a href="/2016/0114-diploma-thesis/bispanning-graph-framework-v0.5/src/thread_pool.hpp.html">thread_pool.hpp</a> (<a href="/2016/0114-diploma-thesis/bispanning-graph-framework-v0.5/src/thread_pool.hpp">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="comment">/*******************************************************************************</span>
+<span class="comment"> * src/thread_pool.hpp</span>
+<span class="comment"> *</span>
+<span class="comment"> * A ThreadPool of std::threads to work on jobs</span>
+<span class="comment"> *</span>
+<span class="comment"> * Copyright (C) 2015-2016 Timo Bingmann </span><span class="url">&lt;tb@panthema.net&gt;</span>
+<span class="comment"> *</span>
+<span class="comment"> * This program is free software: you can redistribute it and/or modify it under</span>
+<span class="comment"> * the terms of the GNU General Public License as published by the Free Software</span>
+<span class="comment"> * Foundation, either version 3 of the License, or (at your option) any later</span>
+<span class="comment"> * version.</span>
+<span class="comment"> *</span>
+<span class="comment"> * This program is distributed in the hope that it will be useful, but WITHOUT</span>
+<span class="comment"> * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS</span>
+<span class="comment"> * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more</span>
+<span class="comment"> * details.</span>
+<span class="comment"> *</span>
+<span class="comment"> * You should have received a copy of the GNU General Public License along with</span>
+<span class="comment"> * this program.  If not, see </span><span class="url">&lt;http://www.gnu.org/licenses/&gt;</span><span class="comment">.</span>
+<span class="comment"> ******************************************************************************/</span>
+
+<span class="preproc">#ifndef</span><span class="normal"> BISPANNING_THREAD_POOL_HEADER</span>
+<span class="preproc">#define</span><span class="normal"> BISPANNING_THREAD_POOL_HEADER</span>
+
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;atomic&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;cassert&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;condition_variable&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;deque&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;iostream&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;mutex&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;thread&gt;</span>
+<span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;vector&gt;</span>
+
+<span class="comment">/*!</span>
+<span class="comment"> * ThreadPool starts a fixed number p of std::threads which process Jobs that</span>
+<span class="comment"> * are \ref Enqueue "enqueued" into a concurrent job queue. The jobs</span>
+<span class="comment"> * themselves can enqueue more jobs that will be processed when a thread is</span>
+<span class="comment"> * ready.</span>
+<span class="comment"> *</span>
+<span class="comment"> * The ThreadPool can either run until</span>
+<span class="comment"> *</span>
+<span class="comment"> * 1. all jobs are done AND all threads are idle, when called with</span>
+<span class="comment"> * LoopUntilEmpty(), or</span>
+<span class="comment"> *</span>
+<span class="comment"> * 2. until Terminate() is called when run with LoopUntilTerminate().</span>
+<span class="comment"> *</span>
+<span class="comment"> * Jobs are plain std::function&lt;void()&gt; objects (actually: common::delegate),</span>
+<span class="comment"> * hence the pool user must pass in ALL CONTEXT himself. The best method to pass</span>
+<span class="comment"> * parameters to Jobs is to use lambda captures. Alternatively, old-school</span>
+<span class="comment"> * objects implementing operator(), or std::binds can be used.</span>
+<span class="comment"> *</span>
+<span class="comment"> * The ThreadPool uses a condition variable to wait for new jobs and does not</span>
+<span class="comment"> * remain busy waiting.</span>
+<span class="comment"> *</span>
+<span class="comment"> * Note that the threads in the pool start **before** the two loop functions are</span>
+<span class="comment"> * called. In case of LoopUntilEmpty() the threads continue to be idle</span>
+<span class="comment"> * afterwards, and can be reused, until the ThreadPool is destroyed.</span>
+
+<span class="comment">\code</span>
+<span class="comment">ThreadPool pool(4); // pool with 4 threads</span>
+
+<span class="comment">int value = 0;</span>
+<span class="comment">pool.Enqueue([&amp;value]() {</span>
+<span class="comment">  // increment value in another thread.</span>
+<span class="comment">  ++value;</span>
+<span class="comment">});</span>
+
+<span class="comment">pool.LoopUntilEmpty();</span>
+<span class="comment">\endcode</span>
+
+<span class="comment"> * ## Synchronization Primitives</span>
+<span class="comment"> *</span>
+<span class="comment"> * Beyond threads from the ThreadPool, the framework contains two fast</span>
+<span class="comment"> * synchronized queue containers:</span>
+<span class="comment"> *</span>
+<span class="comment"> * - \ref ConcurrentQueue</span>
+<span class="comment"> * - \ref ConcurrentBoundedQueue.</span>
+<span class="comment"> *</span>
+<span class="comment"> * If the Intel Thread Building Blocks are available, then these use their</span>
+<span class="comment"> * lock-free implementations, which are very fast, but do busy-waiting for</span>
+<span class="comment"> * items. Otherwise, compatible replacements are used.</span>
+<span class="comment"> *</span>
+<span class="comment"> * The \ref ConcurrentQueue has no busy-waiting pop(), only a try_pop()</span>
+<span class="comment"> * method. This should be preferred! The \ref ConcurrentBoundedQueue&lt;T&gt; has a</span>
+<span class="comment"> * blocking pop(), but it probably does busy-waiting.</span>
+<span class="comment"> */</span>
+<span class="keyword">class</span><span class="normal"> </span><span class="classname">ThreadPool</span>
+<span class="cbracket">{</span>
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="keyword">using</span><span class="normal"> Job </span><span class="symbol">=</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">function</span><span class="symbol">&lt;</span><span class="type">void</span><span class="symbol">()&gt;;</span>
+
+<span class="keyword">private</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">//! Deque of scheduled jobs.</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">deque&lt;Job&gt;</span><span class="normal"> jobs_</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">//! Mutex used to access the queue of scheduled jobs.</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">mutex</span><span class="normal"> mutex_</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">//! threads in pool</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">vector&lt;std::thread&gt;</span><span class="normal"> threads_</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">//! Condition variable used to notify that a new job has been inserted in</span>
+<span class="normal">    </span><span class="comment">//! the queue.</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">condition_variable</span><span class="normal"> cv_jobs_</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">//! Condition variable to signal when a jobs finishes.</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">condition_variable</span><span class="normal"> cv_finished_</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">//! Counter for number of threads busy.</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">atomic&lt;size_t&gt;</span><span class="normal"> busy_ </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">//! Counter for total number of jobs executed</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">atomic&lt;size_t&gt;</span><span class="normal"> done_ </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">//! Flag whether to terminate</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="usertype">atomic&lt;bool&gt;</span><span class="normal"> terminate_ </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span><span class="keyword">false</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">//! size limit on the job queue</span>
+<span class="normal">    </span><span class="usertype">size_t</span><span class="normal"> queue_size_</span><span class="symbol">;</span>
+
+<span class="keyword">public</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">//! Construct running thread pool of num_threads</span>
+<span class="normal">    </span><span class="keyword">explicit</span><span class="normal"> </span><span class="function">ThreadPool</span><span class="symbol">(</span>
+<span class="normal">        </span><span class="usertype">size_t</span><span class="normal"> num_threads </span><span class="symbol">=</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">thread</span><span class="symbol">::</span><span class="function">hardware_concurrency</span><span class="symbol">(),</span>
+<span class="normal">        </span><span class="usertype">size_t</span><span class="normal"> queue_size </span><span class="symbol">=</span><span class="normal"> </span><span class="number">2</span><span class="symbol">*</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">thread</span><span class="symbol">::</span><span class="function">hardware_concurrency</span><span class="symbol">())</span>
+<span class="normal">        </span><span class="symbol">:</span><span class="normal"> </span><span class="function">threads_</span><span class="symbol">(</span><span class="normal">num_threads</span><span class="symbol">),</span><span class="normal"> </span><span class="function">queue_size_</span><span class="symbol">(</span><span class="normal">queue_size</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="comment">// immediately construct worker threads</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> num_threads</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">            threads_</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> std</span><span class="symbol">::</span><span class="function">thread</span><span class="symbol">(&amp;</span><span class="normal">ThreadPool</span><span class="symbol">::</span><span class="normal">Worker</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">this</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! non-copyable: delete copy-constructor</span>
+<span class="normal">    </span><span class="function">ThreadPool</span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> ThreadPool</span><span class="symbol">&amp;)</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">delete</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="comment">//! non-copyable: delete assignment operator</span>
+<span class="normal">    ThreadPool</span><span class="symbol">&amp;</span><span class="normal"> </span><span class="keyword">operator</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> ThreadPool</span><span class="symbol">&amp;)</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">delete</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="comment">//! Stop processing jobs, terminate threads.</span>
+<span class="normal">    </span><span class="symbol">~</span><span class="function">ThreadPool</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="usertype">unique_lock&lt;std::mutex&gt;</span><span class="normal"> </span><span class="function">lock</span><span class="symbol">(</span><span class="normal">mutex_</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="comment">// set stop-condition</span>
+<span class="normal">        terminate_ </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="normal">        cv_jobs_</span><span class="symbol">.</span><span class="function">notify_all</span><span class="symbol">();</span>
+<span class="normal">        lock</span><span class="symbol">.</span><span class="function">unlock</span><span class="symbol">();</span>
+
+<span class="normal">        </span><span class="comment">// all threads terminate, then we're done</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> threads_</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span><span class="normal"> </span><span class="symbol">++</span><span class="normal">i</span><span class="symbol">)</span>
+<span class="normal">            threads_</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">].</span><span class="function">join</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! Enqueue a Job, the caller must pass in all context using captures.</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">Enqueue</span><span class="symbol">(</span><span class="normal">Job</span><span class="symbol">&amp;&amp;</span><span class="normal"> job</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="usertype">unique_lock&lt;std::mutex&gt;</span><span class="normal"> </span><span class="function">lock</span><span class="symbol">(</span><span class="normal">mutex_</span><span class="symbol">);</span>
+<span class="normal">        cv_finished_</span><span class="symbol">.</span><span class="function">wait</span><span class="symbol">(</span>
+<span class="normal">            lock</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">[</span><span class="keyword">this</span><span class="symbol">]()</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> jobs_</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> queue_size_</span><span class="symbol">;</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">);</span>
+<span class="normal">        jobs_</span><span class="symbol">.</span><span class="function">emplace_back</span><span class="symbol">(</span><span class="normal">std</span><span class="symbol">::</span><span class="function">move</span><span class="symbol">(</span><span class="normal">job</span><span class="symbol">));</span>
+<span class="normal">        cv_jobs_</span><span class="symbol">.</span><span class="function">notify_all</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! Loop until no more jobs are in the queue AND all threads are idle. When</span>
+<span class="normal">    </span><span class="comment">//! this occurs, this method exits, however, the threads remain active.</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">LoopUntilEmpty</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="usertype">unique_lock&lt;std::mutex&gt;</span><span class="normal"> </span><span class="function">lock</span><span class="symbol">(</span><span class="normal">mutex_</span><span class="symbol">);</span>
+<span class="normal">        cv_finished_</span><span class="symbol">.</span><span class="function">wait</span><span class="symbol">(</span>
+<span class="normal">            lock</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">[</span><span class="keyword">this</span><span class="symbol">]()</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> jobs_</span><span class="symbol">.</span><span class="function">empty</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">busy_ </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">);</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">atomic_thread_fence</span><span class="symbol">(</span><span class="normal">std</span><span class="symbol">::</span><span class="normal">memory_order_seq_cst</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! Loop until terminate flag was set.</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">LoopUntilTerminate</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="usertype">unique_lock&lt;std::mutex&gt;</span><span class="normal"> </span><span class="function">lock</span><span class="symbol">(</span><span class="normal">mutex_</span><span class="symbol">);</span>
+<span class="normal">        cv_finished_</span><span class="symbol">.</span><span class="function">wait</span><span class="symbol">(</span>
+<span class="normal">            lock</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">[</span><span class="keyword">this</span><span class="symbol">]()</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> terminate_ </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">busy_ </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">);</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="function">atomic_thread_fence</span><span class="symbol">(</span><span class="normal">std</span><span class="symbol">::</span><span class="normal">memory_order_seq_cst</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! Terminate thread pool gracefully, wait until currently running jobs</span>
+<span class="normal">    </span><span class="comment">//! finish and then exit. This should be called from within one of the</span>
+<span class="normal">    </span><span class="comment">//! enqueue jobs or from an outside thread.</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">Terminate</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="usertype">unique_lock&lt;std::mutex&gt;</span><span class="normal"> </span><span class="function">lock</span><span class="symbol">(</span><span class="normal">mutex_</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="comment">// flag termination</span>
+<span class="normal">        terminate_ </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="comment">// wake up all worker threads and let them terminate.</span>
+<span class="normal">        cv_jobs_</span><span class="symbol">.</span><span class="function">notify_all</span><span class="symbol">();</span>
+<span class="normal">        </span><span class="comment">// notify LoopUntilTerminate in case all threads are idle.</span>
+<span class="normal">        cv_finished_</span><span class="symbol">.</span><span class="function">notify_one</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! Return number of jobs currently completed.</span>
+<span class="normal">    </span><span class="usertype">size_t</span><span class="normal"> </span><span class="function">done</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> done_</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! Return number of threads in pool</span>
+<span class="normal">    </span><span class="usertype">size_t</span><span class="normal"> </span><span class="function">size</span><span class="symbol">()</span><span class="normal"> </span><span class="keyword">const</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> threads_</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">//! Return thread handle to thread i</span>
+<span class="normal">    std</span><span class="symbol">::</span><span class="normal">thread </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="function">thread</span><span class="symbol">(</span><span class="usertype">size_t</span><span class="normal"> i</span><span class="symbol">)</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">assert</span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">&lt;</span><span class="normal"> threads_</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">());</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> threads_</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">];</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="keyword">private</span><span class="symbol">:</span>
+<span class="normal">    </span><span class="comment">//! Worker function, one per thread is started.</span>
+<span class="normal">    </span><span class="type">void</span><span class="normal"> </span><span class="function">Worker</span><span class="symbol">()</span>
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="comment">// lock mutex, it is released during condition waits</span>
+<span class="normal">        std</span><span class="symbol">::</span><span class="usertype">unique_lock&lt;std::mutex&gt;</span><span class="normal"> </span><span class="function">lock</span><span class="symbol">(</span><span class="normal">mutex_</span><span class="symbol">);</span>
+
+<span class="normal">        </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">true</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="comment">// wait on condition variable until job arrives, frees lock</span>
+<span class="normal">            cv_jobs_</span><span class="symbol">.</span><span class="function">wait</span><span class="symbol">(</span>
+<span class="normal">                lock</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">[</span><span class="keyword">this</span><span class="symbol">]()</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> terminate_ </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">jobs_</span><span class="symbol">.</span><span class="function">empty</span><span class="symbol">();</span><span class="normal"> </span><span class="cbracket">}</span><span class="symbol">);</span>
+
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">terminate_</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">break</span><span class="symbol">;</span>
+
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">jobs_</span><span class="symbol">.</span><span class="function">empty</span><span class="symbol">())</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">                </span><span class="comment">// got work. set busy.</span>
+<span class="normal">                </span><span class="symbol">++</span><span class="normal">busy_</span><span class="symbol">;</span>
+
+<span class="normal">                </span><span class="cbracket">{</span>
+<span class="normal">                    </span><span class="comment">// pull job.</span>
+<span class="normal">                    </span><span class="usertype">Job</span><span class="normal"> job </span><span class="symbol">=</span><span class="normal"> std</span><span class="symbol">::</span><span class="function">move</span><span class="symbol">(</span><span class="normal">jobs_</span><span class="symbol">.</span><span class="function">front</span><span class="symbol">());</span>
+<span class="normal">                    jobs_</span><span class="symbol">.</span><span class="function">pop_front</span><span class="symbol">();</span>
+
+<span class="normal">                    </span><span class="comment">// release lock.</span>
+<span class="normal">                    lock</span><span class="symbol">.</span><span class="function">unlock</span><span class="symbol">();</span>
+
+<span class="normal">                    </span><span class="comment">// execute job.</span>
+<span class="normal">                    </span><span class="keyword">try</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">                        </span><span class="function">job</span><span class="symbol">();</span>
+<span class="normal">                    </span><span class="cbracket">}</span>
+<span class="normal">                    </span><span class="keyword">catch</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">std</span><span class="symbol">::</span><span class="normal">exception</span><span class="symbol">&amp;</span><span class="normal"> e</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">                        std</span><span class="symbol">::</span><span class="normal">cerr </span><span class="symbol">&lt;&lt;</span><span class="normal"> </span><span class="string">"EXCEPTION: "</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> e</span><span class="symbol">.</span><span class="function">what</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">&lt;&lt;</span><span class="normal"> std</span><span class="symbol">::</span><span class="normal">endl</span><span class="symbol">;</span>
+<span class="normal">                    </span><span class="cbracket">}</span>
+<span class="normal">                    </span><span class="comment">// destroy job by closing scope</span>
+<span class="normal">                </span><span class="cbracket">}</span>
+
+<span class="normal">                </span><span class="comment">// release memory the Job changed</span>
+<span class="normal">                std</span><span class="symbol">::</span><span class="function">atomic_thread_fence</span><span class="symbol">(</span><span class="normal">std</span><span class="symbol">::</span><span class="normal">memory_order_seq_cst</span><span class="symbol">);</span>
+
+<span class="normal">                </span><span class="symbol">++</span><span class="normal">done_</span><span class="symbol">;</span>
+<span class="normal">                </span><span class="symbol">--</span><span class="normal">busy_</span><span class="symbol">;</span>
+
+<span class="normal">                </span><span class="comment">// relock mutex before signaling condition.</span>
+<span class="normal">                lock</span><span class="symbol">.</span><span class="function">lock</span><span class="symbol">();</span>
+<span class="normal">                cv_finished_</span><span class="symbol">.</span><span class="function">notify_one</span><span class="symbol">();</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="symbol">;</span>
+
+<span class="preproc">#endif</span><span class="normal"> </span><span class="comment">// !BISPANNING_THREAD_POOL_HEADER</span>
+
+<span class="comment">/******************************************************************************/</span>
+</tt></pre></div><div style="text-align: right; padding: 8pt; font-size: 12px"><a href="/xmlfeed/weblog-rss20.xml"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPAgMAAAAOp6AcAAAADFBMVEVmZmb/ZgD///+JjnlbTUWmAAAACXBIWXMAAABIAAAASABGyWs+AAAACXZwQWcAAABQAAAADwCexKkxAAAAWUlEQVQYlWNgwAa0VmGAFQyqoSCQ/x8J/CBFMCt0ZdTU/F/7/+1HEkydFpoKVPn+93sUlUujQvP/7UcRTAuNDJ2a//s/imDqtKVZofm/1qGYSZk7sfodGwAAiobBJtffoNAAAAAASUVORK5CYII=" alt="RSS 2.0 Weblog Feed" width="80" height="15"/></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPAgMAAAAOp6AcAAAADFBMVEVmZmb/ZgD///+JjnlbTUWmAAAAaklEQVQYlWNgwAa0VmGAFQyqoSCQ/x8J/CBFMDV16rTQ/H/7V//69+//v/3/9oMEI6cuAwr+fv/+/b5d///v//0eJBgWOhMo+Gs9UPAdXDBy6lSYyn9wQZCZS0GCYDPXQcykzJ1Y/Y4NAABKvL80wyoMPgAAAABJRU5ErkJggg==" alt="Atom 1.0 Weblog Feed" width="80" height="15"/></a> <a href="http://validator.w3.org/check?uri=referer"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAB1FBMVEUHQIgIRY0MN4QNRYoSRYsXUpIYVJQeUpUhWpgjUJMjWpgmU5QnXJkuYZ0uYpwwV5YyZJ4zaKM3ZaA5aaI6aqM6a6E8ZqA8Z6BAbaRBbqdCbaVHd61KSkpKcaZQUFBUf69UgbBVVVVXfq9Yg7NZhbJZh7RagrNeXVxeh7RfjLdgYGBiiLZmZmZnZ2doirhpkbt0m8F3m8B3ncJ5lb55ocR+ocSDgX+Do8eEpMqGhoaHp8iIpMeJjnmJpseKqMeOqsqPsdCQrcyVlZWVsM2Zs9CZtNCfu9ahoaGhuNShudSivNSjtMWjvNSmpqWnpqSrw9qvxNqyxdmyxdyzsK6zs7Ozx9y0xt21yN22tra4y+K80eK/v7/AwMDExMTEy9DH2ejK2+jM2ujN3uvP0dLR0NDR3uvS3uvS3+zU4u3V1dXY2dnY4u7Y4+3b5e/d3d3d5u/d5/De3t7f39/h4uLj4uHj6/Ll7PXm7fTn7/Xo7/Tp7/bq7Ozr6unr8ffw8PDw9vvx9fny+P7z8/Pz9vnz9vv3+fv4+vz5+vz6+vr6+/36/P36///7+/77/Pz7/f37/f78/Pz8/f38/f79/f39/f79/f/9/v79///+/v7+/v////3///+tYR2LAAABKklEQVQ4y2PQoTJg0JlNVYDPQBsyAMTAqaFes8tdsmdPCtA3MDStr3GKKK6myMAprgJ9pcpWs/MlRExYJBvNZLR0sigycHYOV1S7mtjsQJ4gf+HIFPXoWMs6qIGzIRiKZs9GFoEaMRuZhhrYqqJXy8uZYauRxC/VHew7e3YTPAxnI5swG6JxNrKBNjB1EFmIgV0+HA6C8pqqzhXG7BbJJROQIwViMYQ7G2oDQQNn57JyG7kxiCfObrBmS5+BHMuYLkTzMnYDm5WY4lOZZRPKZocxes+aPbuwCFsYohiICLvZsKBAMrDTQ7K/StveU8icTzrOL8JdLpOyWJ49u8Bx9ozw8DY7UYW03hhdxZAOSg2c3jN79rSJs1vSKmfOnpFXNJmynELlvExlAADnaZpLFGEC2wAAAABJRU5ErkJggg==" alt="Valid XHTML 1.1" width="80" height="15"/></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAB1FBMVEUHQIgIRY0MN4QNRYoSRYsXUpIYVJQeUpUhWpgjUJMjWpgmU5QnXJkuYZ0uYpwwV5YyZJ4zaKM3ZaA5aaI6aqM6a6E8ZqA8Z6BAbaRBbqdCbaVHd61KSkpKcaZQUFBUf69UgbBVVVVXfq9Yg7NZhbJZh7RagrNeXVxeh7RfjLdgYGBiiLZmZmZnZ2doirhpkbt0m8F3m8B3ncJ5lb55ocR+ocSDgX+Do8eEpMqGhoaHp8iIpMeJjnmJpseKqMeOqsqPsdCQrcyVlZWVsM2Zs9CZtNCfu9ahoaGhuNShudSivNSjtMWjvNSmpqWnpqSrw9qvxNqyxdmyxdyzsK6zs7Ozx9y0xt21yN22tra4y+K80eK/v7/AwMDExMTEy9DH2ejK2+jM2ujN3uvP0dLR0NDR3uvS3uvS3+zU4u3V1dXY2dnY4u7Y4+3b5e/d3d3d5u/d5/De3t7f39/h4uLj4uHj6/Ll7PXm7fTn7/Xo7/Tp7/bq7Ozr6unr8ffw8PDw9vvx9fny+P7z8/Pz9vnz9vv3+fv4+vz5+vz6+vr6+/36/P36///7+/77/Pz7/f37/f78/Pz8/f38/f79/f39/f79/f/9/v79///+/v7+/v////3///+tYR2LAAABEUlEQVQ4y2PQoTJg0JlNVYDPQBsyAMTAqaFes8tdsmdPCtA3MDStr3GKKK6myMAprgJ9pcpWs/MlRExYJBvNZLR0sigycHYOV1S7mtjsQJ4gf+HIFPXoWMs6mIEQCsIjwhKoga0qerW8nBm2Gkn8Ut3BvrNnN8HCcDYM2cBIogzs8uFwEJTXVHWuMGa3SC6ZgIgUqCEwdxJr4OxcVm4jNwbxxNkN1mzpM2ajGIjsPGK9PLtZiSk+lVk2oWx2GKP3rNmzC4tQwpDoIIQb2Okh2V+lbe8pZM4nHecX4S6XSVksz55d4Dh7Rnh4m52oQlpvjK5iSAelBk7vmT172sTZLWmVM2fPyCuaTFlOoXJepjIAANlljDGY/l5pAAAAAElFTkSuQmCC" alt="Valid CSS (2.1)" width="80" height="15"/></a><br/>Copyright 2005-2016 <a href="/about/">Timo Bingmann</a> - <a href="/about/impressum.html">Impressum</a></div><script type="text/javascript">var _paq = _paq || []; _paq.push(["trackPageView"]); _paq.push(["enableLinkTracking"]);(function() {var u=(("https:" == document.location.protocol) ? "https" : "http") + "://panthema.net/wik-331/"; _paq.push(["setTrackerUrl", u+"js/"]); _paq.push(["setSiteId", "2"]);var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";g.defer=true; g.async=true; g.src=u+"js/"; s.parentNode.insertBefore(g,s);})();</script><noscript><p><img src="http://panthema.net/wik-331/js/?idsite=2&amp;rec=1" style="border:0" alt="" /></p></noscript></body></html>
