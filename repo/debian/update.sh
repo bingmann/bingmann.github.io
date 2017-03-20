@@ -1,46 +1,37 @@
 #!/bin/sh -x
 
-# etch/oldstable
+for dist in stable oldstable; do
 
-apt-ftparchive generate etch.conf || exit
+    mkdir -p dists/$dist
+    mkdir -p dists/$dist/main/binary-amd64
+    mkdir -p dists/$dist/main/binary-i386
+    mkdir -p dists/$dist/main/source
 
-apt-ftparchive -c etch.conf release dists/etch > dists/etch/Release
-apt-ftparchive -c etch.conf release dists/etch | gzip -9 > dists/etch/Release.gz
-apt-ftparchive -c etch.conf release dists/etch | bzip2 -9 > dists/etch/Release.bz2
+done
 
-gpg -abs -u F4EF04FA -o- dists/etch/Release > dists/etch/Release.gpg
+for dist in etch lenny wheezy jessie; do
 
-cp -avr dists/etch/Release dists/oldstable/Release
-cp -avr dists/etch/Release.gz dists/oldstable/Release.gz
-cp -avr dists/etch/Release.bz2 dists/oldstable/Release.bz2
-cp -avr dists/etch/Release.gpg dists/oldstable/Release.gpg
+    mkdir -p dists/$dist
+    mkdir -p dists/$dist/main/binary-amd64
+    mkdir -p dists/$dist/main/binary-i386
+    mkdir -p dists/$dist/main/source
 
-# lenny/stable
+    apt-ftparchive generate $dist.conf || exit
 
-apt-ftparchive generate lenny.conf || exit
+    apt-ftparchive -c $dist.conf release dists/$dist > dists/$dist/Release
+    apt-ftparchive -c $dist.conf release dists/$dist | gzip -9 > dists/$dist/Release.gz
+    apt-ftparchive -c $dist.conf release dists/$dist | bzip2 -9 > dists/$dist/Release.bz2
 
-apt-ftparchive -c lenny.conf release dists/lenny > dists/lenny/Release
-apt-ftparchive -c lenny.conf release dists/lenny | gzip -9 > dists/lenny/Release.gz
-apt-ftparchive -c lenny.conf release dists/lenny | bzip2 -9 > dists/lenny/Release.bz2
+    gpg -abs -u F4EF04FA -o- dists/$dist/Release > dists/$dist/Release.gpg
 
-gpg -abs -u F4EF04FA -o- dists/lenny/Release > dists/lenny/Release.gpg
+done
 
-cp -avr dists/lenny/Release dists/stable/Release
-cp -avr dists/lenny/Release.gz dists/stable/Release.gz
-cp -avr dists/lenny/Release.bz2 dists/stable/Release.bz2
-cp -avr dists/lenny/Release.gpg dists/stable/Release.gpg
+cp -avr dists/wheezy/Release dists/oldstable/Release
+cp -avr dists/wheezy/Release.gz dists/oldstable/Release.gz
+cp -avr dists/wheezy/Release.bz2 dists/oldstable/Release.bz2
+cp -avr dists/wheezy/Release.gpg dists/oldstable/Release.gpg
 
-# squeeze/testing
-
-apt-ftparchive generate squeeze.conf || exit
-
-apt-ftparchive -c squeeze.conf release dists/squeeze > dists/squeeze/Release
-apt-ftparchive -c squeeze.conf release dists/squeeze | gzip -9 > dists/squeeze/Release.gz
-apt-ftparchive -c squeeze.conf release dists/squeeze | bzip2 -9 > dists/squeeze/Release.bz2
-
-gpg -abs -u F4EF04FA -o- dists/squeeze/Release > dists/squeeze/Release.gpg
-
-cp -avr dists/squeeze/Release dists/testing/Release
-cp -avr dists/squeeze/Release.gz dists/testing/Release.gz
-cp -avr dists/squeeze/Release.bz2 dists/testing/Release.bz2
-cp -avr dists/squeeze/Release.gpg dists/testing/Release.gpg
+cp -avr dists/jessie/Release dists/stable/Release
+cp -avr dists/jessie/Release.gz dists/stable/Release.gz
+cp -avr dists/jessie/Release.bz2 dists/stable/Release.bz2
+cp -avr dists/jessie/Release.gpg dists/stable/Release.gpg

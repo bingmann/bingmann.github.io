@@ -2,7 +2,7 @@
 
 eval $(gpg-agent --daemon)
 
-for dist in hardy karmic lucid maverick natty oneiric precise; do
+for dist in hardy karmic lucid maverick natty oneiric precise xenial; do
 
     apt-ftparchive generate $dist.conf || exit
 
