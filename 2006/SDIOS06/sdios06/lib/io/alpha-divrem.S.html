@@ -1,599 +1,599 @@
-<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><meta name="viewport" content="initial-scale=1"><title>/2006/SDIOS06/sdios06/lib/io/alpha-divrem.S - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="stylesheet" type="text/css" href="/css/fonts.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/js/base.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal8.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/"><i class="icon-book"></i> Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2017/">2017</a></li><li><a href="/2016/">2016</a></li><li><a href="/2015/">2015</a></li><li><a href="/2014/">2014</a></li><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li class="nt"><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li><li class="ns"><a href="/search.html">Search</a></li></ul></li><li class="top"><a class="ni" href="/tags/"><i class="icon-tags"></i> Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 16pt" href="/tags/frontpage.html">frontpage</a> <a style="font-size: 14pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 9pt" href="/tags/massive-sorting.html">massive-sorting</a> <a style="font-size: 11pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 10pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 14pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 14pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 11pt" href="/tags/sound_of_sorting.html">sound of sorting</a> <a style="font-size: 10pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 15pt" href="/tags/stxxl.html">stxxl</a> <a style="font-size: 16pt" href="/tags/talk.html">talk</a> <a style="font-size: 13pt" href="/tags/thrill.html">thrill</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 10pt" href="/tags/vncrec.html">vncrec</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"> <a class="ni" href="#"><i class="icon-cubes"></i> Projects</a> <ul style="margin-left: -8em; margin-top: 4px;" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2014/sqlplot-tools/">SqlPlotTools</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li><a href="/tags/stxxl.html">STXXL 1.4</a></li> <li class="nt"><a href="/2014/vncrec-rgb/">VNCrec RGB 0.4</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"> <a class="ni" href="#"><i class="icon-graduation-cap"></i> Research</a> <ul style="margin-left: -16em; margin-top: 4px" class="nx"> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP - External Memory Suffix Sorting</a></li> <li><a href="/2016/0114-diploma-thesis/">On Bispanning Graphs</a></li> <li><a href="/2013/parallel-string-sorting/">Parallel String Sorting</a></li> <li><a href="/tags/massive-sorting.html">Practical Massively Parallel Sorting</a></li> <li><a href="/tags/stxxl.html">STXXL - External Memory Algorithms</a></li> <li><a href="/tags/thrill.html">Thrill - Distributed Batch Big Data Processing</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"> <a class="ni" href="/about/"><i class="icon-info-circled"></i> About</a> <ul style="margin-left: -6em; margin-top: 4px" class="nx"> <li><a href="/about/">Timo Bingmann</a></li> <li><a href="/about/impressum.html">Impressum</a></li> </ul></li><li class="top"> <a class="ni" href="/subscribe.html"><i class="icon-rss-squared"></i> Subscribe</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2006/">2006</a> / <a href="/2006/SDIOS06/">SDIOS06</a> / <a href="/2006/SDIOS06/sdios06/">sdios06</a> / <a href="/2006/SDIOS06/sdios06/lib/">lib</a> / <a href="/2006/SDIOS06/sdios06/lib/io/">io</a> / <a href="/2006/SDIOS06/sdios06/lib/io/alpha-divrem.S.html">alpha-divrem.S</a> (<a href="/2006/SDIOS06/sdios06/lib/io/alpha-divrem.S">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="symbol">/*</span><span class="normal">	$NetBSD</span><span class="symbol">:</span><span class="normal"> divrem</span><span class="symbol">.</span><span class="normal">m</span><span class="number">4</span><span class="symbol">,</span><span class="normal">v </span><span class="number">1.5</span><span class="normal"> </span><span class="number">1996</span><span class="symbol">/</span><span class="number">10</span><span class="symbol">/</span><span class="number">17</span><span class="normal"> </span><span class="number">04</span><span class="symbol">:</span><span class="number">26</span><span class="symbol">:</span><span class="number">25</span><span class="normal"> cgd Exp $	</span><span class="symbol">*/</span>
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type" /><meta name="viewport" content="initial-scale=1"><title>/2006/SDIOS06/sdios06/lib/io/alpha-divrem.S - panthema.net</title><link rel="stylesheet" type="text/css" href="/css/base.css" /><link rel="stylesheet" type="text/css" href="/css/fonts.css" /><link rel="alternate" type="application/rss+xml" title="panthema.net Weblog Feed RSS 2.0" href="http://panthema.net/xmlfeed/weblog-rss20.xml" /><link rel="alternate" type="application/atom+xml" title="panthema.net Weblog Feed Atom 1.0" href="http://panthema.net/xmlfeed/weblog-atom10.xml" /><script type="text/javascript" src="/js/base.js"></script><script type="text/javascript">/* <!-- */makeIEHover = function() {var lis = document.getElementById('ptnav').getElementsByTagName('li');for (var i = 0; i < lis.length; i++) {lis[i].onmouseover = function() {this.className += ' sfhover';};lis[i].onmouseout = function() {this.className = this.className.replace(new RegExp(' sfhover\b'), '');};}};if (window.attachEvent) window.attachEvent('onload', makeIEHover);/* --> */</script></head><body style="background-image: url(/img/bgfractal8.jpg)"><div class="pttopbar"><div style="float: right"><ul id="ptnav"><li class="top"><a class="ni" href="/"><i class="icon-book"></i> Weblog</a><ul style="margin-left: -6px; margin-top: 4px" class="nx"><li><a href="/2018/">2018</a></li><li><a href="/2017/">2017</a></li><li><a href="/2016/">2016</a></li><li><a href="/2015/">2015</a></li><li><a href="/2014/">2014</a></li><li><a href="/2013/">2013</a></li><li><a href="/2012/">2012</a></li><li><a href="/2011/">2011</a></li><li><a href="/2010/">2010</a></li><li><a href="/2009/">2009</a></li><li><a href="/2008/">2008</a></li><li><a href="/2007/">2007</a></li><li><a href="/2006/">2006</a></li><li class="nt"><a href="/2005/">2005</a></li><li class="ns"><a href="/xmlfeed/weblog-rss20.xml">RSS Feed</a></li><li class="nt"><a href="/xmlfeed/weblog-atom10.xml">XML Atom</a></li><li class="ns"><a href="/search.html">Search</a></li></ul></li><li class="top"><a class="ni" href="/tags/"><i class="icon-tags"></i> Tags</a><div style="width: 14em; margin-left: -9em; margin-top: 4px"><a style="font-size: 10pt" href="/tags/algebra.html">algebra</a> <a style="font-size: 16pt" href="/tags/c++.html">c++</a> <a style="font-size: 12pt" href="/tags/code-example.html">code-example</a> <a style="font-size: 14pt" href="/tags/code-snippet.html">code-snippet</a> <a style="font-size: 11pt" href="/tags/coding_tricks.html">coding tricks</a> <a style="font-size: 10pt" href="/tags/compsci.html">compsci</a> <a style="font-size: 10pt" href="/tags/compsci_study_thesis.html">compsci study thesis</a> <a style="font-size: 9pt" href="/tags/crypto-speedtest.html">crypto-speedtest</a> <a style="font-size: 10pt" href="/tags/cryptography.html">cryptography</a> <a style="font-size: 9pt" href="/tags/cryptote.html">cryptote</a> <a style="font-size: 12pt" href="/tags/flex-bison-cpp-example.html">flex-bison-cpp-example</a> <a style="font-size: 16pt" href="/tags/frontpage.html">frontpage</a> <a style="font-size: 14pt" href="/tags/fun.html">fun</a> <a style="font-size: 10pt" href="/tags/graphviz.html">graphviz</a> <a style="font-size: 9pt" href="http://www.hmtg.de">hartmetall</a> <a style="font-size: 9pt" href="/tags/helppc.html">helppc</a> <a style="font-size: 9pt" href="/tags/hifi_selbstbau.html">hifi selbstbau</a> <a style="font-size: 10pt" href="/tags/latex.html">latex</a> <a style="font-size: 10pt" href="/tags/librivox.html">librivox</a> <a style="font-size: 10pt" href="/tags/linux.html">linux</a> <a style="font-size: 9pt" href="/tags/massive-sorting.html">massive-sorting</a> <a style="font-size: 11pt" href="/tags/maths.html">maths</a> <a style="font-size: 9pt" href="/tags/music.html">music</a> <a style="font-size: 10pt" href="/tags/netfundamentals.html">netfundamentals</a> <a style="font-size: 11pt" href="/tags/ns-3.html">ns-3</a> <a style="font-size: 10pt" href="/tags/parallel-string-sorting.html">parallel-string-sorting</a> <a style="font-size: 9pt" href="/tags/qtsqlview.html">qtsqlview</a> <a style="font-size: 14pt" href="/tags/research.html">research</a> <a style="font-size: 11pt" href="/tags/sdios06.html">sdios06</a> <a style="font-size: 9pt" href="/tags/sdlfractal.html">sdlfractal</a> <a style="font-size: 14pt" href="/tags/sorting.html">sorting</a> <a style="font-size: 11pt" href="/tags/sound_of_sorting.html">sound of sorting</a> <a style="font-size: 10pt" href="/tags/stringology.html">stringology</a> <a style="font-size: 16pt" href="/tags/stx-btree.html">stx-btree</a> <a style="font-size: 9pt" href="/tags/stx-exparser.html">stx-exparser</a> <a style="font-size: 15pt" href="/tags/stxxl.html">stxxl</a> <a style="font-size: 16pt" href="/tags/talk.html">talk</a> <a style="font-size: 13pt" href="/tags/thrill.html">thrill</a> <a style="font-size: 10pt" href="/tags/tutorium.html">tutorium</a> <a style="font-size: 16pt" href="/tags/university.html">university</a> <a style="font-size: 13pt" href="/tags/utilities.html">utilities</a> <a style="font-size: 10pt" href="/tags/vncrec.html">vncrec</a> <a style="font-size: 9pt" href="/tags/webdesign.html">webdesign</a> </div></li><li class="top"> <a class="ni" href="#"><i class="icon-cubes"></i> Projects</a> <ul style="margin-left: -8em; margin-top: 4px;" class="nx"> <li><a href="/2009/cryptote/">CryptoTE</a></li> <li><a href="/2009/digup/">digup</a></li> <li><a href="/2013/disk-filltest/">disk-filltest</a></li> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP</a></li> <li><a href="/2007/flex-bison-cpp-example/">Flex Bison C++ Example</a></li> <li><a href="/2013/malloc_count/">malloc_count</a></li> <li><a href="/2013/parallel-string-sorting/">parallel-string-sorting</a></li> <li><a href="/2013/pmbw/">Parallel Memory Bandwidth</a></li> <li><a href="/2014/sqlplot-tools/">SqlPlotTools</a></li> <li><a href="/2013/sound-of-sorting/">The Sound of Sorting</a></li> <li><a href="/2007/stx-btree/">STX B+ Tree</a></li> <li><a href="/2010/stx-cbtreedb/">STX Constant BTreeDB</a></li> <li><a href="/2010/stx-execpipe/">STX ExecPipe</a></li> <li><a href="/2007/stx-exparser/">STX Expression Parser</a></li> <li><a href="/tags/stxxl.html">STXXL 1.4</a></li> <li class="nt"><a href="/2014/vncrec-rgb/">VNCrec RGB 0.4</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"> <a class="ni" href="#"><i class="icon-graduation-cap"></i> Research</a> <ul style="margin-left: -16em; margin-top: 4px" class="nx"> <li><a href="/2012/1119-eSAIS-Inducing-Suffix-and-LCP-Arrays-in-External-Memory/">eSAIS-LCP - External Memory Suffix Sorting</a></li> <li><a href="/2016/0114-diploma-thesis/">On Bispanning Graphs</a></li> <li><a href="/2013/parallel-string-sorting/">Parallel String Sorting</a></li> <li><a href="/tags/massive-sorting.html">Practical Massively Parallel Sorting</a></li> <li><a href="/tags/stxxl.html">STXXL - External Memory Algorithms</a></li> <li><a href="/tags/thrill.html">Thrill - Distributed Batch Big Data Processing</a></li> <li class="ns"><a href="/search.html">Search</a></li> </ul></li><li class="top"> <a class="ni" href="/about/"><i class="icon-info-circled"></i> About</a> <ul style="margin-left: -6em; margin-top: 4px" class="nx"> <li><a href="/about/">Timo Bingmann</a></li> <li><a href="/about/impressum.html">Impressum</a></li> </ul></li><li class="top"> <a class="ni" href="/subscribe.html"><i class="icon-rss-squared"></i> Subscribe</a></li></ul></div><div style="padding: 6px"><a href="/">panthema</a>  / <a href="/2006/">2006</a> / <a href="/2006/SDIOS06/">SDIOS06</a> / <a href="/2006/SDIOS06/sdios06/">sdios06</a> / <a href="/2006/SDIOS06/sdios06/lib/">lib</a> / <a href="/2006/SDIOS06/sdios06/lib/io/">io</a> / <a href="/2006/SDIOS06/sdios06/lib/io/alpha-divrem.S.html">alpha-divrem.S</a> (<a href="/2006/SDIOS06/sdios06/lib/io/alpha-divrem.S">Download File</a>)</div></div><div class="ptfullwidth"><pre class="codesnippet" style="font-family: monospace"><tt><span class="normal">/*	$NetBSD: divrem.m4,v 1.5 1996/10/17 04:26:25 cgd Exp $	*/</span>
 
-<span class="symbol">/*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> Copyright </span><span class="symbol">(</span><span class="normal">c</span><span class="symbol">)</span><span class="normal"> </span><span class="number">1994</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1995</span><span class="normal"> Carnegie</span><span class="symbol">-</span><span class="normal">Mellon University</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> All rights reserved</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> Author</span><span class="symbol">:</span><span class="normal"> Chris G</span><span class="symbol">.</span><span class="normal"> Demetriou</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> Permission to use</span><span class="symbol">,</span><span class="normal"> copy</span><span class="symbol">,</span><span class="normal"> modify </span><span class="keyword">and</span><span class="normal"> distribute </span><span class="keyword">this</span><span class="normal"> software </span><span class="keyword">and</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> its documentation is hereby granted</span><span class="symbol">,</span><span class="normal"> provided that both the copyright</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> notice </span><span class="keyword">and</span><span class="normal"> </span><span class="keyword">this</span><span class="normal"> permission notice appear </span><span class="keyword">in</span><span class="normal"> all copies of the</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> software</span><span class="symbol">,</span><span class="normal"> derivative works </span><span class="keyword">or</span><span class="normal"> modified versions</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">and</span><span class="normal"> any portions</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> thereof</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">and</span><span class="normal"> that both notices appear </span><span class="keyword">in</span><span class="normal"> supporting documentation</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> CARNEGIE MELLON ALLOWS FREE USE OF </span><span class="keyword">THIS</span><span class="normal"> SOFTWARE </span><span class="keyword">IN</span><span class="normal"> ITS </span><span class="string">"AS IS"</span><span class="normal"> </span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> CONDITION</span><span class="symbol">.</span><span class="normal">  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND </span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF </span><span class="keyword">THIS</span><span class="normal"> SOFTWARE</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> Carnegie Mellon requests users of </span><span class="keyword">this</span><span class="normal"> software to return to</span>
-<span class="normal"> </span><span class="symbol">*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal">  Software Distribution Coordinator  </span><span class="keyword">or</span><span class="normal">  Software</span><span class="symbol">.</span><span class="normal">Distribution@</span><span class="variable">CS</span><span class="symbol">.</span><span class="normal">CMU</span><span class="symbol">.</span><span class="normal">EDU</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal">  School of Computer Science</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal">  Carnegie Mellon University</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal">  Pittsburgh PA </span><span class="number">15213</span><span class="symbol">-</span><span class="number">3890</span>
-<span class="normal"> </span><span class="symbol">*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> any improvements </span><span class="keyword">or</span><span class="normal"> extensions that they make </span><span class="keyword">and</span><span class="normal"> grant Carnegie the</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> rights to redistribute these changes</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*/</span>
+<span class="normal">/*</span>
+<span class="normal"> * Copyright (c) 1994, 1995 Carnegie-Mellon University.</span>
+<span class="normal"> * All rights reserved.</span>
+<span class="normal"> *</span>
+<span class="normal"> * Author: Chris G. Demetriou</span>
+<span class="normal"> * </span>
+<span class="normal"> * Permission to use, copy, modify and distribute this software and</span>
+<span class="normal"> * its documentation is hereby granted, provided that both the copyright</span>
+<span class="normal"> * notice and this permission notice appear in all copies of the</span>
+<span class="normal"> * software, derivative works or modified versions, and any portions</span>
+<span class="normal"> * thereof, and that both notices appear in supporting documentation.</span>
+<span class="normal"> * </span>
+<span class="normal"> * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS </span><span class="string">"AS IS"</span><span class="normal"> </span>
+<span class="normal"> * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND </span>
+<span class="normal"> * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.</span>
+<span class="normal"> * </span>
+<span class="normal"> * Carnegie Mellon requests users of this software to return to</span>
+<span class="normal"> *</span>
+<span class="normal"> *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU</span>
+<span class="normal"> *  School of Computer Science</span>
+<span class="normal"> *  Carnegie Mellon University</span>
+<span class="normal"> *  Pittsburgh PA 15213-3890</span>
+<span class="normal"> *</span>
+<span class="normal"> * any improvements or extensions that they make and grant Carnegie the</span>
+<span class="normal"> * rights to redistribute these changes.</span>
+<span class="normal"> */</span>
 
-<span class="normal">#</span><span class="keyword">include</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal">l</span><span class="number">4</span><span class="symbol">/</span><span class="normal">alpha</span><span class="symbol">/</span><span class="normal">pal</span><span class="symbol">.</span><span class="normal">h</span><span class="symbol">&gt;</span>
+<span class="comment">#include &lt;l4/alpha/pal.h&gt;</span>
 <span class="normal">	</span>
-<span class="symbol">/*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> Division </span><span class="keyword">and</span><span class="normal"> remainder</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> The use of m</span><span class="number">4</span><span class="normal"> is modeled after the sparc code</span><span class="symbol">,</span><span class="normal"> but the algorithm is</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> simple binary long division</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> Note that the loops could probably benefit from unrolling</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*/</span>
+<span class="normal">/*</span>
+<span class="normal"> * Division and remainder.</span>
+<span class="normal"> *</span>
+<span class="normal"> * The use of m4 is modeled after the sparc code, but the algorithm is</span>
+<span class="normal"> * simple binary long division.</span>
+<span class="normal"> *</span>
+<span class="normal"> * Note that the loops could probably benefit from unrolling.</span>
+<span class="normal"> */</span>
 
-<span class="symbol">/*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> M</span><span class="number">4</span><span class="normal"> Parameters</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> __divqu		</span><span class="keyword">name</span><span class="normal"> of function to generate</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="keyword">div</span><span class="normal">		</span><span class="keyword">div</span><span class="symbol">=</span><span class="keyword">div</span><span class="symbol">:</span><span class="normal"> t</span><span class="number">10</span><span class="normal"> </span><span class="symbol">/</span><span class="normal"> t</span><span class="number">11</span><span class="normal"> </span><span class="symbol">-&gt;</span><span class="normal"> t</span><span class="number">12</span><span class="comment">; div=rem: t10 % t11 -&gt; t12</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> false		false</span><span class="symbol">=</span><span class="normal">true</span><span class="symbol">:</span><span class="normal"> signed</span><span class="comment">; false=false: unsigned</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="number">64</span><span class="normal">	total number of bits</span>
-<span class="normal"> </span><span class="symbol">*/</span>
+<span class="normal">/*</span>
+<span class="normal"> * M4 Parameters</span>
+<span class="normal"> * __divqu		name of </span><span class="normal">function</span><span class="normal"> to generate</span>
+<span class="normal"> * div		div=div: t10 / t11 -&gt; t12; div=rem: t10 % t11 -&gt; t12</span>
+<span class="normal"> * false		false=true: signed; false=false: unsigned</span>
+<span class="normal"> * 64	total number of bits</span>
+<span class="normal"> */</span>
 <span class="normal">	</span>
-<span class="symbol">/*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> LEAF</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal">      Declare a global leaf function</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal">      A leaf function does </span><span class="keyword">not</span><span class="normal"> </span><span class="keyword">call</span><span class="normal"> other functions </span><span class="keyword">AND</span><span class="normal"> does </span><span class="keyword">not</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal">      use any register that is callee</span><span class="symbol">-</span><span class="normal">saved </span><span class="keyword">AND</span><span class="normal"> does </span><span class="keyword">not</span><span class="normal"> modify</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal">      the stack pointer</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">#define LEAF</span><span class="symbol">(</span><span class="normal">_name_</span><span class="symbol">,</span><span class="normal">_n_args_</span><span class="symbol">)</span><span class="normal">                                   </span><span class="symbol">\</span>
-<span class="preproc">        .globl</span><span class="normal">  _name_</span><span class="comment">;                                         \</span>
-<span class="preproc">        .ent</span><span class="normal">    _name_ </span><span class="number">0</span><span class="comment">;                                       \</span>
-<span class="normal">_name_</span><span class="symbol">:</span><span class="comment">;                                                        \</span>
-<span class="preproc">        .frame</span><span class="normal">  </span><span class="variable">sp</span><span class="symbol">,</span><span class="number">0</span><span class="symbol">,</span><span class="normal">ra</span>
+<span class="normal">/*</span>
+<span class="normal"> * LEAF</span>
+<span class="normal"> *      Declare a global leaf </span><span class="normal">function</span><span class="normal">.</span>
+<span class="normal"> *      A leaf </span><span class="normal">function</span><span class="normal"> does not call other functions AND does not</span>
+<span class="normal"> *      use any register that is callee-saved AND does not modify</span>
+<span class="normal"> *      the stack pointer.</span>
+<span class="normal"> */</span>
+<span class="comment">#define LEAF(_name_,_n_args_)                                   \</span>
+<span class="normal">        .globl  _name_;                                         \</span>
+<span class="normal">        .ent    _name_ 0;                                       \</span>
+<span class="normal">_name_:;                                                        \</span>
+<span class="normal">        .frame  sp,0,ra</span>
 
-<span class="symbol">/*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="keyword">END</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal">      Function delimiter</span>
-<span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">#define </span><span class="keyword">END</span><span class="symbol">(</span><span class="normal">_name_</span><span class="symbol">)</span><span class="normal">                                             </span><span class="symbol">\</span>
-<span class="preproc">	.end</span><span class="normal">    _name_</span>
+<span class="normal">/*</span>
+<span class="normal"> * END</span>
+<span class="normal"> *      Function delimiter</span>
+<span class="normal"> */</span>
+<span class="comment">#define END(_name_)                                             \</span>
+<span class="normal">	.end    _name_</span>
 
-<span class="normal">#define ra $</span><span class="number">26</span>
-<span class="normal">#define </span><span class="variable">sp</span><span class="normal"> $</span><span class="number">30</span>
-<span class="normal">#define a</span><span class="number">0</span><span class="normal"> $</span><span class="number">16</span>
-<span class="normal">#define t</span><span class="number">0</span><span class="normal"> $</span><span class="number">1</span>
-<span class="normal">#define t</span><span class="number">1</span><span class="normal"> $</span><span class="number">2</span>
-<span class="normal">#define t</span><span class="number">2</span><span class="normal"> $</span><span class="number">3</span>
-<span class="normal">#define t</span><span class="number">3</span><span class="normal"> $</span><span class="number">4</span><span class="normal">		</span>
-<span class="normal">#define t</span><span class="number">9</span><span class="normal"> $</span><span class="number">23</span><span class="normal">	</span>
-<span class="normal">#define t</span><span class="number">10</span><span class="normal"> $</span><span class="number">24</span><span class="normal">	</span>
-<span class="normal">#define t</span><span class="number">11</span><span class="normal"> $</span><span class="number">25</span>
-<span class="normal">#define t</span><span class="number">12</span><span class="normal"> $</span><span class="number">27</span>
-<span class="normal">#define zero $</span><span class="number">31</span>
+<span class="comment">#define ra $26</span>
+<span class="comment">#define sp $30</span>
+<span class="comment">#define a0 $16</span>
+<span class="comment">#define t0 $1</span>
+<span class="comment">#define t1 $2</span>
+<span class="comment">#define t2 $3</span>
+<span class="comment">#define t3 $4		</span>
+<span class="comment">#define t9 $23	</span>
+<span class="comment">#define t10 $24	</span>
+<span class="comment">#define t11 $25</span>
+<span class="comment">#define t12 $27</span>
+<span class="comment">#define zero $31</span>
 
-<span class="normal">LEAF</span><span class="symbol">(</span><span class="normal">__divqu</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal">					</span><span class="symbol">/*</span><span class="normal"> XXX </span><span class="symbol">*/</span>
-<span class="normal">	lda	</span><span class="variable">sp</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">-</span><span class="number">64</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	stq	t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	stq	t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="number">8</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	stq	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> </span><span class="number">16</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	stq	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">24</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
+<span class="normal">LEAF(__divqu, 0)					/* XXX */</span>
+<span class="normal">	lda	sp, -64(sp)</span>
+<span class="normal">	stq	t0, 0(sp)</span>
+<span class="normal">	stq	t1, 8(sp)</span>
+<span class="normal">	stq	t2, 16(sp)</span>
+<span class="normal">	stq	t3, 24(sp)</span>
 
-<span class="normal">	stq	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> </span><span class="number">40</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	stq	t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> </span><span class="number">48</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	</span><span class="keyword">mov</span><span class="normal">	zero</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">12</span><span class="normal">			</span><span class="symbol">/*</span><span class="normal"> Initialize result to zero </span><span class="symbol">*/</span>
-
-
-
-
-<span class="normal">	</span><span class="symbol">/*</span><span class="normal"> kill the special cases</span><span class="symbol">.</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	beq	t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">0d</span><span class="normal">otrap			</span><span class="symbol">/*</span><span class="normal"> division by zero</span><span class="symbol">!</span><span class="normal"> </span><span class="symbol">*/</span>
-
-<span class="normal">	cmpult	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">2</span><span class="normal">			</span><span class="symbol">/*</span><span class="normal"> t</span><span class="number">10</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> t</span><span class="number">11</span><span class="symbol">?</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	</span><span class="symbol">/*</span><span class="normal"> t</span><span class="number">12</span><span class="normal"> is already zero</span><span class="symbol">,</span><span class="normal"> from above</span><span class="symbol">.</span><span class="normal">  t</span><span class="number">10</span><span class="normal"> is untouched</span><span class="symbol">.</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	bne	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">0</span><span class="normal">ret_result</span>
-
-<span class="normal">	cmpeq	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">2</span><span class="normal">			</span><span class="symbol">/*</span><span class="normal"> t</span><span class="number">10</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> t</span><span class="number">11</span><span class="symbol">?</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	cmovne	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">12</span>
-<span class="normal">	cmovne	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> zero</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">10</span>
-<span class="normal">	bne	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">0</span><span class="normal">ret_result</span>
-
-<span class="normal">	</span><span class="symbol">/*</span>
-<span class="normal">	 </span><span class="symbol">*</span><span class="normal"> Find </span><span class="keyword">out</span><span class="normal"> how many bits of zeros are at the beginning of the divisor</span><span class="symbol">.</span>
-<span class="normal">	 </span><span class="symbol">*/</span>
-<span class="preproc">L0Bbits:</span>
-<span class="normal">	ldiq	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="normal">				</span><span class="symbol">/*</span><span class="normal"> t</span><span class="number">1</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="comment">; t0 = 1&lt;&lt;64-1 */</span>
-<span class="normal">	</span><span class="keyword">mov</span><span class="normal">	zero</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">1</span>
-<span class="normal">	sll	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">64</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span>
-<span class="preproc">L0Bloop:</span>
-<span class="normal">	</span><span class="keyword">and</span><span class="normal">	t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">2</span><span class="normal">			</span><span class="symbol">/*</span><span class="normal"> if bit </span><span class="keyword">in</span><span class="normal"> t</span><span class="number">11</span><span class="normal"> is set</span><span class="symbol">,</span><span class="normal"> done</span><span class="symbol">.</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	bne	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">0Ab</span><span class="normal">its</span>
-<span class="normal">	addq	t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">1</span><span class="normal">				</span><span class="symbol">/*</span><span class="normal"> increment t</span><span class="number">1</span><span class="symbol">,</span><span class="normal">  bit </span><span class="symbol">*/</span>
-<span class="normal">	srl	t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span>
-<span class="normal">	cmplt	t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="number">64</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">2</span><span class="normal">		</span><span class="symbol">/*</span><span class="normal"> if t</span><span class="number">1</span><span class="normal"> leaves one bit</span><span class="symbol">,</span><span class="normal"> done</span><span class="symbol">.</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	bne	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">0Bl</span><span class="normal">oop</span>
-
-<span class="preproc">L0Abits:</span>
-<span class="normal">	beq	t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">0d</span><span class="normal">odiv			</span><span class="symbol">/*</span><span class="normal"> If t</span><span class="number">1</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> divide now</span><span class="symbol">.</span><span class="normal">  </span><span class="symbol">*/</span>
-<span class="normal">	ldiq	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="normal">				</span><span class="symbol">/*</span><span class="normal"> t</span><span class="number">0</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">&lt;&lt;</span><span class="number">64</span><span class="symbol">-</span><span class="number">1</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	sll	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">64</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span>
-
-<span class="preproc">L0Aloop:</span>
-<span class="normal">	</span><span class="keyword">and</span><span class="normal">	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">2</span><span class="normal">			</span><span class="symbol">/*</span><span class="normal"> if bit </span><span class="keyword">in</span><span class="normal"> t</span><span class="number">10</span><span class="normal"> is set</span><span class="symbol">,</span><span class="normal"> done</span><span class="symbol">.</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	bne	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">0d</span><span class="normal">odiv</span>
-<span class="normal">	subq	t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">1</span><span class="normal">				</span><span class="symbol">/*</span><span class="normal"> decrement t</span><span class="number">1</span><span class="symbol">,</span><span class="normal">  bit </span><span class="symbol">*/</span>
-<span class="normal">	srl     t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span><span class="normal"> </span>
-<span class="normal">	bne	t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">0Al</span><span class="normal">oop			</span><span class="symbol">/*</span><span class="normal"> If t</span><span class="number">1</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">loop</span><span class="normal"> again </span><span class="symbol">*/</span>
-
-<span class="preproc">L0dodiv:</span>
-<span class="normal">	sll	t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">11</span><span class="normal">				</span><span class="symbol">/*</span><span class="normal"> t</span><span class="number">11</span><span class="normal"> </span><span class="symbol">&lt;&lt;=</span><span class="normal"> i </span><span class="symbol">*/</span>
-<span class="normal">	ldiq	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span>
-<span class="normal">	sll	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span>
-
-<span class="preproc">L0divloop:</span>
-<span class="normal">	cmpult	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">2</span>
-<span class="normal">	</span><span class="keyword">or</span><span class="normal">	t</span><span class="number">12</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">3</span>
-<span class="normal">	cmoveq	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">12</span>
-<span class="normal">	subq	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">3</span>
-<span class="normal">	cmoveq	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">10</span>
-<span class="normal">	srl	t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span><span class="normal">	</span>
-<span class="normal">	srl	t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">11</span>
-<span class="normal">	beq	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">0</span><span class="normal">ret_result</span>
-<span class="normal">	bne	t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">0d</span><span class="normal">ivloop</span>
-
-<span class="normal">L</span><span class="number">0</span><span class="normal">ret_result</span><span class="symbol">:</span>
+<span class="normal">	stq	t10, 40(sp)</span>
+<span class="normal">	stq	t11, 48(sp)</span>
+<span class="normal">	mov	zero, t12			/* Initialize result to zero */</span>
 
 
 
-<span class="normal">	ldq	t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	ldq	t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="number">8</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	ldq	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> </span><span class="number">16</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	ldq	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">24</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
 
-<span class="normal">	ldq	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> </span><span class="number">40</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	ldq	t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> </span><span class="number">48</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	lda	</span><span class="variable">sp</span><span class="symbol">,</span><span class="normal"> </span><span class="number">64</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	</span><span class="keyword">ret</span><span class="normal">	zero</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">t</span><span class="number">9</span><span class="symbol">),</span><span class="normal"> </span><span class="number">1</span>
+<span class="normal">	/* kill the special cases. */</span>
+<span class="normal">	beq	t11, L0dotrap			/* division by zero! */</span>
 
-<span class="preproc">L0dotrap:</span>
-<span class="normal">	ldiq	a</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">-</span><span class="number">2</span><span class="normal">			</span><span class="symbol">/*</span><span class="normal"> </span><span class="keyword">This</span><span class="normal"> is the signal to SIGFPE</span><span class="symbol">!</span><span class="normal"> </span><span class="symbol">*/</span>
+<span class="normal">	cmpult	t10, t11, t2			/* t10 &lt; t11? */</span>
+<span class="normal">	/* t12 is already zero, from above.  t10 is untouched. */</span>
+<span class="normal">	bne	t2, L0ret_result</span>
+
+<span class="normal">	cmpeq	t10, t11, t2			/* t10 == t11? */</span>
+<span class="normal">	cmovne	t2, 1, t12</span>
+<span class="normal">	cmovne	t2, zero, t10</span>
+<span class="normal">	bne	t2, L0ret_result</span>
+
+<span class="normal">	/*</span>
+<span class="normal">	 * Find out how many bits of zeros are at the beginning of the divisor.</span>
+<span class="normal">	 */</span>
+<span class="normal">L0Bbits:</span>
+<span class="normal">	ldiq	t3, 1				/* t1 = 0; t0 = 1&lt;&lt;64-1 */</span>
+<span class="normal">	mov	zero, t1</span>
+<span class="normal">	sll	t3, 64-1, t0</span>
+<span class="normal">L0Bloop:</span>
+<span class="normal">	and	t11, t0, t2			/* </span><span class="keyword">if</span><span class="normal"> bit in t11 is set, done. */</span>
+<span class="normal">	bne	t2, L0Abits</span>
+<span class="normal">	addq	t1, 1, t1				/* increment t1,  bit */</span>
+<span class="normal">	srl	t0, 1, t0</span>
+<span class="normal">	cmplt	t1, 64-1, t2		/* </span><span class="keyword">if</span><span class="normal"> t1 leaves one bit, done. */</span>
+<span class="normal">	bne	t2, L0Bloop</span>
+
+<span class="normal">L0Abits:</span>
+<span class="normal">	beq	t1, L0dodiv			/* If t1 = 0, divide now.  */</span>
+<span class="normal">	ldiq	t3, 1				/* t0 = 1&lt;&lt;64-1 */</span>
+<span class="normal">	sll	t3, 64-1, t0</span>
+
+<span class="normal">L0Aloop:</span>
+<span class="normal">	and	t10, t0, t2			/* </span><span class="keyword">if</span><span class="normal"> bit in t10 is set, done. */</span>
+<span class="normal">	bne	t2, L0dodiv</span>
+<span class="normal">	subq	t1, 1, t1				/* decrement t1,  bit */</span>
+<span class="normal">	srl     t0, 1, t0 </span>
+<span class="normal">	bne	t1, L0Aloop			/* If t1 != 0, loop again */</span>
+
+<span class="normal">L0dodiv:</span>
+<span class="normal">	sll	t11, t1, t11				/* t11 &lt;&lt;= i */</span>
+<span class="normal">	ldiq	t3, 1</span>
+<span class="normal">	sll	t3, t1, t0</span>
+
+<span class="normal">L0divloop:</span>
+<span class="normal">	cmpult	t10, t11, t2</span>
+<span class="normal">	or	t12, t0, t3</span>
+<span class="normal">	cmoveq	t2, t3, t12</span>
+<span class="normal">	subq	t10, t11, t3</span>
+<span class="normal">	cmoveq	t2, t3, t10</span>
+<span class="normal">	srl	t0, 1, t0	</span>
+<span class="normal">	srl	t11, 1, t11</span>
+<span class="normal">	beq	t10, L0ret_result</span>
+<span class="normal">	bne	t0, L0divloop</span>
+
+<span class="normal">L0ret_result:</span>
+
+
+
+<span class="normal">	ldq	t0, 0(sp)</span>
+<span class="normal">	ldq	t1, 8(sp)</span>
+<span class="normal">	ldq	t2, 16(sp)</span>
+<span class="normal">	ldq	t3, 24(sp)</span>
+
+<span class="normal">	ldq	t10, 40(sp)</span>
+<span class="normal">	ldq	t11, 48(sp)</span>
+<span class="normal">	lda	sp, 64(sp)</span>
+<span class="normal">	ret	zero, (t9), 1</span>
+
+<span class="normal">L0dotrap:</span>
+<span class="normal">	ldiq	a0, -2			/* This is the signal to SIGFPE! */</span>
 <span class="normal">	call_pal PAL_gentrap</span>
 
-<span class="normal">	br	zero</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">0</span><span class="normal">ret_result</span>
+<span class="normal">	br	zero, L0ret_result</span>
 
-<span class="keyword">END</span><span class="symbol">(</span><span class="normal">__divqu</span><span class="symbol">)</span>
-<span class="symbol">/*</span><span class="normal">	$NetBSD</span><span class="symbol">:</span><span class="normal"> divrem</span><span class="symbol">.</span><span class="normal">m</span><span class="number">4</span><span class="symbol">,</span><span class="normal">v </span><span class="number">1.5</span><span class="normal"> </span><span class="number">1996</span><span class="symbol">/</span><span class="number">10</span><span class="symbol">/</span><span class="number">17</span><span class="normal"> </span><span class="number">04</span><span class="symbol">:</span><span class="number">26</span><span class="symbol">:</span><span class="number">25</span><span class="normal"> cgd Exp $	</span><span class="symbol">*/</span>
+<span class="normal">END(__divqu)</span>
+<span class="normal">/*	$NetBSD: divrem.m4,v 1.5 1996/10/17 04:26:25 cgd Exp $	*/</span>
 
-<span class="symbol">/*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> Copyright </span><span class="symbol">(</span><span class="normal">c</span><span class="symbol">)</span><span class="normal"> </span><span class="number">1994</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1995</span><span class="normal"> Carnegie</span><span class="symbol">-</span><span class="normal">Mellon University</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> All rights reserved</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> Author</span><span class="symbol">:</span><span class="normal"> Chris G</span><span class="symbol">.</span><span class="normal"> Demetriou</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> Permission to use</span><span class="symbol">,</span><span class="normal"> copy</span><span class="symbol">,</span><span class="normal"> modify </span><span class="keyword">and</span><span class="normal"> distribute </span><span class="keyword">this</span><span class="normal"> software </span><span class="keyword">and</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> its documentation is hereby granted</span><span class="symbol">,</span><span class="normal"> provided that both the copyright</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> notice </span><span class="keyword">and</span><span class="normal"> </span><span class="keyword">this</span><span class="normal"> permission notice appear </span><span class="keyword">in</span><span class="normal"> all copies of the</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> software</span><span class="symbol">,</span><span class="normal"> derivative works </span><span class="keyword">or</span><span class="normal"> modified versions</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">and</span><span class="normal"> any portions</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> thereof</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">and</span><span class="normal"> that both notices appear </span><span class="keyword">in</span><span class="normal"> supporting documentation</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> CARNEGIE MELLON ALLOWS FREE USE OF </span><span class="keyword">THIS</span><span class="normal"> SOFTWARE </span><span class="keyword">IN</span><span class="normal"> ITS </span><span class="string">"AS IS"</span><span class="normal"> </span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> CONDITION</span><span class="symbol">.</span><span class="normal">  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND </span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF </span><span class="keyword">THIS</span><span class="normal"> SOFTWARE</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> Carnegie Mellon requests users of </span><span class="keyword">this</span><span class="normal"> software to return to</span>
-<span class="normal"> </span><span class="symbol">*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal">  Software Distribution Coordinator  </span><span class="keyword">or</span><span class="normal">  Software</span><span class="symbol">.</span><span class="normal">Distribution@</span><span class="variable">CS</span><span class="symbol">.</span><span class="normal">CMU</span><span class="symbol">.</span><span class="normal">EDU</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal">  School of Computer Science</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal">  Carnegie Mellon University</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal">  Pittsburgh PA </span><span class="number">15213</span><span class="symbol">-</span><span class="number">3890</span>
-<span class="normal"> </span><span class="symbol">*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> any improvements </span><span class="keyword">or</span><span class="normal"> extensions that they make </span><span class="keyword">and</span><span class="normal"> grant Carnegie the</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> rights to redistribute these changes</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*/</span>
+<span class="normal">/*</span>
+<span class="normal"> * Copyright (c) 1994, 1995 Carnegie-Mellon University.</span>
+<span class="normal"> * All rights reserved.</span>
+<span class="normal"> *</span>
+<span class="normal"> * Author: Chris G. Demetriou</span>
+<span class="normal"> * </span>
+<span class="normal"> * Permission to use, copy, modify and distribute this software and</span>
+<span class="normal"> * its documentation is hereby granted, provided that both the copyright</span>
+<span class="normal"> * notice and this permission notice appear in all copies of the</span>
+<span class="normal"> * software, derivative works or modified versions, and any portions</span>
+<span class="normal"> * thereof, and that both notices appear in supporting documentation.</span>
+<span class="normal"> * </span>
+<span class="normal"> * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS </span><span class="string">"AS IS"</span><span class="normal"> </span>
+<span class="normal"> * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND </span>
+<span class="normal"> * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.</span>
+<span class="normal"> * </span>
+<span class="normal"> * Carnegie Mellon requests users of this software to return to</span>
+<span class="normal"> *</span>
+<span class="normal"> *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU</span>
+<span class="normal"> *  School of Computer Science</span>
+<span class="normal"> *  Carnegie Mellon University</span>
+<span class="normal"> *  Pittsburgh PA 15213-3890</span>
+<span class="normal"> *</span>
+<span class="normal"> * any improvements or extensions that they make and grant Carnegie the</span>
+<span class="normal"> * rights to redistribute these changes.</span>
+<span class="normal"> */</span>
 
-<span class="symbol">/*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> Division </span><span class="keyword">and</span><span class="normal"> remainder</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> The use of m</span><span class="number">4</span><span class="normal"> is modeled after the sparc code</span><span class="symbol">,</span><span class="normal"> but the algorithm is</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> simple binary long division</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> Note that the loops could probably benefit from unrolling</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*/</span>
+<span class="normal">/*</span>
+<span class="normal"> * Division and remainder.</span>
+<span class="normal"> *</span>
+<span class="normal"> * The use of m4 is modeled after the sparc code, but the algorithm is</span>
+<span class="normal"> * simple binary long division.</span>
+<span class="normal"> *</span>
+<span class="normal"> * Note that the loops could probably benefit from unrolling.</span>
+<span class="normal"> */</span>
 
-<span class="symbol">/*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> M</span><span class="number">4</span><span class="normal"> Parameters</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> __divlu		</span><span class="keyword">name</span><span class="normal"> of function to generate</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="keyword">div</span><span class="normal">		</span><span class="keyword">div</span><span class="symbol">=</span><span class="keyword">div</span><span class="symbol">:</span><span class="normal"> t</span><span class="number">10</span><span class="normal"> </span><span class="symbol">/</span><span class="normal"> t</span><span class="number">11</span><span class="normal"> </span><span class="symbol">-&gt;</span><span class="normal"> t</span><span class="number">12</span><span class="comment">; div=rem: t10 % t11 -&gt; t12</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> false		false</span><span class="symbol">=</span><span class="normal">true</span><span class="symbol">:</span><span class="normal"> signed</span><span class="comment">; false=false: unsigned</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="number">32</span><span class="normal">	total number of bits</span>
-<span class="normal"> </span><span class="symbol">*/</span>
+<span class="normal">/*</span>
+<span class="normal"> * M4 Parameters</span>
+<span class="normal"> * __divlu		name of </span><span class="normal">function</span><span class="normal"> to generate</span>
+<span class="normal"> * div		div=div: t10 / t11 -&gt; t12; div=rem: t10 % t11 -&gt; t12</span>
+<span class="normal"> * false		false=true: signed; false=false: unsigned</span>
+<span class="normal"> * 32	total number of bits</span>
+<span class="normal"> */</span>
 
-<span class="normal">LEAF</span><span class="symbol">(</span><span class="normal">__divlu</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal">					</span><span class="symbol">/*</span><span class="normal"> XXX </span><span class="symbol">*/</span>
-<span class="normal">	lda	</span><span class="variable">sp</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">-</span><span class="number">64</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	stq	t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	stq	t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="number">8</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	stq	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> </span><span class="number">16</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	stq	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">24</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
+<span class="normal">LEAF(__divlu, 0)					/* XXX */</span>
+<span class="normal">	lda	sp, -64(sp)</span>
+<span class="normal">	stq	t0, 0(sp)</span>
+<span class="normal">	stq	t1, 8(sp)</span>
+<span class="normal">	stq	t2, 16(sp)</span>
+<span class="normal">	stq	t3, 24(sp)</span>
 
-<span class="normal">	stq	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> </span><span class="number">40</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	stq	t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> </span><span class="number">48</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	</span><span class="keyword">mov</span><span class="normal">	zero</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">12</span><span class="normal">			</span><span class="symbol">/*</span><span class="normal"> Initialize result to zero </span><span class="symbol">*/</span>
-
-
-
-<span class="normal">	</span><span class="symbol">/*</span>
-<span class="normal">	 </span><span class="symbol">*</span><span class="normal"> Clear the top </span><span class="number">32</span><span class="normal"> bits of each operand</span><span class="symbol">,</span><span class="normal"> as they may</span>
-<span class="normal">	 </span><span class="symbol">*</span><span class="normal"> sign extension </span><span class="symbol">(</span><span class="normal">if negated above</span><span class="symbol">),</span><span class="normal"> </span><span class="keyword">or</span><span class="normal"> random junk</span><span class="symbol">.</span>
-<span class="normal">	 </span><span class="symbol">*/</span>
-<span class="normal">	zap	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0xf0</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">10</span>
-<span class="normal">	zap	t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0xf0</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">11</span>
-
-
-<span class="normal">	</span><span class="symbol">/*</span><span class="normal"> kill the special cases</span><span class="symbol">.</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	beq	t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">1</span><span class="normal">dotrap			</span><span class="symbol">/*</span><span class="normal"> division by zero</span><span class="symbol">!</span><span class="normal"> </span><span class="symbol">*/</span>
-
-<span class="normal">	cmpult	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">2</span><span class="normal">			</span><span class="symbol">/*</span><span class="normal"> t</span><span class="number">10</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> t</span><span class="number">11</span><span class="symbol">?</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	</span><span class="symbol">/*</span><span class="normal"> t</span><span class="number">12</span><span class="normal"> is already zero</span><span class="symbol">,</span><span class="normal"> from above</span><span class="symbol">.</span><span class="normal">  t</span><span class="number">10</span><span class="normal"> is untouched</span><span class="symbol">.</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	bne	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">1</span><span class="normal">ret_result</span>
-
-<span class="normal">	cmpeq	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">2</span><span class="normal">			</span><span class="symbol">/*</span><span class="normal"> t</span><span class="number">10</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> t</span><span class="number">11</span><span class="symbol">?</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	cmovne	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">12</span>
-<span class="normal">	cmovne	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> zero</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">10</span>
-<span class="normal">	bne	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">1</span><span class="normal">ret_result</span>
-
-<span class="normal">	</span><span class="symbol">/*</span>
-<span class="normal">	 </span><span class="symbol">*</span><span class="normal"> Find </span><span class="keyword">out</span><span class="normal"> how many bits of zeros are at the beginning of the divisor</span><span class="symbol">.</span>
-<span class="normal">	 </span><span class="symbol">*/</span>
-<span class="preproc">L1Bbits:</span>
-<span class="normal">	ldiq	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="normal">				</span><span class="symbol">/*</span><span class="normal"> t</span><span class="number">1</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="comment">; t0 = 1&lt;&lt;32-1 */</span>
-<span class="normal">	</span><span class="keyword">mov</span><span class="normal">	zero</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">1</span>
-<span class="normal">	sll	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">32</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span>
-<span class="preproc">L1Bloop:</span>
-<span class="normal">	</span><span class="keyword">and</span><span class="normal">	t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">2</span><span class="normal">			</span><span class="symbol">/*</span><span class="normal"> if bit </span><span class="keyword">in</span><span class="normal"> t</span><span class="number">11</span><span class="normal"> is set</span><span class="symbol">,</span><span class="normal"> done</span><span class="symbol">.</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	bne	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">1</span><span class="normal">Abits</span>
-<span class="normal">	addq	t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">1</span><span class="normal">				</span><span class="symbol">/*</span><span class="normal"> increment t</span><span class="number">1</span><span class="symbol">,</span><span class="normal">  bit </span><span class="symbol">*/</span>
-<span class="normal">	srl	t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span>
-<span class="normal">	cmplt	t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="number">32</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">2</span><span class="normal">		</span><span class="symbol">/*</span><span class="normal"> if t</span><span class="number">1</span><span class="normal"> leaves one bit</span><span class="symbol">,</span><span class="normal"> done</span><span class="symbol">.</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	bne	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">1</span><span class="normal">Bloop</span>
-
-<span class="preproc">L1Abits:</span>
-<span class="normal">	beq	t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">1</span><span class="normal">dodiv			</span><span class="symbol">/*</span><span class="normal"> If t</span><span class="number">1</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> divide now</span><span class="symbol">.</span><span class="normal">  </span><span class="symbol">*/</span>
-<span class="normal">	ldiq	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="normal">				</span><span class="symbol">/*</span><span class="normal"> t</span><span class="number">0</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">&lt;&lt;</span><span class="number">32</span><span class="symbol">-</span><span class="number">1</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	sll	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">32</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span>
-
-<span class="preproc">L1Aloop:</span>
-<span class="normal">	</span><span class="keyword">and</span><span class="normal">	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">2</span><span class="normal">			</span><span class="symbol">/*</span><span class="normal"> if bit </span><span class="keyword">in</span><span class="normal"> t</span><span class="number">10</span><span class="normal"> is set</span><span class="symbol">,</span><span class="normal"> done</span><span class="symbol">.</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	bne	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">1</span><span class="normal">dodiv</span>
-<span class="normal">	subq	t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">1</span><span class="normal">				</span><span class="symbol">/*</span><span class="normal"> decrement t</span><span class="number">1</span><span class="symbol">,</span><span class="normal">  bit </span><span class="symbol">*/</span>
-<span class="normal">	srl     t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span><span class="normal"> </span>
-<span class="normal">	bne	t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">1</span><span class="normal">Aloop			</span><span class="symbol">/*</span><span class="normal"> If t</span><span class="number">1</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">loop</span><span class="normal"> again </span><span class="symbol">*/</span>
-
-<span class="preproc">L1dodiv:</span>
-<span class="normal">	sll	t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">11</span><span class="normal">				</span><span class="symbol">/*</span><span class="normal"> t</span><span class="number">11</span><span class="normal"> </span><span class="symbol">&lt;&lt;=</span><span class="normal"> i </span><span class="symbol">*/</span>
-<span class="normal">	ldiq	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span>
-<span class="normal">	sll	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span>
-
-<span class="preproc">L1divloop:</span>
-<span class="normal">	cmpult	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">2</span>
-<span class="normal">	</span><span class="keyword">or</span><span class="normal">	t</span><span class="number">12</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">3</span>
-<span class="normal">	cmoveq	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">12</span>
-<span class="normal">	subq	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">3</span>
-<span class="normal">	cmoveq	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">10</span>
-<span class="normal">	srl	t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span><span class="normal">	</span>
-<span class="normal">	srl	t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">11</span>
-<span class="normal">	beq	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">1</span><span class="normal">ret_result</span>
-<span class="normal">	bne	t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">1</span><span class="normal">divloop</span>
-
-<span class="normal">L</span><span class="number">1</span><span class="normal">ret_result</span><span class="symbol">:</span>
+<span class="normal">	stq	t10, 40(sp)</span>
+<span class="normal">	stq	t11, 48(sp)</span>
+<span class="normal">	mov	zero, t12			/* Initialize result to zero */</span>
 
 
 
-<span class="normal">	ldq	t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	ldq	t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="number">8</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	ldq	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> </span><span class="number">16</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	ldq	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">24</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
+<span class="normal">	/*</span>
+<span class="normal">	 * Clear the top 32 bits of each operand, as they may</span>
+<span class="normal">	 * sign extension (</span><span class="keyword">if</span><span class="normal"> negated above), or random junk.</span>
+<span class="normal">	 */</span>
+<span class="normal">	zap	t10, 0xf0, t10</span>
+<span class="normal">	zap	t11, 0xf0, t11</span>
 
-<span class="normal">	ldq	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> </span><span class="number">40</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	ldq	t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> </span><span class="number">48</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	lda	</span><span class="variable">sp</span><span class="symbol">,</span><span class="normal"> </span><span class="number">64</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	</span><span class="keyword">ret</span><span class="normal">	zero</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">t</span><span class="number">9</span><span class="symbol">),</span><span class="normal"> </span><span class="number">1</span>
 
-<span class="preproc">L1dotrap:</span>
-<span class="normal">	ldiq	a</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">-</span><span class="number">2</span><span class="normal">			</span><span class="symbol">/*</span><span class="normal"> </span><span class="keyword">This</span><span class="normal"> is the signal to SIGFPE</span><span class="symbol">!</span><span class="normal"> </span><span class="symbol">*/</span>
+<span class="normal">	/* kill the special cases. */</span>
+<span class="normal">	beq	t11, L1dotrap			/* division by zero! */</span>
+
+<span class="normal">	cmpult	t10, t11, t2			/* t10 &lt; t11? */</span>
+<span class="normal">	/* t12 is already zero, from above.  t10 is untouched. */</span>
+<span class="normal">	bne	t2, L1ret_result</span>
+
+<span class="normal">	cmpeq	t10, t11, t2			/* t10 == t11? */</span>
+<span class="normal">	cmovne	t2, 1, t12</span>
+<span class="normal">	cmovne	t2, zero, t10</span>
+<span class="normal">	bne	t2, L1ret_result</span>
+
+<span class="normal">	/*</span>
+<span class="normal">	 * Find out how many bits of zeros are at the beginning of the divisor.</span>
+<span class="normal">	 */</span>
+<span class="normal">L1Bbits:</span>
+<span class="normal">	ldiq	t3, 1				/* t1 = 0; t0 = 1&lt;&lt;32-1 */</span>
+<span class="normal">	mov	zero, t1</span>
+<span class="normal">	sll	t3, 32-1, t0</span>
+<span class="normal">L1Bloop:</span>
+<span class="normal">	and	t11, t0, t2			/* </span><span class="keyword">if</span><span class="normal"> bit in t11 is set, done. */</span>
+<span class="normal">	bne	t2, L1Abits</span>
+<span class="normal">	addq	t1, 1, t1				/* increment t1,  bit */</span>
+<span class="normal">	srl	t0, 1, t0</span>
+<span class="normal">	cmplt	t1, 32-1, t2		/* </span><span class="keyword">if</span><span class="normal"> t1 leaves one bit, done. */</span>
+<span class="normal">	bne	t2, L1Bloop</span>
+
+<span class="normal">L1Abits:</span>
+<span class="normal">	beq	t1, L1dodiv			/* If t1 = 0, divide now.  */</span>
+<span class="normal">	ldiq	t3, 1				/* t0 = 1&lt;&lt;32-1 */</span>
+<span class="normal">	sll	t3, 32-1, t0</span>
+
+<span class="normal">L1Aloop:</span>
+<span class="normal">	and	t10, t0, t2			/* </span><span class="keyword">if</span><span class="normal"> bit in t10 is set, done. */</span>
+<span class="normal">	bne	t2, L1dodiv</span>
+<span class="normal">	subq	t1, 1, t1				/* decrement t1,  bit */</span>
+<span class="normal">	srl     t0, 1, t0 </span>
+<span class="normal">	bne	t1, L1Aloop			/* If t1 != 0, loop again */</span>
+
+<span class="normal">L1dodiv:</span>
+<span class="normal">	sll	t11, t1, t11				/* t11 &lt;&lt;= i */</span>
+<span class="normal">	ldiq	t3, 1</span>
+<span class="normal">	sll	t3, t1, t0</span>
+
+<span class="normal">L1divloop:</span>
+<span class="normal">	cmpult	t10, t11, t2</span>
+<span class="normal">	or	t12, t0, t3</span>
+<span class="normal">	cmoveq	t2, t3, t12</span>
+<span class="normal">	subq	t10, t11, t3</span>
+<span class="normal">	cmoveq	t2, t3, t10</span>
+<span class="normal">	srl	t0, 1, t0	</span>
+<span class="normal">	srl	t11, 1, t11</span>
+<span class="normal">	beq	t10, L1ret_result</span>
+<span class="normal">	bne	t0, L1divloop</span>
+
+<span class="normal">L1ret_result:</span>
+
+
+
+<span class="normal">	ldq	t0, 0(sp)</span>
+<span class="normal">	ldq	t1, 8(sp)</span>
+<span class="normal">	ldq	t2, 16(sp)</span>
+<span class="normal">	ldq	t3, 24(sp)</span>
+
+<span class="normal">	ldq	t10, 40(sp)</span>
+<span class="normal">	ldq	t11, 48(sp)</span>
+<span class="normal">	lda	sp, 64(sp)</span>
+<span class="normal">	ret	zero, (t9), 1</span>
+
+<span class="normal">L1dotrap:</span>
+<span class="normal">	ldiq	a0, -2			/* This is the signal to SIGFPE! */</span>
 <span class="normal">	call_pal PAL_gentrap</span>
 
-<span class="normal">	br	zero</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">1</span><span class="normal">ret_result</span>
+<span class="normal">	br	zero, L1ret_result</span>
 
-<span class="keyword">END</span><span class="symbol">(</span><span class="normal">__divlu</span><span class="symbol">)</span>
-<span class="symbol">/*</span><span class="normal">	$NetBSD</span><span class="symbol">:</span><span class="normal"> divrem</span><span class="symbol">.</span><span class="normal">m</span><span class="number">4</span><span class="symbol">,</span><span class="normal">v </span><span class="number">1.5</span><span class="normal"> </span><span class="number">1996</span><span class="symbol">/</span><span class="number">10</span><span class="symbol">/</span><span class="number">17</span><span class="normal"> </span><span class="number">04</span><span class="symbol">:</span><span class="number">26</span><span class="symbol">:</span><span class="number">25</span><span class="normal"> cgd Exp $	</span><span class="symbol">*/</span>
+<span class="normal">END(__divlu)</span>
+<span class="normal">/*	$NetBSD: divrem.m4,v 1.5 1996/10/17 04:26:25 cgd Exp $	*/</span>
 
-<span class="symbol">/*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> Copyright </span><span class="symbol">(</span><span class="normal">c</span><span class="symbol">)</span><span class="normal"> </span><span class="number">1994</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1995</span><span class="normal"> Carnegie</span><span class="symbol">-</span><span class="normal">Mellon University</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> All rights reserved</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> Author</span><span class="symbol">:</span><span class="normal"> Chris G</span><span class="symbol">.</span><span class="normal"> Demetriou</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> Permission to use</span><span class="symbol">,</span><span class="normal"> copy</span><span class="symbol">,</span><span class="normal"> modify </span><span class="keyword">and</span><span class="normal"> distribute </span><span class="keyword">this</span><span class="normal"> software </span><span class="keyword">and</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> its documentation is hereby granted</span><span class="symbol">,</span><span class="normal"> provided that both the copyright</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> notice </span><span class="keyword">and</span><span class="normal"> </span><span class="keyword">this</span><span class="normal"> permission notice appear </span><span class="keyword">in</span><span class="normal"> all copies of the</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> software</span><span class="symbol">,</span><span class="normal"> derivative works </span><span class="keyword">or</span><span class="normal"> modified versions</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">and</span><span class="normal"> any portions</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> thereof</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">and</span><span class="normal"> that both notices appear </span><span class="keyword">in</span><span class="normal"> supporting documentation</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> CARNEGIE MELLON ALLOWS FREE USE OF </span><span class="keyword">THIS</span><span class="normal"> SOFTWARE </span><span class="keyword">IN</span><span class="normal"> ITS </span><span class="string">"AS IS"</span><span class="normal"> </span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> CONDITION</span><span class="symbol">.</span><span class="normal">  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND </span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF </span><span class="keyword">THIS</span><span class="normal"> SOFTWARE</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> Carnegie Mellon requests users of </span><span class="keyword">this</span><span class="normal"> software to return to</span>
-<span class="normal"> </span><span class="symbol">*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal">  Software Distribution Coordinator  </span><span class="keyword">or</span><span class="normal">  Software</span><span class="symbol">.</span><span class="normal">Distribution@</span><span class="variable">CS</span><span class="symbol">.</span><span class="normal">CMU</span><span class="symbol">.</span><span class="normal">EDU</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal">  School of Computer Science</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal">  Carnegie Mellon University</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal">  Pittsburgh PA </span><span class="number">15213</span><span class="symbol">-</span><span class="number">3890</span>
-<span class="normal"> </span><span class="symbol">*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> any improvements </span><span class="keyword">or</span><span class="normal"> extensions that they make </span><span class="keyword">and</span><span class="normal"> grant Carnegie the</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> rights to redistribute these changes</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*/</span>
+<span class="normal">/*</span>
+<span class="normal"> * Copyright (c) 1994, 1995 Carnegie-Mellon University.</span>
+<span class="normal"> * All rights reserved.</span>
+<span class="normal"> *</span>
+<span class="normal"> * Author: Chris G. Demetriou</span>
+<span class="normal"> * </span>
+<span class="normal"> * Permission to use, copy, modify and distribute this software and</span>
+<span class="normal"> * its documentation is hereby granted, provided that both the copyright</span>
+<span class="normal"> * notice and this permission notice appear in all copies of the</span>
+<span class="normal"> * software, derivative works or modified versions, and any portions</span>
+<span class="normal"> * thereof, and that both notices appear in supporting documentation.</span>
+<span class="normal"> * </span>
+<span class="normal"> * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS </span><span class="string">"AS IS"</span><span class="normal"> </span>
+<span class="normal"> * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND </span>
+<span class="normal"> * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.</span>
+<span class="normal"> * </span>
+<span class="normal"> * Carnegie Mellon requests users of this software to return to</span>
+<span class="normal"> *</span>
+<span class="normal"> *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU</span>
+<span class="normal"> *  School of Computer Science</span>
+<span class="normal"> *  Carnegie Mellon University</span>
+<span class="normal"> *  Pittsburgh PA 15213-3890</span>
+<span class="normal"> *</span>
+<span class="normal"> * any improvements or extensions that they make and grant Carnegie the</span>
+<span class="normal"> * rights to redistribute these changes.</span>
+<span class="normal"> */</span>
 
-<span class="symbol">/*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> Division </span><span class="keyword">and</span><span class="normal"> remainder</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> The use of m</span><span class="number">4</span><span class="normal"> is modeled after the sparc code</span><span class="symbol">,</span><span class="normal"> but the algorithm is</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> simple binary long division</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> Note that the loops could probably benefit from unrolling</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*/</span>
+<span class="normal">/*</span>
+<span class="normal"> * Division and remainder.</span>
+<span class="normal"> *</span>
+<span class="normal"> * The use of m4 is modeled after the sparc code, but the algorithm is</span>
+<span class="normal"> * simple binary long division.</span>
+<span class="normal"> *</span>
+<span class="normal"> * Note that the loops could probably benefit from unrolling.</span>
+<span class="normal"> */</span>
 
-<span class="symbol">/*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> M</span><span class="number">4</span><span class="normal"> Parameters</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> __remlu		</span><span class="keyword">name</span><span class="normal"> of function to generate</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> rem		rem</span><span class="symbol">=</span><span class="keyword">div</span><span class="symbol">:</span><span class="normal"> t</span><span class="number">10</span><span class="normal"> </span><span class="symbol">/</span><span class="normal"> t</span><span class="number">11</span><span class="normal"> </span><span class="symbol">-&gt;</span><span class="normal"> t</span><span class="number">12</span><span class="comment">; rem=rem: t10 % t11 -&gt; t12</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> false		false</span><span class="symbol">=</span><span class="normal">true</span><span class="symbol">:</span><span class="normal"> signed</span><span class="comment">; false=false: unsigned</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="number">32</span><span class="normal">	total number of bits</span>
-<span class="normal"> </span><span class="symbol">*/</span>
+<span class="normal">/*</span>
+<span class="normal"> * M4 Parameters</span>
+<span class="normal"> * __remlu		name of </span><span class="normal">function</span><span class="normal"> to generate</span>
+<span class="normal"> * rem		rem=div: t10 / t11 -&gt; t12; rem=rem: t10 % t11 -&gt; t12</span>
+<span class="normal"> * false		false=true: signed; false=false: unsigned</span>
+<span class="normal"> * 32	total number of bits</span>
+<span class="normal"> */</span>
 
-<span class="normal">LEAF</span><span class="symbol">(</span><span class="normal">__remlu</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal">					</span><span class="symbol">/*</span><span class="normal"> XXX </span><span class="symbol">*/</span>
-<span class="normal">	lda	</span><span class="variable">sp</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">-</span><span class="number">64</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	stq	t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	stq	t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="number">8</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	stq	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> </span><span class="number">16</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	stq	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">24</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
+<span class="normal">LEAF(__remlu, 0)					/* XXX */</span>
+<span class="normal">	lda	sp, -64(sp)</span>
+<span class="normal">	stq	t0, 0(sp)</span>
+<span class="normal">	stq	t1, 8(sp)</span>
+<span class="normal">	stq	t2, 16(sp)</span>
+<span class="normal">	stq	t3, 24(sp)</span>
 
-<span class="normal">	stq	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> </span><span class="number">40</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	stq	t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> </span><span class="number">48</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	</span><span class="keyword">mov</span><span class="normal">	zero</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">12</span><span class="normal">			</span><span class="symbol">/*</span><span class="normal"> Initialize result to zero </span><span class="symbol">*/</span>
-
-
-
-<span class="normal">	</span><span class="symbol">/*</span>
-<span class="normal">	 </span><span class="symbol">*</span><span class="normal"> Clear the top </span><span class="number">32</span><span class="normal"> bits of each operand</span><span class="symbol">,</span><span class="normal"> as they may</span>
-<span class="normal">	 </span><span class="symbol">*</span><span class="normal"> sign extension </span><span class="symbol">(</span><span class="normal">if negated above</span><span class="symbol">),</span><span class="normal"> </span><span class="keyword">or</span><span class="normal"> random junk</span><span class="symbol">.</span>
-<span class="normal">	 </span><span class="symbol">*/</span>
-<span class="normal">	zap	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0xf0</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">10</span>
-<span class="normal">	zap	t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0xf0</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">11</span>
-
-
-<span class="normal">	</span><span class="symbol">/*</span><span class="normal"> kill the special cases</span><span class="symbol">.</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	beq	t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">2</span><span class="normal">dotrap			</span><span class="symbol">/*</span><span class="normal"> division by zero</span><span class="symbol">!</span><span class="normal"> </span><span class="symbol">*/</span>
-
-<span class="normal">	cmpult	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">2</span><span class="normal">			</span><span class="symbol">/*</span><span class="normal"> t</span><span class="number">10</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> t</span><span class="number">11</span><span class="symbol">?</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	</span><span class="symbol">/*</span><span class="normal"> t</span><span class="number">12</span><span class="normal"> is already zero</span><span class="symbol">,</span><span class="normal"> from above</span><span class="symbol">.</span><span class="normal">  t</span><span class="number">10</span><span class="normal"> is untouched</span><span class="symbol">.</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	bne	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">2</span><span class="normal">ret_result</span>
-
-<span class="normal">	cmpeq	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">2</span><span class="normal">			</span><span class="symbol">/*</span><span class="normal"> t</span><span class="number">10</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> t</span><span class="number">11</span><span class="symbol">?</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	cmovne	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">12</span>
-<span class="normal">	cmovne	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> zero</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">10</span>
-<span class="normal">	bne	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">2</span><span class="normal">ret_result</span>
-
-<span class="normal">	</span><span class="symbol">/*</span>
-<span class="normal">	 </span><span class="symbol">*</span><span class="normal"> Find </span><span class="keyword">out</span><span class="normal"> how many bits of zeros are at the beginning of the divisor</span><span class="symbol">.</span>
-<span class="normal">	 </span><span class="symbol">*/</span>
-<span class="preproc">L2Bbits:</span>
-<span class="normal">	ldiq	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="normal">				</span><span class="symbol">/*</span><span class="normal"> t</span><span class="number">1</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="comment">; t0 = 1&lt;&lt;32-1 */</span>
-<span class="normal">	</span><span class="keyword">mov</span><span class="normal">	zero</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">1</span>
-<span class="normal">	sll	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">32</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span>
-<span class="preproc">L2Bloop:</span>
-<span class="normal">	</span><span class="keyword">and</span><span class="normal">	t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">2</span><span class="normal">			</span><span class="symbol">/*</span><span class="normal"> if bit </span><span class="keyword">in</span><span class="normal"> t</span><span class="number">11</span><span class="normal"> is set</span><span class="symbol">,</span><span class="normal"> done</span><span class="symbol">.</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	bne	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">2</span><span class="normal">Abits</span>
-<span class="normal">	addq	t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">1</span><span class="normal">				</span><span class="symbol">/*</span><span class="normal"> increment t</span><span class="number">1</span><span class="symbol">,</span><span class="normal">  bit </span><span class="symbol">*/</span>
-<span class="normal">	srl	t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span>
-<span class="normal">	cmplt	t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="number">32</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">2</span><span class="normal">		</span><span class="symbol">/*</span><span class="normal"> if t</span><span class="number">1</span><span class="normal"> leaves one bit</span><span class="symbol">,</span><span class="normal"> done</span><span class="symbol">.</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	bne	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">2</span><span class="normal">Bloop</span>
-
-<span class="preproc">L2Abits:</span>
-<span class="normal">	beq	t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">2</span><span class="normal">dodiv			</span><span class="symbol">/*</span><span class="normal"> If t</span><span class="number">1</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> divide now</span><span class="symbol">.</span><span class="normal">  </span><span class="symbol">*/</span>
-<span class="normal">	ldiq	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="normal">				</span><span class="symbol">/*</span><span class="normal"> t</span><span class="number">0</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">&lt;&lt;</span><span class="number">32</span><span class="symbol">-</span><span class="number">1</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	sll	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">32</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span>
-
-<span class="preproc">L2Aloop:</span>
-<span class="normal">	</span><span class="keyword">and</span><span class="normal">	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">2</span><span class="normal">			</span><span class="symbol">/*</span><span class="normal"> if bit </span><span class="keyword">in</span><span class="normal"> t</span><span class="number">10</span><span class="normal"> is set</span><span class="symbol">,</span><span class="normal"> done</span><span class="symbol">.</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	bne	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">2</span><span class="normal">dodiv</span>
-<span class="normal">	subq	t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">1</span><span class="normal">				</span><span class="symbol">/*</span><span class="normal"> decrement t</span><span class="number">1</span><span class="symbol">,</span><span class="normal">  bit </span><span class="symbol">*/</span>
-<span class="normal">	srl     t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span><span class="normal"> </span>
-<span class="normal">	bne	t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">2</span><span class="normal">Aloop			</span><span class="symbol">/*</span><span class="normal"> If t</span><span class="number">1</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">loop</span><span class="normal"> again </span><span class="symbol">*/</span>
-
-<span class="preproc">L2dodiv:</span>
-<span class="normal">	sll	t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">11</span><span class="normal">				</span><span class="symbol">/*</span><span class="normal"> t</span><span class="number">11</span><span class="normal"> </span><span class="symbol">&lt;&lt;=</span><span class="normal"> i </span><span class="symbol">*/</span>
-<span class="normal">	ldiq	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span>
-<span class="normal">	sll	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span>
-
-<span class="preproc">L2divloop:</span>
-<span class="normal">	cmpult	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">2</span>
-<span class="normal">	</span><span class="keyword">or</span><span class="normal">	t</span><span class="number">12</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">3</span>
-<span class="normal">	cmoveq	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">12</span>
-<span class="normal">	subq	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">3</span>
-<span class="normal">	cmoveq	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">10</span>
-<span class="normal">	srl	t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span><span class="normal">	</span>
-<span class="normal">	srl	t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">11</span>
-<span class="normal">	beq	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">2</span><span class="normal">ret_result</span>
-<span class="normal">	bne	t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">2</span><span class="normal">divloop</span>
-
-<span class="normal">L</span><span class="number">2</span><span class="normal">ret_result</span><span class="symbol">:</span>
-<span class="normal">	</span><span class="keyword">mov</span><span class="normal">	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">12</span>
+<span class="normal">	stq	t10, 40(sp)</span>
+<span class="normal">	stq	t11, 48(sp)</span>
+<span class="normal">	mov	zero, t12			/* Initialize result to zero */</span>
 
 
 
-<span class="normal">	ldq	t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	ldq	t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="number">8</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	ldq	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> </span><span class="number">16</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	ldq	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">24</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
+<span class="normal">	/*</span>
+<span class="normal">	 * Clear the top 32 bits of each operand, as they may</span>
+<span class="normal">	 * sign extension (</span><span class="keyword">if</span><span class="normal"> negated above), or random junk.</span>
+<span class="normal">	 */</span>
+<span class="normal">	zap	t10, 0xf0, t10</span>
+<span class="normal">	zap	t11, 0xf0, t11</span>
 
-<span class="normal">	ldq	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> </span><span class="number">40</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	ldq	t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> </span><span class="number">48</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	lda	</span><span class="variable">sp</span><span class="symbol">,</span><span class="normal"> </span><span class="number">64</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	</span><span class="keyword">ret</span><span class="normal">	zero</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">t</span><span class="number">9</span><span class="symbol">),</span><span class="normal"> </span><span class="number">1</span>
 
-<span class="preproc">L2dotrap:</span>
-<span class="normal">	ldiq	a</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">-</span><span class="number">2</span><span class="normal">			</span><span class="symbol">/*</span><span class="normal"> </span><span class="keyword">This</span><span class="normal"> is the signal to SIGFPE</span><span class="symbol">!</span><span class="normal"> </span><span class="symbol">*/</span>
+<span class="normal">	/* kill the special cases. */</span>
+<span class="normal">	beq	t11, L2dotrap			/* division by zero! */</span>
+
+<span class="normal">	cmpult	t10, t11, t2			/* t10 &lt; t11? */</span>
+<span class="normal">	/* t12 is already zero, from above.  t10 is untouched. */</span>
+<span class="normal">	bne	t2, L2ret_result</span>
+
+<span class="normal">	cmpeq	t10, t11, t2			/* t10 == t11? */</span>
+<span class="normal">	cmovne	t2, 1, t12</span>
+<span class="normal">	cmovne	t2, zero, t10</span>
+<span class="normal">	bne	t2, L2ret_result</span>
+
+<span class="normal">	/*</span>
+<span class="normal">	 * Find out how many bits of zeros are at the beginning of the divisor.</span>
+<span class="normal">	 */</span>
+<span class="normal">L2Bbits:</span>
+<span class="normal">	ldiq	t3, 1				/* t1 = 0; t0 = 1&lt;&lt;32-1 */</span>
+<span class="normal">	mov	zero, t1</span>
+<span class="normal">	sll	t3, 32-1, t0</span>
+<span class="normal">L2Bloop:</span>
+<span class="normal">	and	t11, t0, t2			/* </span><span class="keyword">if</span><span class="normal"> bit in t11 is set, done. */</span>
+<span class="normal">	bne	t2, L2Abits</span>
+<span class="normal">	addq	t1, 1, t1				/* increment t1,  bit */</span>
+<span class="normal">	srl	t0, 1, t0</span>
+<span class="normal">	cmplt	t1, 32-1, t2		/* </span><span class="keyword">if</span><span class="normal"> t1 leaves one bit, done. */</span>
+<span class="normal">	bne	t2, L2Bloop</span>
+
+<span class="normal">L2Abits:</span>
+<span class="normal">	beq	t1, L2dodiv			/* If t1 = 0, divide now.  */</span>
+<span class="normal">	ldiq	t3, 1				/* t0 = 1&lt;&lt;32-1 */</span>
+<span class="normal">	sll	t3, 32-1, t0</span>
+
+<span class="normal">L2Aloop:</span>
+<span class="normal">	and	t10, t0, t2			/* </span><span class="keyword">if</span><span class="normal"> bit in t10 is set, done. */</span>
+<span class="normal">	bne	t2, L2dodiv</span>
+<span class="normal">	subq	t1, 1, t1				/* decrement t1,  bit */</span>
+<span class="normal">	srl     t0, 1, t0 </span>
+<span class="normal">	bne	t1, L2Aloop			/* If t1 != 0, loop again */</span>
+
+<span class="normal">L2dodiv:</span>
+<span class="normal">	sll	t11, t1, t11				/* t11 &lt;&lt;= i */</span>
+<span class="normal">	ldiq	t3, 1</span>
+<span class="normal">	sll	t3, t1, t0</span>
+
+<span class="normal">L2divloop:</span>
+<span class="normal">	cmpult	t10, t11, t2</span>
+<span class="normal">	or	t12, t0, t3</span>
+<span class="normal">	cmoveq	t2, t3, t12</span>
+<span class="normal">	subq	t10, t11, t3</span>
+<span class="normal">	cmoveq	t2, t3, t10</span>
+<span class="normal">	srl	t0, 1, t0	</span>
+<span class="normal">	srl	t11, 1, t11</span>
+<span class="normal">	beq	t10, L2ret_result</span>
+<span class="normal">	bne	t0, L2divloop</span>
+
+<span class="normal">L2ret_result:</span>
+<span class="normal">	mov	t10, t12</span>
+
+
+
+<span class="normal">	ldq	t0, 0(sp)</span>
+<span class="normal">	ldq	t1, 8(sp)</span>
+<span class="normal">	ldq	t2, 16(sp)</span>
+<span class="normal">	ldq	t3, 24(sp)</span>
+
+<span class="normal">	ldq	t10, 40(sp)</span>
+<span class="normal">	ldq	t11, 48(sp)</span>
+<span class="normal">	lda	sp, 64(sp)</span>
+<span class="normal">	ret	zero, (t9), 1</span>
+
+<span class="normal">L2dotrap:</span>
+<span class="normal">	ldiq	a0, -2			/* This is the signal to SIGFPE! */</span>
 <span class="normal">	call_pal PAL_gentrap</span>
-<span class="normal">	</span><span class="keyword">mov</span><span class="normal">	zero</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">10</span><span class="normal">			</span><span class="symbol">/*</span><span class="normal"> so that zero will be returned </span><span class="symbol">*/</span>
+<span class="normal">	mov	zero, t10			/* so that zero will be returned */</span>
 
-<span class="normal">	br	zero</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">2</span><span class="normal">ret_result</span>
+<span class="normal">	br	zero, L2ret_result</span>
 
-<span class="keyword">END</span><span class="symbol">(</span><span class="normal">__remlu</span><span class="symbol">)</span>
-<span class="symbol">/*</span><span class="normal">	$NetBSD</span><span class="symbol">:</span><span class="normal"> divrem</span><span class="symbol">.</span><span class="normal">m</span><span class="number">4</span><span class="symbol">,</span><span class="normal">v </span><span class="number">1.5</span><span class="normal"> </span><span class="number">1996</span><span class="symbol">/</span><span class="number">10</span><span class="symbol">/</span><span class="number">17</span><span class="normal"> </span><span class="number">04</span><span class="symbol">:</span><span class="number">26</span><span class="symbol">:</span><span class="number">25</span><span class="normal"> cgd Exp $	</span><span class="symbol">*/</span>
+<span class="normal">END(__remlu)</span>
+<span class="normal">/*	$NetBSD: divrem.m4,v 1.5 1996/10/17 04:26:25 cgd Exp $	*/</span>
 
-<span class="symbol">/*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> Copyright </span><span class="symbol">(</span><span class="normal">c</span><span class="symbol">)</span><span class="normal"> </span><span class="number">1994</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1995</span><span class="normal"> Carnegie</span><span class="symbol">-</span><span class="normal">Mellon University</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> All rights reserved</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> Author</span><span class="symbol">:</span><span class="normal"> Chris G</span><span class="symbol">.</span><span class="normal"> Demetriou</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> Permission to use</span><span class="symbol">,</span><span class="normal"> copy</span><span class="symbol">,</span><span class="normal"> modify </span><span class="keyword">and</span><span class="normal"> distribute </span><span class="keyword">this</span><span class="normal"> software </span><span class="keyword">and</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> its documentation is hereby granted</span><span class="symbol">,</span><span class="normal"> provided that both the copyright</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> notice </span><span class="keyword">and</span><span class="normal"> </span><span class="keyword">this</span><span class="normal"> permission notice appear </span><span class="keyword">in</span><span class="normal"> all copies of the</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> software</span><span class="symbol">,</span><span class="normal"> derivative works </span><span class="keyword">or</span><span class="normal"> modified versions</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">and</span><span class="normal"> any portions</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> thereof</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">and</span><span class="normal"> that both notices appear </span><span class="keyword">in</span><span class="normal"> supporting documentation</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> CARNEGIE MELLON ALLOWS FREE USE OF </span><span class="keyword">THIS</span><span class="normal"> SOFTWARE </span><span class="keyword">IN</span><span class="normal"> ITS </span><span class="string">"AS IS"</span><span class="normal"> </span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> CONDITION</span><span class="symbol">.</span><span class="normal">  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND </span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF </span><span class="keyword">THIS</span><span class="normal"> SOFTWARE</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> Carnegie Mellon requests users of </span><span class="keyword">this</span><span class="normal"> software to return to</span>
-<span class="normal"> </span><span class="symbol">*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal">  Software Distribution Coordinator  </span><span class="keyword">or</span><span class="normal">  Software</span><span class="symbol">.</span><span class="normal">Distribution@</span><span class="variable">CS</span><span class="symbol">.</span><span class="normal">CMU</span><span class="symbol">.</span><span class="normal">EDU</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal">  School of Computer Science</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal">  Carnegie Mellon University</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal">  Pittsburgh PA </span><span class="number">15213</span><span class="symbol">-</span><span class="number">3890</span>
-<span class="normal"> </span><span class="symbol">*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> any improvements </span><span class="keyword">or</span><span class="normal"> extensions that they make </span><span class="keyword">and</span><span class="normal"> grant Carnegie the</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> rights to redistribute these changes</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*/</span>
+<span class="normal">/*</span>
+<span class="normal"> * Copyright (c) 1994, 1995 Carnegie-Mellon University.</span>
+<span class="normal"> * All rights reserved.</span>
+<span class="normal"> *</span>
+<span class="normal"> * Author: Chris G. Demetriou</span>
+<span class="normal"> * </span>
+<span class="normal"> * Permission to use, copy, modify and distribute this software and</span>
+<span class="normal"> * its documentation is hereby granted, provided that both the copyright</span>
+<span class="normal"> * notice and this permission notice appear in all copies of the</span>
+<span class="normal"> * software, derivative works or modified versions, and any portions</span>
+<span class="normal"> * thereof, and that both notices appear in supporting documentation.</span>
+<span class="normal"> * </span>
+<span class="normal"> * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS </span><span class="string">"AS IS"</span><span class="normal"> </span>
+<span class="normal"> * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND </span>
+<span class="normal"> * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.</span>
+<span class="normal"> * </span>
+<span class="normal"> * Carnegie Mellon requests users of this software to return to</span>
+<span class="normal"> *</span>
+<span class="normal"> *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU</span>
+<span class="normal"> *  School of Computer Science</span>
+<span class="normal"> *  Carnegie Mellon University</span>
+<span class="normal"> *  Pittsburgh PA 15213-3890</span>
+<span class="normal"> *</span>
+<span class="normal"> * any improvements or extensions that they make and grant Carnegie the</span>
+<span class="normal"> * rights to redistribute these changes.</span>
+<span class="normal"> */</span>
 
-<span class="symbol">/*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> Division </span><span class="keyword">and</span><span class="normal"> remainder</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> The use of m</span><span class="number">4</span><span class="normal"> is modeled after the sparc code</span><span class="symbol">,</span><span class="normal"> but the algorithm is</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> simple binary long division</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> Note that the loops could probably benefit from unrolling</span><span class="symbol">.</span>
-<span class="normal"> </span><span class="symbol">*/</span>
+<span class="normal">/*</span>
+<span class="normal"> * Division and remainder.</span>
+<span class="normal"> *</span>
+<span class="normal"> * The use of m4 is modeled after the sparc code, but the algorithm is</span>
+<span class="normal"> * simple binary long division.</span>
+<span class="normal"> *</span>
+<span class="normal"> * Note that the loops could probably benefit from unrolling.</span>
+<span class="normal"> */</span>
 
-<span class="symbol">/*</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> M</span><span class="number">4</span><span class="normal"> Parameters</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> __remqu		</span><span class="keyword">name</span><span class="normal"> of function to generate</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> rem		rem</span><span class="symbol">=</span><span class="keyword">div</span><span class="symbol">:</span><span class="normal"> t</span><span class="number">10</span><span class="normal"> </span><span class="symbol">/</span><span class="normal"> t</span><span class="number">11</span><span class="normal"> </span><span class="symbol">-&gt;</span><span class="normal"> t</span><span class="number">12</span><span class="comment">; rem=rem: t10 % t11 -&gt; t12</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> false		false</span><span class="symbol">=</span><span class="normal">true</span><span class="symbol">:</span><span class="normal"> signed</span><span class="comment">; false=false: unsigned</span>
-<span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="number">64</span><span class="normal">	total number of bits</span>
-<span class="normal"> </span><span class="symbol">*/</span>
-
-
-<span class="normal">LEAF</span><span class="symbol">(</span><span class="normal">__remqu</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal">					</span><span class="symbol">/*</span><span class="normal"> XXX </span><span class="symbol">*/</span>
-<span class="normal">	lda	</span><span class="variable">sp</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">-</span><span class="number">64</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	stq	t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	stq	t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="number">8</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	stq	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> </span><span class="number">16</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	stq	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">24</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-
-<span class="normal">	stq	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> </span><span class="number">40</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	stq	t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> </span><span class="number">48</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	</span><span class="keyword">mov</span><span class="normal">	zero</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">12</span><span class="normal">			</span><span class="symbol">/*</span><span class="normal"> Initialize result to zero </span><span class="symbol">*/</span>
+<span class="normal">/*</span>
+<span class="normal"> * M4 Parameters</span>
+<span class="normal"> * __remqu		name of </span><span class="normal">function</span><span class="normal"> to generate</span>
+<span class="normal"> * rem		rem=div: t10 / t11 -&gt; t12; rem=rem: t10 % t11 -&gt; t12</span>
+<span class="normal"> * false		false=true: signed; false=false: unsigned</span>
+<span class="normal"> * 64	total number of bits</span>
+<span class="normal"> */</span>
 
 
+<span class="normal">LEAF(__remqu, 0)					/* XXX */</span>
+<span class="normal">	lda	sp, -64(sp)</span>
+<span class="normal">	stq	t0, 0(sp)</span>
+<span class="normal">	stq	t1, 8(sp)</span>
+<span class="normal">	stq	t2, 16(sp)</span>
+<span class="normal">	stq	t3, 24(sp)</span>
 
-
-<span class="normal">	</span><span class="symbol">/*</span><span class="normal"> kill the special cases</span><span class="symbol">.</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	beq	t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">3</span><span class="normal">dotrap			</span><span class="symbol">/*</span><span class="normal"> division by zero</span><span class="symbol">!</span><span class="normal"> </span><span class="symbol">*/</span>
-
-<span class="normal">	cmpult	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">2</span><span class="normal">			</span><span class="symbol">/*</span><span class="normal"> t</span><span class="number">10</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> t</span><span class="number">11</span><span class="symbol">?</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	</span><span class="symbol">/*</span><span class="normal"> t</span><span class="number">12</span><span class="normal"> is already zero</span><span class="symbol">,</span><span class="normal"> from above</span><span class="symbol">.</span><span class="normal">  t</span><span class="number">10</span><span class="normal"> is untouched</span><span class="symbol">.</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	bne	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">3</span><span class="normal">ret_result</span>
-
-<span class="normal">	cmpeq	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">2</span><span class="normal">			</span><span class="symbol">/*</span><span class="normal"> t</span><span class="number">10</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> t</span><span class="number">11</span><span class="symbol">?</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	cmovne	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">12</span>
-<span class="normal">	cmovne	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> zero</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">10</span>
-<span class="normal">	bne	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">3</span><span class="normal">ret_result</span>
-
-<span class="normal">	</span><span class="symbol">/*</span>
-<span class="normal">	 </span><span class="symbol">*</span><span class="normal"> Find </span><span class="keyword">out</span><span class="normal"> how many bits of zeros are at the beginning of the divisor</span><span class="symbol">.</span>
-<span class="normal">	 </span><span class="symbol">*/</span>
-<span class="preproc">L3Bbits:</span>
-<span class="normal">	ldiq	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="normal">				</span><span class="symbol">/*</span><span class="normal"> t</span><span class="number">1</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="comment">; t0 = 1&lt;&lt;64-1 */</span>
-<span class="normal">	</span><span class="keyword">mov</span><span class="normal">	zero</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">1</span>
-<span class="normal">	sll	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">64</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span>
-<span class="preproc">L3Bloop:</span>
-<span class="normal">	</span><span class="keyword">and</span><span class="normal">	t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">2</span><span class="normal">			</span><span class="symbol">/*</span><span class="normal"> if bit </span><span class="keyword">in</span><span class="normal"> t</span><span class="number">11</span><span class="normal"> is set</span><span class="symbol">,</span><span class="normal"> done</span><span class="symbol">.</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	bne	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">3</span><span class="normal">Abits</span>
-<span class="normal">	addq	t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">1</span><span class="normal">				</span><span class="symbol">/*</span><span class="normal"> increment t</span><span class="number">1</span><span class="symbol">,</span><span class="normal">  bit </span><span class="symbol">*/</span>
-<span class="normal">	srl	t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span>
-<span class="normal">	cmplt	t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="number">64</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">2</span><span class="normal">		</span><span class="symbol">/*</span><span class="normal"> if t</span><span class="number">1</span><span class="normal"> leaves one bit</span><span class="symbol">,</span><span class="normal"> done</span><span class="symbol">.</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	bne	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">3</span><span class="normal">Bloop</span>
-
-<span class="preproc">L3Abits:</span>
-<span class="normal">	beq	t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">3</span><span class="normal">dodiv			</span><span class="symbol">/*</span><span class="normal"> If t</span><span class="number">1</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> divide now</span><span class="symbol">.</span><span class="normal">  </span><span class="symbol">*/</span>
-<span class="normal">	ldiq	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="normal">				</span><span class="symbol">/*</span><span class="normal"> t</span><span class="number">0</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">&lt;&lt;</span><span class="number">64</span><span class="symbol">-</span><span class="number">1</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	sll	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">64</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span>
-
-<span class="preproc">L3Aloop:</span>
-<span class="normal">	</span><span class="keyword">and</span><span class="normal">	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">2</span><span class="normal">			</span><span class="symbol">/*</span><span class="normal"> if bit </span><span class="keyword">in</span><span class="normal"> t</span><span class="number">10</span><span class="normal"> is set</span><span class="symbol">,</span><span class="normal"> done</span><span class="symbol">.</span><span class="normal"> </span><span class="symbol">*/</span>
-<span class="normal">	bne	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">3</span><span class="normal">dodiv</span>
-<span class="normal">	subq	t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">1</span><span class="normal">				</span><span class="symbol">/*</span><span class="normal"> decrement t</span><span class="number">1</span><span class="symbol">,</span><span class="normal">  bit </span><span class="symbol">*/</span>
-<span class="normal">	srl     t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span><span class="normal"> </span>
-<span class="normal">	bne	t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">3</span><span class="normal">Aloop			</span><span class="symbol">/*</span><span class="normal"> If t</span><span class="number">1</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">loop</span><span class="normal"> again </span><span class="symbol">*/</span>
-
-<span class="preproc">L3dodiv:</span>
-<span class="normal">	sll	t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">11</span><span class="normal">				</span><span class="symbol">/*</span><span class="normal"> t</span><span class="number">11</span><span class="normal"> </span><span class="symbol">&lt;&lt;=</span><span class="normal"> i </span><span class="symbol">*/</span>
-<span class="normal">	ldiq	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span>
-<span class="normal">	sll	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span>
-
-<span class="preproc">L3divloop:</span>
-<span class="normal">	cmpult	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">2</span>
-<span class="normal">	</span><span class="keyword">or</span><span class="normal">	t</span><span class="number">12</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">3</span>
-<span class="normal">	cmoveq	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">12</span>
-<span class="normal">	subq	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">3</span>
-<span class="normal">	cmoveq	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">10</span>
-<span class="normal">	srl	t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">0</span><span class="normal">	</span>
-<span class="normal">	srl	t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">11</span>
-<span class="normal">	beq	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">3</span><span class="normal">ret_result</span>
-<span class="normal">	bne	t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">3</span><span class="normal">divloop</span>
-
-<span class="normal">L</span><span class="number">3</span><span class="normal">ret_result</span><span class="symbol">:</span>
-<span class="normal">	</span><span class="keyword">mov</span><span class="normal">	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">12</span>
+<span class="normal">	stq	t10, 40(sp)</span>
+<span class="normal">	stq	t11, 48(sp)</span>
+<span class="normal">	mov	zero, t12			/* Initialize result to zero */</span>
 
 
 
-<span class="normal">	ldq	t</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	ldq	t</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="number">8</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	ldq	t</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> </span><span class="number">16</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	ldq	t</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">24</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
 
-<span class="normal">	ldq	t</span><span class="number">10</span><span class="symbol">,</span><span class="normal"> </span><span class="number">40</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	ldq	t</span><span class="number">11</span><span class="symbol">,</span><span class="normal"> </span><span class="number">48</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	lda	</span><span class="variable">sp</span><span class="symbol">,</span><span class="normal"> </span><span class="number">64</span><span class="symbol">(</span><span class="variable">sp</span><span class="symbol">)</span>
-<span class="normal">	</span><span class="keyword">ret</span><span class="normal">	zero</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">t</span><span class="number">9</span><span class="symbol">),</span><span class="normal"> </span><span class="number">1</span>
+<span class="normal">	/* kill the special cases. */</span>
+<span class="normal">	beq	t11, L3dotrap			/* division by zero! */</span>
 
-<span class="preproc">L3dotrap:</span>
-<span class="normal">	ldiq	a</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">-</span><span class="number">2</span><span class="normal">			</span><span class="symbol">/*</span><span class="normal"> </span><span class="keyword">This</span><span class="normal"> is the signal to SIGFPE</span><span class="symbol">!</span><span class="normal"> </span><span class="symbol">*/</span>
+<span class="normal">	cmpult	t10, t11, t2			/* t10 &lt; t11? */</span>
+<span class="normal">	/* t12 is already zero, from above.  t10 is untouched. */</span>
+<span class="normal">	bne	t2, L3ret_result</span>
+
+<span class="normal">	cmpeq	t10, t11, t2			/* t10 == t11? */</span>
+<span class="normal">	cmovne	t2, 1, t12</span>
+<span class="normal">	cmovne	t2, zero, t10</span>
+<span class="normal">	bne	t2, L3ret_result</span>
+
+<span class="normal">	/*</span>
+<span class="normal">	 * Find out how many bits of zeros are at the beginning of the divisor.</span>
+<span class="normal">	 */</span>
+<span class="normal">L3Bbits:</span>
+<span class="normal">	ldiq	t3, 1				/* t1 = 0; t0 = 1&lt;&lt;64-1 */</span>
+<span class="normal">	mov	zero, t1</span>
+<span class="normal">	sll	t3, 64-1, t0</span>
+<span class="normal">L3Bloop:</span>
+<span class="normal">	and	t11, t0, t2			/* </span><span class="keyword">if</span><span class="normal"> bit in t11 is set, done. */</span>
+<span class="normal">	bne	t2, L3Abits</span>
+<span class="normal">	addq	t1, 1, t1				/* increment t1,  bit */</span>
+<span class="normal">	srl	t0, 1, t0</span>
+<span class="normal">	cmplt	t1, 64-1, t2		/* </span><span class="keyword">if</span><span class="normal"> t1 leaves one bit, done. */</span>
+<span class="normal">	bne	t2, L3Bloop</span>
+
+<span class="normal">L3Abits:</span>
+<span class="normal">	beq	t1, L3dodiv			/* If t1 = 0, divide now.  */</span>
+<span class="normal">	ldiq	t3, 1				/* t0 = 1&lt;&lt;64-1 */</span>
+<span class="normal">	sll	t3, 64-1, t0</span>
+
+<span class="normal">L3Aloop:</span>
+<span class="normal">	and	t10, t0, t2			/* </span><span class="keyword">if</span><span class="normal"> bit in t10 is set, done. */</span>
+<span class="normal">	bne	t2, L3dodiv</span>
+<span class="normal">	subq	t1, 1, t1				/* decrement t1,  bit */</span>
+<span class="normal">	srl     t0, 1, t0 </span>
+<span class="normal">	bne	t1, L3Aloop			/* If t1 != 0, loop again */</span>
+
+<span class="normal">L3dodiv:</span>
+<span class="normal">	sll	t11, t1, t11				/* t11 &lt;&lt;= i */</span>
+<span class="normal">	ldiq	t3, 1</span>
+<span class="normal">	sll	t3, t1, t0</span>
+
+<span class="normal">L3divloop:</span>
+<span class="normal">	cmpult	t10, t11, t2</span>
+<span class="normal">	or	t12, t0, t3</span>
+<span class="normal">	cmoveq	t2, t3, t12</span>
+<span class="normal">	subq	t10, t11, t3</span>
+<span class="normal">	cmoveq	t2, t3, t10</span>
+<span class="normal">	srl	t0, 1, t0	</span>
+<span class="normal">	srl	t11, 1, t11</span>
+<span class="normal">	beq	t10, L3ret_result</span>
+<span class="normal">	bne	t0, L3divloop</span>
+
+<span class="normal">L3ret_result:</span>
+<span class="normal">	mov	t10, t12</span>
+
+
+
+<span class="normal">	ldq	t0, 0(sp)</span>
+<span class="normal">	ldq	t1, 8(sp)</span>
+<span class="normal">	ldq	t2, 16(sp)</span>
+<span class="normal">	ldq	t3, 24(sp)</span>
+
+<span class="normal">	ldq	t10, 40(sp)</span>
+<span class="normal">	ldq	t11, 48(sp)</span>
+<span class="normal">	lda	sp, 64(sp)</span>
+<span class="normal">	ret	zero, (t9), 1</span>
+
+<span class="normal">L3dotrap:</span>
+<span class="normal">	ldiq	a0, -2			/* This is the signal to SIGFPE! */</span>
 <span class="normal">	call_pal PAL_gentrap</span>
-<span class="normal">	</span><span class="keyword">mov</span><span class="normal">	zero</span><span class="symbol">,</span><span class="normal"> t</span><span class="number">10</span><span class="normal">			</span><span class="symbol">/*</span><span class="normal"> so that zero will be returned </span><span class="symbol">*/</span>
+<span class="normal">	mov	zero, t10			/* so that zero will be returned */</span>
 
-<span class="normal">	br	zero</span><span class="symbol">,</span><span class="normal"> L</span><span class="number">3</span><span class="normal">ret_result</span>
+<span class="normal">	br	zero, L3ret_result</span>
 
-<span class="keyword">END</span><span class="symbol">(</span><span class="normal">__remqu</span><span class="symbol">)</span>
-</tt></pre></div><div style="text-align: right; padding: 8pt; font-size: 12px"><a href="/xmlfeed/weblog-rss20.xml"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPAgMAAAAOp6AcAAAADFBMVEVmZmb/ZgD///+JjnlbTUWmAAAACXBIWXMAAABIAAAASABGyWs+AAAACXZwQWcAAABQAAAADwCexKkxAAAAWUlEQVQYlWNgwAa0VmGAFQyqoSCQ/x8J/CBFMCt0ZdTU/F/7/+1HEkydFpoKVPn+93sUlUujQvP/7UcRTAuNDJ2a//s/imDqtKVZofm/1qGYSZk7sfodGwAAiobBJtffoNAAAAAASUVORK5CYII=" alt="RSS 2.0 Weblog Feed" width="80" height="15"/></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPAgMAAAAOp6AcAAAADFBMVEVmZmb/ZgD///+JjnlbTUWmAAAAaklEQVQYlWNgwAa0VmGAFQyqoSCQ/x8J/CBFMDV16rTQ/H/7V//69+//v/3/9oMEI6cuAwr+fv/+/b5d///v//0eJBgWOhMo+Gs9UPAdXDBy6lSYyn9wQZCZS0GCYDPXQcykzJ1Y/Y4NAABKvL80wyoMPgAAAABJRU5ErkJggg==" alt="Atom 1.0 Weblog Feed" width="80" height="15"/></a> <a href="http://validator.w3.org/check?uri=referer"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAB1FBMVEUHQIgIRY0MN4QNRYoSRYsXUpIYVJQeUpUhWpgjUJMjWpgmU5QnXJkuYZ0uYpwwV5YyZJ4zaKM3ZaA5aaI6aqM6a6E8ZqA8Z6BAbaRBbqdCbaVHd61KSkpKcaZQUFBUf69UgbBVVVVXfq9Yg7NZhbJZh7RagrNeXVxeh7RfjLdgYGBiiLZmZmZnZ2doirhpkbt0m8F3m8B3ncJ5lb55ocR+ocSDgX+Do8eEpMqGhoaHp8iIpMeJjnmJpseKqMeOqsqPsdCQrcyVlZWVsM2Zs9CZtNCfu9ahoaGhuNShudSivNSjtMWjvNSmpqWnpqSrw9qvxNqyxdmyxdyzsK6zs7Ozx9y0xt21yN22tra4y+K80eK/v7/AwMDExMTEy9DH2ejK2+jM2ujN3uvP0dLR0NDR3uvS3uvS3+zU4u3V1dXY2dnY4u7Y4+3b5e/d3d3d5u/d5/De3t7f39/h4uLj4uHj6/Ll7PXm7fTn7/Xo7/Tp7/bq7Ozr6unr8ffw8PDw9vvx9fny+P7z8/Pz9vnz9vv3+fv4+vz5+vz6+vr6+/36/P36///7+/77/Pz7/f37/f78/Pz8/f38/f79/f39/f79/f/9/v79///+/v7+/v////3///+tYR2LAAABKklEQVQ4y2PQoTJg0JlNVYDPQBsyAMTAqaFes8tdsmdPCtA3MDStr3GKKK6myMAprgJ9pcpWs/MlRExYJBvNZLR0sigycHYOV1S7mtjsQJ4gf+HIFPXoWMs6qIGzIRiKZs9GFoEaMRuZhhrYqqJXy8uZYauRxC/VHew7e3YTPAxnI5swG6JxNrKBNjB1EFmIgV0+HA6C8pqqzhXG7BbJJROQIwViMYQ7G2oDQQNn57JyG7kxiCfObrBmS5+BHMuYLkTzMnYDm5WY4lOZZRPKZocxes+aPbuwCFsYohiICLvZsKBAMrDTQ7K/StveU8icTzrOL8JdLpOyWJ49u8Bx9ozw8DY7UYW03hhdxZAOSg2c3jN79rSJs1vSKmfOnpFXNJmynELlvExlAADnaZpLFGEC2wAAAABJRU5ErkJggg==" alt="Valid XHTML 1.1" width="80" height="15"/></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAB1FBMVEUHQIgIRY0MN4QNRYoSRYsXUpIYVJQeUpUhWpgjUJMjWpgmU5QnXJkuYZ0uYpwwV5YyZJ4zaKM3ZaA5aaI6aqM6a6E8ZqA8Z6BAbaRBbqdCbaVHd61KSkpKcaZQUFBUf69UgbBVVVVXfq9Yg7NZhbJZh7RagrNeXVxeh7RfjLdgYGBiiLZmZmZnZ2doirhpkbt0m8F3m8B3ncJ5lb55ocR+ocSDgX+Do8eEpMqGhoaHp8iIpMeJjnmJpseKqMeOqsqPsdCQrcyVlZWVsM2Zs9CZtNCfu9ahoaGhuNShudSivNSjtMWjvNSmpqWnpqSrw9qvxNqyxdmyxdyzsK6zs7Ozx9y0xt21yN22tra4y+K80eK/v7/AwMDExMTEy9DH2ejK2+jM2ujN3uvP0dLR0NDR3uvS3uvS3+zU4u3V1dXY2dnY4u7Y4+3b5e/d3d3d5u/d5/De3t7f39/h4uLj4uHj6/Ll7PXm7fTn7/Xo7/Tp7/bq7Ozr6unr8ffw8PDw9vvx9fny+P7z8/Pz9vnz9vv3+fv4+vz5+vz6+vr6+/36/P36///7+/77/Pz7/f37/f78/Pz8/f38/f79/f39/f79/f/9/v79///+/v7+/v////3///+tYR2LAAABEUlEQVQ4y2PQoTJg0JlNVYDPQBsyAMTAqaFes8tdsmdPCtA3MDStr3GKKK6myMAprgJ9pcpWs/MlRExYJBvNZLR0sigycHYOV1S7mtjsQJ4gf+HIFPXoWMs6mIEQCsIjwhKoga0qerW8nBm2Gkn8Ut3BvrNnN8HCcDYM2cBIogzs8uFwEJTXVHWuMGa3SC6ZgIgUqCEwdxJr4OxcVm4jNwbxxNkN1mzpM2ajGIjsPGK9PLtZiSk+lVk2oWx2GKP3rNmzC4tQwpDoIIQb2Okh2V+lbe8pZM4nHecX4S6XSVksz55d4Dh7Rnh4m52oQlpvjK5iSAelBk7vmT172sTZLWmVM2fPyCuaTFlOoXJepjIAANlljDGY/l5pAAAAAElFTkSuQmCC" alt="Valid CSS (2.1)" width="80" height="15"/></a><br/>Copyright 2005-2017 <a href="/about/">Timo Bingmann</a> - <a href="/about/impressum.html">Impressum</a></div><script type="text/javascript">var _paq = _paq || []; _paq.push(["trackPageView"]); _paq.push(["enableLinkTracking"]);(function() {var u=(("https:" == document.location.protocol) ? "https" : "http") + "://panthema.net/wik-331/"; _paq.push(["setTrackerUrl", u+"js/"]); _paq.push(["setSiteId", "2"]);var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";g.defer=true; g.async=true; g.src=u+"js/"; s.parentNode.insertBefore(g,s);})();</script><noscript><p><img src="http://panthema.net/wik-331/js/?idsite=2&amp;rec=1" style="border:0" alt="" /></p></noscript></body></html>
+<span class="normal">END(__remqu)</span>
+</tt></pre></div><div style="text-align: right; padding: 8pt; font-size: 12px"><a href="/xmlfeed/weblog-rss20.xml"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPAgMAAAAOp6AcAAAADFBMVEVmZmb/ZgD///+JjnlbTUWmAAAACXBIWXMAAABIAAAASABGyWs+AAAACXZwQWcAAABQAAAADwCexKkxAAAAWUlEQVQYlWNgwAa0VmGAFQyqoSCQ/x8J/CBFMCt0ZdTU/F/7/+1HEkydFpoKVPn+93sUlUujQvP/7UcRTAuNDJ2a//s/imDqtKVZofm/1qGYSZk7sfodGwAAiobBJtffoNAAAAAASUVORK5CYII=" alt="RSS 2.0 Weblog Feed" width="80" height="15"/></a> <a href="/xmlfeed/weblog-atom10.xml"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPAgMAAAAOp6AcAAAADFBMVEVmZmb/ZgD///+JjnlbTUWmAAAAaklEQVQYlWNgwAa0VmGAFQyqoSCQ/x8J/CBFMDV16rTQ/H/7V//69+//v/3/9oMEI6cuAwr+fv/+/b5d///v//0eJBgWOhMo+Gs9UPAdXDBy6lSYyn9wQZCZS0GCYDPXQcykzJ1Y/Y4NAABKvL80wyoMPgAAAABJRU5ErkJggg==" alt="Atom 1.0 Weblog Feed" width="80" height="15"/></a> <a href="http://validator.w3.org/check?uri=referer"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAB1FBMVEUHQIgIRY0MN4QNRYoSRYsXUpIYVJQeUpUhWpgjUJMjWpgmU5QnXJkuYZ0uYpwwV5YyZJ4zaKM3ZaA5aaI6aqM6a6E8ZqA8Z6BAbaRBbqdCbaVHd61KSkpKcaZQUFBUf69UgbBVVVVXfq9Yg7NZhbJZh7RagrNeXVxeh7RfjLdgYGBiiLZmZmZnZ2doirhpkbt0m8F3m8B3ncJ5lb55ocR+ocSDgX+Do8eEpMqGhoaHp8iIpMeJjnmJpseKqMeOqsqPsdCQrcyVlZWVsM2Zs9CZtNCfu9ahoaGhuNShudSivNSjtMWjvNSmpqWnpqSrw9qvxNqyxdmyxdyzsK6zs7Ozx9y0xt21yN22tra4y+K80eK/v7/AwMDExMTEy9DH2ejK2+jM2ujN3uvP0dLR0NDR3uvS3uvS3+zU4u3V1dXY2dnY4u7Y4+3b5e/d3d3d5u/d5/De3t7f39/h4uLj4uHj6/Ll7PXm7fTn7/Xo7/Tp7/bq7Ozr6unr8ffw8PDw9vvx9fny+P7z8/Pz9vnz9vv3+fv4+vz5+vz6+vr6+/36/P36///7+/77/Pz7/f37/f78/Pz8/f38/f79/f39/f79/f/9/v79///+/v7+/v////3///+tYR2LAAABKklEQVQ4y2PQoTJg0JlNVYDPQBsyAMTAqaFes8tdsmdPCtA3MDStr3GKKK6myMAprgJ9pcpWs/MlRExYJBvNZLR0sigycHYOV1S7mtjsQJ4gf+HIFPXoWMs6qIGzIRiKZs9GFoEaMRuZhhrYqqJXy8uZYauRxC/VHew7e3YTPAxnI5swG6JxNrKBNjB1EFmIgV0+HA6C8pqqzhXG7BbJJROQIwViMYQ7G2oDQQNn57JyG7kxiCfObrBmS5+BHMuYLkTzMnYDm5WY4lOZZRPKZocxes+aPbuwCFsYohiICLvZsKBAMrDTQ7K/StveU8icTzrOL8JdLpOyWJ49u8Bx9ozw8DY7UYW03hhdxZAOSg2c3jN79rSJs1vSKmfOnpFXNJmynELlvExlAADnaZpLFGEC2wAAAABJRU5ErkJggg==" alt="Valid XHTML 1.1" width="80" height="15"/></a> <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAB1FBMVEUHQIgIRY0MN4QNRYoSRYsXUpIYVJQeUpUhWpgjUJMjWpgmU5QnXJkuYZ0uYpwwV5YyZJ4zaKM3ZaA5aaI6aqM6a6E8ZqA8Z6BAbaRBbqdCbaVHd61KSkpKcaZQUFBUf69UgbBVVVVXfq9Yg7NZhbJZh7RagrNeXVxeh7RfjLdgYGBiiLZmZmZnZ2doirhpkbt0m8F3m8B3ncJ5lb55ocR+ocSDgX+Do8eEpMqGhoaHp8iIpMeJjnmJpseKqMeOqsqPsdCQrcyVlZWVsM2Zs9CZtNCfu9ahoaGhuNShudSivNSjtMWjvNSmpqWnpqSrw9qvxNqyxdmyxdyzsK6zs7Ozx9y0xt21yN22tra4y+K80eK/v7/AwMDExMTEy9DH2ejK2+jM2ujN3uvP0dLR0NDR3uvS3uvS3+zU4u3V1dXY2dnY4u7Y4+3b5e/d3d3d5u/d5/De3t7f39/h4uLj4uHj6/Ll7PXm7fTn7/Xo7/Tp7/bq7Ozr6unr8ffw8PDw9vvx9fny+P7z8/Pz9vnz9vv3+fv4+vz5+vz6+vr6+/36/P36///7+/77/Pz7/f37/f78/Pz8/f38/f79/f39/f79/f/9/v79///+/v7+/v////3///+tYR2LAAABEUlEQVQ4y2PQoTJg0JlNVYDPQBsyAMTAqaFes8tdsmdPCtA3MDStr3GKKK6myMAprgJ9pcpWs/MlRExYJBvNZLR0sigycHYOV1S7mtjsQJ4gf+HIFPXoWMs6mIEQCsIjwhKoga0qerW8nBm2Gkn8Ut3BvrNnN8HCcDYM2cBIogzs8uFwEJTXVHWuMGa3SC6ZgIgUqCEwdxJr4OxcVm4jNwbxxNkN1mzpM2ajGIjsPGK9PLtZiSk+lVk2oWx2GKP3rNmzC4tQwpDoIIQb2Okh2V+lbe8pZM4nHecX4S6XSVksz55d4Dh7Rnh4m52oQlpvjK5iSAelBk7vmT172sTZLWmVM2fPyCuaTFlOoXJepjIAANlljDGY/l5pAAAAAElFTkSuQmCC" alt="Valid CSS (2.1)" width="80" height="15"/></a><br/>Copyright 2005-2018 <a href="/about/">Timo Bingmann</a> - <a href="/about/impressum.html">Impressum</a></div><script type="text/javascript">var _paq = _paq || []; _paq.push(["trackPageView"]); _paq.push(["enableLinkTracking"]);(function() {var u=(("https:" == document.location.protocol) ? "https" : "http") + "://panthema.net/wik-331/"; _paq.push(["setTrackerUrl", u+"js/"]); _paq.push(["setSiteId", "2"]);var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";g.defer=true; g.async=true; g.src=u+"js/"; s.parentNode.insertBefore(g,s);})();</script><noscript><p><img src="http://panthema.net/wik-331/js/?idsite=2&amp;rec=1" style="border:0" alt="" /></p></noscript></body></html>

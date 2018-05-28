@@ -1,0 +1,101 @@
+Short description of improved two-stage suffix sorting algorithm
+--------------------------------------------------------------------------------
+Copyright (C) 2005 Yuta Mori <yiv01157@nifty.com>
+
+
+ This algorithm is an improvement of the Itoh-Tanaka two-stage algorithm [1] 
+that runs in linear time except sorting of type B* suffixes.
+
+ The algorithm consists of the following steps:
+  Step 1. Select type B* suffixes.
+  Step 2. Sort type B* suffixes.
+  Step 3. Sort type B suffixes from sorted type B* suffixes.
+  Step 4. Construct the suffix array from sorted type B suffixes.
+
+ In Step 1, we divide suffixes into two types A and B like types L and S of 
+Ko-Aluru algorithm [2]. Then, we select suffixes of type B where the next 
+suffix is a type A.
+ These suffixes are called "type B*". (pronounced "type B star")
+
+  For example:
+      index  0  1  2  3  4  5  6  7  8  9 10 11 12 13
+       text  e  d  a  b  d  c  c  d  e  e  d  a  b  $
+       type  A  A  B  B  A  B  B  B  A  A  A  B  A  /
+type B star           *           *           *
+     bucket  $ ab    b$ bd cc cd da    dc de ed    ee
+bucket type  / B*  B  A B*  B  B  A  A  A B*  A  A  A
+
+ In Step 2, we sort type B* suffixes using a string sorting algorithm [3][4].
+         SA  - 11  -  -  3  -  -  -  -  -  7  -  -  -
+
+ In Step 3, to sort type B suffixes, we scan sorted suffixes from right to left.
+For each suffix SA[i] encountered in the scan, if SA[i]-1 is a type B suffix 
+we move it to the last empty position of its bucket.
+         SA  - 11  -  -  3  -  6  -  -  -  7  -  -  -
+         SA  - 11  -  -  3  5  6  -  -  -  7  -  -  -
+         SA  - 11  2  -  3  5  6  -  -  -  7  -  -  -
+
+ In Step 4, to complete the suffix array, we scan sorted suffixes from left to 
+right like Itoh-Tanaka algorithm [1] or Ko-Aluru algorithm [2].
+         SA 13 11  2  -  3  5  6  -  -  -  7  -  -  -
+         SA 13 11  2 12  3  5  6  -  -  -  7  -  -  -
+         SA 13 11  2 12  3  5  6 10  -  -  7  -  -  -
+         SA 13 11  2 12  3  5  6 10  1  -  7  -  -  -
+         SA 13 11  2 12  3  5  6 10  1  4  7  -  -  -
+         SA 13 11  2 12  3  5  6 10  1  4  7  9  -  -
+         SA 13 11  2 12  3  5  6 10  1  4  7  9  0  -
+         SA 13 11  2 12  3  5  6 10  1  4  7  9  0  8
+
+End.
+
+
+--------------------------------------------------------------------------------
+
+Sample source code:
+  http://homepage3.nifty.com/wpage/software/itssort_050805.tar.bz2
+
+
+--------------------------------------------------------------------------------
+
+Table: The percentage of required sorting on Manzini's corpus [4].
+
+File name             Size    TS-1    TS-2    Copy   ABC-1   ABC-2     ITS
+chr22.dna         34553758   63.31   40.90   35.56   31.67   28.39   26.68
+etext99          105277340   49.41   33.77   49.75   46.87   33.26   31.10
+gcc-3.0.tar       86630400   56.93   40.39   42.63   40.64   29.12   26.77
+howto             39422105   54.17   36.14   45.51   42.44   30.64   28.55
+jdk13c            69728899   52.10   35.25   47.63   46.63   32.86   30.06
+linux-2.4.5.tar  116254720   57.15   41.36   44.12   42.56   30.28   26.80
+rctail96         114711151   51.43   35.36   49.00   48.06   34.12   30.28
+rfc              116421901   59.28   41.66   40.17   40.46   28.37   25.83
+sprot34.dat      109617186   55.45   35.76   43.14   42.77   29.33   29.26
+w3c2             104201579   52.18   35.54   47.46   47.41   33.23   29.90
+
+
+--------------------------------------------------------------------------------
+
+References:
+
+  1. Hideo Itoh and Hozumi Tanaka, An Efficient Method for in Memory 
+     Construction of Suffix Arrays, Proceedings of the IEEE String Processing
+      and Information Retrieval Symposium, pp. 81-88, 1999.
+
+  2. Pang Ko and Srinivas Aluru, Space-efficient linear time construction of 
+     suffix arrays, Proceedings of the 14th Annual Symposium on Combinatorial
+      Pattern Matching, pp. 200-210, 2003.
+
+  3. Jon Bentley and Robert Sedgewick, Fast Algorithms for Sorting and 
+     Searching Strings, Proceedings of the 8th annual ACM-SIAM symposium on 
+     Discrete algorithms, pp. 360-369, 1997.
+
+  4. Giovanni Manzini and Paolo Ferragina, Engineering a lightweight suffix 
+     array construction algorithm, Proceedings of the 10th European 
+     Symposium on Algorithms, LNCS 2461, Springer, pp. 698-710, 2002.
+
+
+
+--------------------------------------------------------------------------------
+
+.. I am sorry for my bad English. :)
+
+Yuta Mori <yiv01157@nifty.com>
