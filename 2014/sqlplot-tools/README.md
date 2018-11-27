@@ -20,7 +20,7 @@ There are many advantages of this approach:
 
 The only slight disadvantage is that the SQL statement processing requires **an SQL database**. The current SqlPlotTools version supports SQLite3, PostgreSQL, and MySQL on Linux. I recommend to **start with SQLite3**, because it is embedded in the SqlPlotTools binaries, and no extra database server is needed. For more complex applications, I recommend Postgresql, since it is the most flexible and advanced database.
 
-For more information, see the tutorial below.
+For more information, see the [tutorial below](#sqlplottools-tutorial) and the reference on [SqlPlotTools directives](directives.html).
 
 ## Downloads
 
@@ -60,7 +60,7 @@ make
 
 The main program is **`sp-process`**, located in `src/`.
 
-# Tutorial
+#(sqlplottools-tutorial) Tutorial
 
 The SqlPlotTools package contains a very simple C++ example experiment in [examples/sorting-speed](examples/sorting-speed), which measures the speed of sorting integer items using `std::sort`, `std::stable_sort` and STL's heap sort. The snippets in the following tutorial are largely taken from this example.
 
@@ -231,6 +231,8 @@ Another additional feature of SqlPlotTools in LaTeX is to generate plain text re
 ```
 
 Thus the authors of the paper (others, but including yourself) can verify **where the numbers in the text are coming from**.
+
+For more information on the commands, see the reference on [SqlPlotTools directives](directives.html).
 
 ## Exits
 
