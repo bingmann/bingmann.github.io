@@ -20,21 +20,21 @@ There are many advantages of this approach:
 
 The only slight disadvantage is that the SQL statement processing requires **an SQL database**. The current SqlPlotTools version supports SQLite3, PostgreSQL, and MySQL on Linux. I recommend to **start with SQLite3**, because it is embedded in the SqlPlotTools binaries, and no extra database server is needed. For more complex applications, I recommend Postgresql, since it is the most flexible and advanced database.
 
-For more information, see the [tutorial below](#sqlplottools-tutorial) and the reference on [SqlPlotTools directives](directives.html).
+For more information, see the [tutorial below](#SqlPlotTools-tutorial) and the reference on [SqlPlotTools directives](directives.html).
 
 ## Downloads
 
 There is no official release as yet. So use the git repository and maybe fork it to modify the source for your needs.
 
-Git repository: git clone [https://github.com/bingmann/sqlplottools.git](https://github.com/bingmann/sqlplottools)
+Git repository: git clone [https://github.com/bingmann/sqlplot-tools.git](https://github.com/bingmann/sqlplot-tools)
 
 Current git build and test suite status: [![Build Status](https://travis-ci.org/bingmann/sqlplot-tools.png?branch=master)](https://travis-ci.org/bingmann/sqlplot-tools)
 
 There are also some pre-compiled binaries available (without warranty, built 2016-01-22) for:
 
-* Windows [[ sqlplottools-win32-20160122.zip ]] (32-bit)
+* Windows [[ sqlplot-tools-win32-20190801.zip ]] (32-bit)
 
-* Linux [[ sqlplottools-linux64-20160122.zip ]] (64-bit dynamic)
+* Linux [[ sqlplot-tools-linux64-20190801.zip ]] (64-bit dynamic)
 
 SqlPlotTools is published under the [GNU General Public License v3 (GPL)](http://opensource.org/licenses/GPL-3.0), which can be found in the file COPYING.
 
@@ -51,16 +51,16 @@ apt-get install libboost-regex1.48-dev libsqlite3-dev libpq-dev libmysqlclient-d
 The compilation process uses CMake, and the following sequence of commands will correctly download and compile SqlPlotTools:
 
 ```
-git clone https://github.com/bingmann/sqlplottools.git
-cd sqlplottools
+git clone https://github.com/bingmann/sqlplot-tools.git
+cd sqlplot-tools
 mkdir build; cd build
 cmake ..
 make
 ```
 
-The main program is **`sp-process`**, located in `src/`.
+The main program is **`sqlplot-tools`**, located in `src/`.
 
-#(sqlplottools-tutorial) Tutorial
+#(SqlPlotTools-tutorial) Tutorial
 
 The SqlPlotTools package contains a very simple C++ example experiment in [examples/sorting-speed](examples/sorting-speed), which measures the speed of sorting integer items using `std::sort`, `std::stable_sort` and STL's heap sort. The snippets in the following tutorial are largely taken from this example.
 
@@ -92,7 +92,7 @@ To see how SqlPlotTools imports data sets, we suggest you run
 
 ```
 touch test.db
-sp-process import-data -D sqlite:test.db ex1 examples/sorting-speed/stats.txt
+sqlplot-tools import-data -D sqlite:test.db ex1 examples/sorting-speed/stats.txt
 ```
 
 This will import RESULT rows from the included [stats.txt](examples/sorting-speed/stats.txt) file into the table ex1 in an SQLite3 database called `test.db`. The types of the different columns are automatically detected during import, thus there is no need to specify a `CREATE TABLE` directive. Without the `-D sqlite:test.db`, the table would be created in a temporary in-memory database, and thus discarded after the program ends. However, since we saved the database, we can manually select from the data. The imported table looks as follows:
@@ -152,14 +152,14 @@ x           y                algo
 
 The SQL statement already suggests how the data rows are transformed by SqlPlotTools into plot lines. The parenthesised argument "algo" (in general "col1,col2,col3") is used to **group multiple rows** into a plot line. The plot line is automatically labelled using the values of the group columns.
 
-To generate the plot data from the stats and update the Gnuplot file, simply run `sp-process` in the `examples/sorting-speed` directory, followed by `gnuplot`:
+To generate the plot data from the stats and update the Gnuplot file, simply run `sqlplot-tools` in the `examples/sorting-speed` directory, followed by `gnuplot`:
 
 ```
-sp-process speed.plot
+sqlplot-tools speed.plot
 gnuplot speed.plot
 ```
 
-The `sp-process` call will parse [speed.plot](examples/sorting-speed/speed.plot) for SQL directives, execute them, and modified the plot file. The lines after these directives are **replaced** with the corresponding results, and in the case of Gnuplot, and additional [speed-data.txt](examples/sorting-speed/speed-data.txt) file is generated, which contains the actual data points of the plot. Since the current tarball already contains `speed-data.txt` and `speed.pdf`, we suggest deleting these two files and recreating them with the command above.
+The `sqlplot-tools` call will parse [speed.plot](examples/sorting-speed/speed.plot) for SQL directives, execute them, and modified the plot file. The lines after these directives are **replaced** with the corresponding results, and in the case of Gnuplot, and additional [speed-data.txt](examples/sorting-speed/speed-data.txt) file is generated, which contains the actual data points of the plot. Since the current tarball already contains `speed-data.txt` and `speed.pdf`, we suggest deleting these two files and recreating them with the command above.
 
 ## Generating LaTeX Pgfplots and Tabulars using SQL Statements
 
