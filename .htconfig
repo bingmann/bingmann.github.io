@@ -29,19 +29,6 @@ RewriteRule	^(.*)$		http://panthema.net$1 [R=301,L]
 RewriteCond	%{HTTP_HOST} 	^www\.panthema\.net$ [NC]
 RewriteRule	^(.*)$		http://panthema.net$1 [R=301,L]
 
-RewriteCond	%{HTTP_HOST} 	(metaset|starftp|taekwondowiki|taekwondo-wiki)\.(com|net|de)$ [NC]
-RewriteRule	^(.*)$		http://panthema.net$1 [R=301,L]
-
-RewriteCond     %{SERVER_PORT}  !^443$
-RewriteRule     ^/(oc-42.*)$    https://%{HTTP_HOST}/$1 [NC,R=301,L]
-
-# Subprograms
-
-RewriteRule     ^/wik-331(.*)$  /srv/www/panthema.net.piwik$1 [L]
-RewriteRule     ^/oc-42(.*)$    /srv/www/panthema.net.owncloud$1 [L]
-RewriteRule     ^/cgit(.*)$     /srv/www/panthema.net.cgit$1 [L]
-ProxyPass       /cdash-12       http://localhost:32012/
-
 <IfDefine !DEKA>
 
 #RewriteCond	%{HTTPS}	!=on
@@ -70,46 +57,3 @@ ExpiresByType 		image/jpeg 	"access plus 1 day"
 ExpiresByType 		image/png 	"access plus 1 day"
 ExpiresByType 		text/html 	"access plus 1 hour"
 ExpiresByType 		text/css 	"access plus 1 hour"
-
-<Location /cdash-12/>
-  ExpiresActive     Off
-</Location>
-
-# git-web configuration
-
-<Location /cgit/cgit.cgi>
-      Options -Indexes +FollowSymlinks +ExecCGI
-
-      AuthType	      Basic
-      AuthName	      "cgit Interface"
-      AuthUserFile    /var/lib/gitolite/htpasswd
-      Require	      valid-user
-</Location>
-
-# Subversion Repositories
-
-<Location /repo/svn>
-	DAV svn
-	SVNPath /srv/svn/repo/
-
-	AuthType Basic
-	AuthName "panthema.net Repository Subversion"
-	AuthUserFile /srv/svn/htpasswd
-
-	<LimitExcept GET PROPFIND OPTIONS REPORT>
-		Require valid-user
-	</LimitExcept>
-</Location>
-
-<Location /repo/gentoo>
-	DAV svn
-	SVNPath /srv/svn/repo-gentoo/
-
-	AuthType Basic
-	AuthName "panthema.net Gentoo Subversion Repository"
-	AuthUserFile /srv/svn/htpasswd
-
-	<LimitExcept GET PROPFIND OPTIONS REPORT>
-		Require valid-user
-	</LimitExcept>
-</Location>
