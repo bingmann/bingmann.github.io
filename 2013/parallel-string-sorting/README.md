@@ -3,7 +3,7 @@
 This source code archive contains our test framework for parallel and
 sequential string sorting algorithms, as described in our technical report and
 paper "Engineering Parallel Sorting". See the project web page
-<http://panthema.net/2013/parallel-string-sorting/> for more information.
+<https://panthema.net/2013/parallel-string-sorting/> for more information.
 
 ## Source Code Overview
 
@@ -117,7 +117,7 @@ $ ./psstest -a parallel_sample_sortBTCU2 -s 10mb -i unsorted.txt -o sorted.txt r
 We have collected source code, papers, some test instances, and further
 information at
 
-<http://panthema.net/2013/parallel-string-sorting/>
+<https://panthema.net/2013/parallel-string-sorting/>
 
 ## Exits
 
